@@ -24,7 +24,7 @@ import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
-import me.rida.anticheat.utils.needscleanup.UtilsC;
+import me.rida.anticheat.utils.needscleanup.ExtraUtils;
 
 public class Spider extends Check {
 
@@ -61,7 +61,7 @@ public class Spider extends Check {
                 || UtilsB.isOnClimbable(player, 1) 
 				|| !getAntiCheat().isEnabled()
 				|| UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player)
-				|| UtilsC.isNotSpider(player)
+				|| ExtraUtils.isNotSpider(player)
 				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
 		

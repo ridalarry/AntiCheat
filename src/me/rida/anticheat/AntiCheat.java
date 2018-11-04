@@ -684,7 +684,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (hoverabletext != null) {
 				CheckText.addHoverText(hoverabletext);
 			}
-			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.secondary")) + a
+			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.checkColor")) + a
 					+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary")) + " ");
 			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary")) + "["
 					+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.secondary"))
