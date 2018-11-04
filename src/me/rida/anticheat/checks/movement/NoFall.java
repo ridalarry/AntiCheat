@@ -115,7 +115,7 @@ public class NoFall extends Check {
 			Count = 0;
 
 			FallDistance.put(player.getUniqueId(), Double.valueOf(0.0D));
-			getAntiCheat().logCheat(this, player, null, "(NoFall Packet)");
+			getAntiCheat().logCheat(this, player, null, "(Packet)");
 		}
 		NoFallTicks.put(player.getUniqueId(),
 				new AbstractMap.SimpleEntry<Long, Integer>(Time, Count));

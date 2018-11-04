@@ -31,6 +31,8 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.needscleanup.UtilsC;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.Ping;
+import me.rida.anticheat.utils.UtilVelocity;
 
 public class NoVelocity extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
@@ -68,7 +70,7 @@ public class NoVelocity extends Check {
         if (player.getAllowFlight()) {
             return;
         }
-        if (UtilsC.getPing(player) > 400) {
+        if (Ping.getPing(player) > 400) {
             return;
         }
         int n = 0;
@@ -108,13 +110,13 @@ public class NoVelocity extends Check {
         }
         if (n2 > n3) {
             if (d2 == 0.0) {
-                if (UtilsC.getPing(player) > 500) {
+                if (Ping.getPing(player) > 500) {
                     return;
+                
                 }
-
             	getAntiCheat().logCheat(this, player, null, null);
             	} else {
-                if (UtilsC.getPing(player) > 220) {
+                if (Ping.getPing(player) > 220) {
                     return;
                 }
             	getAntiCheat().logCheat(this, player, null, null);            }
