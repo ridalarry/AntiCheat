@@ -3,12 +3,8 @@ package me.rida.anticheat.utils.needscleanup;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
 import me.rida.anticheat.utils.UtilReflection;
 
 public class ExtraUtils {

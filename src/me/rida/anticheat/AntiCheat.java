@@ -766,7 +766,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
     }
 
 
-
     private void addDataPlayers() {
         for (Player playerLoop : Bukkit.getOnlinePlayers()) {
             getInstance().getDataManager().addPlayerData(playerLoop);

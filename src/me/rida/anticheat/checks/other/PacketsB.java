@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -23,6 +24,7 @@ import me.rida.anticheat.packets.events.PacketPlayerEventB;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.needscleanup.ExtraUtils;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 public class PacketsB extends Check {
@@ -71,7 +73,7 @@ public class PacketsB extends Check {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void PacketPlayer(PacketPlayerEventB event) {
+	public final void PacketPlayer(PacketPlayerEventB event) {
 		Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()) {
 			return;
@@ -115,7 +117,16 @@ public class PacketsB extends Check {
 				}
 				if (Count > 400) {
 					getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: B)");
-					player.kickPlayer("Too many packets.");				}
+					
+				    
+				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+				        	final Player p = event.getPlayer();
+				            @Override
+				            public void run() {
+				                player.kickPlayer("Too many packets");
+				            }
+				        });
+				    }
 				Count = 0;
 				Time = UtilTime.nowlong();
 			}
