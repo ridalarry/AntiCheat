@@ -4,4 +4,3 @@ Added AimAssist from ACTutorial
 Added NoVelocity from another AntiCheat that I can't recall right now.
 
 Planning to add CustomPayloadFixer
-Planning to add Packet Per Second Limeter of ViaVersion
