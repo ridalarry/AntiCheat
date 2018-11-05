@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.clients;
+package me.rida.anticheat.checks.other;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;

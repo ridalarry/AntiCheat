@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.clients;
+package me.rida.anticheat.checks.other;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;

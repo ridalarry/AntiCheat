@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.experemintal;
+package me.rida.anticheat.checks.combat;
 
 import java.util.Arrays;
 import java.util.Map;

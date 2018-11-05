@@ -18,19 +18,20 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.utils.needscleanup.ExtraUtils;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.needscleanup.UtilsC;
 
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class Scaffold extends Check {
-    public Scaffold(AntiCheat AntiCheat) {
-        super("Scaffold", "Scaffold", AntiCheat);
+public class ScaffoldC extends Check {
+    public ScaffoldC(AntiCheat AntiCheat) {
+        super("ScaffoldC", "Scaffold", AntiCheat);
 		setEnabled(true);
-		setMaxViolations(10);
+		setMaxViolations(20);
 		setViolationResetTime(1000);
-		setBannable(false);
+		setBannable(true);
 		setViolationsToNotify(2);
     }
     @EventHandler
@@ -44,12 +45,10 @@ public class Scaffold extends Check {
 				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
-            if (!event.getBlock().getLocation().equals((Object)target.getLocation()) && !event.isCancelled() && target.getType().isSolid() && !target.getType().name().toLowerCase().contains("sign") && !target.getType().toString().toLowerCase().contains("fence") && player.getLocation().getY() > event.getBlock().getLocation().getY()) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", null);
+            
+            if (!player.isSneaking() && !player.isFlying() && ExtraUtils.groundAround(player.getLocation()) && event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && player.getWorld().getBlockAt(player.getLocation().subtract(0.0, 1.0, 0.0)).equals(event.getBlock())) {
+                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: C)");
             }
         }
     }
 }
-    
-
-

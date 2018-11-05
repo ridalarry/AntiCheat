@@ -30,9 +30,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.clients.*;
 import me.rida.anticheat.checks.combat.*;
-import me.rida.anticheat.checks.experemintal.*;
 import me.rida.anticheat.checks.movement.*;
 import me.rida.anticheat.checks.other.*;
 import me.rida.anticheat.checks.player.*;
@@ -100,7 +98,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
-		this.Checks.add(new Scaffold(this));
+		this.Checks.add(new ScaffoldAB(this));
 		this.Checks.add(new AntiKBA(this));
 		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new AutoClickerB(this));
@@ -134,7 +132,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new NoFall(this));
 		this.Checks.add(new NoSlowdown(this));
 		this.Checks.add(new Phase(this));
-		this.Checks.add(new Sneak(this));
+		this.Checks.add(new SneakA(this));
 		this.Checks.add(new SpeedAB(this));
 		this.Checks.add(new SpeedD(this));
 		this.Checks.add(new SpeedC(this));
@@ -164,6 +162,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new AimAssistB(this));
 		this.Checks.add(new Spook(this));
 		this.Checks.add(new AimAssistC(this));
+		this.Checks.add(new SneakB(this));
+		this.Checks.add(new ScaffoldC(this));
 	}
 
     @Override
@@ -329,8 +329,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				PacketsB.lastPacket.clear();
 			if (!PacketsB.packetTicks.isEmpty())
 				PacketsB.packetTicks.clear();
-			if (!Sneak.sneakTicks.isEmpty())
-				Sneak.sneakTicks.clear();
+			if (!SneakA.sneakTicks.isEmpty())
+				SneakA.sneakTicks.clear();
 			if (!HitBoxA.count.isEmpty())
 				HitBoxA.count.clear();
 			if (!HitBoxA.lastHit.isEmpty())

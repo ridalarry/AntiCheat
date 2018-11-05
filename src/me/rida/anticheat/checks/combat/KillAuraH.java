@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.experemintal;
+package me.rida.anticheat.checks.combat;
 
 import java.text.DecimalFormat;
 import org.bukkit.entity.Entity;

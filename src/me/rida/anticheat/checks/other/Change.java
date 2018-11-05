@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.experemintal;
+package me.rida.anticheat.checks.other;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.clients;
+package me.rida.anticheat.checks.other;
 
 import java.text.DecimalFormat;
 import org.bukkit.entity.Player;

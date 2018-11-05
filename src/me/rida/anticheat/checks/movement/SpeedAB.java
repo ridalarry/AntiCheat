@@ -156,7 +156,7 @@ public class SpeedAB extends Check {
                     && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !UtilsA.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
                 if (!data.isSpeed_PistonExpand_Set()) {
                     if (data.getSpeed_C_3_Verbose() > 1) {
-                        getAntiCheat().logCheat(this, p, "[3] - Player Moved Too Fast.", "Type: B)");
+                        getAntiCheat().logCheat(this, p, "[3] - Player Moved Too Fast.", "(Type: B)");
                     } else {
                         data.setSpeed_C_3_Verbose(data.getSpeed_C_3_Verbose() + 1);
                     }

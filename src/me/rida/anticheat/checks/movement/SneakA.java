@@ -14,11 +14,11 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketEntityActionEvent;
 import me.rida.anticheat.utils.UtilTime;
 
-public class Sneak extends Check {
+public class SneakA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> sneakTicks;
 
-	public Sneak(AntiCheat AntiCheat) {
-		super("Sneak", "Sneak", AntiCheat);
+	public SneakA(AntiCheat AntiCheat) {
+		super("SneakA", "Sneak", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);
