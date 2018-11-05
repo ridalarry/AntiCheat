@@ -31,7 +31,7 @@ public class SpeedC extends Check {
 	public Map<UUID, Long> lastHit;
 
 	public SpeedC(AntiCheat AntiCheat) {
-		super("SpeedE", "Speed (Type: C)", AntiCheat);
+		super("SpeedC", "Speed", AntiCheat);
 		
 		setEnabled(true);
 		setMaxViolations(15);
@@ -104,7 +104,7 @@ public class SpeedC extends Check {
 					&& blockLoc.getBlock().getType() != Material.PACKED_ICE
 					&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 					&& above3.getBlock().getType() == Material.AIR) {
-				getAntiCheat().logCheat(this, p, "On Ground", null);
+				getAntiCheat().logCheat(this, p, "On Ground", "(Type: C)");
 			}
 		}
 			if (!isReallyOnGround(p) && speed >= Airmaxspeed && !isOnIce(p)
@@ -112,22 +112,21 @@ public class SpeedC extends Check {
 					&& !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
 					&& above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
 					&& blockLoc.getBlock().getType() != Material.AIR) {
-				getAntiCheat().logCheat(this, p, "Mid Air", null);
+				getAntiCheat().logCheat(this, p, "Mid Air", "(Type: C)");
 			}
 		if (speed >= newmaxspeed && isOnIce(p) && p.getFallDistance() < 0.6
 				&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 				&& loc2.getBlock().getType() == Material.AIR) {
-			getAntiCheat().logCheat(this, p, "Limit", null);
+			getAntiCheat().logCheat(this, p, "Limit", "(Type: C)");
 
 		}
 
-		/** Vanilla speeds check **/
 		if (speed > ig && !isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4
 				&& !flaggyStuffNear(p.getLocation()) && blockLoc.getBlock().getType() != Material.ICE
 				&& e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
 				&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 				&& above3.getBlock().getType() == Material.AIR) {
-			getAntiCheat().logCheat(this, p, "Vanilla", null);
+			getAntiCheat().logCheat(this, p, "Vanilla", "(Type: C)");
 		}
 	}
 	

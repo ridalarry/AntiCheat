@@ -23,7 +23,7 @@ public class KillAuraC extends Check {
 	public static Map<UUID, Location> LastLocation;
 
 	public KillAuraC(final AntiCheat AntiCheat) {
-		super("KillAuraC", "KillAura (Type: C)", AntiCheat);
+		super("KillAuraC", "KillAura", AntiCheat);
 		AimbotTicks = new HashMap<>();
 		Differences = new HashMap<>();
 		LastLocation = new HashMap<>();
@@ -111,7 +111,7 @@ public class KillAuraC extends Check {
 			Count = 0;
 			dumplog(damager,
 					"Logged. Last Difference: " + Math.abs(to.getYaw() - from.getYaw()) + ", Count: " + Count);
-			getAntiCheat().logCheat(this, damager, "Aimbot", null);
+			getAntiCheat().logCheat(this, damager, "Aimbot", "(Type: C)");
 		}
 		AimbotTicks.put(damager.getUniqueId(),
 				new AbstractMap.SimpleEntry<Integer, Long>((int) Math.round(Count), Time));

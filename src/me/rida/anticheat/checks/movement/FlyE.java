@@ -19,7 +19,7 @@ public class FlyE extends Check {
 	public static Map<UUID, Long> flyTicksA;
 
 	public FlyE(AntiCheat AntiCheat) {
-		super("FlyE", "Fly (Type: E)", AntiCheat);
+		super("FlyE", "Fly", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);
@@ -45,7 +45,6 @@ public class FlyE extends Check {
 		}
 		Player player = event.getPlayer();
 		
-		/** False positive/optimization check **/
 		if (event.isCancelled()
 				|| (event.getTo().getX() == event.getFrom().getX()) && (event.getTo().getZ() == event.getFrom().getZ())
 				|| getAntiCheat().isSotwMode()
@@ -78,7 +77,7 @@ public class FlyE extends Check {
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(player, "Logged Fly. MS: " + MS);
-			getAntiCheat().logCheat(this, player, "Hovering for " + UtilsB.trim(1, Double.valueOf((MS / 1000))) + " second(s)", null
+			getAntiCheat().logCheat(this, player, "Hovering for " + UtilsB.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: E)"
 					);
 			flyTicksA.remove(player.getUniqueId());
 			return;

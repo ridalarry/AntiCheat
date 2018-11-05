@@ -1,16 +1,3 @@
-/*
- * Decompiled with CFR 0_122.
- * 
- * Could not load the following classes:
- *  org.bukkit.Bukkit
- *  org.bukkit.Location
- *  org.bukkit.Material
- *  org.bukkit.World
- *  org.bukkit.block.Block
- *  org.bukkit.block.BlockFace
- *  org.bukkit.entity.Player
- *  org.bukkit.inventory.ItemStack
- */
 package me.rida.anticheat.utils.needscleanup;
 
 import java.lang.reflect.Constructor;

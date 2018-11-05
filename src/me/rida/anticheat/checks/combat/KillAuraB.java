@@ -21,7 +21,7 @@ public class KillAuraB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
 
 	public KillAuraB(AntiCheat AntiCheat) {
-		super("KillAuraB", "KillAura (Type: B)", AntiCheat);
+		super("KillAuraB", "KillAura", AntiCheat);
 		
 		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 
@@ -101,7 +101,7 @@ public class KillAuraB extends Check {
 			this.dumplog(damager, "Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset);
 			this.dumplog(damager, "Logged. Count: " + Count + ", Ping: " + Ping);
 			Count = 0;
-			this.getAntiCheat().logCheat(this, damager, "Hit Miss Ratio", null);
+			this.getAntiCheat().logCheat(this, damager, "Hit Miss Ratio", "(Type: B)");
 		}
 		AuraTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}

@@ -15,10 +15,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public class HitBoxes extends Check {
+public class HitBoxA extends Check {
 
-	public HitBoxes(AntiCheat AntiCheat) {
-		super("HitBoxes", "Hitboxes", AntiCheat);
+	public HitBoxA(AntiCheat AntiCheat) {
+		super("HitBoxA", "Hitbox", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -59,7 +59,7 @@ public class HitBoxes extends Check {
 
 		if(offset > 30) {
 			if((verbose+= 2) > 25) {
-				getAntiCheat().logCheat(this, player, UtilsB.round(offset, 4) + ">-30", null);
+				getAntiCheat().logCheat(this, player, UtilsB.round(offset, 4) + ">-30", "(Type: A)");
 			}
 		} else if(verbose > 0) {
 			verbose--;

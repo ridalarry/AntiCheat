@@ -21,7 +21,7 @@ public class TimerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> timerTicks;
 
 	public TimerB(AntiCheat AntiCheat) {
-		super("TimerB", "Timer (Type: B)", AntiCheat);
+		super("TimerB", "Timer", AntiCheat);
 
 		setViolationsToNotify(1);
 		setMaxViolations(9);
@@ -56,7 +56,7 @@ public class TimerB extends Check {
 
 		if ((timerTicks.containsKey(player.getUniqueId())) && (UtilTime.elapsed(Time, 1000L))) {
 			if (Count > 35) {
-				this.getAntiCheat().logCheat(this, player, Color.Red + "Experimental", null);
+				this.getAntiCheat().logCheat(this, player, Color.Red + "Experimental", "(Type: B)");
 			}
 			Count = 0;
 			Time = UtilTime.nowlong();

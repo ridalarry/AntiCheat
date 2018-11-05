@@ -1,7 +1,8 @@
 # AntiCheat
 AntiCheat based of Dreya, and Daedalus mainly
 Added AimAssist from ACTutorial
-Added NoVelocity from another AntiCheat that I can't recall right now.
+Added NoVelocity from SkidCheat AntiCheat
+
+Took more classes of SkidCheat AntiCheat, but I don't know if they work.
 
 Planning to add CustomPayloadFixer
-Planning to add Packet Per Second Limeter of ViaVersion

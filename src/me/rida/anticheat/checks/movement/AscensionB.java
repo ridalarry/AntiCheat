@@ -16,7 +16,7 @@ public class AscensionB extends Check {
     private Map<Player, Float> lastYMovement = new WeakHashMap<>();
 
     public AscensionB(me.rida.anticheat.AntiCheat AntiCheat) {
-        super("AscensionB", "Ascension (Type B)", AntiCheat);
+        super("AscensionB", "Ascension", AntiCheat);
         setBannable(true);
         setEnabled(true);
         setMaxViolations(5);
@@ -31,7 +31,7 @@ public class AscensionB extends Check {
                 || !lastYMovement.containsKey(player)
                 || Math.abs(yDelta - lastYMovement.get(player)) > 0.002) return;
         if (verbose++ > 5) {
-        	AntiCheat.Instance.logCheat(this, player, Math.abs(yDelta - lastYMovement.get(player)) + "<-" + 0.002, null);
+        	AntiCheat.Instance.logCheat(this, player, Math.abs(yDelta - lastYMovement.get(player)) + "<-" + 0.002, "(Type B)");
         }
         lastYMovement.put(player, yDelta);
         this.verbose.put(player, verbose);

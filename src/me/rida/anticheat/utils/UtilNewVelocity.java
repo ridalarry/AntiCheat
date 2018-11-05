@@ -9,9 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 
-/**
- * Created by Mr_JaVa_ on 2018-04-08 Package cc.funkemunky.dreya.util
- */
 public class UtilNewVelocity implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent e) {

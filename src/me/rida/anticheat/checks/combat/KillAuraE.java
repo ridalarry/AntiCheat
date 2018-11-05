@@ -17,7 +17,7 @@ public class KillAuraE extends Check {
 	public static Map<Player, Map.Entry<Integer, Long>> lastAttack;
 
 	public KillAuraE(AntiCheat AntiCheat) {
-		super("KillAuraE", "KillAura (Type: E)", AntiCheat);
+		super("KillAuraE", "KillAura", AntiCheat);
 		
 		lastAttack = new HashMap<>();
 
@@ -50,7 +50,7 @@ public class KillAuraE extends Check {
 			Integer entityid = lastAttack.get(player).getKey();
 			Long time = lastAttack.get(player).getValue();
 			if (entityid != e.getEntity().getEntityId() && System.currentTimeMillis() - time < 6L) {
-				this.getAntiCheat().logCheat(this, player, "MultiAura", null);
+				this.getAntiCheat().logCheat(this, player, "MultiAura", "(Type: E)");
 			}
 			lastAttack.remove(player);
 		} else {

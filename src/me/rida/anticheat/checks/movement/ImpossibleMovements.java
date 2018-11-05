@@ -26,7 +26,7 @@ public class ImpossibleMovements extends Check {
             //Anti Cactus
             if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {
                 if (data.getAntiCactus_VL() >= 3) {
-                    getAntiCheat().logCheat(this, p, null, "(Anti Cactus)");
+                    getAntiCheat().logCheat(this, p, "(Anti Cactus)", "(Type: A)");
                 } else {
                     data.setAntiCactus_VL(data.getAntiCactus_VL()+1);
                 }
@@ -48,7 +48,7 @@ public class ImpossibleMovements extends Check {
                                 data.setWebFloatMS_Set(false);
                                 data.setWebFloat_BlockCount(0);
                             }
-                            getAntiCheat().logCheat(this, p, null, "(Web Float)");
+                            getAntiCheat().logCheat(this, p, "(Web Float)", "(Type: B)");
                         } else {
                             data.setWebFloat_BlockCount(data.getWebFloat_BlockCount()+1);
                         }

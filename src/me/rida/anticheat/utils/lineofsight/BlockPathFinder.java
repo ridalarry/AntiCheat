@@ -1,6 +1,5 @@
 package me.rida.anticheat.utils.lineofsight;
 
-
 import com.google.common.collect.Sets;
 import org.bukkit.Location;
 import org.bukkit.World;

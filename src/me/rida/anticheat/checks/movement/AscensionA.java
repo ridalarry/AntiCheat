@@ -25,7 +25,7 @@ public class AscensionA extends Check {
 	public static Map<UUID, Double> velocity;
 	
 	public AscensionA(AntiCheat AntiCheat) {
-		super("AscensionA", "Ascension (Type: A)", AntiCheat);
+		super("AscensionA", "Ascension", AntiCheat);
 
 		this.setBannable(true);
 		this.setEnabled(true);
@@ -75,7 +75,7 @@ public class AscensionA extends Check {
 		if (TotalBlocks > Limit) {
 			if (MS > 250L) {
 				if (velocity.containsKey(player.getUniqueId())) {
-					getAntiCheat().logCheat(this, player, "Flew up " + UtilsB.trim(1, TotalBlocks) + " blocks", null);
+					getAntiCheat().logCheat(this, player, "Flew up " + UtilsB.trim(1, TotalBlocks) + " blocks", "(Type: A)");
 				}
 				Time = System.currentTimeMillis();
 			}

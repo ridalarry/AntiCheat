@@ -180,7 +180,7 @@ public class Phase extends Check {
 	public void update(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
 		if (player.isDead()
-				|| UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player)) {
+				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))) {
 			return;
 		}
 

@@ -29,7 +29,6 @@ public class FastLadder extends Check {
 	public void checkFastLadder(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
 
-		/** False flag check **/
 		if(e.isCancelled()
 				|| (e.getFrom().getY() == e.getTo().getY())
 				|| getAntiCheat().isSotwMode()
@@ -51,7 +50,6 @@ public class FastLadder extends Check {
 		}
 
 		
-		/** Checks if Y Delta is greater than Limit **/
 		
 		if (OffsetY > Limit) {
 			Count++;
@@ -62,7 +60,6 @@ public class FastLadder extends Check {
 
 		long percent = Math.round((OffsetY - Limit) * 120);
 		
-		/**If verbose count is greater than 11, flag **/
 		if (Count > 11) {
 			Count = 0;
 			this.dumplog(player,

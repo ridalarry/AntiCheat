@@ -12,7 +12,7 @@ import org.bukkit.event.EventHandler;
 public class ReachA extends Check {
 
     public ReachA(AntiCheat AntiCheat) {
-        super("ReachA", "Reach (Type: A)", AntiCheat);
+        super("ReachA", "Reach", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(7);
 		setBannable(true);
@@ -41,7 +41,7 @@ public class ReachA extends Check {
         
 
         if(distance > maxReach) {
-        	getAntiCheat().logCheat(this, player, UtilsA.trim(3, distance) + " > " + UtilsA.trim(3, maxReach), null);
+        	getAntiCheat().logCheat(this, player, UtilsA.trim(3, distance) + " > " + UtilsA.trim(3, maxReach), "(Type: A)");
         }
     }
 }

@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 public class SpeedAB extends Check {
 
     public SpeedAB(AntiCheat AntiCheat) {
-        super("SpeedABC", "Speed", AntiCheat);
+        super("SpeedAB", "Speed", AntiCheat);
     }
 
     @EventHandler
@@ -31,8 +31,7 @@ public class SpeedAB extends Check {
         Location to = e.getTo();
         Location from = e.getFrom();
 
-        if ((to.getX() == from.getX()
-                && to.getY() == from.getY() && to.getZ() == from.getZ())
+        if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
                 || p.getAllowFlight()
                 || p.getGameMode().equals(GameMode.CREATIVE)
                 || e.getPlayer().getVehicle() != null
@@ -77,8 +76,7 @@ public class SpeedAB extends Check {
 
                if (verbose > 40) {
 
-                   if ((to.getX() == from.getX()
-                           && to.getY() == from.getY() && to.getZ() == from.getZ())
+                   if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
                            	|| p.getAllowFlight()
                            	|| p.getGameMode().equals(GameMode.CREATIVE)
                            	|| e.getPlayer().getVehicle() != null

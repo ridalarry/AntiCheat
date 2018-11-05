@@ -10,9 +10,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.needscleanup.UtilsA;
 
-/**
- * Created by Mr_JaVa_ on 2018-04-08 Package cc.funkemunky.dreya.util
- */
 public class SetBackSystem implements Listener {
     public static void setBack(Player p) {
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

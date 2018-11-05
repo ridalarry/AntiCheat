@@ -29,7 +29,7 @@ public class ReachC extends Check {
 	private ArrayList<Player> projectileHit;
 
 	public ReachC(AntiCheat AntiCheat) {
-		super("ReachC", "Reach (Type: C)", AntiCheat);
+		super("ReachC", "Reach", AntiCheat);
 		this.offsets = new HashMap<Player, Map.Entry<Double, Double>>();
 		this.reachTicks = new HashMap<Player, Long>();
 		this.projectileHit = new ArrayList<Player>();
@@ -133,7 +133,7 @@ public class ReachC extends Check {
 					"Logged for Reach Type C (First Hit Reach) " + Reach + " > " + maxReach2 + " blocks. Ping: "
 							+ getAntiCheat().getLag().getPing(damager) + " TPS: " + getAntiCheat().getLag().getTPS()
 							+ " Elapsed: " + UtilTime.elapsed(attackTime));
-			getAntiCheat().logCheat(this, damager, "First Hit Reach", null);
+			getAntiCheat().logCheat(this, damager, "First Hit Reach", "(Type: C)");
 		}
 		reachTicks.put(damager, UtilTime.nowlong());
 		projectileHit.remove(player);

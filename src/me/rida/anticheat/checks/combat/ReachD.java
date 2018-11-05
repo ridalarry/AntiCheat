@@ -21,7 +21,7 @@ public class ReachD extends Check {
 	public static HashMap<UUID, Integer> toBan;
 	
 	public ReachD(AntiCheat AntiCheat) {
-		super("ReachD", "Reach (Type: D)", AntiCheat);
+		super("ReachD", "Reach", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(false);
@@ -86,13 +86,11 @@ public class ReachD extends Check {
 		}
 
 		if (MaxReach < Difference) {
-			this.dumplog(player, "Logged for Reach Type A; Check is Bannable (so no special bans); Reach: " + Difference
+			this.dumplog(player, "Logged for Reach Type D; Check is Bannable (so no special bans); Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
-			Chance chance = Chance.LIKELY;
-			if (ChanceVal >= 60) {
-				chance = Chance.HIGH;
-			}
-			getAntiCheat().logCheat(this, player, Color.Red + "Experimental", null);
+			
+			getAntiCheat().logCheat(this, player, Color.Red + "Experimental" + "; Reach: " + Difference
+				+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: D)");
 		}
 	}
 

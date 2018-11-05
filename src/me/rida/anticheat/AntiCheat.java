@@ -30,7 +30,9 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.clients.*;
 import me.rida.anticheat.checks.combat.*;
+import me.rida.anticheat.checks.experemintal.*;
 import me.rida.anticheat.checks.movement.*;
 import me.rida.anticheat.checks.other.*;
 import me.rida.anticheat.checks.player.*;
@@ -98,13 +100,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
-		this.Checks.add(new NoVelocity(this));
+		this.Checks.add(new AntiKBA(this));
 		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new AutoClickerB(this));
 		this.Checks.add(new CriticalsB(this));
 		this.Checks.add(new CriticalsA(this));
 		this.Checks.add(new FastBow(this));
-		this.Checks.add(new HitBoxes(this));
+		this.Checks.add(new HitBoxA(this));
 		this.Checks.add(new KillAuraA(this));
 		this.Checks.add(new KillAuraB(this));
 		this.Checks.add(new KillAuraC(this));
@@ -112,7 +114,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new KillAuraE(this));
 		this.Checks.add(new KillAuraF(this));
 		this.Checks.add(new KillAuraG(this));
-		this.Checks.add(new AimAssist(this));
+		this.Checks.add(new AimAssistA(this));
 		this.Checks.add(new ReachA(this));
 		this.Checks.add(new ReachB(this));
 		this.Checks.add(new ReachC(this));
@@ -149,6 +151,18 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new ImpossiblePitch(this));
 		this.Checks.add(new LineOfSight(this));
 		this.Checks.add(new PacketsA(this));
+		this.Checks.add(new KillAuraH(this));
+		this.Checks.add(new KillAuraI(this));
+		this.Checks.add(new Change(this));
+		this.Checks.add(new PME(this));
+		this.Checks.add(new KillAuraK(this));
+		this.Checks.add(new HitBoxB(this));
+		this.Checks.add(new KillAuraJ(this));
+		this.Checks.add(new AntiKBB(this));
+		this.Checks.add(new AutoClickerC(this));
+		this.Checks.add(new AimAssistB(this));
+		this.Checks.add(new Spook(this));
+		this.Checks.add(new AimAssistC(this));
 	}
 
     @Override
@@ -204,7 +218,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("settings.latency.ping", 300);
 			this.getConfig().addDefault("settings.latency.tps", 17);
 			this.getConfig().addDefault("settings.sotwMode", false);
-			this.getConfig().addDefault("hwid", "");
 			for (Check check : Checks) {
 				this.getConfig().addDefault("checks." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().addDefault("checks." + check.getIdentifier() + ".bannable", check.isBannable());
@@ -317,12 +330,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				PacketsB.packetTicks.clear();
 			if (!Sneak.sneakTicks.isEmpty())
 				Sneak.sneakTicks.clear();
-			if (!HitBoxes.count.isEmpty())
-				HitBoxes.count.clear();
-			if (!HitBoxes.lastHit.isEmpty())
-				HitBoxes.lastHit.clear();
-			if (!HitBoxes.yawDif.isEmpty())
-				HitBoxes.yawDif.clear();
+			if (!HitBoxA.count.isEmpty())
+				HitBoxA.count.clear();
+			if (!HitBoxA.lastHit.isEmpty())
+				HitBoxA.lastHit.clear();
+			if (!HitBoxA.yawDif.isEmpty())
+				HitBoxA.yawDif.clear();
 			if (!FastBow.count.isEmpty())
 				FastBow.count.clear();
 		} catch (Exception e) {
@@ -527,34 +540,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		map.put(check, time);
 		this.ViolationReset.put(player.getUniqueId(), map);
 	}
-
-	public void getAPI() {
-		try {
-			URL url = new URL(UtilsB.decrypt("aHR0cHM6Ly9wYXN0ZWJpbi5jb20vcmF3L3pFZ1lLQVBu"));
-			ArrayList<Object> lines = new ArrayList<Object>();
-			URLConnection connection = url.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String line;
-			while ((line = in.readLine()) != null) {
-				lines.add(line);
-			}
-			if (!lines.contains(this.getConfig().getString("hwid")) && this.getConfig().getString("hwid") != null) {
-
-				getLogger().log(Level.SEVERE, wngnq);
-				wqminoiwn();
-			} else if (getConfig().getString("hwid") == null) {
-				getLogger().log(Level.SEVERE, UtilsB.decrypt("QWRkIGFuIEhXSUQgaW4gdGhlIGNvbmZpZyENCg=="));
-				wqminoiwn();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			getLogger().log(Level.SEVERE, UtilsB.decrypt("RXJyb3IhIERpc2FibGluZyBwbHVnaW4u"));
-			Bukkit.getPluginManager().disablePlugin(this);
-		}
-	}
-
-	public String wngnq = UtilsB.decrypt(
-			"SW5jb3JyZWN0IEhXSUQhIERpc2FibGluZyBwbHVnaW4uIElmIHlvdSBuZWVkIGFuIEhXSUQsIGdldCBvbmUgZnJvbSBmdW5rZW11bmt5ISBFLW1haWwgZnVua2VtdW5reWJpekBnbWFpbC5jb20gb3IgbWVzc2FnZSBmdW5rZW11bmt5IG9uIFNwaWdvdE1DIG9yIE1DTWFya2V0Lg==");
 
 	public void autobanOver(Player player) {
 		final Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<Player, Map.Entry<Check, Long>>(this.AutoBan);

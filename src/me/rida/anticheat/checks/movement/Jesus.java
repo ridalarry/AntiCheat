@@ -88,7 +88,6 @@ public class Jesus extends Check {
 
 		int Count = count.getOrDefault(p, 0);
 
-		/**Checks if the player is standing at water and can't stand **/
 		if ((UtilCheat.cantStandAtWater(p.getWorld().getBlockAt(p.getLocation())))
 				&& (UtilCheat.isHoveringOverWater(p.getLocation())) && (!UtilCheat.isFullyInWater(p.getLocation()))) {
 			Count+= 2;
@@ -96,7 +95,6 @@ public class Jesus extends Check {
 			Count = Count > 0 ? Count - 1 : Count;
 		}
 
-		/** If verbose count is greater than 19, flag **/
 		if (Count > 19) {
 			Count = 0;
 			getAntiCheat().logCheat(this, p, null, null);

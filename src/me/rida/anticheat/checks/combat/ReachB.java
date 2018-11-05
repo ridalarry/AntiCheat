@@ -22,7 +22,7 @@ public class ReachB extends Check {
 	public Map<Player, Map.Entry<Double, Double>> offsets;
 
 	public ReachB(AntiCheat AntiCheat) {
-		super("ReachB", "Reach (Type: B)", AntiCheat);
+		super("ReachB", "Reach", AntiCheat);
 
 		setEnabled(true);
 		setMaxViolations(7);
@@ -125,7 +125,7 @@ public class ReachB extends Check {
 		if (Count >= 2 && Reach > MaxReach && Reach < 20.0) {
 			count.remove(damager);
 			if (Latency.getLag(player) < 115) {
-				getAntiCheat().logCheat(this, damager, Reach + " > " + MaxReach + " MS: " + PingD + " Velocity Difference: " + speedToVelocityDif, null);
+				getAntiCheat().logCheat(this, damager, Reach + " > " + MaxReach + " MS: " + PingD + " Velocity Difference: " + speedToVelocityDif, "(Type: B)");
 
 			}
 			dumplog(damager, "Logged for Reach" + Reach2 + " > " + MaxReach);

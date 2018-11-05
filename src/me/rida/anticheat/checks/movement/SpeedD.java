@@ -82,8 +82,7 @@ public class SpeedD extends Check {
 	@EventHandler
 	public void CheckSpeed(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if ((event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getY() == event.getTo().getY())
-				&& (event.getFrom().getZ() == event.getFrom().getZ())
+		if (((event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getY() == event.getTo().getY()) && (event.getFrom().getZ() == event.getFrom().getZ()))
 				|| !getAntiCheat().isEnabled()
 				|| player.getAllowFlight()
 				|| player.getVehicle() != null

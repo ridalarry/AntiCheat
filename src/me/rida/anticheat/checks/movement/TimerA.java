@@ -23,7 +23,7 @@ public class TimerA extends Check {
 	private List<Player> toCancel;
 
 	public TimerA(AntiCheat AntiCheat) {
-		super("TimerA", "Timer (Type: A)", AntiCheat);
+		super("TimerA", "Timer", AntiCheat);
 		
 		packets = new HashMap<>();
 		verbose = new HashMap<>();
@@ -88,7 +88,7 @@ public class TimerA extends Check {
 			}
 			
 			if(verbose > 2) {
-				getAntiCheat().logCheat(this, player, "Packets: " + packets, null);
+				getAntiCheat().logCheat(this, player, "Packets: " + packets, "(Type: A)");
 			}
 			packets = 0;
 			Time = UtilTime.nowlong();

@@ -1,6 +1,5 @@
 package me.rida.anticheat.utils.lineofsight;
 
-
 import org.bukkit.Material;
 
 public enum WrappedMaterial {

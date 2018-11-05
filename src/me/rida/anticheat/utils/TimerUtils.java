@@ -1,9 +1,5 @@
 package me.rida.anticheat.utils;
 
-/**
- * Created by XtasyCode on 11/08/2017.
- */
-
 public class TimerUtils {
 
 	private long lastMS = 0L;

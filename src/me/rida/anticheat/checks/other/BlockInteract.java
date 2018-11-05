@@ -54,7 +54,7 @@ public class BlockInteract extends Check {
 			}
 		}
 		if ((!isValid) && (!player.getPlayer().getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, player, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks", null);
+			getAntiCheat().logCheat(this, player, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", null);
 			e.setCancelled(true);
 		}
 	}

@@ -1,18 +1,3 @@
-/*
- * Decompiled with CFR 0_122.
- * 
- * Could not load the following classes:
- *  org.bukkit.Location
- *  org.bukkit.Material
- *  org.bukkit.entity.Player
- *  org.bukkit.event.EventHandler
- *  org.bukkit.event.entity.EntityDamageEvent
- *  org.bukkit.event.entity.EntityDamageEvent$DamageCause
- *  org.bukkit.event.player.PlayerMoveEvent
- *  org.bukkit.event.player.PlayerQuitEvent
- *  org.bukkit.event.player.PlayerVelocityEvent
- *  org.bukkit.util.Vector
- */
 package me.rida.anticheat.checks.combat;
 
 import java.util.HashMap;
@@ -31,20 +16,19 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.needscleanup.UtilsC;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.Ping;
 import me.rida.anticheat.utils.UtilVelocity;
 
-public class NoVelocity extends Check {
+public class AntiKBA extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
     private Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
     private Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
-    public NoVelocity(AntiCheat AntiCheat) {
-        super("NoVelocity", "AntiKnockBack", AntiCheat);
+    public AntiKBA(AntiCheat AntiCheat) {
+        super("AntiKB", "AntiKB", AntiCheat);
 		setMaxViolations(10);
-		setViolationResetTime(3000);
 		setBannable(false);
-		setViolationsToNotify(5);
     }
 
     @EventHandler
@@ -65,16 +49,12 @@ public class NoVelocity extends Check {
     public void Move(PlayerMoveEvent playerMoveEvent) {
         double d;
         Player player = playerMoveEvent.getPlayer();
-        if (UtilsC.isOnBlock(player, 0, new Material[]{Material.WEB}) || UtilsC.isOnBlock(player, 1, new Material[]{Material.WEB})) {
-            return;
-        }
-        if (UtilsC.isHoveringOverWater(player, 1) || UtilsC.isHoveringOverWater(player, 0)) {
-            return;
-        }
-        if (player.getAllowFlight()) {
-            return;
-        }
-        if (Ping.getPing(player) > 400) {
+        if (UtilsC.isOnBlock(player, 0, new Material[]{Material.WEB}) 
+        		|| UtilsC.isOnBlock(player, 1, new Material[]{Material.WEB}) 
+        		|| (UtilsC.isHoveringOverWater(player, 1) 
+        		|| UtilsC.isHoveringOverWater(player, 0)) 
+        		|| (player.getAllowFlight()) 
+        		|| (Ping.getPing(player) > 400)) {
             return;
         }
         int n = 0;
@@ -118,12 +98,12 @@ public class NoVelocity extends Check {
                     return;
                 
                 }
-            	getAntiCheat().logCheat(this, player, null, null);
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
             	} else {
                 if (Ping.getPing(player) > 220) {
                     return;
                 }
-            	getAntiCheat().logCheat(this, player, null, null);            }
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");            }
             n2 = 0;
             d2 = 0.0;
             --n;

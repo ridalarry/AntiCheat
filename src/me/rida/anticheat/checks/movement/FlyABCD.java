@@ -121,7 +121,7 @@ public class FlyABCD extends Check {
             }
             long Millis = System.currentTimeMillis() - Time;
             if (Millis > 200L) {
-                getAntiCheat().logCheat(this, p, null, "(Type: D)");
+                getAntiCheat().logCheat(this, p, null, "(Type: C)");
                 data.setGlideTicks(0);
                 SetBackSystem.setBack(p);
             }
@@ -148,7 +148,7 @@ public class FlyABCD extends Check {
             		verboseC = 0;
             	}
             	else {
-            		getAntiCheat().logCheat(this, p, null, "(Type: C)");
+            		getAntiCheat().logCheat(this, p, null, "(Type: D)");
                     SetBackSystem.setBack(p);
             		verboseC = 0;
             	}

@@ -18,7 +18,7 @@ public class KillAuraD extends Check {
 	public static Map<UUID, Map.Entry<Double, Double>> packetTicks;
 
 	public KillAuraD(AntiCheat AntiCheat) {
-		super("KillAuraD", "KillAura (Type: D)", AntiCheat);
+		super("KillAuraD", "KillAura", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -51,7 +51,7 @@ public class KillAuraD extends Check {
 		}
 		
 		if(Count > Other && Other == 2) {
-			getAntiCheat().logCheat(this, e.getPlayer(), "Packet", null);
+			getAntiCheat().logCheat(this, e.getPlayer(), "Packet", "(Type: D)");
 		}
 
 		if(Count > 3 || Other > 3) {

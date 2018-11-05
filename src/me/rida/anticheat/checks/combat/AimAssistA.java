@@ -19,9 +19,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import java.util.Collections;
 import java.util.Optional;
 
-public class AimAssist extends Check {
-    public AimAssist(AntiCheat AntiCheat) {
-        super("AimAssist", "AimAssest", AntiCheat);
+public class AimAssistA extends Check {
+    public AimAssistA(AntiCheat AntiCheat) {
+        super("AimAssistA", "AimAssest", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setViolationResetTime(3000);

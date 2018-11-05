@@ -19,7 +19,7 @@ public class KillAuraA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public KillAuraA(final AntiCheat AntiCheat) {
-		super("KillAuraA", "KillAura (Type: A)", AntiCheat);
+		super("KillAuraA", "KillAura", AntiCheat);
 		this.LastMS = new HashMap<>();
 		this.Clicks = new HashMap<>();
 		this.ClickTicks = new HashMap<>();
@@ -94,12 +94,12 @@ public class KillAuraA extends Check {
 		}
 		if ((Count > 2 && this.getAntiCheat().getLag().getPing(damager) < 100)
 				|| (Count > 4 && this.getAntiCheat().getLag().getPing(damager) <= 400)) {
-			this.dumplog(damager, "Logged. Count: " + Count);
+				dumplog(damager, "Logged. Count: " + Count);
 			Count = 0;
-			this.getAntiCheat().logCheat(this, damager, "Click Pattern", null);
+			getAntiCheat().logCheat(this, damager, "Click Pattern", "(Type: A)");
 			ClickTicks.remove(damager.getUniqueId());
 		} else if (this.getAntiCheat().getLag().getPing(damager) > 400) {
-			this.dumplog(damager, "Would set off Killaura (Click Pattern) but latency is too high!");
+			dumplog(damager, "Would set off Killaura (Click Pattern) but latency is too high!");
 		}
 		LastMS.put(damager.getUniqueId(), UtilTime.nowlong());
 		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));

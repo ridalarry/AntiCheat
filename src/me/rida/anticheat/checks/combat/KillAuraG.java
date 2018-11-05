@@ -13,7 +13,7 @@ import org.bukkit.event.EventHandler;
 public class KillAuraG extends Check {
 
     public KillAuraG(AntiCheat AntiCheat) {
-        super("KillAuraG", "KillAura (Type: G)", AntiCheat);
+        super("KillAuraG", "KillAura", AntiCheat);
     }
 
     @EventHandler
@@ -44,7 +44,7 @@ public class KillAuraG extends Check {
 
             if(angleDistance((float) data.getLastKillauraYaw(), player.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
                 if(++verboseA > 9) {
-                	getAntiCheat().logCheat(this, player, null, null);
+                	getAntiCheat().logCheat(this, player, null, "(Type: G)");
                 }
             }
             data.setLastKillauraYawDif(angleDistance((float) data.getLastKillauraYaw(), player.getEyeLocation().getYaw()));
