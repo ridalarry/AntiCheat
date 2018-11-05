@@ -100,6 +100,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
+		this.Checks.add(new Scaffold(this));
 		this.Checks.add(new AntiKBA(this));
 		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new AutoClickerB(this));

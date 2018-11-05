@@ -26,7 +26,7 @@ extends Check {
         this.lastYaw = f;
         if (f2 > 1.0f && (float)Math.round(f2) == f2) {
             if (f2 == (float)this.lastBad) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental," + " A client.", null);
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", null);
                 return f2;
             }
             this.lastBad = Math.round(f2);

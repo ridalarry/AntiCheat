@@ -41,7 +41,7 @@ public class PME extends Check implements PluginMessageListener, Listener {
     }
 
     public void addVio(Player player) {
-    	getAntiCheat().logCheat(this, player, Color.Red + "Experemental," + " A client.", "(Type: A)");
+    	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
     }
 
     public void onPluginMessageReceived(String string, Player player, byte[] arrby) {
@@ -54,7 +54,7 @@ public class PME extends Check implements PluginMessageListener, Listener {
                 String string3 = this.getClientType(player);
                 if (string3 != null) {
                     type = string3;
-                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental," + " A client.", "(Type: B)");
+                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: B)");
                 }
             }
             catch (Exception exception) {
