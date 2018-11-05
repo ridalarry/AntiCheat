@@ -26,7 +26,7 @@ public class AutoClickerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public AutoClickerB(AntiCheat AntiCheat) {
-		super("AutoClickerB", "AutoClicker (Type: B)", AntiCheat);
+		super("AutoClickerB", "AutoClicker", AntiCheat);
 
 		LastMS = new HashMap<UUID, Long>();
 		Clicks = new HashMap<UUID, List<Long>>();
@@ -106,7 +106,7 @@ public class AutoClickerB extends Check {
 				|| (Count > 6 && this.getAntiCheat().getLag().getPing(damager) < 200)) {
 			this.dumplog(damager, "Logged. Count: " + Count);
 			Count = 0;
-			this.getAntiCheat().logCheat(this, damager, "Continuous/Repeating Patterns", null);
+			this.getAntiCheat().logCheat(this, damager, "Continuous/Repeating Patterns", "(Type: B)");
 			ClickTicks.remove(damager.getUniqueId());
 		} else if (this.getAntiCheat().getLag().getPing(damager) > 250) {
 			this.dumplog(damager, "Would set off Autoclicker (Constant) but latency is too high!");

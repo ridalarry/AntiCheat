@@ -14,7 +14,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class CriticalsA extends Check {
 
     public CriticalsA(AntiCheat AntiCheat) {
-        super("CriticalsA", "Criticals (Type: A)", AntiCheat);
+        super("CriticalsA", "Criticals", AntiCheat);
     }
 
     @EventHandler
@@ -43,7 +43,7 @@ public class CriticalsA extends Check {
 
         if(player.getFallDistance() > 0 && data.getFallDistance() == 0) {
             if(++verbose > 3) {
-            	getAntiCheat().logCheat(this, player, "Packet", null);
+            	getAntiCheat().logCheat(this, player, "Packet", "(Type: A)");
                 verbose = 0;
             }
         } else {

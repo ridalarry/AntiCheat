@@ -41,6 +41,10 @@ public class NoVelocity extends Check {
 
     public NoVelocity(AntiCheat AntiCheat) {
         super("NoVelocity", "AntiKnockBack", AntiCheat);
+		setMaxViolations(10);
+		setViolationResetTime(3000);
+		setBannable(false);
+		setViolationsToNotify(5);
     }
 
     @EventHandler

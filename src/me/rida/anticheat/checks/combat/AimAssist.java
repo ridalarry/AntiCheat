@@ -21,12 +21,12 @@ import java.util.Optional;
 
 public class AimAssist extends Check {
     public AimAssist(AntiCheat AntiCheat) {
-        super("AimAssist", "AimAssest (Type: A)", AntiCheat);
+        super("AimAssist", "AimAssest", AntiCheat);
 		setEnabled(true);
-		setMaxViolations(7);
-		setViolationResetTime(30000);
+		setMaxViolations(10);
+		setViolationResetTime(3000);
 		setBannable(false);
-		setViolationsToNotify(1);
+		setViolationsToNotify(5);
 
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
             @Override
@@ -68,7 +68,7 @@ public class AimAssist extends Check {
             float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 
             if(Math.abs(range - data.lastRange) < 4) {
-            	getAntiCheat().logCheat(this, event.getPlayer(), Color.Red + "Experemental", null);
+            	getAntiCheat().logCheat(this, event.getPlayer(), Color.Red + "Experemental", "(Type: A)");
                 
             }
 

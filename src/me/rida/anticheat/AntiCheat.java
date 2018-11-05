@@ -142,13 +142,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new VClip(this));
 		this.Checks.add(new CrashABC(this));
 		this.Checks.add(new Exploit(this));
-		this.Checks.add(new FreeCam(this));
-		this.Checks.add(new MorePacketsB(this));
+		this.Checks.add(new BlockInteract(this));
+		this.Checks.add(new PacketsB(this));
 		this.Checks.add(new VapeCracked(this));
 		this.Checks.add(new GroundSpoof(this));
 		this.Checks.add(new ImpossiblePitch(this));
 		this.Checks.add(new LineOfSight(this));
-		this.Checks.add(new MorePacketsA(this));
+		this.Checks.add(new PacketsA(this));
 	}
 
     @Override
@@ -311,10 +311,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				SpeedD.tooFastTicks.clear();
 			if (!SpeedD.lastHit.isEmpty())
 				SpeedD.lastHit.isEmpty();
-			if (!MorePacketsB.lastPacket.isEmpty())
-				MorePacketsB.lastPacket.clear();
-			if (!MorePacketsB.packetTicks.isEmpty())
-				MorePacketsB.packetTicks.clear();
+			if (!PacketsB.lastPacket.isEmpty())
+				PacketsB.lastPacket.clear();
+			if (!PacketsB.packetTicks.isEmpty())
+				PacketsB.packetTicks.clear();
 			if (!Sneak.sneakTicks.isEmpty())
 				Sneak.sneakTicks.clear();
 			if (!HitBoxes.count.isEmpty())
@@ -553,6 +553,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 	}
 
+	public String wngnq = UtilsB.decrypt(
+			"SW5jb3JyZWN0IEhXSUQhIERpc2FibGluZyBwbHVnaW4uIElmIHlvdSBuZWVkIGFuIEhXSUQsIGdldCBvbmUgZnJvbSBmdW5rZW11bmt5ISBFLW1haWwgZnVua2VtdW5reWJpekBnbWFpbC5jb20gb3IgbWVzc2FnZSBmdW5rZW11bmt5IG9uIFNwaWdvdE1DIG9yIE1DTWFya2V0Lg==");
+
 	public void autobanOver(Player player) {
 		final Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<Player, Map.Entry<Check, Long>>(this.AutoBan);
 		if (AutoBan.containsKey(player)) {
@@ -650,9 +653,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			playerplayer.sendMessage(String.valueOf(PREFIX) + message);
 		}
 	}
-
-	public String wngnq = UtilsB.decrypt(
-			"SW5jb3JyZWN0IEhXSUQhIERpc2FibGluZyBwbHVnaW4uIElmIHlvdSBuZWVkIGFuIEhXSUQsIGdldCBvbmUgZnJvbSBmdW5rZW11bmt5ISBFLW1haWwgZnVua2VtdW5reWJpekBnbWFpbC5jb20gb3IgbWVzc2FnZSBmdW5rZW11bmt5IG9uIFNwaWdvdE1DIG9yIE1DTWFya2V0Lg==");
 
 	public void logCheat(Check check, Player player, String hoverabletext, String... identefier) {
 		String a = "";

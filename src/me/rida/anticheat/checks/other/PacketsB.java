@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,13 +25,13 @@ import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilTime;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class MorePacketsB extends Check {
+public class PacketsB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;
 	public static Map<UUID, Long> lastPacket;
 	public List<UUID> blacklist;
 
-	public MorePacketsB(AntiCheat AntiCheat) {
-		super("MorePackets", "MorePackets (Type: B)", AntiCheat);
+	public PacketsB(AntiCheat AntiCheat) {
+		super("PacketsB", "Packets", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -113,9 +114,8 @@ public class MorePacketsB extends Check {
 					}
 				}
 				if (Count > 400) {
-					getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , null);
-					player.kickPlayer("Too many packets.");
-				}
+					getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: B)");
+					player.kickPlayer("Too many packets.");				}
 				Count = 0;
 				Time = UtilTime.nowlong();
 			}

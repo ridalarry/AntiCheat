@@ -5,27 +5,32 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.packets.PacketCoreA;
 import me.rida.anticheat.packets.events.PacketPlayerEventA;
+import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.TimerUtils;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import java.util.*;
 
-public class MorePacketsA extends Check {
+public class PacketsA extends Check {
     private Map<UUID, Integer> packets;
     private Map<UUID, Integer> verbose;
     private Map<UUID, Long> lastPacket;
     private List<Player> toCancel;
 
-    public MorePacketsA(AntiCheat AntiCheat) {
-        super("MorePackets", "MorePackets", AntiCheat);
+    public PacketsA(AntiCheat AntiCheat) {
+        super("PacketsA", "Packets", AntiCheat);
         packets = new HashMap<>();
         verbose = new HashMap<>();
         toCancel = new ArrayList<>();
         lastPacket = new HashMap<>();
+		setEnabled(true);
+		setBannable(false);
+		setMaxViolations(10);
     }
     @EventHandler
     public void onLogout(PlayerQuitEvent e) {
@@ -67,8 +72,14 @@ public class MorePacketsA extends Check {
             }
 
             if(verbose > 2) {
-               getAntiCheat().logCheat(this, player, null, "(Type: A)");
-               SetBackSystem.setBack(player);
+				getAntiCheat().logCheat(this, player, "sent over " + packets  + " packets! ", "(Type: A)");
+            }
+            else if(verbose > 3) {
+				getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + packets  + " packets! " , "(Type: A)");
+				player.kickPlayer("Too many packets.");            }
+            if(packets > 400) {
+				getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + packets  + " packets! " , "(Type: A)");
+				player.kickPlayer("Too many packets.");				
             }
             packets = 0;
             Time = System.currentTimeMillis();

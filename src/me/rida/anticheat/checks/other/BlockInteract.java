@@ -14,10 +14,10 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
 
-public class FreeCam extends Check {
+public class BlockInteract extends Check {
 
-	public FreeCam(AntiCheat AntiCheat) {
-		super("BlockInteract", "BlockInteract (FreeCam)", AntiCheat);
+	public BlockInteract(AntiCheat AntiCheat) {
+		super("BlockInteract", "BlockInteract", AntiCheat);
 
 		this.setBannable(false);
 		this.setEnabled(true);
@@ -54,7 +54,7 @@ public class FreeCam extends Check {
 			}
 		}
 		if ((!isValid) && (!player.getPlayer().getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, player, Color.Red + "Experimental", null);
+			getAntiCheat().logCheat(this, player, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks", null);
 			e.setCancelled(true);
 		}
 	}

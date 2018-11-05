@@ -21,7 +21,7 @@ public class AutoClickerA extends Check {
 	private Map<UUID, Long> recording;
 
 	public AutoClickerA(AntiCheat AntiCheat) {
-		super("AutoClickerA", "AutoClicker (Type: A)", AntiCheat);
+		super("AutoClickerA", "AutoClicker", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);
@@ -59,7 +59,7 @@ public class AutoClickerA extends Check {
 		long time = recording.getOrDefault(player.getUniqueId(), System.currentTimeMillis());
 		if(UtilTime.elapsed(time, 1000L)) {
 			if(clicks > 18) {
-				getAntiCheat().logCheat(this, player, clicks + " Clicks/Second", null);
+				getAntiCheat().logCheat(this, player, clicks + " Clicks/Second", "(Type: A)");
 			}
 			clicks = 0;
 			recording.remove(player.getUniqueId());

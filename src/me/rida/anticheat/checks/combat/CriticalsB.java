@@ -23,7 +23,7 @@ public class CriticalsB extends Check {
 	public static Map<UUID, Double> FallDistance = new HashMap<UUID, Double>();
 
 	public CriticalsB(AntiCheat AntiCheat) {
-		super("CriticalsB", "Criticals (Type: B)", AntiCheat);
+		super("CriticalsB", "Criticals", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);
@@ -79,7 +79,7 @@ public class CriticalsB extends Check {
 		}
 		if (Count >= 2) {
 			Count = 0;
-			this.getAntiCheat().logCheat(this, player, null, null);
+			this.getAntiCheat().logCheat(this, player, null, "(Type: B)");
 		}
 		CritTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
