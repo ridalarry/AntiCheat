@@ -1,27 +1,15 @@
 package me.rida.anticheat.checks.movement;
 
-import org.bukkit.event.inventory.*;
-import org.bukkit.enchantments.*;
 import org.bukkit.event.*;
-import org.bukkit.inventory.*;
-import org.bukkit.inventory.meta.*;
 import java.util.*;
-import org.bukkit.command.*;
-import org.bukkit.potion.*;
 import org.bukkit.*;
 import org.bukkit.event.block.*;
 import org.bukkit.block.*;
 import org.bukkit.entity.*;
-import org.bukkit.util.*;
 
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.ExtraUtils;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
-import me.rida.anticheat.utils.needscleanup.UtilsC;
 
-import org.bukkit.event.entity.*;
-import org.bukkit.event.player.*;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 

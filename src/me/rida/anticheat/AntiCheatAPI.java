@@ -7,7 +7,6 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.other.Latency;
-import me.rida.anticheat.utils.Color;
 
 public class AntiCheatAPI {
 

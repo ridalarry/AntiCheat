@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.Color;
 
 public class BlockInteract extends Check {
 

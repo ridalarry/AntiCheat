@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.combat;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,11 +13,8 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.needscleanup.UtilsC;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.Ping;
-import me.rida.anticheat.utils.UtilVelocity;
 
 public class AntiKBA extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();

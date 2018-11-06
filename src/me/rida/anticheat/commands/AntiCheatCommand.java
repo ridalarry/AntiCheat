@@ -1,8 +1,5 @@
 package me.rida.anticheat.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -12,9 +9,7 @@ import org.bukkit.entity.Player;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.AntiCheatAPI;
-import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 public class AntiCheatCommand implements CommandExecutor {
 	private AntiCheat AntiCheat;

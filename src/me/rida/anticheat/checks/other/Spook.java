@@ -1,6 +1,5 @@
 package me.rida.anticheat.checks.other;
 
-import java.text.DecimalFormat;
 import org.bukkit.entity.Player;
 
 import me.rida.anticheat.checks.Check;

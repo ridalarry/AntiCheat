@@ -1,6 +1,5 @@
 package me.rida.anticheat.checks.combat;
 
-import java.text.DecimalFormat;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

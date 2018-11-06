@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +23,6 @@ import me.rida.anticheat.packets.events.PacketPlayerEventB;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.ExtraUtils;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 public class PacketsB extends Check {

@@ -12,11 +12,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerVelocityEvent;
 
 public class UtilityMoveEvent implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void onMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
