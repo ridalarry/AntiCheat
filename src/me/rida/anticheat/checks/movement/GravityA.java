@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class Gravity extends Check {
-    public Gravity(AntiCheat AntiCheat) {
+public class GravityA extends Check {
+    public GravityA(AntiCheat AntiCheat) {
 		super("Gravity", "Gravity", AntiCheat);
     }
 

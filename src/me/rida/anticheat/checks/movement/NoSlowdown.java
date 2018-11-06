@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -17,6 +18,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 public class NoSlowdown extends Check {
@@ -81,6 +83,7 @@ public class NoSlowdown extends Check {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
+		Action act = event.getAction();
 		if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 				&& event.getItem() != null) {
 			if (event.getItem().equals(Material.EXP_BOTTLE) || event.getItem().getType().equals(Material.GLASS_BOTTLE)
@@ -102,7 +105,7 @@ public class NoSlowdown extends Check {
 					: ++level;
 			int max = 50;
 			if (level > max * 0.9D && diff <= 100.0D) {
-				getAntiCheat().logCheat(this, player, "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player), null);
+				getAntiCheat().logCheat(this, player, Color.Red + "Might be FastPlace! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player) + " Action: " + act, null);
 				if (level > max) {
 					level = max / 4;
 				}

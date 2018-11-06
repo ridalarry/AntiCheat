@@ -28,7 +28,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-import me.rida.anticheat.custompayload.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -65,7 +65,8 @@ import me.rida.anticheat.events.MoveEvents;
 import me.rida.anticheat.events.UtilityJoinQuitEvent;
 import me.rida.anticheat.events.UtilityMoveEvent;
 import me.rida.anticheat.other.LagCore;
-import me.rida.anticheat.packets.PacketCoreB;
+import me.rida.anticheat.packets.PacketCore;
+import me.rida.anticheat.pluginlogger.*;
 import me.rida.anticheat.update.UpdateEvent;
 import me.rida.anticheat.update.UpdateType;
 import me.rida.anticheat.update.Updater;
@@ -106,7 +107,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public static AntiCheat Instance;
 	public String PREFIX;
 	public Updater updater;
-	public PacketCoreB packet;
+	public PacketCore packet;
 	public LagCore lag;
 	public List<Check> Checks;
 	private static ConfigFile file;
@@ -160,11 +161,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new Twitch(this));
 		this.Checks.add(new AscensionA(this));
 		this.Checks.add(new AscensionB(this));
-		this.Checks.add(new FastLadder(this));
-		this.Checks.add(new FlyABCD(this));
-		this.Checks.add(new FlyE(this));
-		this.Checks.add(new Glide(this));
-		this.Checks.add(new Gravity(this));
+		this.Checks.add(new FastLadderA(this));
+		this.Checks.add(new FlyA(this));
+		this.Checks.add(new FlyB(this));
+		this.Checks.add(new GlideA(this));
+		this.Checks.add(new GravityA(this));
 		this.Checks.add(new ImpossibleMovements(this));
 		this.Checks.add(new Jesus(this));
 		this.Checks.add(new NoFall(this));
@@ -214,7 +215,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
         loadChecks();
         new Ping(this);
         addDataPlayers();
-        PacketCoreB.init();
+        PacketCore.init();
         MS_PluginLoad = TimerUtils.nowlong();
         coreVersion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
         dataManager = new DataManager();
@@ -223,7 +224,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
         saveChecks();
 		AntiCheat.Instance = this;
 		this.addChecks();
-		this.packet = new PacketCoreB(this);
+		this.packet = new PacketCore(this);
 		this.lag = new LagCore(this);
 		this.updater = new Updater(this);
 		VapeCracked vapers = new VapeCracked(this);
@@ -381,10 +382,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				Regen.LastHeal.clear();
 			if (!AscensionA.AscensionTicks.isEmpty())
 				AscensionA.AscensionTicks.clear();
-			if (!FlyE.flyTicksA.isEmpty())
-				FlyE.flyTicksA.clear();
-			if (!Glide.flyTicks.isEmpty())
-				Glide.flyTicks.clear();
+			if (!FlyB.flyTicksA.isEmpty())
+				FlyB.flyTicksA.clear();
+			if (!GlideA.flyTicks.isEmpty())
+				GlideA.flyTicks.clear();
 			if (!NoFall.FallDistance.isEmpty())
 				NoFall.FallDistance.clear();
 			if (!NoFall.NoFallTicks.isEmpty())

@@ -16,10 +16,12 @@ import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.packets.PacketPlayerType;
-import me.rida.anticheat.packets.events.PacketPlayerEventB;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
+import me.rida.anticheat.utils.Ping;
 import me.rida.anticheat.utils.UtilTime;
 
 public class Latency implements Listener {
@@ -30,9 +32,10 @@ public class Latency implements Listener {
 	private static Map<UUID, Integer> packets;
 
 	private AntiCheat Ping;
+	private double tps;
 
-	public Latency(AntiCheat Ping) {
-		this.Ping = Ping;
+	public Latency(AntiCheat AntiCheat) {
+		this.Ping = AntiCheat;
 
 		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		lastPacket = new HashMap<UUID, Long>();
@@ -79,7 +82,7 @@ public class Latency implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void PacketPlayer(PacketPlayerEventB event) {
+	public void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!Ping.isEnabled()) {
 			return;

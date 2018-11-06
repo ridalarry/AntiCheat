@@ -12,11 +12,11 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 
-public class Glide extends Check {
+public class GlideA extends Check {
 	public static Map<UUID, Long> flyTicks;
 
-	public Glide(AntiCheat AntiCheat) {
-		super("Glide", "Glide", AntiCheat);
+	public GlideA(AntiCheat AntiCheat) {
+		super("GlideA", "Glide", AntiCheat);
 		
 		flyTicks = new HashMap<UUID, Long>();
 
@@ -75,7 +75,7 @@ public class Glide extends Check {
 			this.dumplog(player, "Logged. MS: " + MS);
 			flyTicks.remove(player.getUniqueId());
 			if (getAntiCheat().getLag().getPing(player) < 275) {
-				this.getAntiCheat().logCheat(this, player, null, null);
+				this.getAntiCheat().logCheat(this, player, null, "(Type: A)");
 			}
 			return;
 		}

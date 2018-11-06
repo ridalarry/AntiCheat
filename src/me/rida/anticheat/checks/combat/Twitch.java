@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.PacketPlayerType;
-import me.rida.anticheat.packets.events.PacketPlayerEventB;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
 
 public class Twitch extends Check {
 	public Twitch(AntiCheat AntiCheat) {
@@ -18,7 +18,7 @@ public class Twitch extends Check {
 	}
 
 	@EventHandler
-	public void Player(PacketPlayerEventB e) {
+	public void Player(PacketPlayerEvent e) {
 		if (e.getType() != PacketPlayerType.LOOK) {
 			return;
 		}

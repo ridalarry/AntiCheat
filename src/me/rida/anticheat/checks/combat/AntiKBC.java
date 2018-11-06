@@ -2,8 +2,10 @@ package me.rida.anticheat.checks.combat;
 
 import me.rida.anticheat.AntiCheat;
 
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import me.rida.anticheat.checks.Check;
@@ -22,17 +24,19 @@ public class AntiKBC extends Check {
     public void onPlayerDamage(EntityDamageEvent e) {
     	if (e.getEntity() instanceof  Player) {
     		Player p = (Player) e.getEntity();
-    		if (UtilVelocity.didTakeVelocity(p)) {
-    			return;
-    		}
-    		else {
-    			if (!(UtilVelocity.didTakeVelocity(p))) {
-                	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+    		if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+    			Entity damager = (Player) p.getLastDamageCause().getEntity();
+    			if (UtilVelocity.didTakeVelocity(p)) {
+    				return;
     			}
-    				
+    			else {
+    				if (!(UtilVelocity.didTakeVelocity(p))) {
+    					getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+    				}	
     			}
     			
     		}
     	}
     }
     
+}

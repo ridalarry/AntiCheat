@@ -3,8 +3,8 @@ package me.rida.anticheat.checks.player;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.packets.PacketCoreB;
-import me.rida.anticheat.packets.events.PacketPlayerEventA;
+import me.rida.anticheat.packets.PacketCore;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.TimerUtils;
 
@@ -47,7 +47,7 @@ public class PacketsA extends Check {
         }
     }
     @EventHandler
-    public final void packetPlayer(PacketPlayerEventA event) {
+    public final void packetPlayer(PacketPlayerEvent event) {
         Player player = event.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
 
@@ -64,7 +64,7 @@ public class PacketsA extends Check {
                 this.packets.put(player.getUniqueId(), 0);
                return;
             }
-            if(packets > threshold + PacketCoreB.movePackets.getOrDefault(player.getUniqueId(), 0)) {
+            if(packets > threshold + PacketCore.movePackets.getOrDefault(player.getUniqueId(), 0)) {
                 verbose++;
             } else {
                 verbose = 0;
@@ -87,7 +87,7 @@ public class PacketsA extends Check {
             
             packets = 0;
             Time = System.currentTimeMillis();
-            PacketCoreB.movePackets.remove(player.getUniqueId());
+            PacketCore.movePackets.remove(player.getUniqueId());
         }
         packets++;
 

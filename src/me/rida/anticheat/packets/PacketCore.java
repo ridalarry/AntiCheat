@@ -32,19 +32,19 @@ import me.rida.anticheat.packets.events.PacketEntityActionEvent;
 import me.rida.anticheat.packets.events.PacketHeldItemChangeEvent;
 import me.rida.anticheat.packets.events.PacketKeepAliveEvent;
 import me.rida.anticheat.packets.events.PacketKillauraEvent;
-import me.rida.anticheat.packets.events.PacketPlayerEventA;
-import me.rida.anticheat.packets.events.PacketPlayerEventB;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 
-public class PacketCoreB {
+public class PacketCore {
 	public static AntiCheat AntiCheat;
 	private HashSet<EntityType> enabled;
 	public static Map<UUID, Integer> movePackets;
 	private static final PacketType[] ENTITY_PACKETS = new PacketType[] { PacketType.Play.Server.SPAWN_ENTITY_LIVING,
 			PacketType.Play.Server.NAMED_ENTITY_SPAWN, PacketType.Play.Server.ENTITY_METADATA };
 
-	public PacketCoreB(AntiCheat AntiCheat) {
+	public PacketCore(AntiCheat AntiCheat) {
 		super();
 		this.AntiCheat = AntiCheat;
 		enabled = new HashSet<EntityType>();
@@ -131,7 +131,7 @@ public class PacketCoreB {
 				if (player == null) {
 					return;
 				}
-				Bukkit.getServer().getPluginManager().callEvent((Event) new PacketPlayerEventB(player,
+				Bukkit.getServer().getPluginManager().callEvent((Event) new PacketPlayerEvent(player,
 						(double) event.getPacket().getDoubles().read(0),
 						(double) event.getPacket().getDoubles().read(1),
 						(double) event.getPacket().getDoubles().read(2), (float) event.getPacket().getFloat().read(0),
@@ -148,7 +148,7 @@ public class PacketCoreB {
 						}
 
 						Bukkit.getServer().getPluginManager()
-								.callEvent(new PacketPlayerEventB(player, event.getPacket().getDoubles().read(0),
+								.callEvent(new PacketPlayerEvent(player, event.getPacket().getDoubles().read(0),
 										event.getPacket().getDoubles().read(1), event.getPacket().getDoubles().read(2),
 										event.getPacket().getFloat().read(0), event.getPacket().getFloat().read(1),
 										PacketPlayerType.POSLOOK));
@@ -162,7 +162,7 @@ public class PacketCoreB {
 					return;
 				}
 				Bukkit.getServer().getPluginManager().callEvent(
-						(Event) new PacketPlayerEventB(player, (double) event.getPacket().getDoubles().read(0),
+						(Event) new PacketPlayerEvent(player, (double) event.getPacket().getDoubles().read(0),
 								(double) event.getPacket().getDoubles().read(1),
 								(double) event.getPacket().getDoubles().read(2), player.getLocation().getYaw(),
 								player.getLocation().getPitch(), PacketPlayerType.POSITION));
@@ -243,7 +243,7 @@ public class PacketCoreB {
 							return;
 						}
 						Bukkit.getServer().getPluginManager()
-								.callEvent((Event) new PacketPlayerEventB(player, player.getLocation().getX(),
+								.callEvent((Event) new PacketPlayerEvent(player, player.getLocation().getX(),
 										player.getLocation().getY(), player.getLocation().getZ(),
 										player.getLocation().getYaw(), player.getLocation().getPitch(),
 										PacketPlayerType.FLYING));
@@ -309,7 +309,7 @@ public class PacketCoreB {
                 if (player == null) {
                     return;
                 }
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEventA(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.LOOK));
+                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.LOOK));
 
                 DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
 
@@ -324,7 +324,7 @@ public class PacketCoreB {
                 if (player == null) {
                     return;
                 }
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEventA(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.POSITION));
+                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.POSITION));
 
                 DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
 
@@ -340,7 +340,7 @@ public class PacketCoreB {
                     return;
                 }
 
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEventA(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.POSLOOK));
+                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.POSLOOK));
 
                 DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
 
@@ -357,7 +357,7 @@ public class PacketCoreB {
                 if (player == null) {
                     return;
                 }
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEventA(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.FLYING));
+                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.FLYING));
 
                 DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
 

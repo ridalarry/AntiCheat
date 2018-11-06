@@ -14,12 +14,12 @@ import me.rida.anticheat.checks.other.Latency;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class FlyE extends Check {
+public class FlyB extends Check {
 	
 	public static Map<UUID, Long> flyTicksA;
 
-	public FlyE(AntiCheat AntiCheat) {
-		super("FlyE", "Fly", AntiCheat);
+	public FlyB(AntiCheat AntiCheat) {
+		super("FlyB", "Fly", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);
@@ -77,7 +77,7 @@ public class FlyE extends Check {
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(player, "Logged Fly. MS: " + MS);
-			getAntiCheat().logCheat(this, player, "Hovering for " + UtilsB.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: E)"
+			getAntiCheat().logCheat(this, player, "Hovering for " + UtilsB.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
 					);
 			flyTicksA.remove(player.getUniqueId());
 			return;

@@ -19,7 +19,7 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.packets.events.PacketPlayerEventB;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilTime;
@@ -71,7 +71,7 @@ public class PacketsB extends Check {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public final void PacketPlayer(PacketPlayerEventB event) {
+	public final void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()) {
 			return;

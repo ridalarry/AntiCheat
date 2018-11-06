@@ -11,12 +11,12 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class FastLadder extends Check {
+public class FastLadderA extends Check {
 	
 	public Map<Player, Integer> count;
 
-	public FastLadder(AntiCheat AntiCheat) {
-		super("FastLadder", "FastLadder", AntiCheat);
+	public FastLadderA(AntiCheat AntiCheat) {
+		super("FastLadderA", "FastLadder", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);
@@ -64,7 +64,7 @@ public class FastLadder extends Check {
 			Count = 0;
 			this.dumplog(player,
 					"Flagged for FastLadder; Speed:" + OffsetY + "; Max: " + Limit + "; New Count: " + Count);
-			this.getAntiCheat().logCheat(this, player, percent + "% faster than normal", null);
+			this.getAntiCheat().logCheat(this, player, percent + "% faster than normal", "(Type: A)");
 		}
 		count.put(player, Count);
 	}

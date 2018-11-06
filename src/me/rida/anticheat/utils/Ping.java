@@ -11,7 +11,7 @@ public class Ping {
 
 	private double tps;
 
-	public Ping(AntiCheat Dreya) {
+	public Ping(AntiCheat AntiCheat) {
 		new BukkitRunnable() {
 			long sec;
 			long currentSec;
@@ -27,7 +27,7 @@ public class Ping {
 					this.ticks = 0;
 				}
 			}
-		}.runTaskTimerAsynchronously(Dreya, 1L, 1L);
+		}.runTaskTimerAsynchronously(AntiCheat, 1L, 1L);
 	}
 
 	public double getTPS() {

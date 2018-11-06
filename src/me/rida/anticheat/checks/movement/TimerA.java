@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.packets.events.PacketPlayerEventB;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.UtilTime;
 
 public class TimerA extends Check {
@@ -52,7 +52,7 @@ public class TimerA extends Check {
 	}
 
 	@EventHandler
-	public void PacketPlayer(PacketPlayerEventB event) {
+	public void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!this.getAntiCheat().isEnabled()) {
 			return;

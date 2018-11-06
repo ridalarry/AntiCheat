@@ -1,4 +1,4 @@
-package me.rida.anticheat.custompayload;
+package me.rida.anticheat.pluginlogger;
 
 import java.io.File;
 import java.util.logging.*;

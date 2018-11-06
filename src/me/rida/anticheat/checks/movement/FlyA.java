@@ -17,9 +17,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
-public class FlyABCD extends Check {
-    public FlyABCD(AntiCheat AntiCheat) {
-		super("FlyABCD", "Fly", AntiCheat);
+public class FlyA extends Check {
+    public FlyA(AntiCheat AntiCheat) {
+		super("FlyA", "Fly", AntiCheat);
+		this.setBannable(true);
+		this.setEnabled(true);
+		setMaxViolations(4);
     }
 
     @EventHandler
@@ -101,7 +104,7 @@ public class FlyABCD extends Check {
             }
 
             if(verbose > 20) {
-            	getAntiCheat().logCheat(this, p, null, "(Type: B)");
+            	getAntiCheat().logCheat(this, p, "[6]", "(Type: A)");
                 SetBackSystem.setBack(p);
                 verbose = 0;
             }
@@ -121,7 +124,7 @@ public class FlyABCD extends Check {
             }
             long Millis = System.currentTimeMillis() - Time;
             if (Millis > 200L) {
-                getAntiCheat().logCheat(this, p, null, "(Type: C)");
+                getAntiCheat().logCheat(this, p, "[7]", "(Type: A)");
                 data.setGlideTicks(0);
                 SetBackSystem.setBack(p);
             }
@@ -148,7 +151,7 @@ public class FlyABCD extends Check {
             		verboseC = 0;
             	}
             	else {
-            		getAntiCheat().logCheat(this, p, null, "(Type: D)");
+            		getAntiCheat().logCheat(this, p, "[8]", "(Type: A)");
                     SetBackSystem.setBack(p);
             		verboseC = 0;
             	}
