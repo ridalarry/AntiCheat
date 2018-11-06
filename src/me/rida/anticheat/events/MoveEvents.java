@@ -2,7 +2,7 @@ package me.rida.anticheat.events;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.needscleanup.ExtraUtils;
+import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,12 +21,12 @@ public class MoveEvents implements Listener {
             DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(player);
 
             if (data != null) {
-                data.onGround = ExtraUtils.isOnGround(player);
-                data.onStairSlab = ExtraUtils.isInStairs(player);
-                data.inLiquid = ExtraUtils.isInLiquid(player);
-                data.onIce = ExtraUtils.isOnIce(player);
-                data.onClimbable = ExtraUtils.isOnClimbable(player);
-                data.underBlock = ExtraUtils.inUnderBlock(player);
+                data.onGround = UtilsB.isOnTheGround(player);
+                data.onStairSlab = UtilsB.isInStairs(player);
+                data.inLiquid = UtilsB.isInLiquid(player);
+                data.onIce = UtilsB.isOnIce(player);
+                data.onClimbable = UtilsB.isOnClimbable(player);
+                data.underBlock = UtilsB.inUnderBlock(player);
                 
                 if(data.onGround) {
                     data.groundTicks++;

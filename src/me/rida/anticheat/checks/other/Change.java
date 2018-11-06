@@ -14,7 +14,7 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.needscleanup.ExtraUtils;
+import me.rida.anticheat.utils.needscleanup.UtilsB;
 import me.rida.anticheat.utils.needscleanup.UtilsC;
 import me.rida.anticheat.AntiCheat;
 
@@ -51,7 +51,7 @@ extends Check {
         }
         int n = 0;
         int n2 = 5;
-        if (!(ExtraUtils.isOnGround(player) || UtilsC.isOnBlock(player, 0, new Material[]{Material.CARPET}) || UtilsC.isHoveringOverWater(player, 0) || player.getLocation().getBlock().getType() != Material.AIR)) {
+        if (!(UtilsB.isOnTheGround(player) || UtilsC.isOnBlock(player, 0, new Material[]{Material.CARPET}) || UtilsC.isHoveringOverWater(player, 0) || player.getLocation().getBlock().getType() != Material.AIR)) {
             if (playerMoveEvent.getFrom().getY() > playerMoveEvent.getTo().getY()) {
                 if (!this.falling.contains(player.getUniqueId())) {
                     this.falling.add(player.getUniqueId());

@@ -9,8 +9,7 @@ import org.bukkit.entity.*;
 
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.ExtraUtils;
-
+import me.rida.anticheat.utils.needscleanup.UtilsB;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
@@ -35,7 +34,7 @@ public class ScaffoldC extends Check {
                 || UtilVelocity.didTakeVelocity(player)) return;
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             
-            if (!player.isSneaking() && !player.isFlying() && ExtraUtils.groundAround(player.getLocation()) && event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && player.getWorld().getBlockAt(player.getLocation().subtract(0.0, 1.0, 0.0)).equals(event.getBlock())) {
+            if (!player.isSneaking() && !player.isFlying() && UtilsB.groundAround(player.getLocation()) && event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && player.getWorld().getBlockAt(player.getLocation().subtract(0.0, 1.0, 0.0)).equals(event.getBlock())) {
                 	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: C)");
             }
         }
