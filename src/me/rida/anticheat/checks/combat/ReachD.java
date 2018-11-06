@@ -12,7 +12,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.Chance;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.needscleanup.UtilsA;
 
