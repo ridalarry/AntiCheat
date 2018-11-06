@@ -36,8 +36,8 @@ import com.google.common.collect.Sets;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.listeners.PearlGlitchEvent;
+import me.rida.anticheat.listeners.PearlGlitchType;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.PearlGlitchType;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 

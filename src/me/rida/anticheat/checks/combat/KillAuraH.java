@@ -33,7 +33,7 @@ extends Check {
         Player player2 = (Player)entityDamageByEntityEvent.getEntity();
         double d = UtilsC.getPing(player);
         double d2 = UtilsC.getPing(player2);
-        double d3 = AngleUtil.getOffsets(player, (LivingEntity)player2)[0];
+        double d3 = AngleUtil.getOffsets2(player, (LivingEntity)player2)[0];
         if (d2 > 450.0) {
             return;
         }

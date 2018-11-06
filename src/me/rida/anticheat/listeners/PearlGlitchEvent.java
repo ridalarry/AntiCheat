@@ -7,8 +7,6 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 
-import me.rida.anticheat.utils.PearlGlitchType;
-
 public class PearlGlitchEvent extends Event implements Cancellable {
 
 	private Player player;
