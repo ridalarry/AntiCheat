@@ -202,6 +202,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new AimAssistC(this));
 		this.Checks.add(new SneakB(this));
 		this.Checks.add(new ScaffoldC(this));
+		this.Checks.add(new AntiKBC(this));
 	}
 
     @Override

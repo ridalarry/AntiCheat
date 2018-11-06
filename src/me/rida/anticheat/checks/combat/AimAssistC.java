@@ -72,7 +72,7 @@ extends Check {
         this.lastYaw2 = f;
         this.lastPitch = f2;
         if (this.streak >= this.min) {
-        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
+        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [YAW] [LITE / SPOOK]", "(Type: C)");
             return this.streak;
         }
         return 0;
@@ -83,7 +83,7 @@ extends Check {
         this.lastYaw = f;
         if (f2 > 0.1f && (float)Math.round(f2) == f2) {
             if (f2 == this.lastBad) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [YAW] [LITE / SPOOK]", "(Type: C)");
                 return f2;
             }
             this.lastBad = Math.round(f2);
