@@ -2,6 +2,7 @@ package me.rida.anticheat.packets.events;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -12,7 +13,7 @@ public class PacketUseEntityEvent extends Event {
 	public Entity Attacked;
 	private static final HandlerList handlers = new HandlerList();
 
-	public PacketUseEntityEvent(EnumWrappers.EntityUseAction Action, Player Attacker, Entity Attacked) {
+	public PacketUseEntityEvent(EnumWrappers.EntityUseAction Action, Player Attacker, Player Attacked) {
 		this.Action = Action;
 		this.Attacker = Attacker;
 		this.Attacked = Attacked;

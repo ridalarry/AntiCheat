@@ -10,6 +10,8 @@ import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -48,8 +50,9 @@ public class HitBoxA extends Check {
 	public void onUse(PacketUseEntityEvent e) {
 
 		Player player = e.getAttacker();
-		Player attacked = (Player) e.getAttacked();
-		if ( player.getAllowFlight()) {
+		
+		LivingEntity attacked = (Player) e.getAttacked();
+		if (player.getAllowFlight()) {
 			return;
 		}
 
