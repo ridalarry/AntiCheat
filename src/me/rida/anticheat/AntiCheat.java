@@ -137,13 +137,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
-		this.Checks.add(new ScaffoldAB(this));
+		this.Checks.add(new ScaffoldA(this));
 		this.Checks.add(new AntiKBA(this));
 		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new AutoClickerB(this));
 		this.Checks.add(new CriticalsB(this));
 		this.Checks.add(new CriticalsA(this));
-		this.Checks.add(new FastBow(this));
+		this.Checks.add(new FastBowA(this));
 		this.Checks.add(new HitBoxA(this));
 		this.Checks.add(new KillAuraA(this));
 		this.Checks.add(new KillAuraB(this));
@@ -157,8 +157,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new ReachB(this));
 		this.Checks.add(new ReachC(this));
 		this.Checks.add(new ReachD(this));
-		this.Checks.add(new Regen(this));
-		this.Checks.add(new Twitch(this));
+		this.Checks.add(new RegenA(this));
+		this.Checks.add(new TwitchA(this));
 		this.Checks.add(new AscensionA(this));
 		this.Checks.add(new AscensionB(this));
 		this.Checks.add(new FastLadderA(this));
@@ -166,23 +166,23 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new FlyB(this));
 		this.Checks.add(new GlideA(this));
 		this.Checks.add(new GravityA(this));
-		this.Checks.add(new ImpossibleMovements(this));
-		this.Checks.add(new Jesus(this));
-		this.Checks.add(new NoFall(this));
-		this.Checks.add(new NoSlowdown(this));
-		this.Checks.add(new Phase(this));
+		this.Checks.add(new ImpossibleMovementsA(this));
+		this.Checks.add(new JesusA(this));
+		this.Checks.add(new NoFallA(this));
+		this.Checks.add(new NoSlowdownA(this));
+		this.Checks.add(new PhaseA(this));
 		this.Checks.add(new SneakA(this));
-		this.Checks.add(new SpeedAB(this));
-		this.Checks.add(new SpeedD(this));
+		this.Checks.add(new SpeedA(this));
 		this.Checks.add(new SpeedC(this));
-		this.Checks.add(new Spider(this));
-		this.Checks.add(new Step(this));
+		this.Checks.add(new SpeedB(this));
+		this.Checks.add(new SpiderA(this));
+		this.Checks.add(new StepA(this));
 		this.Checks.add(new TimerA(this));
 		this.Checks.add(new TimerB(this));
-		this.Checks.add(new VClip(this));
-		this.Checks.add(new CrashABC(this));
+		this.Checks.add(new VClipA(this));
+		this.Checks.add(new CrashA(this));
 		this.Checks.add(new Exploit(this));
-		this.Checks.add(new BlockInteract(this));
+		this.Checks.add(new BlockInteractA(this));
 		this.Checks.add(new PacketsB(this));
 		this.Checks.add(new VapeCracked(this));
 		this.Checks.add(new GroundSpoof(this));
@@ -191,7 +191,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new PacketsA(this));
 		this.Checks.add(new KillAuraH(this));
 		this.Checks.add(new KillAuraI(this));
-		this.Checks.add(new Change(this));
+		this.Checks.add(new ChangeA(this));
 		this.Checks.add(new PME(this));
 		this.Checks.add(new KillAuraK(this));
 		this.Checks.add(new HitBoxB(this));
@@ -202,7 +202,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new Spook(this));
 		this.Checks.add(new AimAssistC(this));
 		this.Checks.add(new SneakB(this));
-		this.Checks.add(new ScaffoldC(this));
+		this.Checks.add(new ScaffoldB(this));
 		this.Checks.add(new AntiKBC(this));
 	}
 
@@ -376,28 +376,28 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				KillAuraE.lastAttack.clear();
 			if (!KillAuraF.counts.isEmpty())
 				KillAuraF.counts.clear();
-			if (!Regen.FastHealTicks.isEmpty())
-				Regen.FastHealTicks.clear();
-			if (!Regen.LastHeal.isEmpty())
-				Regen.LastHeal.clear();
+			if (!RegenA.FastHealTicks.isEmpty())
+				RegenA.FastHealTicks.clear();
+			if (!RegenA.LastHeal.isEmpty())
+				RegenA.LastHeal.clear();
 			if (!AscensionA.AscensionTicks.isEmpty())
 				AscensionA.AscensionTicks.clear();
 			if (!FlyB.flyTicksA.isEmpty())
 				FlyB.flyTicksA.clear();
 			if (!GlideA.flyTicks.isEmpty())
 				GlideA.flyTicks.clear();
-			if (!NoFall.FallDistance.isEmpty())
-				NoFall.FallDistance.clear();
-			if (!NoFall.NoFallTicks.isEmpty())
-				NoFall.NoFallTicks.clear();
-			if (!NoSlowdown.speedTicks.isEmpty())
-				NoSlowdown.speedTicks.clear();
-			if (!SpeedD.speedTicks.isEmpty())
-				SpeedD.speedTicks.clear();
-			if (!SpeedD.tooFastTicks.isEmpty())
-				SpeedD.tooFastTicks.clear();
-			if (!SpeedD.lastHit.isEmpty())
-				SpeedD.lastHit.isEmpty();
+			if (!NoFallA.FallDistance.isEmpty())
+				NoFallA.FallDistance.clear();
+			if (!NoFallA.NoFallTicks.isEmpty())
+				NoFallA.NoFallTicks.clear();
+			if (!NoSlowdownA.speedTicks.isEmpty())
+				NoSlowdownA.speedTicks.clear();
+			if (!SpeedC.speedTicks.isEmpty())
+				SpeedC.speedTicks.clear();
+			if (!SpeedC.tooFastTicks.isEmpty())
+				SpeedC.tooFastTicks.clear();
+			if (!SpeedC.lastHit.isEmpty())
+				SpeedC.lastHit.isEmpty();
 			if (!PacketsB.lastPacket.isEmpty())
 				PacketsB.lastPacket.clear();
 			if (!PacketsB.packetTicks.isEmpty())
@@ -410,8 +410,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				HitBoxA.lastHit.clear();
 			if (!HitBoxA.yawDif.isEmpty())
 				HitBoxA.yawDif.clear();
-			if (!FastBow.count.isEmpty())
-				FastBow.count.clear();
+			if (!FastBowA.count.isEmpty())
+				FastBowA.count.clear();
 		} catch (Exception e) {
 			return ChatColor.translateAlternateColorCodes('&', PREFIX + Color.Red + "Unknown error occured!");
 		}

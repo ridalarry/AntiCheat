@@ -16,10 +16,10 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 
-public class VClip extends Check {
+public class VClipA extends Check {
 
-	public VClip(final AntiCheat AntiCheat) {
-		super("VClip", "VClip", AntiCheat);
+	public VClipA(final AntiCheat AntiCheat) {
+		super("VClipA", "VClip", AntiCheat);
 
 		this.setBannable(false);
 		this.setEnabled(true);
@@ -76,13 +76,13 @@ public class VClip extends Check {
 			if ((yDist > 20 || yDist < -20) && l.getBlock().getType() != Material.AIR
 					&& l.getBlock().getType().isSolid() && !allowed.contains(l.getBlock().getType())) {
 				p.kickPlayer("No");
-				getAntiCheat().logCheat(this, p, "More than 20 blocks.", null);
+				getAntiCheat().logCheat(this, p, "[1] More than 20 blocks.", "(Type: A)");
 				p.teleport(from);
 				return;
 			}
 			if (l.getBlock().getType() != Material.AIR && Math.abs(yDist) > 1.0 && l.getBlock().getType().isSolid()
 					&& !allowed.contains(l.getBlock().getType())) {
-				getAntiCheat().logCheat(this, p, y + " blocks", null);
+				getAntiCheat().logCheat(this, p, "[2] " + y + " blocks", "(Type: A)");
 				p.teleport(lastLocation.get(p));
 			} else {
 				lastLocation.put(p, p.getLocation());

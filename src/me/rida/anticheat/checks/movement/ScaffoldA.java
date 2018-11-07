@@ -9,17 +9,17 @@ import org.bukkit.entity.*;
 
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class ScaffoldC extends Check {
-    public ScaffoldC(AntiCheat AntiCheat) {
-        super("ScaffoldC", "Scaffold", AntiCheat);
+public class ScaffoldA extends Check {
+    public ScaffoldA(AntiCheat AntiCheat) {
+        super("ScaffoldA", "Scaffold", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);
-		setBannable(true);
+		setBannable(false);
 		setViolationsToNotify(2);
     }
     @EventHandler
@@ -33,9 +33,13 @@ public class ScaffoldC extends Check {
 				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
-            
-            if (!player.isSneaking() && !player.isFlying() && UtilsB.groundAround(player.getLocation()) && event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && player.getWorld().getBlockAt(player.getLocation().subtract(0.0, 1.0, 0.0)).equals(event.getBlock())) {
-                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: C)");
+            if (!event.getBlock().getLocation().equals((Object)target.getLocation()) && !event.isCancelled() && target.getType().isSolid() && !target.getType().name().toLowerCase().contains("sign") && !target.getType().toString().toLowerCase().contains("fence") && player.getLocation().getY() > event.getBlock().getLocation().getY()) {
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [1]", "(Type: A)");
+            	
+            }
+
+            if (event.getBlockAgainst().isLiquid() && event.getBlock().getType() != Material.WATER_LILY) {
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [2]", "(Type: A)");
             }
         }
     }

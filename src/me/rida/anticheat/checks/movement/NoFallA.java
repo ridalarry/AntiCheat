@@ -21,13 +21,13 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilTime;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class NoFall extends Check {
+public class NoFallA extends Check {
 	public static Map<UUID, Map.Entry<Long, Integer>> NoFallTicks;
 	public static Map<UUID, Double> FallDistance;
 	public static ArrayList<Player> cancel;
 
-	public NoFall(AntiCheat AntiCheat) {
-		super("NoFall", "NoFall", AntiCheat);
+	public NoFallA(AntiCheat AntiCheat) {
+		super("NoFallA", "NoFall", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);
@@ -115,7 +115,7 @@ public class NoFall extends Check {
 			Count = 0;
 
 			FallDistance.put(player.getUniqueId(), Double.valueOf(0.0D));
-			getAntiCheat().logCheat(this, player, null, "(Packet)");
+			getAntiCheat().logCheat(this, player, "(Packet)", "(Type: A)");
 		}
 		NoFallTicks.put(player.getUniqueId(),
 				new AbstractMap.SimpleEntry<Long, Integer>(Time, Count));

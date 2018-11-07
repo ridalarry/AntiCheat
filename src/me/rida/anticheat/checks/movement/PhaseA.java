@@ -41,7 +41,7 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class Phase extends Check {
+public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();
 	public static List<Material> semi = new ArrayList<Material>();
 	public static Set<UUID> teleported = new HashSet<UUID>();
@@ -150,7 +150,7 @@ public class Phase extends Check {
 		semi.add(Material.COBBLE_WALL);
 	}
 
-	public Phase(AntiCheat AntiCheat) {
+	public PhaseA(AntiCheat AntiCheat) {
 		super("Phase", "Phase", AntiCheat);
 
 		setEnabled(true);

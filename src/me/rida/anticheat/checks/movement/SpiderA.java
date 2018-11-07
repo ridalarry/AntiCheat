@@ -25,10 +25,10 @@ import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class Spider extends Check {
+public class SpiderA extends Check {
 
-	public Spider(AntiCheat AntiCheat) {
-		super("Spider", "Spider (WallClimb)", AntiCheat);
+	public SpiderA(AntiCheat AntiCheat) {
+		super("SpiderA", "Spider", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(false);
@@ -105,7 +105,7 @@ public class Spider extends Check {
 		}
 		if ((ya) && (TotalBlocks > Limit)) {
 			if (MS > 500L) {
-				getAntiCheat().logCheat(this, player, Color.Red + "False flag if the player is falling next to a wall!", null);
+				getAntiCheat().logCheat(this, player, Color.Red + "(WallClimb) False flag if the player is falling next to a wall!", "(Type: A)");
 				Time = System.currentTimeMillis();
 				if (TotalBlocks > 2) {
 					SetBackSystem.setBack(player);

@@ -18,12 +18,12 @@ import me.rida.anticheat.utils.needscleanup.UtilsB;
 import me.rida.anticheat.utils.needscleanup.UtilsC;
 import me.rida.anticheat.AntiCheat;
 
-public class Change
+public class ChangeA
 extends Check {
     private List<UUID> built = new ArrayList<UUID>();
     private List<UUID> falling = new ArrayList<UUID>();
 
-    public Change(AntiCheat AntiCheat) {
+    public ChangeA(AntiCheat AntiCheat) {
         super("Change", "Change", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);

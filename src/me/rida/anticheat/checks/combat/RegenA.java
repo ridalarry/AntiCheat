@@ -16,9 +16,9 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilTime;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class Regen extends Check {
-	public Regen(AntiCheat AntiCheat) {
-		super("Regen", "Regen", AntiCheat);
+public class RegenA extends Check {
+	public RegenA(AntiCheat AntiCheat) {
+		super("RegenA", "Regen", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);

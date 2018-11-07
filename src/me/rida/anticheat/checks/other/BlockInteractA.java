@@ -13,9 +13,9 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class BlockInteract extends Check {
+public class BlockInteractA extends Check {
 
-	public BlockInteract(AntiCheat AntiCheat) {
+	public BlockInteractA(AntiCheat AntiCheat) {
 		super("BlockInteract", "BlockInteract", AntiCheat);
 
 		this.setBannable(false);

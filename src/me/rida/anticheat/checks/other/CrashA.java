@@ -17,13 +17,13 @@ import me.rida.anticheat.packets.events.PacketHeldItemChangeEvent;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.utils.UtilTime;
 
-public class CrashABC extends Check {
+public class CrashA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> crashTicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> crash2Ticks;
 	public static Map<UUID, Map.Entry<Integer, Long>> crash3Ticks;
 	public List<UUID> crashs;
 
-	public CrashABC(AntiCheat AntiCheat) {
+	public CrashA(AntiCheat AntiCheat) {
 		super("Crash", "Crash", AntiCheat);
 		crashTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash2Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();

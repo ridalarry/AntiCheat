@@ -19,13 +19,13 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 
-public class Jesus extends Check {
+public class JesusA extends Check {
 	public static Map<Player, Integer> onWater;
 	public static List<Player> placedBlockOnWater;
 	public static Map<Player, Integer> count;
 	public static Map<Player, Long> velocity;
 
-	public Jesus(AntiCheat AntiCheat) {
+	public JesusA(AntiCheat AntiCheat) {
 		super("Jesus", "Jesus", AntiCheat);
 
 		this.setEnabled(true);

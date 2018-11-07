@@ -21,12 +21,12 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-public class NoSlowdown extends Check {
+public class NoSlowdownA extends Check {
 
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 
-	public NoSlowdown(AntiCheat AntiCheat) {
-		super("NoSlowdown", "NoSlowdown", AntiCheat);
+	public NoSlowdownA(AntiCheat AntiCheat) {
+		super("NoSlowdownA", "NoSlowdown", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);
@@ -56,7 +56,7 @@ public class NoSlowdown extends Check {
 			return;
 		}
 		if (player.isSprinting()) {
-			getAntiCheat().logCheat(this, player, "Sprinting while bowing.", null);
+			getAntiCheat().logCheat(this, player, "Sprinting while bowing.", "(Type: A)");
 		}
 	}
 
@@ -78,7 +78,7 @@ public class NoSlowdown extends Check {
 			return;
 		}
 
-		getAntiCheat().logCheat(this, player, null, null);
+		getAntiCheat().logCheat(this, player, "Offset: " + OffsetXZ, "(Type: A)");
 	}
 
 	@EventHandler
@@ -105,7 +105,7 @@ public class NoSlowdown extends Check {
 					: ++level;
 			int max = 50;
 			if (level > max * 0.9D && diff <= 100.0D) {
-				getAntiCheat().logCheat(this, player, Color.Red + "Might be FastPlace! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player) + " Action: " + act, null);
+				getAntiCheat().logCheat(this, player, Color.Red + "Might be FastPlace! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player) + " Action: " + act, "(Type: A)");
 				if (level > max) {
 					level = max / 4;
 				}

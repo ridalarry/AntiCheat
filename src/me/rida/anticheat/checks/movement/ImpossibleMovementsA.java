@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class ImpossibleMovements extends Check {
-    public ImpossibleMovements(AntiCheat AntiCheat) {
-        super("ImpossibleMovements", "ImpossibleMovements", AntiCheat);
+public class ImpossibleMovementsA extends Check {
+    public ImpossibleMovementsA(AntiCheat AntiCheat) {
+        super("ImpossibleMovementsA", "ImpossibleMovements", AntiCheat);
     }
 
     @EventHandler
@@ -48,7 +48,7 @@ public class ImpossibleMovements extends Check {
                                 data.setWebFloatMS_Set(false);
                                 data.setWebFloat_BlockCount(0);
                             }
-                            getAntiCheat().logCheat(this, p, "(Web Float)", "(Type: B)");
+                            getAntiCheat().logCheat(this, p, "(Web Float)", "(Type: A)");
                         } else {
                             data.setWebFloat_BlockCount(data.getWebFloat_BlockCount()+1);
                         }

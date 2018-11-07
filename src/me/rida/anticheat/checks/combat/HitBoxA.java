@@ -10,7 +10,6 @@ import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

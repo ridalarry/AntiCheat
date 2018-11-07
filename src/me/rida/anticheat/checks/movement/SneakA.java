@@ -63,7 +63,7 @@ public class SneakA extends Check {
 		if (Count > 50) {
 			Count = 0;
 
-			getAntiCheat().logCheat(this, player, null, null);
+			getAntiCheat().logCheat(this, player, null, "(Type: A)");
 		}
 		sneakTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
