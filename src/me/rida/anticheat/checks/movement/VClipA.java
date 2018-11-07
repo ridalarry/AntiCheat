@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -75,7 +76,15 @@ public class VClipA extends Check {
 			Location l = yDist < -0.2 ? from.getBlock().getLocation().clone().add(0.0D, y, 0.0D) : to.getBlock().getLocation().clone().add(0.0D, y, 0.0D);
 			if ((yDist > 20 || yDist < -20) && l.getBlock().getType() != Material.AIR
 					&& l.getBlock().getType().isSolid() && !allowed.contains(l.getBlock().getType())) {
-				p.kickPlayer("No");
+
+				AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+		        	final Player p = e.getPlayer();
+		            @Override
+		            public void run() {
+		                p.kickPlayer("Too many packets");
+		            }
+		        });	
+            
 				getAntiCheat().logCheat(this, p, "[1] More than 20 blocks.", "(Type: A)");
 				p.teleport(from);
 				return;
