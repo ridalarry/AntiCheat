@@ -35,8 +35,8 @@ import com.google.common.collect.Sets;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.listeners.PearlGlitchEvent;
-import me.rida.anticheat.listeners.PearlGlitchType;
+import me.rida.anticheat.other.PearlGlitchEvent;
+import me.rida.anticheat.other.PearlGlitchType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.needscleanup.UtilsB;
@@ -212,7 +212,7 @@ public class PhaseA extends Check {
 				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				return;
 			}
-			getAntiCheat().logCheat(this, player, null, null);
+			getAntiCheat().logCheat(this, player, null, "(Type: A)");
 		}
 	}
 

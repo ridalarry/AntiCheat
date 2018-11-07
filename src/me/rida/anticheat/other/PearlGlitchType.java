@@ -1,4 +1,4 @@
-package me.rida.anticheat.listeners;
+package me.rida.anticheat.other;
 
 public enum PearlGlitchType {
 

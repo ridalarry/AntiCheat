@@ -24,7 +24,7 @@ extends Check {
     private List<UUID> falling = new ArrayList<UUID>();
 
     public ChangeA(AntiCheat AntiCheat) {
-        super("Change", "Change", AntiCheat);
+        super("ChangeA", "Change", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

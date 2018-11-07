@@ -9,7 +9,7 @@ import me.rida.anticheat.packets.events.PacketPlayerEvent;
 
 public class TwitchA extends Check {
 	public TwitchA(AntiCheat AntiCheat) {
-		super("Twitch", "Twitch", AntiCheat);
+		super("TwitchA", "Twitch", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);

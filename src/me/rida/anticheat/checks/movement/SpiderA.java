@@ -107,9 +107,6 @@ public class SpiderA extends Check {
 			if (MS > 500L) {
 				getAntiCheat().logCheat(this, player, Color.Red + "(WallClimb) False flag if the player is falling next to a wall!", "(Type: A)");
 				Time = System.currentTimeMillis();
-				if (TotalBlocks > 2) {
-					SetBackSystem.setBack(player);
-				}
 			}
 		} else {
 			Time = System.currentTimeMillis();

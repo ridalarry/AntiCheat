@@ -1,4 +1,4 @@
-package me.rida.anticheat.listeners;
+package me.rida.anticheat.other;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

@@ -97,7 +97,7 @@ public class JesusA extends Check {
 
 		if (Count > 19) {
 			Count = 0;
-			getAntiCheat().logCheat(this, p, null, null);
+			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
 		
 		count.put(p, Count);

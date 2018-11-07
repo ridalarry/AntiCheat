@@ -13,9 +13,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 
-public class LineOfSight extends Check {
-      public LineOfSight(AntiCheat AntiCheat) {
-        super("LineOfSight", "LineOfSight", AntiCheat);
+public class LineOfSightA extends Check {
+      public LineOfSightA(AntiCheat AntiCheat) {
+        super("LineOfSightA", "LineOfSight", AntiCheat);
     }
 
     @EventHandler
@@ -23,7 +23,7 @@ public class LineOfSight extends Check {
      Player p = e.getPlayer();
           if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
              && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
-              getAntiCheat().logCheat(this, p,"Broke a block without a line of sight too it.", null);
+              getAntiCheat().logCheat(this, p,"[1] Broke a block without a line of sight too it.", "(Type: A)");
               e.setCancelled(true);
           }
     }
@@ -32,7 +32,7 @@ public class LineOfSight extends Check {
           Player p = e.getPlayer();
             if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
              && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
-              getAntiCheat().logCheat(this, p,"Placed a block without a line of sight too it.", null);
+              getAntiCheat().logCheat(this, p,"[2] Placed a block without a line of sight too it.", "(Type: A)");
               e.setCancelled(true);
           }
     }
@@ -43,7 +43,7 @@ public class LineOfSight extends Check {
                 Player p = e.getPlayer();
                 if ((e.getClickedBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
                         && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getClickedBlock().getLocation()).contains(e.getClickedBlock()) && !e.isCancelled()) {
-                    getAntiCheat().logCheat(this, p, "Interacted without a line of sight too it.", null);
+                    getAntiCheat().logCheat(this, p, "[3] Interacted without a line of sight too it.", "(Type: A)");
                     e.setCancelled(true);
                 }
             }

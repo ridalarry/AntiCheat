@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GroundSpoofA extends Check {
      public GroundSpoofA(AntiCheat AntiCheat) {
-        super("GroundsSpoof", "GroundSpoof" , AntiCheat);
+        super("GroundsSpoofA", "GroundSpoof" , AntiCheat);
     }
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
@@ -48,9 +48,9 @@ public class GroundSpoofA extends Check {
              if (p.isOnGround() && diff > 0.0 && !UtilsA.isOnGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
                  if (data.getGroundSpoofVL() >= 4) {
                      if (data.getAirTicks() >= 10) {
-                         getAntiCheat().logCheat(this, p, "Spoofed On-Ground Packet. [NoFall]", "(Type: A)");
+                         getAntiCheat().logCheat(this, p, "[1] Spoofed On-Ground Packet.", "(Type: A)");
                      } else {
-                         getAntiCheat().logCheat(this, p, "Spoofed On-Ground Packet.", "(Type: B)");
+                         getAntiCheat().logCheat(this, p, "[2] Spoofed On-Ground Packet.", "(Type: A)");
                      }
                      SetBackSystem.setBack(p);
                  } else {

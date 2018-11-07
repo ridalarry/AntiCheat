@@ -24,7 +24,7 @@ public class CrashA extends Check {
 	public List<UUID> crashs;
 
 	public CrashA(AntiCheat AntiCheat) {
-		super("Crash", "Crash", AntiCheat);
+		super("CrashA", "Crash", AntiCheat);
 		crashTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash2Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash3Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();

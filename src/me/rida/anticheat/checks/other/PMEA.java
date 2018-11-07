@@ -18,7 +18,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.json.simple.parser.JSONParser;
 import me.rida.anticheat.AntiCheat;
 
-public class PME extends Check implements PluginMessageListener, Listener {
+public class PMEA extends Check implements PluginMessageListener, Listener {
     public static String type;
     private final JSONParser parser = new JSONParser();
     public static final Map<UUID, Map<String, String>> forgeMods;
@@ -27,8 +27,8 @@ public class PME extends Check implements PluginMessageListener, Listener {
         forgeMods = new HashMap<UUID, Map<String, String>>();
     }
 
-    public PME(AntiCheat AntiCheat) {
-        super("PME", "PME", AntiCheat);
+    public PMEA(AntiCheat AntiCheat) {
+        super("PMEA", "PME", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
@@ -41,7 +41,7 @@ public class PME extends Check implements PluginMessageListener, Listener {
     }
 
     public void addVio(Player player) {
-    	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
+    	getAntiCheat().logCheat(this, player, Color.Red + "Experemental detection of a hack client!", "(Type: A)");
     }
 
     public void onPluginMessageReceived(String string, Player player, byte[] arrby) {

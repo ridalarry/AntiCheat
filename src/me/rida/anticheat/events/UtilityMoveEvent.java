@@ -13,12 +13,40 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerVelocityEvent;
 
 public class UtilityMoveEvent implements Listener {
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player player = e.getPlayer();
+        if (e.getFrom().getX() != e.getTo().getX()
+                || e.getFrom().getY() != e.getTo().getY()
+                || e.getFrom().getZ() != e.getTo().getZ()) {
+            DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(player);
+
+            if (data != null) {
+                data.onGround = UtilsB.isOnTheGround(player);
+                data.onStairSlab = UtilsB.isInStairs(player);
+                data.inLiquid = UtilsB.isInLiquid(player);
+                data.onIce = UtilsB.isOnIce(player);
+                data.onClimbable = UtilsB.isOnClimbable(player);
+                data.underBlock = UtilsB.inUnderBlock(player);
+                
+                if(data.onGround) {
+                    data.groundTicks++;
+                    data.airTicks = 0;
+                } else {
+                    data.airTicks++;
+                    data.groundTicks = 0;
+                }
+                
+                data.iceTicks = Math.max(0, data.onIce ? data.iceTicks + 1  : data.iceTicks - 1);
+                data.liquidTicks = Math.max(0, data.inLiquid ? data.liquidTicks + 1  : data.liquidTicks - 1);
+                data.blockTicks = Math.max(0, data.underBlock ? data.blockTicks + 1  : data.blockTicks - 1);
+            }
+        }
+
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
 
         if (data.isNearIce()) {
@@ -136,6 +164,17 @@ public class UtilityMoveEvent implements Listener {
             data.setWaterTicks(data.getWaterTicks() + 1);
         } else if(data.getWaterTicks() > 0) {
             data.setWaterTicks(data.getWaterTicks() - 1);
+        }
+    }
+    @EventHandler
+    public void onVelocity(PlayerVelocityEvent event) {
+        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
+
+        if(data == null) {
+            return;
+        }
+        if(event.getVelocity().getY() > -0.078 || event.getVelocity().getY() < -0.08) {
+            data.lastVelocityTaken = System.currentTimeMillis();
         }
     }
 }

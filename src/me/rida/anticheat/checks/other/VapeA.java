@@ -8,10 +8,10 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class VapeCracked extends Check implements PluginMessageListener {
+public class VapeA extends Check implements PluginMessageListener {
 
-	public VapeCracked(AntiCheat AntiCheat) {
-		super("Vape", "Vape", AntiCheat);
+	public VapeA(AntiCheat AntiCheat) {
+		super("VapeA", "Vape", AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);
@@ -32,7 +32,7 @@ public class VapeCracked extends Check implements PluginMessageListener {
 			str = "";
 		}
 
-		getAntiCheat().logCheat(this, player, "Using Cracked Vape!", "Banned");
+		getAntiCheat().logCheat(this, player, "Banned for using Cracked Vape!", "(Type: A)");
 	}
 
 }

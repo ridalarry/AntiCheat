@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GravityA extends Check {
     public GravityA(AntiCheat AntiCheat) {
-		super("Gravity", "Gravity", AntiCheat);
+		super("GravityA", "Gravity", AntiCheat);
     }
 
     @EventHandler
