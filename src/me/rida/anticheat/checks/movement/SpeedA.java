@@ -82,10 +82,10 @@ public class SpeedA extends Check {
                            	|| e.getPlayer().getVehicle() != null
                    			|| UtilsA.isNearIce(p)
                    			|| UtilsB.isNearSlime(p)
-                   			|| UtilsA.wasOnSlime(p)){
+                   			|| UtilsA.wasOnSlime(p)
+                   			|| p.isSprinting()){
                        return;
                    }
-
                    getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast.", "(Type: A)");
                    verbose = 0;
                }
@@ -95,7 +95,6 @@ public class SpeedA extends Check {
                data.setSpeedAVerbose(0);
            }
 
-            //Type C
             Location l = p.getLocation();
             int x = l.getBlockX();
             int y = l.getBlockY();

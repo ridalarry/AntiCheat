@@ -23,8 +23,7 @@ public class HitBoxA extends Check {
 
 		setEnabled(true);
 		setBannable(false);
-		setViolationResetTime(1000);
-		setViolationsToNotify(150);
+		setViolationsToNotify(1);
 		setMaxViolations(300);
 	}
 

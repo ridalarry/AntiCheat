@@ -15,8 +15,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
-public class GroundSpoof extends Check {
-     public GroundSpoof(AntiCheat AntiCheat) {
+public class GroundSpoofA extends Check {
+     public GroundSpoofA(AntiCheat AntiCheat) {
         super("GroundsSpoof", "GroundSpoof" , AntiCheat);
     }
     @EventHandler

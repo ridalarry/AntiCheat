@@ -22,7 +22,7 @@ public class AntiKBA extends Check {
     private Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKB", "AntiKB", AntiCheat);
+        super("AntiKBA", "AntiKB", AntiCheat);
 		setMaxViolations(10);
 		setBannable(false);
     }

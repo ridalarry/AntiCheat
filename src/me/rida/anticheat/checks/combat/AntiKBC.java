@@ -14,7 +14,7 @@ import me.rida.anticheat.utils.UtilVelocity;
 public class AntiKBC extends Check {
 
     public AntiKBC(AntiCheat AntiCheat) {
-        super("AntiKBB", "AntiKB", AntiCheat);
+        super("AntiKBC", "AntiKB", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
@@ -26,12 +26,20 @@ public class AntiKBC extends Check {
     		Player p = (Player) e.getEntity();
     		if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
     			Entity damager = (Player) p.getLastDamageCause().getEntity();
+    			Entity damagerx = p.getLastDamageCause().getEntity();
     			if (UtilVelocity.didTakeVelocity(p)) {
     				return;
     			}
     			else {
     				if (!(UtilVelocity.didTakeVelocity(p))) {
-    					getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+    					if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
+    						if (damager != p){
+    							
+    						
+    					getAntiCheat().logCheat(this, p, Color.Red + "Experemental " + damager + " " + damagerx, "(Type: C)");
+    					}
+    					else {
+    						return;
     				}	
     			}
     			
@@ -39,4 +47,6 @@ public class AntiKBC extends Check {
     	}
     }
     
+}
+    	}
 }

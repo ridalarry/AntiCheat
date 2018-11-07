@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -123,6 +124,17 @@ public class PacketsB extends Check {
 				            public void run() {
 				                player.kickPlayer("Too many packets");
 				            }
+				        });
+				    }
+				if (Count > 850) {
+					getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: B)");
+					
+				    
+				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+				        	final Player p = event.getPlayer();
+				            @Override
+				            public void run() {
+				            	Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "ban " + p + " Unfair advantage!");				            }
 				        });
 				    }
 				Count = 0;

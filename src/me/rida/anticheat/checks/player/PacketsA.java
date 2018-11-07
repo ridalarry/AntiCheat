@@ -73,6 +73,17 @@ public class PacketsA extends Check {
             if(verbose > 2) {
 				getAntiCheat().logCheat(this, player, "sent over " + packets  + " packets! ", "(Type: A)");
             }
+            if(verbose > 3) {
+				getAntiCheat().logCheat(this, player, "sent over " + packets  + " packets! ", "(Type: A)");
+
+		        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+		        	final Player p = event.getPlayer();
+		            @Override
+		            public void run() {
+		                player.kickPlayer("Too many packets");
+		            }
+		        });
+		    }	
             if(packets > 400) {
 				getAntiCheat().logCheat(this, player, Color.Red + "Kicked, " + Color.White + "sent over " + packets  + " packets! " , "(Type: A)");
 

@@ -6,6 +6,7 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -33,7 +34,7 @@ public class GravityA extends Check {
             if (e.getTo().getY() < e.getFrom().getY()) {
                 return;
             }
-            if (UtilsA.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || UtilsA.isNearHalfBlock(p) || UtilsA.isStair(p.getLocation().add(0,1.50,0).getBlock()) || UtilsA.isNearStiar(p) || !player.getGameMode().equals(GameMode.CREATIVE) || UtilNewVelocity.didTakeVel(p)
+            if (UtilsB.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || UtilsB.isNearHalfBlock(p) || UtilsA.isStair(p.getLocation().add(0,1.50,0).getBlock()) || UtilsA.isNearStiar(p) || !player.getGameMode().equals(GameMode.CREATIVE) || UtilNewVelocity.didTakeVel(p)
                     || UtilsA.wasOnSlime(p)) {
                 data.setGravity_VL(0);
                 return;

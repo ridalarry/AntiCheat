@@ -4,6 +4,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
 import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.needscleanup.UtilsB;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,13 +76,13 @@ public class UtilityMoveEvent implements Listener {
             }
         }
 
-        if (UtilsA.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsA.isNearHalfBlock(player)) {
+        if (UtilsB.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsB.isNearHalfBlock(player)) {
             if (!data.isHalfBlocks_MS_Set()) {
                 data.setHalfBlocks_MS_Set(true);
                 data.setHalfBlocks_MS(TimerUtils.nowlong());
             } else {
                 if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
-                    if (UtilsA.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsA.isNearHalfBlock(player)) {
+                    if (UtilsB.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsB.isNearHalfBlock(player)) {
                         data.setHalfBlocks_MS_Set(true);
                         data.setHalfBlocks_MS(TimerUtils.nowlong());
                     } else {
@@ -91,7 +92,7 @@ public class UtilityMoveEvent implements Listener {
             }
         } else {
             if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
-                if (UtilsA.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsA.isNearHalfBlock(player)) {
+                if (UtilsB.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsB.isNearHalfBlock(player)) {
                     data.setHalfBlocks_MS_Set(true);
                     data.setHalfBlocks_MS(TimerUtils.nowlong());
                 } else {
