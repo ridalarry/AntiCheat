@@ -3,8 +3,8 @@ package me.rida.anticheat.events;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsA;
+import me.rida.anticheat.utils.UtilsB;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,7 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 
-public class UtilityMoveEvent implements Listener {
+public class MoveEvent implements Listener {
 
     @EventHandler
     public void onMove(PlayerMoveEvent e) {

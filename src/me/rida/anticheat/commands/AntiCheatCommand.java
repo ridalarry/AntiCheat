@@ -1,7 +1,9 @@
 package me.rida.anticheat.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -9,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.AntiCheatAPI;
+import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
 
 public class AntiCheatCommand implements CommandExecutor {
@@ -21,8 +24,7 @@ public class AntiCheatCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
 
         if(args.length == 0) {
-        sender.sendMessage(ChatColor.RED + "AntiCheat v" + AntiCheat.getInstance().getDescription().getVersion() + " : Created By " + ChatColor.AQUA + "[Rida, Mr_JaVa_ , funkemunky]");
-        sender.sendMessage(ChatColor.RED + "Do '/anticheat help' for list of commands.");
+        sender.sendMessage(Color.Red + "Do '/anticheat help' for list of commands.");
         
 			if (sender instanceof Player) {
 				Player p = (Player) sender;
@@ -33,10 +35,21 @@ public class AntiCheatCommand implements CommandExecutor {
 			return true;
 		} else {
 			}
+			if (args[0].equalsIgnoreCase("checks")) {List<String> checkNames = new ArrayList<>();
+
+            for(Check checkLoop : AntiCheat.getChecks()) {
+                checkNames.add((checkLoop.isEnabled() ? Color.Green + checkLoop.getName() : Color.Red + checkLoop.getName()) + Color.Gray);
+            }
+				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+	            sender.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+				return true;
+			}
 			if (args[0].equalsIgnoreCase("reload")) {
 				sender.sendMessage(AntiCheat.PREFIX + Color.Gray + "Reloading AntiCheat...");
 				AntiCheat.reloadConfig();
-				sender.sendMessage(AntiCheat.PREFIX + Color.Green + "Successfully reloaded AntiCheat." + Color.Red + " Restart is recommended specially if noticed any bug!");
+				sender.sendMessage(AntiCheat.PREFIX + Color.Green + "Successfully reloaded AntiCheat.");
+				sender.sendMessage(AntiCheat.PREFIX + Color.Red + " Restart is recommended specially if noticed any bug!");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("help")) {
@@ -46,6 +59,7 @@ public class AntiCheatCommand implements CommandExecutor {
 				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " help" + Color.Gray + "  - View the help page.");
 				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " ping" + Color.Gray + "  - Get your ping.");
 				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " reload" + Color.Gray + "   - Reload AntiCheat.");
+				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " checks" + Color.Gray + "   - List the checks.");
 				sender.sendMessage(Color.Gray + "/alerts" + Color.Gray + "  - Toggle alerts on and off.");
 				sender.sendMessage(Color.Gray + "/getlog" + Color.Reset + " <player> <page>" + Color.Gray + " - Get player bans by AntiCheat.");
 				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");

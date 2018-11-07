@@ -16,10 +16,10 @@ import me.rida.anticheat.checks.Check;
 public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
-		super("BlockInteract", "BlockInteract", AntiCheat);
+		super("BlockInteractA", "BlockInteract", AntiCheat);
 
-		this.setBannable(false);
-		this.setEnabled(true);
+		setBannable(false);
+		setEnabled(true);
 
 		setMaxViolations(29);
 	}

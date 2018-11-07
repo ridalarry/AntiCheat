@@ -8,7 +8,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ public class HitBoxA extends Check {
 		setEnabled(true);
 		setBannable(false);
 		setViolationsToNotify(1);
-		setMaxViolations(300);
+		setMaxViolations(10);
 	}
 
 	public static Map<UUID, Integer> count = new HashMap<>();

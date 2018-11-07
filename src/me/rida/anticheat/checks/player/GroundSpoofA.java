@@ -3,10 +3,9 @@ package me.rida.anticheat.checks.player;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.TimerUtils;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.UtilsA;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,6 +17,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class GroundSpoofA extends Check {
      public GroundSpoofA(AntiCheat AntiCheat) {
         super("GroundsSpoofA", "GroundSpoof" , AntiCheat);
+		setEnabled(true);
+		setMaxViolations(10);
+		setBannable(false);
     }
     @EventHandler
     public void onMove(PlayerMoveEvent e) {
@@ -52,7 +54,6 @@ public class GroundSpoofA extends Check {
                      } else {
                          getAntiCheat().logCheat(this, p, "[2] Spoofed On-Ground Packet.", "(Type: A)");
                      }
-                     SetBackSystem.setBack(p);
                  } else {
                      data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
                  }

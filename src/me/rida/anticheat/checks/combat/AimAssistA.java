@@ -4,7 +4,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;

@@ -25,9 +25,9 @@ public class CriticalsB extends Check {
 	public CriticalsB(AntiCheat AntiCheat) {
 		super("CriticalsB", "Criticals", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
-		this.setMaxViolations(4);
+		setEnabled(true);
+		setBannable(true);
+		setMaxViolations(4);
 	}
 
 	@EventHandler

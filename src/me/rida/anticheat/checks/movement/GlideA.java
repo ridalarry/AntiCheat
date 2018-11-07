@@ -20,8 +20,8 @@ public class GlideA extends Check {
 		
 		flyTicks = new HashMap<UUID, Long>();
 
-		this.setEnabled(false);
-		this.setBannable(true);
+		setEnabled(true);
+		setBannable(false);
 		setMaxViolations(5);
 	}
 

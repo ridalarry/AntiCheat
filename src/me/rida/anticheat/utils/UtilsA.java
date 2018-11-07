@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils.needscleanup;
+package me.rida.anticheat.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -525,15 +525,6 @@ public class UtilsA {
 
     public static boolean elapsed(long from, long required) {
 		return System.currentTimeMillis() - from > required;
-	}
-
-	public static double trim(int degree, double d) {
-		String format = "#.#";
-		for (int i = 1; i < degree; ++i) {
-			format = String.valueOf(format) + "#";
-		}
-		DecimalFormat twoDForm = new DecimalFormat(format);
-		return Double.valueOf(twoDForm.format(d).replaceAll(",", "."));
 	}
 	
 

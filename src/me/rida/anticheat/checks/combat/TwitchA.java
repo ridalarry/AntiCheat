@@ -11,8 +11,8 @@ public class TwitchA extends Check {
 	public TwitchA(AntiCheat AntiCheat) {
 		super("TwitchA", "Twitch", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
+		setEnabled(true);
+		setBannable(true);
 
 		setMaxViolations(5);
 	}
@@ -23,7 +23,7 @@ public class TwitchA extends Check {
 			return;
 		}
 		if ((e.getPitch() > 90.1F) || (e.getPitch() < -90.1F)) {
-			getAntiCheat().logCheat(this, e.getPlayer(), null, null);
+			getAntiCheat().logCheat(this, e.getPlayer(), null, "(Type: A)");
 		}
 	}
 }

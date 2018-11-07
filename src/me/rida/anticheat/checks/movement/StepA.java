@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class StepA extends Check {
 	double stepHeight;
@@ -25,9 +25,9 @@ public class StepA extends Check {
 		setEnabled(true);
 		setBannable(false);
 
-		this.setMaxViolations(7);
-		this.setViolationsToNotify(1);
-		this.setViolationResetTime(90000);
+		setMaxViolations(7);
+		setViolationsToNotify(1);
+		setViolationResetTime(90000);
 	}
 
 	public boolean isOnGround(Player player) {

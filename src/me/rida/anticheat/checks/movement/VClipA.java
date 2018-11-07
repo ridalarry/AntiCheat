@@ -22,10 +22,10 @@ public class VClipA extends Check {
 	public VClipA(final AntiCheat AntiCheat) {
 		super("VClipA", "VClip", AntiCheat);
 
-		this.setBannable(false);
-		this.setEnabled(true);
-		this.setMaxViolations(19);
-		this.setViolationResetTime(10000);
+		setBannable(false);
+		setEnabled(true);
+		setMaxViolations(19);
+		setViolationResetTime(10000);
 	}
 
 	public static List<Material> allowed = new ArrayList<Material>();

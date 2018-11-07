@@ -21,8 +21,8 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsA;
+import me.rida.anticheat.utils.UtilsB;
 
 public class SpeedC extends Check {
 	

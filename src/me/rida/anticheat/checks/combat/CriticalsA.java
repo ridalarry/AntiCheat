@@ -3,7 +3,7 @@ package me.rida.anticheat.checks.combat;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.UtilsA;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -15,6 +15,9 @@ public class CriticalsA extends Check {
 
     public CriticalsA(AntiCheat AntiCheat) {
         super("CriticalsA", "Criticals", AntiCheat);
+		setEnabled(true);
+		setMaxViolations(10);
+		setBannable(false);
     }
 
     @EventHandler

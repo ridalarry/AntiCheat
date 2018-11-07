@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils.needscleanup;
+package me.rida.anticheat.utils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -69,30 +69,6 @@ public class UtilsC {
         return !UtilsC.blockPassSet.contains(block);
     }
 
-    public static Block getLowestBlockAt(Location location) {
-        Block block = location.getWorld().getBlockAt((int)location.getX(), 0, (int)location.getZ());
-        if (block == null || block.getType().equals((Object)Material.AIR)) {
-            block = location.getBlock();
-            int n = (int)location.getY();
-            while (n > 0) {
-                Block block2 = location.getWorld().getBlockAt((int)location.getX(), n, (int)location.getZ());
-                Block block3 = block2.getLocation().subtract(0.0, 1.0, 0.0).getBlock();
-                if (block3 == null || block3.getType().equals((Object)Material.AIR)) {
-                    block = block2;
-                }
-                --n;
-            }
-        }
-        return block;
-    }
-
-    public static boolean isStair(Block block) {
-        String string = block.getType().name().toLowerCase();
-        if (!(string.contains("stair") || string.contains("_step") || string.equals("step"))) {
-            return false;
-        }
-        return true;
-    }
 
     public static boolean containsBlockType(Material[] arrmaterial, Block block) {
         Material[] arrmaterial2 = arrmaterial;
@@ -125,35 +101,6 @@ public class UtilsC {
     public static boolean isSolid(int n) {
         return UtilsC.isSolid((byte)n);
     }
-
-    public static ArrayList<Block> getSurrounding(Block block, boolean bl) {
-        ArrayList<Block> arrayList = new ArrayList<Block>();
-        if (bl) {
-            int n = -1;
-            while (n <= 1) {
-                int n2 = -1;
-                while (n2 <= 1) {
-                    int n3 = -1;
-                    while (n3 <= 1) {
-                        if (n != 0 || n2 != 0 || n3 != 0) {
-                            arrayList.add(block.getRelative(n, n2, n3));
-                        }
-                        ++n3;
-                    }
-                    ++n2;
-                }
-                ++n;
-            }
-        } else {
-            arrayList.add(block.getRelative(BlockFace.UP));
-            arrayList.add(block.getRelative(BlockFace.DOWN));
-            arrayList.add(block.getRelative(BlockFace.NORTH));
-            arrayList.add(block.getRelative(BlockFace.SOUTH));
-            arrayList.add(block.getRelative(BlockFace.EAST));
-            arrayList.add(block.getRelative(BlockFace.WEST));
-        }
-        return arrayList;
-    }
     private static Logger log = Logger.getLogger("BoxUtils");
     private static HashMap<String, Class<?>> classCache = new HashMap(128);
     private static HashMap<String, Field> fieldCache = new HashMap(128);
@@ -161,80 +108,7 @@ public class UtilsC {
     private static HashMap<String, Constructor> constructorCache = new HashMap(128);
     private static String obcPrefix = null;
     private static String nmsPrefix = null;
-
-    public static Class<?> getNMSClass(String string) {
-        return UtilsC.getClass(String.valueOf(nmsPrefix) + string);
-    }
-
-    public static Class<?> getClass(String string) {
-        Validate.notNull((Object)string);
-        if (classCache.containsKey(string)) {
-            return classCache.get(string);
-        }
-        Class class_ = null;
-        try {
-            class_ = Class.forName(string);
-        }
-        catch (ClassNotFoundException classNotFoundException) {
-            log.log(Level.SEVERE, "[Reflection] Unable to find the the class " + string);
-        }
-        if (class_ != null) {
-            classCache.put(string, class_);
-        }
-        return class_;
-    }
-
-    public static Field getField(String string, Class<?> class_) {
-        Validate.notNull((Object)string);
-        Validate.notNull(class_);
-        String string2 = String.valueOf(class_.getCanonicalName()) + "@" + string;
-        if (fieldCache.containsKey(string2)) {
-            return fieldCache.get(string2);
-        }
-        Field field = null;
-        try {
-            field = class_.getField(string);
-        }
-        catch (NoSuchFieldException noSuchFieldException) {
-            log.log(Level.SEVERE, "[Reflection] Unable to find the the field " + string + " in class " + class_.getSimpleName());
-        }
-        if (field != null) {
-            fieldCache.put(string2, field);
-        }
-        return field;
-    }
-
-    public static Method getMethod(String string, Class<?> class_) {
-        Validate.notNull((Object)string);
-        Validate.notNull(class_);
-        String string2 = String.valueOf(class_.getCanonicalName()) + "@" + string;
-        if (methodCache.containsKey(string2)) {
-            return methodCache.get(string2);
-        }
-        Method method = null;
-        try {
-            method = class_.getMethod(string, new Class[0]);
-        }
-        catch (NoSuchMethodException noSuchMethodException) {
-            log.log(Level.SEVERE, "[Reflection] Unable to find the the method " + string + " in class " + class_.getSimpleName());
-        }
-        if (method != null) {
-            methodCache.put(string2, method);
-        }
-        return method;
-    }
     
-    public static Object getEntityHandle(Entity entity) {
-        try {
-            Method method = UtilsC.getMethod("getHandle", entity.getClass());
-            return method.invoke((Object)entity, new Object[0]);
-        }
-        catch (Exception exception) {
-            log.log(Level.SEVERE, "[Reflection] Unable to getHandle of " + (Object)entity.getType());
-            return null;
-        }
-    }
-
     public static boolean isOnGround(Location location, int n) {
         double d = location.getX();
         double d2 = location.getZ();
@@ -449,74 +323,6 @@ public class UtilsC {
 
     public static boolean isHoveringOverWater(Player player, int n) {
         return UtilsC.isHoveringOverWater(player.getLocation(), n);
-    }
-
-    public static boolean isOnStairs(Location location, int n) {
-        double d = location.getX();
-        double d2 = location.getZ();
-        double d3 = UtilsC.getFraction(d) > 0.0 ? Math.abs(UtilsC.getFraction(d)) : 1.0 - Math.abs(UtilsC.getFraction(d));
-        double d4 = UtilsC.getFraction(d2) > 0.0 ? Math.abs(UtilsC.getFraction(d2)) : 1.0 - Math.abs(UtilsC.getFraction(d2));
-        int n2 = location.getBlockX();
-        int n3 = location.getBlockY() - n;
-        int n4 = location.getBlockZ();
-        World world = location.getWorld();
-        if (UtilsC.isStair(world.getBlockAt(n2, n3, n4))) {
-            return true;
-        }
-        if (d3 < 0.3) {
-            if (UtilsC.isStair(world.getBlockAt(n2 - 1, n3, n4))) {
-                return true;
-            }
-            if (d4 < 0.3) {
-                if (UtilsC.isStair(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2, n3, n4 - 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
-                    return true;
-                }
-            } else if (d4 > 0.7) {
-                if (UtilsC.isStair(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2, n3, n4 + 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
-                    return true;
-                }
-            }
-        } else if (d3 > 0.7) {
-            if (UtilsC.isStair(world.getBlockAt(n2 + 1, n3, n4))) {
-                return true;
-            }
-            if (d4 < 0.3) {
-                if (UtilsC.isStair(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2, n3, n4 - 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
-                    return true;
-                }
-            } else if (d4 > 0.7) {
-                if (UtilsC.isStair(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2, n3, n4 + 1))) {
-                    return true;
-                }
-                if (UtilsC.isStair(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
-                    return true;
-                }
-            }
-        } else if (d4 < 0.3 ? UtilsC.isStair(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && UtilsC.isStair(world.getBlockAt(n2, n3, n4 + 1))) {
-            return true;
-        }
-        return false;
     }
     
 

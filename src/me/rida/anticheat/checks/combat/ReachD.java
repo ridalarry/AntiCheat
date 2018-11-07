@@ -13,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.UtilsA;
 
 public class ReachD extends Check {
 
@@ -22,12 +22,12 @@ public class ReachD extends Check {
 	public ReachD(AntiCheat AntiCheat) {
 		super("ReachD", "Reach", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(false);
+		setEnabled(true);
+		setBannable(false);
 
 		setViolationResetTime(30000);
-		this.setViolationsToNotify(1);
-		this.setMaxViolations(9);
+		setViolationsToNotify(1);
+		setMaxViolations(9);
 		
 		toBan = new HashMap<UUID, Integer>();
 	}

@@ -14,6 +14,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class ImpossibleMovementsA extends Check {
     public ImpossibleMovementsA(AntiCheat AntiCheat) {
         super("ImpossibleMovementsA", "ImpossibleMovements", AntiCheat);
+		setEnabled(true);
+		setMaxViolations(10);
+		setBannable(false);
     }
 
     @EventHandler

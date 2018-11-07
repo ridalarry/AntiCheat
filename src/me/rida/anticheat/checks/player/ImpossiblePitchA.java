@@ -9,6 +9,9 @@ import me.rida.anticheat.checks.Check;
 public class ImpossiblePitchA extends Check {
       public ImpossiblePitchA(AntiCheat AntiCheat) {
         super("ImpossiblePitchA", "ImpossiblePitch", AntiCheat);
+		setEnabled(true);
+		setMaxViolations(10);
+		setBannable(true);
     }
     @EventHandler
     public void onMove(PlayerMoveEvent e) {

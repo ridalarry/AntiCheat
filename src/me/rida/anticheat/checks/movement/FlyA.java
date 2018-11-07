@@ -5,8 +5,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
-import me.rida.anticheat.utils.SetBackSystem;
+import me.rida.anticheat.utils.UtilsA;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -51,16 +50,12 @@ public class FlyA extends Check {
             if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
                 if (Distance > 0.50 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !UtilVelocity.didTakeVelocity(p)) {
                 	getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance,  "(Type: A)");
-                    SetBackSystem.setBack(p);
                 } else if (Distance > 0.90 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
                 	getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance, "(Type: A)");
-                    SetBackSystem.setBack(p);
                 } else if (Distance > 1.0 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
                 	getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance, "(Type: A)");
-                    SetBackSystem.setBack(p);
                 } else if (Distance > 3.24 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
                 	getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance, "(Type: A)");
-                    SetBackSystem.setBack(p);
                 }
             }
         }
@@ -69,7 +64,7 @@ public class FlyA extends Check {
                 if (!UtilsA.isOnGround4(p) && !UtilsA.onGround2(p) && !UtilsA.isOnGround(p)) {
                     if (UtilsA.getDistanceToGround(p) > 2) {
                         if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
-                            getAntiCheat().logCheat(this, p, "[5] Distance: 10 blocks or more", "(Type: A)");
+                            // getAntiCheat().logCheat(this, p, "[5] Distance: 10 blocks or more", "(Type: A)");
                          //   setBackPlayer(p);
                         } else {
                             data.setGoingUp_Blocks(data.getGoingUp_Blocks() + 1);
@@ -105,7 +100,6 @@ public class FlyA extends Check {
 
             if(verbose > 20) {
             	getAntiCheat().logCheat(this, p, "[6]", "(Type: A)");
-                SetBackSystem.setBack(p);
                 verbose = 0;
             }
             data.setFlyHoverVerbose(verbose);
@@ -126,7 +120,6 @@ public class FlyA extends Check {
             if (Millis > 200L) {
                 getAntiCheat().logCheat(this, p, "[7]", "(Type: A)");
                 data.setGlideTicks(0);
-                SetBackSystem.setBack(p);
             }
             data.setGlideTicks(Time);
         } else {
@@ -152,7 +145,6 @@ public class FlyA extends Check {
             	}
             	else {
             		getAntiCheat().logCheat(this, p, "[8]", "(Type: A)");
-                    SetBackSystem.setBack(p);
             		verboseC = 0;
             	}
             }

@@ -22,9 +22,8 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class PacketsB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;
@@ -111,7 +110,6 @@ public class PacketsB extends Check {
 				if (Count > maxPackets) {
 					if (!UtilsB.isFullyStuck(player) && !UtilsB.isPartiallyStuck(player)) {
 						getAntiCheat().logCheat(this, player, "sent over " + Count  + " packets! ", "(Type: B)");
-						SetBackSystem.setBack(player);
 					}
 				}
 				if (Count > 400) {

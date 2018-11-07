@@ -1,92 +1,61 @@
 package me.rida.anticheat;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.reflect.accessors.Accessors;
+import com.comphenix.protocol.reflect.accessors.MethodAccessor;
+import com.comphenix.protocol.reflect.fuzzy.FuzzyMethodContract;
+import com.comphenix.protocol.reflect.FuzzyReflection;
+import com.comphenix.protocol.utility.ByteBufferInputStream;
+import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.nbt.NbtCompound;
 import com.comphenix.protocol.wrappers.nbt.NbtFactory;
 import com.comphenix.protocol.wrappers.nbt.NbtList;
 import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
+import java.io.BufferedReader;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.*;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.client.*;
+import me.rida.anticheat.checks.combat.*;
+import me.rida.anticheat.checks.movement.*;
+import me.rida.anticheat.checks.other.*;
+import me.rida.anticheat.checks.player.*;
+import me.rida.anticheat.commands.*;
+import me.rida.anticheat.data.DataManager;
+import me.rida.anticheat.events.*;
+import me.rida.anticheat.other.*;
+import me.rida.anticheat.packets.PacketCore;
+import me.rida.anticheat.pluginlogger.*;
+import me.rida.anticheat.update.*;
+import me.rida.anticheat.utils.*;
+import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
-import org.bukkit.plugin.Plugin;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.combat.*;
-import me.rida.anticheat.checks.movement.*;
-import me.rida.anticheat.checks.other.*;
-import me.rida.anticheat.checks.player.*;
-import me.rida.anticheat.commands.AntiCheatCommand;
-import me.rida.anticheat.commands.AlertsCommand;
-import me.rida.anticheat.commands.AutobanCommand;
-import me.rida.anticheat.commands.GetLogCommand;
-import me.rida.anticheat.data.DataManager;
-import me.rida.anticheat.events.UtilityJoinQuitEvent;
-import me.rida.anticheat.events.UtilityMoveEvent;
-import me.rida.anticheat.other.LagCore;
-import me.rida.anticheat.other.Latency;
-import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.packets.PacketCore;
-import me.rida.anticheat.pluginlogger.*;
-import me.rida.anticheat.update.UpdateEvent;
-import me.rida.anticheat.update.UpdateType;
-import me.rida.anticheat.update.Updater;
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.ConfigFile;
-import me.rida.anticheat.utils.SetBackSystem;
-import me.rida.anticheat.utils.TimerUtils;
-import me.rida.anticheat.utils.TxtFile;
-import me.rida.anticheat.utils.UtilActionMessage;
-import me.rida.anticheat.utils.UtilNewVelocity;
-import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
-import com.comphenix.protocol.reflect.FuzzyReflection;
-import com.comphenix.protocol.reflect.accessors.Accessors;
-import com.comphenix.protocol.reflect.accessors.MethodAccessor;
-import com.comphenix.protocol.reflect.fuzzy.FuzzyMethodContract;
-import com.comphenix.protocol.utility.ByteBufferInputStream;
-import com.comphenix.protocol.utility.MinecraftReflection;
-import org.apache.commons.lang.Validate;
-
-import java.io.DataInput;
-import java.util.*;
-import java.util.logging.*;
-
-
 
 public class AntiCheat extends JavaPlugin implements Listener {
 	
@@ -131,14 +100,39 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
-		this.Checks.add(new ScaffoldA(this));
+		this.Checks.add(new AimAssistA(this));
+		this.Checks.add(new AimAssistB(this));
+		this.Checks.add(new AimAssistC(this));
 		this.Checks.add(new AntiKBA(this));
+		this.Checks.add(new AntiKBB(this));
+		this.Checks.add(new AntiKBC(this));
+		this.Checks.add(new AscensionA(this));
+		this.Checks.add(new AscensionB(this));
 		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new AutoClickerB(this));
-		this.Checks.add(new CriticalsB(this));
+		this.Checks.add(new AutoClickerC(this));
+		this.Checks.add(new BlockInteractA(this));
+		this.Checks.add(new BlockInteractB(this));
+		this.Checks.add(new BlockInteractC(this));
+		this.Checks.add(new BlockInteractD(this));
+		this.Checks.add(new BlockInteractE(this));
+		this.Checks.add(new ChangeA(this));
+		this.Checks.add(new CrashA(this));
 		this.Checks.add(new CriticalsA(this));
+		this.Checks.add(new CriticalsB(this));
+		this.Checks.add(new ExploitA(this));
 		this.Checks.add(new FastBowA(this));
+		this.Checks.add(new FastLadderA(this));
+		this.Checks.add(new FlyA(this));
+		this.Checks.add(new FlyB(this));
+		this.Checks.add(new GlideA(this));
+		this.Checks.add(new GravityA(this));
+		this.Checks.add(new GroundSpoofA(this));
 		this.Checks.add(new HitBoxA(this));
+		this.Checks.add(new HitBoxB(this));
+		this.Checks.add(new ImpossibleMovementsA(this));
+		this.Checks.add(new ImpossiblePitchA(this));
+		this.Checks.add(new JesusA(this));
 		this.Checks.add(new KillAuraA(this));
 		this.Checks.add(new KillAuraB(this));
 		this.Checks.add(new KillAuraC(this));
@@ -146,58 +140,34 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new KillAuraE(this));
 		this.Checks.add(new KillAuraF(this));
 		this.Checks.add(new KillAuraG(this));
-		this.Checks.add(new AimAssistA(this));
+		this.Checks.add(new KillAuraH(this));
+		this.Checks.add(new KillAuraI(this));
+		this.Checks.add(new KillAuraJ(this));
+		this.Checks.add(new KillAuraK(this));
+		this.Checks.add(new NoFallA(this));
+		this.Checks.add(new NoSlowdownA(this));
+		this.Checks.add(new PacketsA(this));
+		this.Checks.add(new PacketsB(this));
+		this.Checks.add(new PhaseA(this));
+		this.Checks.add(new PMEA(this));
 		this.Checks.add(new ReachA(this));
 		this.Checks.add(new ReachB(this));
 		this.Checks.add(new ReachC(this));
 		this.Checks.add(new ReachD(this));
 		this.Checks.add(new RegenA(this));
-		this.Checks.add(new TwitchA(this));
-		this.Checks.add(new AscensionA(this));
-		this.Checks.add(new AscensionB(this));
-		this.Checks.add(new FastLadderA(this));
-		this.Checks.add(new FlyA(this));
-		this.Checks.add(new FlyB(this));
-		this.Checks.add(new GlideA(this));
-		this.Checks.add(new GravityA(this));
-		this.Checks.add(new ImpossibleMovementsA(this));
-		this.Checks.add(new JesusA(this));
-		this.Checks.add(new NoFallA(this));
-		this.Checks.add(new NoSlowdownA(this));
-		this.Checks.add(new PhaseA(this));
 		this.Checks.add(new SneakA(this));
+		this.Checks.add(new SneakB(this));
 		this.Checks.add(new SpeedA(this));
-		this.Checks.add(new SpeedC(this));
 		this.Checks.add(new SpeedB(this));
+		this.Checks.add(new SpeedC(this));
 		this.Checks.add(new SpiderA(this));
+		this.Checks.add(new SpookA(this));
 		this.Checks.add(new StepA(this));
 		this.Checks.add(new TimerA(this));
 		this.Checks.add(new TimerB(this));
-		this.Checks.add(new VClipA(this));
-		this.Checks.add(new CrashA(this));
-		this.Checks.add(new ExploitA(this));
-		this.Checks.add(new BlockInteractA(this));
-		this.Checks.add(new PacketsB(this));
+		this.Checks.add(new TwitchA(this));
 		this.Checks.add(new VapeA(this));
-		this.Checks.add(new GroundSpoofA(this));
-		this.Checks.add(new ImpossiblePitchA(this));
-		this.Checks.add(new LineOfSightA(this));
-		this.Checks.add(new PacketsA(this));
-		this.Checks.add(new KillAuraH(this));
-		this.Checks.add(new KillAuraI(this));
-		this.Checks.add(new ChangeA(this));
-		this.Checks.add(new PMEA(this));
-		this.Checks.add(new KillAuraK(this));
-		this.Checks.add(new HitBoxB(this));
-		this.Checks.add(new KillAuraJ(this));
-		this.Checks.add(new AntiKBB(this));
-		this.Checks.add(new AutoClickerC(this));
-		this.Checks.add(new AimAssistB(this));
-		this.Checks.add(new SpookA(this));
-		this.Checks.add(new AimAssistC(this));
-		this.Checks.add(new SneakB(this));
-		this.Checks.add(new ScaffoldB(this));
-		this.Checks.add(new AntiKBC(this));
+		this.Checks.add(new VClipA(this));
 	}
 
     @Override
@@ -276,7 +246,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.saveConfig();
 			}
 		}
-		this.PREFIX = ChatColor.translateAlternateColorCodes('&', getConfig().getString("prefix"));
+		this.PREFIX = Color.translate(getConfig().getString("prefix"));
 		// Reset Violations Counter
 		new BukkitRunnable() {
 			public void run() {
@@ -285,7 +255,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					if (getConfig().getBoolean("settings.broadcastResetViolationsMsg")) {
 						for (Player online : Bukkit.getServer().getOnlinePlayers()) {
 							if (online.hasPermission("anticheat.admin") && hasAlertsOn(online)) {
-								online.sendMessage(PREFIX + ChatColor.translateAlternateColorCodes('&',
+								online.sendMessage(PREFIX + Color.translate(
 										"&7Reset violations for all players!"));
 							}
 						}
@@ -405,9 +375,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (!FastBowA.count.isEmpty())
 				FastBowA.count.clear();
 		} catch (Exception e) {
-			return ChatColor.translateAlternateColorCodes('&', PREFIX + Color.Red + "Unknown error occured!");
+			return Color.translate(PREFIX + Color.Red + "Unknown error occured!");
 		}
-		return ChatColor.translateAlternateColorCodes('&', PREFIX + Color.Green + "Successfully reset data!");
+		return Color.translate(PREFIX + Color.Green + "Successfully reset data!");
 	}
 
 	public Integer getPingCancel() {
@@ -627,21 +597,21 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					new AbstractMap.SimpleEntry<Check, Long>(check, System.currentTimeMillis() + 10000L));
 			final UtilActionMessage msg = new UtilActionMessage();
 			msg.addText(PREFIX);
-			msg.addText(ChatColor.translateAlternateColorCodes('&',
+			msg.addText(Color.translate(
 					getConfig().getString("alerts.secondary") + player.getName()))
 					.addHoverText(Color.Gray + "(Click to teleport to " + Color.Red + player.getName() + Color.Gray + ")")
 					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/tp " + player.getName());
-			msg.addText(ChatColor.translateAlternateColorCodes('&',
+			msg.addText(Color.translate(
 					getConfig().getString("alerts.primary") + " set off " + getConfig().getString("alerts.secondary")
 							+ check.getName() + getConfig().getString("alerts.primary") + " and will "
 							+ getConfig().getString("alerts.primary") + "be " + getConfig().getString("alerts.primary")
 							+ "banned" + getConfig().getString("alerts.primary") + " if you don't take action. "
 							+ Color.DGray + Color.Bold + "["));
-			msg.addText(ChatColor.translateAlternateColorCodes('&',
+			msg.addText(Color.translate(
 					getConfig().getString("alerts.secondary") + Color.Bold + "ban"))
 					.addHoverText(Color.Gray + "Autoban " + Color.Green + player.getName())
 					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/autoban ban " + player.getName());
-			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary")) + " or ");
+			msg.addText(Color.translate(getConfig().getString("alerts.primary")) + " or ");
 			msg.addText(Color.Green + Color.Bold + "cancel").addHoverText(Color.Gray + "Click to Cancel")
 					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/autoban cancel " + player.getName());
 			msg.addText(Color.DGray + Color.Bold + "]");
@@ -683,7 +653,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 								PREFIX + Color.Gray + "You would be banned right now for: " + Color.Red + check.getName());
 					} else {
 						if (!getConfig().getString("broadcastmsg").equalsIgnoreCase("")) {
-							Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
+							Bukkit.broadcastMessage(Color.translate(
 									getConfig().getString("broadcastmsg").replaceAll("%player%", player.getName())));
 						}
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getConfig().getString("bancmd")
@@ -718,28 +688,28 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (violations >= check.getViolationsToNotify()) {
 			UtilActionMessage msg = new UtilActionMessage();
 			msg.addText(PREFIX);
-			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.secondary"))
+			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 					+ player.getName())
-					.addHoverText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary"))
+					.addHoverText(Color.translate(getConfig().getString("alerts.primary"))
 							+ "(Click to teleport to "
-							+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.secondary"))
+							+ Color.translate(getConfig().getString("alerts.secondary"))
 							+ player.getName()
-							+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary"))
+							+ Color.translate(getConfig().getString("alerts.primary"))
 							+ ")")
 					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/tp " + player.getName());
-			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary"))
+			msg.addText(Color.translate(getConfig().getString("alerts.primary"))
 					+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
 			UtilActionMessage.AMText CheckText = msg
-					.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.checkColor"))
+					.addText(Color.translate(getConfig().getString("alerts.checkColor"))
 							+ check.getName());
 			if (hoverabletext != null) {
 				CheckText.addHoverText(hoverabletext);
 			}
-			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.checkColor")) + a
-					+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary")) + " ");
-			msg.addText(ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary")) + "["
-					+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.secondary"))
-					+ violations + ChatColor.translateAlternateColorCodes('&', getConfig().getString("alerts.primary"))
+			msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
+					+ Color.translate(getConfig().getString("alerts.primary")) + " ");
+			msg.addText(Color.translate(getConfig().getString("alerts.primary")) + "["
+					+ Color.translate(getConfig().getString("alerts.secondary"))
+					+ violations + Color.translate(getConfig().getString("alerts.primary"))
 					+ " VL]");
 			if (violations % check.getViolationsToNotify() == 0) {
 				if (getConfig().getBoolean("testmode") == true) {
@@ -814,9 +784,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
     }
 
     private void registerListeners() {
-        getServer().getPluginManager().registerEvents(new UtilityMoveEvent(), this);
-        getServer().getPluginManager().registerEvents(new UtilityJoinQuitEvent(), this);
-        getServer().getPluginManager().registerEvents(new SetBackSystem(), this);
+        getServer().getPluginManager().registerEvents(new MoveEvent(), this);
+        getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
         getServer().getPluginManager().registerEvents(new UtilVelocity(), this);
         getServer().getPluginManager().registerEvents(new UtilNewVelocity(), this);
     }

@@ -13,8 +13,8 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.needscleanup.UtilsC;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.UtilsC;
 
 public class AntiKBA extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
@@ -23,6 +23,7 @@ public class AntiKBA extends Check {
 
     public AntiKBA(AntiCheat AntiCheat) {
         super("AntiKBA", "AntiKB", AntiCheat);
+		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
     }

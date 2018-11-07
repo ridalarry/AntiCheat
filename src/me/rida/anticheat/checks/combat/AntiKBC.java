@@ -26,7 +26,6 @@ public class AntiKBC extends Check {
     		Player p = (Player) e.getEntity();
     		if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
     			Entity damager = (Player) p.getLastDamageCause().getEntity();
-    			Entity damagerx = p.getLastDamageCause().getEntity();
     			if (UtilVelocity.didTakeVelocity(p)) {
     				return;
     			}
@@ -36,7 +35,7 @@ public class AntiKBC extends Check {
     						if (damager != p){
     							
     						
-    					getAntiCheat().logCheat(this, p, Color.Red + "Experemental " + damager + " " + damagerx, "(Type: C)");
+    					getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
     					}
     					else {
     						return;

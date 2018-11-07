@@ -17,7 +17,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class AscensionA extends Check {
 	
@@ -27,8 +27,8 @@ public class AscensionA extends Check {
 	public AscensionA(AntiCheat AntiCheat) {
 		super("AscensionA", "Ascension", AntiCheat);
 
-		this.setBannable(true);
-		this.setEnabled(true);
+		setBannable(true);
+		setEnabled(true);
 		setMaxViolations(4);
 		
 		AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();

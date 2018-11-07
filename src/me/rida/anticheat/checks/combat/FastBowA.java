@@ -24,7 +24,7 @@ public class FastBowA extends Check {
 		bowPull = new HashMap<Player, Long>();
 		count = new HashMap<Player, Integer>();
 		
-		setViolationsToNotify(2);
+		setViolationsToNotify(1);
 		setMaxViolations(7);
 
 		setEnabled(true);

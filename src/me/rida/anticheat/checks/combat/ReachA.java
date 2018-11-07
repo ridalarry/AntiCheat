@@ -3,7 +3,8 @@ package me.rida.anticheat.checks.combat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
+import me.rida.anticheat.utils.UtilsA;
+import me.rida.anticheat.utils.UtilsB;
 import me.rida.anticheat.AntiCheat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -41,7 +42,7 @@ public class ReachA extends Check {
         
 
         if(distance > maxReach) {
-        	getAntiCheat().logCheat(this, player, UtilsA.trim(3, distance) + " > " + UtilsA.trim(3, maxReach), "(Type: A)");
+        	getAntiCheat().logCheat(this, player, UtilsB.trim(3, distance) + " > " + UtilsB.trim(3, maxReach), "(Type: A)");
         }
     }
 }

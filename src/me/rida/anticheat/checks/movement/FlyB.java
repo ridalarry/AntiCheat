@@ -12,7 +12,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class FlyB extends Check {
 	
@@ -21,8 +21,8 @@ public class FlyB extends Check {
 	public FlyB(AntiCheat AntiCheat) {
 		super("FlyB", "Fly", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
+		setEnabled(true);
+		setBannable(true);
 		setMaxViolations(5);
 		
 		flyTicksA = new HashMap<UUID, Long>();

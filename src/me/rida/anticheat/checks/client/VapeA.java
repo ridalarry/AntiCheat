@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.other;
+package me.rida.anticheat.checks.client;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,10 +13,10 @@ public class VapeA extends Check implements PluginMessageListener {
 	public VapeA(AntiCheat AntiCheat) {
 		super("VapeA", "Vape", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
+		setEnabled(true);
+		setBannable(true);
 
-		this.setMaxViolations(0);
+		setMaxViolations(0);
 	}
 
 	@EventHandler

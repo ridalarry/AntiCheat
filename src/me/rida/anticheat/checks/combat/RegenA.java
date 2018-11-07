@@ -14,14 +14,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class RegenA extends Check {
 	public RegenA(AntiCheat AntiCheat) {
 		super("RegenA", "Regen", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
+		setEnabled(true);
+		setBannable(true);
 		setViolationsToNotify(3);
 		setMaxViolations(12);
 		setViolationResetTime(60000L);

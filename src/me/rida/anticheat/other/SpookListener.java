@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import me.rida.anticheat.checks.other.SpookA;
+import me.rida.anticheat.checks.client.SpookA;
 import me.rida.anticheat.utils.AngleUtil;
 
 public class SpookListener

@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils.needscleanup;
+package me.rida.anticheat.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,9 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.util.Vector;
-
-import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilReflection;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

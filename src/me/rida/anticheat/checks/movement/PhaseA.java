@@ -39,7 +39,7 @@ import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();
@@ -108,7 +108,6 @@ public class PhaseA extends Check {
 		allowed.add(Material.DOUBLE_PLANT);
 		allowed.add(Material.LONG_GRASS);
 		allowed.add(Material.WEB);
-		;
 		allowed.add(Material.SNOW);
 		allowed.add(Material.FLOWER_POT);
 		allowed.add(Material.BREWING_STAND);
@@ -180,7 +179,8 @@ public class PhaseA extends Check {
 	public void update(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
 		if (player.isDead()
-				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))) {
+				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))
+				|| (UtilsB.isNearLiquid(player))) {
 			return;
 		}
 
@@ -202,7 +202,7 @@ public class PhaseA extends Check {
 				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				return;
 			}
-			getAntiCheat().logCheat(this, player, null, null);
+			getAntiCheat().logCheat(this, player, "[1]", "(Type: A)");
 		} else if (isLegit(playerId, loc1, loc2)) {
 			lastLocation.put(playerId, loc2);
 		} else if ((player.hasPermission("anticheat.admin")) || (lastLocation.containsKey(playerId))) {
@@ -212,7 +212,7 @@ public class PhaseA extends Check {
 				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				return;
 			}
-			getAntiCheat().logCheat(this, player, null, "(Type: A)");
+			getAntiCheat().logCheat(this, player, "[2]", "(Type: A)");
 		}
 	}
 

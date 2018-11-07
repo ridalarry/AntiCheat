@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class FastLadderA extends Check {
 	
@@ -18,9 +18,9 @@ public class FastLadderA extends Check {
 	public FastLadderA(AntiCheat AntiCheat) {
 		super("FastLadderA", "FastLadder", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
-		this.setMaxViolations(7);
+		setEnabled(true);
+		setBannable(true);
+		setMaxViolations(7);
 		
 		count = new WeakHashMap<Player, Integer>();
 	}

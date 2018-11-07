@@ -20,10 +20,9 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class SpiderA extends Check {
 

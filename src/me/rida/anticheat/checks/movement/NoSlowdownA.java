@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class NoSlowdownA extends Check {
 
@@ -28,7 +28,7 @@ public class NoSlowdownA extends Check {
 		super("NoSlowdownA", "NoSlowdown", AntiCheat);
 
 		setEnabled(true);
-		setBannable(true);
+		setBannable(false);
 
 		setMaxViolations(5);
 		
@@ -69,11 +69,7 @@ public class NoSlowdownA extends Check {
 		double OffsetXZ = UtilsB.offset(UtilsB.getHorizontalVector(e.getFrom().toVector()),
 				UtilsB.getHorizontalVector(e.getTo().toVector()));
 
-		if (!player.getLocation().getBlock().getType().equals(Material.WEB)) {
-			return;
-		}
-
-		if (OffsetXZ < 0.2) {
+		if (!player.getLocation().getBlock().getType().equals(Material.WEB) || (OffsetXZ < 0.2)) {
 			return;
 		}
 
@@ -82,7 +78,6 @@ public class NoSlowdownA extends Check {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		Action act = event.getAction();
 		if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
 				&& event.getItem() != null) {
 			if (event.getItem().equals(Material.EXP_BOTTLE) || event.getItem().getType().equals(Material.GLASS_BOTTLE)
@@ -104,7 +99,10 @@ public class NoSlowdownA extends Check {
 					: ++level;
 			int max = 50;
 			if (level > max * 0.9D && diff <= 100.0D) {
-				getAntiCheat().logCheat(this, player, Color.Red + "Might be FastPlace! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player) + " Action: " + act, "(Type: A)");
+				if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+					return;
+				}
+				getAntiCheat().logCheat(this, player, Color.Red + "Expermintal! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player), "(Type: A)");
 				if (level > max) {
 					level = max / 4;
 				}

@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class NoFallA extends Check {
 	public static Map<UUID, Map.Entry<Long, Integer>> NoFallTicks;
@@ -29,8 +29,8 @@ public class NoFallA extends Check {
 	public NoFallA(AntiCheat AntiCheat) {
 		super("NoFallA", "NoFall", AntiCheat);
 
-		this.setEnabled(true);
-		this.setBannable(true);
+		setEnabled(true);
+		setBannable(true);
 		
 		NoFallTicks = new HashMap<UUID, Map.Entry<Long, Integer>>();
 		FallDistance = new HashMap<UUID, Double>();

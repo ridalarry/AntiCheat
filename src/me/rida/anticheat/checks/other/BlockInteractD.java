@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.movement;
+package me.rida.anticheat.checks.other;
 
 import org.bukkit.event.*;
 import java.util.*;
@@ -9,13 +9,13 @@ import org.bukkit.entity.*;
 
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class ScaffoldB extends Check {
-    public ScaffoldB(AntiCheat AntiCheat) {
-        super("ScaffoldB", "Scaffold", AntiCheat);
+public class BlockInteractD extends Check {
+    public BlockInteractD(AntiCheat AntiCheat) {
+        super("BlockInteractD", "BlockInteract", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);
@@ -35,7 +35,7 @@ public class ScaffoldB extends Check {
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             
             if (!player.isSneaking() && !player.isFlying() && UtilsB.groundAround(player.getLocation()) && event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && player.getWorld().getBlockAt(player.getLocation().subtract(0.0, 1.0, 0.0)).equals(event.getBlock())) {
-                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: B)");
+                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: D)");
             }
         }
     }

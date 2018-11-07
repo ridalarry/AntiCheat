@@ -20,7 +20,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsB;
 
 public class ReachC extends Check {
 
@@ -34,9 +34,9 @@ public class ReachC extends Check {
 		this.reachTicks = new HashMap<Player, Long>();
 		this.projectileHit = new ArrayList<Player>();
 		setViolationResetTime(30000);
-		this.setEnabled(true);
-		this.setBannable(true);
-		this.setMaxViolations(5);
+		setEnabled(true);
+		setBannable(true);
+		setMaxViolations(5);
 	}
 
 	@EventHandler

@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.movement;
+package me.rida.anticheat.checks.other;
 
 import org.bukkit.event.*;
 import java.util.*;
@@ -13,9 +13,9 @@ import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class ScaffoldA extends Check {
-    public ScaffoldA(AntiCheat AntiCheat) {
-        super("ScaffoldA", "Scaffold", AntiCheat);
+public class BlockInteractC extends Check {
+    public BlockInteractC(AntiCheat AntiCheat) {
+        super("BlockInteractC", "BlockInteract", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);
@@ -34,12 +34,12 @@ public class ScaffoldA extends Check {
                 || UtilVelocity.didTakeVelocity(player)) return;
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             if (!event.getBlock().getLocation().equals((Object)target.getLocation()) && !event.isCancelled() && target.getType().isSolid() && !target.getType().name().toLowerCase().contains("sign") && !target.getType().toString().toLowerCase().contains("fence") && player.getLocation().getY() > event.getBlock().getLocation().getY()) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [1]", "(Type: A)");
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [1]", "(Type: C)");
             	
             }
 
             if (event.getBlockAgainst().isLiquid() && event.getBlock().getType() != Material.WATER_LILY) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [2]", "(Type: A)");
+            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " [2]", "(Type: C)");
             }
         }
     }

@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.other;
+package me.rida.anticheat.checks.client;
 
 import org.bukkit.entity.Player;
 

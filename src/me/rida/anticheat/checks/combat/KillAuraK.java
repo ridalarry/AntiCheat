@@ -13,7 +13,6 @@ import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.needscleanup.UtilsC;;
 
 public class KillAuraK
 extends Check {

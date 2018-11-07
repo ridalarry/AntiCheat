@@ -5,8 +5,8 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.needscleanup.UtilsA;
-import me.rida.anticheat.utils.needscleanup.UtilsB;
+import me.rida.anticheat.utils.UtilsA;
+import me.rida.anticheat.utils.UtilsB;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -17,6 +17,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class GravityA extends Check {
     public GravityA(AntiCheat AntiCheat) {
 		super("GravityA", "Gravity", AntiCheat);
+		setEnabled(true);
+		setMaxViolations(10);
+		setBannable(false);
     }
 
     @EventHandler

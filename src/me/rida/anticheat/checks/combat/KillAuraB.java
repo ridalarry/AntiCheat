@@ -25,8 +25,8 @@ public class KillAuraB extends Check {
 		
 		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 
-		setEnabled(false);
-		setBannable(true);
+		setEnabled(true);
+		setBannable(false);
 		setMaxViolations(150);
 		setViolationsToNotify(140);
 	}

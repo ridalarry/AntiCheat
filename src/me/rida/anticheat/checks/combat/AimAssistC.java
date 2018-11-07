@@ -12,8 +12,6 @@ public class AimAssistC
 extends Check {
     private float lastYaw;
     private float lastBad;
-    private float lastYawRate;
-    private float lastDiff;
     private float lastYaw2;
     private float lastPitch;
     private int streak;
