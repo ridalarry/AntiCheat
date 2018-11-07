@@ -216,7 +216,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.primary", "&7");
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
-			this.getConfig().addDefault("bancmd", "ban %player% [AntiCheat] Unfair Advantage: %check%");
+			this.getConfig().addDefault("bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
 			this.getConfig().addDefault("broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);

@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.text.DecimalFormat;
 public class UtilsA {
 
 	private static final String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
@@ -485,42 +484,6 @@ public class UtilsA {
             }
         }
         return blocks;
-    }
-    public static boolean isNearIce(Player p) {
-    	boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isIce(b)) {
-				out = true;
-			}
-		}
-    	return out;
-	}
-	public static boolean isNearStiar(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isStair(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearLiquid(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isLiquid(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-    public static boolean isNearPistion(Player p) {
-        boolean out = false;
-        for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-           if (b.getType() == Material.PISTON_BASE || b.getType() == Material.PISTON_MOVING_PIECE || b.getType() == Material.PISTON_STICKY_BASE || b.getType() == Material.PISTON_EXTENSION) {
-               out = true;
-           }
-        }
-        return out;
     }
 
     public static boolean elapsed(long from, long required) {

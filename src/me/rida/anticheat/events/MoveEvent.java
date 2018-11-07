@@ -51,7 +51,7 @@ public class MoveEvent implements Listener {
 
         if (data.isNearIce()) {
             if (TimerUtils.elapsed(data.getIsNearIceTicks(),500L)) {
-                if (!UtilsA.isNearIce(player)) {
+                if (!UtilsB.isNearIce(player)) {
                     data.setNearIce(false);
                 } else {
                     data.setIsNearIceTicks(TimerUtils.nowlong());
@@ -128,10 +128,10 @@ public class MoveEvent implements Listener {
                 }
             }
         }
-        if (UtilsA.isNearIce(player) && !data.isNearIce()) {
+        if (UtilsB.isNearIce(player) && !data.isNearIce()) {
             data.setNearIce(true);
             data.setIsNearIceTicks(TimerUtils.nowlong());
-        } else if (UtilsA.isNearIce(player)) {
+        } else if (UtilsB.isNearIce(player)) {
             data.setIsNearIceTicks(TimerUtils.nowlong());
         }
 

@@ -6,6 +6,7 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.utils.UtilsA;
+import me.rida.anticheat.utils.UtilsB;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -137,7 +138,7 @@ public class FlyA extends Check {
 
         if(finalDifference < 0.08
                 && e.getFrom().getY() < e.getTo().getY()
-                && !UtilsA.isOnGround(p) && !p.getLocation().getBlock().isLiquid() && !UtilsA.isNearLiquid(p)
+                && !UtilsA.isOnGround(p) && !p.getLocation().getBlock().isLiquid() && !UtilsB.isNearLiquid(p)
                 && !UtilNewVelocity.didTakeVel(p) && !UtilVelocity.didTakeVelocity(p)) {
             if(++verboseC > 8) {
             	if (!UtilsA.wasOnSlime(p)) {

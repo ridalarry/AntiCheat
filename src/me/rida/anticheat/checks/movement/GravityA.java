@@ -37,7 +37,7 @@ public class GravityA extends Check {
             if (e.getTo().getY() < e.getFrom().getY()) {
                 return;
             }
-            if (UtilsB.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || UtilsB.isNearHalfBlock(p) || UtilsA.isStair(p.getLocation().add(0,1.50,0).getBlock()) || UtilsA.isNearStiar(p) || !player.getGameMode().equals(GameMode.CREATIVE) || UtilNewVelocity.didTakeVel(p)
+            if (UtilsB.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || UtilsB.isNearHalfBlock(p) || UtilsA.isStair(p.getLocation().add(0,1.50,0).getBlock()) || UtilsB.isNearStiar(p) || !player.getGameMode().equals(GameMode.CREATIVE) || UtilNewVelocity.didTakeVel(p)
                     || UtilsA.wasOnSlime(p)) {
                 data.setGravity_VL(0);
                 return;
