@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils;
+package me.rida.anticheat.other;
 
 import java.lang.reflect.Field;
 

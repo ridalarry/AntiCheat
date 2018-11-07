@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.other;
+package me.rida.anticheat.checks.player;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;

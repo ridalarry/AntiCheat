@@ -17,7 +17,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.other.Latency;
+import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilTime;
 import me.rida.anticheat.utils.needscleanup.UtilsB;

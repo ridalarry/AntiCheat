@@ -12,9 +12,9 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.needscleanup.UtilsC;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.Ping;
 
 public class AntiKBA extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();

@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.other;
+package me.rida.anticheat.other;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -21,7 +21,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
-import me.rida.anticheat.utils.Ping;
 import me.rida.anticheat.utils.UtilTime;
 
 public class Latency implements Listener {

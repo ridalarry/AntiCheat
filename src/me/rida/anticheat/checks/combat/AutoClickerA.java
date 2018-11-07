@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.other.Latency;
+import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.utils.UtilTime;
 
