@@ -1,7 +1,6 @@
 package me.rida.anticheat.utils;
 
 import me.rida.anticheat.AntiCheat;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -77,7 +76,7 @@ public class ConfigFile {
 
     public String getString(String path) {
         if (this.configuration.contains(path)) {
-            return ChatColor.translateAlternateColorCodes('&', this.configuration.getString(path));
+            return Color.translate(this.configuration.getString(path));
         }
         return "String at path: " + path + " not found!";
     }
@@ -86,7 +85,7 @@ public class ConfigFile {
         if (this.configuration.contains(path)) {
             final ArrayList<String> strings = new ArrayList<>();
             for (final String string : this.configuration.getStringList(path)) {
-                strings.add(ChatColor.translateAlternateColorCodes('&', string));
+                strings.add(Color.translate(string));
             }
             return strings;
         }

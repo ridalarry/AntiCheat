@@ -1,6 +1,5 @@
 package me.rida.anticheat.commands;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -28,12 +27,12 @@ public class AlertsCommand implements CommandExecutor {
 		}
 		if (this.AntiCheat.hasAlertsOn(player)) {
 			this.AntiCheat.toggleAlerts(player);
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+			player.sendMessage(Color.translate(
 					AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Red
 							+ "off" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
 		} else {
 			this.AntiCheat.toggleAlerts(player);
-			player.sendMessage(ChatColor.translateAlternateColorCodes('&',
+			player.sendMessage(Color.translate(
 					AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Green
 							+ "on" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
 		}

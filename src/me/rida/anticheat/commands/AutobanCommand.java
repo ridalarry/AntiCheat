@@ -1,7 +1,6 @@
 package me.rida.anticheat.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,8 +37,7 @@ public class AutobanCommand implements CommandExecutor {
 					System.out.println("[" + player.getUniqueId().toString() + "] " + sender.getName()
 							+ "'s auto-ban has been cancelled by " + sender.getName());
 					Bukkit.broadcast(
-							ChatColor.translateAlternateColorCodes('&',
-									AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary")
+							Color.translate(AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary")
 											+ player.getName() + AntiCheat.getConfig().getString("alerts.primary")
 											+ "'s auto-ban has been cancelled by "
 											+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
@@ -48,11 +46,11 @@ public class AutobanCommand implements CommandExecutor {
 				}
 				case "ban": {
 					if (this.AntiCheat.getConfig().getBoolean("testmode") == true) {
-						sender.sendMessage(ChatColor.RED + "Test mode is enabled therefore this is disabled!");
+						sender.sendMessage(Color.Red + "Test mode is enabled therefore this is disabled!");
 					} else {
 						System.out.println("[" + player.getUniqueId().toString() + "] " + sender.getName()
 								+ "'s auto-ban has been forced by " + sender.getName());
-						Bukkit.broadcast(ChatColor.translateAlternateColorCodes('&',
+						Bukkit.broadcast(Color.translate(
 								AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary") + player.getName()
 										+ AntiCheat.getConfig().getString("alerts.primary")
 										+ "'s auto-ban has been forced by "
