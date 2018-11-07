@@ -1,4 +1,5 @@
 package me.rida.anticheat.packets.events;
+
 import me.rida.anticheat.packets.PacketPlayerType;
 import org.bukkit.event.HandlerList;
 import org.bukkit.entity.Player;

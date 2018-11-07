@@ -33,7 +33,6 @@ import me.rida.anticheat.packets.events.PacketHeldItemChangeEvent;
 import me.rida.anticheat.packets.events.PacketKeepAliveEvent;
 import me.rida.anticheat.packets.events.PacketKillauraEvent;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
-import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 
