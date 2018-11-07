@@ -10,18 +10,18 @@ import me.rida.anticheat.other.Latency;
 
 public class AntiCheatAPI {
 
-	private static AntiCheat daedalus;
+	private static AntiCheat AntiCheat;
 
 	@SuppressWarnings("unused")
 	private Plugin plugin;
 
 	public AntiCheatAPI(Plugin plugin) {
 		this.plugin = plugin;
-		daedalus = (AntiCheat) plugin;
+		AntiCheat = (AntiCheat) plugin;
 	}
 
 	public static List<Check> getChecks() {
-		return daedalus.getChecks();
+		return AntiCheat.getChecks();
 	}
 
 	public static Integer getPing(Player player) {

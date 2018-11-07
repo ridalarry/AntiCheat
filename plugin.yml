@@ -10,8 +10,6 @@ commands:
     description: Toggles off and on alerts.
   autoban:
     description: Stops autobanning.
-  daedalus:
-    description: Daedalus root command.
   getlog:
     description: Get a player's log!
 permissions:

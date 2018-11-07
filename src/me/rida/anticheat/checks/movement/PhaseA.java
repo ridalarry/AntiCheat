@@ -205,7 +205,7 @@ public class PhaseA extends Check {
 			getAntiCheat().logCheat(this, player, null, null);
 		} else if (isLegit(playerId, loc1, loc2)) {
 			lastLocation.put(playerId, loc2);
-		} else if ((player.hasPermission("daedalus.admin")) || (lastLocation.containsKey(playerId))) {
+		} else if ((player.hasPermission("anticheat.admin")) || (lastLocation.containsKey(playerId))) {
 			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 			if ((player.getLocation().getBlock().getType().isSolid())
 					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
