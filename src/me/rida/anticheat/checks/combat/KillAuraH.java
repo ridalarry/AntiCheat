@@ -6,6 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.AngleUtil;
 import me.rida.anticheat.utils.Color;
@@ -31,8 +32,8 @@ extends Check {
         }
         Player player = (Player)entityDamageByEntityEvent.getDamager();
         Player player2 = (Player)entityDamageByEntityEvent.getEntity();
-        double d = UtilsC.getPing(player);
-        double d2 = UtilsC.getPing(player2);
+        double d = Ping.getPing(player);
+        double d2 = Ping.getPing(player2);
         double d3 = AngleUtil.getOffsets2(player, (LivingEntity)player2)[0];
         if (d2 > 450.0) {
             return;

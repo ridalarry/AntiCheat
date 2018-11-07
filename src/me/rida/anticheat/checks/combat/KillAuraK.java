@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
@@ -45,8 +46,8 @@ extends Check {
         Player player2 = (Player)entityDamageByEntityEvent.getEntity();
         double d = UtilCheat.getHorizontalDistance(player.getLocation(), player2.getLocation());
         double d2 = this.allowedDistance;
-        int n2 = UtilsC.getPing(player);
-        int n3 = UtilsC.getPing(player2);
+        int n2 = Ping.getPing(player);
+        int n3 = Ping.getPing(player2);
         int n4 = n2 + n3 / 2;
         int n5 = (int)((double)n4 * 0.0017);
         d2 += (double)n5;
