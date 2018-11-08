@@ -119,6 +119,9 @@ public class FlyA extends Check {
             }
             long Millis = System.currentTimeMillis() - Time;
             if (Millis > 200L) {
+            	if (UtilsB.isInLiquid(p)) {
+            		return;
+            	}
                 getAntiCheat().logCheat(this, p, "[7]", "(Type: A)");
                 data.setGlideTicks(0);
             }

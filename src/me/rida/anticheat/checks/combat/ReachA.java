@@ -6,6 +6,8 @@ import me.rida.anticheat.packets.events.PacketAttackEvent;
 import me.rida.anticheat.utils.UtilsA;
 import me.rida.anticheat.utils.UtilsB;
 import me.rida.anticheat.AntiCheat;
+
+import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,13 +25,15 @@ public class ReachA extends Check {
 
     @EventHandler
     public void onAttack(PacketAttackEvent e) {
+        Entity entity = e.getEntity();
+        Player player = e.getPlayer();
         if(e.getType() != PacketPlayerType.USE
-                || e.getEntity() == null) {
+                || e.getEntity() == null 
+        		|| entity instanceof Enderman 
+        		|| entity.isDead()){
             return;
         }
 
-        Player player = e.getPlayer();
-        Entity entity = e.getEntity();
 
         double distance = UtilsA.getHorizontalDistance(player.getLocation(), entity.getLocation()) - 0.35;
         double maxReach = 4.2;
