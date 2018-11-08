@@ -16,6 +16,7 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilReflection;
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.BlockUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -114,65 +115,6 @@ public class UtilsB {
 		return block.getType().equals(Material.SLIME_BLOCK);
 	}
 
-    public static boolean isSolid(Block material) {
-        return material != null && isSolid(material.getTypeId());
-    }
-
-    public static boolean isSolid(int block) {
-        return isSolid((byte) block);
-    }
-
-    public static ArrayList<Block> getBlocksAroundCenter(Location loc, int radius) {
-        ArrayList<Block> blocks = new ArrayList();
-        for (int x = loc.getBlockX() - radius; x <= loc.getBlockX() + radius; x++) {
-            for (int y = loc.getBlockY() - radius; y <= loc.getBlockY() + radius; y++) {
-                for (int z = loc.getBlockZ() - radius; z <= loc.getBlockZ() + radius; z++) {
-                    Location l = new Location(loc.getWorld(), x, y, z);
-                    if (l.distance(loc) <= radius) {
-                        blocks.add(l.getBlock());
-                    }
-                }
-            }
-        }
-        return blocks;
-    }
-    
-    public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
-        ArrayList<Block> blocks = new ArrayList();
-        if (diagonals) {
-            for (int x = -1; x <= 1; x++) {
-                for (int y = -1; y <= 1; y++) {
-                    for (int z = -1; z <= 1; z++) {
-                        if ((x != 0) || (y != 0) || (z != 0)) {
-                            blocks.add(block.getRelative(x, y, z));
-                        }
-                    }
-                }
-            }
-        } else {
-            blocks.add(block.getRelative(BlockFace.UP));
-            blocks.add(block.getRelative(BlockFace.DOWN));
-            blocks.add(block.getRelative(BlockFace.NORTH));
-            blocks.add(block.getRelative(BlockFace.SOUTH));
-            blocks.add(block.getRelative(BlockFace.EAST));
-            blocks.add(block.getRelative(BlockFace.WEST));
-        }
-        return blocks;
-    }
-
-    public static ArrayList<Block> getSurroundingB(Block block) {
-        ArrayList<Block> blocks = new ArrayList();
-        for (double x = -0.5; x <= 0.5; x += 0.5) {
-            for (double y = -0.5; y <= 0.5; y += 0.5) {
-                for (double z = -0.5; z <= 0.5; z += 0.5) {
-                    if ((x != 0) || (y != 0) || (z != 0)) {
-                        blocks.add(block.getLocation().add(x, y, z).getBlock());
-                    }
-                }
-            }
-        }
-        return blocks;
-    }
     
     public static ArrayList<Player> getOnlinePlayers() {
         ArrayList<Player> list = new ArrayList<>();
@@ -193,24 +135,6 @@ public class UtilsB {
         return m == Material.STATIONARY_WATER || m == Material.WATER;
     }
 
-    public static boolean isOnClimbable(Player player, int blocks) {
-        if (blocks == 0) {
-            for (Block block : UtilsB.getSurrounding(player.getLocation().getBlock(), false)) {
-                if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
-                    return true;
-                }
-            }
-        } else {
-            for (Block block : UtilsB.getSurrounding(player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock(),
-                    false)) {
-                if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
-                    return true;
-                }
-            }
-        }
-        return player.getLocation().getBlock().getType() == Material.LADDER
-                || player.getLocation().getBlock().getType() == Material.VINE;
-    }
 
     public static boolean isPartiallyStuck(Player player) {
         if (player.getLocation().clone().getBlock() == null) {
@@ -311,9 +235,6 @@ public class UtilsB {
         return v;
     }
     
-
-
-
     public static boolean groundAround(final Location loc) {
         for (int radius = 2, x = -radius; x < radius; ++x) {
             for (int y = -radius; y < radius; ++y) {
@@ -330,5 +251,23 @@ public class UtilsB {
         return false;
     }
 
+    public static boolean isOnClimbable(Player player, int blocks) {
+        if (blocks == 0) {
+            for (Block block : BlockUtils.getSurrounding(player.getLocation().getBlock(), false)) {
+                if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
+                    return true;
+                }
+            }
+        } else {
+            for (Block block : BlockUtils.getSurrounding(player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock(),
+                    false)) {
+                if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
+                    return true;
+                }
+            }
+        }
+        return player.getLocation().getBlock().getType() == Material.LADDER
+                || player.getLocation().getBlock().getType() == Material.VINE;
+    }
 
 }

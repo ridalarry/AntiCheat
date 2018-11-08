@@ -12,7 +12,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.b.UtilsB;
+import me.rida.anticheat.utils.c.UtilsC;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -280,54 +282,54 @@ public final class UtilCheat {
         final int blockY = location.getBlockY() - down;
         final int blockZ = location.getBlockZ();
         final World world = location.getWorld();
-        if (UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
+        if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
             return true;
         }
         if (fracX < 0.3) {
-            if (UtilsB.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
+            if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (UtilsB.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return UtilsB.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (UtilsB.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return UtilsB.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracX > 0.7) {
-            if (UtilsB.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
+            if (UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (UtilsB.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return UtilsB.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (UtilsB.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return UtilsB.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracZ < 0.3) {
-            return UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
-        } else return fracZ > 0.7 && UtilsB.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
+            return UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
+        } else return fracZ > 0.7 && UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
         return false;
     }
 
@@ -442,7 +444,7 @@ public final class UtilCheat {
     }
 
     public static boolean isInWeb(Player player) {
-        if (UtilsB.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
+        if (BlockUtils.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
             return true;
         }
         return (player.getLocation().getBlock().getType() == Material.WEB)
@@ -484,13 +486,13 @@ public final class UtilCheat {
 
     public static boolean blocksNear(final Location loc) {
         boolean nearBlocks = false;
-        for (Block block : UtilsB.getSurrounding(loc.getBlock(), true)) {
+        for (Block block : BlockUtils.getSurrounding(loc.getBlock(), true)) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
             }
         }
-        for (final Block block : UtilsB.getSurrounding(loc.getBlock(), false)) {
+        for (final Block block : BlockUtils.getSurrounding(loc.getBlock(), false)) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
@@ -509,7 +511,7 @@ public final class UtilCheat {
 
     public static boolean blocksNearB(final Location loc) {
         boolean nearBlocks = false;
-        for (Block block : UtilsB.getSurroundingB(loc.getBlock())) {
+        for (Block block : BlockUtils.getSurroundingB(loc.getBlock())) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
@@ -528,14 +530,14 @@ public final class UtilCheat {
 
     public static boolean slabsNear(Location loc) {
         boolean nearBlocks = false;
-        for (Block bl : UtilsB.getSurrounding(loc.getBlock(), true)) {
+        for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), true)) {
             if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
                     || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
                 nearBlocks = true;
                 break;
             }
         }
-        for (Block bl : UtilsB.getSurrounding(loc.getBlock(), false)) {
+        for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), false)) {
             if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
                     || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
                 nearBlocks = true;

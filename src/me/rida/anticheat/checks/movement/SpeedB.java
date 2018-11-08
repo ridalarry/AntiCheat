@@ -21,6 +21,7 @@ import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
@@ -184,7 +185,7 @@ public class SpeedB extends Check {
 	
 	public static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
-		for (Block bl : UtilsB.getSurrounding(loc.getBlock(), true)) {
+		for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), true)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {
@@ -192,7 +193,7 @@ public class SpeedB extends Check {
 				break;
 			}
 		}
-		for (Block bl : UtilsB.getSurrounding(loc.getBlock(), false)) {
+		for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), false)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {

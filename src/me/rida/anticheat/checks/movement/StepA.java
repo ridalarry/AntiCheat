@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class StepA extends Check {
@@ -97,7 +98,7 @@ public class StepA extends Check {
 			this.getAntiCheat().logCheat(this, player, "[2] Speed: " + YSpeed + " Block: " + player.getLocation().clone().subtract(0.0D, 0.1D, 0.0D).getBlock().getType().toString(), "(Type: A)");
 			return;
 		}
-		ArrayList<Block> blocks = UtilsB.getBlocksAroundCenter(player.getLocation(), 1);
+		ArrayList<Block> blocks = BlockUtils.getBlocksAroundCenter(player.getLocation(), 1);
 		for (Block block : blocks) {
 			if (block.getType().isSolid()) {
 				if ((YSpeed >= 0.321 && YSpeed < 0.322)) {
