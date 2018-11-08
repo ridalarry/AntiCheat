@@ -7,7 +7,6 @@ import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
 import me.rida.anticheat.utils.UtilsA;
 import me.rida.anticheat.utils.UtilsB;
-
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;

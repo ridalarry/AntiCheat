@@ -168,7 +168,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
     @Override
 	public void onEnable() {
-    	
         Instance = this;
         dataManager = new DataManager();
         registerListeners();
