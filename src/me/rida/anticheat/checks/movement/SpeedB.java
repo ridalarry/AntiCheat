@@ -21,8 +21,9 @@ import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.UtilsA;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.a.PlayerUtils;
+import me.rida.anticheat.utils.a.ServerUtils;
+import me.rida.anticheat.utils.b.UtilsB;
 
 public class SpeedB extends Check {
 
@@ -71,7 +72,7 @@ public class SpeedB extends Check {
 				|| p.getAllowFlight()
            		|| UtilsB.isNearIce(p)
    		        || UtilsB.isNearSlime(p)
-           		|| UtilsA.wasOnSlime(p)){
+           		|| PlayerUtils.wasOnSlime(p)){
 			return;
 		}
 

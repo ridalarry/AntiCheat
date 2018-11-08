@@ -8,7 +8,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.b.UtilsB;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;

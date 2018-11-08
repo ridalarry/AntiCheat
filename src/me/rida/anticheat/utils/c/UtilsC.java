@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils;
+package me.rida.anticheat.utils.c;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

@@ -20,11 +20,9 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.*;
+import me.rida.anticheat.utils.b.UtilsB;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.UtilsB;
 
 public class PacketsA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;

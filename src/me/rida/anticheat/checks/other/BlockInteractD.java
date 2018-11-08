@@ -9,7 +9,7 @@ import org.bukkit.entity.*;
 
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.b.UtilsB;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 

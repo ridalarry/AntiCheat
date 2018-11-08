@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.b.UtilsB;
 
 public class StepA extends Check {
 	double stepHeight;

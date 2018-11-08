@@ -22,7 +22,9 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.PlayerUtils;
+import me.rida.anticheat.utils.b.UtilsB;
 
 public class SpiderA extends Check {
 
@@ -59,7 +61,7 @@ public class SpiderA extends Check {
                 || UtilsB.isOnClimbable(player, 1) 
 				|| !getAntiCheat().isEnabled()
 				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))
-				|| UtilsB.isNotSpider(player)
+				|| PlayerUtils.isNotSpider(player)
 				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
 		

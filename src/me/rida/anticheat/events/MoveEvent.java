@@ -3,8 +3,11 @@ package me.rida.anticheat.events;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
-import me.rida.anticheat.utils.UtilsA;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.a.MathUtils;
+import me.rida.anticheat.utils.a.PlayerUtils;
+import me.rida.anticheat.utils.a.PlayerUtils;
+import me.rida.anticheat.utils.a.ServerUtils;
+import me.rida.anticheat.utils.b.UtilsB;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -26,12 +29,12 @@ public class MoveEvent implements Listener {
             DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(player);
 
             if (data != null) {
-                data.onGround = UtilsB.isOnTheGround(player);
-                data.onStairSlab = UtilsB.isInStairs(player);
-                data.inLiquid = UtilsB.isInLiquid(player);
-                data.onIce = UtilsB.isOnIce(player);
-                data.onClimbable = UtilsB.isOnClimbable(player);
-                data.underBlock = UtilsB.inUnderBlock(player);
+                data.onGround = PlayerUtils.isOnTheGround(player);
+                data.onStairSlab = PlayerUtils.isInStairs(player);
+                data.inLiquid = PlayerUtils.isInLiquid(player);
+                data.onIce = PlayerUtils.isOnIce(player);
+                data.onClimbable = PlayerUtils.isOnClimbable(player);
+                data.underBlock = PlayerUtils.inUnderBlock(player);
                 
                 if(data.onGround) {
                     data.groundTicks++;
@@ -90,13 +93,13 @@ public class MoveEvent implements Listener {
             }
         }
 
-        if (UtilsA.hasIceNear(player)) {
+        if (PlayerUtils.hasIceNear(player)) {
             if(data.getIceTicks() < 60) data.setIceTicks(data.getIceTicks() + 1);
         } else if(data.getIceTicks() > 0) {
             data.setIceTicks(data.getIceTicks() - 1);
         }
 
-        if(UtilsA.wasOnSlime(player)) {
+        if(PlayerUtils.wasOnSlime(player)) {
             if(data.getSlimeTicks() < 50) {
                 data.setSlimeTicks(data.getSlimeTicks() + 1);
             } else if(data.getSlimeTicks() > 0) {
@@ -135,9 +138,9 @@ public class MoveEvent implements Listener {
             data.setIsNearIceTicks(TimerUtils.nowlong());
         }
 
-        double distance = UtilsA.getVerticalDistance(e.getFrom(), e.getTo());
+        double distance = MathUtils.getVerticalDistance(e.getFrom(), e.getTo());
 
-        boolean onGround = UtilsA.isOnGround4(player);
+        boolean onGround = PlayerUtils.isOnGround4(player);
         if(!onGround
                 && e.getFrom().getY() > e.getTo().getY()) {
             data.setFallDistance(data.getFallDistance() + distance);
@@ -153,14 +156,14 @@ public class MoveEvent implements Listener {
             data.setGroundTicks(0);
         }
 
-        if(UtilsA.isOnGround(player.getLocation().add(0, 2, 0))) {
+        if(PlayerUtils.isOnGround(player.getLocation().add(0, 2, 0))) {
             data.setAboveBlockTicks(data.getAboveBlockTicks() + 2);
         } else if(data.getAboveBlockTicks() > 0) {
             data.setAboveBlockTicks(data.getAboveBlockTicks() - 1);
         }
 
-        if(UtilsA.isInWater(player.getLocation())
-                || UtilsA.isInWater(player.getLocation().add(0, 1, 0))) {
+        if(PlayerUtils.isInWater(player.getLocation())
+                || PlayerUtils.isInWater(player.getLocation().add(0, 1, 0))) {
             data.setWaterTicks(data.getWaterTicks() + 1);
         } else if(data.getWaterTicks() > 0) {
             data.setWaterTicks(data.getWaterTicks() - 1);

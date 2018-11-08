@@ -20,7 +20,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.b.UtilsB;
 
 public class ReachC extends Check {
 

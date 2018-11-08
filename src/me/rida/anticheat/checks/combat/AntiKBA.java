@@ -14,7 +14,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilsC;
+import me.rida.anticheat.utils.c.UtilsC;
 
 public class AntiKBA extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();

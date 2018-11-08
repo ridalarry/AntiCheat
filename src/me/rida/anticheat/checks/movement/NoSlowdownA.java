@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.b.UtilsB;
 
 public class NoSlowdownA extends Check {
 

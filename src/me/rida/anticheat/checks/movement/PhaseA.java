@@ -39,7 +39,7 @@ import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.b.UtilsB;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();

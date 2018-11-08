@@ -4,7 +4,8 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.a.MathUtils;
+import me.rida.anticheat.utils.b.UtilsB;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -59,7 +60,7 @@ public class AimAssistA extends Check {
                 || data.lastHitEntity == null
                 || (System.currentTimeMillis() - data.lastAttack) > 150L) return;
 
-        float offset = UtilsB.yawTo180F((float) UtilsB.getOffsetFromEntity(event.getPlayer(), data.lastHitEntity)[0]);
+        float offset = MathUtils.yawTo180F((float) MathUtils.getOffsetFromEntity(event.getPlayer(), data.lastHitEntity)[0]);
 
         if(data.patterns.size() >= 10) {
 

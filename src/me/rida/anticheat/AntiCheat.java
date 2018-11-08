@@ -42,6 +42,8 @@ import me.rida.anticheat.packets.PacketCore;
 import me.rida.anticheat.pluginlogger.*;
 import me.rida.anticheat.update.*;
 import me.rida.anticheat.utils.*;
+import me.rida.anticheat.utils.b.UtilsB;
+
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

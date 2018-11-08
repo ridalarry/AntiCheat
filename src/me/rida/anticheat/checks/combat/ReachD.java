@@ -13,7 +13,8 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilsA;
+import me.rida.anticheat.utils.a.PlayerUtils;
+import me.rida.anticheat.utils.a.ServerUtils;
 
 public class ReachD extends Check {
 
@@ -49,7 +50,7 @@ public class ReachD extends Check {
 		}
 
 		double YawDifference = Math.abs(180 - Math.abs(damaged.getLocation().getYaw() - player.getLocation().getYaw()));
-		double Difference = UtilsA.getEyeLocation(player).distance(damaged.getEyeLocation()) - 0.35;
+		double Difference = PlayerUtils.getEyeLocation(player).distance(damaged.getEyeLocation()) - 0.35;
 
 		int Ping = getAntiCheat().getLag().getPing(player);
 		double TPS = getAntiCheat().getLag().getTPS();
