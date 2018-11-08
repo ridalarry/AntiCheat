@@ -60,7 +60,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class AntiCheat extends JavaPlugin implements Listener {
 	
 	public static final Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
-	public String dispatchCommand, kickMessage;
 	public static final Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
 
     private Logger logger = null;
@@ -73,14 +72,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public PacketCore packet;
 	public LagCore lag;
 	public List<Check> Checks;
-	private static ConfigFile file;
 	public Map<UUID, Map<Check, Integer>> Violations;
 	public Map<UUID, Map<Check, Long>> ViolationReset;
 	public List<Player> AlertsOn;
 	public Map<Player, Map.Entry<Check, Long>> AutoBan;
 	public Map<String, Check> NamesBanned;
 	Random rand;
-	private Check check;
 	public TxtFile autobanMessages;
 	public Map<UUID, Long> LastVelocity;
 	public ArrayList<UUID> hasInvOpen = new ArrayList<UUID>();
@@ -147,7 +144,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new NoFallA(this));
 		this.Checks.add(new NoSlowdownA(this));
 		this.Checks.add(new PacketsA(this));
-		this.Checks.add(new PacketsB(this));
 		this.Checks.add(new PhaseA(this));
 		this.Checks.add(new PMEA(this));
 		this.Checks.add(new ReachA(this));
@@ -206,10 +202,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.RegisterListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
 		if (!file.exists()) {
-			this.getConfig().addDefault("dispatchCommand", "ban %name% You tried to exploit CustomPayload packet");
-			this.getConfig().addDefault("kickMessage", "You tried to exploit CustomPayload packet");
-			this.getConfig().addDefault("EnableCustomLog", "true");
-			this.getConfig().addDefault("CustomLogFormat", "\"[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
+			this.getConfig().addDefault("EnableCustomLog", true);
+			this.getConfig().addDefault("CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
 			this.getConfig().addDefault("bans", 0);
 			this.getConfig().addDefault("testmode", false);
 			this.getConfig().addDefault("prefix", "&8[&c&lAntiCheat&8] ");
@@ -247,7 +241,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		}
 		this.PREFIX = Color.translate(getConfig().getString("prefix"));
-		// Reset Violations Counter
 		new BukkitRunnable() {
 			public void run() {
 				getLogger().log(Level.INFO, "Reset Violations!");
@@ -275,8 +268,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
             }
         }
 
-        dispatchCommand = getConfig().getString("dispatchCommand");
-        kickMessage = getConfig().getString("kickMessage");
 
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
             @Override
@@ -360,10 +351,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				SpeedC.tooFastTicks.clear();
 			if (!SpeedC.lastHit.isEmpty())
 				SpeedC.lastHit.isEmpty();
-			if (!PacketsB.lastPacket.isEmpty())
-				PacketsB.lastPacket.clear();
-			if (!PacketsB.packetTicks.isEmpty())
-				PacketsB.packetTicks.clear();
+			if (!PacketsA.lastPacket.isEmpty())
+				PacketsA.lastPacket.clear();
+			if (!PacketsA.packetTicks.isEmpty())
+				PacketsA.packetTicks.clear();
 			if (!SneakA.sneakTicks.isEmpty())
 				SneakA.sneakTicks.clear();
 			if (!HitBoxA.count.isEmpty())
@@ -545,9 +536,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		return null;
 	}
 
-	private void wqminoiwn() {
-		Bukkit.getPluginManager().disablePlugin(this);
-	}
 
 	public void addViolation(Player player, Check check) {
 		Map<Check, Integer> map = new HashMap<Check, Integer>();
@@ -796,10 +784,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
             getInstance().getDataManager().addPlayerData(playerLoop);
         }
     }
+	public String dispatchCommand;
     private void checkPacket(PacketEvent event) {
+
+        dispatchCommand = getConfig().getString("bancmd");
         Player player = event.getPlayer();
         if (player == null) {
-            // Oh! Packet without player o_O. We can't do anything
             String name = event.getPacket().getStrings().readSafely(0);
             getLogger().log(Level.SEVERE, "packet ''{0}'' without player ", name);
             if (logger != null) logger.log(Level.SEVERE, "packet ''{0}'' without player ", name);
@@ -808,7 +798,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
         }
         long lastPacket = PACKET_USAGE.getOrDefault(player, -1L);
 
-        // This fucker is already detected as an exploiter
         if (lastPacket == -2L) {
             event.setCancelled(true);
             return;
@@ -831,15 +820,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
                 checkNbtTags(event);
             }
         } catch (ExploitException ex) {
-            // Set last packet usage to -2 so we wouldn't mind checking him again
             PACKET_USAGE.put(player, -2L);
 
             Bukkit.getScheduler().runTask(this, () -> {
-                player.kickPlayer(kickMessage);
+                player.kickPlayer("You failed to use an exploit that would crash the server!");
 
                 if (dispatchCommand != null)
                     getServer().dispatchCommand(Bukkit.getConsoleSender(),
-                            dispatchCommand.replace("%name%", player.getName()));
+                    		dispatchCommand.replace("%player%", player.getName()));
             });
 
             getLogger().warning(player.getName() + " tried to exploit CustomPayload: " + ex.getMessage());
@@ -852,7 +840,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
         }
     }
 
-    //@SuppressWarnings("deprecation")
     private void checkNbtTags(PacketEvent event) throws ExploitException {
         PacketContainer container = event.getPacket();
         ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
@@ -878,20 +865,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
             if (pages.size() > 50)
                 throw new ExploitException("Too much pages", itemStack);
 
-            // This is for testing. Take a book, write on first page "CustomPayloadFixer" and either sign it or press done.
             if (pages.size() > 0 && "CustomPayloadFixer".equalsIgnoreCase(pages.getValue(0)))
                 throw new ExploitException("Testing exploit", itemStack);
 
-                /*
-                Update 1: Here comes the funny part - Minecraft Wiki says that book allows to have only 256 symbols per page,
-                but in reality it actually can get up to 257. What a jerks. (tested on 1.8.9)
-                Update 2: Found one more exciting and surprisingly refreshing thing about Minecraft -
-                Minecraft clients allow players to use § symbols in books. What the fuck, why?
-                Update 3: I fucking hate Minecraft. Just why, whyy? Page length check is removed for now.
-                for (String page : pages)
-                    if (COLOR_PATTERN.matcher(page).replaceAll("").length() > 257)
-                        throw new IOException("A very long page");
-                */
 
         } finally {
             buffer.release();
@@ -917,11 +893,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
         return from == -1L || System.currentTimeMillis() - from > required;
     }
 
-    // This rewritten method deserializeItemStack from ProtocolLib
-    // com.comphenix.protocol.utility.StreamSerializer.getDefault().deserializeItemStack(DataInputStream)
-    // Input parameter has changed from DataInputStream to ByteBuf (to reduce code)
     private static MethodAccessor READ_ITEM_METHOD;
-    private static MethodAccessor WRITE_ITEM_METHOD;
     public ItemStack deserializeItemStack(ByteBuf buf) throws IOException {
         Validate.notNull(buf, "input cannot be null!");
         Object nmsItem = null;
