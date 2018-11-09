@@ -680,7 +680,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					msg.sendToPlayer(player);
 				} else {
 					for (Player playerplayer : this.AlertsOn) {
-						if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.admin")) {
+						if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
 							continue;
 						}
 						msg.sendToPlayer(playerplayer);

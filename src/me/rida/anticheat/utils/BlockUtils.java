@@ -92,16 +92,13 @@ public class BlockUtils {
     }
 	
 	public static double getBlockHeight(Block block) {	
-		if(block.getTypeId() == 44) {
+		if(block.getType().equals(Material.WOOD_STEP)||block.getType().equals(Material.STEP)||block.getType().equals(Material.WOOD_STAIRS)||block.getTypeId() == 182) {
 			return 0.5;
 		}
-		if(block.getTypeId() == 53) {
-			return 0.5;
-		}
-		if(block.getTypeId()  == 85) {
+		if(block.getType().equals(Material.FENCE)||block.getType().equals(Material.NETHER_FENCE)) {
 			return 0.2;
 		}
-		if(block.getTypeId() == 54 || block.getTypeId() == 130) {
+		if(block.getType().equals(Material.CHEST)||block.getType().equals(Material.ENDER_CHEST)||block.getType().equals(Material.TRAPPED_CHEST)) {
 			return 0.125;
 		}
 		return 0;
@@ -119,15 +116,14 @@ public class BlockUtils {
 	    		|| block.getType().equals(Material.DARK_OAK_STAIRS) || block.getType().equals(Material.NETHER_BRICK_STAIRS)
 	    		|| block.getType().equals(Material.JUNGLE_WOOD_STAIRS) || block.getType().equals(Material.QUARTZ_STAIRS)
 	    		|| block.getType().equals(Material.SMOOTH_STAIRS) || block.getType().equals(Material.WOOD_STAIRS)
-	    		|| block.getType().equals(Material.SANDSTONE_STAIRS) || block.getType().equals(Material.SPRUCE_WOOD_STAIRS)
-				|| block.getTypeId() == 203 || block.getTypeId() == 180) {
+	    		|| block.getType().equals(Material.SANDSTONE_STAIRS) || block.getType().equals(Material.SPRUCE_WOOD_STAIRS)|| block.getType().equals(Material.RED_SANDSTONE_STAIRS)) {
 	    	return true;
 	    }
 	    return false;
 	}
 	
 	public static boolean isSlab(Block block) {
-		return block.getTypeId() == 44 || block.getTypeId() ==126 || block.getTypeId() == 205
+		return block.getType().equals(Material.WOOD_STEP) ||block.getType().equals(Material.STEP)
 				|| block.getTypeId() == 182;
 	}
 	
