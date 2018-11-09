@@ -13,8 +13,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilsB;
 
 public class StepA extends Check {
 	double stepHeight;
@@ -31,7 +34,7 @@ public class StepA extends Check {
 	}
 
 	public boolean isOnGround(Player player) {
-		if (UtilsB.isOnClimbable(player, 0)) {
+		if (PlayerUtils.isOnClimbable(player, 0)) {
 			return false;
 		}
 		if (player.getVehicle() != null) {
@@ -73,7 +76,7 @@ public class StepA extends Check {
 				|| getAntiCheat().isSotwMode()
 				|| player.hasPotionEffect(PotionEffectType.JUMP)
 				|| getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
-				|| UtilsB.isOnClimbable(player, 0)
+				|| PlayerUtils.isOnClimbable(player, 0)
 				|| UtilCheat.slabsNear(player.getLocation())
 				|| player.getLocation().getBlock().getType().equals(Material.WATER)
 				|| player.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
@@ -84,8 +87,8 @@ public class StepA extends Check {
 		if (yDist < 0) {
 			return;
 		}
-		double YSpeed = UtilsB.offset(UtilsB.getVerticalVector(event.getFrom().toVector()),
-				UtilsB.getVerticalVector(event.getTo().toVector()));
+		double YSpeed = MathUtils.offset(MathUtils.getVerticalVector(event.getFrom().toVector()),
+				MathUtils.getVerticalVector(event.getTo().toVector()));
 		if (yDist > 0.95) {
 			this.dumplog(player, "Height (Logged): " + yDist);
 			this.getAntiCheat().logCheat(this, player, "[1] " + Math.round(yDist) + " blocks", "(Type: A)");
@@ -97,7 +100,7 @@ public class StepA extends Check {
 			this.getAntiCheat().logCheat(this, player, "[2] Speed: " + YSpeed + " Block: " + player.getLocation().clone().subtract(0.0D, 0.1D, 0.0D).getBlock().getType().toString(), "(Type: A)");
 			return;
 		}
-		ArrayList<Block> blocks = UtilsB.getBlocksAroundCenter(player.getLocation(), 1);
+		ArrayList<Block> blocks = BlockUtils.getBlocksAroundCenter(player.getLocation(), 1);
 		for (Block block : blocks) {
 			if (block.getType().isSolid()) {
 				if ((YSpeed >= 0.321 && YSpeed < 0.322)) {

@@ -19,10 +19,13 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.BlockUtils;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.UtilsB;
 
 public class SpiderA extends Check {
 
@@ -55,11 +58,11 @@ public class SpiderA extends Check {
                 || event.getPlayer().getVehicle() != null
                 || player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
                 || player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SLIME_BLOCK
-                || UtilsB.isOnClimbable(player, 0)
-                || UtilsB.isOnClimbable(player, 1) 
+                || PlayerUtils.isOnClimbable(player, 0)
+                || PlayerUtils.isOnClimbable(player, 1) 
 				|| !getAntiCheat().isEnabled()
-				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))
-				|| UtilsB.isNotSpider(player)
+				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
+				|| PlayerUtils.isNotSpider(player)
 				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
 		
@@ -71,7 +74,7 @@ public class SpiderA extends Check {
 			TotalBlocks = AscensionTicks.get(player.getUniqueId()).getValue().doubleValue();
 		}
 		long MS = System.currentTimeMillis() - Time;
-        double OffsetY = UtilsB.offset(UtilsB.getVerticalVector(event.getFrom().toVector()), UtilsB.getVerticalVector(event.getTo().toVector()));
+        double OffsetY = MathUtils.offset(MathUtils.getVerticalVector(event.getFrom().toVector()), MathUtils.getVerticalVector(event.getTo().toVector()));
 
 		boolean ya = false;
 		List<Material> Types = new ArrayList<Material>();
@@ -89,7 +92,7 @@ public class SpiderA extends Check {
 			TotalBlocks += OffsetY;
 		} else if ((!ya) || (!UtilCheat.blocksNear(player))) {
 			TotalBlocks = 0.0D;
-		} else if (((event.getFrom().getY() > event.getTo().getY()) || (UtilsB.isOnGround(player)))) {
+		} else if (((event.getFrom().getY() > event.getTo().getY()) || (PlayerUtils.isInGround(player)))) {
 			TotalBlocks = 0.0D;
 		}
 		double Limit = 0.5D;

@@ -13,7 +13,6 @@ public class UtilReflection {
     public static final Class<?> EntityPlayer = getNMSClass("EntityPlayer");
     public static final Class<?> Entity = getNMSClass("Entity");
     public static final Class<?> CraftPlayer = getCBClass("entity.CraftPlayer");
-    private static final Class<?> CraftEntity = getCBClass("entity.CraftEntity");
     public static final Class<?> CraftWorld = getCBClass("CraftWorld");
     public static final Class<?> World = getNMSClass("World");
     private static final Method getBlocks = getMethod(World, "a", getNMSClass("AxisAlignedBB"));

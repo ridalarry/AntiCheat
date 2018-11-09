@@ -75,18 +75,18 @@ public class UtilTime {
             }
         }
         if (type == TimeUnit.DAYS) {
-            return UtilsB.trim(trim, time / 8.64E7D);
+            return MathUtils.trim(trim, time / 8.64E7D);
         }
         if (type == TimeUnit.HOURS) {
-            return UtilsB.trim(trim, time / 3600000.0D);
+            return MathUtils.trim(trim, time / 3600000.0D);
         }
         if (type == TimeUnit.MINUTES) {
-            return UtilsB.trim(trim, time / 60000.0D);
+            return MathUtils.trim(trim, time / 60000.0D);
         }
         if (type == TimeUnit.SECONDS) {
-            return UtilsB.trim(trim, time / 1000.0D);
+            return MathUtils.trim(trim, time / 1000.0D);
         }
-        return UtilsB.trim(trim, time);
+        return MathUtils.trim(trim, time);
     }
 
     public static String MakeStr(long time) {
@@ -113,18 +113,18 @@ public class UtilTime {
             }
         }
         if (type == TimeUnit.DAYS) {
-            return UtilsB.trim(trim, time / 8.64E7D) + " Days";
+            return MathUtils.trim(trim, time / 8.64E7D) + " Days";
         }
         if (type == TimeUnit.HOURS) {
-            return UtilsB.trim(trim, time / 3600000.0D) + " Hours";
+            return MathUtils.trim(trim, time / 3600000.0D) + " Hours";
         }
         if (type == TimeUnit.MINUTES) {
-            return UtilsB.trim(trim, time / 60000.0D) + " Minutes";
+            return MathUtils.trim(trim, time / 60000.0D) + " Minutes";
         }
         if (type == TimeUnit.SECONDS) {
-            return UtilsB.trim(trim, time / 1000.0D) + " Seconds";
+            return MathUtils.trim(trim, time / 1000.0D) + " Seconds";
         }
-        return UtilsB.trim(trim, time) + " Milliseconds";
+        return MathUtils.trim(trim, time) + " Milliseconds";
     }
 
     public static boolean elapsed(long from, long required) {

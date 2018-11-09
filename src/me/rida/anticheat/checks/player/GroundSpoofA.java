@@ -3,9 +3,9 @@ package me.rida.anticheat.checks.player;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.PlayerUtils;
 import me.rida.anticheat.utils.TimerUtils;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.UtilsA;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -38,16 +38,16 @@ public class GroundSpoofA extends Check {
              Location to = e.getTo();
              Location from = e.getFrom();
              double diff = to.toVector().distance(from.toVector());
-             int dist = UtilsA.getDistanceToGround(p);
+             int dist = PlayerUtils.getDistanceToGround(p);
              if (p.getLocation().add(0,-1.50,0).getBlock().getType() != Material.AIR) {
                  data.setGroundSpoofVL(0);
                  return;
              }
-             if (e.getTo().getY() > e.getFrom().getY() || UtilsA.isOnGround4(p) || UtilVelocity.didTakeVelocity(p)) {
+             if (e.getTo().getY() > e.getFrom().getY() || PlayerUtils.isOnGround4(p) || UtilVelocity.didTakeVelocity(p)) {
                  data.setGroundSpoofVL(0);
                  return;
              }
-             if (p.isOnGround() && diff > 0.0 && !UtilsA.isOnGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
+             if (p.isOnGround() && diff > 0.0 && !PlayerUtils.isOnGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
                  if (data.getGroundSpoofVL() >= 4) {
                      if (data.getAirTicks() >= 10) {
                          getAntiCheat().logCheat(this, p, "[1] Spoofed On-Ground Packet.", "(Type: A)");

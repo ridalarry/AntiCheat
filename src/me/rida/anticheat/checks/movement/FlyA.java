@@ -3,10 +3,13 @@ package me.rida.anticheat.checks.movement;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.UtilsA;
-import me.rida.anticheat.utils.UtilsB;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -33,8 +36,8 @@ public class FlyA extends Check {
                 || p.getAllowFlight()
                 || e.getPlayer().getVehicle() != null
                 || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
-                || UtilsA.isOnClimbable(p, 0)
-                || UtilsA.isOnClimbable(p, 1) || UtilVelocity.didTakeVelocity(p)) {
+                || PlayerUtils.isOnClimbable(p, 0)
+                || PlayerUtils.isOnClimbable(p, 1) || UtilVelocity.didTakeVelocity(p)) {
             return;
         }
 
@@ -44,25 +47,25 @@ public class FlyA extends Check {
             return;
         }
         //Ascension Check
-        if (!UtilNewVelocity.didTakeVel(p) && !UtilsA.wasOnSlime(p)) {
+        if (!UtilNewVelocity.didTakeVel(p) && !PlayerUtils.wasOnSlime(p)) {
             Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
             double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
             if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
-                if (Distance > 0.50 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !UtilVelocity.didTakeVelocity(p)) {
+                if (Distance > 0.50 && !PlayerUtils.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !UtilVelocity.didTakeVelocity(p)) {
                 	getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance,  "(Type: A)");
-                } else if (Distance > 0.90 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+                } else if (Distance > 0.90 && !PlayerUtils.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
                 	getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance, "(Type: A)");
-                } else if (Distance > 1.0 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+                } else if (Distance > 1.0 && !PlayerUtils.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
                 	getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance, "(Type: A)");
-                } else if (Distance > 3.24 && !UtilsA.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+                } else if (Distance > 3.24 && !PlayerUtils.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
                 	getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance, "(Type: A)");
                 }
             }
         }
-        if (!UtilNewVelocity.didTakeVel(p) && !UtilsA.wasOnSlime(p)) {
+        if (!UtilNewVelocity.didTakeVel(p) && !PlayerUtils.wasOnSlime(p)) {
             if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !UtilVelocity.didTakeVelocity(p)) {
-                if (!UtilsA.isOnGround4(p) && !UtilsA.onGround2(p) && !UtilsA.isOnGround(p)) {
-                    if (UtilsA.getDistanceToGround(p) > 2) {
+                if (!PlayerUtils.isOnGround4(p) && !PlayerUtils.onGround2(p) && !PlayerUtils.isOnGround(p)) {
+                    if (PlayerUtils.getDistanceToGround(p) > 2) {
                         if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
                             // getAntiCheat().logCheat(this, p, "[5] Distance: 10 blocks or more", "(Type: A)");
                          //   setBackPlayer(p);
@@ -84,9 +87,9 @@ public class FlyA extends Check {
             data.setGoingUp_Blocks(0);
         }
         //Hover check
-        if(!UtilsA.isOnGround(p)) {
+        if(!PlayerUtils.isOnGround(p)) {
             double distanceToGround = getDistanceToGround(p);
-            double yDiff = UtilsA.getVerticalDistance(e.getFrom(), e.getTo());
+            double yDiff = MathUtils.getVerticalDistance(e.getFrom(), e.getTo());
             int verbose = data.getFlyHoverVerbose();
 
             if(distanceToGround > 2) {
@@ -106,7 +109,7 @@ public class FlyA extends Check {
         }
 
         //Glide check
-        if (UtilsA.getDistanceToGround(p) >  3) {
+        if (PlayerUtils.getDistanceToGround(p) >  3) {
             double OffSet = e.getFrom().getY() - e.getTo().getY();
             long Time = System.currentTimeMillis();
             if (OffSet <= 0.0 || OffSet > 0.16) {
@@ -118,7 +121,7 @@ public class FlyA extends Check {
             }
             long Millis = System.currentTimeMillis() - Time;
             if (Millis > 200L) {
-            	if (UtilsB.isInLiquid(p)) {
+            	if (PlayerUtils.isInLiquid(p)) {
             		return;
             	}
                 getAntiCheat().logCheat(this, p, "[7]", "(Type: A)");
@@ -140,10 +143,10 @@ public class FlyA extends Check {
 
         if(finalDifference < 0.08
                 && e.getFrom().getY() < e.getTo().getY()
-                && !UtilsA.isOnGround(p) && !p.getLocation().getBlock().isLiquid() && !UtilsB.isNearLiquid(p)
+                && !PlayerUtils.isOnGround(p) && !p.getLocation().getBlock().isLiquid() && !BlockUtils.isNearLiquid(p)
                 && !UtilNewVelocity.didTakeVel(p) && !UtilVelocity.didTakeVelocity(p)) {
             if(++verboseC > 8) {
-            	if (!UtilsA.wasOnSlime(p)) {
+            	if (!PlayerUtils.wasOnSlime(p)) {
             		verboseC = 0;
             	}
             	else {

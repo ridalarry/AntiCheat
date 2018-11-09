@@ -21,8 +21,10 @@ import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.UtilsA;
-import me.rida.anticheat.utils.UtilsB;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 
 public class SpeedB extends Check {
 
@@ -69,9 +71,9 @@ public class SpeedB extends Check {
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
-           		|| UtilsB.isNearIce(p)
-   		        || UtilsB.isNearSlime(p)
-           		|| UtilsA.wasOnSlime(p)){
+           		|| BlockUtils.isNearIce(p)
+   		        || BlockUtils.isNearSlime(p)
+           		|| PlayerUtils.wasOnSlime(p)){
 			return;
 		}
 
@@ -83,7 +85,7 @@ public class SpeedB extends Check {
 		}
 
 		double ig = 0.28;
-		double speed = UtilsB.offset(getHV(to.toVector()), getHV(from.toVector()));
+		double speed = MathUtils.offset(getHV(to.toVector()), getHV(from.toVector()));
 		double onGroundDiff = (to.getY() - from.getY());
 
 		if (p.hasPotionEffect(PotionEffectType.SPEED)) {
@@ -183,7 +185,7 @@ public class SpeedB extends Check {
 	
 	public static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
-		for (Block bl : UtilsB.getSurrounding(loc.getBlock(), true)) {
+		for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), true)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {
@@ -191,7 +193,7 @@ public class SpeedB extends Check {
 				break;
 			}
 		}
-		for (Block bl : UtilsB.getSurrounding(loc.getBlock(), false)) {
+		for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), false)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {

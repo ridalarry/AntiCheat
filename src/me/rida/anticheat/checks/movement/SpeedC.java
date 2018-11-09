@@ -19,10 +19,12 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.UtilsA;
-import me.rida.anticheat.utils.UtilsB;
 
 public class SpeedC extends Check {
 	
@@ -87,9 +89,9 @@ public class SpeedC extends Check {
 				|| player.getAllowFlight()
 				|| player.getVehicle() != null
 		        || player.getGameMode().equals(GameMode.CREATIVE)
-		        || UtilsB.isNearIce(player)
-		        || UtilsA.wasOnSlime(player)
-		        || UtilsB.isNearSlime(player)
+		        || BlockUtils.isNearIce(player)
+		        || PlayerUtils.wasOnSlime(player)
+		        || BlockUtils.isNearSlime(player)
 				|| player.getVelocity().length() + 0.1 < velocity.getOrDefault(player.getUniqueId(), -1.0D)
 				|| (getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
 				&& !player.hasPotionEffect(PotionEffectType.POISON)
@@ -110,10 +112,10 @@ public class SpeedC extends Check {
 		int TooFastCount = 0;
 		double percent = 0D;
 		if (tooFastTicks.containsKey(player.getUniqueId())) {
-			double OffsetXZ = UtilsB.offset(UtilsB.getHorizontalVector(event.getFrom().toVector()),
-					UtilsB.getHorizontalVector(event.getTo().toVector()));
+			double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(event.getFrom().toVector()),
+					MathUtils.getHorizontalVector(event.getTo().toVector()));
 			double LimitXZ = 0.0D;
-			if ((UtilsB.isOnGround(player)) && (player.getVehicle() == null)) {
+			if ((PlayerUtils.isInGround(player)) && (player.getVehicle() == null)) {
 				LimitXZ = 0.34D;
 			} else {
 				LimitXZ = 0.39D;
@@ -128,7 +130,7 @@ public class SpeedC extends Check {
 			if (UtilCheat.slabsNear(player.getLocation())) {
 				LimitXZ += 0.05D;
 			}
-			Location b = UtilsB.getEyeLocation(player);
+			Location b = PlayerUtils.getEyeLocation(player);
 			b.add(0.0D, 1.0D, 0.0D);
 			if ((b.getBlock().getType() != Material.AIR) && (!UtilCheat.canStandWithin(b.getBlock()))) {
 				LimitXZ = 0.69D;

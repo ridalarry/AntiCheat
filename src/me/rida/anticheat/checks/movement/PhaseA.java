@@ -37,9 +37,10 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
+import me.rida.anticheat.utils.BlockUtils;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilsB;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();
@@ -179,8 +180,8 @@ public class PhaseA extends Check {
 	public void update(PlayerMoveEvent e) {
 		Player player = e.getPlayer();
 		if (player.isDead()
-				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))
-				|| (UtilsB.isNearLiquid(player))) {
+				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
+				|| (BlockUtils.isNearLiquid(player))) {
 			return;
 		}
 

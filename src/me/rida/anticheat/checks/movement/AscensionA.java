@@ -15,9 +15,10 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.UtilsB;
 
 public class AscensionA extends Check {
 	
@@ -53,8 +54,8 @@ public class AscensionA extends Check {
 			TotalBlocks = AscensionTicks.get(player.getUniqueId()).getValue().doubleValue();
 		}
 		long MS = System.currentTimeMillis() - Time;
-		double OffsetY = UtilsB.offset(UtilsB.getVerticalVector(event.getFrom().toVector()),
-				UtilsB.getVerticalVector(event.getTo().toVector()));
+		double OffsetY = MathUtils.offset(MathUtils.getVerticalVector(event.getFrom().toVector()),
+				MathUtils.getVerticalVector(event.getTo().toVector()));
 		if (OffsetY > 0.0D) {
 			TotalBlocks += OffsetY;
 		}
@@ -75,7 +76,7 @@ public class AscensionA extends Check {
 		if (TotalBlocks > Limit) {
 			if (MS > 250L) {
 				if (velocity.containsKey(player.getUniqueId())) {
-					getAntiCheat().logCheat(this, player, "Flew up " + UtilsB.trim(1, TotalBlocks) + " blocks", "(Type: A)");
+					getAntiCheat().logCheat(this, player, "Flew up " + MathUtils.trim(1, TotalBlocks) + " blocks", "(Type: A)");
 				}
 				Time = System.currentTimeMillis();
 			}

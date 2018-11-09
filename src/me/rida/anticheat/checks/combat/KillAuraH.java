@@ -8,8 +8,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.utils.AngleUtil;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.MathUtils;
 
 public class KillAuraH
 extends Check {
@@ -33,7 +33,7 @@ extends Check {
         Player player2 = (Player)entityDamageByEntityEvent.getEntity();
         double d = Ping.getPing(player);
         double d2 = Ping.getPing(player2);
-        double d3 = AngleUtil.getOffsets2(player, (LivingEntity)player2)[0];
+        double d3 = MathUtils.getOffsets2(player, (LivingEntity)player2)[0];
         if (d2 > 450.0) {
             return;
         }
