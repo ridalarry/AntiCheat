@@ -81,10 +81,10 @@ public class PacketsA extends Check {
 		UUID u = p.getUniqueId();
 		if (!getAntiCheat().isEnabled()
 				|| (p.getGameMode().equals(GameMode.CREATIVE)
-				|| (getAntiCheat().lag.getPing(p) > 200))
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| (getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel())){
+				|| getAntiCheat().getLag().getPing(p) < getAntiCheat().getPingCancel()
+				|| getAntiCheat().lag.getPing(p) > 200)
+				|| getAntiCheat().lag.getTPS() > 21.0D){
 			return;
 		}
 
@@ -126,8 +126,6 @@ public class PacketsA extends Check {
 				if (Count > 1000) {
 					
 					getAntiCheat().logCheat(this, p, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: A)");
-					
-				    
 				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
 				        	final Player p = e.getPlayer();
 				            @Override
