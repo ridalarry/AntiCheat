@@ -38,6 +38,8 @@ public class SpeedA extends Check {
                 || p.getGameMode().equals(GameMode.CREATIVE)
                 || e.getPlayer().getVehicle() != null
         		|| BlockUtil.isNearIce(p)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 		        || BlockUtil.isNearSlime(p)
         		|| PlayerUtil.wasOnSlime(p)){
             return;

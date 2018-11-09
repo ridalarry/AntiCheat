@@ -74,6 +74,8 @@ public class StepA extends Check {
 				|| !isOnGround(p)
 				|| p.getAllowFlight()
 				|| p.hasPotionEffect(PotionEffectType.JUMP)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| CheatUtil.slabsNear(p.getLocation())

@@ -70,6 +70,8 @@ public class SpeedB extends Check {
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
            		|| BlockUtil.isNearIce(p)
    		        || BlockUtil.isNearSlime(p)
            		|| PlayerUtil.wasOnSlime(p)){

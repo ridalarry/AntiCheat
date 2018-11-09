@@ -37,6 +37,8 @@ public class TimerB extends Check {
 		UUID u = p.getUniqueId();
 		if (!getAntiCheat().isEnabled() 
 				|| (Latency.getLag(p) > 500)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()
 						&& e.getFrom().getY() == e.getTo().getY())) {
 			return;

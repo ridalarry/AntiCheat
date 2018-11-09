@@ -43,6 +43,8 @@ public class AscensionA extends Check {
 				|| !getAntiCheat().isEnabled()
 				|| p.getAllowFlight()
 				|| p.getVehicle() != null
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !TimeUtil.elapsed(getAntiCheat().LastVelocity.getOrDefault(p.getUniqueId(), 0L), 4200L)) {
 			return;
 		}

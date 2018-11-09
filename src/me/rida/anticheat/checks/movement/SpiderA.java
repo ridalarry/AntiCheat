@@ -62,6 +62,8 @@ public class SpiderA extends Check {
                 || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SLIME_BLOCK
                 || PlayerUtil.isOnClimbable(p, 0)
                 || PlayerUtil.isOnClimbable(p, 1) 
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
 				|| (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p))
 				|| PlayerUtil.isNotSpider(p)

@@ -45,44 +45,46 @@ public class FlyB extends Check {
 		if (!getAntiCheat().isEnabled()) {
 			return;
 		}
-		Player player = event.getPlayer();
+		Player p = event.getPlayer();
 		
 		if (event.isCancelled()
 				|| (event.getTo().getX() == event.getFrom().getX()) && (event.getTo().getZ() == event.getFrom().getZ())
-				|| player.getAllowFlight()
-				|| player.getVehicle() != null
+				|| p.getAllowFlight()
+				|| p.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| PlayerUtil.isInWater(player)
-				|| CheatUtil.isInWeb(player)
-				|| Latency.getLag(player) > 92) {
+				|| PlayerUtil.isInWater(p)
+				|| CheatUtil.isInWeb(p)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| Latency.getLag(p) > 92) {
 			return;
 		}
 		
-		if (CheatUtil.blocksNear(player.getLocation())) {
-			if (flyTicksA.containsKey(player.getUniqueId())) {
-				flyTicksA.remove(player.getUniqueId());
+		if (CheatUtil.blocksNear(p.getLocation())) {
+			if (flyTicksA.containsKey(p.getUniqueId())) {
+				flyTicksA.remove(p.getUniqueId());
 			}
 			return;
 		} 
 		if (Math.abs(event.getTo().getY() - event.getFrom().getY()) > 0.06) {
-			if (flyTicksA.containsKey(player.getUniqueId())) {
-				flyTicksA.remove(player.getUniqueId());
+			if (flyTicksA.containsKey(p.getUniqueId())) {
+				flyTicksA.remove(p.getUniqueId());
 			}
 			return;
 		}
 		
 		long Time = System.currentTimeMillis();
-		if (flyTicksA.containsKey(player.getUniqueId())) {
-			Time = flyTicksA.get(player.getUniqueId()).longValue();
+		if (flyTicksA.containsKey(p.getUniqueId())) {
+			Time = flyTicksA.get(p.getUniqueId()).longValue();
 		}
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
-			dumplog(player, "Logged Fly. MS: " + MS);
-			getAntiCheat().logCheat(this, player, "Hovering for " + MathUtil.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
+			dumplog(p, "Logged Fly. MS: " + MS);
+			getAntiCheat().logCheat(this, p, "Hovering for " + MathUtil.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
 					);
-			flyTicksA.remove(player.getUniqueId());
+			flyTicksA.remove(p.getUniqueId());
 			return;
 		}
-		flyTicksA.put(player.getUniqueId(), Time);
+		flyTicksA.put(p.getUniqueId(), Time);
 	}
 }

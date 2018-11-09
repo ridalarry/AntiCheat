@@ -62,6 +62,8 @@ public class VClipA extends Check {
 		if (!getAntiCheat().isEnabled()
 				|| from.getY() == to.getY()
 				|| p.getAllowFlight()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| p.getVehicle() != null
 				|| teleported.remove(e.getPlayer())
 				|| e.getTo().getY() <= 0 || e.getTo().getY() >= p.getWorld().getMaxHeight()

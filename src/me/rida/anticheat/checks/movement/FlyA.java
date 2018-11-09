@@ -37,7 +37,9 @@ public class FlyA extends Check {
                 || e.getPlayer().getVehicle() != null
                 || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
                 || PlayerUtil.isOnClimbable(p, 0)
-                || PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)) {
+                || PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;
         }
 

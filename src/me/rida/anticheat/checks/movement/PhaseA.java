@@ -180,7 +180,9 @@ public class PhaseA extends Check {
 		Player p = e.getPlayer();
 		if (p.isDead()
 				|| (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p))
-				|| (BlockUtil.isNearLiquid(p))) {
+				|| (BlockUtil.isNearLiquid(p))
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 

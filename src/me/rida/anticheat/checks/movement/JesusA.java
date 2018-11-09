@@ -77,6 +77,8 @@ public class JesusA extends Check {
 		if (event.isCancelled()
 				|| (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getZ() == event.getTo().getZ())
 				|| p.getAllowFlight()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| CheatUtil.isOnLilyPad(p)
 				|| p.getLocation().clone().add(0.0D, 0.4D, 0.0D).getBlock().getType().isSolid()
 				|| placedBlockOnWater.remove(p)) {

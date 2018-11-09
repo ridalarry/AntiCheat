@@ -73,6 +73,8 @@ public class NoFallA extends Check {
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getVehicle() != null
 				|| cancel.remove(p)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.isInWater(p)) {
 			return;

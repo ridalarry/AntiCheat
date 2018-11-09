@@ -51,7 +51,9 @@ public class NoSlowdownA extends Check {
 			return;
 		}
 		final Player p = (Player) e.getEntity();
-		if (p.isInsideVehicle()) {
+		if (p.isInsideVehicle()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		if (p.isSprinting()) {

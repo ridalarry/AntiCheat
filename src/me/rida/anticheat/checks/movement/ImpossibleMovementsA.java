@@ -25,6 +25,10 @@ public class ImpossibleMovementsA extends Check {
         Player p = e.getPlayer();
         Location from  =e.getFrom();
         Location to = e.getTo();
+        if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+        	return;
+        }
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
         if (data != null) {
             if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {

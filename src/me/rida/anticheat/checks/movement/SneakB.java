@@ -21,6 +21,10 @@ public class SneakB extends Check {
     	 final Player p = e.getPlayer();
     	if (p.isSneaking()) {
     		if (p.isSprinting()) {
+    			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+    				return;
+    			}
             getAntiCheat().logCheat(this, p, null, "(Type: B)");
     		}
     	}

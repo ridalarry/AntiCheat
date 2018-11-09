@@ -30,7 +30,9 @@ public class AscensionB extends Check {
         float yDelta = (float) (e.getTo().getY() - e.getFrom().getY());
         if (p.getAllowFlight()
                 || !lastYMovement.containsKey(p)
-                || Math.abs(yDelta - lastYMovement.get(p)) > 0.002) return;
+                || Math.abs(yDelta - lastYMovement.get(p)) > 0.002
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) return;
         if (verbose++ > 5) {
         	AntiCheat.Instance.logCheat(this, p, Math.abs(yDelta - lastYMovement.get(p)) + "<-" + 0.002, "(Type B)");
         }

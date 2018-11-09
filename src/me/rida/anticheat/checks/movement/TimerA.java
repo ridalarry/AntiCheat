@@ -58,7 +58,9 @@ public class TimerA extends Check {
 	public void PacketPlayer(PacketPlayerEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
-		if (!this.getAntiCheat().isEnabled()) {
+		if (!this.getAntiCheat().isEnabled()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 

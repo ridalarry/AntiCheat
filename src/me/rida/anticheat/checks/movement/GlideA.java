@@ -47,6 +47,7 @@ public class GlideA extends Check {
 				|| !(e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ())
 				|| p.getVehicle() != null
 				|| p.getAllowFlight()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| CheatUtil.isInWeb(p)) {
 			return;
