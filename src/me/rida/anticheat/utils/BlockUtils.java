@@ -92,18 +92,26 @@ public class BlockUtils {
     }
 	
 	public static double getBlockHeight(Block block) {	
-		if(block.getType().equals(Material.WOOD_STEP)||block.getType().equals(Material.STEP)||block.getType().equals(Material.WOOD_STAIRS)||block.getTypeId() == 182) {
+		if(isSlab(block)||isStair(block)) {
 			return 0.5;
 		}
-		if(block.getType().equals(Material.FENCE)||block.getType().equals(Material.NETHER_FENCE)) {
-			return 0.2;
+		if(isFence(block)) {
+			return 0.5;
 		}
-		if(block.getType().equals(Material.CHEST)||block.getType().equals(Material.ENDER_CHEST)||block.getType().equals(Material.TRAPPED_CHEST)) {
+		if(isChest(block)) {
 			return 0.125;
 		}
 		return 0;
 	}
+	public static boolean isChest(Block block) {
+		return block.getType().equals(Material.CHEST)||block.getType().equals(Material.ENDER_CHEST)||block.getType().equals(Material.TRAPPED_CHEST);
+			
+	}
 
+	public static boolean isFence(Block block) {
+		return block.getType().equals(Material.FENCE)||block.getType().equals(Material.ACACIA_FENCE)||block.getType().equals(Material.SPRUCE_FENCE)||block.getType().equals(Material.BIRCH_FENCE)||block.getType().equals(Material.JUNGLE_FENCE)||block.getType().equals(Material.DARK_OAK_FENCE)||block.getType().equals(Material.NETHER_FENCE);
+			
+	}
 	public static boolean isPiston(Block block) {
 		return block.getType().equals(Material.PISTON_MOVING_PIECE) || block.getType().equals(Material.PISTON_EXTENSION)
 				|| block.getType().equals(Material.PISTON_BASE) || block.getType().equals(Material.PISTON_STICKY_BASE);
@@ -277,11 +285,20 @@ public class BlockUtils {
         static String[] HalfBlocksArray = { "pot", "flower", "step", "slab", "snow", "detector", "daylight",
                 "comparator", "repeater", "diode", "water", "lava", "ladder", "vine", "carpet", "sign", "pressure", "plate",
                 "button", "mushroom", "torch", "frame", "armor", "banner", "lever", "hook", "redstone", "rail", "brewing",
-                "rose", "skull", "enchantment", "cake","bed", "chest", "anvil" };
+                "rose", "skull", "enchantment", "cake", "bed"};
         public static boolean isHalfBlock(Block block) {
             Material type = block.getType();
             for (String types : HalfBlocksArray) {
                 if (type.toString().toLowerCase().contains(types)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static boolean isLessThanBlock(Block block) {
+            Material type = block.getType();
+            for (String types : HalfBlocksArray) {
+                if (type.toString().toLowerCase().contains("chest")||type.toString().toLowerCase().contains("anvil")) {
                     return true;
                 }
             }
