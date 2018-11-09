@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 
 public class BlockInteractA extends Check {
 
@@ -25,7 +26,9 @@ public class BlockInteractA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void checkFreecam(PlayerInteractEvent e) {
-		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK) {
+		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK
+				||Ping.getPing(e.getPlayer()) > 400
+				||getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 			return;
 		}
 		boolean isValid = false;

@@ -12,6 +12,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 
 public class BlockInteractC extends Check {
     public BlockInteractC(AntiCheat AntiCheat) {
@@ -30,6 +31,8 @@ public class BlockInteractC extends Check {
                 || p.getAllowFlight()
                 || e.getPlayer().getVehicle() != null
 				|| !getAntiCheat().isEnabled()
+				|| Ping.getPing(e.getPlayer()) > 100
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || VelocityUtil.didTakeVelocity(p)) return;
         if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             if (!e.getBlock().getLocation().equals((Object)t.getLocation()) && !e.isCancelled() && t.getType().isSolid() && !t.getType().name().toLowerCase().contains("sign") && !t.getType().toString().toLowerCase().contains("fence") && p.getLocation().getY() > e.getBlock().getLocation().getY()) {

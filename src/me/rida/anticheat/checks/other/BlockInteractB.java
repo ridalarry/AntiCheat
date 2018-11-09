@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
 
 
@@ -34,7 +35,9 @@ public class BlockInteractB extends Check {
 		if ((e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				&& e.getItem() != null) {
 			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
-					|| e.getItem().getType().equals(Material.POTION)) {
+					|| e.getItem().getType().equals(Material.POTION)
+					|| Ping.getPing(e.getPlayer()) > 400
+					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 				return;
 			}
 			Player p = e.getPlayer();

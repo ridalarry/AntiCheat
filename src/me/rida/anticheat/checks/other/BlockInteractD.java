@@ -11,6 +11,7 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.VelocityUtil;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.other.Ping;
 
 public class BlockInteractD extends Check {
     public BlockInteractD(AntiCheat AntiCheat) {
@@ -27,6 +28,8 @@ public class BlockInteractD extends Check {
         if (p.getGameMode().equals(GameMode.CREATIVE)
                 || p.getAllowFlight()
                 || p.getVehicle() != null
+                || Ping.getPing(e.getPlayer()) > 100
+                || getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| !getAntiCheat().isEnabled()
                 || VelocityUtil.didTakeVelocity(p)) return;
         if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
