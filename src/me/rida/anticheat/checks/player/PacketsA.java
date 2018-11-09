@@ -112,30 +112,22 @@ public class PacketsA extends Check {
 					}
 				}
 				if (Count > 400) {
-					getAntiCheat().logCheat(this, p, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: A)");
-					
-				    
-				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-				        	final Player p = e.getPlayer();
-				            @Override
-				            public void run() {
-				                p.kickPlayer("Too many packets");
-				            }
-				        });
-				    }
+					getAntiCheat().logCheat(this, p, "sent over " + Count  + " packets! ", "(Type: A)");
+				}
+				if (Count > 800) {
+						getAntiCheat().logCheat(this, p, "sent over " + Count  + " packets! ", "(Type: A)");
+				}
 				if (Count > 1000) {
-					
-					getAntiCheat().logCheat(this, p, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: A)");
-				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-				        	final Player p = e.getPlayer();
-				            @Override
-				            public void run() {
-
-								Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getAntiCheat().getConfig().getString("bancmd")
-										.replaceAll("%player%", p.getName()).replaceAll("%check%", "PacketsA"));
-							}				        });
-				    }
-				Count = 0;
+					getAntiCheat().logCheat(this, p, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: A)");				        	
+					AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+			        	final Player p = e.getPlayer();
+			            @Override
+			            public void run() {
+			                p.kickPlayer("Too many packets");
+			            }
+			        });
+			    }
+					Count = 0;
 				Time = TimeUtil.nowlong();
 			}
 		}
