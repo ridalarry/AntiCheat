@@ -21,6 +21,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
@@ -88,9 +89,9 @@ public class SpeedC extends Check {
 				|| player.getAllowFlight()
 				|| player.getVehicle() != null
 		        || player.getGameMode().equals(GameMode.CREATIVE)
-		        || UtilsB.isNearIce(player)
+		        || BlockUtils.isNearIce(player)
 		        || PlayerUtils.wasOnSlime(player)
-		        || UtilsB.isNearSlime(player)
+		        || BlockUtils.isNearSlime(player)
 				|| player.getVelocity().length() + 0.1 < velocity.getOrDefault(player.getUniqueId(), -1.0D)
 				|| (getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
 				&& !player.hasPotionEffect(PotionEffectType.POISON)

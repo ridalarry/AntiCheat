@@ -6,6 +6,7 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
@@ -37,8 +38,8 @@ public class SpeedA extends Check {
                 || p.getAllowFlight()
                 || p.getGameMode().equals(GameMode.CREATIVE)
                 || e.getPlayer().getVehicle() != null
-        		|| UtilsB.isNearIce(p)
-		        || UtilsB.isNearSlime(p)
+        		|| BlockUtils.isNearIce(p)
+		        || BlockUtils.isNearSlime(p)
         		|| PlayerUtils.wasOnSlime(p)){
             return;
         }
@@ -82,8 +83,8 @@ public class SpeedA extends Check {
                            	|| p.getAllowFlight()
                            	|| p.getGameMode().equals(GameMode.CREATIVE)
                            	|| e.getPlayer().getVehicle() != null
-                   			|| UtilsB.isNearIce(p)
-                   			|| UtilsB.isNearSlime(p)
+                   			|| BlockUtils.isNearIce(p)
+                   			|| BlockUtils.isNearSlime(p)
                    			|| PlayerUtils.wasOnSlime(p)
                    			|| p.isSprinting()){
                        return;
@@ -128,7 +129,7 @@ public class SpeedA extends Check {
                     && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                     && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                     && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                    && blockLoc.getBlock().getType() != Material.AIR && !UtilNewVelocity.didTakeVel(p) && !UtilsB.isNearStiar(p)) {
+                    && blockLoc.getBlock().getType() != Material.AIR && !UtilNewVelocity.didTakeVel(p) && !BlockUtils.isNearStiar(p)) {
                 if (!UtilNewVelocity.didTakeVel(p) && PlayerUtils.getDistanceToGround(p) > 4 == false) {
                     if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !UtilVelocity.didTakeVelocity(p) && !UtilNewVelocity.didTakeVel(p)
                             && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
@@ -154,7 +155,7 @@ public class SpeedA extends Check {
                     && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
                     && above3.getBlock().getType() == Material.AIR && !UtilNewVelocity.didTakeVel(p) && !UtilVelocity.didTakeVelocity(p) && !PlayerUtils.hasPistonNear(p) &&
                     p.getLocation().getBlock().getType() != Material.PISTON_MOVING_PIECE && p.getLocation().getBlock().getType() != Material.PISTON_BASE
-                    && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !UtilsB.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
+                    && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtils.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
                 if (!data.isSpeed_PistonExpand_Set()) {
                     if (data.getSpeed_C_3_Verbose() > 1) {
                         getAntiCheat().logCheat(this, p, "[3] - Player Moved Too Fast.", "(Type: A)");
@@ -178,7 +179,7 @@ public class SpeedA extends Check {
                         && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                         && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                         && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                        && blockLoc.getBlock().getType() != Material.AIR && !UtilNewVelocity.didTakeVel(p) && !UtilsB.isNearStiar(p)) {
+                        && blockLoc.getBlock().getType() != Material.AIR && !UtilNewVelocity.didTakeVel(p) && !BlockUtils.isNearStiar(p)) {
                     if (!UtilNewVelocity.didTakeVel(p) && PlayerUtils.getDistanceToGround(p) > 4 == false) {
                         if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !UtilVelocity.didTakeVelocity(p) && !UtilNewVelocity.didTakeVel(p)
                                 && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
@@ -195,7 +196,7 @@ public class SpeedA extends Check {
                             speedPot = true;
                         }
                     }
-                    if (speed > 0.29 && PlayerUtils.isOnGround(p) && !data.isNearIce() && !UtilsB.isNearStiar(p) && !UtilNewVelocity.didTakeVel(p) && !speedPot) {
+                    if (speed > 0.29 && PlayerUtils.isOnGround(p) && !data.isNearIce() && !BlockUtils.isNearStiar(p) && !UtilNewVelocity.didTakeVel(p) && !speedPot) {
                         if (data.getSpeed_OnGround_Verbose() >= 5) {
                         }
 
@@ -211,7 +212,7 @@ public class SpeedA extends Check {
                                 && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
                                 && above3.getBlock().getType() == Material.AIR && !UtilNewVelocity.didTakeVel(p) && !UtilVelocity.didTakeVelocity(p) && !PlayerUtils.hasPistonNear(p) &&
                                 p.getLocation().getBlock().getType() != Material.PISTON_MOVING_PIECE && p.getLocation().getBlock().getType() != Material.PISTON_BASE
-                                && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !UtilsB.isNearPistion(p)) {
+                                && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtils.isNearPistion(p)) {
                             getAntiCheat().logCheat(this, p, "[6] - Player Moved Too Fast.", "(Type: A)");
 
                         }

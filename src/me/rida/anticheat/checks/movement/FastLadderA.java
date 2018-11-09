@@ -10,8 +10,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
-import me.rida.anticheat.utils.c.UtilsC;
 
 public class FastLadderA extends Check {
 	

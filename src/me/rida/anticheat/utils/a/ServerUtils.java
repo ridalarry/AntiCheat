@@ -3,6 +3,7 @@ package me.rida.anticheat.utils.a;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -115,4 +116,222 @@ public class ServerUtils {
 	}
 	
     
+
+    public static boolean isOnGround(Location location, int n) {
+        double d = location.getX();
+        double d2 = location.getZ();
+        double d3 = MathUtils.getFraction(d) > 0.0 ? Math.abs(MathUtils.getFraction(d)) : 1.0 - Math.abs(MathUtils.getFraction(d));
+        double d4 = MathUtils.getFraction(d2) > 0.0 ? Math.abs(MathUtils.getFraction(d2)) : 1.0 - Math.abs(MathUtils.getFraction(d2));
+        int n2 = location.getBlockX();
+        int n3 = location.getBlockY() - n;
+        int n4 = location.getBlockZ();
+        World world = location.getWorld();
+        if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4))) {
+            return true;
+        }
+        if (d3 < 0.3) {
+            if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4))) {
+                return true;
+            }
+            if (d4 < 0.3) {
+                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                    return true;
+                }
+            } else if (d4 > 0.7) {
+                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                    return true;
+                }
+            }
+        } else if (d3 > 0.7) {
+            if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4))) {
+                return true;
+            }
+            if (d4 < 0.3) {
+                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                    return true;
+                }
+            } else if (d4 > 0.7) {
+                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                    return true;
+                }
+            }
+        } else if (d4 < 0.3 ? BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isOnGround(Player player, int n) {
+        return isOnGround(player.getLocation(), n);
+    }
+
+    public static boolean isOnBlock(Location location, int n, Material[] arrmaterial) {
+        double d = location.getX();
+        double d2 = location.getZ();
+        double d3 = MathUtils.getFraction(d) > 0.0 ? Math.abs(MathUtils.getFraction(d)) : 1.0 - Math.abs(MathUtils.getFraction(d));
+        double d4 = MathUtils.getFraction(d2) > 0.0 ? Math.abs(MathUtils.getFraction(d2)) : 1.0 - Math.abs(MathUtils.getFraction(d2));
+        int n2 = location.getBlockX();
+        int n3 = location.getBlockY() - n;
+        int n4 = location.getBlockZ();
+        World world = location.getWorld();
+        if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4))) {
+            return true;
+        }
+        if (d3 < 0.3) {
+            if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4))) {
+                return true;
+            }
+            if (d4 < 0.3) {
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                    return true;
+                }
+            } else if (d4 > 0.7) {
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                    return true;
+                }
+            }
+        } else if (d3 > 0.7) {
+            if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4))) {
+                return true;
+            }
+            if (d4 < 0.3) {
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                    return true;
+                }
+            } else if (d4 > 0.7) {
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                    return true;
+                }
+            }
+        } else if (d4 < 0.3 ? BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isOnBlock(Player player, int n, Material[] arrmaterial) {
+        return isOnBlock(player.getLocation(), n, arrmaterial);
+    }
+
+    public static boolean isHoveringOverWater(Location location, int n) {
+        double d = location.getX();
+        double d2 = location.getZ();
+        double d3 = MathUtils.getFraction(d) > 0.0 ? Math.abs(MathUtils.getFraction(d)) : 1.0 - Math.abs(MathUtils.getFraction(d));
+        double d4 = MathUtils.getFraction(d2) > 0.0 ? Math.abs(MathUtils.getFraction(d2)) : 1.0 - Math.abs(MathUtils.getFraction(d2));
+        int n2 = location.getBlockX();
+        int n3 = location.getBlockY() - n;
+        int n4 = location.getBlockZ();
+        World world = location.getWorld();
+        if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4))) {
+            return true;
+        }
+        if (d3 < 0.3) {
+            if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4))) {
+                return true;
+            }
+            if (d4 < 0.3) {
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                    return true;
+                }
+            } else if (d4 > 0.7) {
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                    return true;
+                }
+            }
+        } else if (d3 > 0.7) {
+            if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4))) {
+                return true;
+            }
+            if (d4 < 0.3) {
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 - 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                    return true;
+                }
+            } else if (d4 > 0.7) {
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
+                    return true;
+                }
+                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                    return true;
+                }
+            }
+        } else if (d4 < 0.3 ? BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean isHoveringOverWater(Player player, int n) {
+        return isHoveringOverWater(player.getLocation(), n);
+    }
+    
+
 }

@@ -71,8 +71,8 @@ public class SpeedB extends Check {
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
-           		|| UtilsB.isNearIce(p)
-   		        || UtilsB.isNearSlime(p)
+           		|| BlockUtils.isNearIce(p)
+   		        || BlockUtils.isNearSlime(p)
            		|| PlayerUtils.wasOnSlime(p)){
 			return;
 		}

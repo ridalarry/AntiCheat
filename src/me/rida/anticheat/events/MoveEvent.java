@@ -3,6 +3,7 @@ package me.rida.anticheat.events;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
@@ -54,7 +55,7 @@ public class MoveEvent implements Listener {
 
         if (data.isNearIce()) {
             if (TimerUtils.elapsed(data.getIsNearIceTicks(),500L)) {
-                if (!UtilsB.isNearIce(player)) {
+                if (!BlockUtils.isNearIce(player)) {
                     data.setNearIce(false);
                 } else {
                     data.setIsNearIceTicks(TimerUtils.nowlong());
@@ -107,13 +108,13 @@ public class MoveEvent implements Listener {
             }
         }
 
-        if (UtilsB.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsB.isNearHalfBlock(player)) {
+        if (BlockUtils.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || BlockUtils.isNearHalfBlock(player)) {
             if (!data.isHalfBlocks_MS_Set()) {
                 data.setHalfBlocks_MS_Set(true);
                 data.setHalfBlocks_MS(TimerUtils.nowlong());
             } else {
                 if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
-                    if (UtilsB.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsB.isNearHalfBlock(player)) {
+                    if (BlockUtils.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || BlockUtils.isNearHalfBlock(player)) {
                         data.setHalfBlocks_MS_Set(true);
                         data.setHalfBlocks_MS(TimerUtils.nowlong());
                     } else {
@@ -123,7 +124,7 @@ public class MoveEvent implements Listener {
             }
         } else {
             if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
-                if (UtilsB.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || UtilsB.isNearHalfBlock(player)) {
+                if (BlockUtils.isHalfBlock(player.getLocation().add(0,-0.50,0).getBlock()) || BlockUtils.isNearHalfBlock(player)) {
                     data.setHalfBlocks_MS_Set(true);
                     data.setHalfBlocks_MS(TimerUtils.nowlong());
                 } else {
@@ -131,10 +132,10 @@ public class MoveEvent implements Listener {
                 }
             }
         }
-        if (UtilsB.isNearIce(player) && !data.isNearIce()) {
+        if (BlockUtils.isNearIce(player) && !data.isNearIce()) {
             data.setNearIce(true);
             data.setIsNearIceTicks(TimerUtils.nowlong());
-        } else if (UtilsB.isNearIce(player)) {
+        } else if (BlockUtils.isNearIce(player)) {
             data.setIsNearIceTicks(TimerUtils.nowlong());
         }
 

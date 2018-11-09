@@ -50,4 +50,25 @@ public class MathUtils {
         double pitchOffset = Math.abs(Math.abs(player.getEyeLocation().getPitch()) - Math.abs(getRotations(player.getLocation(), entity.getLocation())[1]));
         return new double[]{yawOffset, pitchOffset};
     }
+
+    public static double getFraction(double d) {
+        return d % 1.0;
+    }
+
+    public static boolean close(Double[] arrdouble, int n) {
+        boolean bl;
+        double d = arrdouble[4];
+        double d2 = arrdouble[3];
+        double d3 = arrdouble[2];
+        double d4 = arrdouble[1];
+        double d5 = arrdouble[0];
+        boolean bl2 = (d >= d2 ? d - d2 : d2 - d) <= (double)n;
+        boolean bl3 = (d >= d3 ? d - d3 : d3 - d) <= (double)n;
+        boolean bl4 = (d >= d4 ? d - d4 : d4 - d) <= (double)n;
+        boolean bl5 = bl = (d >= d5 ? d - d5 : d5 - d) <= (double)n;
+        if (bl2 && bl3 && bl4 && bl) {
+            return true;
+        }
+        return false;
+    }
 }

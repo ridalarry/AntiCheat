@@ -14,7 +14,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.c.UtilsC;
+import me.rida.anticheat.utils.a.ServerUtils;
 
 public class AntiKBA extends Check {
     private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
@@ -46,10 +46,10 @@ public class AntiKBA extends Check {
     public void Move(PlayerMoveEvent playerMoveEvent) {
         double d;
         Player player = playerMoveEvent.getPlayer();
-        if (UtilsC.isOnBlock(player, 0, new Material[]{Material.WEB}) 
-        		|| UtilsC.isOnBlock(player, 1, new Material[]{Material.WEB}) 
-        		|| (UtilsC.isHoveringOverWater(player, 1) 
-        		|| UtilsC.isHoveringOverWater(player, 0)) 
+        if (ServerUtils.isOnBlock(player, 0, new Material[]{Material.WEB}) 
+        		|| ServerUtils.isOnBlock(player, 1, new Material[]{Material.WEB}) 
+        		|| (ServerUtils.isHoveringOverWater(player, 1) 
+        		|| ServerUtils.isHoveringOverWater(player, 0)) 
         		|| (player.getAllowFlight()) 
         		|| (Ping.getPing(player) > 400)) {
             return;
@@ -85,7 +85,7 @@ public class AntiKBA extends Check {
                 d2 = 0.0;
                 --n;
             }
-            if (UtilsC.isOnGround(player, -1) || UtilsC.isOnGround(player, -2) || UtilsC.isOnGround(player, -3)) {
+            if (ServerUtils.isOnGround(player, -1) || ServerUtils.isOnGround(player, -2) || ServerUtils.isOnGround(player, -3)) {
                 n2 -= 9;
             }
         }
@@ -114,13 +114,13 @@ public class AntiKBA extends Check {
         double d;
         long l;
         Player player = playerVelocityEvent.getPlayer();
-        if (UtilsC.isOnBlock(player, 0, new Material[]{Material.WEB}) || UtilsC.isOnBlock(player, 1, new Material[]{Material.WEB})) {
+        if (ServerUtils.isOnBlock(player, 0, new Material[]{Material.WEB}) || ServerUtils.isOnBlock(player, 1, new Material[]{Material.WEB})) {
             return;
         }
-        if (UtilsC.isHoveringOverWater(player, 1) || UtilsC.isHoveringOverWater(player, 0)) {
+        if (ServerUtils.isHoveringOverWater(player, 1) || ServerUtils.isHoveringOverWater(player, 0)) {
             return;
         }
-        if (UtilsC.isOnGround(player, -1) || UtilsC.isOnGround(player, -2) || UtilsC.isOnGround(player, -3)) {
+        if (ServerUtils.isOnGround(player, -1) || ServerUtils.isOnGround(player, -2) || ServerUtils.isOnGround(player, -3)) {
             return;
         }
         if (player.getAllowFlight()) {

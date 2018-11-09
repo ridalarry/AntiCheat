@@ -60,7 +60,7 @@ public class SpiderA extends Check {
                 || UtilsB.isOnClimbable(player, 0)
                 || UtilsB.isOnClimbable(player, 1) 
 				|| !getAntiCheat().isEnabled()
-				|| (UtilsB.isNearLiquid(player) && UtilsB.isNearHalfBlock(player))
+				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
 				|| PlayerUtils.isNotSpider(player)
 				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;

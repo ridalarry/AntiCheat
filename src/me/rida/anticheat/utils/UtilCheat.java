@@ -13,8 +13,9 @@ import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.ServerUtils;
+import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.b.UtilsB;
-import me.rida.anticheat.utils.c.UtilsC;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -282,54 +283,54 @@ public final class UtilCheat {
         final int blockY = location.getBlockY() - down;
         final int blockZ = location.getBlockZ();
         final World world = location.getWorld();
-        if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
+        if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
             return true;
         }
         if (fracX < 0.3) {
-            if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
+            if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracX > 0.7) {
-            if (UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
+            if (BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (UtilsC.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return UtilsC.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracZ < 0.3) {
-            return UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
-        } else return fracZ > 0.7 && UtilsC.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
+            return BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
+        } else return fracZ > 0.7 && BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
         return false;
     }
 
