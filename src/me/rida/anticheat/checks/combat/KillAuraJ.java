@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.combat;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.rida.anticheat.checks.Check;
@@ -21,17 +22,15 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onHit(EntityDamageByEntityEvent entityDamageByEntityEvent) {
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onHit(EntityDamageByEntityEvent e) {
         float f;
-        if (!(entityDamageByEntityEvent.getDamager() instanceof Player)) {
+        if (!(e.getDamager() instanceof Player)
+        		|| !(e.getEntity() instanceof Player)) {
             return;
         }
-        if (!(entityDamageByEntityEvent.getEntity() instanceof Player)) {
-            return;
-        }
-        Player player = (Player)entityDamageByEntityEvent.getDamager();
-        this.lastYaw = f = player.getLocation().getYaw();
+        Player p = (Player)e.getDamager();
+        this.lastYaw = f = p.getLocation().getYaw();
         float f2 = Math.abs(f - this.lastYaw) % 180.0f;
     }
 

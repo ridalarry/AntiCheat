@@ -63,7 +63,6 @@ public class SpiderA extends Check {
 				|| !getAntiCheat().isEnabled()
 				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
 				|| PlayerUtils.isNotSpider(player)
-				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
 		
 

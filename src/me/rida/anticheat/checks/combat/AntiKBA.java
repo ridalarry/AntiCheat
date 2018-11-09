@@ -5,6 +5,7 @@ import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -28,51 +29,51 @@ public class AntiKBA extends Check {
 		setBannable(false);
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent playerQuitEvent) {
-        Player player = playerQuitEvent.getPlayer();
-        if (this.lastVelocity.containsKey((Object)player)) {
-            this.lastVelocity.remove((Object)player);
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onQuit(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        if (this.lastVelocity.containsKey((Object)p)) {
+            this.lastVelocity.remove((Object)p);
         }
-        if (this.awaitingVelocity.containsKey((Object)player)) {
-            this.awaitingVelocity.remove((Object)player);
+        if (this.awaitingVelocity.containsKey((Object)p)) {
+            this.awaitingVelocity.remove((Object)p);
         }
-        if (this.totalMoved.containsKey((Object)player)) {
-            this.totalMoved.remove((Object)player);
+        if (this.totalMoved.containsKey((Object)p)) {
+            this.totalMoved.remove((Object)p);
         }
     }
 
-    @EventHandler
-    public void Move(PlayerMoveEvent playerMoveEvent) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void Move(PlayerMoveEvent pMoveEvent) {
         double d;
-        Player player = playerMoveEvent.getPlayer();
-        if (ServerUtils.isOnBlock(player, 0, new Material[]{Material.WEB}) 
-        		|| ServerUtils.isOnBlock(player, 1, new Material[]{Material.WEB}) 
-        		|| (ServerUtils.isHoveringOverWater(player, 1) 
-        		|| ServerUtils.isHoveringOverWater(player, 0)) 
-        		|| (player.getAllowFlight()) 
-        		|| (Ping.getPing(player) > 400)) {
+        Player p = pMoveEvent.getPlayer();
+        if (ServerUtils.isOnBlock(p, 0, new Material[]{Material.WEB}) 
+        		|| ServerUtils.isOnBlock(p, 1, new Material[]{Material.WEB}) 
+        		|| (ServerUtils.isHoveringOverWater(p, 1) 
+        		|| ServerUtils.isHoveringOverWater(p, 0)) 
+        		|| (p.getAllowFlight()) 
+        		|| (Ping.getPing(p) > 400)) {
             return;
         }
         int n = 0;
-        if (this.awaitingVelocity.containsKey((Object)player)) {
-            n = this.awaitingVelocity.get((Object)player);
+        if (this.awaitingVelocity.containsKey((Object)p)) {
+            n = this.awaitingVelocity.get((Object)p);
         }
         long l = 0;
-        if (this.lastVelocity.containsKey((Object)player)) {
-            l = this.lastVelocity.get((Object)player);
+        if (this.lastVelocity.containsKey((Object)p)) {
+            l = this.lastVelocity.get((Object)p);
         }
-        if (player.getLastDamageCause() == null || player.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && player.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
+        if (p.getLastDamageCause() == null || p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
             n = 0;
         }
         if (System.currentTimeMillis() - l > 2000 && n > 0) {
             --n;
         }
         double d2 = 0.0;
-        if (this.totalMoved.containsKey((Object)player)) {
-            d2 = this.totalMoved.get((Object)player);
+        if (this.totalMoved.containsKey((Object)p)) {
+            d2 = this.totalMoved.get((Object)p);
         }
-        if ((d = playerMoveEvent.getTo().getY() - playerMoveEvent.getFrom().getY()) > 0.0) {
+        if ((d = pMoveEvent.getTo().getY() - pMoveEvent.getFrom().getY()) > 0.0) {
             d2 += d;
         }
         int n2 = 0;
@@ -85,59 +86,59 @@ public class AntiKBA extends Check {
                 d2 = 0.0;
                 --n;
             }
-            if (ServerUtils.isOnGround(player, -1) || ServerUtils.isOnGround(player, -2) || ServerUtils.isOnGround(player, -3)) {
+            if (ServerUtils.isOnGround(p, -1) || ServerUtils.isOnGround(p, -2) || ServerUtils.isOnGround(p, -3)) {
                 n2 -= 9;
             }
         }
         if (n2 > n3) {
             if (d2 == 0.0) {
-                if (Ping.getPing(player) > 500) {
+                if (Ping.getPing(p) > 500) {
                     return;
                 
                 }
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
             	} else {
-                if (Ping.getPing(player) > 220) {
+                if (Ping.getPing(p) > 220) {
                     return;
                 }
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");            }
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");            }
             n2 = 0;
             d2 = 0.0;
             --n;
         }
-        this.awaitingVelocity.put(player, n);
-        this.totalMoved.put(player, d2);
+        this.awaitingVelocity.put(p, n);
+        this.totalMoved.put(p, d2);
     }
 
-    @EventHandler
-    public void Velocity(PlayerVelocityEvent playerVelocityEvent) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void Velocity(PlayerVelocityEvent e) {
         double d;
         long l;
-        Player player = playerVelocityEvent.getPlayer();
-        if (ServerUtils.isOnBlock(player, 0, new Material[]{Material.WEB}) || ServerUtils.isOnBlock(player, 1, new Material[]{Material.WEB})) {
+        Player p = e.getPlayer();
+        if (ServerUtils.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtils.isOnBlock(p, 1, new Material[]{Material.WEB})) {
             return;
         }
-        if (ServerUtils.isHoveringOverWater(player, 1) || ServerUtils.isHoveringOverWater(player, 0)) {
+        if (ServerUtils.isHoveringOverWater(p, 1) || ServerUtils.isHoveringOverWater(p, 0)) {
             return;
         }
-        if (ServerUtils.isOnGround(player, -1) || ServerUtils.isOnGround(player, -2) || ServerUtils.isOnGround(player, -3)) {
+        if (ServerUtils.isOnGround(p, -1) || ServerUtils.isOnGround(p, -2) || ServerUtils.isOnGround(p, -3)) {
             return;
         }
-        if (player.getAllowFlight()) {
+        if (p.getAllowFlight()) {
             return;
         }
-        if (this.lastVelocity.containsKey((Object)player) && (l = System.currentTimeMillis() - this.lastVelocity.get((Object)player)) < 500) {
+        if (this.lastVelocity.containsKey((Object)p) && (l = System.currentTimeMillis() - this.lastVelocity.get((Object)p)) < 500) {
             return;
         }
-        Vector vector = playerVelocityEvent.getVelocity();
+        Vector vector = e.getVelocity();
         double d2 = Math.abs(vector.getY());
         if (d2 > 0.0 && (d = (double)((int)(Math.pow(d2 + 2.0, 2.0) * 5.0))) > 20.0) {
             int n = 0;
-            if (this.awaitingVelocity.containsKey((Object)player)) {
-                n = this.awaitingVelocity.get((Object)player);
+            if (this.awaitingVelocity.containsKey((Object)p)) {
+                n = this.awaitingVelocity.get((Object)p);
             }
-            this.awaitingVelocity.put(player, ++n);
-            this.lastVelocity.put(player, System.currentTimeMillis());
+            this.awaitingVelocity.put(p, ++n);
+            this.lastVelocity.put(p, System.currentTimeMillis());
         }
     }
 }

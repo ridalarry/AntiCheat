@@ -36,17 +36,17 @@ extends Check {
         return this.aimAssist;
     }
 
-    @EventHandler(priority=EventPriority.MONITOR)
-    public void onPlayerMove(PlayerMoveEvent playerMoveEvent) {
-        Location location = playerMoveEvent.getFrom().clone();
-        Location location2 = playerMoveEvent.getTo().clone();
-        Player player = playerMoveEvent.getPlayer();
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onPlayerMove(PlayerMoveEvent e) {
+        Location location = e.getFrom().clone();
+        Location location2 = e.getTo().clone();
+        Player p = e.getPlayer();
         double d = Math.abs(location.getYaw() - location2.getYaw());
         if (d > 0.0 && d < 360.0) {
             if (AimAssistB.getFrac(d) == 0.0) {
                 this.setAimAssest(this.getAimAssist() + 100);
                 if (this.getAimAssist() > 2000) {
-                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: B)");
+                	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
                     this.setAimAssest(0);
                 }
             } else {

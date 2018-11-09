@@ -49,7 +49,6 @@ public class FlyB extends Check {
 		
 		if (event.isCancelled()
 				|| (event.getTo().getX() == event.getFrom().getX()) && (event.getTo().getZ() == event.getFrom().getZ())
-				|| getAntiCheat().isSotwMode()
 				|| player.getAllowFlight()
 				|| player.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

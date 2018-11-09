@@ -30,7 +30,6 @@ public class BlockInteractC extends Check {
                 || player.getAllowFlight()
                 || event.getPlayer().getVehicle() != null
 				|| !getAntiCheat().isEnabled()
-				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             if (!event.getBlock().getLocation().equals((Object)target.getLocation()) && !event.isCancelled() && target.getType().isSolid() && !target.getType().name().toLowerCase().contains("sign") && !target.getType().toString().toLowerCase().contains("fence") && player.getLocation().getY() > event.getBlock().getLocation().getY()) {

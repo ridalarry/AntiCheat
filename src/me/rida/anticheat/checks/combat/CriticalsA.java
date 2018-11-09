@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class CriticalsA extends Check {
@@ -20,33 +21,33 @@ public class CriticalsA extends Check {
 		setBannable(false);
     }
 
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onAttack(EntityDamageByEntityEvent e) {
         if(!(e.getDamager() instanceof Player)) {
             return;
         }
 
-        Player player = (Player) e.getDamager();
+        Player p = (Player) e.getDamager();
 
-        if(!Bukkit.getOnlinePlayers().contains(player)) {
+        if(!Bukkit.getOnlinePlayers().contains(p)) {
             return;
         }
 
         Entity entity = e.getEntity();
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
+        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 
         if(data.getAboveBlockTicks() > 0
-                || PlayerUtils.isInWeb(player)
+                || PlayerUtils.isInWeb(p)
                 || data.getWaterTicks() > 0
-                || PlayerUtils.hasSlabsNear(player.getLocation())) {
+                || PlayerUtils.hasSlabsNear(p.getLocation())) {
             return;
         }
 
         int verbose = data.getCriticalsVerbose();
 
-        if(player.getFallDistance() > 0 && data.getFallDistance() == 0) {
+        if(p.getFallDistance() > 0 && data.getFallDistance() == 0) {
             if(++verbose > 3) {
-            	getAntiCheat().logCheat(this, player, "Packet", "(Type: A)");
+            	getAntiCheat().logCheat(this, p, "Packet", "(Type: A)");
                 verbose = 0;
             }
         } else {

@@ -13,7 +13,9 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Collections;
@@ -51,15 +53,15 @@ public class AimAssistA extends Check {
         });
     }
 
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
-
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onPlayerMove(PlayerMoveEvent e) {
+        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
+        Player p = e.getPlayer();
         if(data == null
                 || data.lastHitEntity == null
                 || (System.currentTimeMillis() - data.lastAttack) > 150L) return;
 
-        float offset = MathUtils.yawTo180F((float) MathUtils.getOffsetFromEntity(event.getPlayer(), data.lastHitEntity)[0]);
+        float offset = MathUtils.yawTo180F((float) MathUtils.getOffsetFromEntity(e.getPlayer(), data.lastHitEntity)[0]);
 
         if(data.patterns.size() >= 10) {
 
@@ -68,7 +70,7 @@ public class AimAssistA extends Check {
             float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 
             if(Math.abs(range - data.lastRange) < 4) {
-            	getAntiCheat().logCheat(this, event.getPlayer(), Color.Red + "Experemental", "(Type: A)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
                 
             }
 

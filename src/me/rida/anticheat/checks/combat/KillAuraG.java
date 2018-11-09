@@ -9,6 +9,7 @@ import me.rida.anticheat.utils.MathUtils;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 public class KillAuraG extends Check {
 
@@ -19,18 +20,15 @@ public class KillAuraG extends Check {
 		setBannable(true);
     }
 
-    @EventHandler
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAttack(PacketAttackEvent e) {
-        if(e.getType() != PacketPlayerType.USE) {
-            return;
+        Player p = e.getPlayer();
+        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+        if(e.getType() != PacketPlayerType.USE
+        		|| (data == null)) {
+        	return;
         }
 
-        Player player = e.getPlayer();
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(player);
-
-        if(data == null) {
-            return;
-        }
 
         int verboseA = data.getKillauraAVerbose();
         long time = data.getLastAimTime();
@@ -41,16 +39,16 @@ public class KillAuraG extends Check {
         }
 
         if ((Math.abs(data.getLastKillauraPitch() - e.getPlayer().getEyeLocation().getPitch()) > 1
-                || angleDistance((float) data.getLastKillauraYaw(), player.getEyeLocation().getYaw()) > 1
-                || Double.compare(player.getEyeLocation().getYaw(), data.getLastKillauraYaw()) != 0)
+                || angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) > 1
+                || Double.compare(p.getEyeLocation().getYaw(), data.getLastKillauraYaw()) != 0)
                 && !MathUtils.elapsed(data.getLastPacket(), 100L)) {
 
-            if(angleDistance((float) data.getLastKillauraYaw(), player.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
+            if(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
                 if(++verboseA > 9) {
-                	getAntiCheat().logCheat(this, player, null, "(Type: G)");
+                	getAntiCheat().logCheat(this, p, null, "(Type: G)");
                 }
             }
-            data.setLastKillauraYawDif(angleDistance((float) data.getLastKillauraYaw(), player.getEyeLocation().getYaw()));
+            data.setLastKillauraYawDif(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()));
         } else {
             verboseA = 0;
         }

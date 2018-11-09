@@ -34,7 +34,6 @@ public class FastLadderA extends Check {
 
 		if(e.isCancelled()
 				|| (e.getFrom().getY() == e.getTo().getY())
-				|| getAntiCheat().isSotwMode()
 				|| player.getAllowFlight()
 				|| getAntiCheat().getLastVelocity().containsKey(player.getUniqueId())
 				|| !PlayerUtils.isOnClimbable(player, 1) 

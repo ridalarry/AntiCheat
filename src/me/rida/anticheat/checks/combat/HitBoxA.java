@@ -44,29 +44,29 @@ public class HitBoxA extends Check {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onUse(PacketUseEntityEvent e) {
 
-		Player player = e.getAttacker();
+		Player p = e.getAttacker();
 		
 		LivingEntity attacked = (Player) e.getAttacked();
-		if (player.getAllowFlight()) {
+		if (p.getAllowFlight()) {
 			return;
 		}
 
-		int verbose = count.getOrDefault(player.getUniqueId(), 0);
+		int verbose = count.getOrDefault(p.getUniqueId(), 0);
 
-		double offset = UtilCheat.getOffsetOffCursor(player, attacked);
+		double offset = UtilCheat.getOffsetOffCursor(p, attacked);
 
 		if(offset > 30) {
 			if((verbose+= 2) > 25) {
-				getAntiCheat().logCheat(this, player, MathUtils.round(offset, 4) + ">-30", "(Type: A)");
+				getAntiCheat().logCheat(this, p, MathUtils.round(offset, 4) + ">-30", "(Type: A)");
 			}
 		} else if(verbose > 0) {
 			verbose--;
 		}
 
-		count.put(player.getUniqueId(), verbose);
+		count.put(p.getUniqueId(), verbose);
 	}
 
 }

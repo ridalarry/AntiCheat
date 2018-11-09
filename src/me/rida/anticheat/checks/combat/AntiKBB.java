@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 
@@ -24,9 +25,9 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent playerQuitEvent) {
-        Player player = playerQuitEvent.getPlayer();
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onQuit(PlayerQuitEvent e) {
+        Player player = e.getPlayer();
         if (this.lastSprintStart.containsKey((Object)player)) {
             this.lastSprintStart.remove((Object)player);
         }
@@ -35,25 +36,24 @@ extends Check {
         }
     }
 
-    @EventHandler
-    public void Sprint(PlayerToggleSprintEvent playerToggleSprintEvent) {
-        Player player = playerToggleSprintEvent.getPlayer();
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void Sprint(PlayerToggleSprintEvent e) {
+        Player p = e.getPlayer();
         
-        if (playerToggleSprintEvent.isSprinting() && this.lastSprintStop.containsKey((Object)player)) {
+        if (e.isSprinting() && this.lastSprintStop.containsKey((Object)p)) {
             int n = 0;
-            //threshold
             int n2 = 1;
-            long l = System.currentTimeMillis() - this.lastSprintStop.get((Object)player);
+            long l = System.currentTimeMillis() - this.lastSprintStop.get((Object)p);
             n = l < 5 ? ++n : (l > 1000 ? --n : (n -= 2));
             if (n > n2) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: B)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
                 n = 0;
             }
         }
-        if (!playerToggleSprintEvent.isSprinting()) {
-            this.lastSprintStop.put(player, System.currentTimeMillis());
-        } else if (playerToggleSprintEvent.isSprinting()) {
-            this.lastSprintStart.put(player, System.currentTimeMillis());
+        if (!e.isSprinting()) {
+            this.lastSprintStop.put(p, System.currentTimeMillis());
+        } else if (e.isSprinting()) {
+            this.lastSprintStart.put(p, System.currentTimeMillis());
         }
     }
 }

@@ -33,18 +33,14 @@ public class TimerB extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
-		if (!getAntiCheat().isEnabled()) {
-			return;
-		}
 		Player player = e.getPlayer();
+		if (!getAntiCheat().isEnabled() 
+				|| (Latency.getLag(player) > 500)
+				|| (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()
+						&& e.getFrom().getY() == e.getTo().getY())) {
+			return;
+		}
 		
-		if (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()
-				&& e.getFrom().getY() == e.getTo().getY()) {
-			return;
-		}
-		if (getAntiCheat().isSotwMode() || Latency.getLag(player) > 500) {
-			return;
-		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (timerTicks.containsKey(player.getUniqueId())) {

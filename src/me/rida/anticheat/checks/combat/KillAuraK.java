@@ -3,6 +3,7 @@ package me.rida.anticheat.checks.combat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -27,49 +28,46 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onDamage(EntityDamageByEntityEvent entityDamageByEntityEvent) {
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onDamage(EntityDamageByEntityEvent e) {
         int n;
-        if (!(entityDamageByEntityEvent.getEntity() instanceof Player)) {
+        if (!(e.getEntity() instanceof Player) 
+        		|| !(e.getDamager() instanceof Player)
+        		|| !e.getEntity().isOnGround()) {
             return;
         }
-        if (!(entityDamageByEntityEvent.getDamager() instanceof Player)) {
-            return;
-        }
+
+        Player p = (Player)e.getDamager();
+        Player p2 = (Player)e.getEntity();
         ++this.hitCount;
         Bukkit.getScheduler().runTaskLater((Plugin)AntiCheat.Instance, () -> {
             int hitCount = 0;
         }
         , 300);
-        Player player = (Player)entityDamageByEntityEvent.getDamager();
-        Player player2 = (Player)entityDamageByEntityEvent.getEntity();
-        double d = UtilCheat.getHorizontalDistance(player.getLocation(), player2.getLocation());
+        double d = UtilCheat.getHorizontalDistance(p.getLocation(), p2.getLocation());
         double d2 = this.allowedDistance;
-        int n2 = Ping.getPing(player);
-        int n3 = Ping.getPing(player2);
+        int n2 = Ping.getPing(p);
+        int n3 = Ping.getPing(p2);
         int n4 = n2 + n3 / 2;
         int n5 = (int)((double)n4 * 0.0017);
         d2 += (double)n5;
-        if (!player2.isSprinting()) {
+        if (!p2.isSprinting()) {
             d2 += 0.2;
         }
-        if (!player2.isOnGround()) {
-            return;
-        }
-        for (PotionEffect potionEffect : player2.getActivePotionEffects()) {
+        for (PotionEffect potionEffect : p2.getActivePotionEffects()) {
             if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) continue;
             n = potionEffect.getAmplifier() + 1;
             d2 += 0.15 * (double)n;
             break;
         }
-        for (PotionEffect potionEffect : player.getActivePotionEffects()) {
+        for (PotionEffect potionEffect : p.getActivePotionEffects()) {
             if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) continue;
             n = potionEffect.getAmplifier() + 1;
             d2 += 0.15 * (double)n;
             break;
         }
         if (d > d2) {
-        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " Heuristic (Flows)", "(Type: K)");
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Heuristic (Flows)", "(Type: K)");
         }
     }
 }

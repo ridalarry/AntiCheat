@@ -73,7 +73,6 @@ public class StepA extends Check {
 		if (!getAntiCheat().isEnabled() 
 				|| !isOnGround(player)
 				|| player.getAllowFlight()
-				|| getAntiCheat().isSotwMode()
 				|| player.hasPotionEffect(PotionEffectType.JUMP)
 				|| getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
 				|| PlayerUtils.isOnClimbable(player, 0)

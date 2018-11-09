@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
@@ -30,78 +31,78 @@ public class KillAuraA extends Check {
 		this.setMaxViolations(10);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
+		UUID u = p.getUniqueId();
 
-		if (LastMS.containsKey(uuid)) {
-			LastMS.remove(uuid);
+		if (LastMS.containsKey(u)) {
+			LastMS.remove(u);
 		}
-		if (Clicks.containsKey(uuid)) {
-			Clicks.remove(uuid);
+		if (Clicks.containsKey(u)) {
+			Clicks.remove(u);
 		}
-		if (ClickTicks.containsKey(uuid)) {
-			ClickTicks.remove(uuid);
+		if (ClickTicks.containsKey(u)) {
+			ClickTicks.remove(u);
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
-				|| !((e.getAttacked()) instanceof Player)) {
+				|| !(e.getAttacked() instanceof Player)) {
 			return;
 		}
 
-		Player damager = e.getAttacker();
+		Player p = e.getAttacker();
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (ClickTicks.containsKey(damager.getUniqueId())) {
-			Count = ClickTicks.get(damager.getUniqueId()).getKey();
-			Time = ClickTicks.get(damager.getUniqueId()).getValue();
+		if (ClickTicks.containsKey(p.getUniqueId())) {
+			Count = ClickTicks.get(p.getUniqueId()).getKey();
+			Time = ClickTicks.get(p.getUniqueId()).getValue();
 		}
-		if (LastMS.containsKey(damager.getUniqueId())) {
-			long MS = UtilTime.nowlong() - LastMS.get(damager.getUniqueId());
+		if (LastMS.containsKey(p.getUniqueId())) {
+			long MS = UtilTime.nowlong() - LastMS.get(p.getUniqueId());
 			if (MS > 500L || MS < 5L) {
-				LastMS.put(damager.getUniqueId(), UtilTime.nowlong());
+				LastMS.put(p.getUniqueId(), UtilTime.nowlong());
 				return;
 			}
-			if (Clicks.containsKey(damager.getUniqueId())) {
-				List<Long> Clicks = this.Clicks.get(damager.getUniqueId());
+			if (Clicks.containsKey(p.getUniqueId())) {
+				List<Long> Clicks = this.Clicks.get(p.getUniqueId());
 				if (Clicks.size() == 10) {
-					this.Clicks.remove(damager.getUniqueId());
+					this.Clicks.remove(p.getUniqueId());
 					Collections.sort(Clicks);
 					final long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
 					if (Range < 30L) {
 						++Count;
 						Time = System.currentTimeMillis();
-						this.dumplog(damager, "New Range: " + Range);
-						this.dumplog(damager, "New Count: " + Count);
+						this.dumplog(p, "New Range: " + Range);
+						this.dumplog(p, "New Count: " + Count);
 					}
 				} else {
 					Clicks.add(MS);
-					this.Clicks.put(damager.getUniqueId(), Clicks);
+					this.Clicks.put(p.getUniqueId(), Clicks);
 				}
 			} else {
 				final List<Long> Clicks = new ArrayList<Long>();
 				Clicks.add(MS);
-				this.Clicks.put(damager.getUniqueId(), Clicks);
+				this.Clicks.put(p.getUniqueId(), Clicks);
 			}
 		}
-		if (ClickTicks.containsKey(damager.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
+		if (ClickTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
 			Count = 0;
 			Time = UtilTime.nowlong();
 		}
-		if ((Count > 2 && this.getAntiCheat().getLag().getPing(damager) < 100)
-				|| (Count > 4 && this.getAntiCheat().getLag().getPing(damager) <= 400)) {
-				dumplog(damager, "Logged. Count: " + Count);
+		if ((Count > 2 && this.getAntiCheat().getLag().getPing(p) < 100)
+				|| (Count > 4 && this.getAntiCheat().getLag().getPing(p) <= 400)) {
+				dumplog(p, "Logged. Count: " + Count);
 			Count = 0;
-			getAntiCheat().logCheat(this, damager, "Click Pattern", "(Type: A)");
-			ClickTicks.remove(damager.getUniqueId());
-		} else if (this.getAntiCheat().getLag().getPing(damager) > 400) {
-			dumplog(damager, "Would set off Killaura (Click Pattern) but latency is too high!");
+			getAntiCheat().logCheat(this, p, "Click Pattern", "(Type: A)");
+			ClickTicks.remove(p.getUniqueId());
+		} else if (this.getAntiCheat().getLag().getPing(p) > 400) {
+			dumplog(p, "Would set off Killaura (Click Pattern) but latency is too high!");
 		}
-		LastMS.put(damager.getUniqueId(), UtilTime.nowlong());
-		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		LastMS.put(p.getUniqueId(), UtilTime.nowlong());
+		ClickTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 }

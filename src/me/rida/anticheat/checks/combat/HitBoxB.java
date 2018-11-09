@@ -3,6 +3,7 @@ package me.rida.anticheat.checks.combat;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.util.Vector;
 
@@ -22,26 +23,23 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onHitPlayer(EntityDamageByEntityEvent entityDamageByEntityEvent) {
-        if (!(entityDamageByEntityEvent.getDamager() instanceof Player)) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onHitPlayer(EntityDamageByEntityEvent e) {
+        if (!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) {
             return;
         }
-        if (!(entityDamageByEntityEvent.getEntity() instanceof Player)) {
-            return;
-        }
-        Player player = (Player)entityDamageByEntityEvent.getDamager();
-        Player player2 = (Player)entityDamageByEntityEvent.getDamager();
-        if (!this.hasInHitBox((LivingEntity)player2)) {
-        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: B)");
+        Player p = (Player)e.getDamager();
+        Player p2 = (Player)e.getDamager();
+        if (!this.hasInHitBox((LivingEntity)p2)) {
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
              }
     }
 
-    public boolean hasInHitBox(LivingEntity livingEntity) {
+    public boolean hasInHitBox(LivingEntity e) {
         boolean bl = false;
-        Vector vector = livingEntity.getLocation().toVector().subtract(livingEntity.getLocation().toVector());
-        Vector vector2 = livingEntity.getLocation().toVector().subtract(livingEntity.getLocation().toVector());
-        if (!(livingEntity.getLocation().getDirection().normalize().crossProduct(vector).lengthSquared() >= this.HITBOX_LENGTH && livingEntity.getLocation().getDirection().normalize().crossProduct(vector2).lengthSquared() >= this.HITBOX_LENGTH || vector.normalize().dot(livingEntity.getLocation().getDirection().normalize()) < 0.0 && vector2.normalize().dot(livingEntity.getLocation().getDirection().normalize()) < 0.0)) {
+        Vector vector = e.getLocation().toVector().subtract(e.getLocation().toVector());
+        Vector vector2 = e.getLocation().toVector().subtract(e.getLocation().toVector());
+        if (!(e.getLocation().getDirection().normalize().crossProduct(vector).lengthSquared() >= this.HITBOX_LENGTH && e.getLocation().getDirection().normalize().crossProduct(vector2).lengthSquared() >= this.HITBOX_LENGTH || vector.normalize().dot(e.getLocation().getDirection().normalize()) < 0.0 && vector2.normalize().dot(e.getLocation().getDirection().normalize()) < 0.0)) {
             bl = true;
         }
         return bl;

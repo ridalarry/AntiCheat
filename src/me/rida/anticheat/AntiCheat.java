@@ -223,10 +223,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
 			this.getConfig().addDefault("settings.violationResetTime", 60);
 			this.getConfig().addDefault("settings.resetViolationsAutomatically", true);
-			this.getConfig().addDefault("settings.gui.checkered", true);
 			this.getConfig().addDefault("settings.latency.ping", 300);
 			this.getConfig().addDefault("settings.latency.tps", 17);
-			this.getConfig().addDefault("settings.sotwMode", false);
 			for (Check check : Checks) {
 				this.getConfig().addDefault("checks." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().addDefault("checks." + check.getIdentifier() + ".bannable", check.isBannable());
@@ -398,33 +396,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		return this.getDescription().getVersion();
 	}
 
-	public boolean isSotwMode() {
-		return getConfig().getBoolean("settings.sotwMode");
-	}
-
-	public boolean hasNewVersion() {
-		if (!this.getVersion().equalsIgnoreCase(getPasteVersion())) {
-			return true;
-		}
-		return false;
-	}
-
-	public String getPasteVersion() {
-		try {
-			URL url = new URL(MathUtils.decrypt("aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcvQU4yWEtqTlM="));
-			URLConnection connection = url.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String line;
-			line = in.readLine();
-			if (line != null) {
-				return line;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			getLogger().log(Level.SEVERE, MathUtils.decrypt("RXJyb3IhIENvdWxkIG5vdCBjaGVjayBmb3IgYSBuZXcgdmVyc2lvbiE="));
-		}
-		return "Error";
-	}
 
 	public Map<String, Check> getNamesBanned() {
 		return new HashMap<String, Check>(this.NamesBanned);

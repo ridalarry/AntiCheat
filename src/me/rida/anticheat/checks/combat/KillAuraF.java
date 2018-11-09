@@ -31,7 +31,7 @@ public class KillAuraF extends Check {
 	public static HashMap<Player, Integer> counts = new HashMap<Player, Integer>();
 	private ArrayList<Player> blockGlitched = new ArrayList<Player>();
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerLogout(PlayerQuitEvent e) {
 		if (counts.containsKey(e.getPlayer())) {
 			counts.remove(e.getPlayer());
@@ -41,7 +41,7 @@ public class KillAuraF extends Check {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onBreak(BlockBreakEvent e) {
 		if (e.isCancelled()) {
 			blockGlitched.add(e.getPlayer());
@@ -52,43 +52,42 @@ public class KillAuraF extends Check {
 	public void checkKillaura(EntityDamageByEntityEvent e) {
 		if (e.getCause() != DamageCause.ENTITY_ATTACK
 				|| !getAntiCheat().isEnabled()
-				|| !(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) {
+				|| !(e.getDamager() instanceof Player) 
+				|| !(e.getEntity() instanceof Player)) {
 			return;
 		}
 
 		Player p = (Player) e.getDamager();
-		
 		if (UtilCheat.slabsNear(p.getEyeLocation())
 				|| UtilCheat.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))) {
 			return;
 		}
-		
 		int Count = 0;
 
 		if (counts.containsKey(p)) {
 			Count = counts.get(p);
 		}
 
-		Player attacked = (Player) e.getEntity();
+		Player a = (Player) e.getEntity();
 		Location dloc = p.getLocation();
-		Location aloc = attacked.getLocation();
+		Location aloc = a.getLocation();
 		double zdif = Math.abs(dloc.getZ() - aloc.getZ());
 		double xdif = Math.abs(dloc.getX() - aloc.getX());
 
 		if (xdif == 0 || zdif == 0
-				|| UtilCheat.getOffsetOffCursor(p, attacked) > 20) {
+				|| UtilCheat.getOffsetOffCursor(p, a) > 20) {
 			return;
 		}
 
 		for (int y = 0; y < 1; y += 1) {
 			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
 			if (!PhaseA.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
-					&& !p.hasLineOfSight(attacked) && !UtilCheat.isSlab(zBlock.getBlock())) {
+					&& !p.hasLineOfSight(a) && !UtilCheat.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
 			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
 			if (!PhaseA.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
-					&& !p.hasLineOfSight(attacked) && !UtilCheat.isSlab(xBlock.getBlock())) {
+					&& !p.hasLineOfSight(a) && !UtilCheat.isSlab(xBlock.getBlock())) {
 				Count++;
 			}
 

@@ -44,7 +44,6 @@ public class GlideA extends Check {
 		
 		if (event.isCancelled()
 				|| !(event.getTo().getX() == event.getFrom().getX() && event.getTo().getZ() == event.getFrom().getZ())
-				|| getAntiCheat().isSotwMode()
 				|| player.getVehicle() != null
 				|| player.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

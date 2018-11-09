@@ -60,7 +60,6 @@ public class VClipA extends Check {
 
 		if (!getAntiCheat().isEnabled()
 				|| from.getY() == to.getY()
-				|| getAntiCheat().isSotwMode()
 				|| p.getAllowFlight()
 				|| p.getVehicle() != null
 				|| teleported.remove(e.getPlayer())

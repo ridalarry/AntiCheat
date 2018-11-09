@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
@@ -29,8 +31,9 @@ public class KillAuraD extends Check {
 		packetTicks = new HashMap<>();
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void packet(PacketKillauraEvent e) {
+    	Player p = e.getPlayer();
 		if (!getAntiCheat().isEnabled()) {
 			return;
 		}
@@ -51,7 +54,7 @@ public class KillAuraD extends Check {
 		}
 		
 		if(Count > Other && Other == 2) {
-			getAntiCheat().logCheat(this, e.getPlayer(), "Packet", "(Type: D)");
+			getAntiCheat().logCheat(this, p, "Packet", "(Type: D)");
 		}
 
 		if(Count > 3 || Other > 3) {
@@ -60,8 +63,8 @@ public class KillAuraD extends Check {
 		}
 		packetTicks.put(e.getPlayer().getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Other));
 	}
-	
-	@EventHandler
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void logout(PlayerQuitEvent e) {
 		if(packetTicks.containsKey(e.getPlayer().getUniqueId())) {
 			packetTicks.remove(e.getPlayer().getUniqueId());

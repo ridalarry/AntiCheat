@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
@@ -32,47 +33,46 @@ public class ReachD extends Check {
 		toBan = new HashMap<UUID, Integer>();
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onATTACK(EntityDamageByEntityEvent e) {
 		if (!e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-				|| !(e.getEntity() instanceof Player) || !(e.getDamager() instanceof Player)
-				|| getAntiCheat().isSotwMode()
+				|| !(e.getDamager() instanceof Player)
+				|| !(e.getEntity() instanceof Player)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 			return;
 		}
 
-		Player player = (Player) e.getDamager();
-		Player damaged = (Player) e.getEntity();
-
-		if (player.getAllowFlight()) {
+		Player p = (Player) e.getDamager();
+		Player d = (Player) e.getEntity();
+		if (d.getAllowFlight()
+				|| p.getAllowFlight()) {
 			return;
 		}
+		double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));
+		double Difference = PlayerUtils.getEyeLocation(p).distance(d.getEyeLocation()) - 0.35;
 
-		double YawDifference = Math.abs(180 - Math.abs(damaged.getLocation().getYaw() - player.getLocation().getYaw()));
-		double Difference = PlayerUtils.getEyeLocation(player).distance(damaged.getEyeLocation()) - 0.35;
-
-		int Ping = getAntiCheat().getLag().getPing(player);
+		int Ping = getAntiCheat().getLag().getPing(p);
 		double TPS = getAntiCheat().getLag().getTPS();
-		double MaxReach = 4.0 + damaged.getVelocity().length();
+		double MaxReach = 4.0 + d.getVelocity().length();
 
-		if (player.isSprinting()) {
+		if (p.isSprinting()) {
 			MaxReach += 0.2;
 		}
 
-		if (player.getLocation().getY() > damaged.getLocation().getY()) {
-			Difference = player.getLocation().getY() - player.getLocation().getY();
+		if (p.getLocation().getY() > d.getLocation().getY()) {
+			Difference = p.getLocation().getY() - p.getLocation().getY();
 			MaxReach += Difference / 2.5;
-		} else if (player.getLocation().getY() > player.getLocation().getY()) {
-			Difference = player.getLocation().getY() - player.getLocation().getY();
+		} else if (p.getLocation().getY() > p.getLocation().getY()) {
+			Difference = p.getLocation().getY() - p.getLocation().getY();
 			MaxReach += Difference / 2.5;
 		}
-		for (PotionEffect effect : player.getActivePotionEffects()) {
+		for (PotionEffect effect : p.getActivePotionEffects()) {
 			if (effect.getType().equals(PotionEffectType.SPEED)) {
 				MaxReach += 0.2D * (effect.getAmplifier() + 1);
 			}
 		}
 		
-		double velocity = player.getVelocity().length() + damaged.getVelocity().length();
+		double velocity = p.getVelocity().length() + d.getVelocity().length();
 		
 		MaxReach += velocity * 1.5;
 		MaxReach += Ping < 250 ? Ping * 0.00212 : Ping * 0.031;
@@ -85,10 +85,10 @@ public class ReachD extends Check {
 		}
 
 		if (MaxReach < Difference) {
-			this.dumplog(player, "Logged for Reach Type D; Check is Bannable (so no special bans); Reach: " + Difference
+			this.dumplog(p, "Logged for Reach Type D; Check is Bannable (so no special bans); Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
 			
-			getAntiCheat().logCheat(this, player, Color.Red + "Experimental" + "; Reach: " + Difference
+			getAntiCheat().logCheat(this, p, Color.Red + "Experimental" + "; Reach: " + Difference
 				+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: D)");
 		}
 	}

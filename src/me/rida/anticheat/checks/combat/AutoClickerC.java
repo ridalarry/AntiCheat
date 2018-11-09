@@ -6,6 +6,7 @@ import java.util.UUID;
 import java.util.WeakHashMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -34,54 +35,55 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    public void onInt(PlayerInteractEvent playerInteractEvent) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onInt(PlayerInteractEvent e) {
         Double[] arrdouble;
-        Player player = playerInteractEvent.getPlayer();
-        if (playerInteractEvent.getAction() != Action.LEFT_CLICK_AIR) {
+        Player p = e.getPlayer();
+        if (e.getAction() != Action.LEFT_CLICK_AIR) {
             return;
         }
-        if (cps.containsKey(player.getUniqueId())) {
-            arrdouble = cps.get(player.getUniqueId());
+        if (cps.containsKey(p.getUniqueId())) {
+            arrdouble = cps.get(p.getUniqueId());
             arrdouble[4] = arrdouble[4] + 1.0;
         } else {
             arrdouble = new Double[]{0.0, 0.0, 0.0, 0.0, 0.0};
         }
-        cps.put(player.getUniqueId(), arrdouble);
+        cps.put(p.getUniqueId(), arrdouble);
         for (Map.Entry<UUID, Double[]> entry : cps.entrySet()) {
             Double[] arrdouble2 = entry.getValue();
-            this.analyzeDouble(player);
+            this.analyzeDouble(p);
             if (Arrays.stream(arrdouble2).anyMatch(d -> d >= 10.0) && arrdouble2[4].equals(arrdouble2[0]) && arrdouble2[4].equals(arrdouble2[1]) && arrdouble2[4].equals(arrdouble2[2]) && arrdouble2[4].equals(arrdouble2[3])) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: C)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
             }
             if (Arrays.stream(arrdouble2).anyMatch(d -> d > 12.0) && MathUtils.close(arrdouble2, 2)) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: C)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
             }
             arrdouble2[0] = arrdouble2[1];
             arrdouble2[1] = arrdouble2[2];
             arrdouble2[2] = arrdouble2[3];
             arrdouble2[3] = arrdouble2[4];
             arrdouble2[4] = 0.0;
-            cps.put(player.getUniqueId(), arrdouble2);
+            cps.put(p.getUniqueId(), arrdouble2);
         }
     }
 
-    @EventHandler
-    public void onAttack(EntityDamageByEntityEvent entityDamageByEntityEvent) {
-        if (!(entityDamageByEntityEvent.getDamager() instanceof Player)) {
+    @EventHandler(priority=EventPriority.MONITOR)
+    public void onAttack(EntityDamageByEntityEvent e) {
+        if (!(e.getDamager() instanceof Player)) {
             return;
         }
-        Player player = (Player)entityDamageByEntityEvent.getDamager();
+        Player p = (Player)e.getDamager();
     }
 
-    public void analyzeDouble(Player player) {
-        UUID uUID = player.getUniqueId();
-        if (cpsMS.containsKey(uUID) && System.currentTimeMillis() - cpsMS.get(player.getUniqueId()) <= 1) {
-        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: A)");
+    public void analyzeDouble(Player p) {
+        UUID uUID = p.getUniqueId();
+        if (cpsMS.containsKey(uUID) && System.currentTimeMillis() - cpsMS.get(p.getUniqueId()) <= 1) {
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
         }
         cpsMS.put(uUID, System.currentTimeMillis());
     }
 
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onDisconnect(PlayerQuitEvent playerQuitEvent) {
         UUID uUID = playerQuitEvent.getPlayer().getUniqueId();
         packetHitsSinceLastCheck.remove(uUID);

@@ -10,6 +10,7 @@ import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 public class ReachA extends Check {
 
@@ -22,30 +23,30 @@ public class ReachA extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onAttack(PacketAttackEvent e) {
-        Entity entity = e.getEntity();
-        Player player = e.getPlayer();
+        Entity p2 = e.getEntity();
+        Player p = e.getPlayer();
         if(e.getType() != PacketPlayerType.USE
                 || e.getEntity() == null 
-        		|| entity instanceof Enderman 
-        		|| entity.isDead()){
+        		|| p2 instanceof Enderman 
+        		|| p2.isDead()){
             return;
         }
 
 
-        double distance = MathUtils.getHorizontalDistance(player.getLocation(), entity.getLocation()) - 0.35;
+        double distance = MathUtils.getHorizontalDistance(p.getLocation(), p2.getLocation()) - 0.35;
         double maxReach = 4.2;
-        double yawDifference = 180 - Math.abs(Math.abs(player.getEyeLocation().getYaw()) - Math.abs(entity.getLocation().getYaw()));
+        double yawDifference = 180 - Math.abs(Math.abs(p.getEyeLocation().getYaw()) - Math.abs(p2.getLocation().getYaw()));
 
-        maxReach+= Math.abs(player.getVelocity().length() + entity.getVelocity().length()) * 0.4;
+        maxReach+= Math.abs(p.getVelocity().length() + p2.getVelocity().length()) * 0.4;
         maxReach+= yawDifference * 0.01;
 
         if(maxReach < 4.2) maxReach = 4.2;
         
 
         if(distance > maxReach) {
-        	getAntiCheat().logCheat(this, player, MathUtils.trim(3, distance) + " > " + MathUtils.trim(3, maxReach), "(Type: A)");
+        	getAntiCheat().logCheat(this, p, MathUtils.trim(3, distance) + " > " + MathUtils.trim(3, maxReach), "(Type: A)");
         }
     }
 }

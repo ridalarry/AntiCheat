@@ -71,22 +71,13 @@ public class PacketsA extends Check {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public final void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
-		if (!getAntiCheat().isEnabled()) {
-			return;
-		}
-		if (getAntiCheat().isSotwMode()) {
-			return;
-		}
-		if (player.getGameMode().equals(GameMode.CREATIVE)) {
-			return;
-		}
-		if (getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel()) {
+		if (!getAntiCheat().isEnabled()
+				|| (player.getGameMode().equals(GameMode.CREATIVE)
+				|| (getAntiCheat().lag.getPing(player) > 200))
+				|| (getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel())){
 			return;
 		}
 
-		if (getAntiCheat().lag.getPing(player) > 200) {
-			return;
-		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (packetTicks.containsKey(player.getUniqueId())) {

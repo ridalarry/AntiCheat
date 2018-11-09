@@ -7,6 +7,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -31,15 +32,15 @@ public class FastBowA extends Check {
 		setBannable(true);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void Interact(final PlayerInteractEvent e) {
-		Player Player = e.getPlayer();
-		if (Player.getItemInHand() != null && Player.getItemInHand().getType().equals(Material.BOW)) {
-			bowPull.put(Player, System.currentTimeMillis());
+		Player p = e.getPlayer();
+		if (p.getItemInHand() != null && p.getItemInHand().getType().equals(Material.BOW)) {
+			bowPull.put(p, System.currentTimeMillis());
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLogout(PlayerQuitEvent e) {
 		if (bowPull.containsKey(e.getPlayer())) {
 			bowPull.remove(e.getPlayer());
@@ -50,7 +51,7 @@ public class FastBowA extends Check {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onShoot(final ProjectileLaunchEvent e) {
 		if (!this.isEnabled()) {
 			return;
@@ -58,23 +59,23 @@ public class FastBowA extends Check {
 		if (e.getEntity() instanceof Arrow) {
 			Arrow arrow = (Arrow) e.getEntity();
 			if (arrow.getShooter() != null && arrow.getShooter() instanceof Player) {
-				Player player = (Player) arrow.getShooter();
-				if (bowPull.containsKey(player)) {
-					Long time = System.currentTimeMillis() - this.bowPull.get(player);
+				Player p = (Player) arrow.getShooter();
+				if (bowPull.containsKey(p)) {
+					Long time = System.currentTimeMillis() - this.bowPull.get(p);
 					double power = arrow.getVelocity().length();
 					Long timeLimit = 300L;
 					int Count = 0;
-					if (count.containsKey(player)) {
-						Count = count.get(player);
+					if (count.containsKey(p)) {
+						Count = count.get(p);
 					}
 					if (power > 2.5 && time < timeLimit) {
-						count.put(player, Count + 1);
+						count.put(p, Count + 1);
 					} else {
-						count.put(player, Count > 0 ? Count - 1 : Count);
+						count.put(p, Count > 0 ? Count - 1 : Count);
 					}
 					if (Count > 8) {
-						getAntiCheat().logCheat(this, player, time + " ms", "(Type: A)");
-						count.remove(player);
+						getAntiCheat().logCheat(this, p, time + " ms", "(Type: A)");
+						count.remove(p);
 					}
 				}
 			}

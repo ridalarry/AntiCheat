@@ -30,7 +30,7 @@ public class RegenA extends Check {
 	public static Map<UUID, Long> LastHeal = new HashMap<UUID, Long>();
 	public static Map<UUID, Map.Entry<Integer, Long>> FastHealTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
@@ -43,10 +43,10 @@ public class RegenA extends Check {
 		}
 	}
 
-	public boolean checkFastHeal(Player player) {
-		if (LastHeal.containsKey(player.getUniqueId())) {
-			long l = LastHeal.get(player.getUniqueId()).longValue();
-			LastHeal.remove(player.getUniqueId());
+	public boolean checkFastHeal(Player p) {
+		if (LastHeal.containsKey(p.getUniqueId())) {
+			long l = LastHeal.get(p.getUniqueId()).longValue();
+			LastHeal.remove(p.getUniqueId());
 			if (System.currentTimeMillis() - l < 3000L) {
 				return true;
 			}
@@ -55,39 +55,35 @@ public class RegenA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onHeal(EntityRegainHealthEvent event) {
-		if (!event.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.SATIATED)
-				|| !(event.getEntity() instanceof Player)
+	public void onHeal(EntityRegainHealthEvent e) {
+		Player p = (Player) e.getEntity();
+		if (!e.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.SATIATED)
+				|| !(p instanceof Player)
+				|| p.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
-			return;
-		}
-
-		Player player = (Player) event.getEntity();
-
-		if (player.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
 			return;
 		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (FastHealTicks.containsKey(player.getUniqueId())) {
-			Count = FastHealTicks.get(player.getUniqueId()).getKey().intValue();
-			Time = FastHealTicks.get(player.getUniqueId()).getValue().longValue();
+		if (FastHealTicks.containsKey(p.getUniqueId())) {
+			Count = FastHealTicks.get(p.getUniqueId()).getKey().intValue();
+			Time = FastHealTicks.get(p.getUniqueId()).getValue().longValue();
 		}
-		if (checkFastHeal(player) && !PlayerUtils.isFullyStuck(player) && !PlayerUtils.isPartiallyStuck(player)) {
+		if (checkFastHeal(p) && !PlayerUtils.isFullyStuck(p) && !PlayerUtils.isPartiallyStuck(p)) {
 			Count++;
 		} else {
 			Count = Count > 0 ? Count - 1 : Count;
 		}
 		
 		if(Count > 2) {
-			getAntiCheat().logCheat(this, player, null, null);
+			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
-		if (FastHealTicks.containsKey(player.getUniqueId()) && UtilTime.elapsed(Time, 60000L)) {
+		if (FastHealTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 60000L)) {
 			Count = 0;
 			Time = UtilTime.nowlong();
 		}
-		LastHeal.put(player.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
-		FastHealTicks.put(player.getUniqueId(),
+		LastHeal.put(p.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
+		FastHealTicks.put(p.getUniqueId(),
 				new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 }

@@ -29,7 +29,6 @@ public class BlockInteractD extends Check {
                 || player.getAllowFlight()
                 || event.getPlayer().getVehicle() != null
 				|| !getAntiCheat().isEnabled()
-				|| getAntiCheat().isSotwMode()
                 || UtilVelocity.didTakeVelocity(player)) return;
         if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             

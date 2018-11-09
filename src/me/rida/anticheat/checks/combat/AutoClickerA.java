@@ -32,7 +32,7 @@ public class AutoClickerA extends Check {
 		recording = new HashMap<UUID, Long>();
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
@@ -45,33 +45,32 @@ public class AutoClickerA extends Check {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onSwing(PacketSwingArmEvent e) {
-		Player player = e.getPlayer();
+		Player p = e.getPlayer();
 
-		if (getAntiCheat().isSotwMode()
-				|| getAntiCheat().getLag().getTPS() < 17
-				|| Latency.getLag(player) > 100) {
+		if (getAntiCheat().getLag().getTPS() < 17
+				|| Latency.getLag(p) > 100) {
 			return;
 		}
 		
 		int clicks = this.clicks.getOrDefault(this, 0);
-		long time = recording.getOrDefault(player.getUniqueId(), System.currentTimeMillis());
+		long time = recording.getOrDefault(p.getUniqueId(), System.currentTimeMillis());
 		if(UtilTime.elapsed(time, 1000L)) {
 			if(clicks > 18) {
-				getAntiCheat().logCheat(this, player, clicks + " Clicks/Second", "(Type: A)");
+				getAntiCheat().logCheat(this, p, clicks + " Clicks/Second", "(Type: A)");
 			}
 			clicks = 0;
-			recording.remove(player.getUniqueId());
+			recording.remove(p.getUniqueId());
 		} else {
 			clicks++;
 		}
 		
-		this.clicks.put(player.getUniqueId(), clicks);
-		recording.put(player.getUniqueId(), time);
+		this.clicks.put(p.getUniqueId(), clicks);
+		recording.put(p.getUniqueId(), time);
 	}
-	
-	@EventHandler(priority = EventPriority.MONITOR)
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLeave(PlayerQuitEvent e) {
 		if(clicks.containsKey(e.getPlayer().getUniqueId())) {
 			clicks.remove(e.getPlayer().getUniqueId());

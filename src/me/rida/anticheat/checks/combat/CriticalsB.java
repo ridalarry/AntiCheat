@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -30,7 +31,7 @@ public class CriticalsB extends Check {
 		setMaxViolations(4);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
@@ -43,58 +44,58 @@ public class CriticalsB extends Check {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
 				|| !e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
 			return;
 		}
 
-		Player player = (Player) e.getDamager();
-		if (player.getAllowFlight()
-				|| getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
-				|| UtilCheat.slabsNear(player.getLocation())) {
+		Player p = (Player) e.getDamager();
+		if (p.getAllowFlight()
+				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
+				|| UtilCheat.slabsNear(p.getLocation())) {
 			return;
 		}
 
-		Location pL = player.getLocation().clone();
-		pL.add(0.0, player.getEyeHeight() + 1.0, 0.0);
+		Location pL = p.getLocation().clone();
+		pL.add(0.0, p.getEyeHeight() + 1.0, 0.0);
 		if (UtilCheat.blocksNear(pL)) {
 			return;
 		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (CritTicks.containsKey(player.getUniqueId())) {
-			Count = CritTicks.get(player.getUniqueId()).getKey();
-			Time = CritTicks.get(player.getUniqueId()).getValue();
+		if (CritTicks.containsKey(p.getUniqueId())) {
+			Count = CritTicks.get(p.getUniqueId()).getKey();
+			Time = CritTicks.get(p.getUniqueId()).getValue();
 		}
-		if (!FallDistance.containsKey(player.getUniqueId())) {
+		if (!FallDistance.containsKey(p.getUniqueId())) {
 			return;
 		}
-		double realFallDistance = FallDistance.get(player.getUniqueId());
-		Count = player.getFallDistance() > 0.0 && !player.isOnGround() && realFallDistance == 0.0 ? ++Count : 0;
-		if (CritTicks.containsKey(player.getUniqueId()) && UtilTime.elapsed(Time, 10000)) {
+		double realFallDistance = FallDistance.get(p.getUniqueId());
+		Count = p.getFallDistance() > 0.0 && !p.isOnGround() && realFallDistance == 0.0 ? ++Count : 0;
+		if (CritTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 10000)) {
 			Count = 0;
 			Time = UtilTime.nowlong();
 		}
 		if (Count >= 2) {
 			Count = 0;
-			this.getAntiCheat().logCheat(this, player, null, "(Type: B)");
+			this.getAntiCheat().logCheat(this, p, null, "(Type: B)");
 		}
-		CritTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		CritTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void Move(PlayerMoveEvent e) {
-		Player Player2 = e.getPlayer();
+		Player p2 = e.getPlayer();
 		double Falling = 0.0;
-		if (!Player2.isOnGround() && e.getFrom().getY() > e.getTo().getY()) {
-			if (FallDistance.containsKey(Player2.getUniqueId())) {
-				Falling = FallDistance.get(Player2.getUniqueId());
+		if (!p2.isOnGround() && e.getFrom().getY() > e.getTo().getY()) {
+			if (FallDistance.containsKey(p2.getUniqueId())) {
+				Falling = FallDistance.get(p2.getUniqueId());
 			}
 			Falling += e.getFrom().getY() - e.getTo().getY();
 		}
-		FallDistance.put(Player2.getUniqueId(), Falling);
+		FallDistance.put(p2.getUniqueId(), Falling);
 	}
 }

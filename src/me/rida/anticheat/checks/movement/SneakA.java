@@ -41,10 +41,6 @@ public class SneakA extends Check {
 		}
 		Player player = event.getPlayer();
 
-		if (getAntiCheat().isSotwMode()) {
-			return;
-		}
-
 		int Count = 0;
 		long Time = -1L;
 		if (sneakTicks.containsKey(player.getUniqueId())) {

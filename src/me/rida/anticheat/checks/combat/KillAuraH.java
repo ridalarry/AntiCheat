@@ -3,6 +3,7 @@ package me.rida.anticheat.checks.combat;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.rida.anticheat.checks.Check;
@@ -21,19 +22,17 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onAngleHit(EntityDamageByEntityEvent entityDamageByEntityEvent) {
-        if (!(entityDamageByEntityEvent.getEntity() instanceof Player)) {
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onAngleHit(EntityDamageByEntityEvent e) {
+        if (!(e.getEntity() instanceof Player) 
+        		||!(e.getDamager() instanceof Player)) {
             return;
         }
-        if (!(entityDamageByEntityEvent.getDamager() instanceof Player)) {
-            return;
-        }
-        Player player = (Player)entityDamageByEntityEvent.getDamager();
-        Player player2 = (Player)entityDamageByEntityEvent.getEntity();
-        double d = Ping.getPing(player);
-        double d2 = Ping.getPing(player2);
-        double d3 = MathUtils.getOffsets2(player, (LivingEntity)player2)[0];
+        Player p = (Player)e.getDamager();
+        Player p2 = (Player)e.getEntity();
+        double d = Ping.getPing(p);
+        double d2 = Ping.getPing(p2);
+        double d3 = MathUtils.getOffsets2(p, (LivingEntity)p2)[0];
         if (d2 > 450.0) {
             return;
         }
@@ -51,7 +50,7 @@ extends Check {
             return;
         }
         if (d3 >= 300.0) {
-        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: H)");
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: H)");
         }
     }
 }

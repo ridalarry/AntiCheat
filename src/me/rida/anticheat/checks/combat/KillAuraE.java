@@ -29,7 +29,7 @@ public class KillAuraE extends Check {
 		setViolationResetTime(1800000L);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		if (lastAttack.containsKey(e.getPlayer())) {
 			lastAttack.remove(e.getPlayer());
@@ -40,21 +40,20 @@ public class KillAuraE extends Check {
 	public void Damage(EntityDamageByEntityEvent e) {
 		if (e.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK
 				|| !((e.getEntity()) instanceof Player)
-				|| !(e.getDamager() instanceof Player)
-				|| getAntiCheat().isSotwMode()) {
+				|| !(e.getDamager() instanceof Player)) {
 			return;
 		}
 
-		Player player = (Player) e.getDamager();
-		if (lastAttack.containsKey(player)) {
-			Integer entityid = lastAttack.get(player).getKey();
-			Long time = lastAttack.get(player).getValue();
+		Player p = (Player) e.getDamager();
+		if (lastAttack.containsKey(p)) {
+			Integer entityid = lastAttack.get(p).getKey();
+			Long time = lastAttack.get(p).getValue();
 			if (entityid != e.getEntity().getEntityId() && System.currentTimeMillis() - time < 6L) {
-				this.getAntiCheat().logCheat(this, player, "MultiAura", "(Type: E)");
+				this.getAntiCheat().logCheat(this, p, "MultiAura", "(Type: E)");
 			}
-			lastAttack.remove(player);
+			lastAttack.remove(p);
 		} else {
-			lastAttack.put(player, new AbstractMap.SimpleEntry<Integer, Long>(e.getEntity().getEntityId(),
+			lastAttack.put(p, new AbstractMap.SimpleEntry<Integer, Long>(e.getEntity().getEntityId(),
 					System.currentTimeMillis()));
 		}
 	}

@@ -1,11 +1,13 @@
 package me.rida.anticheat.checks.combat;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
+import org.bukkit.entity.Player;
 
 public class TwitchA extends Check {
 	public TwitchA(AntiCheat AntiCheat) {
@@ -17,13 +19,14 @@ public class TwitchA extends Check {
 		setMaxViolations(5);
 	}
 
-	@EventHandler
+    @EventHandler(priority=EventPriority.MONITOR)
 	public void Player(PacketPlayerEvent e) {
+		Player p = e.getPlayer();
 		if (e.getType() != PacketPlayerType.LOOK) {
 			return;
 		}
 		if ((e.getPitch() > 90.1F) || (e.getPitch() < -90.1F)) {
-			getAntiCheat().logCheat(this, e.getPlayer(), null, "(Type: A)");
+			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
 	}
 }
