@@ -42,7 +42,9 @@ public class BlockInteractB extends Check {
 			}
 			Player p = e.getPlayer();
 			UUID u = p.getUniqueId();
-			
+			if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				return;
+			}
 			long Time = System.currentTimeMillis();
 			int level = 0;
 			if (speedTicks.containsKey(p.getUniqueId())) {

@@ -32,6 +32,9 @@ public class BlockInteractE extends Check {
   			return;
   		}
      Player p = e.getPlayer();
+     if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+    	 return;
+     }
           if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
              && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
               getAntiCheat().logCheat(this, p,"[1] Broke a block without a line of sight too it.", "(Type: E)");

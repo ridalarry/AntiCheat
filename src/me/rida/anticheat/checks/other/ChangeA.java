@@ -65,7 +65,11 @@ extends Check {
             this.falling.remove(u);
         }
         if (n > n2) {
-        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", null);
+        	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+    		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+        		return;
+        	}
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
             n = 0;
             this.falling.remove(u);
         }

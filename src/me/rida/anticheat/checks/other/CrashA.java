@@ -40,6 +40,10 @@ public class CrashA extends Check {
 	public void Swing(final PacketSwingArmEvent e) {
 		final Player p = e.getPlayer();
 		final UUID u = p.getUniqueId();
+		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			return;
+		}
 		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
@@ -68,6 +72,10 @@ public class CrashA extends Check {
 		final UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
+			return;
+		}
+		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		int Count = 0;
@@ -108,6 +116,10 @@ public class CrashA extends Check {
 			Time = TimeUtil.nowlong();
 		}
 		if (Count > 2000) {
+			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+			        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				return;
+			}
 			this.getAntiCheat().logCheat(this, p, "[3]", "(Type: A)");
 			this.crashs.add(u);
 		}

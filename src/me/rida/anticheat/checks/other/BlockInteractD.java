@@ -29,7 +29,8 @@ public class BlockInteractD extends Check {
                 || p.getAllowFlight()
                 || p.getVehicle() != null
                 || Ping.getPing(e.getPlayer()) > 100
-                || getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
                 || VelocityUtil.didTakeVelocity(p)) return;
         if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
