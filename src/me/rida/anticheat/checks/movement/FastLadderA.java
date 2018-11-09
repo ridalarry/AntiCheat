@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
@@ -42,8 +43,8 @@ public class FastLadderA extends Check {
 		}
 
 		int Count = count.getOrDefault(player, 0);
-		double OffsetY = UtilsB.offset(UtilsB.getVerticalVector(e.getFrom().toVector()),
-				UtilsB.getVerticalVector(e.getTo().toVector()));
+		double OffsetY = MathUtils.offset(MathUtils.getVerticalVector(e.getFrom().toVector()),
+				MathUtils.getVerticalVector(e.getTo().toVector()));
 		double Limit = 0.13;
 		
 		double updown = e.getTo().getY() - e.getFrom().getY();

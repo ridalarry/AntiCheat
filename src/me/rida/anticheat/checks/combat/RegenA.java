@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class RegenA extends Check {
@@ -73,7 +74,7 @@ public class RegenA extends Check {
 			Count = FastHealTicks.get(player.getUniqueId()).getKey().intValue();
 			Time = FastHealTicks.get(player.getUniqueId()).getValue().longValue();
 		}
-		if (checkFastHeal(player) && !UtilsB.isFullyStuck(player) && !UtilsB.isPartiallyStuck(player)) {
+		if (checkFastHeal(player) && !PlayerUtils.isFullyStuck(player) && !PlayerUtils.isPartiallyStuck(player)) {
 			Count++;
 		} else {
 			Count = Count > 0 ? Count - 1 : Count;

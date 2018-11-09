@@ -12,6 +12,8 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.a.MathUtils;
+import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class FlyB extends Check {
@@ -51,7 +53,7 @@ public class FlyB extends Check {
 				|| player.getAllowFlight()
 				|| player.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| UtilsB.isInWater(player)
+				|| PlayerUtils.isInWater(player)
 				|| UtilCheat.isInWeb(player)
 				|| Latency.getLag(player) > 92) {
 			return;
@@ -77,7 +79,7 @@ public class FlyB extends Check {
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(player, "Logged Fly. MS: " + MS);
-			getAntiCheat().logCheat(this, player, "Hovering for " + UtilsB.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
+			getAntiCheat().logCheat(this, player, "Hovering for " + MathUtils.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
 					);
 			flyTicksA.remove(player.getUniqueId());
 			return;

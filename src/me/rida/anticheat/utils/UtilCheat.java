@@ -13,6 +13,7 @@ import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.a.BlockUtils;
 import me.rida.anticheat.utils.b.UtilsB;
@@ -275,10 +276,10 @@ public final class UtilCheat {
     public static boolean isOnGround(final Location location, final int down) {
         final double posX = location.getX();
         final double posZ = location.getZ();
-        final double fracX = (UtilsB.getFraction(posX) > 0.0) ? Math.abs(UtilsB.getFraction(posX))
-                : (1.0 - Math.abs(UtilsB.getFraction(posX)));
-        final double fracZ = (UtilsB.getFraction(posZ) > 0.0) ? Math.abs(UtilsB.getFraction(posZ))
-                : (1.0 - Math.abs(UtilsB.getFraction(posZ)));
+        final double fracX = (MathUtils.getFraction(posX) > 0.0) ? Math.abs(MathUtils.getFraction(posX))
+                : (1.0 - Math.abs(MathUtils.getFraction(posX)));
+        final double fracZ = (MathUtils.getFraction(posZ) > 0.0) ? Math.abs(MathUtils.getFraction(posZ))
+                : (1.0 - Math.abs(MathUtils.getFraction(posZ)));
         final int blockX = location.getBlockX();
         final int blockY = location.getBlockY() - down;
         final int blockZ = location.getBlockZ();

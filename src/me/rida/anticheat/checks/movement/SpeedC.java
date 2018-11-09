@@ -22,6 +22,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilTime;
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
@@ -112,10 +113,10 @@ public class SpeedC extends Check {
 		int TooFastCount = 0;
 		double percent = 0D;
 		if (tooFastTicks.containsKey(player.getUniqueId())) {
-			double OffsetXZ = UtilsB.offset(UtilsB.getHorizontalVector(event.getFrom().toVector()),
-					UtilsB.getHorizontalVector(event.getTo().toVector()));
+			double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(event.getFrom().toVector()),
+					MathUtils.getHorizontalVector(event.getTo().toVector()));
 			double LimitXZ = 0.0D;
-			if ((UtilsB.isOnGround(player)) && (player.getVehicle() == null)) {
+			if ((PlayerUtils.isInGround(player)) && (player.getVehicle() == null)) {
 				LimitXZ = 0.34D;
 			} else {
 				LimitXZ = 0.39D;
@@ -130,7 +131,7 @@ public class SpeedC extends Check {
 			if (UtilCheat.slabsNear(player.getLocation())) {
 				LimitXZ += 0.05D;
 			}
-			Location b = UtilsB.getEyeLocation(player);
+			Location b = PlayerUtils.getEyeLocation(player);
 			b.add(0.0D, 1.0D, 0.0D);
 			if ((b.getBlock().getType() != Material.AIR) && (!UtilCheat.canStandWithin(b.getBlock()))) {
 				LimitXZ = 0.69D;

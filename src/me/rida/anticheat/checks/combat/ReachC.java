@@ -20,6 +20,8 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.a.MathUtils;
+import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class ReachC extends Check {
@@ -47,8 +49,8 @@ public class ReachC extends Check {
 		if (getAntiCheat().isSotwMode()) {
 			return;
 		}
-		double OffsetXZ = UtilsB.offset(UtilsB.getHorizontalVector(event.getFrom().toVector()),
-				UtilsB.getHorizontalVector(event.getTo().toVector()));
+		double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(event.getFrom().toVector()),
+				MathUtils.getHorizontalVector(event.getTo().toVector()));
 		double horizontal = Math.sqrt(Math.pow(event.getTo().getX() - event.getFrom().getX(), 2.0)
 				+ Math.pow(event.getTo().getZ() - event.getFrom().getZ(), 2.0));
 		this.offsets.put(event.getPlayer(),
@@ -94,8 +96,8 @@ public class ReachC extends Check {
 		Player damager = e.getAttacker();
 		Player player = (Player) e.getAttacked();
 		double ydist = Math.abs(damager.getEyeLocation().getY() - player.getEyeLocation().getY());
-		double Reach = UtilsB.trim(2,
-				(UtilsB.getEyeLocation(damager).distance(player.getEyeLocation()) - ydist) - 0.32);
+		double Reach = MathUtils.trim(2,
+				(PlayerUtils.getEyeLocation(damager).distance(player.getEyeLocation()) - ydist) - 0.32);
 		int PingD = this.getAntiCheat().getLag().getPing(damager);
 		int PingP = this.getAntiCheat().getLag().getPing(player);
 
@@ -118,8 +120,8 @@ public class ReachC extends Check {
 			offsetsp = ((this.offsets.get(player)).getKey()).doubleValue();
 			lastHorizontal = ((this.offsets.get(player)).getValue()).doubleValue();
 		}
-		Reach -= UtilsB.trim(2, offsetsd);
-		Reach -= UtilsB.trim(2, offsetsp);
+		Reach -= MathUtils.trim(2, offsetsd);
+		Reach -= MathUtils.trim(2, offsetsp);
 		double maxReach2 = 3.1;
 		if (yawdif > 90) {
 			maxReach2 += 0.38;

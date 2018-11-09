@@ -7,6 +7,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.rida.anticheat.checks.client.SpookA;
 import me.rida.anticheat.utils.AngleUtil;
+import me.rida.anticheat.utils.a.MathUtils;
 
 public class SpookListener
 implements Listener {
@@ -19,7 +20,7 @@ implements Listener {
         }
         Player player = (Player)entityDamageByEntityEvent.getDamager();
         Player player2 = (Player)entityDamageByEntityEvent.getEntity();
-        float f = AngleUtil.getOffset(player, (LivingEntity)player2);
+        float f = MathUtils.getOffset(player, (LivingEntity)player2);
         SpookA.SpookAInstance().onAim(player, f);
     }
 }

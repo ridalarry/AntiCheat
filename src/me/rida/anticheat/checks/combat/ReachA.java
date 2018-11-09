@@ -47,7 +47,7 @@ public class ReachA extends Check {
         
 
         if(distance > maxReach) {
-        	getAntiCheat().logCheat(this, player, UtilsB.trim(3, distance) + " > " + UtilsB.trim(3, maxReach), "(Type: A)");
+        	getAntiCheat().logCheat(this, player, MathUtils.trim(3, distance) + " > " + MathUtils.trim(3, maxReach), "(Type: A)");
         }
     }
 }

@@ -16,6 +16,7 @@ import com.google.common.collect.Sets;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilReflection;
 
 public class PlayerUtils {
@@ -425,5 +426,61 @@ public class PlayerUtils {
             }
         }
         return false;
+    }
+
+
+    public static boolean isInWater(Player player) {
+        final Material m = player.getLocation().getBlock().getType();
+        return m == Material.STATIONARY_WATER || m == Material.WATER;
+    }
+
+
+    public static boolean isPartiallyStuck(Player player) {
+        if (player.getLocation().clone().getBlock() == null) {
+            return false;
+        }
+        Block block = player.getLocation().clone().getBlock();
+        if (UtilCheat.isSlab(block) || UtilCheat.isStair(block)) {
+            return false;
+        }
+        if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isSolid()
+                || player.getLocation().getBlock().getRelative(BlockFace.UP).getType().isSolid()) {
+            return true;
+        }
+        if (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getRelative(BlockFace.DOWN).getType()
+                .isSolid()
+                || player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getRelative(BlockFace.UP).getType()
+                .isSolid()) {
+            return true;
+        }
+        return block.getType().isSolid();
+    }
+
+    public static boolean isFullyStuck(Player player) {
+        Block block1 = player.getLocation().clone().getBlock();
+        Block block2 = player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock();
+        if (block1.getType().isSolid() && block2.getType().isSolid()) {
+            return true;
+        }
+        return block1.getRelative(BlockFace.DOWN).getType().isSolid()
+                || block1.getLocation().getBlock().getRelative(BlockFace.UP).getType().isSolid()
+                && block2.getRelative(BlockFace.DOWN).getType().isSolid()
+                || block2.getLocation().getBlock().getRelative(BlockFace.UP).getType().isSolid();
+    }
+
+    public static boolean isInGround(Player player) {
+        if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
+            return true;
+        }
+        Location a = player.getLocation().clone();
+        a.setY(a.getY() - 0.5);
+        if (a.getBlock().getType() != Material.AIR) {
+            return true;
+        }
+        a = player.getLocation().clone();
+        a.setY(a.getY() + 0.5);
+        return a.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR
+                || UtilCheat.isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
+                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER});
     }
 }

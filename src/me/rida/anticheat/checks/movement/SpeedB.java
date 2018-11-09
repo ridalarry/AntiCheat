@@ -22,6 +22,7 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.a.BlockUtils;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.a.ServerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
@@ -85,7 +86,7 @@ public class SpeedB extends Check {
 		}
 
 		double ig = 0.28;
-		double speed = UtilsB.offset(getHV(to.toVector()), getHV(from.toVector()));
+		double speed = MathUtils.offset(getHV(to.toVector()), getHV(from.toVector()));
 		double onGroundDiff = (to.getY() - from.getY());
 
 		if (p.hasPotionEffect(PotionEffectType.SPEED)) {

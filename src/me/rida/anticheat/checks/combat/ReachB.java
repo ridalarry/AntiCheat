@@ -14,6 +14,8 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.a.MathUtils;
+import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class ReachB extends Check {
@@ -39,8 +41,8 @@ public class ReachB extends Check {
 		if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ()) {
 			return;
 		}
-		double OffsetXZ = UtilsB.offset(UtilsB.getHorizontalVector(event.getFrom().toVector()),
-				UtilsB.getHorizontalVector(event.getTo().toVector()));
+		double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(event.getFrom().toVector()),
+				MathUtils.getHorizontalVector(event.getTo().toVector()));
 		double horizontal = Math.sqrt(Math.pow(event.getTo().getX() - event.getFrom().getX(), 2.0)
 				+ Math.pow(event.getTo().getZ() - event.getFrom().getZ(), 2.0));
 		offsets.put(event.getPlayer(),
@@ -56,8 +58,8 @@ public class ReachB extends Check {
 		}
 		Player damager = (Player) e.getDamager();
 		Player player = (Player) e.getEntity();
-		double Reach = UtilsB.trim(2, UtilsB.getEyeLocation(damager).distance(player.getEyeLocation()) - 0.32);
-		double Reach2 = UtilsB.trim(2, UtilsB.getEyeLocation(damager).distance(player.getEyeLocation()) - 0.32);
+		double Reach = MathUtils.trim(2, PlayerUtils.getEyeLocation(damager).distance(player.getEyeLocation()) - 0.32);
+		double Reach2 = MathUtils.trim(2, PlayerUtils.getEyeLocation(damager).distance(player.getEyeLocation()) - 0.32);
 
 		double Difference;
 		

@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class NoFallA extends Check {
@@ -73,7 +74,7 @@ public class NoFallA extends Check {
 				|| player.getVehicle() != null
 				|| cancel.remove(player)
 				|| UtilsB.isOnClimbable(player, 0)
-				|| UtilsB.isInWater(player)) {
+				|| PlayerUtils.isInWater(player)) {
 			return;
 		}
 		Damageable dplayer = (Damageable) e.getPlayer();
@@ -83,7 +84,7 @@ public class NoFallA extends Check {
 		}
 
 		double Falling = 0.0D;
-		if ((!UtilsB.isOnGround(player)) && (e.getFrom().getY() > e.getTo().getY())) {
+		if ((!PlayerUtils.isInGround(player)) && (e.getFrom().getY() > e.getTo().getY())) {
 			if (FallDistance.containsKey(player.getUniqueId())) {
 				Falling = FallDistance.get(player.getUniqueId()).doubleValue();
 			}

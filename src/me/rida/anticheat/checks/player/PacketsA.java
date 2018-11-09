@@ -20,6 +20,7 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.*;
+import me.rida.anticheat.utils.a.PlayerUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
@@ -107,7 +108,7 @@ public class PacketsA extends Check {
 			if ((packetTicks.containsKey(player.getUniqueId())) && (UtilTime.elapsed(Time, 1000L))) {
 				int maxPackets = 50;
 				if (Count > maxPackets) {
-					if (!UtilsB.isFullyStuck(player) && !UtilsB.isPartiallyStuck(player)) {
+					if (!PlayerUtils.isFullyStuck(player) && !PlayerUtils.isPartiallyStuck(player)) {
 						getAntiCheat().logCheat(this, player, "sent over " + Count  + " packets! ", "(Type: A)");
 					}
 				}

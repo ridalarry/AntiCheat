@@ -8,6 +8,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 import org.bukkit.entity.LivingEntity;
@@ -60,7 +61,7 @@ public class HitBoxA extends Check {
 
 		if(offset > 30) {
 			if((verbose+= 2) > 25) {
-				getAntiCheat().logCheat(this, player, UtilsB.round(offset, 4) + ">-30", "(Type: A)");
+				getAntiCheat().logCheat(this, player, MathUtils.round(offset, 4) + ">-30", "(Type: A)");
 			}
 		} else if(verbose > 0) {
 			verbose--;

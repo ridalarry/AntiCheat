@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 public class NoSlowdownA extends Check {
@@ -66,8 +67,8 @@ public class NoSlowdownA extends Check {
 			return;
 		}
 		Player player = e.getPlayer();
-		double OffsetXZ = UtilsB.offset(UtilsB.getHorizontalVector(e.getFrom().toVector()),
-				UtilsB.getHorizontalVector(e.getTo().toVector()));
+		double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(e.getFrom().toVector()),
+				MathUtils.getHorizontalVector(e.getTo().toVector()));
 
 		if (!player.getLocation().getBlock().getType().equals(Material.WEB) || (OffsetXZ < 0.2)) {
 			return;

@@ -42,6 +42,7 @@ import me.rida.anticheat.packets.PacketCore;
 import me.rida.anticheat.pluginlogger.*;
 import me.rida.anticheat.update.*;
 import me.rida.anticheat.utils.*;
+import me.rida.anticheat.utils.a.MathUtils;
 import me.rida.anticheat.utils.b.UtilsB;
 
 import org.apache.commons.lang.Validate;
@@ -405,7 +406,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	public String getPasteVersion() {
 		try {
-			URL url = new URL(UtilsB.decrypt("aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcvQU4yWEtqTlM="));
+			URL url = new URL(MathUtils.decrypt("aHR0cDovL3Bhc3RlYmluLmNvbS9yYXcvQU4yWEtqTlM="));
 			URLConnection connection = url.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 			String line;
@@ -415,7 +416,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			getLogger().log(Level.SEVERE, UtilsB.decrypt("RXJyb3IhIENvdWxkIG5vdCBjaGVjayBmb3IgYSBuZXcgdmVyc2lvbiE="));
+			getLogger().log(Level.SEVERE, MathUtils.decrypt("RXJyb3IhIENvdWxkIG5vdCBjaGVjayBmb3IgYSBuZXcgdmVyc2lvbiE="));
 		}
 		return "Error";
 	}
