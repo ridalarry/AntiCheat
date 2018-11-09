@@ -27,7 +27,9 @@ public class GroundSpoofA extends Check {
          Player p = e.getPlayer();
           DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
          if (data != null) {
-            if (e.getTo().getY() > e.getFrom().getY()) {
+            if (e.getTo().getY() > e.getFrom().getY()
+            		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+			        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
                 return;
             }
              if (data.isLastBlockPlaced_GroundSpoof()) {

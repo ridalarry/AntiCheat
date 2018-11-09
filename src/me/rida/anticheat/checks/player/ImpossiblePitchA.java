@@ -19,6 +19,10 @@ public class ImpossiblePitchA extends Check {
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         double x = p.getLocation().getPitch();
+        if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+        	return;
+        }
         if (x > 90 || x < -90) {
             getAntiCheat().logCheat(this, p, "Head went back too far. Pitch: " + x, "(Type: A)");
         }

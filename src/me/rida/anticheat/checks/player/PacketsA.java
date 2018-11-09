@@ -82,6 +82,8 @@ public class PacketsA extends Check {
 		if (!getAntiCheat().isEnabled()
 				|| (p.getGameMode().equals(GameMode.CREATIVE)
 				|| (getAntiCheat().lag.getPing(p) > 200))
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| (getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel())){
 			return;
 		}
