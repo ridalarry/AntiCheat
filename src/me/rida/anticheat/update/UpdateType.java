@@ -1,6 +1,6 @@
 package me.rida.anticheat.update;
 
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public enum UpdateType {
 	MIN_64(3840000L), MIN_32(1920000L), MIN_16(960000L), MIN_08(480000L), MIN_05(300000L), MIN_04(240000L), MIN_02(
@@ -19,7 +19,7 @@ public enum UpdateType {
 	}
 
 	public boolean Elapsed() {
-		if (UtilTime.elapsed(this._last, this._time)) {
+		if (TimeUtil.elapsed(this._last, this._time)) {
 			this._last = System.currentTimeMillis();
 			return true;
 		}

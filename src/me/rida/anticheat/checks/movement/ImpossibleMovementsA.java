@@ -9,6 +9,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class ImpossibleMovementsA extends Check {
@@ -19,14 +20,13 @@ public class ImpossibleMovementsA extends Check {
 		setBannable(false);
     }
 
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         Location from  =e.getFrom();
         Location to = e.getTo();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
         if (data != null) {
-            //Anti Cactus
             if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {
                 if (data.getAntiCactus_VL() >= 3) {
                     getAntiCheat().logCheat(this, p, "(Anti Cactus)", "(Type: A)");
@@ -36,8 +36,6 @@ public class ImpossibleMovementsA extends Check {
             } else {
                 data.setAntiCactus_VL(0);
             }
-
-            //Web Float
             if (!data.isWebFloatMS_Set() && p.getLocation().add(0,-0.50,0).getBlock().getType() == Material.WEB) {
                 data.setWebFloatMS_Set(true);
              data.setWebFloatMS(TimerUtils.nowlong());

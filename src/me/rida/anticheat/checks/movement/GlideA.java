@@ -5,12 +5,13 @@ import java.util.Map;
 import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class GlideA extends Check {
 	public static Map<UUID, Long> flyTicks;
@@ -35,49 +36,49 @@ public class GlideA extends Check {
 		}
 	}
 
-	@EventHandler
-	public void CheckGlide(PlayerMoveEvent event) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void CheckGlide(PlayerMoveEvent e) {
 		if (!this.getAntiCheat().isEnabled()) {
 			return;
 		}
-		Player player = event.getPlayer();
+		Player p = e.getPlayer();
 		
-		if (event.isCancelled()
-				|| !(event.getTo().getX() == event.getFrom().getX() && event.getTo().getZ() == event.getFrom().getZ())
-				|| player.getVehicle() != null
-				|| player.getAllowFlight()
+		if (e.isCancelled()
+				|| !(e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ())
+				|| p.getVehicle() != null
+				|| p.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| UtilCheat.isInWeb(player)) {
+				|| CheatUtil.isInWeb(p)) {
 			return;
 		}
 
-		if (UtilCheat.blocksNear(player)) {
-			if (flyTicks.containsKey(player.getUniqueId())) {
-				flyTicks.remove(player.getUniqueId());
+		if (CheatUtil.blocksNear(p)) {
+			if (flyTicks.containsKey(p.getUniqueId())) {
+				flyTicks.remove(p.getUniqueId());
 			}
 			return;
 		}
 
-		double OffsetY = event.getFrom().getY() - event.getTo().getY();
+		double OffsetY = e.getFrom().getY() - e.getTo().getY();
 		if (OffsetY <= 0.0 || OffsetY > 0.16) {
-			if (flyTicks.containsKey(player.getUniqueId())) {
-				flyTicks.remove(player.getUniqueId());
+			if (flyTicks.containsKey(p.getUniqueId())) {
+				flyTicks.remove(p.getUniqueId());
 			}
 			return;
 		}
 		long Time = System.currentTimeMillis();
-		if (flyTicks.containsKey(player.getUniqueId())) {
-			Time = flyTicks.get(player.getUniqueId());
+		if (flyTicks.containsKey(p.getUniqueId())) {
+			Time = flyTicks.get(p.getUniqueId());
 		}
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 1000L) {
-			this.dumplog(player, "Logged. MS: " + MS);
-			flyTicks.remove(player.getUniqueId());
-			if (getAntiCheat().getLag().getPing(player) < 275) {
-				this.getAntiCheat().logCheat(this, player, null, "(Type: A)");
+			this.dumplog(p, "Logged. MS: " + MS);
+			flyTicks.remove(p.getUniqueId());
+			if (getAntiCheat().getLag().getPing(p) < 275) {
+				this.getAntiCheat().logCheat(this, p, null, "(Type: A)");
 			}
 			return;
 		}
-		flyTicks.put(player.getUniqueId(), Time);
+		flyTicks.put(p.getUniqueId(), Time);
 	}
 }

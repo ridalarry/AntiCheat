@@ -6,7 +6,7 @@ import java.util.HashMap;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.movement.PhaseA;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.CheatUtil;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -58,8 +58,8 @@ public class KillAuraF extends Check {
 		}
 
 		Player p = (Player) e.getDamager();
-		if (UtilCheat.slabsNear(p.getEyeLocation())
-				|| UtilCheat.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))) {
+		if (CheatUtil.slabsNear(p.getEyeLocation())
+				|| CheatUtil.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))) {
 			return;
 		}
 		int Count = 0;
@@ -75,19 +75,19 @@ public class KillAuraF extends Check {
 		double xdif = Math.abs(dloc.getX() - aloc.getX());
 
 		if (xdif == 0 || zdif == 0
-				|| UtilCheat.getOffsetOffCursor(p, a) > 20) {
+				|| CheatUtil.getOffsetOffCursor(p, a) > 20) {
 			return;
 		}
 
 		for (int y = 0; y < 1; y += 1) {
 			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
 			if (!PhaseA.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
-					&& !p.hasLineOfSight(a) && !UtilCheat.isSlab(zBlock.getBlock())) {
+					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
 			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
 			if (!PhaseA.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
-					&& !p.hasLineOfSight(a) && !UtilCheat.isSlab(xBlock.getBlock())) {
+					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(xBlock.getBlock())) {
 				Count++;
 			}
 

@@ -20,12 +20,12 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    public float onAim(Player player, float f) {
+    public float onAim(Player p, float f) {
         float f2 = Math.abs(f - this.lastYaw) % 180.0f;
         this.lastYaw = f;
         if (f2 > 1.0f && (float)Math.round(f2) == f2) {
             if (f2 == (float)this.lastBad) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental detection of a hack client!", "(Type: A)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental detection of a hack client!", "(Type: A)");
                 return f2;
             }
             this.lastBad = Math.round(f2);

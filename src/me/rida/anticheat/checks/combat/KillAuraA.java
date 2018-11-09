@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class KillAuraA extends Check {
 	public static Map<UUID, Long> LastMS;
@@ -62,9 +62,9 @@ public class KillAuraA extends Check {
 			Time = ClickTicks.get(p.getUniqueId()).getValue();
 		}
 		if (LastMS.containsKey(p.getUniqueId())) {
-			long MS = UtilTime.nowlong() - LastMS.get(p.getUniqueId());
+			long MS = TimeUtil.nowlong() - LastMS.get(p.getUniqueId());
 			if (MS > 500L || MS < 5L) {
-				LastMS.put(p.getUniqueId(), UtilTime.nowlong());
+				LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
 				return;
 			}
 			if (Clicks.containsKey(p.getUniqueId())) {
@@ -89,9 +89,9 @@ public class KillAuraA extends Check {
 				this.Clicks.put(p.getUniqueId(), Clicks);
 			}
 		}
-		if (ClickTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
+		if (ClickTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 5000L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if ((Count > 2 && this.getAntiCheat().getLag().getPing(p) < 100)
 				|| (Count > 4 && this.getAntiCheat().getLag().getPing(p) <= 400)) {
@@ -102,7 +102,7 @@ public class KillAuraA extends Check {
 		} else if (this.getAntiCheat().getLag().getPing(p) > 400) {
 			dumplog(p, "Would set off Killaura (Click Pattern) but latency is too high!");
 		}
-		LastMS.put(p.getUniqueId(), UtilTime.nowlong());
+		LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
 		ClickTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 }

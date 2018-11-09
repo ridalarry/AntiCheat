@@ -3,7 +3,7 @@ package me.rida.anticheat.checks.combat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
-import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.AntiCheat;
 
 import org.bukkit.entity.Enderman;
@@ -35,7 +35,7 @@ public class ReachA extends Check {
         }
 
 
-        double distance = MathUtils.getHorizontalDistance(p.getLocation(), p2.getLocation()) - 0.35;
+        double distance = MathUtil.getHorizontalDistance(p.getLocation(), p2.getLocation()) - 0.35;
         double maxReach = 4.2;
         double yawDifference = 180 - Math.abs(Math.abs(p.getEyeLocation().getYaw()) - Math.abs(p2.getLocation().getYaw()));
 
@@ -46,7 +46,7 @@ public class ReachA extends Check {
         
 
         if(distance > maxReach) {
-        	getAntiCheat().logCheat(this, p, MathUtils.trim(3, distance) + " > " + MathUtils.trim(3, maxReach), "(Type: A)");
+        	getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach), "(Type: A)");
         }
     }
 }

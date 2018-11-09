@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -35,26 +36,26 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent playerJoinEvent) {
-        this.getClientType(playerJoinEvent.getPlayer());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onJoin(PlayerJoinEvent e) {
+        this.getClientType(e.getPlayer());
     }
 
-    public void addVio(Player player) {
-    	getAntiCheat().logCheat(this, player, Color.Red + "Experemental detection of a hack client!", "(Type: A)");
+    public void addVio(Player p) {
+    	getAntiCheat().logCheat(this, p, Color.Red + "[1] Experemental detection of a hack client!", "(Type: A)");
     }
 
-    public void onPluginMessageReceived(String string, Player player, byte[] arrby) {
+    public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
         ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
         if ("ForgeMods".equals(byteArrayDataInput.readUTF())) {
             String string2 = byteArrayDataInput.readUTF();
             try {
                 Map map = (Map)this.parser.parse(string2);
-                forgeMods.put(player.getUniqueId(), map);
-                String string3 = this.getClientType(player);
+                forgeMods.put(p.getUniqueId(), map);
+                String string3 = this.getClientType(p);
                 if (string3 != null) {
                     type = string3;
-                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: B)");
+                	getAntiCheat().logCheat(this, p, Color.Red + "[2] Experemental detection of a hack client!", "(Type: A)");
                 }
             }
             catch (Exception exception) {
@@ -63,33 +64,33 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
         }
     }
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent playerQuitEvent) {
-        forgeMods.remove(playerQuitEvent.getPlayer().getUniqueId());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onPlayerQuit(PlayerQuitEvent e) {
+        forgeMods.remove(e.getPlayer().getUniqueId());
     }
 
-    public String getClientType(Player player) {
-        Map<String, String> map = forgeMods.get(player.getUniqueId());
+    public String getClientType(Player p) {
+        Map<String, String> map = forgeMods.get(p.getUniqueId());
         if (map != null) {
             if (map.containsKey("gc")) {
-                type = "A";
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", type);
-                return "A";
+                type = "gc";
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+                return "gc";
             }
             if (map.containsKey("ethylene")) {
-                type = "B";
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", type);
-                return "B";
+                type = "ethylene";
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+                return "ethylene";
             }
             if ("1.0".equals(map.get("OpenComputers"))) {
-                type = "C";
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", type);
+                type = "OpenComputers 1.0";
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type A)");
                 return "C";
             }
             if ("1.7.6.git".equals(map.get("Schematica"))) {
-                type = "D";
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", type);
-                return "D";
+                type = "Schematica 1.7.6.git";
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+                return "Schematica 1.7.6.git";
             }
         }
         return null;

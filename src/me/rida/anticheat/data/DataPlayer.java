@@ -75,8 +75,8 @@ public class DataPlayer {
 
     public int speedThreshold;
 
-    public DataPlayer(Player player) {
-        this.player = player;
+    public DataPlayer(Player p) {
+        this.player = p;
     }
 
     private int criticalsVerbose = 0;

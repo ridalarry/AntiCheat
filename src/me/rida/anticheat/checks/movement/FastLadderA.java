@@ -5,14 +5,13 @@ import java.util.WeakHashMap;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.BlockUtils;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 
 public class FastLadderA extends Check {
 	
@@ -28,22 +27,22 @@ public class FastLadderA extends Check {
 		count = new WeakHashMap<Player, Integer>();
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void checkFastLadder(PlayerMoveEvent e) {
-		Player player = e.getPlayer();
+		Player p = e.getPlayer();
 
 		if(e.isCancelled()
 				|| (e.getFrom().getY() == e.getTo().getY())
-				|| player.getAllowFlight()
-				|| getAntiCheat().getLastVelocity().containsKey(player.getUniqueId())
-				|| !PlayerUtils.isOnClimbable(player, 1) 
-				|| !PlayerUtils.isOnClimbable(player, 0)) {
+				|| p.getAllowFlight()
+				|| getAntiCheat().getLastVelocity().containsKey(p.getUniqueId())
+				|| !PlayerUtil.isOnClimbable(p, 1) 
+				|| !PlayerUtil.isOnClimbable(p, 0)) {
 			return;
 		}
 
-		int Count = count.getOrDefault(player, 0);
-		double OffsetY = MathUtils.offset(MathUtils.getVerticalVector(e.getFrom().toVector()),
-				MathUtils.getVerticalVector(e.getTo().toVector()));
+		int Count = count.getOrDefault(p, 0);
+		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
+				MathUtil.getVerticalVector(e.getTo().toVector()));
 		double Limit = 0.13;
 		
 		double updown = e.getTo().getY() - e.getFrom().getY();
@@ -55,7 +54,7 @@ public class FastLadderA extends Check {
 		
 		if (OffsetY > Limit) {
 			Count++;
-			this.dumplog(player, "[Illegitmate] New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
+			this.dumplog(p, "[Illegitmate] New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
 		} else {
 			Count = Count > -2 ? Count - 1 : 0;
 		}
@@ -64,11 +63,11 @@ public class FastLadderA extends Check {
 		
 		if (Count > 11) {
 			Count = 0;
-			this.dumplog(player,
+			this.dumplog(p,
 					"Flagged for FastLadder; Speed:" + OffsetY + "; Max: " + Limit + "; New Count: " + Count);
-			this.getAntiCheat().logCheat(this, player, percent + "% faster than normal", "(Type: A)");
+			this.getAntiCheat().logCheat(this, p, percent + "% faster than normal", "(Type: A)");
 		}
-		count.put(player, Count);
+		count.put(p, Count);
 	}
 
 }

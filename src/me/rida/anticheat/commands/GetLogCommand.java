@@ -21,43 +21,43 @@ public class GetLogCommand implements CommandExecutor {
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (!sender.hasPermission("anticheat.log") && !sender.hasPermission("anticheat.admin")) {
-			sender.sendMessage(Color.Red + "No permission.");
+	public boolean onCommand(CommandSender s, Command cmd, String l, String[] g) {
+		if (!s.hasPermission("anticheat.log") && !s.hasPermission("anticheat.admin")) {
+			s.sendMessage(Color.Red + "No permission.");
 			return true;
 		}
 
-		if (args.length != 2) {
-			sender.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
+		if (g.length != 2) {
+			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
 			return true;
 		}
 
-		String player = args[0];
-		int page = Integer.parseInt(args[1]);
-		String path = AntiCheat.getDataFolder() + File.separator + "logs" + File.separator + args[0] + ".txt";
+		String player = g[0];
+		int page = Integer.parseInt(g[1]);
+		String path = AntiCheat.getDataFolder() + File.separator + "logs" + File.separator + g[0] + ".txt";
 		File file = new File(path);
 		if (!file.exists()) {
-			sender.sendMessage(AntiCheat.PREFIX + Color.Red + "The player '" + Color.Bold + player + Color.Red
+			s.sendMessage(AntiCheat.PREFIX + Color.Red + "The player '" + Color.Bold + player + Color.Red
 					+ "' does not have a ban log! This is CASE SENSITIVE!");
 			return true;
 		}
 		try {
 			List<String> lines = FileUtils.readLines(file);
 			if ((lines.size() / (page * 10)) < 1) {
-				sender.sendMessage(AntiCheat.PREFIX + Color.Red + "There is no page " + page + " for this log!");
+				s.sendMessage(AntiCheat.PREFIX + Color.Red + "There is no page " + page + " for this log!");
 				return true;
 			}
-			sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
-			sender.sendMessage(Color.Gray + "Log for " + Color.White + player + Color.Red + " Page " + page);
-			sender.sendMessage("");
+			s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+			s.sendMessage(Color.Gray + "Log for " + Color.White + player + Color.Red + " Page " + page);
+			s.sendMessage("");
 			for (int i = (page - 1) * 10; (i) < page * 10; i++) {
 				if (i < lines.size()) {
-					sender.sendMessage(lines.get(i));
+					s.sendMessage(lines.get(i));
 				}
 			}
-			sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+			s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
 		} catch (Exception e) {
-			sender.sendMessage(
+			s.sendMessage(
 					AntiCheat.PREFIX + Color.Red + "Unknown error occured when tryin to read file and upload to pastebin!");
 			e.printStackTrace();
 		}

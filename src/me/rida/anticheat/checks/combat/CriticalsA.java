@@ -3,7 +3,7 @@ package me.rida.anticheat.checks.combat;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.PlayerUtil;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -37,9 +37,9 @@ public class CriticalsA extends Check {
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 
         if(data.getAboveBlockTicks() > 0
-                || PlayerUtils.isInWeb(p)
+                || PlayerUtil.isInWeb(p)
                 || data.getWaterTicks() > 0
-                || PlayerUtils.hasSlabsNear(p.getLocation())) {
+                || PlayerUtil.hasSlabsNear(p.getLocation())) {
             return;
         }
 

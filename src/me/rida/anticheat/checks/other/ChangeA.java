@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -14,8 +15,8 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.AntiCheat;
 
 public class ChangeA
@@ -31,59 +32,62 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    @EventHandler
-    public void onMove(PlayerMoveEvent playerMoveEvent) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onMove(PlayerMoveEvent e) {
         if (!this.isEnabled()) {
             return;
         }
-        Player player = playerMoveEvent.getPlayer();
-        if (player.getAllowFlight()) {
+        Player p = e.getPlayer();
+        UUID u = p.getUniqueId();
+        if (p.getAllowFlight()) {
             return;
         }
-        if (player.isInsideVehicle()) {
+        if (p.isInsideVehicle()) {
             return;
         }
-        if (!player.getNearbyEntities(1.0, 1.0, 1.0).isEmpty()) {
+        if (!p.getNearbyEntities(1.0, 1.0, 1.0).isEmpty()) {
             return;
         }
-        if (this.built.contains(player.getUniqueId())) {
+        if (this.built.contains(u)) {
             return;
         }
         int n = 0;
         int n2 = 5;
-        if (!(PlayerUtils.isOnTheGround(player) || ServerUtils.isOnBlock(player, 0, new Material[]{Material.CARPET}) || ServerUtils.isHoveringOverWater(player, 0) || player.getLocation().getBlock().getType() != Material.AIR)) {
-            if (playerMoveEvent.getFrom().getY() > playerMoveEvent.getTo().getY()) {
-                if (!this.falling.contains(player.getUniqueId())) {
-                    this.falling.add(player.getUniqueId());
+        if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
+            if (e.getFrom().getY() > e.getTo().getY()) {
+                if (!this.falling.contains(u)) {
+                    this.falling.add(u);
                 }
             } else {
-                n = playerMoveEvent.getTo().getY() > playerMoveEvent.getFrom().getY() ? (this.falling.contains(player.getUniqueId()) ? ++n : --n) : --n;
+                n = e.getTo().getY() > e.getFrom().getY() ? (this.falling.contains(u) ? ++n : --n) : --n;
             }
         } else {
-            this.falling.remove(player.getUniqueId());
+            this.falling.remove(u);
         }
         if (n > n2) {
-        	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", null);
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", null);
             n = 0;
-            this.falling.remove(player.getUniqueId());
+            this.falling.remove(u);
         }
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent playerQuitEvent) {
-        Player player = playerQuitEvent.getPlayer();
-        if (this.falling.contains(player.getUniqueId())) {
-            this.falling.remove(player.getUniqueId());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onQuit(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        UUID u = p.getUniqueId();
+        if (this.falling.contains(u)) {
+            this.falling.remove(u);
         }
     }
 
-    @EventHandler
-    public void onAttack(BlockPlaceEvent blockPlaceEvent) {
-        if (blockPlaceEvent.getPlayer() instanceof Player) {
-            Player player = blockPlaceEvent.getPlayer();
-            this.built.add(player.getUniqueId());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onAttack(BlockPlaceEvent e) {
+        if (e.getPlayer() instanceof Player) {
+            Player p = e.getPlayer();
+            UUID u = p.getUniqueId();
+            this.built.add(u);
             Bukkit.getScheduler().runTaskLater((Plugin)AntiCheat.Instance, () -> {
-                boolean bl = this.built.remove(player.getUniqueId());
+                boolean bl = this.built.remove(u);
             }
             , 60);
         }

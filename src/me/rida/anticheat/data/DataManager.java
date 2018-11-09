@@ -25,33 +25,33 @@ public class DataManager {
         addChecks();
     }
 
-    public DataPlayer getDataPlayer(Player player) {
-        return dataSet.stream().filter(dataPlayer -> dataPlayer.player == player).findFirst().orElse(null);
+    public DataPlayer getDataPlayer(Player p) {
+        return dataSet.stream().filter(dataPlayer -> dataPlayer.player == p).findFirst().orElse(null);
     }
 
-    public void add(Player player) {
-        dataSet.add(new DataPlayer(player));
+    public void add(Player p) {
+        dataSet.add(new DataPlayer(p));
     }
 
-    public void remove(Player player) {
-        dataSet.removeIf(dataPlayer -> dataPlayer.player == player);
+    public void remove(Player p) {
+        dataSet.removeIf(dataPlayer -> dataPlayer.player == p);
     }
 
 
     private void addChecks() {
     }
 
-    public void removeCheck(Check check) {
-        if(checks.contains(check)) checks.remove(check);
+    public void removeCheck(Check c) {
+        if(checks.contains(c)) checks.remove(c);
     }
 
-    public boolean isCheck(Check check) {
-        return checks.contains(check);
+    public boolean isCheck(Check c) {
+        return checks.contains(c);
     }
 
-    public Check getCheckAyName(String checkName) {
+    public Check getCheckAyName(String cn) {
         for(Check checkLoop : Collections.synchronizedList(checks)) {
-            if(checkLoop.getName().equalsIgnoreCase(checkName)) return checkLoop;
+            if(checkLoop.getName().equalsIgnoreCase(cn)) return checkLoop;
         }
 
         return null;
@@ -61,46 +61,46 @@ public class DataManager {
         return violations;
     }
 
-    public int getViolatonsPlayer(Player player, Check check) {
-        if(violations.containsKey(player)) {
-            Map<Check, Integer> vlMap = violations.get(player);
+    public int getViolatonsPlayer(Player p, Check c) {
+        if(violations.containsKey(p)) {
+            Map<Check, Integer> vlMap = violations.get(p);
 
-            return vlMap.getOrDefault(check, 0);
+            return vlMap.getOrDefault(c, 0);
         }
         return 0;
     }
 
-    public void addViolation(Player player, Check check) {
-        if (violations.containsKey(player)) {
-            Map<Check, Integer> vlMap = violations.get(player);
+    public void addViolation(Player p, Check c) {
+        if (violations.containsKey(p)) {
+            Map<Check, Integer> vlMap = violations.get(p);
 
-            vlMap.put(check, vlMap.getOrDefault(check, 0) + 1);
-            violations.put(player, vlMap);
+            vlMap.put(c, vlMap.getOrDefault(c, 0) + 1);
+            violations.put(p, vlMap);
         } else {
             Map<Check, Integer> vlMap = new HashMap<>();
 
-            vlMap.put(check, 1);
+            vlMap.put(c, 1);
 
-            violations.put(player, vlMap);
+            violations.put(p, vlMap);
         }
     }
 
-    public void addPlayerData(Player player) {
-        players.add(new DataPlayer(player));
+    public void addPlayerData(Player p) {
+        players.add(new DataPlayer(p));
     }
 
-    public DataPlayer getData(Player player) {
+    public DataPlayer getData(Player p) {
         for(DataPlayer dataLoop : Collections.synchronizedList(players)) {
-            if(dataLoop.getPlayer() == player) {
+            if(dataLoop.getPlayer() == p) {
                 return dataLoop;
             }
         }
         return null;
     }
 
-    public void removePlayerData(Player player) {
+    public void removePlayerData(Player p) {
         for(DataPlayer dataLoop : Collections.synchronizedList(players)) {
-            if(dataLoop.getPlayer() == player) {
+            if(dataLoop.getPlayer() == p) {
                 players.remove(dataLoop);
                 break;
             }
@@ -108,8 +108,8 @@ public class DataManager {
     }
 
 
-    public void addCheck(Check check) {
-        if(!checks.contains(check)) checks.add(check);
+    public void addCheck(Check c) {
+        if(!checks.contains(c)) checks.add(c);
     }
     public List<Check> getChecks() {
         return checks;

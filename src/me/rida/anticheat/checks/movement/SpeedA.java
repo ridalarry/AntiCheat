@@ -3,19 +3,19 @@ package me.rida.anticheat.checks.movement;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.BlockUtils;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimerUtils;
-import me.rida.anticheat.utils.UtilNewVelocity;
-import me.rida.anticheat.utils.UtilVelocity;
+import me.rida.anticheat.utils.NewVelocityUtil;
+import me.rida.anticheat.utils.VelocityUtil;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -26,7 +26,7 @@ public class SpeedA extends Check {
         super("SpeedA", "Speed", AntiCheat);
     }
 
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
@@ -37,9 +37,9 @@ public class SpeedA extends Check {
                 || p.getAllowFlight()
                 || p.getGameMode().equals(GameMode.CREATIVE)
                 || e.getPlayer().getVehicle() != null
-        		|| BlockUtils.isNearIce(p)
-		        || BlockUtils.isNearSlime(p)
-        		|| PlayerUtils.wasOnSlime(p)){
+        		|| BlockUtil.isNearIce(p)
+		        || BlockUtil.isNearSlime(p)
+        		|| PlayerUtil.wasOnSlime(p)){
             return;
         }
 
@@ -50,10 +50,10 @@ public class SpeedA extends Check {
                     data.setSpeed_PistonExpand_Set(false);
                 }
             }
-            double speed = MathUtils.getHorizontalDistance(from, to);
-           if(MathUtils.elapsed(data.getLastVelMS(), 3000)) {
+            double speed = MathUtil.getHorizontalDistance(from, to);
+           if(MathUtil.elapsed(data.getLastVelMS(), 3000)) {
                int verbose = data.getSpeedAVerbose();
-               double speedEffect = PlayerUtils.getPotionEffectLevel(p, PotionEffectType.SPEED);
+               double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
                double speedAThreshold = (data.getAirTicks() > 0 ? data.getAirTicks() >= 6
                        ? data.getAirTicks() == 13 ? 0.466 : 0.35 : (0.345 * Math.pow(0.986938064, data.getAirTicks()))
                        : data.getGroundTicks() > 5 ? 0.362 : data.getGroundTicks() == 3 ? 0.62 : 0.4)
@@ -64,8 +64,8 @@ public class SpeedA extends Check {
                speedAThreshold = data.getSlimeTicks() > 0 ? speedAThreshold + 0.1 : speedAThreshold;
                speedAThreshold = data.getIceTicks() > 0 && data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.24 : speedAThreshold;
 
-               if(PlayerUtils.isOnStair(p.getLocation())
-                       || PlayerUtils.isOnSlab(p.getLocation())) {
+               if(PlayerUtil.isOnStair(p.getLocation())
+                       || PlayerUtil.isOnSlab(p.getLocation())) {
                    speedAThreshold+= 0.12;
                }
 
@@ -82,9 +82,9 @@ public class SpeedA extends Check {
                            	|| p.getAllowFlight()
                            	|| p.getGameMode().equals(GameMode.CREATIVE)
                            	|| e.getPlayer().getVehicle() != null
-                   			|| BlockUtils.isNearIce(p)
-                   			|| BlockUtils.isNearSlime(p)
-                   			|| PlayerUtils.wasOnSlime(p)
+                   			|| BlockUtil.isNearIce(p)
+                   			|| BlockUtil.isNearSlime(p)
+                   			|| PlayerUtil.wasOnSlime(p)
                    			|| p.isSprinting()){
                        return;
                    }
@@ -114,7 +114,7 @@ public class SpeedA extends Check {
             }
             double Max = 0.28;
             if (p.hasPotionEffect(PotionEffectType.SPEED)) {
-                int level = PlayerUtils.getPotionEffectLevel(p, PotionEffectType.SPEED);
+                int level = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
                 if (level > 0) {
                     maxSpeed = (maxSpeed * (((level * 20) * 0.011) + 1));
                     MaxAirSpeed = (MaxAirSpeed * (((level * 20) * 0.011) + 1));
@@ -124,13 +124,13 @@ public class SpeedA extends Check {
             }
             MaxAirSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
             maxSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
-            if (!PlayerUtils.isOnGround4(p) && speed >= MaxAirSpeed && !data.isNearIce()
+            if (!PlayerUtil.isOnGround4(p) && speed >= MaxAirSpeed && !data.isNearIce()
                     && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                     && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                     && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                    && blockLoc.getBlock().getType() != Material.AIR && !UtilNewVelocity.didTakeVel(p) && !BlockUtils.isNearStiar(p)) {
-                if (!UtilNewVelocity.didTakeVel(p) && PlayerUtils.getDistanceToGround(p) > 4 == false) {
-                    if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !UtilVelocity.didTakeVelocity(p) && !UtilNewVelocity.didTakeVel(p)
+                    && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStiar(p)) {
+                if (!NewVelocityUtil.didTakeVel(p) && PlayerUtil.getDistanceToGround(p) > 4 == false) {
+                    if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !VelocityUtil.didTakeVelocity(p) && !NewVelocityUtil.didTakeVel(p)
                             && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
                         getAntiCheat().logCheat(this, p, "[1] - Player Moved Too Fast.", "(Type: A)");
                     } else {
@@ -142,19 +142,19 @@ public class SpeedA extends Check {
             }
 
             double onGroundDiff = (to.getY() - from.getY());
-            if (speed > Max && !PlayerUtils.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
+            if (speed > Max && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                     && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                     && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
                     && above3.getBlock().getType() == Material.AIR && data.getAboveBlockTicks() != 0) {
                 getAntiCheat().logCheat(this, p, "[2] - Player Moved Too Fast.", "(Type: A)");
             }
 
-            if (speed > 0.7 && !PlayerUtils.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
+            if (speed > 0.7 && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                     && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                     && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
-                    && above3.getBlock().getType() == Material.AIR && !UtilNewVelocity.didTakeVel(p) && !UtilVelocity.didTakeVelocity(p) && !PlayerUtils.hasPistonNear(p) &&
+                    && above3.getBlock().getType() == Material.AIR && !NewVelocityUtil.didTakeVel(p) && !VelocityUtil.didTakeVelocity(p) && !PlayerUtil.hasPistonNear(p) &&
                     p.getLocation().getBlock().getType() != Material.PISTON_MOVING_PIECE && p.getLocation().getBlock().getType() != Material.PISTON_BASE
-                    && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtils.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
+                    && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtil.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
                 if (!data.isSpeed_PistonExpand_Set()) {
                     if (data.getSpeed_C_3_Verbose() > 1) {
                         getAntiCheat().logCheat(this, p, "[3] - Player Moved Too Fast.", "(Type: A)");
@@ -164,7 +164,7 @@ public class SpeedA extends Check {
 
                 }
                 if (p.hasPotionEffect(PotionEffectType.SPEED)) {
-                    int level = PlayerUtils.getPotionEffectLevel(p, PotionEffectType.SPEED);
+                    int level = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
                     if (level > 0) {
                         maxSpeed = (maxSpeed * (((level * 20) * 0.011) + 1));
                         MaxAirSpeed = (MaxAirSpeed * (((level * 20) * 0.011) + 1));
@@ -174,13 +174,13 @@ public class SpeedA extends Check {
                 }
                 MaxAirSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
                 maxSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
-                if (!PlayerUtils.isOnGround4(p) && speed >= MaxAirSpeed && !data.isNearIce()
+                if (!PlayerUtil.isOnGround4(p) && speed >= MaxAirSpeed && !data.isNearIce()
                         && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                         && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                         && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                        && blockLoc.getBlock().getType() != Material.AIR && !UtilNewVelocity.didTakeVel(p) && !BlockUtils.isNearStiar(p)) {
-                    if (!UtilNewVelocity.didTakeVel(p) && PlayerUtils.getDistanceToGround(p) > 4 == false) {
-                        if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !UtilVelocity.didTakeVelocity(p) && !UtilNewVelocity.didTakeVel(p)
+                        && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStiar(p)) {
+                    if (!NewVelocityUtil.didTakeVel(p) && PlayerUtil.getDistanceToGround(p) > 4 == false) {
+                        if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !VelocityUtil.didTakeVelocity(p) && !NewVelocityUtil.didTakeVel(p)
                                 && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
                             getAntiCheat().logCheat(this, p, "[4] - Player Moved Too Fast.", "(Type: A)");
                         } else {
@@ -195,23 +195,23 @@ public class SpeedA extends Check {
                             speedPot = true;
                         }
                     }
-                    if (speed > 0.29 && PlayerUtils.isOnGround(p) && !data.isNearIce() && !BlockUtils.isNearStiar(p) && !UtilNewVelocity.didTakeVel(p) && !speedPot) {
+                    if (speed > 0.29 && PlayerUtil.isOnGround(p) && !data.isNearIce() && !BlockUtil.isNearStiar(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
                         if (data.getSpeed_OnGround_Verbose() >= 5) {
                         }
 
-                        if (speed > Max && !PlayerUtils.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
+                        if (speed > Max && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                                 && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                                 && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
-                                && above3.getBlock().getType() == Material.AIR && data.getIceTicks() == 0 && !PlayerUtils.hasIceNear(p)) {
+                                && above3.getBlock().getType() == Material.AIR && data.getIceTicks() == 0 && !PlayerUtil.hasIceNear(p)) {
                             getAntiCheat().logCheat(this, p, "[5] - Player Moved Too Fast.", "(Type: A)");
                         }
 
-                        if (speed > 0.7 && !PlayerUtils.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
+                        if (speed > 0.7 && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                                 && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                                 && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
-                                && above3.getBlock().getType() == Material.AIR && !UtilNewVelocity.didTakeVel(p) && !UtilVelocity.didTakeVelocity(p) && !PlayerUtils.hasPistonNear(p) &&
+                                && above3.getBlock().getType() == Material.AIR && !NewVelocityUtil.didTakeVel(p) && !VelocityUtil.didTakeVelocity(p) && !PlayerUtil.hasPistonNear(p) &&
                                 p.getLocation().getBlock().getType() != Material.PISTON_MOVING_PIECE && p.getLocation().getBlock().getType() != Material.PISTON_BASE
-                                && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtils.isNearPistion(p)) {
+                                && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtil.isNearPistion(p)) {
                             getAntiCheat().logCheat(this, p, "[6] - Player Moved Too Fast.", "(Type: A)");
 
                         }

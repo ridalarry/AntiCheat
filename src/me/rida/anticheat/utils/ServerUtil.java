@@ -9,22 +9,22 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collection;
-public class ServerUtils {
+public class ServerUtil {
 
 	private static final String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-	public static final Class<?> EntityPlayer = ServerUtils.getNMSClass("EntityPlayer");
-	public static final Class<?> Entity = ServerUtils.getNMSClass("Entity");
-	private static final Class<?> CraftPlayer = ServerUtils.getCBClass("entity.CraftPlayer");
-	private static final Class<?> CraftWorld = ServerUtils.getCBClass("CraftWorld");
-	private static final Class<?> World = ServerUtils.getNMSClass("World");
-	private static final Method getCubes = ServerUtils.getMethod(World, "a", ServerUtils.getNMSClass("AxisAlignedBB"));
+	public static final Class<?> EntityPlayer = ServerUtil.getNMSClass("EntityPlayer");
+	public static final Class<?> Entity = ServerUtil.getNMSClass("Entity");
+	private static final Class<?> CraftPlayer = ServerUtil.getCBClass("entity.CraftPlayer");
+	private static final Class<?> CraftWorld = ServerUtil.getCBClass("CraftWorld");
+	private static final Class<?> World = ServerUtil.getNMSClass("World");
+	private static final Method getCubes = ServerUtil.getMethod(World, "a", ServerUtil.getNMSClass("AxisAlignedBB"));
 
 	public static Object getEntityPlayer(Player player) {
-		return ServerUtils.getMethodValue(ServerUtils.getMethod(CraftPlayer, "getHandle"), player);
+		return ServerUtil.getMethodValue(ServerUtil.getMethod(CraftPlayer, "getHandle"), player);
 	}
 
 	public static Object getBoundingBox(Player player) {
-		return ServerUtils.isBukkitVerison("1_7") ? ServerUtils.getFieldValue(ServerUtils.getFieldByName(Entity, "boundingBox"), getEntityPlayer(player)) : ServerUtils.getMethodValue(ServerUtils.getMethod(EntityPlayer, "getBoundingBox"), getEntityPlayer(player));
+		return ServerUtil.isBukkitVerison("1_7") ? ServerUtil.getFieldValue(ServerUtil.getFieldByName(Entity, "boundingBox"), getEntityPlayer(player)) : ServerUtil.getMethodValue(ServerUtil.getMethod(EntityPlayer, "getBoundingBox"), getEntityPlayer(player));
 	}
 
 	public static boolean isBukkitVerison(String version) {
@@ -59,13 +59,13 @@ public class ServerUtils {
 	}
 
 	public static boolean inBlock(Player player, Object axisAlignedBB) {
-		Object world = ServerUtils.getMethodValue(ServerUtils.getMethod(CraftWorld, "getHandle"), player.getWorld());
-		return ((Collection<?>)ServerUtils.getMethodValue(getCubes, world, axisAlignedBB)).size() > 0;
+		Object world = ServerUtil.getMethodValue(ServerUtil.getMethod(CraftWorld, "getHandle"), player.getWorld());
+		return ((Collection<?>)ServerUtil.getMethodValue(getCubes, world, axisAlignedBB)).size() > 0;
 	}
 
 	public static Collection<?> getCollidingBlocks(Player player, Object axisAlignedBB) {
-		Object world = ServerUtils.getMethodValue(ServerUtils.getMethod(CraftWorld, "getHandle"), player.getWorld());
-		return ((Collection<?>)ServerUtils.getMethodValue(getCubes, world, axisAlignedBB));
+		Object world = ServerUtil.getMethodValue(ServerUtil.getMethod(CraftWorld, "getHandle"), player.getWorld());
+		return ((Collection<?>)ServerUtil.getMethodValue(getCubes, world, axisAlignedBB));
 	}
 
 
@@ -108,66 +108,66 @@ public class ServerUtils {
     public static boolean isOnGround(Location location, int n) {
         double d = location.getX();
         double d2 = location.getZ();
-        double d3 = MathUtils.getFraction(d) > 0.0 ? Math.abs(MathUtils.getFraction(d)) : 1.0 - Math.abs(MathUtils.getFraction(d));
-        double d4 = MathUtils.getFraction(d2) > 0.0 ? Math.abs(MathUtils.getFraction(d2)) : 1.0 - Math.abs(MathUtils.getFraction(d2));
+        double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
+        double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
         int n2 = location.getBlockX();
         int n3 = location.getBlockY() - n;
         int n4 = location.getBlockZ();
         World world = location.getWorld();
-        if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4))) {
+        if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4))) {
             return true;
         }
         if (d3 < 0.3) {
-            if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4))) {
+            if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4))) {
                 return true;
             }
             if (d4 < 0.3) {
-                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
                     return true;
                 }
             } else if (d4 > 0.7) {
-                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
                     return true;
                 }
             }
         } else if (d3 > 0.7) {
-            if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4))) {
+            if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4))) {
                 return true;
             }
             if (d4 < 0.3) {
-                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
                     return true;
                 }
             } else if (d4 > 0.7) {
-                if (BlockUtils.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
                     return true;
                 }
             }
-        } else if (d4 < 0.3 ? BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtils.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+        } else if (d4 < 0.3 ? BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
             return true;
         }
         return false;
@@ -180,66 +180,66 @@ public class ServerUtils {
     public static boolean isOnBlock(Location location, int n, Material[] arrmaterial) {
         double d = location.getX();
         double d2 = location.getZ();
-        double d3 = MathUtils.getFraction(d) > 0.0 ? Math.abs(MathUtils.getFraction(d)) : 1.0 - Math.abs(MathUtils.getFraction(d));
-        double d4 = MathUtils.getFraction(d2) > 0.0 ? Math.abs(MathUtils.getFraction(d2)) : 1.0 - Math.abs(MathUtils.getFraction(d2));
+        double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
+        double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
         int n2 = location.getBlockX();
         int n3 = location.getBlockY() - n;
         int n4 = location.getBlockZ();
         World world = location.getWorld();
-        if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4))) {
+        if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4))) {
             return true;
         }
         if (d3 < 0.3) {
-            if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4))) {
+            if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4))) {
                 return true;
             }
             if (d4 < 0.3) {
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 - 1))) {
                     return true;
                 }
             } else if (d4 > 0.7) {
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 + 1))) {
                     return true;
                 }
             }
         } else if (d3 > 0.7) {
-            if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4))) {
+            if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4))) {
                 return true;
             }
             if (d4 < 0.3) {
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 - 1))) {
                     return true;
                 }
             } else if (d4 > 0.7) {
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 - 1, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2 + 1, n3, n4 + 1))) {
                     return true;
                 }
             }
-        } else if (d4 < 0.3 ? BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtils.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
+        } else if (d4 < 0.3 ? BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4 + 1))) {
             return true;
         }
         return false;
@@ -252,66 +252,66 @@ public class ServerUtils {
     public static boolean isHoveringOverWater(Location location, int n) {
         double d = location.getX();
         double d2 = location.getZ();
-        double d3 = MathUtils.getFraction(d) > 0.0 ? Math.abs(MathUtils.getFraction(d)) : 1.0 - Math.abs(MathUtils.getFraction(d));
-        double d4 = MathUtils.getFraction(d2) > 0.0 ? Math.abs(MathUtils.getFraction(d2)) : 1.0 - Math.abs(MathUtils.getFraction(d2));
+        double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
+        double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
         int n2 = location.getBlockX();
         int n3 = location.getBlockY() - n;
         int n4 = location.getBlockZ();
         World world = location.getWorld();
-        if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4))) {
+        if (BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4))) {
             return true;
         }
         if (d3 < 0.3) {
-            if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4))) {
+            if (BlockUtil.isLiquid(world.getBlockAt(n2 - 1, n3, n4))) {
                 return true;
             }
             if (d4 < 0.3) {
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 - 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
                     return true;
                 }
             } else if (d4 > 0.7) {
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
                     return true;
                 }
             }
         } else if (d3 > 0.7) {
-            if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4))) {
+            if (BlockUtil.isLiquid(world.getBlockAt(n2 + 1, n3, n4))) {
                 return true;
             }
             if (d4 < 0.3) {
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 - 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4 - 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
                     return true;
                 }
             } else if (d4 > 0.7) {
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
                     return true;
                 }
-                if (BlockUtils.isLiquid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+                if (BlockUtil.isLiquid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
                     return true;
                 }
             }
-        } else if (d4 < 0.3 ? BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtils.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
+        } else if (d4 < 0.3 ? BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4 + 1))) {
             return true;
         }
         return false;

@@ -8,16 +8,16 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.BlockUtils;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class StepA extends Check {
 	double stepHeight;
@@ -33,77 +33,77 @@ public class StepA extends Check {
 		setViolationResetTime(90000);
 	}
 
-	public boolean isOnGround(Player player) {
-		if (PlayerUtils.isOnClimbable(player, 0)) {
+	public boolean isOnGround(Player p) {
+		if (PlayerUtil.isOnClimbable(p, 0)) {
 			return false;
 		}
-		if (player.getVehicle() != null) {
+		if (p.getVehicle() != null) {
 			return false;
 		}
-		Material type = player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType();
+		Material type = p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType();
 		if ((type != Material.AIR) && (type.isBlock()) && (type.isSolid()) && (type != Material.LADDER)
 				&& (type != Material.VINE)) {
 			return true;
 		}
-		Location a = player.getLocation().clone();
+		Location a = p.getLocation().clone();
 		a.setY(a.getY() - 0.5D);
 		type = a.getBlock().getType();
 		if ((type != Material.AIR) && (type.isBlock()) && (type.isSolid()) && (type != Material.LADDER)
 				&& (type != Material.VINE)) {
 			return true;
 		}
-		a = player.getLocation().clone();
+		a = p.getLocation().clone();
 		a.setY(a.getY() + 0.5D);
 		type = a.getBlock().getRelative(BlockFace.DOWN).getType();
 		if ((type != Material.AIR) && (type.isBlock()) && (type.isSolid()) && (type != Material.LADDER)
 				&& (type != Material.VINE)) {
 			return true;
 		}
-		if (UtilCheat.isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
+		if (CheatUtil.isBlock(p.getLocation().getBlock().getRelative(BlockFace.DOWN),
 				new Material[] { Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER })) {
 			return true;
 		}
 		return false;
 	}
 
-	@EventHandler
-	public void onMove(PlayerMoveEvent event) {
-		Player player = event.getPlayer();
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onMove(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
 
 		if (!getAntiCheat().isEnabled() 
-				|| !isOnGround(player)
-				|| player.getAllowFlight()
-				|| player.hasPotionEffect(PotionEffectType.JUMP)
-				|| getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
-				|| PlayerUtils.isOnClimbable(player, 0)
-				|| UtilCheat.slabsNear(player.getLocation())
-				|| player.getLocation().getBlock().getType().equals(Material.WATER)
-				|| player.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
+				|| !isOnGround(p)
+				|| p.getAllowFlight()
+				|| p.hasPotionEffect(PotionEffectType.JUMP)
+				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
+				|| PlayerUtil.isOnClimbable(p, 0)
+				|| CheatUtil.slabsNear(p.getLocation())
+				|| p.getLocation().getBlock().getType().equals(Material.WATER)
+				|| p.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
 			return;
 		}
 
-		double yDist = event.getTo().getY() - event.getFrom().getY();
+		double yDist = e.getTo().getY() - e.getFrom().getY();
 		if (yDist < 0) {
 			return;
 		}
-		double YSpeed = MathUtils.offset(MathUtils.getVerticalVector(event.getFrom().toVector()),
-				MathUtils.getVerticalVector(event.getTo().toVector()));
+		double YSpeed = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
+				MathUtil.getVerticalVector(e.getTo().toVector()));
 		if (yDist > 0.95) {
-			this.dumplog(player, "Height (Logged): " + yDist);
-			this.getAntiCheat().logCheat(this, player, "[1] " + Math.round(yDist) + " blocks", "(Type: A)");
+			this.dumplog(p, "Height (Logged): " + yDist);
+			this.getAntiCheat().logCheat(this, p, "[1] " + Math.round(yDist) + " blocks", "(Type: A)");
 			return;
 		}
 		if (((YSpeed == 0.25D || (YSpeed >= 0.58D && YSpeed < 0.581D)) && yDist > 0.0D
 				|| (YSpeed > 0.2457D && YSpeed < 0.24582D) || (YSpeed > 0.329 && YSpeed < 0.33))
-				&& !player.getLocation().clone().subtract(0.0D, 0.1, 0.0D).getBlock().getType().equals(Material.SNOW)) {
-			this.getAntiCheat().logCheat(this, player, "[2] Speed: " + YSpeed + " Block: " + player.getLocation().clone().subtract(0.0D, 0.1D, 0.0D).getBlock().getType().toString(), "(Type: A)");
+				&& !p.getLocation().clone().subtract(0.0D, 0.1, 0.0D).getBlock().getType().equals(Material.SNOW)) {
+			this.getAntiCheat().logCheat(this, p, "[2] Speed: " + YSpeed + " Block: " + p.getLocation().clone().subtract(0.0D, 0.1D, 0.0D).getBlock().getType().toString(), "(Type: A)");
 			return;
 		}
-		ArrayList<Block> blocks = BlockUtils.getBlocksAroundCenter(player.getLocation(), 1);
+		ArrayList<Block> blocks = BlockUtil.getBlocksAroundCenter(p.getLocation(), 1);
 		for (Block block : blocks) {
 			if (block.getType().isSolid()) {
 				if ((YSpeed >= 0.321 && YSpeed < 0.322)) {
-					this.getAntiCheat().logCheat(this, player, "[3] Speed: " + YSpeed, "(Type: A)");
+					this.getAntiCheat().logCheat(this, p, "[3] Speed: " + YSpeed, "(Type: A)");
 					return;
 				}
 			}

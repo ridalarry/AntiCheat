@@ -18,7 +18,6 @@ public class Updater implements Runnable {
 	public void Disable() {
 		Bukkit.getScheduler().cancelTask(this.updater);
 	}
-
 	@Override
 	public void run() {
 		UpdateType[] arrupdateType = UpdateType.values();

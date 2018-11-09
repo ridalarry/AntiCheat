@@ -11,7 +11,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilVelocity;
+import me.rida.anticheat.utils.VelocityUtil;
 public class AntiKBC extends Check {
 
     public AntiKBC(AntiCheat AntiCheat) {
@@ -28,11 +28,11 @@ public class AntiKBC extends Check {
     		Player p = (Player) e.getEntity();
     		if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
     			Entity damager = (Player) p.getLastDamageCause().getEntity();
-    			if (UtilVelocity.didTakeVelocity(p)) {
+    			if (VelocityUtil.didTakeVelocity(p)) {
     				return;
     			}
     			else {
-    				if (!(UtilVelocity.didTakeVelocity(p))) {
+    				if (!(VelocityUtil.didTakeVelocity(p))) {
     					if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
     						if (damager != p){
     							

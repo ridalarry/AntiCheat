@@ -13,9 +13,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class ReachB extends Check {
 
@@ -40,8 +40,8 @@ public class ReachB extends Check {
 		if (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()) {
 			return;
 		}
-		double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(e.getFrom().toVector()),
-				MathUtils.getHorizontalVector(e.getTo().toVector()));
+		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+				MathUtil.getHorizontalVector(e.getTo().toVector()));
 		double horizontal = Math.sqrt(Math.pow(e.getTo().getX() - e.getFrom().getX(), 2.0)
 				+ Math.pow(e.getTo().getZ() - e.getFrom().getZ(), 2.0));
 		offsets.put(e.getPlayer(),
@@ -60,8 +60,8 @@ public class ReachB extends Check {
 			|| p.getAllowFlight()) {
 				return;
 			}
-		double Reach = MathUtils.trim(2, PlayerUtils.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
-		double Reach2 = MathUtils.trim(2, PlayerUtils.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
+		double Reach = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
+		double Reach2 = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
 		double Difference;
 
 		if (!count.containsKey(d)) {
@@ -102,7 +102,7 @@ public class ReachB extends Check {
 		if(PingD > 400) {
 		     MaxReach += 1.0D;
 		}
-		if (UtilTime.elapsed(Time, 10000)) {
+		if (TimeUtil.elapsed(Time, 10000)) {
 			count.remove(d);
 			Time = System.currentTimeMillis();
 		}

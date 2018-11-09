@@ -5,7 +5,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
-import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.MathUtil;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,7 +33,7 @@ public class KillAuraG extends Check {
         int verboseA = data.getKillauraAVerbose();
         long time = data.getLastAimTime();
 
-        if(MathUtils.elapsed(time, 1100L)) {
+        if(MathUtil.elapsed(time, 1100L)) {
             time = System.currentTimeMillis();
             verboseA = 0;
         }
@@ -41,7 +41,7 @@ public class KillAuraG extends Check {
         if ((Math.abs(data.getLastKillauraPitch() - e.getPlayer().getEyeLocation().getPitch()) > 1
                 || angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) > 1
                 || Double.compare(p.getEyeLocation().getYaw(), data.getLastKillauraYaw()) != 0)
-                && !MathUtils.elapsed(data.getLastPacket(), 100L)) {
+                && !MathUtil.elapsed(data.getLastPacket(), 100L)) {
 
             if(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
                 if(++verboseA > 9) {

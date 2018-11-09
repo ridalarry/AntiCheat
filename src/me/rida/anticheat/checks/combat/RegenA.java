@@ -13,8 +13,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class RegenA extends Check {
 	public RegenA(AntiCheat AntiCheat) {
@@ -69,7 +69,7 @@ public class RegenA extends Check {
 			Count = FastHealTicks.get(p.getUniqueId()).getKey().intValue();
 			Time = FastHealTicks.get(p.getUniqueId()).getValue().longValue();
 		}
-		if (checkFastHeal(p) && !PlayerUtils.isFullyStuck(p) && !PlayerUtils.isPartiallyStuck(p)) {
+		if (checkFastHeal(p) && !PlayerUtil.isFullyStuck(p) && !PlayerUtil.isPartiallyStuck(p)) {
 			Count++;
 		} else {
 			Count = Count > 0 ? Count - 1 : Count;
@@ -78,9 +78,9 @@ public class RegenA extends Check {
 		if(Count > 2) {
 			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
-		if (FastHealTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 60000L)) {
+		if (FastHealTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 60000L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		LastHeal.put(p.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
 		FastHealTicks.put(p.getUniqueId(),

@@ -18,7 +18,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class AutoClickerB extends Check {
 
@@ -69,9 +69,9 @@ public class AutoClickerB extends Check {
 			Time = ClickTicks.get(damager.getUniqueId()).getValue();
 		}
 		if (LastMS.containsKey(damager.getUniqueId())) {
-			long MS = UtilTime.nowlong() - LastMS.get(damager.getUniqueId());
+			long MS = TimeUtil.nowlong() - LastMS.get(damager.getUniqueId());
 			if (MS > 500L || MS < 5L) {
-				LastMS.put(damager.getUniqueId(), UtilTime.nowlong());
+				LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
 				return;
 			}
 			if (Clicks.containsKey(damager.getUniqueId())) {
@@ -99,9 +99,9 @@ public class AutoClickerB extends Check {
 				this.Clicks.put(damager.getUniqueId(), Clicks);
 			}
 		}
-		if (ClickTicks.containsKey(damager.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
+		if (ClickTicks.containsKey(damager.getUniqueId()) && TimeUtil.elapsed(Time, 5000L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if ((Count > 4 && this.getAntiCheat().getLag().getPing(damager) < 100)
 				|| (Count > 6 && this.getAntiCheat().getLag().getPing(damager) < 200)) {
@@ -112,7 +112,7 @@ public class AutoClickerB extends Check {
 		} else if (this.getAntiCheat().getLag().getPing(damager) > 250) {
 			this.dumplog(damager, "Would set off Autoclicker (Constant) but latency is too high!");
 		}
-		LastMS.put(damager.getUniqueId(), UtilTime.nowlong());
+		LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
 		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 

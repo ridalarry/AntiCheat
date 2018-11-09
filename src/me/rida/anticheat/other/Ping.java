@@ -40,11 +40,11 @@ public class Ping {
 		return field.get(instance);
 	}
 
-	public static int getPing(Player who) {
+	public static int getPing(Player p) {
 		try {
 			String bukkitversion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
 			Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + bukkitversion + ".entity.CraftPlayer");
-			Object handle = craftPlayer.getMethod("getHandle").invoke(who);
+			Object handle = craftPlayer.getMethod("getHandle").invoke(p);
 			Integer ping = (Integer) handle.getClass().getDeclaredField("ping").get(handle);
 
 			return ping.intValue();

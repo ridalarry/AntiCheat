@@ -10,11 +10,11 @@ import me.rida.anticheat.AntiCheat;
 
 public class JoinQuitEvent implements Listener {
 
-    @EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onJoin(PlayerJoinEvent e) {
     	AntiCheat.getInstance().getDataManager().addPlayerData(e.getPlayer());
     }
-    @EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onJoin(PlayerQuitEvent e) {
     	AntiCheat.getInstance().getDataManager().removePlayerData(e.getPlayer());
     }

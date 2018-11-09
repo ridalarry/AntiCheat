@@ -19,9 +19,9 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class ReachC extends Check {
 
@@ -45,8 +45,8 @@ public class ReachC extends Check {
 		if (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()) {
 			return;
 		}
-		double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(e.getFrom().toVector()),
-				MathUtils.getHorizontalVector(e.getTo().toVector()));
+		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+				MathUtil.getHorizontalVector(e.getTo().toVector()));
 		double horizontal = Math.sqrt(Math.pow(e.getTo().getX() - e.getFrom().getX(), 2.0)
 				+ Math.pow(e.getTo().getZ() - e.getFrom().getZ(), 2.0));
 		this.offsets.put(e.getPlayer(),
@@ -90,8 +90,8 @@ public class ReachC extends Check {
 		Player p = (Player) e.getAttacked();
 
 		double ydist = Math.abs(d.getEyeLocation().getY() - p.getEyeLocation().getY());
-		double Reach = MathUtils.trim(2,
-				(PlayerUtils.getEyeLocation(d).distance(p.getEyeLocation()) - ydist) - 0.32);
+		double Reach = MathUtil.trim(2,
+				(PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - ydist) - 0.32);
 		int PingD = this.getAntiCheat().getLag().getPing(d);
 		int PingP = this.getAntiCheat().getLag().getPing(p);
 
@@ -115,8 +115,8 @@ public class ReachC extends Check {
 			offsetsp = ((this.offsets.get(p)).getKey()).doubleValue();
 			lastHorizontal = ((this.offsets.get(p)).getValue()).doubleValue();
 		}
-		Reach -= MathUtils.trim(2, offsetsd);
-		Reach -= MathUtils.trim(2, offsetsp);
+		Reach -= MathUtil.trim(2, offsetsd);
+		Reach -= MathUtil.trim(2, offsetsp);
 		double maxReach2 = 3.1;
 		if (yawdif > 90) {
 			maxReach2 += 0.38;
@@ -124,15 +124,15 @@ public class ReachC extends Check {
 		maxReach2 += lastHorizontal * 0.87;
 
 		maxReach2 += ((PingD + PingP) / 2) * 0.0024;
-		if (Reach > maxReach2 && UtilTime.elapsed(attackTime, 1100) && !projectileHit.contains(p)) {
+		if (Reach > maxReach2 && TimeUtil.elapsed(attackTime, 1100) && !projectileHit.contains(p)) {
 			;
 			this.dumplog(d,
 					"Logged for Reach Type C (First Hit Reach) " + Reach + " > " + maxReach2 + " blocks. Ping: "
 							+ getAntiCheat().getLag().getPing(d) + " TPS: " + getAntiCheat().getLag().getTPS()
-							+ " Elapsed: " + UtilTime.elapsed(attackTime));
+							+ " Elapsed: " + TimeUtil.elapsed(attackTime));
 			getAntiCheat().logCheat(this, d, "First Hit Reach", "(Type: C)");
 		}
-		reachTicks.put(d, UtilTime.nowlong());
+		reachTicks.put(d, TimeUtil.nowlong());
 		projectileHit.remove(p);
 	}
 

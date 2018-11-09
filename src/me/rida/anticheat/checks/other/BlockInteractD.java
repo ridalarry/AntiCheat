@@ -8,7 +8,7 @@ import org.bukkit.block.*;
 import org.bukkit.entity.*;
 
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilVelocity;
+import me.rida.anticheat.utils.VelocityUtil;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
@@ -19,21 +19,20 @@ public class BlockInteractD extends Check {
 		setMaxViolations(20);
 		setViolationResetTime(1000);
 		setBannable(true);
-		setViolationsToNotify(2);
+		setViolationsToNotify(4);
     }
-    @EventHandler
-    public void onPlaceBlock(final BlockPlaceEvent event) {
-        final Player player = event.getPlayer();
-        final Block target = player.getTargetBlock((Set)null, 5);
-        if (player.getGameMode().equals(GameMode.CREATIVE)
-                || player.getAllowFlight()
-                || event.getPlayer().getVehicle() != null
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onPlaceBlock(final BlockPlaceEvent e) {
+        final Player p = e.getPlayer();
+        if (p.getGameMode().equals(GameMode.CREATIVE)
+                || p.getAllowFlight()
+                || p.getVehicle() != null
 				|| !getAntiCheat().isEnabled()
-                || UtilVelocity.didTakeVelocity(player)) return;
-        if (event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
+                || VelocityUtil.didTakeVelocity(p)) return;
+        if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             
-            if (!player.isSneaking() && !player.isFlying() && groundAround(player.getLocation()) && event.getBlock().getWorld().getBlockAt(event.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && player.getWorld().getBlockAt(player.getLocation().subtract(0.0, 1.0, 0.0)).equals(event.getBlock())) {
-                	getAntiCheat().logCheat(this, player, Color.Red + "Experemental", "(Type: D)");
+            if (!p.isSneaking() && !p.isFlying() && groundAround(p.getLocation()) && e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && p.getWorld().getBlockAt(p.getLocation().subtract(0.0, 1.0, 0.0)).equals(e.getBlock())) {
+                	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: D)");
             }
         }
     }

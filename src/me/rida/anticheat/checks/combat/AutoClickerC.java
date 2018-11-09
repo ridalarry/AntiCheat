@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.MathUtil;
 
 public class AutoClickerC
 extends Check {
@@ -55,7 +55,7 @@ extends Check {
             if (Arrays.stream(arrdouble2).anyMatch(d -> d >= 10.0) && arrdouble2[4].equals(arrdouble2[0]) && arrdouble2[4].equals(arrdouble2[1]) && arrdouble2[4].equals(arrdouble2[2]) && arrdouble2[4].equals(arrdouble2[3])) {
             	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
             }
-            if (Arrays.stream(arrdouble2).anyMatch(d -> d > 12.0) && MathUtils.close(arrdouble2, 2)) {
+            if (Arrays.stream(arrdouble2).anyMatch(d -> d > 12.0) && MathUtil.close(arrdouble2, 2)) {
             	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
             }
             arrdouble2[0] = arrdouble2[1];

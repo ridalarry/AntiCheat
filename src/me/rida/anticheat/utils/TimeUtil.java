@@ -4,7 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class UtilTime {
+public class TimeUtil {
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
     public static final String DATE_FORMAT_DAY = "yyyy-MM-dd";
 
@@ -75,18 +75,18 @@ public class UtilTime {
             }
         }
         if (type == TimeUnit.DAYS) {
-            return MathUtils.trim(trim, time / 8.64E7D);
+            return MathUtil.trim(trim, time / 8.64E7D);
         }
         if (type == TimeUnit.HOURS) {
-            return MathUtils.trim(trim, time / 3600000.0D);
+            return MathUtil.trim(trim, time / 3600000.0D);
         }
         if (type == TimeUnit.MINUTES) {
-            return MathUtils.trim(trim, time / 60000.0D);
+            return MathUtil.trim(trim, time / 60000.0D);
         }
         if (type == TimeUnit.SECONDS) {
-            return MathUtils.trim(trim, time / 1000.0D);
+            return MathUtil.trim(trim, time / 1000.0D);
         }
-        return MathUtils.trim(trim, time);
+        return MathUtil.trim(trim, time);
     }
 
     public static String MakeStr(long time) {
@@ -113,18 +113,18 @@ public class UtilTime {
             }
         }
         if (type == TimeUnit.DAYS) {
-            return MathUtils.trim(trim, time / 8.64E7D) + " Days";
+            return MathUtil.trim(trim, time / 8.64E7D) + " Days";
         }
         if (type == TimeUnit.HOURS) {
-            return MathUtils.trim(trim, time / 3600000.0D) + " Hours";
+            return MathUtil.trim(trim, time / 3600000.0D) + " Hours";
         }
         if (type == TimeUnit.MINUTES) {
-            return MathUtils.trim(trim, time / 60000.0D) + " Minutes";
+            return MathUtil.trim(trim, time / 60000.0D) + " Minutes";
         }
         if (type == TimeUnit.SECONDS) {
-            return MathUtils.trim(trim, time / 1000.0D) + " Seconds";
+            return MathUtil.trim(trim, time / 1000.0D) + " Seconds";
         }
-        return MathUtils.trim(trim, time) + " Milliseconds";
+        return MathUtil.trim(trim, time) + " Milliseconds";
     }
 
     public static boolean elapsed(long from, long required) {

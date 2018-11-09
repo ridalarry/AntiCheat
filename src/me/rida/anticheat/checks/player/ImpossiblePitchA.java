@@ -1,6 +1,8 @@
 package me.rida.anticheat.checks.player;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
@@ -13,11 +15,12 @@ public class ImpossiblePitchA extends Check {
 		setMaxViolations(10);
 		setBannable(true);
     }
-    @EventHandler
+  	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
-        double Pitch = e.getPlayer().getLocation().getPitch();
-        if (Pitch > 90 || Pitch < -90) {
-            getAntiCheat().logCheat(this, e.getPlayer(),"Players head went back too far. P:["+Pitch+"]", "(Type: A)");
+        Player p = e.getPlayer();
+        double x = p.getLocation().getPitch();
+        if (x > 90 || x < -90) {
+            getAntiCheat().logCheat(this, p, "Head went back too far. Pitch: " + x, "(Type: A)");
         }
     }
 }

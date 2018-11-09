@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-public class UtilReflection {
+public class ReflectionUtil {
 
     private static final String serverVersion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
     public static final Class<?> EntityPlayer = getNMSClass("EntityPlayer");

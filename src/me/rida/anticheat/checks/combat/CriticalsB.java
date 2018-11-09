@@ -16,8 +16,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class CriticalsB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> CritTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
@@ -54,13 +54,13 @@ public class CriticalsB extends Check {
 		Player p = (Player) e.getDamager();
 		if (p.getAllowFlight()
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
-				|| UtilCheat.slabsNear(p.getLocation())) {
+				|| CheatUtil.slabsNear(p.getLocation())) {
 			return;
 		}
 
 		Location pL = p.getLocation().clone();
 		pL.add(0.0, p.getEyeHeight() + 1.0, 0.0);
-		if (UtilCheat.blocksNear(pL)) {
+		if (CheatUtil.blocksNear(pL)) {
 			return;
 		}
 		int Count = 0;
@@ -74,9 +74,9 @@ public class CriticalsB extends Check {
 		}
 		double realFallDistance = FallDistance.get(p.getUniqueId());
 		Count = p.getFallDistance() > 0.0 && !p.isOnGround() && realFallDistance == 0.0 ? ++Count : 0;
-		if (CritTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 10000)) {
+		if (CritTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 10000)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count >= 2) {
 			Count = 0;

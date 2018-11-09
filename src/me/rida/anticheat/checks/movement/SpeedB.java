@@ -21,10 +21,9 @@ import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.BlockUtils;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 
 public class SpeedB extends Check {
 
@@ -46,7 +45,7 @@ public class SpeedB extends Check {
 		this.speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
 
 		Location from = e.getFrom().clone();
@@ -71,9 +70,9 @@ public class SpeedB extends Check {
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
-           		|| BlockUtils.isNearIce(p)
-   		        || BlockUtils.isNearSlime(p)
-           		|| PlayerUtils.wasOnSlime(p)){
+           		|| BlockUtil.isNearIce(p)
+   		        || BlockUtil.isNearSlime(p)
+           		|| PlayerUtil.wasOnSlime(p)){
 			return;
 		}
 
@@ -85,7 +84,7 @@ public class SpeedB extends Check {
 		}
 
 		double ig = 0.28;
-		double speed = MathUtils.offset(getHV(to.toVector()), getHV(from.toVector()));
+		double speed = MathUtil.offset(getHV(to.toVector()), getHV(from.toVector()));
 		double onGroundDiff = (to.getY() - from.getY());
 
 		if (p.hasPotionEffect(PotionEffectType.SPEED)) {
@@ -131,8 +130,8 @@ public class SpeedB extends Check {
 			getAntiCheat().logCheat(this, p, "Vanilla", "(Type: B)");
 		}
 	}
-	
-	@EventHandler(priority = EventPriority.MONITOR)
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());
@@ -185,7 +184,7 @@ public class SpeedB extends Check {
 	
 	public static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
-		for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), true)) {
+		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {
@@ -193,7 +192,7 @@ public class SpeedB extends Check {
 				break;
 			}
 		}
-		for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), false)) {
+		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {

@@ -16,7 +16,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class KillAuraC extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AimbotTicks;
@@ -103,10 +103,10 @@ public class KillAuraC extends Check {
 			}
 		}
 		Differences.put(damager.getUniqueId(), Difference);
-		if (AimbotTicks.containsKey(damager.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
+		if (AimbotTicks.containsKey(damager.getUniqueId()) && TimeUtil.elapsed(Time, 5000L)) {
 			dumplog(damager, "Count Reset");
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count > 5) {
 			Count = 0;

@@ -5,12 +5,13 @@ import me.rida.anticheat.data.DataPlayer;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 
-public class UtilVelocity implements Listener {
-    @EventHandler
+public class VelocityUtil implements Listener {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
@@ -22,7 +23,7 @@ public class UtilVelocity implements Listener {
             }
         }
     }
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onVelEvent(PlayerVelocityEvent e) {
         Player p = e.getPlayer();
          DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

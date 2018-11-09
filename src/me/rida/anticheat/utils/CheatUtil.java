@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public final class UtilCheat {
+public final class CheatUtil {
     public static final String SPY_METADATA = "ac-spydata";
     private static final List<Material> INSTANT_BREAK = new ArrayList();
     private static final List<Material> FOOD = new ArrayList();
@@ -270,62 +270,62 @@ public final class UtilCheat {
     public static boolean isOnGround(final Location location, final int down) {
         final double posX = location.getX();
         final double posZ = location.getZ();
-        final double fracX = (MathUtils.getFraction(posX) > 0.0) ? Math.abs(MathUtils.getFraction(posX))
-                : (1.0 - Math.abs(MathUtils.getFraction(posX)));
-        final double fracZ = (MathUtils.getFraction(posZ) > 0.0) ? Math.abs(MathUtils.getFraction(posZ))
-                : (1.0 - Math.abs(MathUtils.getFraction(posZ)));
+        final double fracX = (MathUtil.getFraction(posX) > 0.0) ? Math.abs(MathUtil.getFraction(posX))
+                : (1.0 - Math.abs(MathUtil.getFraction(posX)));
+        final double fracZ = (MathUtil.getFraction(posZ) > 0.0) ? Math.abs(MathUtil.getFraction(posZ))
+                : (1.0 - Math.abs(MathUtil.getFraction(posZ)));
         final int blockX = location.getBlockX();
         final int blockY = location.getBlockY() - down;
         final int blockZ = location.getBlockZ();
         final World world = location.getWorld();
-        if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
+        if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
             return true;
         }
         if (fracX < 0.3) {
-            if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
+            if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracX > 0.7) {
-            if (BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
+            if (BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (BlockUtils.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return BlockUtils.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracZ < 0.3) {
-            return BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
-        } else return fracZ > 0.7 && BlockUtils.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
+            return BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
+        } else return fracZ > 0.7 && BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
         return false;
     }
 
@@ -440,7 +440,7 @@ public final class UtilCheat {
     }
 
     public static boolean isInWeb(Player player) {
-        if (BlockUtils.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
+        if (BlockUtil.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
             return true;
         }
         return (player.getLocation().getBlock().getType() == Material.WEB)
@@ -482,13 +482,13 @@ public final class UtilCheat {
 
     public static boolean blocksNear(final Location loc) {
         boolean nearBlocks = false;
-        for (Block block : BlockUtils.getSurrounding(loc.getBlock(), true)) {
+        for (Block block : BlockUtil.getSurrounding(loc.getBlock(), true)) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
             }
         }
-        for (final Block block : BlockUtils.getSurrounding(loc.getBlock(), false)) {
+        for (final Block block : BlockUtil.getSurrounding(loc.getBlock(), false)) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
@@ -507,7 +507,7 @@ public final class UtilCheat {
 
     public static boolean blocksNearB(final Location loc) {
         boolean nearBlocks = false;
-        for (Block block : BlockUtils.getSurroundingB(loc.getBlock())) {
+        for (Block block : BlockUtil.getSurroundingB(loc.getBlock())) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
@@ -526,14 +526,14 @@ public final class UtilCheat {
 
     public static boolean slabsNear(Location loc) {
         boolean nearBlocks = false;
-        for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), true)) {
+        for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
             if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
                     || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
                 nearBlocks = true;
                 break;
             }
         }
-        for (Block bl : BlockUtils.getSurrounding(loc.getBlock(), false)) {
+        for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
             if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
                     || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
                 nearBlocks = true;

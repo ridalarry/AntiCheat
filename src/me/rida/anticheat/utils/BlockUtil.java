@@ -10,7 +10,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
-public class BlockUtils {
+public class BlockUtil {
     public static HashSet<Byte> blockPassSet = new HashSet();
 
     public static boolean isSolid(final byte block) {
@@ -227,6 +227,15 @@ public class BlockUtils {
             return blocks;
         }
 
+        public static boolean isNearLessThanABlock(Player p) {
+            boolean out = false;
+             for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+                 if (isLessThanBlock(b)) {
+                     out = true;
+                 }
+             }
+            return out;
+        }
         
         public static boolean isNearHalfBlock(Player p) {
             boolean out = false;
@@ -267,7 +276,7 @@ public class BlockUtils {
     	public static boolean isNearStiar(Player p) {
     		boolean out = false;
     		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-    			if (BlockUtils.isStair(b)) {
+    			if (BlockUtil.isStair(b)) {
     				out = true;
     			}
     		}
@@ -276,7 +285,7 @@ public class BlockUtils {
     	public static boolean isNearLiquid(Player p) {
     		boolean out = false;
     		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-    			if (BlockUtils.isLiquid(b)) {
+    			if (BlockUtil.isLiquid(b)) {
     				out = true;
     			}
     		}

@@ -37,10 +37,9 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
-import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.ServerUtils;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();
@@ -159,104 +158,104 @@ public class PhaseA extends Check {
 		setViolationsToNotify(2);
 	}
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void teleport(PlayerTeleportEvent e) {
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			teleported.add(e.getPlayer().getUniqueId());
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void death(PlayerDeathEvent e) {
 		teleported.add(e.getEntity().getUniqueId());
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void respawn(PlayerRespawnEvent e) {
 		teleported.add(e.getPlayer().getUniqueId());
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void update(PlayerMoveEvent e) {
-		Player player = e.getPlayer();
-		if (player.isDead()
-				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
-				|| (BlockUtils.isNearLiquid(player))) {
+		Player p = e.getPlayer();
+		if (p.isDead()
+				|| (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p))
+				|| (BlockUtil.isNearLiquid(p))) {
 			return;
 		}
 
-		UUID playerId = player.getUniqueId();
-		Location loc1 = lastLocation.containsKey(playerId) ? (Location) lastLocation.get(playerId)
-				: player.getLocation();
-		Location loc2 = player.getLocation();
-		if (player.getAllowFlight()) {
-			teleported.add(player.getUniqueId());
+		UUID u = p.getUniqueId();
+		Location loc1 = lastLocation.containsKey(u) ? (Location) lastLocation.get(u)
+				: p.getLocation();
+		Location loc2 = p.getLocation();
+		if (p.getAllowFlight()) {
+			teleported.add(p.getUniqueId());
 		}
-		if (player.getGameMode().equals(GameMode.CREATIVE)) {
-			teleported.add(player.getUniqueId());
+		if (p.getGameMode().equals(GameMode.CREATIVE)) {
+			teleported.add(p.getUniqueId());
 		}
-		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(playerId))
+		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(u))
 				&& (loc1.distance(loc2) > 10.0D)) {
-			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			if ((player.getLocation().getBlock().getType().isSolid())
-					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if ((p.getLocation().getBlock().getType().isSolid())
+					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
+				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				return;
 			}
-			getAntiCheat().logCheat(this, player, "[1]", "(Type: A)");
-		} else if (isLegit(playerId, loc1, loc2)) {
-			lastLocation.put(playerId, loc2);
-		} else if ((player.hasPermission("anticheat.admin")) || (lastLocation.containsKey(playerId))) {
-			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			if ((player.getLocation().getBlock().getType().isSolid())
-					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
+		} else if (isLegit(u, loc1, loc2)) {
+			lastLocation.put(u, loc2);
+		} else if ((p.hasPermission("anticheat.admin")) || (lastLocation.containsKey(u))) {
+			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if ((p.getLocation().getBlock().getType().isSolid())
+					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
+				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				return;
 			}
-			getAntiCheat().logCheat(this, player, "[2]", "(Type: A)");
+			getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
-	public void onPlayerInteract(PlayerInteractEvent event) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPlayerInteract(PlayerInteractEvent e) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Phase.pearlFix")) {
 			return;
 		}
-		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
-				&& event.getItem().getType() == Material.ENDER_PEARL) {
-			Block block = event.getClickedBlock();
+		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.hasItem()
+				&& e.getItem().getType() == Material.ENDER_PEARL) {
+			Block block = e.getClickedBlock();
 			if (block.getType().isSolid() && this.blockedPearlTypes.contains(block.getType())
 					&& !(block.getState() instanceof InventoryHolder)) {
-				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getPlayer().getLocation(),
-						event.getPlayer().getLocation(), event.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
-				Bukkit.getPluginManager().callEvent(event2);
+				final PearlGlitchEvent e2 = new PearlGlitchEvent(e.getPlayer(), e.getPlayer().getLocation(),
+						e.getPlayer().getLocation(), e.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
+				Bukkit.getPluginManager().callEvent(e2);
 
-				if (!event2.isCancelled()) {
-					event.setCancelled(true);
-					Player player = event.getPlayer();
-					player.setItemInHand(event.getItem());
+				if (!e2.isCancelled()) {
+					e.setCancelled(true);
+					Player p = e.getPlayer();
+					p.setItemInHand(e.getItem());
 				}
 			}
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
-	public void onPearlClip(PlayerTeleportEvent event) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPearlClip(PlayerTeleportEvent e) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Phase.pearlFix")) {
 			return;
 		}
-		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-			Location to = event.getTo();
+		if (e.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+			Location to = e.getTo();
 			if (blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.FENCE_GATE
 					&& to.getBlock().getType() != Material.TRAP_DOOR) {
-				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
-						event.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
-				Bukkit.getPluginManager().callEvent(event2);
-				if (!event2.isCancelled()) {
-					Player player = event.getPlayer();
-					player.sendMessage(getAntiCheat().PREFIX + Color.Red
+				final PearlGlitchEvent e2 = new PearlGlitchEvent(e.getPlayer(), e.getFrom(), e.getTo(),
+						e.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
+				Bukkit.getPluginManager().callEvent(e2);
+				if (!e2.isCancelled()) {
+					Player p = e.getPlayer();
+					p.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "You have been detected trying to pearl glitch, therefore your pearl was cancelled.");
-					event.setCancelled(true);
+					e.setCancelled(true);
 				}
 				return;
 			}
@@ -266,14 +265,14 @@ public class PhaseA extends Check {
 					&& (to.getBlock().getType().isSolid()
 							|| to.clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())
 					&& to.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid()
-							& !UtilCheat.isSlab(to.getBlock())) {
-				Player player = event.getPlayer();
-				final PearlGlitchEvent event2 = new PearlGlitchEvent(player, event.getFrom(), event.getTo(),
-						event.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
-				Bukkit.getPluginManager().callEvent(event2);
-				if (!event2.isCancelled()) {
-					event.setCancelled(true);
-					player.sendMessage(getAntiCheat().PREFIX + Color.Red
+							& !CheatUtil.isSlab(to.getBlock())) {
+				Player p = e.getPlayer();
+				final PearlGlitchEvent e2 = new PearlGlitchEvent(p, e.getFrom(), e.getTo(),
+						e.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
+				Bukkit.getPluginManager().callEvent(e2);
+				if (!e2.isCancelled()) {
+					e.setCancelled(true);
+					p.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "Could not find a safe location, therefore your pearl was cancelled.");
 				}
 				return;
@@ -283,15 +282,15 @@ public class PhaseA extends Check {
 				to.setY(to.getY() - 0.7);
 			}
 
-			event.setTo(to);
+			e.setTo(to);
 		}
 	}
 
-	public boolean isLegit(UUID playerId, Location loc1, Location loc2) {
+	public boolean isLegit(UUID u, Location loc1, Location loc2) {
 		if (loc1.getWorld() != loc2.getWorld()) {
 			return true;
 		}
-		if (teleported.remove(playerId)) {
+		if (teleported.remove(u)) {
 			return true;
 		}
 		int moveMaxX = Math.max(loc1.getBlockX(), loc2.getBlockX());
@@ -311,7 +310,7 @@ public class PhaseA extends Check {
 				for (int y = moveMinY; y <= moveMaxY; y++) {
 					Block block = loc1.getWorld().getBlockAt(x, y, z);
 					if (((y != moveMinY) || (loc1.getBlockY() == loc2.getBlockY()))
-							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(playerId)))) {
+							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(u)))) {
 						return false;
 					}
 				}
@@ -321,8 +320,8 @@ public class PhaseA extends Check {
 	}
 
 	private boolean hasPhased(Block block, Location loc1, Location loc2, Player p) {
-		if (((allowed.contains(block.getType())) || (UtilCheat.isStair(block)) || (UtilCheat.isSlab(block))
-				|| (UtilCheat.isClimbableBlock(block)) || (block.isLiquid()))) {
+		if (((allowed.contains(block.getType())) || (CheatUtil.isStair(block)) || (CheatUtil.isSlab(block))
+				|| (CheatUtil.isClimbableBlock(block)) || (block.isLiquid()))) {
 			return false;
 		}
 		double moveMaxX = Math.max(loc1.getX(), loc2.getX());

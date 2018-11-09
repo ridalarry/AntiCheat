@@ -9,13 +9,14 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketBlockPlacementEvent;
 import me.rida.anticheat.packets.events.PacketHeldItemChangeEvent;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class CrashA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> crashTicks;
@@ -35,78 +36,81 @@ public class CrashA extends Check {
 		this.setBannable(true);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void Swing(final PacketSwingArmEvent e) {
-		final Player crash = e.getPlayer();
-		if (this.crashs.contains(crash.getUniqueId())) {
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
+		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
 		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (crashTicks.containsKey(crash.getUniqueId())) {
-			Count = crashTicks.get(crash.getUniqueId()).getKey();
-			Time = crashTicks.get(crash.getUniqueId()).getValue();
+		if (crashTicks.containsKey(u)) {
+			Count = crashTicks.get(u).getKey();
+			Time = crashTicks.get(u).getValue();
 		}
 		++Count;
-		if (crashTicks.containsKey(crash.getUniqueId()) && UtilTime.elapsed(Time, 100L)) {
+		if (crashTicks.containsKey(u) && TimeUtil.elapsed(Time, 100L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count > 2000) {
-			this.getAntiCheat().logCheat(this, crash, null, "(Type: A)");
-			this.crashs.add(crash.getUniqueId());
+			this.getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
+			this.crashs.add(u);
 		}
-		crashTicks.put(crash.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		crashTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void Switch(final PacketHeldItemChangeEvent e) {
-		final Player crash = e.getPlayer();
-		if (this.crashs.contains(crash.getUniqueId())) {
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
+		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
 		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (crash2Ticks.containsKey(crash.getUniqueId())) {
-			Count = crash2Ticks.get(crash.getUniqueId()).getKey();
-			Time = crash2Ticks.get(crash.getUniqueId()).getValue();
+		if (crash2Ticks.containsKey(u)) {
+			Count = crash2Ticks.get(u).getKey();
+			Time = crash2Ticks.get(u).getValue();
 		}
 		++Count;
-		if (crash2Ticks.containsKey(crash.getUniqueId()) && UtilTime.elapsed(Time, 100L)) {
+		if (crash2Ticks.containsKey(u) && TimeUtil.elapsed(Time, 100L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count > 2000) {
-			this.getAntiCheat().logCheat(this, crash, null, "(Type: B)");
-			this.crashs.add(crash.getUniqueId());
+			this.getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
+			this.crashs.add(u);
 		}
-		crash2Ticks.put(crash.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		crash2Ticks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void BlockPlace(final PacketBlockPlacementEvent e) {
-		final Player crash = e.getPlayer();
-		if (this.crashs.contains(crash.getUniqueId())) {
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
+		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
 		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (crash3Ticks.containsKey(crash.getUniqueId())) {
-			Count = crash3Ticks.get(crash.getUniqueId()).getKey();
-			Time = crash3Ticks.get(crash.getUniqueId()).getValue();
+		if (crash3Ticks.containsKey(u)) {
+			Count = crash3Ticks.get(u).getKey();
+			Time = crash3Ticks.get(u).getValue();
 		}
 		++Count;
-		if (crash3Ticks.containsKey(crash.getUniqueId()) && UtilTime.elapsed(Time, 100L)) {
+		if (crash3Ticks.containsKey(u) && TimeUtil.elapsed(Time, 100L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count > 2000) {
-			this.getAntiCheat().logCheat(this, crash, null, "(Type: C)");
-			this.crashs.add(crash.getUniqueId());
+			this.getAntiCheat().logCheat(this, p, "[3]", "(Type: A)");
+			this.crashs.add(u);
 		}
-		crash3Ticks.put(crash.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		crash3Ticks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 }

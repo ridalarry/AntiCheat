@@ -251,13 +251,6 @@ public enum WrappedMaterial {
             }
         }
     }
-
-    /**
-     * Gets WrappedMaterial version of a Material
-     *
-     * @param material
-     * @return
-     */
     public static WrappedMaterial get(Material material) {
         for (WrappedMaterial wrappedMaterial : WrappedMaterial.values()) {
             if (material.equals(wrappedMaterial.getMaterial())) {

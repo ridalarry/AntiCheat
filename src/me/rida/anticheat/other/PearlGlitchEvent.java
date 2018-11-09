@@ -65,7 +65,6 @@ public class PearlGlitchEvent extends Event implements Cancellable {
 	}
 
 	public HandlerList getHandlers() {
-		// TODO Auto-generated method stub
 		return handlers;
 	}
 

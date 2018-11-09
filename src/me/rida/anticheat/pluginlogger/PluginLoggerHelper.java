@@ -11,7 +11,6 @@ public class PluginLoggerHelper {
             FileHandler fh;
             File outDir = file.toPath().getParent().toFile();
             if (!outDir.exists()) {
-                //noinspection ResultOfMethodCallIgnored
                 outDir.mkdirs();
             }
             fh = new FileHandler(file.getAbsolutePath(), 0, 1, true);

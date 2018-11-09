@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -17,20 +18,18 @@ public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
 		super("BlockInteractA", "BlockInteract", AntiCheat);
-
 		setBannable(false);
 		setEnabled(true);
-
 		setMaxViolations(29);
 	}
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void checkFreecam(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK) {
 			return;
 		}
 		boolean isValid = false;
-		Player player = e.getPlayer();
+		Player p = e.getPlayer();
 		Location scanLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation();
 		double x = scanLocation.getX();
 		double y = scanLocation.getY();
@@ -39,7 +38,7 @@ public class BlockInteractA extends Check {
 			for (double sY = y; sY < y + 2.0D; sY += 1.0D) {
 				for (double sZ = z; sZ < z + 2.0D; sZ += 1.0D) {
 					Location relative = new Location(scanLocation.getWorld(), sX, sY, sZ);
-					List<Location> blocks = rayTrace(player.getLocation(), relative);
+					List<Location> blocks = rayTrace(p.getLocation(), relative);
 					boolean valid = true;
 					for (Location l : blocks) {
 						if (!checkPhase(l.getBlock().getType())) {
@@ -52,8 +51,8 @@ public class BlockInteractA extends Check {
 				}
 			}
 		}
-		if ((!isValid) && (!player.getPlayer().getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, player, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", null);
+		if ((!isValid) && (!p.getItemInHand().getType().equals(Material.ENDER_PEARL))) {
+			getAntiCheat().logCheat(this, p, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", null);
 			e.setCancelled(true);
 		}
 	}

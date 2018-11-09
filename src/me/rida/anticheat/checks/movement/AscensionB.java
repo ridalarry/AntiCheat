@@ -5,6 +5,7 @@ import me.rida.anticheat.checks.Check;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Map;
@@ -22,18 +23,18 @@ public class AscensionB extends Check {
         setMaxViolations(5);
     }
 
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
-        Player player = e.getPlayer();
-        int verbose = this.verbose.getOrDefault(player, 0);
+        Player p = e.getPlayer();
+        int verbose = this.verbose.getOrDefault(p, 0);
         float yDelta = (float) (e.getTo().getY() - e.getFrom().getY());
-        if (player.getAllowFlight()
-                || !lastYMovement.containsKey(player)
-                || Math.abs(yDelta - lastYMovement.get(player)) > 0.002) return;
+        if (p.getAllowFlight()
+                || !lastYMovement.containsKey(p)
+                || Math.abs(yDelta - lastYMovement.get(p)) > 0.002) return;
         if (verbose++ > 5) {
-        	AntiCheat.Instance.logCheat(this, player, Math.abs(yDelta - lastYMovement.get(player)) + "<-" + 0.002, "(Type B)");
+        	AntiCheat.Instance.logCheat(this, p, Math.abs(yDelta - lastYMovement.get(p)) + "<-" + 0.002, "(Type B)");
         }
-        lastYMovement.put(player, yDelta);
-        this.verbose.put(player, verbose);
+        lastYMovement.put(p, yDelta);
+        this.verbose.put(p, verbose);
     }
 }

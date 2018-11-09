@@ -5,16 +5,16 @@ import java.util.Map;
 import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class FlyB extends Check {
 	
@@ -30,7 +30,7 @@ public class FlyB extends Check {
 		flyTicksA = new HashMap<UUID, Long>();
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
@@ -40,7 +40,7 @@ public class FlyB extends Check {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void CheckFlyA(PlayerMoveEvent event) {
 		if (!getAntiCheat().isEnabled()) {
 			return;
@@ -52,13 +52,13 @@ public class FlyB extends Check {
 				|| player.getAllowFlight()
 				|| player.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| PlayerUtils.isInWater(player)
-				|| UtilCheat.isInWeb(player)
+				|| PlayerUtil.isInWater(player)
+				|| CheatUtil.isInWeb(player)
 				|| Latency.getLag(player) > 92) {
 			return;
 		}
 		
-		if (UtilCheat.blocksNear(player.getLocation())) {
+		if (CheatUtil.blocksNear(player.getLocation())) {
 			if (flyTicksA.containsKey(player.getUniqueId())) {
 				flyTicksA.remove(player.getUniqueId());
 			}
@@ -78,7 +78,7 @@ public class FlyB extends Check {
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(player, "Logged Fly. MS: " + MS);
-			getAntiCheat().logCheat(this, player, "Hovering for " + MathUtils.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
+			getAntiCheat().logCheat(this, player, "Hovering for " + MathUtil.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
 					);
 			flyTicksA.remove(player.getUniqueId());
 			return;

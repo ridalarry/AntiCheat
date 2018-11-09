@@ -14,7 +14,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class TimerB extends Check {
 
@@ -33,9 +33,10 @@ public class TimerB extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
-		Player player = e.getPlayer();
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
 		if (!getAntiCheat().isEnabled() 
-				|| (Latency.getLag(player) > 500)
+				|| (Latency.getLag(p) > 500)
 				|| (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()
 						&& e.getFrom().getY() == e.getTo().getY())) {
 			return;
@@ -43,21 +44,21 @@ public class TimerB extends Check {
 		
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (timerTicks.containsKey(player.getUniqueId())) {
-			Count = timerTicks.get(player.getUniqueId()).getKey().intValue();
-			Time = timerTicks.get(player.getUniqueId()).getValue().longValue();
+		if (timerTicks.containsKey(u)) {
+			Count = timerTicks.get(u).getKey().intValue();
+			Time = timerTicks.get(u).getValue().longValue();
 		}
 
 		Count++;
 
-		if ((timerTicks.containsKey(player.getUniqueId())) && (UtilTime.elapsed(Time, 1000L))) {
+		if ((timerTicks.containsKey(p.getUniqueId())) && (TimeUtil.elapsed(Time, 1000L))) {
 			if (Count > 35) {
-				this.getAntiCheat().logCheat(this, player, Color.Red + "Experimental", "(Type: B)");
+				this.getAntiCheat().logCheat(this, p, Color.Red + "Experimental", "(Type: B)");
 			}
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
-		timerTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		timerTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
 }

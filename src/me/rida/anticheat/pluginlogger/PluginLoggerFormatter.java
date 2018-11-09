@@ -20,7 +20,6 @@ public class PluginLoggerFormatter extends Formatter {
             format = DEFAULT_FORMAT;
         }
         try {
-            //noinspection ResultOfMethodCallIgnored
             String.format(format, new Date(), "", "", "", "", "");
         } catch (IllegalArgumentException var3) {
             format = DEFAULT_FORMAT;

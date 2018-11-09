@@ -13,7 +13,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class KillAuraK
 extends Check {
@@ -44,7 +44,7 @@ extends Check {
             int hitCount = 0;
         }
         , 300);
-        double d = UtilCheat.getHorizontalDistance(p.getLocation(), p2.getLocation());
+        double d = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
         double d2 = this.allowedDistance;
         int n2 = Ping.getPing(p);
         int n3 = Ping.getPing(p2);

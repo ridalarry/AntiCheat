@@ -18,8 +18,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.ServerUtils;
+import me.rida.anticheat.utils.MathUtil;
 
 public class NoSlowdownA extends Check {
 
@@ -36,62 +35,62 @@ public class NoSlowdownA extends Check {
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerQuit(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());
 		}
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void BowShoot(final EntityShootBowEvent event) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void BowShoot(final EntityShootBowEvent e) {
 		if (!this.isEnabled()) {
 			return;
 		}
-		if (!(event.getEntity() instanceof Player)) {
+		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
-		final Player player = (Player) event.getEntity();
-		if (player.isInsideVehicle()) {
+		final Player p = (Player) e.getEntity();
+		if (p.isInsideVehicle()) {
 			return;
 		}
-		if (player.isSprinting()) {
-			getAntiCheat().logCheat(this, player, "Sprinting while bowing.", "(Type: A)");
+		if (p.isSprinting()) {
+			getAntiCheat().logCheat(this, p, "Sprinting while bowing.", "(Type: A)");
 		}
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
 		if (e.getTo().getX() == e.getFrom().getX() && e.getFrom().getY() == e.getTo().getY()
 				&& e.getTo().getZ() == e.getFrom().getZ()) {
 			return;
 		}
-		Player player = e.getPlayer();
-		double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(e.getFrom().toVector()),
-				MathUtils.getHorizontalVector(e.getTo().toVector()));
+		Player p = e.getPlayer();
+		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+				MathUtil.getHorizontalVector(e.getTo().toVector()));
 
-		if (!player.getLocation().getBlock().getType().equals(Material.WEB) || (OffsetXZ < 0.2)) {
+		if (!p.getLocation().getBlock().getType().equals(Material.WEB) || (OffsetXZ < 0.2)) {
 			return;
 		}
 
-		getAntiCheat().logCheat(this, player, "Offset: " + OffsetXZ, "(Type: A)");
+		getAntiCheat().logCheat(this, p, "Offset: " + OffsetXZ, "(Type: A)");
 	}
 
-	@EventHandler
-	public void onInteract(PlayerInteractEvent event) {
-		if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-				&& event.getItem() != null) {
-			if (event.getItem().equals(Material.EXP_BOTTLE) || event.getItem().getType().equals(Material.GLASS_BOTTLE)
-					|| event.getItem().getType().equals(Material.POTION)) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onInteract(PlayerInteractEvent e) {
+		if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
+				&& e.getItem() != null) {
+			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
+					|| e.getItem().getType().equals(Material.POTION)) {
 				return;
 			}
-			Player player = event.getPlayer();
+			Player p = e.getPlayer();
 			
 			long Time = System.currentTimeMillis();
 			int level = 0;
-			if (speedTicks.containsKey(player.getUniqueId())) {
-				level = speedTicks.get(player.getUniqueId()).getKey().intValue();
-				Time = speedTicks.get(player.getUniqueId()).getValue().longValue();
+			if (speedTicks.containsKey(p.getUniqueId())) {
+				level = speedTicks.get(p.getUniqueId()).getKey().intValue();
+				Time = speedTicks.get(p.getUniqueId()).getValue().longValue();
 			}
 			double diff = System.currentTimeMillis() - Time;
 			level = diff >= 2.0
@@ -100,17 +99,17 @@ public class NoSlowdownA extends Check {
 					: ++level;
 			int max = 50;
 			if (level > max * 0.9D && diff <= 100.0D) {
-				if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+				if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 					return;
 				}
-				getAntiCheat().logCheat(this, player, Color.Red + "Expermintal! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(player), "(Type: A)");
+				getAntiCheat().logCheat(this, p, Color.Red + "Expermintal! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: A)");
 				if (level > max) {
 					level = max / 4;
 				}
 			} else if (level < 0) {
 				level = 0;
 			}
-			speedTicks.put(player.getUniqueId(),
+			speedTicks.put(p.getUniqueId(),
 					new AbstractMap.SimpleEntry<Integer, Long>(level, System.currentTimeMillis()));
 		}
 	}

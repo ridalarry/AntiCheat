@@ -7,8 +7,8 @@ import java.util.UUID;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.CheatUtil;
 
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -56,11 +56,11 @@ public class HitBoxA extends Check {
 
 		int verbose = count.getOrDefault(p.getUniqueId(), 0);
 
-		double offset = UtilCheat.getOffsetOffCursor(p, attacked);
+		double offset = CheatUtil.getOffsetOffCursor(p, attacked);
 
 		if(offset > 30) {
 			if((verbose+= 2) > 25) {
-				getAntiCheat().logCheat(this, p, MathUtils.round(offset, 4) + ">-30", "(Type: A)");
+				getAntiCheat().logCheat(this, p, MathUtil.round(offset, 4) + ">-30", "(Type: A)");
 			}
 		} else if(verbose > 0) {
 			verbose--;

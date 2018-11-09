@@ -15,8 +15,8 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class KillAuraB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
@@ -63,7 +63,7 @@ public class KillAuraB extends Check {
 			Count = AuraTicks.get(p.getUniqueId()).getKey();
 			Time = AuraTicks.get(p.getUniqueId()).getValue();
 		}
-		double OffsetXZ = UtilCheat.getAimbotoffset(p.getLocation(), p.getEyeHeight(),
+		double OffsetXZ = CheatUtil.getAimbotoffset(p.getLocation(), p.getEyeHeight(),
 				p2);
 		double LimitOffset = 200.0;
 		if (p.getVelocity().length() > 0.08
@@ -93,9 +93,9 @@ public class KillAuraB extends Check {
 		} else if (OffsetXZ > LimitOffset) {
 			Count += 4;
 		}
-		if (AuraTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 60000L)) {
+		if (AuraTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 60000L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count >= 16) {
 			this.dumplog(p, "Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset);

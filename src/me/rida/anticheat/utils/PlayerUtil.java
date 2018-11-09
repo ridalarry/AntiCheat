@@ -17,7 +17,7 @@ import com.google.common.collect.Sets;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 
-public class PlayerUtils {
+public class PlayerUtil {
 	private static ImmutableSet<Material> ground = Sets.immutableEnumSet(Material.SUGAR_CANE, Material.SUGAR_CANE_BLOCK,
             Material.TORCH, Material.ACTIVATOR_RAIL, Material.AIR, Material.CARROT, Material.CROPS, Material.DEAD_BUSH,
             Material.DETECTOR_RAIL, Material.DIODE_BLOCK_OFF, Material.DIODE_BLOCK_ON, Material.DOUBLE_PLANT,
@@ -83,36 +83,36 @@ public class PlayerUtils {
 				|| !isGround(loc.clone().add(diff, -.1, -diff).getBlock().getType())
 				|| !isGround(loc.clone().add(-diff, -.1, diff).getBlock().getType())
 				|| !isGround(loc.clone().add(-diff, -.1, -diff).getBlock().getType())
-				|| (BlockUtils.getBlockHeight(loc.clone().subtract(0.0D, 0.5D, 0.0D).getBlock()) != 0.0D &&
-				(!isGround(loc.clone().add(diff, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, 0).getBlock().getType())
-						|| !isGround(loc.clone().add(-diff, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, 0).getBlock().getType())
-						|| !isGround(loc.clone().add(0, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, diff).getBlock().getType())
-						|| !isGround(loc.clone().add(0, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, -diff).getBlock().getType())
-						|| !isGround(loc.clone().add(diff, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, diff).getBlock().getType())
-						|| !isGround(loc.clone().add(diff, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, -diff).getBlock().getType())
-						|| !isGround(loc.clone().add(-diff, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, diff).getBlock().getType())
-						|| !isGround(loc.clone().add(-diff, BlockUtils.getBlockHeight(loc.getBlock()) - 0.1, -diff).getBlock().getType())));
+				|| (BlockUtil.getBlockHeight(loc.clone().subtract(0.0D, 0.5D, 0.0D).getBlock()) != 0.0D &&
+				(!isGround(loc.clone().add(diff, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, 0).getBlock().getType())
+						|| !isGround(loc.clone().add(-diff, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, 0).getBlock().getType())
+						|| !isGround(loc.clone().add(0, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, diff).getBlock().getType())
+						|| !isGround(loc.clone().add(0, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, -diff).getBlock().getType())
+						|| !isGround(loc.clone().add(diff, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, diff).getBlock().getType())
+						|| !isGround(loc.clone().add(diff, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, -diff).getBlock().getType())
+						|| !isGround(loc.clone().add(-diff, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, diff).getBlock().getType())
+						|| !isGround(loc.clone().add(-diff, BlockUtil.getBlockHeight(loc.getBlock()) - 0.1, -diff).getBlock().getType())));
 	}
 
 
 	public static boolean isOnGround(Player player) {
-			Object box = ServerUtils.getBoundingBox(player);
-			Object outcome = ServerUtils.getMethodValue(ServerUtils.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.1D, 0D);
-			return ServerUtils.inBlock(player, outcome);
+			Object box = ServerUtil.getBoundingBox(player);
+			Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.1D, 0D);
+			return ServerUtil.inBlock(player, outcome);
 	}
 	
 	public static boolean hasPistonNear(Player player) {
-		Object box = ServerUtils.getMethodValue(ServerUtils.getMethod(ServerUtils.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtils.getBoundingBox(player), 2D, 3D, 2D);
+		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 2D, 3D, 2D);
 
-		Collection<?> collidingBlocks = ServerUtils.getCollidingBlocks(player, box);
+		Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
 
 		for(Object object : collidingBlocks) {
-			double x = (double) ServerUtils.getFieldValue(ServerUtils.getFieldByName(object.getClass(), "a"), object);
-			double y = (double) ServerUtils.getFieldValue(ServerUtils.getFieldByName(object.getClass(), "b"), object);
-			double z = (double) ServerUtils.getFieldValue(ServerUtils.getFieldByName(object.getClass(), "c"), object);
+			double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
+			double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
+			double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
 
 			Block block = new Location(player.getWorld(), x, y, z).getBlock();
-			if(BlockUtils.isPiston(block)) {
+			if(BlockUtil.isPiston(block)) {
 				return true;
 			}
 		}
@@ -120,18 +120,18 @@ public class PlayerUtils {
 	}
 
 	public static boolean hasIceNear(Player player) {
-		Object box = ServerUtils.getMethodValue(ServerUtils.getMethod(ServerUtils.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtils.getBoundingBox(player), 0D, 1.5D, 0D);
+		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 0D, 1.5D, 0D);
 
-		Collection<?> collidingBlocks = ServerUtils.getCollidingBlocks(player, box);
+		Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
 
 		for(Object object : collidingBlocks) {
-			double x = (double) ServerUtils.getFieldValue(ServerUtils.getFieldByName(object.getClass(), "a"), object);
-			double y = (double) ServerUtils.getFieldValue(ServerUtils.getFieldByName(object.getClass(), "b"), object);
-			double z = (double) ServerUtils.getFieldValue(ServerUtils.getFieldByName(object.getClass(), "c"), object);
+			double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
+			double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
+			double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
 
 			Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
-			if(BlockUtils.isIce(block)) {
+			if(BlockUtil.isIce(block)) {
 				return true;
 			}
 		}
@@ -153,62 +153,62 @@ public class PlayerUtils {
 	}
 
 	public static boolean isOnGround3(Player player) {
-		Object box = ServerUtils.getBoundingBox(player);
-		Object outcome = ServerUtils.getMethodValue(ServerUtils.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.3D, 0D);
-		return ServerUtils.inBlock(player, outcome);
+		Object box = ServerUtil.getBoundingBox(player);
+		Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.3D, 0D);
+		return ServerUtil.inBlock(player, outcome);
 	}
 
 	public static boolean isInWater(Location loc) {
 		double diff = .3;
-		return BlockUtils.isLiquid(loc.clone().add(0, 0D, 0).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(diff, 0D, 0).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(-diff, 0D, 0).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(0, 0D, diff).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(0, 0D, -diff).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(diff, 0D, diff).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(diff, 0D, -diff).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(-diff, 0D, diff).getBlock())
-				|| BlockUtils.isLiquid(loc.clone().add(-diff, 0D, -diff).getBlock())
-				|| (BlockUtils.getBlockHeight(loc.clone().subtract(0.0D, 0.5D, 0.0D).getBlock()) != 0.0D &&
-				(BlockUtils.isLiquid(loc.clone().add(diff,  0D, 0).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(-diff,  0D, 0).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(0,  0D, diff).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(0,  0D, -diff).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(diff,  0D, diff).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(diff,  0D, -diff).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(-diff,  0D, diff).getBlock())
-						|| BlockUtils.isLiquid(loc.clone().add(-diff,  0D, -diff).getBlock())));
+		return BlockUtil.isLiquid(loc.clone().add(0, 0D, 0).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(diff, 0D, 0).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(-diff, 0D, 0).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(0, 0D, diff).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(0, 0D, -diff).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(diff, 0D, diff).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(diff, 0D, -diff).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(-diff, 0D, diff).getBlock())
+				|| BlockUtil.isLiquid(loc.clone().add(-diff, 0D, -diff).getBlock())
+				|| (BlockUtil.getBlockHeight(loc.clone().subtract(0.0D, 0.5D, 0.0D).getBlock()) != 0.0D &&
+				(BlockUtil.isLiquid(loc.clone().add(diff,  0D, 0).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(-diff,  0D, 0).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(0,  0D, diff).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(0,  0D, -diff).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(diff,  0D, diff).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(diff,  0D, -diff).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(-diff,  0D, diff).getBlock())
+						|| BlockUtil.isLiquid(loc.clone().add(-diff,  0D, -diff).getBlock())));
 	}
 
 	public static boolean isOnSlab(Location loc) {
 		double diff = .3;
-		return BlockUtils.isSlab(loc.clone().add(0, 0D, 0).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(diff, 0D, 0).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(-diff, 0D, 0).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(0, 0D, diff).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(0, 0D, -diff).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(diff, 0D, diff).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(diff, 0D, -diff).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(-diff, 0D, diff).getBlock())
-				|| BlockUtils.isSlab(loc.clone().add(-diff, 0D, -diff).getBlock());
+		return BlockUtil.isSlab(loc.clone().add(0, 0D, 0).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(diff, 0D, 0).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(-diff, 0D, 0).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(0, 0D, diff).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(0, 0D, -diff).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(diff, 0D, diff).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(diff, 0D, -diff).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(-diff, 0D, diff).getBlock())
+				|| BlockUtil.isSlab(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
 
 	public static boolean isOnStair(Location loc) {
 		double diff = 0.3;
-		return 	BlockUtils.isStair(loc.clone().add(0, 0D, 0).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(diff, 0D, 0).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(0, 0D, diff).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(0, 0D, -diff).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(diff, 0D, diff).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(diff, 0D, -diff).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(-diff, 0D, diff).getBlock())
-				|| BlockUtils.isStair(loc.clone().add(-diff, 0D, -diff).getBlock());
+		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(diff, 0D, 0).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(0, 0D, diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(0, 0D, -diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(diff, 0D, diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(diff, 0D, -diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
 
 	public static boolean hasSlabsNear(Location location) {
-		for(Block block : BlockUtils.getSurroundingXZ(location.getBlock(), true)) {
-			if(BlockUtils.isSlab(block)) {
+		for(Block block : BlockUtil.getSurroundingXZ(location.getBlock(), true)) {
+			if(BlockUtil.isSlab(block)) {
 				return true;
 			}
 		}
@@ -309,9 +309,9 @@ public class PlayerUtils {
         return isOnTheGround(player, 0.25);
     }
     public static boolean isOnTheGround(Player player, double yExpanded) {
-        Object box = UtilReflection.modifyBoundingBox(UtilReflection.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
+        Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
 
-        return UtilReflection.getCollidingBlocks(player, box).size() > 0;
+        return ReflectionUtil.getCollidingBlocks(player, box).size() > 0;
     }
 
     public static boolean isNotSpider(Player player) {
@@ -319,21 +319,21 @@ public class PlayerUtils {
     } 
 
     public static boolean isInLiquid(Player player) {
-        Object box = UtilReflection.getBoundingBox(player);
+        Object box = ReflectionUtil.getBoundingBox(player);
 
-        double minX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "a"), box);
-        double minY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "b"), box);
-        double minZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "c"), box);
-        double maxX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "d"), box);
-        double maxY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "e"), box);
-        double maxZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "f"), box);
+        double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+        double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+        double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+        double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+        double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+        double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
         for(double x = minX ; x < maxX ; x++) {
             for(double y = minY ; y < maxY ; y++) {
                 for(double z = minZ ; z < maxZ ; z++) {
                     Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
-                    if(BlockUtils.isLiquid(block)) {
+                    if(BlockUtil.isLiquid(block)) {
                         return true;
                     }
                 }
@@ -343,22 +343,22 @@ public class PlayerUtils {
     }
 
     public static boolean isInStairs(Player player) {
-        Object box = UtilReflection.modifyBoundingBox(UtilReflection.getBoundingBox(player), 0, -0.5,0,0,0,0);
+        Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-        double minX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "a"), box);
-        double minY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "b"), box);
-        double minZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "c"), box);
-        double maxX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "d"), box);
-        double maxY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "e"), box);
-        double maxZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "f"), box);
+        double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+        double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+        double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+        double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+        double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+        double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
         for(double x = minX ; x < maxX ; x++) {
             for(double y = minY ; y < maxY ; y++) {
                 for(double z = minZ ; z < maxZ ; z++) {
                     Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
-                    if(BlockUtils.isStair(block)
-                            || BlockUtils.isSlab(block)
+                    if(BlockUtil.isStair(block)
+                            || BlockUtil.isSlab(block)
                             || block.getType().equals(Material.SKULL)
                             || block.getType().equals(Material.CAKE_BLOCK)) {
                         return true;
@@ -370,21 +370,21 @@ public class PlayerUtils {
     }
 
     public static boolean isOnClimbable(Player player) {
-        return BlockUtils.isClimbableBlock(player.getLocation().getBlock())
-                || BlockUtils.isClimbableBlock(player.getLocation().add(0, 1,0).getBlock());
+        return BlockUtil.isClimbableBlock(player.getLocation().getBlock())
+                || BlockUtil.isClimbableBlock(player.getLocation().add(0, 1,0).getBlock());
     }
 
     
 
     public static boolean inUnderBlock(Player player) {
-        Object box = UtilReflection.modifyBoundingBox(UtilReflection.getBoundingBox(player), 0, 0,0,0,1,0);
+        Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
 
-        double minX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "a"), box);
-        double minY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "b"), box);
-        double minZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "c"), box);
-        double maxX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "d"), box);
-        double maxY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "e"), box);
-        double maxZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "f"), box);
+        double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+        double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+        double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+        double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+        double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+        double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
         for(double x = minX ; x < maxX ; x++) {
             for(double y = minY ; y < maxY ; y++) {
@@ -402,14 +402,14 @@ public class PlayerUtils {
 
     
     public static boolean isOnIce(Player player) {
-        Object box = UtilReflection.modifyBoundingBox(UtilReflection.getBoundingBox(player), 0, -0.5,0,0,0,0);
+        Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-        double minX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "a"), box);
-        double minY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "b"), box);
-        double minZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "c"), box);
-        double maxX = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "d"), box);
-        double maxY = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "e"), box);
-        double maxZ = (double) UtilReflection.getInvokedField(UtilReflection.getField(box.getClass(), "f"), box);
+        double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+        double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+        double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+        double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+        double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+        double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
         for(double x = minX ; x < maxX ; x++) {
             for(double y = minY ; y < maxY ; y++) {
@@ -438,7 +438,7 @@ public class PlayerUtils {
             return false;
         }
         Block block = player.getLocation().clone().getBlock();
-        if (UtilCheat.isSlab(block) || UtilCheat.isStair(block)) {
+        if (CheatUtil.isSlab(block) || CheatUtil.isStair(block)) {
             return false;
         }
         if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isSolid()
@@ -478,7 +478,7 @@ public class PlayerUtils {
         a = player.getLocation().clone();
         a.setY(a.getY() + 0.5);
         return a.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR
-                || UtilCheat.isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
+                || CheatUtil.isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
                 new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER});
     }
 }

@@ -19,12 +19,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.BlockUtils;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
-import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class SpeedC extends Check {
 	
@@ -46,17 +45,17 @@ public class SpeedC extends Check {
 		velocity = new HashMap<UUID, Double>();
 	}
 
-	@EventHandler(ignoreCancelled = true)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onHit(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
-			Player player = (Player) e.getEntity();
+			Player p = (Player) e.getEntity();
 
-			lastHit.put(player.getUniqueId(), System.currentTimeMillis());
+			lastHit.put(p.getUniqueId(), System.currentTimeMillis());
 		}
 	}
 
-	public boolean isOnIce(final Player player) {
-		Location a = player.getLocation();
+	public boolean isOnIce(final Player p) {
+		Location a = p.getLocation();
 		a.setY(a.getY() - 1.0);
 		if (a.getBlock().getType().equals((Object) Material.ICE)) {
 			return true;
@@ -65,7 +64,7 @@ public class SpeedC extends Check {
 		return a.getBlock().getType().equals((Object) Material.ICE);
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());
@@ -82,40 +81,41 @@ public class SpeedC extends Check {
 	}
 
 	@EventHandler
-	public void CheckSpeed(PlayerMoveEvent event) {
-		Player player = event.getPlayer();
-		if (((event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getY() == event.getTo().getY()) && (event.getFrom().getZ() == event.getFrom().getZ()))
+	public void CheckSpeed(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
+		if (((e.getFrom().getX() == e.getTo().getX()) && (e.getFrom().getY() == e.getTo().getY()) && (e.getFrom().getZ() == e.getFrom().getZ()))
 				|| !getAntiCheat().isEnabled()
-				|| player.getAllowFlight()
-				|| player.getVehicle() != null
-		        || player.getGameMode().equals(GameMode.CREATIVE)
-		        || BlockUtils.isNearIce(player)
-		        || PlayerUtils.wasOnSlime(player)
-		        || BlockUtils.isNearSlime(player)
-				|| player.getVelocity().length() + 0.1 < velocity.getOrDefault(player.getUniqueId(), -1.0D)
-				|| (getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
-				&& !player.hasPotionEffect(PotionEffectType.POISON)
-				&& !player.hasPotionEffect(PotionEffectType.WITHER) && player.getFireTicks() == 0)) {
+				|| p.getAllowFlight()
+				|| p.getVehicle() != null
+		        || p.getGameMode().equals(GameMode.CREATIVE)
+		        || BlockUtil.isNearIce(p)
+		        || PlayerUtil.wasOnSlime(p)
+		        || BlockUtil.isNearSlime(p)
+				|| p.getVelocity().length() + 0.1 < velocity.getOrDefault(p.getUniqueId(), -1.0D)
+				|| (getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
+				&& !p.hasPotionEffect(PotionEffectType.POISON)
+				&& !p.hasPotionEffect(PotionEffectType.WITHER) && p.getFireTicks() == 0)) {
 			return;
 		}
 
-		long lastHitDiff = lastHit.containsKey(player.getUniqueId())
-				? lastHit.get(player.getUniqueId()) - System.currentTimeMillis()
+		long lastHitDiff = lastHit.containsKey(p.getUniqueId())
+				? lastHit.get(p.getUniqueId()) - System.currentTimeMillis()
 				: 2001L;
 
 		int Count = 0;
-		long Time = UtilTime.nowlong();
-		if (speedTicks.containsKey(player.getUniqueId())) {
-			Count = speedTicks.get(player.getUniqueId()).getKey().intValue();
-			Time = speedTicks.get(player.getUniqueId()).getValue().longValue();
+		long Time = TimeUtil.nowlong();
+		if (speedTicks.containsKey(u)) {
+			Count = speedTicks.get(u).getKey().intValue();
+			Time = speedTicks.get(u).getValue().longValue();
 		}
 		int TooFastCount = 0;
 		double percent = 0D;
-		if (tooFastTicks.containsKey(player.getUniqueId())) {
-			double OffsetXZ = MathUtils.offset(MathUtils.getHorizontalVector(event.getFrom().toVector()),
-					MathUtils.getHorizontalVector(event.getTo().toVector()));
+		if (tooFastTicks.containsKey(u)) {
+			double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+					MathUtil.getHorizontalVector(e.getTo().toVector()));
 			double LimitXZ = 0.0D;
-			if ((PlayerUtils.isInGround(player)) && (player.getVehicle() == null)) {
+			if ((PlayerUtil.isInGround(p)) && (p.getVehicle() == null)) {
 				LimitXZ = 0.34D;
 			} else {
 				LimitXZ = 0.39D;
@@ -127,41 +127,41 @@ public class SpeedC extends Check {
 			} else if (lastHitDiff < 2000L) {
 				LimitXZ += 0.1;
 			}
-			if (UtilCheat.slabsNear(player.getLocation())) {
+			if (CheatUtil.slabsNear(p.getLocation())) {
 				LimitXZ += 0.05D;
 			}
-			Location b = PlayerUtils.getEyeLocation(player);
+			Location b = PlayerUtil.getEyeLocation(p);
 			b.add(0.0D, 1.0D, 0.0D);
-			if ((b.getBlock().getType() != Material.AIR) && (!UtilCheat.canStandWithin(b.getBlock()))) {
+			if ((b.getBlock().getType() != Material.AIR) && (!CheatUtil.canStandWithin(b.getBlock()))) {
 				LimitXZ = 0.69D;
 			}
-			Location below = event.getPlayer().getLocation().clone().add(0.0D, -1.0D, 0.0D);
+			Location below = p.getLocation().clone().add(0.0D, -1.0D, 0.0D);
 
-			if (UtilCheat.isStair(below.getBlock())) {
+			if (CheatUtil.isStair(below.getBlock())) {
 				LimitXZ += 0.6;
 			}
 
-			if (isOnIce(player)) {
-				if ((b.getBlock().getType() != Material.AIR) && (!UtilCheat.canStandWithin(b.getBlock()))) {
+			if (isOnIce(p)) {
+				if ((b.getBlock().getType() != Material.AIR) && (!CheatUtil.canStandWithin(b.getBlock()))) {
 					LimitXZ = 1.0D;
 				} else {
 					LimitXZ = 0.75D;
 				}
 			}
-			float speed = player.getWalkSpeed();
+			float speed = p.getWalkSpeed();
 			LimitXZ += (speed > 0.2F ? speed * 10.0F * 0.33F : 0.0F);
-			for (PotionEffect effect : player.getActivePotionEffects()) {
+			for (PotionEffect effect : p.getActivePotionEffects()) {
 				if (effect.getType().equals(PotionEffectType.SPEED)) {
-					if (player.isOnGround()) {
+					if (p.isOnGround()) {
 						LimitXZ += 0.061D * (effect.getAmplifier() + 1);
 					} else {
 						LimitXZ += 0.031D * (effect.getAmplifier() + 1);
 					}
 				}
 			}
-			if (OffsetXZ > LimitXZ && !UtilTime.elapsed(tooFastTicks.get(player.getUniqueId()).getValue().longValue(), 150L)) {
+			if (OffsetXZ > LimitXZ && !TimeUtil.elapsed(tooFastTicks.get(p.getUniqueId()).getValue().longValue(), 150L)) {
 				percent = (OffsetXZ - LimitXZ) * 100;
-				TooFastCount = tooFastTicks.get(player.getUniqueId()).getKey().intValue()
+				TooFastCount = tooFastTicks.get(p.getUniqueId()).getKey().intValue()
 						+ 3;
 			} else {
 				TooFastCount = TooFastCount > -150 ? TooFastCount-- : -150;
@@ -170,25 +170,25 @@ public class SpeedC extends Check {
 		if (TooFastCount >= 11) {
 			TooFastCount = 0;
 			Count++;
-			dumplog(player, "New Count: " + Count);
+			dumplog(p, "New Count: " + Count);
 		}
-		if (speedTicks.containsKey(player.getUniqueId()) && UtilTime.elapsed(Time, 30000L)) {
+		if (speedTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 30000L)) {
 			Count = 0;
-			Time = UtilTime.nowlong();
+			Time = TimeUtil.nowlong();
 		}
 		if (Count >= 3) {
-			dumplog(player, "Logged for Speed. Count: " + Count);
+			dumplog(p, "Logged for Speed. Count: " + Count);
 			Count = 0;
-			getAntiCheat().logCheat(this, player, Math.round(percent) + "% faster than normal", "(Type: C)");
+			getAntiCheat().logCheat(this, p, Math.round(percent) + "% faster than normal", "(Type: C)");
 		}
-		if (!player.isOnGround()) {
-			velocity.put(player.getUniqueId(), player.getVelocity().length());
+		if (!p.isOnGround()) {
+			velocity.put(u, p.getVelocity().length());
 		} else {
-			velocity.put(player.getUniqueId(), -1.0D);
+			velocity.put(u, -1.0D);
 		}
-		tooFastTicks.put(player.getUniqueId(),
+		tooFastTicks.put(p.getUniqueId(),
 				new AbstractMap.SimpleEntry<Integer, Long>(TooFastCount, System.currentTimeMillis()));
-		speedTicks.put(player.getUniqueId(),
+		speedTicks.put(p.getUniqueId(),
 				new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 }

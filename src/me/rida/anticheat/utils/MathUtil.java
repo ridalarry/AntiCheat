@@ -11,7 +11,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
-public class MathUtils {
+public class MathUtil {
 
 
     public static boolean elapsed(long from, long required) {

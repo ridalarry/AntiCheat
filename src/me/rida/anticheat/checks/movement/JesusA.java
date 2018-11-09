@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class JesusA extends Check {
 	public static Map<Player, Integer> onWater;
@@ -58,28 +58,26 @@ public class JesusA extends Check {
 			count.remove(e.getEntity());
 		}
 	}
-	
-	@EventHandler(priority = EventPriority.MONITOR)
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onVelocity(PlayerVelocityEvent e) {
 		velocity.put(e.getPlayer(), System.currentTimeMillis());
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void OnPlace(BlockPlaceEvent e) {
 		if (e.getBlockReplacedState().getBlock().getType() == Material.WATER) {
 			placedBlockOnWater.add(e.getPlayer());
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void CheckJesus(PlayerMoveEvent event) {
 		Player p = event.getPlayer();
-		
-		/**False positive/optimization check **/
 		if (event.isCancelled()
 				|| (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getZ() == event.getTo().getZ())
 				|| p.getAllowFlight()
-				|| UtilCheat.isOnLilyPad(p)
+				|| CheatUtil.isOnLilyPad(p)
 				|| p.getLocation().clone().add(0.0D, 0.4D, 0.0D).getBlock().getType().isSolid()
 				|| placedBlockOnWater.remove(p)) {
 			return;
@@ -87,8 +85,8 @@ public class JesusA extends Check {
 
 		int Count = count.getOrDefault(p, 0);
 
-		if ((UtilCheat.cantStandAtWater(p.getWorld().getBlockAt(p.getLocation())))
-				&& (UtilCheat.isHoveringOverWater(p.getLocation())) && (!UtilCheat.isFullyInWater(p.getLocation()))) {
+		if ((CheatUtil.cantStandAtWater(p.getWorld().getBlockAt(p.getLocation())))
+				&& (CheatUtil.isHoveringOverWater(p.getLocation())) && (!CheatUtil.isFullyInWater(p.getLocation()))) {
 			Count+= 2;
 		} else {
 			Count = Count > 0 ? Count - 1 : Count;

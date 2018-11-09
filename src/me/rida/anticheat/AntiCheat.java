@@ -16,14 +16,10 @@ import com.comphenix.protocol.wrappers.nbt.NbtFactory;
 import com.comphenix.protocol.wrappers.nbt.NbtList;
 import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
-import java.io.BufferedReader;
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -290,6 +286,16 @@ public class AntiCheat extends JavaPlugin implements Listener {
         }, 20L, 20L);
 
         if (logger != null) logger.log(Level.INFO, "Plugin enabled");
+
+        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+            getLogger().severe("Reloading... will kick all online players to avoid crash.");
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.kickPlayer(Color.translate("Reloading..."));
+            }
+
+        } else {
+            getLogger().severe("AntiCheat is loaded, this should work fine. If you get any console errors, try rebooting.");
+        }
     }
 
 	public void resetDumps(Player player) {
@@ -561,12 +567,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 			this.AutoBan.put(player,
 					new AbstractMap.SimpleEntry<Check, Long>(check, System.currentTimeMillis() + 10000L));
-			final UtilActionMessage msg = new UtilActionMessage();
+			final ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
 			msg.addText(Color.translate(
 					getConfig().getString("alerts.secondary") + player.getName()))
 					.addHoverText(Color.Gray + "(Click to teleport to " + Color.Red + player.getName() + Color.Gray + ")")
-					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/tp " + player.getName());
+					.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 			msg.addText(Color.translate(
 					getConfig().getString("alerts.primary") + " set off " + getConfig().getString("alerts.secondary")
 							+ check.getName() + getConfig().getString("alerts.primary") + " and will "
@@ -576,10 +582,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			msg.addText(Color.translate(
 					getConfig().getString("alerts.secondary") + Color.Bold + "ban"))
 					.addHoverText(Color.Gray + "Autoban " + Color.Green + player.getName())
-					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/autoban ban " + player.getName());
+					.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/autoban ban " + player.getName());
 			msg.addText(Color.translate(getConfig().getString("alerts.primary")) + " or ");
 			msg.addText(Color.Green + Color.Bold + "cancel").addHoverText(Color.Gray + "Click to Cancel")
-					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/autoban cancel " + player.getName());
+					.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/autoban cancel " + player.getName());
 			msg.addText(Color.DGray + Color.Bold + "]");
 			ArrayList<Player> players;
 			for (int length = (players = getOnlinePlayers()).size(), i = 0; i < length; ++i) {
@@ -652,7 +658,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
 		Integer violations = this.getViolations(player, check);
 		if (violations >= check.getViolationsToNotify()) {
-			UtilActionMessage msg = new UtilActionMessage();
+			ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
 			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 					+ player.getName())
@@ -662,10 +668,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 							+ player.getName()
 							+ Color.translate(getConfig().getString("alerts.primary"))
 							+ ")")
-					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/tp " + player.getName());
+					.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 			msg.addText(Color.translate(getConfig().getString("alerts.primary"))
 					+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
-			UtilActionMessage.AMText CheckText = msg
+			ActionMessageUtil.AMText CheckText = msg
 					.addText(Color.translate(getConfig().getString("alerts.checkColor"))
 							+ check.getName());
 			if (hoverabletext != null) {
@@ -726,8 +732,17 @@ public class AntiCheat extends JavaPlugin implements Listener {
             logger.log(Level.INFO, "Plugin disabled");
             PluginLoggerHelper.closeLogger(logger);
         }
-    }
 
+        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
+            getLogger().severe("Reloading... will kick all online players to avoid crash.");
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                player.kickPlayer(Color.translate("Reloading..."));
+            }
+
+        } else {
+            getLogger().severe("AntiCheat is loaded, this should work fine. If you get any console errors, try rebooting.");
+        }
+    }
    
     private void loadChecks() {
         for(Check check : getDataManager().getChecks()) {
@@ -750,8 +765,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
     private void registerListeners() {
         getServer().getPluginManager().registerEvents(new MoveEvent(), this);
         getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
-        getServer().getPluginManager().registerEvents(new UtilVelocity(), this);
-        getServer().getPluginManager().registerEvents(new UtilNewVelocity(), this);
+        getServer().getPluginManager().registerEvents(new VelocityUtil(), this);
+        getServer().getPluginManager().registerEvents(new NewVelocityUtil(), this);
     }
 
 

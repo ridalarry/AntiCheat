@@ -18,10 +18,10 @@ public class SneakB extends Check {
 	}
 
     public void onMove(PlayerMoveEvent e) {
-    	 final Player player = e.getPlayer();
-    	if (player.isSneaking()) {
-    		if (player.isSprinting()) {
-            getAntiCheat().logCheat(this, player, null, "(Type: B)");
+    	 final Player p = e.getPlayer();
+    	if (p.isSneaking()) {
+    		if (p.isSprinting()) {
+            getAntiCheat().logCheat(this, p, null, "(Type: B)");
     		}
     	}
     }

@@ -13,7 +13,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class AutoClickerA extends Check {
 	
@@ -56,7 +56,7 @@ public class AutoClickerA extends Check {
 		
 		int clicks = this.clicks.getOrDefault(this, 0);
 		long time = recording.getOrDefault(p.getUniqueId(), System.currentTimeMillis());
-		if(UtilTime.elapsed(time, 1000L)) {
+		if(TimeUtil.elapsed(time, 1000L)) {
 			if(clicks > 18) {
 				getAntiCheat().logCheat(this, p, clicks + " Clicks/Second", "(Type: A)");
 			}

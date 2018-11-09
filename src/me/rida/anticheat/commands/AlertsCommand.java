@@ -15,24 +15,24 @@ public class AlertsCommand implements CommandExecutor {
 		this.AntiCheat = AntiCheat;
 	}
 
-	public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
-		if (!(sender instanceof Player)) {
-			sender.sendMessage("You have to be a player to run this command!");
+	public boolean onCommand(CommandSender s, Command command, String a, String[] g) {
+		if (!(s instanceof Player)) {
+			s.sendMessage("You have to be a player to run this command!");
 			return true;
 		}
-		Player player = (Player) sender;
-		if (!player.hasPermission("anticheat.staff")) {
-			sender.sendMessage(Color.Red + "No permission.");
+		Player p = (Player) s;
+		if (!p.hasPermission("anticheat.staff")) {
+			s.sendMessage(Color.Red + "No permission.");
 			return true;
 		}
-		if (this.AntiCheat.hasAlertsOn(player)) {
-			this.AntiCheat.toggleAlerts(player);
-			player.sendMessage(Color.translate(
+		if (this.AntiCheat.hasAlertsOn(p)) {
+			this.AntiCheat.toggleAlerts(p);
+			p.sendMessage(Color.translate(
 					AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Red
 							+ "off" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
 		} else {
-			this.AntiCheat.toggleAlerts(player);
-			player.sendMessage(Color.translate(
+			this.AntiCheat.toggleAlerts(p);
+			p.sendMessage(Color.translate(
 					AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Green
 							+ "on" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
 		}

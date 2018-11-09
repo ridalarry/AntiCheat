@@ -10,7 +10,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.MathUtil;
 
 public class KillAuraH
 extends Check {
@@ -32,7 +32,7 @@ extends Check {
         Player p2 = (Player)e.getEntity();
         double d = Ping.getPing(p);
         double d2 = Ping.getPing(p2);
-        double d3 = MathUtils.getOffsets2(p, (LivingEntity)p2)[0];
+        double d3 = MathUtil.getOffsets2(p, (LivingEntity)p2)[0];
         if (d2 > 450.0) {
             return;
         }

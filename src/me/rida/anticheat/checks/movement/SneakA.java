@@ -7,12 +7,13 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.events.PacketEntityActionEvent;
-import me.rida.anticheat.utils.UtilTime;
+import me.rida.anticheat.utils.TimeUtil;
 
 public class SneakA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> sneakTicks;
@@ -27,29 +28,30 @@ public class SneakA extends Check {
 		sneakTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLog(PlayerQuitEvent e) {
 		if (sneakTicks.containsKey(e.getPlayer().getUniqueId())) {
 			sneakTicks.remove(e.getPlayer().getUniqueId());
 		}
 	}
 
-	@EventHandler
-	public void EntityAction(PacketEntityActionEvent event) {
-		if (event.getAction() != 1) {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void EntityAction(PacketEntityActionEvent e) {
+		if (e.getAction() != 1) {
 			return;
 		}
-		Player player = event.getPlayer();
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
 
 		int Count = 0;
 		long Time = -1L;
-		if (sneakTicks.containsKey(player.getUniqueId())) {
-			Count = sneakTicks.get(player.getUniqueId()).getKey().intValue();
-			Time = sneakTicks.get(player.getUniqueId()).getValue().longValue();
+		if (sneakTicks.containsKey(u)) {
+			Count = sneakTicks.get(u).getKey().intValue();
+			Time = sneakTicks.get(u).getValue().longValue();
 		}
 		Count++;
-		if (sneakTicks.containsKey(player.getUniqueId())) {
-			if (UtilTime.elapsed(Time, 100L)) {
+		if (sneakTicks.containsKey(u)) {
+			if (TimeUtil.elapsed(Time, 100L)) {
 				Count = 0;
 				Time = System.currentTimeMillis();
 			} else {
@@ -59,8 +61,8 @@ public class SneakA extends Check {
 		if (Count > 50) {
 			Count = 0;
 
-			getAntiCheat().logCheat(this, player, null, "(Type: A)");
+			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
-		sneakTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		sneakTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 }

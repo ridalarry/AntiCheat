@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -15,7 +16,7 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.UtilCheat;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class VClipA extends Check {
 
@@ -44,14 +45,14 @@ public class VClipA extends Check {
 		allowed.add(Material.CHEST);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onTeleport(PlayerTeleportEvent e) {
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			return;
 		}
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 
@@ -64,7 +65,7 @@ public class VClipA extends Check {
 				|| p.getVehicle() != null
 				|| teleported.remove(e.getPlayer())
 				|| e.getTo().getY() <= 0 || e.getTo().getY() >= p.getWorld().getMaxHeight()
-				|| !UtilCheat.blocksNear(p)
+				|| !CheatUtil.blocksNear(p)
 				|| (p.getLocation().getY() < 0.0D) 
 				|| (p.getLocation().getY() > p.getWorld().getMaxHeight())) {
 			return;

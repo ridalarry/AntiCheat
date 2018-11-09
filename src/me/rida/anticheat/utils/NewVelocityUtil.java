@@ -5,22 +5,22 @@ import me.rida.anticheat.data.DataPlayer;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 
-public class UtilNewVelocity implements Listener {
-    @EventHandler
+public class NewVelocityUtil implements Listener {
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
         if (data != null) {
             if (data.isLastVelUpdateBoolean()) {
-                if (TimerUtils.elapsed(data.getLastVelUpdate(),ConfigValues.VelTimeReset_1_FORCE_RESET)) {
-                    //FORCE Reset
+                if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1_FORCE_RESET)) {
                     data.setLastVelUpdateBoolean(false);
                 }
-                if (TimerUtils.elapsed(data.getLastVelUpdate(),ConfigValues.VelTimeReset_1)) {
+                if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1)) {
                     if (!p.isOnGround()) {
                         data.setLastVelUpdate(TimerUtils.nowlong());
                     } else {
@@ -30,7 +30,7 @@ public class UtilNewVelocity implements Listener {
             }
         }
     }
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onVelChange(PlayerVelocityEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

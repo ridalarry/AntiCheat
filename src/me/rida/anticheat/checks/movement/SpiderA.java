@@ -13,19 +13,19 @@ import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.MathUtils;
-import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
-import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilVelocity;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.VelocityUtil;
 
 public class SpiderA extends Check {
 
@@ -39,48 +39,50 @@ public class SpiderA extends Check {
 		setMaxViolations(5);
 	}
 
-    public void onMove(PlayerMoveEvent event) {
-        Location from = event.getFrom();
-        Location to = event.getTo();
-        Player player = event.getPlayer();
-    	double OffSet = event.getFrom().getY() - event.getTo().getY();
+    public void onMove(PlayerMoveEvent e) {
+        Location from = e.getFrom();
+        Location to = e.getTo();
+        Player p = e.getPlayer();
+    	double OffSet = e.getFrom().getY() - e.getTo().getY();
 		if (OffSet <= 0.0 || OffSet > 0.16) {
 			
 		}
     }
 	private Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
-	@EventHandler(ignoreCancelled = true)
-	public void CheckSpider(PlayerMoveEvent event) {
-		Player player = event.getPlayer();
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void CheckSpider(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
 		
-        if (player.getGameMode().equals(GameMode.CREATIVE)
-                || player.getAllowFlight()
-                || event.getPlayer().getVehicle() != null
-                || player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
-                || player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SLIME_BLOCK
-                || PlayerUtils.isOnClimbable(player, 0)
-                || PlayerUtils.isOnClimbable(player, 1) 
+        if (p.getGameMode().equals(GameMode.CREATIVE)
+                || p.getAllowFlight()
+                || p.getVehicle() != null
+                || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
+                || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SLIME_BLOCK
+                || PlayerUtil.isOnClimbable(p, 0)
+                || PlayerUtil.isOnClimbable(p, 1) 
 				|| !getAntiCheat().isEnabled()
-				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
-				|| PlayerUtils.isNotSpider(player)
-                || UtilVelocity.didTakeVelocity(player)) return;
+				|| (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p))
+				|| PlayerUtil.isNotSpider(p)
+                || VelocityUtil.didTakeVelocity(p)) return;
 		
 
 		long Time = System.currentTimeMillis();
 		double TotalBlocks = 0.0D;
-		if (this.AscensionTicks.containsKey(player.getUniqueId())) {
-			Time = AscensionTicks.get(player.getUniqueId()).getKey().longValue();
-			TotalBlocks = AscensionTicks.get(player.getUniqueId()).getValue().doubleValue();
+		if (this.AscensionTicks.containsKey(u)) {
+			Time = AscensionTicks.get(u).getKey().longValue();
+			TotalBlocks = AscensionTicks.get(u).getValue().doubleValue();
 		}
 		long MS = System.currentTimeMillis() - Time;
-        double OffsetY = MathUtils.offset(MathUtils.getVerticalVector(event.getFrom().toVector()), MathUtils.getVerticalVector(event.getTo().toVector()));
+        double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()), MathUtil.getVerticalVector(e.getTo().toVector()));
 
 		boolean ya = false;
 		List<Material> Types = new ArrayList<Material>();
-		Types.add(player.getLocation().getBlock().getRelative(BlockFace.SOUTH).getType());
-		Types.add(player.getLocation().getBlock().getRelative(BlockFace.NORTH).getType());
-		Types.add(player.getLocation().getBlock().getRelative(BlockFace.WEST).getType());
-		Types.add(player.getLocation().getBlock().getRelative(BlockFace.EAST).getType());
+		Types.add(p.getLocation().getBlock().getRelative(BlockFace.SOUTH).getType());
+		Types.add(p.getLocation().getBlock().getRelative(BlockFace.NORTH).getType());
+		Types.add(p.getLocation().getBlock().getRelative(BlockFace.WEST).getType());
+		Types.add(p.getLocation().getBlock().getRelative(BlockFace.EAST).getType());
 		for (Material Type : Types) {
 			if ((Type.isSolid()) && (Type != Material.LADDER) && (Type != Material.VINE) && (Type != Material.AIR)) {
 				ya = true;
@@ -89,14 +91,14 @@ public class SpiderA extends Check {
 		}
 		if (OffsetY > 0.0D) {
 			TotalBlocks += OffsetY;
-		} else if ((!ya) || (!UtilCheat.blocksNear(player))) {
+		} else if ((!ya) || (!CheatUtil.blocksNear(p))) {
 			TotalBlocks = 0.0D;
-		} else if (((event.getFrom().getY() > event.getTo().getY()) || (PlayerUtils.isInGround(player)))) {
+		} else if (((e.getFrom().getY() > e.getTo().getY()) || (PlayerUtil.isInGround(p)))) {
 			TotalBlocks = 0.0D;
 		}
 		double Limit = 0.5D;
-		if (player.hasPotionEffect(PotionEffectType.JUMP)) {
-			for (PotionEffect effect : player.getActivePotionEffects()) {
+		if (p.hasPotionEffect(PotionEffectType.JUMP)) {
+			for (PotionEffect effect : p.getActivePotionEffects()) {
 				if (effect.getType().equals(PotionEffectType.JUMP)) {
 					int level = effect.getAmplifier() + 1;
 					Limit += Math.pow(level + 4.2D, 2.0D) / 16.0D;
@@ -106,13 +108,13 @@ public class SpiderA extends Check {
 		}
 		if ((ya) && (TotalBlocks > Limit)) {
 			if (MS > 500L) {
-				getAntiCheat().logCheat(this, player, Color.Red + "(WallClimb) False flag if the player is falling next to a wall!", "(Type: A)");
+				getAntiCheat().logCheat(this, p, Color.Red + "(WallClimb) False flag if the player is falling next to a wall!", "(Type: A)");
 				Time = System.currentTimeMillis();
 			}
 		} else {
 			Time = System.currentTimeMillis();
 		}
-		this.AscensionTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<>(Time, TotalBlocks));
+		this.AscensionTicks.put(u, new AbstractMap.SimpleEntry<>(Time, TotalBlocks));
 	}
 
 }

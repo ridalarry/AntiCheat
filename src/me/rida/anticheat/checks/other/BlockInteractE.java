@@ -7,6 +7,7 @@ import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -21,7 +22,7 @@ public class BlockInteractE extends Check {
 		setBannable(true);
     }
 
-    @EventHandler
+  	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockBreak(BlockBreakEvent e) {
      Player p = e.getPlayer();
           if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
@@ -30,7 +31,7 @@ public class BlockInteractE extends Check {
               e.setCancelled(true);
           }
     }
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent e) {
           Player p = e.getPlayer();
             if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
@@ -39,7 +40,7 @@ public class BlockInteractE extends Check {
               e.setCancelled(true);
           }
     }
-    @EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onInteract(PlayerInteractEvent e) {
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.TRAPPED_CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST) {

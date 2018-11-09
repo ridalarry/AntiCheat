@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
-public class UtilActionMessage {
+public class ActionMessageUtil {
     private List<AMText> Text = new ArrayList();
 
     public AMText addText(String Message) {
@@ -149,7 +149,7 @@ public class UtilActionMessage {
             return null;
         }
 
-        public AMText setClickEvent(UtilActionMessage.ClickableType Type, String Value) {
+        public AMText setClickEvent(ActionMessageUtil.ClickableType Type, String Value) {
             String Event = "clickEvent";
             String Key = Type.Action;
             Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, "\"" + Value + "\"");

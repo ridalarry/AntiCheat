@@ -21,87 +21,85 @@ public class AntiCheatCommand implements CommandExecutor {
 		this.AntiCheat = AntiCheat;
 	}
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String alias, String[] args) {
+	public boolean onCommand(CommandSender s, Command c, String a, String[] g) {
 
-        if(args.length == 0) {
-        sender.sendMessage(Color.Red + "Do '/anticheat help' for list of commands.");
+        if(g.length == 0) {
+        s.sendMessage(Color.Red + "Do '/anticheat help' for list of commands.");
         
-			if (sender instanceof Player) {
-				Player p = (Player) sender;
+			if (s instanceof Player) {
+				Player p = (Player) s;
 			} else {
-				sender.sendMessage(
+				s.sendMessage(
 						Color.Red + "This is for players only! Do /anticheat help to find a command you can do here.");
 			}
 			return true;
 		} else {
 			}
-			if (args[0].equalsIgnoreCase("checks")) {List<String> checkNames = new ArrayList<>();
+			if (g[0].equalsIgnoreCase("checks")) {List<String> checkNames = new ArrayList<>();
 
             for(Check checkLoop : AntiCheat.getChecks()) {
                 checkNames.add((checkLoop.isEnabled() ? Color.Green + checkLoop.getName() : Color.Red + checkLoop.getName()) + Color.Gray);
             }
-				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
-	            sender.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
-				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+	            s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
 				return true;
 			}
-			if (args[0].equalsIgnoreCase("reload")) {
-				sender.sendMessage(AntiCheat.PREFIX + Color.Gray + "Reloading AntiCheat...");
+			if (g[0].equalsIgnoreCase("reload")) {
+				s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Reloading AntiCheat...");
 				AntiCheat.reloadConfig();
-				sender.sendMessage(AntiCheat.PREFIX + Color.Green + "Successfully reloaded AntiCheat.");
-				sender.sendMessage(AntiCheat.PREFIX + Color.Red + " Restart is recommended specially if noticed any bug!");
+				s.sendMessage(AntiCheat.PREFIX + Color.Green + "Successfully reloaded AntiCheat.");
+				s.sendMessage(AntiCheat.PREFIX + Color.Red + " Restart is recommended specially if noticed any bug!");
 				return true;
 			}
-			if (args[0].equalsIgnoreCase("help")) {
-				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
-				sender.sendMessage(Color.Red + Color.Bold + "AntiCheat Help:");
-				sender.sendMessage(" ");
-				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " help" + Color.Gray + "  - View the help page.");
-				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " ping" + Color.Gray + "  - Get your ping.");
-				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " reload" + Color.Gray + "   - Reload AntiCheat.");
-				sender.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " checks" + Color.Gray + "   - List the checks.");
-				sender.sendMessage(Color.Gray + "/alerts" + Color.Gray + "  - Toggle alerts on and off.");
-				sender.sendMessage(Color.Gray + "/getlog" + Color.Reset + " <player> <page>" + Color.Gray + " - Get player bans by AntiCheat.");
-				sender.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+			if (g[0].equalsIgnoreCase("help")) {
+				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+				s.sendMessage(Color.Red + Color.Bold + "AntiCheat Help:");
+				s.sendMessage(" ");
+				s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " help" + Color.Gray + "  - View the help page.");
+				s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " ping" + Color.Gray + "  - Get your ping.");
+				s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " reload" + Color.Gray + "   - Reload AntiCheat.");
+				s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " checks" + Color.Gray + "   - List the checks.");
+				s.sendMessage(Color.Gray + "/alerts" + Color.Gray + "  - Toggle alerts on and off.");
+				s.sendMessage(Color.Gray + "/getlog" + Color.Reset + " <player> <page>" + Color.Gray + " - Get player bans by AntiCheat.");
+				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
 				return true;
 			}
-			if (args[0].equalsIgnoreCase("ping")) {
-				if (sender instanceof Player) {
-					Player p = (Player) sender;
-					if (args.length == 1) {
-						sender.sendMessage(AntiCheat.PREFIX + Color.DGray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
+			if (g[0].equalsIgnoreCase("ping")) {
+				if (s instanceof Player) {
+					Player p = (Player) s;
+					if (g.length == 1) {
+						s.sendMessage(AntiCheat.PREFIX + Color.DGray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
 								+ AntiCheat.getLag().getPing(p));
-						sender.sendMessage(AntiCheat.PREFIX + Color.DGray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
+						s.sendMessage(AntiCheat.PREFIX + Color.DGray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
 								+ AntiCheatAPI.getPing(p));
 						return true;
 					}
-					if (args.length == 2) {
-						Player target = Bukkit.getPlayer(args[1]);
+					if (g.length == 2) {
+						Player target = Bukkit.getPlayer(g[1]);
 						if (target == null) {
-							sender.sendMessage(AntiCheat.PREFIX + Color.Red + "That player is not online!");
+							s.sendMessage(AntiCheat.PREFIX + Color.Red + "That player is not online!");
 							return true;
 						}
-						sender.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + " ping: "
+						s.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + " ping: "
 								+ Color.Red + AntiCheat.getLag().getPing(target));
-						sender.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + " ping: "
+						s.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + " ping: "
 								+ Color.Red + AntiCheatAPI.getPing(target));
 						return true;
 					}
-					sender.sendMessage(AntiCheat.PREFIX + Color.Red + "Incorrect arguments. Usage: /anticheat ping [player]");
+					s.sendMessage(AntiCheat.PREFIX + Color.Red + "Incorrect arguments. Usage: /anticheat ping [player]");
 				} 
 				else {
-					sender.sendMessage(Color.Red + "This is for players only!");
+					s.sendMessage(Color.Red + "This is for players only!");
 				}
 				return true;
 			}
 
 			else {
-			sender.sendMessage(Color.Red + "Unknown argument '/" + alias + " " + args[0] + "'! Do " + Color.Italics
+			s.sendMessage(Color.Red + "Unknown argument '/" + a + " " + g[0] + "'! Do " + Color.Italics
 					+ "/anticheat help " + Color.Red + "for more info!");
 		}
 		return true;
 				}
 
 }
-
-
