@@ -56,36 +56,37 @@ public class KillAuraC extends Check {
 				|| !((e.getAttacked()) instanceof Player)) {
 			return;
 		}
-		Player p = e.getAttacker();
-		if (p.getAllowFlight()) {
+		Player damager = e.getAttacker();
+		if (damager.getAllowFlight()) {
 			return;
 		}
 
 		Location from = null;
-		Location to = p.getLocation();
-		if (LastLocation.containsKey(p.getUniqueId())) {
-			from = LastLocation.get(p.getUniqueId());
+		Location to = damager.getLocation();
+		if (LastLocation.containsKey(damager.getUniqueId())) {
+			from = LastLocation.get(damager.getUniqueId());
 		}
-		LastLocation.put(p.getUniqueId(), p.getLocation());
+		LastLocation.put(damager.getUniqueId(), damager.getLocation());
 		double Count = 0;
 		long Time = System.currentTimeMillis();
 		double LastDifference = -111111.0;
+		if (Differences.containsKey(damager.getUniqueId())) {
+			LastDifference = Differences.get(damager.getUniqueId());
+		}
+		if (AimbotTicks.containsKey(damager.getUniqueId())) {
+			Count = AimbotTicks.get(damager.getUniqueId()).getKey();
+			Time = AimbotTicks.get(damager.getUniqueId()).getValue();
+		}
+		if (from == null || (to.getX() == from.getX() && to.getZ() == from.getZ())) {
+			return;
+		}
 		double Difference = Math.abs(to.getYaw() - from.getYaw());
-		if (Differences.containsKey(p.getUniqueId())) {
-			LastDifference = Differences.get(p.getUniqueId());
-		}
-		if (AimbotTicks.containsKey(p.getUniqueId())) {
-			Count = AimbotTicks.get(p.getUniqueId()).getKey();
-			Time = AimbotTicks.get(p.getUniqueId()).getValue();
-		}
-		if (from == null 
-				|| (to.getX() == from.getX() && to.getZ() == from.getZ()) 
-				|| (Difference == 0.0)) {
+		if (Difference == 0.0) {
 			return;
 		}
 
 		if (Difference > 2.4) {
-			this.dumplog(p, "Difference: " + Difference);
+			this.dumplog(damager, "Difference: " + Difference);
 			double diff = Math.abs(LastDifference - Difference);
 			if (e.getAttacked().getVelocity().length() < 0.1) {
 				if (diff < 1.4) {
@@ -101,19 +102,19 @@ public class KillAuraC extends Check {
 				}
 			}
 		}
-		Differences.put(p.getUniqueId(), Difference);
-		if (AimbotTicks.containsKey(p.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
-			dumplog(p, "Count Reset");
+		Differences.put(damager.getUniqueId(), Difference);
+		if (AimbotTicks.containsKey(damager.getUniqueId()) && UtilTime.elapsed(Time, 5000L)) {
+			dumplog(damager, "Count Reset");
 			Count = 0;
 			Time = UtilTime.nowlong();
 		}
 		if (Count > 5) {
 			Count = 0;
-			dumplog(p,
+			dumplog(damager,
 					"Logged. Last Difference: " + Math.abs(to.getYaw() - from.getYaw()) + ", Count: " + Count);
-			getAntiCheat().logCheat(this, p, "Aimbot", "(Type: C)");
+			getAntiCheat().logCheat(this, damager, "Aimbot", "(Type: C)");
 		}
-		AimbotTicks.put(p.getUniqueId(),
+		AimbotTicks.put(damager.getUniqueId(),
 				new AbstractMap.SimpleEntry<Integer, Long>((int) Math.round(Count), Time));
 	}
 }

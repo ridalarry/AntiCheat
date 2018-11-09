@@ -44,14 +44,15 @@ public class AntiKBA extends Check {
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void Move(PlayerMoveEvent pMoveEvent) {
+    public void Move(PlayerMoveEvent e) {
         double d;
-        Player p = pMoveEvent.getPlayer();
+        Player p = e.getPlayer();
         if (ServerUtils.isOnBlock(p, 0, new Material[]{Material.WEB}) 
         		|| ServerUtils.isOnBlock(p, 1, new Material[]{Material.WEB}) 
         		|| (ServerUtils.isHoveringOverWater(p, 1) 
         		|| ServerUtils.isHoveringOverWater(p, 0)) 
         		|| (p.getAllowFlight()) 
+        		|| (p.isDead()) 
         		|| (Ping.getPing(p) > 400)) {
             return;
         }
@@ -73,7 +74,7 @@ public class AntiKBA extends Check {
         if (this.totalMoved.containsKey((Object)p)) {
             d2 = this.totalMoved.get((Object)p);
         }
-        if ((d = pMoveEvent.getTo().getY() - pMoveEvent.getFrom().getY()) > 0.0) {
+        if ((d = e.getTo().getY() - e.getFrom().getY()) > 0.0) {
             d2 += d;
         }
         int n2 = 0;

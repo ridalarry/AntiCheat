@@ -55,12 +55,12 @@ public class ReachC extends Check {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDmg(EntityDamageByEntityEvent e) {
-		Player p = (Player) e.getDamager();
-		if (!(p instanceof Player)
+		if (!(e.getDamager() instanceof Player)
 				|| e.getCause() != DamageCause.PROJECTILE) {
 			return;
 		}
 
+		Player p = (Player) e.getDamager();
 
 		this.projectileHit.add(p);
 	}
@@ -81,14 +81,14 @@ public class ReachC extends Check {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDamage(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
-				|| !(e.getAttacked() instanceof Player)
+				|| !(e.getAttacker() instanceof Player)
 				|| e.getAttacker().getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 			return;
 		}
-
 		Player d = (Player) e.getAttacker();
 		Player p = (Player) e.getAttacked();
+
 		double ydist = Math.abs(d.getEyeLocation().getY() - p.getEyeLocation().getY());
 		double Reach = MathUtils.trim(2,
 				(PlayerUtils.getEyeLocation(d).distance(p.getEyeLocation()) - ydist) - 0.32);
@@ -103,6 +103,7 @@ public class ReachC extends Check {
 		if (Latency.getLag(d) > 92 || Latency.getLag(p) > 92) {
 			return;
 		}
+
 		double offsetsp = 0.0D;
 		double lastHorizontal = 0.0D;
 		double offsetsd = 0.0D;
