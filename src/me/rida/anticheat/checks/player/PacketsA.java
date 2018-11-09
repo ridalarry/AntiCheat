@@ -30,7 +30,6 @@ public class PacketsA extends Check {
 
 	public PacketsA(AntiCheat AntiCheat) {
 		super("PacketsA", "Packets", AntiCheat);
-
 		setEnabled(true);
 		setBannable(false);
 		setMaxViolations(10);
@@ -122,7 +121,8 @@ public class PacketsA extends Check {
 				            }
 				        });
 				    }
-				if (Count > 850) {
+				if (Count > 1000) {
+					
 					getAntiCheat().logCheat(this, p, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: A)");
 					
 				    
