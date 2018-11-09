@@ -13,10 +13,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Latency;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 public class ReachB extends Check {
 

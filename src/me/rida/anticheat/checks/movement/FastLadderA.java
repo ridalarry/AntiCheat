@@ -9,10 +9,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.a.BlockUtils;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 
 public class FastLadderA extends Check {
 	
@@ -37,8 +37,8 @@ public class FastLadderA extends Check {
 				|| getAntiCheat().isSotwMode()
 				|| player.getAllowFlight()
 				|| getAntiCheat().getLastVelocity().containsKey(player.getUniqueId())
-				|| !UtilsB.isOnClimbable(player, 1) 
-				|| !UtilsB.isOnClimbable(player, 0)) {
+				|| !PlayerUtils.isOnClimbable(player, 1) 
+				|| !PlayerUtils.isOnClimbable(player, 0)) {
 			return;
 		}
 

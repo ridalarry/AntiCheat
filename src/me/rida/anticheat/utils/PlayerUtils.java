@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils.a;
+package me.rida.anticheat.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,8 +16,6 @@ import com.google.common.collect.Sets;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.UtilReflection;
 
 public class PlayerUtils {
 	private static ImmutableSet<Material> ground = Sets.immutableEnumSet(Material.SUGAR_CANE, Material.SUGAR_CANE_BLOCK,

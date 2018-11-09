@@ -3,9 +3,8 @@ package me.rida.anticheat.checks.combat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.AntiCheat;
 
 import org.bukkit.entity.Enderman;

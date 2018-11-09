@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.ServerUtils;
 
 public class AutoClickerC
 extends Check {

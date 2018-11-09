@@ -13,9 +13,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 public class RegenA extends Check {
 	public RegenA(AntiCheat AntiCheat) {

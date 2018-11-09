@@ -3,13 +3,12 @@ package me.rida.anticheat.checks.movement;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilNewVelocity;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.a.BlockUtils;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 import org.bukkit.GameMode;
 import org.bukkit.Material;

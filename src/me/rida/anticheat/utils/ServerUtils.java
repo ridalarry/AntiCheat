@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils.a;
+package me.rida.anticheat.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

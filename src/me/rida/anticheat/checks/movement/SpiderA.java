@@ -19,13 +19,13 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.BlockUtils;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
 import me.rida.anticheat.utils.UtilVelocity;
-import me.rida.anticheat.utils.a.BlockUtils;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 public class SpiderA extends Check {
 
@@ -58,8 +58,8 @@ public class SpiderA extends Check {
                 || event.getPlayer().getVehicle() != null
                 || player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
                 || player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SLIME_BLOCK
-                || UtilsB.isOnClimbable(player, 0)
-                || UtilsB.isOnClimbable(player, 1) 
+                || PlayerUtils.isOnClimbable(player, 0)
+                || PlayerUtils.isOnClimbable(player, 1) 
 				|| !getAntiCheat().isEnabled()
 				|| (BlockUtils.isNearLiquid(player) && BlockUtils.isNearHalfBlock(player))
 				|| PlayerUtils.isNotSpider(player)

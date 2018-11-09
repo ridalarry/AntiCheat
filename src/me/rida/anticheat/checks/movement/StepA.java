@@ -13,10 +13,11 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilCheat;
-import me.rida.anticheat.utils.a.BlockUtils;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 public class StepA extends Check {
 	double stepHeight;
@@ -33,7 +34,7 @@ public class StepA extends Check {
 	}
 
 	public boolean isOnGround(Player player) {
-		if (UtilsB.isOnClimbable(player, 0)) {
+		if (PlayerUtils.isOnClimbable(player, 0)) {
 			return false;
 		}
 		if (player.getVehicle() != null) {
@@ -75,7 +76,7 @@ public class StepA extends Check {
 				|| getAntiCheat().isSotwMode()
 				|| player.hasPotionEffect(PotionEffectType.JUMP)
 				|| getAntiCheat().LastVelocity.containsKey(player.getUniqueId())
-				|| UtilsB.isOnClimbable(player, 0)
+				|| PlayerUtils.isOnClimbable(player, 0)
 				|| UtilCheat.slabsNear(player.getLocation())
 				|| player.getLocation().getBlock().getType().equals(Material.WATER)
 				|| player.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {

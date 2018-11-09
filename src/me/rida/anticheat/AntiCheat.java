@@ -42,8 +42,6 @@ import me.rida.anticheat.packets.PacketCore;
 import me.rida.anticheat.pluginlogger.*;
 import me.rida.anticheat.update.*;
 import me.rida.anticheat.utils.*;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
@@ -61,7 +59,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class AntiCheat extends JavaPlugin implements Listener {
-	
+
+    public static ArrayList<Player> getOnlinePlayers() {
+        ArrayList<Player> list = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            list.add(player);
+        }
+        return list;
+    }
 	public static final Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
 	public static final Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
 
@@ -606,7 +611,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					.setClickEvent(UtilActionMessage.ClickableType.RunCommand, "/autoban cancel " + player.getName());
 			msg.addText(Color.DGray + Color.Bold + "]");
 			ArrayList<Player> players;
-			for (int length = (players = UtilsB.getOnlinePlayers()).size(), i = 0; i < length; ++i) {
+			for (int length = (players = getOnlinePlayers()).size(), i = 0; i < length; ++i) {
 				Player playerplayer = players.get(i);
 				if (playerplayer.hasPermission("anticheat.staff")) {
 					msg.sendToPlayer(playerplayer);

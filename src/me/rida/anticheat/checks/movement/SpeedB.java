@@ -21,11 +21,10 @@ import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.utils.a.BlockUtils;
-import me.rida.anticheat.utils.a.MathUtils;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
+import me.rida.anticheat.utils.BlockUtils;
+import me.rida.anticheat.utils.MathUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 
 public class SpeedB extends Check {
 

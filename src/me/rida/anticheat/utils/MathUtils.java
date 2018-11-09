@@ -1,4 +1,4 @@
-package me.rida.anticheat.utils.a;
+package me.rida.anticheat.utils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -10,8 +10,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import me.rida.anticheat.utils.AngleUtil;
 
 public class MathUtils {
 

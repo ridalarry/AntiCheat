@@ -3,8 +3,8 @@ package me.rida.anticheat.checks.combat;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;

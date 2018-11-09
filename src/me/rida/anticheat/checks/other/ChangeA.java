@@ -14,9 +14,8 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.a.ServerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.AntiCheat;
 
 public class ChangeA

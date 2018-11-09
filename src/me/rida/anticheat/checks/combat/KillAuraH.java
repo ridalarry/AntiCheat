@@ -8,9 +8,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.utils.AngleUtil;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.a.MathUtils;
+import me.rida.anticheat.utils.MathUtils;
 
 public class KillAuraH
 extends Check {

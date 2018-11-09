@@ -18,9 +18,9 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.utils.PlayerUtils;
+import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilTime;
-import me.rida.anticheat.utils.a.PlayerUtils;
-import me.rida.anticheat.utils.b.UtilsB;
 
 public class NoFallA extends Check {
 	public static Map<UUID, Map.Entry<Long, Integer>> NoFallTicks;
@@ -73,7 +73,7 @@ public class NoFallA extends Check {
 				|| player.getGameMode().equals(GameMode.CREATIVE)
 				|| player.getVehicle() != null
 				|| cancel.remove(player)
-				|| UtilsB.isOnClimbable(player, 0)
+				|| PlayerUtils.isOnClimbable(player, 0)
 				|| PlayerUtils.isInWater(player)) {
 			return;
 		}
