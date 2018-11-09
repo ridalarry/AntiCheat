@@ -67,6 +67,10 @@ extends Check {
             break;
         }
         if (d > d2) {
+        	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                    || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+        		return;
+        	}
         	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Heuristic (Flows)", "(Type: K)");
         }
     }

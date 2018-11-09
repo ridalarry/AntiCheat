@@ -39,7 +39,9 @@ extends Check {
     public void onInt(PlayerInteractEvent e) {
         Double[] arrdouble;
         Player p = e.getPlayer();
-        if (e.getAction() != Action.LEFT_CLICK_AIR) {
+        if (e.getAction() != Action.LEFT_CLICK_AIR
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;
         }
         if (cps.containsKey(p.getUniqueId())) {

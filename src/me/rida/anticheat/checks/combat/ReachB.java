@@ -57,7 +57,9 @@ public class ReachB extends Check {
 		Player d = (Player) e.getDamager();
 		Player p = (Player) e.getEntity();
 		if (d.getAllowFlight()
-			|| p.getAllowFlight()) {
+			|| p.getAllowFlight()
+    		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+            || getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
 				return;
 			}
 		double Reach = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);

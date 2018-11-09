@@ -43,6 +43,10 @@ extends Check {
     }
 
     public boolean onAim(Player p, float f) {
+    	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+    		return true;
+    	}
         float f2 = Math.abs(f - this.lastYaw) % 180.0f;
         this.lastYaw = f;
         this.lastBad = (float)Math.round(f2 * 10.0f) * 0.1f;

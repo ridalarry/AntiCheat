@@ -28,7 +28,9 @@ public class AntiKBC extends Check {
     		Player p = (Player) e.getEntity();
     		if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
     			Entity damager = (Player) p.getLastDamageCause().getEntity();
-    			if (VelocityUtil.didTakeVelocity(p)) {
+    			if (VelocityUtil.didTakeVelocity(p)
+    	        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+    	                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
     				return;
     			}
     			else {

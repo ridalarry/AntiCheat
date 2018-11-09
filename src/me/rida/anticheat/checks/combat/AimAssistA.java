@@ -70,6 +70,10 @@ public class AimAssistA extends Check {
             float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 
             if(Math.abs(range - data.lastRange) < 4) {
+            	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+            			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+            		return;
+            	}
             	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
                 
             }

@@ -34,7 +34,7 @@ extends Check {
         float f2 = Math.abs(f - this.lastYaw) % 180.0f;
     }
 
-    public boolean onAim(Player player, float f) {
+    public boolean onAim(Player p, float f) {
         float f2 = Math.abs(f - this.lastYaw) % 180.0f;
         this.lastYaw = f;
         this.lastBad = (float)Math.round(f2 * 10.0f) * 0.1f;
@@ -43,7 +43,11 @@ extends Check {
         }
         if (f2 > 1.0f && (float)Math.round(f2 * 10.0f) * 0.1f == f2 && (float)Math.round(f2) != f2) {
             if (f2 == this.lastBad) {
-            	getAntiCheat().logCheat(this, player, Color.Red + "Experemental" + " Huzuni [V5X01]", "(Type: J)");
+            	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+            		return true;
+            	}
+            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Huzuni [V5X01]", "(Type: J)");
                 return true;
             }
         } else {

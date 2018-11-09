@@ -46,6 +46,11 @@ extends Check {
             if (AimAssistB.getFrac(d) == 0.0) {
                 this.setAimAssest(this.getAimAssist() + 100);
                 if (this.getAimAssist() > 2000) {
+
+                	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+                		return;
+                	}
                 	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
                     this.setAimAssest(0);
                 }

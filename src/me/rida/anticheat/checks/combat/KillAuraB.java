@@ -101,6 +101,10 @@ public class KillAuraB extends Check {
 			this.dumplog(p, "Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset);
 			this.dumplog(p, "Logged. Count: " + Count + ", Ping: " + Ping);
 			Count = 0;
+			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				return;
+			}
 			this.getAntiCheat().logCheat(this, p, "Hit Miss Ratio", "(Type: B)");
 		}
 		AuraTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));

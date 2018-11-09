@@ -61,7 +61,10 @@ public class ReachC extends Check {
 		}
 
 		Player p = (Player) e.getDamager();
-
+		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			return;
+		}
 		this.projectileHit.add(p);
 	}
 

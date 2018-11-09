@@ -45,6 +45,10 @@ public class KillAuraG extends Check {
 
             if(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
                 if(++verboseA > 9) {
+                	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                            || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+                		return;
+                	}
                 	getAntiCheat().logCheat(this, p, null, "(Type: G)");
                 }
             }

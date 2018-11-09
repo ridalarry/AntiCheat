@@ -57,7 +57,9 @@ public class KillAuraC extends Check {
 			return;
 		}
 		Player damager = e.getAttacker();
-		if (damager.getAllowFlight()) {
+		if (damager.getAllowFlight()
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(damager) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 

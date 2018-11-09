@@ -30,7 +30,9 @@ public class ReachA extends Check {
         if(e.getType() != PacketPlayerType.USE
                 || e.getEntity() == null 
         		|| p2 instanceof Enderman 
-        		|| p2.isDead()){
+        		|| p2.isDead()
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()){
             return;
         }
 

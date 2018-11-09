@@ -33,6 +33,10 @@ extends Check {
             int n = 0;
             Player p = (Player)e.getDamager();
             this.hits.putIfAbsent(e.getDamager().getUniqueId(), 1);
+            if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+            	return;
+            }
             if (this.hits.get(e.getDamager().getUniqueId()) >= 5) {
                 n = 1;
             	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + "[1]", "(Type: I)");

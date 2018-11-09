@@ -39,6 +39,10 @@ extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void Sprint(PlayerToggleSprintEvent e) {
         Player p = e.getPlayer();
+        if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+        	return;
+        }
         
         if (e.isSprinting() && this.lastSprintStop.containsKey((Object)p)) {
             int n = 0;

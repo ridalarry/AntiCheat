@@ -60,7 +60,9 @@ public class RegenA extends Check {
 		if (!e.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.SATIATED)
 				|| !(p instanceof Player)
 				|| p.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		int Count = 0;

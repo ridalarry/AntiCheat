@@ -26,6 +26,10 @@ public class TwitchA extends Check {
 			return;
 		}
 		if ((e.getPitch() > 90.1F) || (e.getPitch() < -90.1F)) {
+			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				return;
+			}
 			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
 	}

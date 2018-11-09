@@ -74,6 +74,10 @@ public class FastBowA extends Check {
 						count.put(p, Count > 0 ? Count - 1 : Count);
 					}
 					if (Count > 8) {
+						if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+							return;
+						}
 						getAntiCheat().logCheat(this, p, time + " ms", "(Type: A)");
 						count.remove(p);
 					}

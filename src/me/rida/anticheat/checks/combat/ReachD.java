@@ -45,7 +45,10 @@ public class ReachD extends Check {
 		Player p = (Player) e.getDamager();
 		Player d = (Player) e.getEntity();
 		if (d.getAllowFlight()
-				|| p.getAllowFlight()) {
+				|| p.getAllowFlight()
+		        || getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+		        || getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));

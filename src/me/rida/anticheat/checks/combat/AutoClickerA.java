@@ -50,7 +50,9 @@ public class AutoClickerA extends Check {
 		Player p = e.getPlayer();
 
 		if (getAntiCheat().getLag().getTPS() < 17
-				|| Latency.getLag(p) > 100) {
+				|| Latency.getLag(p) > 100
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		

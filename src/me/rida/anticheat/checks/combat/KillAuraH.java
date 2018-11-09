@@ -50,6 +50,10 @@ extends Check {
             return;
         }
         if (d3 >= 300.0) {
+        	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+        		return;
+        	}
         	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: H)");
         }
     }

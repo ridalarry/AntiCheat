@@ -53,7 +53,9 @@ public class AntiKBA extends Check {
         		|| ServerUtil.isHoveringOverWater(p, 0)) 
         		|| (p.getAllowFlight()) 
         		|| (p.isDead()) 
-        		|| (Ping.getPing(p) > 400)) {
+        		|| (Ping.getPing(p) > 400)
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;
         }
         int n = 0;

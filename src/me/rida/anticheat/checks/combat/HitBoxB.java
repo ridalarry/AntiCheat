@@ -30,7 +30,10 @@ extends Check {
         }
         Player p = (Player)e.getDamager();
         Player p2 = (Player)e.getDamager();
-        if (!this.hasInHitBox((LivingEntity)p2)) {
+        if (!this.hasInHitBox((LivingEntity)p2)
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+                || getAntiCheat().getLag().getPing(p2) > getAntiCheat().getPingCancel()) {
         	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
              }
     }

@@ -45,6 +45,10 @@ public class KillAuraE extends Check {
 		}
 
 		Player p = (Player) e.getDamager();
+		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			return;
+		}
 		if (lastAttack.containsKey(p)) {
 			Integer entityid = lastAttack.get(p).getKey();
 			Long time = lastAttack.get(p).getValue();

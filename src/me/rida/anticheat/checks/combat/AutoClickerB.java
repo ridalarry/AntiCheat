@@ -57,7 +57,9 @@ public class AutoClickerB extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
-				|| !((e.getAttacked()) instanceof Player)) {
+				|| !((e.getAttacked()) instanceof Player)
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(e.getAttacker()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		

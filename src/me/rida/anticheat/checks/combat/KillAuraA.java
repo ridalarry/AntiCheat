@@ -55,22 +55,23 @@ public class KillAuraA extends Check {
 		}
 
 		Player p = e.getAttacker();
+		UUID u = p.getUniqueId();
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (ClickTicks.containsKey(p.getUniqueId())) {
-			Count = ClickTicks.get(p.getUniqueId()).getKey();
-			Time = ClickTicks.get(p.getUniqueId()).getValue();
+		if (ClickTicks.containsKey(u)) {
+			Count = ClickTicks.get(u).getKey();
+			Time = ClickTicks.get(u).getValue();
 		}
-		if (LastMS.containsKey(p.getUniqueId())) {
-			long MS = TimeUtil.nowlong() - LastMS.get(p.getUniqueId());
+		if (LastMS.containsKey(u)) {
+			long MS = TimeUtil.nowlong() - LastMS.get(u);
 			if (MS > 500L || MS < 5L) {
 				LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
 				return;
 			}
-			if (Clicks.containsKey(p.getUniqueId())) {
-				List<Long> Clicks = this.Clicks.get(p.getUniqueId());
+			if (Clicks.containsKey(u)) {
+				List<Long> Clicks = this.Clicks.get(u);
 				if (Clicks.size() == 10) {
-					this.Clicks.remove(p.getUniqueId());
+					this.Clicks.remove(u);
 					Collections.sort(Clicks);
 					final long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
 					if (Range < 30L) {
@@ -81,7 +82,7 @@ public class KillAuraA extends Check {
 					}
 				} else {
 					Clicks.add(MS);
-					this.Clicks.put(p.getUniqueId(), Clicks);
+					this.Clicks.put(u, Clicks);
 				}
 			} else {
 				final List<Long> Clicks = new ArrayList<Long>();
@@ -89,7 +90,7 @@ public class KillAuraA extends Check {
 				this.Clicks.put(p.getUniqueId(), Clicks);
 			}
 		}
-		if (ClickTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 5000L)) {
+		if (ClickTicks.containsKey(u) && TimeUtil.elapsed(Time, 5000L)) {
 			Count = 0;
 			Time = TimeUtil.nowlong();
 		}
@@ -97,6 +98,10 @@ public class KillAuraA extends Check {
 				|| (Count > 4 && this.getAntiCheat().getLag().getPing(p) <= 400)) {
 				dumplog(p, "Logged. Count: " + Count);
 			Count = 0;
+			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				return;
+			}
 			getAntiCheat().logCheat(this, p, "Click Pattern", "(Type: A)");
 			ClickTicks.remove(p.getUniqueId());
 		} else if (this.getAntiCheat().getLag().getPing(p) > 400) {
