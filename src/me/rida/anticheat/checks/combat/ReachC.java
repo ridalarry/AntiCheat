@@ -21,7 +21,6 @@ import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.MathUtils;
 import me.rida.anticheat.utils.PlayerUtils;
-import me.rida.anticheat.utils.ServerUtils;
 import me.rida.anticheat.utils.UtilTime;
 
 public class ReachC extends Check {
