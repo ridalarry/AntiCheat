@@ -416,7 +416,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		logFile.addLine("Set off checks:");
 		for (Check check : Checks.keySet()) {
 			Integer Violations = Checks.get(check);
-			logFile.addLine("- " + check.getName() + " (" + Violations + " VL)");
+			logFile.addLine("- " + check.getName() + " x" + Violations);
 		}
 		logFile.addLine(" ");
 		logFile.addLine("Dump-Log for all checks set off:");
@@ -673,10 +673,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 			msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
 					+ Color.translate(getConfig().getString("alerts.primary")) + " ");
-			msg.addText(Color.translate(getConfig().getString("alerts.primary")) + "["
-					+ Color.translate(getConfig().getString("alerts.secondary"))
-					+ violations + Color.translate(getConfig().getString("alerts.primary"))
-					+ " VL]");
+			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
+					+ "x" + violations);
 			if (violations % check.getViolationsToNotify() == 0) {
 				if (getConfig().getBoolean("testmode") == true) {
 					msg.sendToPlayer(player);
