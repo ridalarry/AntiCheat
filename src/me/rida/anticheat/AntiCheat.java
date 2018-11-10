@@ -102,6 +102,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	public void addChecks() {
 		this.Checks.add(new AimAssistA(this));
+		this.Checks.add(new ChatA(this));
 		this.Checks.add(new AimAssistB(this));
 		this.Checks.add(new AimAssistC(this));
 		this.Checks.add(new AntiKBA(this));

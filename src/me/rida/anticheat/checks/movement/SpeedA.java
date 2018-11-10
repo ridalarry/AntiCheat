@@ -87,6 +87,8 @@ public class SpeedA extends Check {
                    			|| BlockUtil.isNearIce(p)
                    			|| BlockUtil.isNearSlime(p)
                    			|| PlayerUtil.wasOnSlime(p)
+                   			|| p.hasPotionEffect(PotionEffectType.JUMP)
+                   			|| p.hasPotionEffect(PotionEffectType.SPEED)
                    			|| p.isSprinting()){
                        return;
                    }
