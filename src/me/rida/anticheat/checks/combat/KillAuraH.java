@@ -17,9 +17,9 @@ extends Check {
     public KillAuraH(AntiCheat AntiCheat) {
         super("KillAuraH", "KillAura", AntiCheat);
 		setEnabled(true);
-		setMaxViolations(10);
+		setMaxViolations(20);
 		setBannable(false);
-		setViolationsToNotify(1);
+		setViolationsToNotify(3);
     }
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

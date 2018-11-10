@@ -682,9 +682,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 					+ "x" + violations);
 			if (violations % check.getViolationsToNotify() == 0) {
-				if (getConfig().getBoolean("testmode") == true) {
-					msg.sendToPlayer(player);
-				} else {
 					for (Player playerplayer : this.AlertsOn) {
 						if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
 							continue;
@@ -700,7 +697,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.autoban(check, player);
 			}
 		}
-	}
 
 	public void RegisterListener(Listener listener) {
 		this.getServer().getPluginManager().registerEvents(listener, (Plugin) this);
