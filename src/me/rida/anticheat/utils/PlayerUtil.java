@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -39,7 +40,13 @@ public class PlayerUtil {
             return true;
         }
     }
-
+    public static int hasDepthStrider(Player player) {
+        if(player.getInventory().getBoots() != null && player.getInventory().getBoots().containsEnchantment(Enchantment.getByName("DEPTH_STRIDER"))) {
+            return player.getInventory().getBoots().getEnchantments().get(Enchantment.getByName("DEPTH_STRIDER"));
+        }
+        return 0;
+    }
+    
     public static boolean isOnGround4(Player player) {
         if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR) {
             return true;

@@ -286,19 +286,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
                     iterator.remove();
             }
         }, 20L, 20L);
-
-        if (logger != null) logger.log(Level.INFO, "Plugin enabled");
-
-        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
             getLogger().severe("Reloading... will kick all online players to avoid crash.");
             for (Player player : Bukkit.getOnlinePlayers()) {
-                player.kickPlayer(Color.translate("Reloading..."));
+                player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
             }
 
-        } else {
-            getLogger().severe("AntiCheat is loaded, this should work fine. If you get any console errors, try rebooting.");
-        }
-    }
+        } 
+ 
 
 	public void resetDumps(Player player) {
 		for (Check check : Checks) {
@@ -729,18 +723,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
         if (logger != null){
             logger.log(Level.INFO, "Plugin disabled");
             PluginLoggerHelper.closeLogger(logger);
-        }
-
-        if (Bukkit.getPluginManager().getPlugin("ProtocolLib") != null) {
-            getLogger().severe("Reloading... will kick all online players to avoid crash.");
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                player.kickPlayer(Color.translate("Reloading..."));
-            }
-
-        } else {
-            getLogger().severe("AntiCheat is loaded, this should work fine. If you get any console errors, try rebooting.");
-        }
-    }
+        }}
    
     private void loadChecks() {
         for(Check check : getDataManager().getChecks()) {

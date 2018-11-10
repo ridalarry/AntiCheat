@@ -39,6 +39,7 @@ import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class PhaseA extends Check {
@@ -179,10 +180,19 @@ public class PhaseA extends Check {
 	public void update(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (p.isDead()
-				|| (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p))
 				|| (BlockUtil.isNearLiquid(p))
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			return;
+		}
+		if (BlockUtil.isNearLiquid(p)) {
+			if (BlockUtil.isNearHalfBlock(p)
+					||BlockUtil.isNearClimable(p)
+					||BlockUtil.isNearFence(p)
+					||PlayerUtil.isNotSpider(p)
+					||BlockUtil.isNearStiar(p)
+					||BlockUtil.isNearSlab(p)
+					||BlockUtil.isNearAir(p))
 			return;
 		}
 

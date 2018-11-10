@@ -116,7 +116,13 @@ public class BlockUtil {
 		return block.getType().equals(Material.PISTON_MOVING_PIECE) || block.getType().equals(Material.PISTON_EXTENSION)
 				|| block.getType().equals(Material.PISTON_BASE) || block.getType().equals(Material.PISTON_STICKY_BASE);
 	}
-	
+
+	public static boolean isAir(Block block) {
+	    if(block.getType().equals(Material.AIR)){
+	    		return true;
+	    }
+	    return false;
+	}
 	
 	public static boolean isStair(Block block) {
 	    if(block.getType().equals(Material.ACACIA_STAIRS) || block.getType().equals(Material.BIRCH_WOOD_STAIRS)
@@ -236,6 +242,24 @@ public class BlockUtil {
              }
             return out;
         }
+        public static boolean isNearSlab(Player p) {
+            boolean out = false;
+             for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+                 if (isSlab(b)) {
+                     out = true;
+                 }
+             }
+            return out;
+        }
+        public static boolean isNearAir(Player p) {
+            boolean out = false;
+             for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+                 if (isAir(b)) {
+                     out = true;
+                 }
+             }
+            return out;
+        }
         
         public static boolean isNearHalfBlock(Player p) {
             boolean out = false;
@@ -264,10 +288,28 @@ public class BlockUtil {
     		}
         	return out;
     	}
+        public static boolean isNearClimable(Player p) {
+        	boolean out = false;
+    		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+    			if (isClimbableBlock(b)) {
+    				out = true;
+    			}
+    		}
+        	return out;
+    	}
         public static boolean isNearPistion(Player p) {
             boolean out = false;
             for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
                if (b.getType() == Material.PISTON_BASE || b.getType() == Material.PISTON_MOVING_PIECE || b.getType() == Material.PISTON_STICKY_BASE || b.getType() == Material.PISTON_EXTENSION) {
+                   out = true;
+               }
+            }
+            return out;
+        }
+        public static boolean isNearFence(Player p) {
+            boolean out = false;
+            for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+               if (isFence(b)) {
                    out = true;
                }
             }
