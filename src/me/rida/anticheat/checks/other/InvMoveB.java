@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.combat;
+package me.rida.anticheat.checks.other;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,9 +10,9 @@ import org.bukkit.inventory.InventoryView;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class KillAuraL extends Check {
-	public KillAuraL(AntiCheat AntiCheat) {
-	super("KillAuraL", "InvMove", AntiCheat);
+public class InvMoveB extends Check {
+	public InvMoveB(AntiCheat AntiCheat) {
+	super("InvMoveB", "InvMove", AntiCheat);
 	setEnabled(true);
 	setMaxViolations(10);
 	setBannable(false);
@@ -33,7 +33,7 @@ public void attack(EntityDamageByEntityEvent e) {
     			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		} else {
-			getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: L)");
+			getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: B)");
 		}
 	}
 }

@@ -1,9 +1,8 @@
-package me.rida.anticheat.checks.movement;
+package me.rida.anticheat.checks.other;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -11,13 +10,14 @@ import org.bukkit.inventory.InventoryView;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 
-public class InvMove extends Check {
-	public InvMove(AntiCheat AntiCheat) {
+public class InvMoveA extends Check {
+	public InvMoveA(AntiCheat AntiCheat) {
 		super("InvMoveA", "InvMove", AntiCheat);
 		setEnabled(true);
-		setMaxViolations(10);
+		setMaxViolations(20);
 		setViolationResetTime(3000);
 		setBannable(false);
+		setViolationsToNotify(5);
 	}
 
 
