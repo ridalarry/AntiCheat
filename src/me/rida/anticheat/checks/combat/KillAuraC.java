@@ -39,14 +39,16 @@ public class KillAuraC extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLogout(PlayerQuitEvent e) {
-		if (AimbotTicks.containsKey(e.getPlayer().getUniqueId())) {
-			AimbotTicks.remove(e.getPlayer().getUniqueId());
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
+		if (AimbotTicks.containsKey(u)) {
+			AimbotTicks.remove(u);
 		}
-		if (Differences.containsKey(e.getPlayer().getUniqueId())) {
-			Differences.remove(e.getPlayer().getUniqueId());
+		if (Differences.containsKey(u)) {
+			Differences.remove(u);
 		}
-		if (LastLocation.containsKey(e.getPlayer().getUniqueId())) {
-			LastLocation.remove(e.getPlayer().getUniqueId());
+		if (LastLocation.containsKey(u)) {
+			LastLocation.remove(u);
 		}
 	}
 

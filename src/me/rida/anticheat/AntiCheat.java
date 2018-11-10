@@ -126,6 +126,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new FastLadderA(this));
 		this.Checks.add(new FlyA(this));
 		this.Checks.add(new FlyB(this));
+		this.Checks.add(new KillAuraL(this));
+		this.Checks.add(new InvMove(this));
 		this.Checks.add(new GlideA(this));
 		this.Checks.add(new GravityA(this));
 		this.Checks.add(new GroundSpoofA(this));

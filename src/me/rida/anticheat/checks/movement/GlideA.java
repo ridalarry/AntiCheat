@@ -18,9 +18,7 @@ public class GlideA extends Check {
 
 	public GlideA(AntiCheat AntiCheat) {
 		super("GlideA", "Glide", AntiCheat);
-		
 		flyTicks = new HashMap<UUID, Long>();
-
 		setEnabled(true);
 		setBannable(false);
 		setMaxViolations(5);
