@@ -614,7 +614,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		return null;
 	}
 
-
 	public void addViolation(Player player, Check check) {
 		Map<Check, Integer> map = new HashMap<Check, Integer>();
 		if (this.Violations.containsKey(player.getUniqueId())) {
@@ -810,7 +809,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
         return Instance;
     }
 
-
     public DataManager getDataManager() {
         return dataManager;
     }
@@ -847,7 +845,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new VelocityUtil(), this);
         getServer().getPluginManager().registerEvents(new NewVelocityUtil(), this);
     }
-
 
     private void addDataPlayers() {
         for (Player playerLoop : Bukkit.getOnlinePlayers()) {
@@ -937,7 +934,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
             if (pages.size() > 0 && "CustomPayloadFixer".equalsIgnoreCase(pages.getValue(0)))
                 throw new ExploitException("Testing exploit", itemStack);
-
 
         } finally {
             buffer.release();

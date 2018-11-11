@@ -17,8 +17,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
-public class AutoClickerC
-extends Check {
+public class AutoClickerC extends Check {
     public static Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
     public static Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
     public static Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
