@@ -315,7 +315,7 @@ public class BlockUtil {
             }
             return out;
         }
-    	public static boolean isNearStiar(Player p) {
+    	public static boolean isNearStair(Player p) {
     		boolean out = false;
     		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
     			if (BlockUtil.isStair(b)) {

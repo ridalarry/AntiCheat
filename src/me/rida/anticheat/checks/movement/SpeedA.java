@@ -132,7 +132,7 @@ public class SpeedA extends Check {
                     && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                     && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                     && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                    && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStiar(p)) {
+                    && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStair(p)) {
                 if (!NewVelocityUtil.didTakeVel(p) && PlayerUtil.getDistanceToGround(p) > 4 == false) {
                     if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !VelocityUtil.didTakeVelocity(p) && !NewVelocityUtil.didTakeVel(p)
                             && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
@@ -182,7 +182,7 @@ public class SpeedA extends Check {
                         && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                         && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                         && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                        && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStiar(p)) {
+                        && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStair(p)) {
                     if (!NewVelocityUtil.didTakeVel(p) && PlayerUtil.getDistanceToGround(p) > 4 == false) {
                         if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !VelocityUtil.didTakeVelocity(p) && !NewVelocityUtil.didTakeVel(p)
                                 && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
@@ -199,7 +199,7 @@ public class SpeedA extends Check {
                             speedPot = true;
                         }
                     }
-                    if (speed > 0.29 && PlayerUtil.isOnGround(p) && !data.isNearIce() && !BlockUtil.isNearStiar(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
+                    if (speed > 0.29 && PlayerUtil.isOnGround(p) && !data.isNearIce() && !BlockUtil.isNearStair(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
                         if (data.getSpeed_OnGround_Verbose() >= 5) {
                         }
 
