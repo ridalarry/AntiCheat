@@ -17,8 +17,8 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class AutoClickerA extends Check {
 	
-	public Map<UUID, Integer> clicks;
-	private Map<UUID, Long> recording;
+	public static Map<UUID, Integer> clicks;
+	public static Map<UUID, Long> recording;
 
 	public AutoClickerA(AntiCheat AntiCheat) {
 		super("AutoClickerA", "AutoClicker", AntiCheat);

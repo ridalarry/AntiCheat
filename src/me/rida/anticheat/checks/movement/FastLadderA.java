@@ -15,7 +15,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 
 public class FastLadderA extends Check {
 	
-	public Map<Player, Integer> count;
+	public static Map<Player, Integer> count;
 
 	public FastLadderA(AntiCheat AntiCheat) {
 		super("FastLadderA", "FastLadder", AntiCheat);

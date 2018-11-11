@@ -312,12 +312,40 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public String resetData() {
 		try {
 			resetAllViolations();
+			if (!AntiKBA.lastVelocity.isEmpty())
+				AntiKBA.lastVelocity.clear();
+			if (!AntiKBA.awaitingVelocity.isEmpty())
+				AntiKBA.awaitingVelocity.clear();
+			if (!AntiKBA.totalMoved.isEmpty())
+				AntiKBA.totalMoved.clear();
+			if (!AntiKBB.lastSprintStart.isEmpty())
+				AntiKBB.lastSprintStart.clear();
+			if (!AntiKBB.lastSprintStop.isEmpty())
+				AntiKBB.lastSprintStop.clear();
+			if (!AutoClickerA.clicks.isEmpty())
+				AutoClickerA.clicks.clear();
+			if (!AutoClickerA.recording.isEmpty())
+				AutoClickerA.recording.clear();
 			if (!AutoClickerB.Clicks.isEmpty())
 				AutoClickerB.Clicks.clear();
 			if (!AutoClickerB.LastMS.isEmpty())
 				AutoClickerB.LastMS.clear();
 			if (!AutoClickerB.ClickTicks.isEmpty())
 				AutoClickerB.ClickTicks.clear();
+			if (!AutoClickerC.hitsSinceLastCheck.isEmpty())
+				AutoClickerC.hitsSinceLastCheck.clear();
+			if (!AutoClickerC.lastCheckedTick.isEmpty())
+				AutoClickerC.lastCheckedTick.clear();
+			if (!AutoClickerC.packetHitsSinceLastCheck.isEmpty())
+				AutoClickerC.packetHitsSinceLastCheck.clear();
+			if (!AutoClickerC.lastPacketTick.isEmpty())
+				AutoClickerC.lastPacketTick.clear();
+			if (!AutoClickerC.lastTickWithPacketSent.isEmpty())
+				AutoClickerC.lastTickWithPacketSent.clear();
+			if (!AutoClickerC.cps.isEmpty())
+				AutoClickerC.cps.clear();
+			if (!AutoClickerC.cpsMS.isEmpty())
+				AutoClickerC.cpsMS.clear();
 			if (!CriticalsB.CritTicks.isEmpty())
 				CriticalsB.CritTicks.clear();
 			if (!KillAuraA.ClickTicks.isEmpty())
@@ -334,36 +362,104 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				KillAuraC.LastLocation.clear();
 			if (!KillAuraC.AimbotTicks.isEmpty())
 				KillAuraC.AimbotTicks.clear();
+			if (!KillAuraD.packetTicks.isEmpty())
+				KillAuraD.packetTicks.clear();
 			if (!KillAuraE.lastAttack.isEmpty())
 				KillAuraE.lastAttack.clear();
 			if (!KillAuraF.counts.isEmpty())
 				KillAuraF.counts.clear();
+			if (!KillAuraI.hits.isEmpty())
+				KillAuraI.hits.clear();
+			if (!ReachB.count.isEmpty())
+				ReachB.count.clear();
+			if (!ReachB.offsets.isEmpty())
+				ReachB.offsets.clear();
+			if (!ReachC.reachTicks.isEmpty())
+				ReachC.reachTicks.clear();
+			if (!ReachC.projectileHit.isEmpty())
+				ReachC.projectileHit.clear();
+			if (!ReachD.toBan.isEmpty())
+				ReachD.toBan.clear();
 			if (!RegenA.FastHealTicks.isEmpty())
 				RegenA.FastHealTicks.clear();
 			if (!RegenA.LastHeal.isEmpty())
 				RegenA.LastHeal.clear();
 			if (!AscensionA.AscensionTicks.isEmpty())
 				AscensionA.AscensionTicks.clear();
+			if (!AscensionB.verbose.isEmpty())
+				AscensionB.verbose.clear();
+			if (!AscensionB.lastYMovement.isEmpty())
+				AscensionB.lastYMovement.clear();
+			if (!FastLadderA.count.isEmpty())
+				FastLadderA.count.clear();
 			if (!FlyB.flyTicksA.isEmpty())
 				FlyB.flyTicksA.clear();
 			if (!GlideA.flyTicks.isEmpty())
 				GlideA.flyTicks.clear();
+			if (!JesusA.onWater.isEmpty())
+				JesusA.onWater.clear();
+			if (!JesusA.placedBlockOnWater.isEmpty())
+				JesusA.placedBlockOnWater.clear();
+			if (!JesusA.count.isEmpty())
+				JesusA.count.clear();
+			if (!JesusA.velocity.isEmpty())
+				JesusA.velocity.clear();
 			if (!NoFallA.FallDistance.isEmpty())
 				NoFallA.FallDistance.clear();
 			if (!NoFallA.NoFallTicks.isEmpty())
 				NoFallA.NoFallTicks.clear();
 			if (!NoSlowdownA.speedTicks.isEmpty())
 				NoSlowdownA.speedTicks.clear();
+			if (!SpeedB.speedTicks.isEmpty())
+				SpeedB.speedTicks.clear();
+			if (!SpeedB.tooFastTicks.isEmpty())
+				SpeedB.tooFastTicks.clear();
+			if (!SpeedB.lastHit.isEmpty())
+				SpeedB.lastHit.isEmpty();
 			if (!SpeedC.speedTicks.isEmpty())
 				SpeedC.speedTicks.clear();
 			if (!SpeedC.tooFastTicks.isEmpty())
 				SpeedC.tooFastTicks.clear();
 			if (!SpeedC.lastHit.isEmpty())
 				SpeedC.lastHit.isEmpty();
+			if (!SpeedC.velocity.isEmpty())
+				SpeedC.velocity.isEmpty();
+			if (!SpiderA.AscensionTicks.isEmpty())
+				SpiderA.AscensionTicks.clear();
+			if (!TimerA.packets.isEmpty())
+				TimerA.packets.clear();
+			if (!TimerA.verbose.isEmpty())
+				TimerA.verbose.clear();
+			if (!TimerA.lastPacket.isEmpty())
+				TimerA.lastPacket.clear();
+			if (!TimerA.toCancel.isEmpty())
+				TimerA.toCancel.clear();
+			if (!TimerB.timerTicks.isEmpty())
+				TimerB.timerTicks.clear();
+			if (!VClipA.allowed.isEmpty())
+				VClipA.allowed.clear();
+			if (!VClipA.teleported.isEmpty())
+				VClipA.teleported.clear();
+			if (!VClipA.lastLocation.isEmpty())
+				VClipA.lastLocation.clear();
+			if (!BlockInteractB.speedTicks.isEmpty())
+				BlockInteractB.speedTicks.clear();
+			if (!ChangeA.built.isEmpty())
+				ChangeA.built.clear();
+			if (!ChangeA.falling.isEmpty())
+				ChangeA.falling.clear();
+			if (!CrashA.crashTicks.isEmpty())
+				CrashA.crashTicks.clear();
+			if (!CrashA.crash2Ticks.isEmpty())
+				CrashA.crash2Ticks.clear();
+			if (!CrashA.crash3Ticks.isEmpty())
+				CrashA.crash3Ticks.clear();
 			if (!PacketsA.lastPacket.isEmpty())
 				PacketsA.lastPacket.clear();
 			if (!PacketsA.packetTicks.isEmpty())
 				PacketsA.packetTicks.clear();
+			if (!PacketsA.blacklist.isEmpty())
+				PacketsA.blacklist.clear();
 			if (!SneakA.sneakTicks.isEmpty())
 				SneakA.sneakTicks.clear();
 			if (!HitBoxA.count.isEmpty())

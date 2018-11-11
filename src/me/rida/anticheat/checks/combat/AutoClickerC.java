@@ -19,13 +19,13 @@ import me.rida.anticheat.utils.MathUtil;
 
 public class AutoClickerC
 extends Check {
-    private static final Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
-    private static final Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
-    private static final Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
-    private static final Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
-    private static final Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
-    private static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
-    private static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+    public static Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
+    public static Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
+    public static Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
+    public static Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
+    public static Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+    public static Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
+    public static Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
 
     public AutoClickerC(AntiCheat AntiCheat) {
         super("AutoClickerC", "AutoClicker", AntiCheat);

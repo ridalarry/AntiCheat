@@ -13,8 +13,8 @@ import java.util.WeakHashMap;
 
 public class AscensionB extends Check {
 
-    private Map<Player, Integer> verbose = new WeakHashMap<>();
-    private Map<Player, Float> lastYMovement = new WeakHashMap<>();
+    public static Map<Player, Integer> verbose = new WeakHashMap<>();
+    public static Map<Player, Float> lastYMovement = new WeakHashMap<>();
 
     public AscensionB(me.rida.anticheat.AntiCheat AntiCheat) {
         super("AscensionB", "Ascension", AntiCheat);

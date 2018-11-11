@@ -19,8 +19,8 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class ReachB extends Check {
 
-	public Map<Player, Integer> count;
-	public Map<Player, Map.Entry<Double, Double>> offsets;
+	public static Map<Player, Integer> count;
+	public static Map<Player, Map.Entry<Double, Double>> offsets;
 
 	public ReachB(AntiCheat AntiCheat) {
 		super("ReachB", "Reach", AntiCheat);

@@ -18,10 +18,10 @@ import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class TimerA extends Check {
-	private Map<UUID, Map.Entry<Integer, Long>> packets;
-	private Map<UUID, Integer> verbose;
-	private Map<UUID, Long> lastPacket;
-	private List<Player> toCancel;
+	public static Map<UUID, Map.Entry<Integer, Long>> packets;
+	public static Map<UUID, Integer> verbose;
+	public static Map<UUID, Long> lastPacket;
+	public static List<Player> toCancel;
 
 	public TimerA(AntiCheat AntiCheat) {
 		super("TimerA", "Timer", AntiCheat);

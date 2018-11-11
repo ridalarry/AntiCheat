@@ -15,10 +15,9 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.CheatUtil;
 
-public class KillAuraK
-extends Check {
-    private double allowedDistance = 3.9;
-    private int hitCount = 0;
+public class KillAuraK extends Check {
+    public static double allowedDistance = 3.9;
+    public static int hitCount = 0;
 
     public KillAuraK(AntiCheat AntiCheat) {
         super("KillAuraK", "KillAura", AntiCheat);

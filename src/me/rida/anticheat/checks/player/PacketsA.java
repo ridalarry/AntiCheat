@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,7 +25,7 @@ import me.rida.anticheat.packets.events.PacketPlayerEvent;
 public class PacketsA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;
 	public static Map<UUID, Long> lastPacket;
-	public List<UUID> blacklist;
+	public static List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
 		super("PacketsA", "Packets", AntiCheat);

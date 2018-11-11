@@ -9,8 +9,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
-public class KillAuraJ
-extends Check {
+public class KillAuraJ extends Check {
     private float lastYaw;
     private float lastBad;
 

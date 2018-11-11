@@ -90,7 +90,7 @@ public class FlyA extends Check {
         if(!PlayerUtil.isOnGround(p)) {
             double distanceToGround = getDistanceToGround(p);
             double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
-            int verbose = data.getFlyHoverVerbose();
+            float verbose = data.getFlyHoverVerbose();
 
             if(distanceToGround > 2) {
                 verbose = yDiff == 0 ? verbose + 6 : yDiff < 0.06 ? verbose + 4 : 0;
@@ -131,7 +131,7 @@ public class FlyA extends Check {
         }
         double diffY = Math.abs(from.getY() - to.getY());
         double lastDiffY = data.getLastVelocityFlyY();
-        int verboseC = data.getFlyVelocityVerbose();
+        float verboseC = data.getFlyVelocityVerbose();
         double finalDifference = Math.abs(diffY - lastDiffY);
         if(finalDifference < 0.08
                 && e.getFrom().getY() < e.getTo().getY()

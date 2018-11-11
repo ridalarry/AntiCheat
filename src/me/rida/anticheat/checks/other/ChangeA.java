@@ -19,10 +19,9 @@ import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.AntiCheat;
 
-public class ChangeA
-extends Check {
-    private List<UUID> built = new ArrayList<UUID>();
-    private List<UUID> falling = new ArrayList<UUID>();
+public class ChangeA extends Check {
+    public static List<UUID> built = new ArrayList<UUID>();
+    public static List<UUID> falling = new ArrayList<UUID>();
 
     public ChangeA(AntiCheat AntiCheat) {
         super("ChangeA", "Change", AntiCheat);

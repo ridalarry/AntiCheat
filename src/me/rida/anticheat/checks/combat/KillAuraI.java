@@ -12,9 +12,8 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
-public class KillAuraI
-extends Check {
-    Map<UUID, Integer> hits = new HashMap<UUID, Integer>();
+public class KillAuraI extends Check {
+    public static Map<UUID, Integer> hits = new HashMap<UUID, Integer>();
 
     public KillAuraI(AntiCheat AntiCheat) {
         super("KillAuraI", "KillAura", AntiCheat);

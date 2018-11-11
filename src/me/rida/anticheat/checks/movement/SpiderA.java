@@ -48,7 +48,7 @@ public class SpiderA extends Check {
 			
 		}
     }
-	private Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
+	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void CheckSpider(PlayerMoveEvent e) {

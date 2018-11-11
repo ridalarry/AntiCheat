@@ -27,9 +27,9 @@ import me.rida.anticheat.utils.PlayerUtil;
 
 public class SpeedB extends Check {
 
-	public Map<UUID, Map.Entry<Integer, Long>> speedTicks;
-	public Map<UUID, Map.Entry<Integer, Long>> tooFastTicks;
-	public Map<UUID, Long> lastHit;
+	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
+	public static Map<UUID, Map.Entry<Integer, Long>> tooFastTicks;
+	public static Map<UUID, Long> lastHit;
 
 	public SpeedB(AntiCheat AntiCheat) {
 		super("SpeedB", "Speed", AntiCheat);

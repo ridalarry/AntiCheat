@@ -18,9 +18,9 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.ServerUtil;
 
 public class AntiKBA extends Check {
-    private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
-    private Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
-    private Map<Player, Double> totalMoved = new HashMap<Player, Double>();
+    public static Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
+    public static Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
+    public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
         super("AntiKBA", "AntiKB", AntiCheat);
