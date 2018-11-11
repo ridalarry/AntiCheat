@@ -142,6 +142,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new KillAuraB(this));
 		this.Checks.add(new KillAuraC(this));
 		this.Checks.add(new KillAuraD(this));
+		this.Checks.add(new SkinBlinkerA(this));
 		this.Checks.add(new KillAuraE(this));
 		this.Checks.add(new KillAuraF(this));
 		this.Checks.add(new KillAuraG(this));
@@ -232,7 +233,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.getConfig().addDefault("checks." + check.getIdentifier() + ".maxViolations",
 						check.getMaxViolations());
 			}
-			this.getConfig().addDefault("checks.Phase.pearlFix", true);
+			this.getConfig().addDefault("checks.PhaseA.pearlFix", true);
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
 		}

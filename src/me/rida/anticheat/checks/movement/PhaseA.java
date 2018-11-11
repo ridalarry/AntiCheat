@@ -151,7 +151,7 @@ public class PhaseA extends Check {
 	}
 
 	public PhaseA(AntiCheat AntiCheat) {
-		super("Phase", "Phase", AntiCheat);
+		super("PhaseA", "Phase", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -161,6 +161,9 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void teleport(PlayerTeleportEvent e) {
+		if (BlockUtil.isNearLiquid(e.getPlayer())) {
+			return;
+		}
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			teleported.add(e.getPlayer().getUniqueId());
 		}
@@ -168,16 +171,25 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void death(PlayerDeathEvent e) {
+		if (BlockUtil.isNearLiquid(e.getEntity())) {
+			return;
+		}
 		teleported.add(e.getEntity().getUniqueId());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void respawn(PlayerRespawnEvent e) {
+		if (BlockUtil.isNearLiquid(e.getPlayer())) {
+			return;
+		}
 		teleported.add(e.getPlayer().getUniqueId());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void update(PlayerMoveEvent e) {
+		if (BlockUtil.isNearLiquid(e.getPlayer())) {
+			return;
+		}
 		Player p = e.getPlayer();
 		if (p.isDead()
 				|| (BlockUtil.isNearLiquid(p))
@@ -214,6 +226,9 @@ public class PhaseA extends Check {
 				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				return;
 			}
+			if (BlockUtil.isNearLiquid(p)) {
+				return;
+			}
 			getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
 		} else if (isLegit(u, loc1, loc2)) {
 			lastLocation.put(u, loc2);
@@ -230,7 +245,10 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (!getAntiCheat().getConfig().getBoolean("checks.Phase.pearlFix")) {
+		if (BlockUtil.isNearLiquid(e.getPlayer())) {
+			return;
+		}
+		if (!getAntiCheat().getConfig().getBoolean("checks.PhaseA.pearlFix")) {
 			return;
 		}
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.hasItem()
@@ -253,6 +271,9 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onPearlClip(PlayerTeleportEvent e) {
+		if (BlockUtil.isNearLiquid(e.getPlayer())) {
+			return;
+		}
 		if (!getAntiCheat().getConfig().getBoolean("checks.Phase.pearlFix")) {
 			return;
 		}

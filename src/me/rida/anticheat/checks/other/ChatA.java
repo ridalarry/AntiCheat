@@ -36,6 +36,8 @@ public class ChatA extends Check{
 				getAntiCheat().logCheat(this, p, "Sprinting while chatting!", "(Type: A)");
 			} if (p.isSprinting()) {
 				getAntiCheat().logCheat(this, p, "Sneaking while chatting!", "(Type: A)");
+			}if (p.isDead()) {
+				getAntiCheat().logCheat(this, p, "Chatting while being dead!", "(Type: A)");
 			}
 		}
 		
