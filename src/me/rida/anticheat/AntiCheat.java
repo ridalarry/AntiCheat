@@ -437,8 +437,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				TimerA.toCancel.clear();
 			if (!TimerB.timerTicks.isEmpty())
 				TimerB.timerTicks.clear();
-			if (!VClipA.allowed.isEmpty())
-				VClipA.allowed.clear();
 			if (!VClipA.teleported.isEmpty())
 				VClipA.teleported.clear();
 			if (!VClipA.lastLocation.isEmpty())

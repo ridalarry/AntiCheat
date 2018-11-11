@@ -65,6 +65,7 @@ public class PhaseA extends Check {
 				||BlockUtil.isNearHalfBlock(e.getPlayer())
 				||PlayerUtil.isNotSpider(e.getPlayer())
 				||BlockUtil.isNearStair(e.getPlayer())
+				||BlockUtil.isNearAllowedPhase(e.getPlayer())
 				||BlockUtil.isNearClimable(e.getPlayer())
 				||BlockUtil.isNearFence(e.getPlayer())
 				||BlockUtil.isNearSlab(e.getPlayer())
@@ -78,7 +79,15 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void death(PlayerDeathEvent e) {
-		if (BlockUtil.isNearLiquid(e.getEntity())) {
+		if (BlockUtil.isNearLiquid(e.getEntity())
+				||BlockUtil.isNearHalfBlock(e.getEntity())
+				||BlockUtil.isNearAllowedPhase(e.getEntity())
+				||PlayerUtil.isNotSpider(e.getEntity())
+				||BlockUtil.isNearStair(e.getEntity())
+				||BlockUtil.isNearClimable(e.getEntity())
+				||BlockUtil.isNearFence(e.getEntity())
+				||BlockUtil.isNearSlab(e.getEntity())
+				||BlockUtil.isNearLessThanABlock(e.getEntity())) {
 			return;
 		}
 		teleported.add(e.getEntity().getUniqueId());
@@ -89,6 +98,7 @@ public class PhaseA extends Check {
 		if (BlockUtil.isNearLiquid(e.getPlayer())
 				||BlockUtil.isNearHalfBlock(e.getPlayer())
 				||PlayerUtil.isNotSpider(e.getPlayer())
+				||BlockUtil.isNearAllowedPhase(e.getPlayer())
 				||BlockUtil.isNearStair(e.getPlayer())
 				||BlockUtil.isNearClimable(e.getPlayer())
 				||BlockUtil.isNearFence(e.getPlayer())
@@ -111,14 +121,15 @@ public class PhaseA extends Check {
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		if (BlockUtil.isNearLiquid(p)) {
-			if (BlockUtil.isNearHalfBlock(p)
+		if (BlockUtil.isNearLiquid(p)
+					||BlockUtil.isNearHalfBlock(p)
 					||PlayerUtil.isNotSpider(p)
 					||BlockUtil.isNearStair(p)
 					||BlockUtil.isNearClimable(p)
 					||BlockUtil.isNearFence(p)
+					||BlockUtil.isNearAllowedPhase(p)
 					||BlockUtil.isNearSlab(p)
-					||BlockUtil.isNearLessThanABlock(p))
+					||BlockUtil.isNearLessThanABlock(p)) {
 			return;
 		}
 
@@ -144,10 +155,13 @@ public class PhaseA extends Check {
 				return;
 			}
 			getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
+			
 		} else if (isLegit(u, loc1, loc2)) {
 			lastLocation.put(u, loc2);
-		} else if ((p.hasPermission("anticheat.admin")) || (lastLocation.containsKey(u))) {
+			
+		} else if (lastLocation.containsKey(u)) {
 			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			
 			if ((p.getLocation().getBlock().getType().isSolid())
 					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
 				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
@@ -266,6 +280,7 @@ public class PhaseA extends Check {
 				||BlockUtil.isNearClimable(e.getPlayer())
 				||BlockUtil.isNearFence(e.getPlayer())
 				||BlockUtil.isNearSlab(e.getPlayer())
+				||BlockUtil.isNearAllowedPhase(e.getPlayer())
 				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
 			return;
 		}
@@ -298,6 +313,7 @@ public class PhaseA extends Check {
 				||BlockUtil.isNearStair(e.getPlayer())
 				||BlockUtil.isNearClimable(e.getPlayer())
 				||BlockUtil.isNearFence(e.getPlayer())
+				||BlockUtil.isNearAllowedPhase(e.getPlayer())
 				||BlockUtil.isNearSlab(e.getPlayer())
 				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
 			return;
