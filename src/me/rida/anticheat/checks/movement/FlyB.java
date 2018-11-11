@@ -41,14 +41,14 @@ public class FlyB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void CheckFlyA(PlayerMoveEvent event) {
+	public void CheckFlyA(PlayerMoveEvent e) {
 		if (!getAntiCheat().isEnabled()) {
 			return;
 		}
-		Player p = event.getPlayer();
+		Player p = e.getPlayer();
 		
-		if (event.isCancelled()
-				|| (event.getTo().getX() == event.getFrom().getX()) && (event.getTo().getZ() == event.getFrom().getZ())
+		if (e.isCancelled()
+				|| (e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
 				|| p.getAllowFlight()
 				|| p.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -66,7 +66,7 @@ public class FlyB extends Check {
 			}
 			return;
 		} 
-		if (Math.abs(event.getTo().getY() - event.getFrom().getY()) > 0.06) {
+		if (Math.abs(e.getTo().getY() - e.getFrom().getY()) > 0.06) {
 			if (flyTicksA.containsKey(p.getUniqueId())) {
 				flyTicksA.remove(p.getUniqueId());
 			}
