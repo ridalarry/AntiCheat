@@ -104,7 +104,7 @@ public class NoFallA extends Check {
 			Count = NoFallTicks.get(p.getUniqueId()).getValue().intValue();
 		}
 		if ((p.isOnGround()) || (p.getFallDistance() == 0.0F)) {
-			dumplog(p, "NoFall. Real Fall Distance: " + Falling);
+			dumplog(p, "Logged for NoFall Type A; . Real Fall Distance: " + Falling);
 			p.damage(5);
 			Count += 2;
 		} else {
@@ -115,7 +115,7 @@ public class NoFallA extends Check {
 			Time = System.currentTimeMillis();
 		}
 		if (Count >= 4) {
-			dumplog(p, "Logged. Count: " + Count);
+			dumplog(p, "Logged for NoFall Type A;  Count: " + Count);
 			Count = 0;
 
 			FallDistance.put(p.getUniqueId(), Double.valueOf(0.0D));

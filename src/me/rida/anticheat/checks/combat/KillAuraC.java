@@ -91,7 +91,7 @@ public class KillAuraC extends Check {
 		}
 
 		if (Difference > 2.4) {
-			this.dumplog(damager, "Difference: " + Difference);
+			this.dumplog(damager, "Logged for KillAura Type C; Difference: " + Difference);
 			double diff = Math.abs(LastDifference - Difference);
 			if (e.getAttacked().getVelocity().length() < 0.1) {
 				if (diff < 1.4) {
@@ -109,14 +109,14 @@ public class KillAuraC extends Check {
 		}
 		Differences.put(damager.getUniqueId(), Difference);
 		if (AimbotTicks.containsKey(damager.getUniqueId()) && TimeUtil.elapsed(Time, 5000L)) {
-			dumplog(damager, "Count Reset");
+			dumplog(damager, "Logged for KillAura Type C; Count Reset");
 			Count = 0;
 			Time = TimeUtil.nowlong();
 		}
 		if (Count > 5) {
 			Count = 0;
 			dumplog(damager,
-					"Logged. Last Difference: " + Math.abs(to.getYaw() - from.getYaw()) + ", Count: " + Count);
+					"Logged for KillAura Type C; Last Difference: " + Math.abs(to.getYaw() - from.getYaw()) + ", Count: " + Count);
 			getAntiCheat().logCheat(this, damager, "Aimbot", "(Type: C)");
 		}
 		AimbotTicks.put(damager.getUniqueId(),

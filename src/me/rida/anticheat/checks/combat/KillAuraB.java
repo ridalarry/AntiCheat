@@ -99,8 +99,7 @@ public class KillAuraB extends Check {
 			Time = TimeUtil.nowlong();
 		}
 		if (Count >= 16) {
-			this.dumplog(p, "Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset);
-			this.dumplog(p, "Logged. Count: " + Count + ", Ping: " + Ping);
+			this.dumplog(p, "Logged for KillAura Type B; Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset +" Count: " + Count);
 			Count = 0;
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

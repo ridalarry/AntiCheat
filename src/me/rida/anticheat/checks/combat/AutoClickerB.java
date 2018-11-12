@@ -88,7 +88,7 @@ public class AutoClickerB extends Check {
 						++Count;
 						Time = System.currentTimeMillis();
 						this.dumplog(damager,
-								"New Count: " + Count + "; Range: " + Range + "; Ping: "
+								"Logged for AutoClicker Type B; New Count: " + Count + "; Range: " + Range + "; Ping: "
 										+ getAntiCheat().getLag().getPing(damager) + "; TPS: "
 										+ getAntiCheat().getLag().getTPS());
 					}
@@ -108,12 +108,12 @@ public class AutoClickerB extends Check {
 		}
 		if ((Count > 4 && this.getAntiCheat().getLag().getPing(damager) < 100)
 				|| (Count > 6 && this.getAntiCheat().getLag().getPing(damager) < 200)) {
-			this.dumplog(damager, "Logged. Count: " + Count);
+			this.dumplog(damager, "Logged for AutoClicker Type B; Count: " + Count);
 			Count = 0;
 			this.getAntiCheat().logCheat(this, damager, "Continuous/Repeating Patterns", "(Type: B)");
 			ClickTicks.remove(damager.getUniqueId());
 		} else if (this.getAntiCheat().getLag().getPing(damager) > 250) {
-			this.dumplog(damager, "Would set off Autoclicker (Constant) but latency is too high!");
+			this.dumplog(damager, "Logged for AutoClicker Type B; Would set off Autoclicker (Constant) but latency is too high!");
 		}
 		LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
 		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));

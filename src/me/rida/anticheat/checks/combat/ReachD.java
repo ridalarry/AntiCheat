@@ -89,7 +89,7 @@ public class ReachD extends Check {
 		}
 
 		if (MaxReach < Difference) {
-			this.dumplog(p, "Logged for Reach Type D; Check is Bannable (so no special bans); Reach: " + Difference
+			this.dumplog(p, "Logged for Reach Type D; Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
 			
 			getAntiCheat().logCheat(this, p, Color.Red + "Experimental" + "; Reach: " + Difference

@@ -78,8 +78,7 @@ public class KillAuraA extends Check {
 					if (Range < 30L) {
 						++Count;
 						Time = System.currentTimeMillis();
-						this.dumplog(p, "New Range: " + Range);
-						this.dumplog(p, "New Count: " + Count);
+						this.dumplog(p, "Logged for KillAura Type A; New Range: " + Range +"; New Count: " + Count);
 					}
 				} else {
 					Clicks.add(MS);

@@ -80,7 +80,7 @@ public class FlyB extends Check {
 		}
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
-			dumplog(p, "Logged Fly. MS: " + MS);
+			dumplog(p, "Logged for Fly Type B;  MS: " + MS);
 			getAntiCheat().logCheat(this, p, "Hovering for " + MathUtil.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
 					);
 			flyTicksA.remove(p.getUniqueId());

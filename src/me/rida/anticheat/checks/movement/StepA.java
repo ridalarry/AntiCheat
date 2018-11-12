@@ -92,7 +92,7 @@ public class StepA extends Check {
 		double YSpeed = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));
 		if (yDist > 0.95) {
-			this.dumplog(p, "Height (Logged): " + yDist);
+			this.dumplog(p, "Logged for Step Type A; Height (Logged): " + yDist);
 			this.getAntiCheat().logCheat(this, p, "[1] " + Math.round(yDist) + " blocks", "(Type: A)");
 			return;
 		}

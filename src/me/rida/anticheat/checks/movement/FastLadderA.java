@@ -57,7 +57,7 @@ public class FastLadderA extends Check {
 		
 		if (OffsetY > Limit) {
 			Count++;
-			this.dumplog(p, "[Illegitmate] New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
+			this.dumplog(p, "Logged for FastLadder Type A;  New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
 		} else {
 			Count = Count > -2 ? Count - 1 : 0;
 		}
@@ -67,7 +67,7 @@ public class FastLadderA extends Check {
 		if (Count > 11) {
 			Count = 0;
 			this.dumplog(p,
-					"Flagged for FastLadder; Speed:" + OffsetY + "; Max: " + Limit + "; New Count: " + Count);
+					"Logged for FastLadder Type A; Speed:" + OffsetY + "; Max: " + Limit + "; New Count: " + Count);
 			this.getAntiCheat().logCheat(this, p, percent + "% faster than normal", "(Type: A)");
 		}
 		count.put(p, Count);

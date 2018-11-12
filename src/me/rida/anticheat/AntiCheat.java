@@ -511,11 +511,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public void createLog(Player player, Check checkBanned) {
 		TxtFile logFile = new TxtFile(this, File.separator + "logs", player.getName());
 		Map<Check, Integer> Checks = getViolations(player);
-		logFile.addLine("------------------- Player was banned for: " + checkBanned.getName() + " -------------------");
+		logFile.addLine("---- Player was banned for: " + checkBanned.getName() + " ----");
 		logFile.addLine("Set off checks:");
 		for (Check check : Checks.keySet()) {
 			Integer Violations = Checks.get(check);
-			logFile.addLine("- " + check.getType() + "." + check.getName() + " x" + Violations);
+			logFile.addLine("- " + check.getType() + "." + check.getIdentifier() + " x" + Violations);
 		}
 		logFile.addLine(" ");
 		logFile.addLine("Dump-Log for all checks set off:");
