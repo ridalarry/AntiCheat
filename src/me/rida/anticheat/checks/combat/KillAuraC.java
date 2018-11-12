@@ -15,6 +15,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -24,7 +25,7 @@ public class KillAuraC extends Check {
 	public static Map<UUID, Location> LastLocation;
 
 	public KillAuraC(final AntiCheat AntiCheat) {
-		super("KillAuraC", "KillAura", AntiCheat);
+		super("KillAuraC", "KillAura",  CheckType.Combat, AntiCheat);
 		AimbotTicks = new HashMap<>();
 		Differences = new HashMap<>();
 		LastLocation = new HashMap<>();

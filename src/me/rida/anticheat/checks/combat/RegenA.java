@@ -13,12 +13,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class RegenA extends Check {
 	public RegenA(AntiCheat AntiCheat) {
-		super("RegenA", "Regen", AntiCheat);
+		super("RegenA", "Regen",  CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

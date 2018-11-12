@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
@@ -27,7 +28,7 @@ public class AutoClickerC extends Check {
     public static Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
 
     public AutoClickerC(AntiCheat AntiCheat) {
-        super("AutoClickerC", "AutoClicker", AntiCheat);
+        super("AutoClickerC", "AutoClicker",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

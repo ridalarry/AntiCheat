@@ -20,6 +20,7 @@ import org.bukkit.plugin.Plugin;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.*;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
 
 public class PacketsA extends Check {
@@ -28,7 +29,7 @@ public class PacketsA extends Check {
 	public static List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
-		super("PacketsA", "Packets", AntiCheat);
+		super("PacketsA", "Packets", CheckType.Player, AntiCheat);
 		setEnabled(true);
 		setBannable(false);
 		setMaxViolations(10);

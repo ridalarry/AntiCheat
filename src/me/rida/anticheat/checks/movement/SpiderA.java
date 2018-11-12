@@ -20,6 +20,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
@@ -30,7 +31,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 public class SpiderA extends Check {
 
 	public SpiderA(AntiCheat AntiCheat) {
-		super("SpiderA", "Spider", AntiCheat);
+		super("SpiderA", "Spider", CheckType.Movement, AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(false);

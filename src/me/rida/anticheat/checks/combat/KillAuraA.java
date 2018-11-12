@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -20,7 +21,7 @@ public class KillAuraA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public KillAuraA(final AntiCheat AntiCheat) {
-		super("KillAuraA", "KillAura", AntiCheat);
+		super("KillAuraA", "KillAura",  CheckType.Combat, AntiCheat);
 		this.LastMS = new HashMap<>();
 		this.Clicks = new HashMap<>();
 		this.ClickTicks = new HashMap<>();

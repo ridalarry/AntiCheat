@@ -227,22 +227,22 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("settings.latency.ping", 300);
 			this.getConfig().addDefault("settings.latency.tps", 17);
 			for (Check check : Checks) {
-				this.getConfig().addDefault("checks." + check.getIdentifier() + ".enabled", check.isEnabled());
-				this.getConfig().addDefault("checks." + check.getIdentifier() + ".bannable", check.isBannable());
-				this.getConfig().addDefault("checks." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().addDefault("checks." + check.getIdentifier() + ".maxViolations",
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations",
 						check.getMaxViolations());
 			}
-			this.getConfig().addDefault("checks.PhaseA.pearlFix", true);
+			this.getConfig().addDefault("checks.Movement.Phase.PhaseA.pearlFix", true);
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
 		}
 		for (Check check : Checks) {
-			if (!getConfig().isConfigurationSection("checks." + check.getIdentifier())) {
-				this.getConfig().set("checks." + check.getIdentifier() + ".enabled", check.isEnabled());
-				this.getConfig().set("checks." + check.getIdentifier() + ".bannable", check.isBannable());
-				this.getConfig().set("checks." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().set("checks." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
+			if (!getConfig().isConfigurationSection("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier())) {
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
 				this.saveConfig();
 			}
 		}
@@ -515,7 +515,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		logFile.addLine("Set off checks:");
 		for (Check check : Checks.keySet()) {
 			Integer Violations = Checks.get(check);
-			logFile.addLine("- " + check.getName() + " x" + Violations);
+			logFile.addLine("- " + check.getType() + "." + check.getName() + " x" + Violations);
 		}
 		logFile.addLine(" ");
 		logFile.addLine("Dump-Log for all checks set off:");
@@ -667,7 +667,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 			msg.addText(Color.translate(
 					getConfig().getString("alerts.primary") + " set off " + getConfig().getString("alerts.secondary")
-							+ check.getName() + getConfig().getString("alerts.primary") + " and will "
+							+ check.getType() + "." + check.getName() + getConfig().getString("alerts.primary") + " and will "
 							+ getConfig().getString("alerts.primary") + "be " + getConfig().getString("alerts.primary")
 							+ "banned" + getConfig().getString("alerts.primary") + " if you don't take action. "
 							+ Color.DGray + Color.Bold + "["));
@@ -822,10 +822,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
    
     private void loadChecks() {
         for(Check check : getDataManager().getChecks()) {
-            if(getConfig().get("checks." + check.getName() + ".enabled") != null) {
-                check.setEnabled(getConfig().getBoolean("checks." + check.getName() + ".enabled"));
+            if(getConfig().get("checks." + check.getType() + "." + check.getName() + ".enabled") != null) {
+                check.setEnabled(getConfig().getBoolean("checks." + check.getType() + "." + check.getName() + ".enabled"));
             } else {
-                getConfig().set("checks." + check.getName() + ".enabled", check.isEnabled());
+                getConfig().set("checks." + check.getType() + "." + check.getName() + ".enabled", check.isEnabled());
                 saveConfig();
             }
         }
@@ -833,7 +833,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
     private void saveChecks() {
         for(Check check : getDataManager().getChecks()) {
-            getConfig().set("checks." + check.getName() + ".enabled", check.isEnabled());
+            getConfig().set("checks." + check.getType() + "." + check.getName() + ".enabled", check.isEnabled());
             saveConfig();
         }
     }

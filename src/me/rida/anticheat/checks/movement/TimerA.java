@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -24,7 +25,7 @@ public class TimerA extends Check {
 	public static List<Player> toCancel;
 
 	public TimerA(AntiCheat AntiCheat) {
-		super("TimerA", "Timer", AntiCheat);
+		super("TimerA", "Timer", CheckType.Movement, AntiCheat);
 		
 		packets = new HashMap<>();
 		verbose = new HashMap<>();

@@ -14,6 +14,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
@@ -22,7 +23,7 @@ public class KillAuraB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
 
 	public KillAuraB(AntiCheat AntiCheat) {
-		super("KillAuraB", "KillAura", AntiCheat);
+		super("KillAuraB", "KillAura",  CheckType.Combat, AntiCheat);
 		
 		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 

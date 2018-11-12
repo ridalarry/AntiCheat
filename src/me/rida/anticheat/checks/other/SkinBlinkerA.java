@@ -1,6 +1,7 @@
 package me.rida.anticheat.checks.other;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.AntiCheat;
 
 import org.bukkit.entity.*;
@@ -10,7 +11,7 @@ import com.comphenix.protocol.events.PacketEvent;
 
 public class SkinBlinkerA extends Check {
     public SkinBlinkerA(AntiCheat AntiCheat) {
-        super("SkinBlinkerA", "SkinBlinker", AntiCheat);
+        super("SkinBlinkerA", "SkinBlinker", CheckType.Other, AntiCheat);
     }
     
     public void onPacketReceiving(final PacketEvent e) {

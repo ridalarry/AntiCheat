@@ -6,6 +6,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
@@ -19,7 +20,7 @@ extends Check {
     private int min;
 
     public AimAssistC(AntiCheat AntiCheat) {
-        super("AimAssistC", "AimAssist", AntiCheat);
+        super("AimAssistC", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

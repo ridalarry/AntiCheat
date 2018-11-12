@@ -10,12 +10,13 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.VelocityUtil;
 public class AntiKBC extends Check {
 
     public AntiKBC(AntiCheat AntiCheat) {
-        super("AntiKBC", "AntiKB", AntiCheat);
+        super("AntiKBC", "AntiKB",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

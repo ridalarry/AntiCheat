@@ -21,6 +21,7 @@ import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -32,7 +33,7 @@ public class SpeedB extends Check {
 	public static Map<UUID, Long> lastHit;
 
 	public SpeedB(AntiCheat AntiCheat) {
-		super("SpeedB", "Speed", AntiCheat);
+		super("SpeedB", "Speed", CheckType.Movement, AntiCheat);
 		
 		setEnabled(true);
 		setMaxViolations(15);

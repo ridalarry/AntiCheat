@@ -9,11 +9,12 @@ import org.bukkit.inventory.InventoryView;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 public class ChatA extends Check{
 
 	public ChatA(AntiCheat AntiCheat) {
-		super("ChatA", "Chat", AntiCheat);
+		super("ChatA", "Chat", CheckType.Other, AntiCheat);
 		setMaxViolations(0);
 		this.setEnabled(true);
 		this.setBannable(false);

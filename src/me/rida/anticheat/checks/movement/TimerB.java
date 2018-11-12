@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.TimeUtil;
@@ -21,7 +22,7 @@ public class TimerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> timerTicks;
 
 	public TimerB(AntiCheat AntiCheat) {
-		super("TimerB", "Timer", AntiCheat);
+		super("TimerB", "Timer", CheckType.Movement, AntiCheat);
 
 		setViolationsToNotify(1);
 		setMaxViolations(9);

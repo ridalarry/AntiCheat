@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketBlockPlacementEvent;
 import me.rida.anticheat.packets.events.PacketHeldItemChangeEvent;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
@@ -25,7 +26,7 @@ public class CrashA extends Check {
 	public List<UUID> crashs;
 
 	public CrashA(AntiCheat AntiCheat) {
-		super("CrashA", "Crash", AntiCheat);
+		super("CrashA", "Crash", CheckType.Other, AntiCheat);
 		crashTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash2Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash3Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();

@@ -11,13 +11,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class GlideA extends Check {
 	public static Map<UUID, Long> flyTicks;
 
 	public GlideA(AntiCheat AntiCheat) {
-		super("GlideA", "Glide", AntiCheat);
+		super("GlideA", "Glide", CheckType.Movement, AntiCheat);
 		flyTicks = new HashMap<UUID, Long>();
 		setEnabled(true);
 		setBannable(false);

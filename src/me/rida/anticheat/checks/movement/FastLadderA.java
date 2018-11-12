@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 
@@ -18,7 +19,7 @@ public class FastLadderA extends Check {
 	public static Map<Player, Integer> count;
 
 	public FastLadderA(AntiCheat AntiCheat) {
-		super("FastLadderA", "FastLadder", AntiCheat);
+		super("FastLadderA", "FastLadder", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

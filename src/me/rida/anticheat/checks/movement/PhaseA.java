@@ -35,6 +35,7 @@ import com.google.common.collect.Sets;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
 import me.rida.anticheat.utils.BlockUtil;
@@ -51,7 +52,7 @@ public class PhaseA extends Check {
 	
 
 	public PhaseA(AntiCheat AntiCheat) {
-		super("PhaseA", "Phase", AntiCheat);
+		super("PhaseA", "Phase", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -284,7 +285,7 @@ public class PhaseA extends Check {
 				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
 			return;
 		}
-		if (!getAntiCheat().getConfig().getBoolean("checks.PhaseA.pearlFix")) {
+		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.hasItem()
@@ -318,7 +319,7 @@ public class PhaseA extends Check {
 				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
 			return;
 		}
-		if (!getAntiCheat().getConfig().getBoolean("checks.PhaseA.pearlFix")) {
+		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
 		if (e.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {

@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.combat;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
@@ -23,7 +24,7 @@ import java.util.Optional;
 
 public class AimAssistA extends Check {
     public AimAssistA(AntiCheat AntiCheat) {
-        super("AimAssistA", "AimAssest", AntiCheat);
+        super("AimAssistA", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setViolationResetTime(3000);

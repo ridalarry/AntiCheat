@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
@@ -24,7 +25,7 @@ public class ChangeA extends Check {
     public static List<UUID> falling = new ArrayList<UUID>();
 
     public ChangeA(AntiCheat AntiCheat) {
-        super("ChangeA", "Change", AntiCheat);
+        super("ChangeA", "Change", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

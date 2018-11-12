@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -19,7 +20,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GravityA extends Check {
     public GravityA(AntiCheat AntiCheat) {
-		super("GravityA", "Gravity", AntiCheat);
+		super("GravityA", "Gravity", CheckType.Movement, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

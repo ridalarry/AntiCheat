@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class JesusA extends Check {
@@ -26,7 +27,7 @@ public class JesusA extends Check {
 	public static Map<Player, Long> velocity;
 
 	public JesusA(AntiCheat AntiCheat) {
-		super("Jesus", "Jesus", AntiCheat);
+		super("Jesus", "Jesus", CheckType.Movement, AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);

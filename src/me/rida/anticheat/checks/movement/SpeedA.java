@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -23,7 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 public class SpeedA extends Check {
 
     public SpeedA(AntiCheat AntiCheat) {
-        super("SpeedA", "Speed", AntiCheat);
+        super("SpeedA", "Speed", CheckType.Movement, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

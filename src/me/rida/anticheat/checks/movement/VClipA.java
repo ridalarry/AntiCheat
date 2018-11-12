@@ -16,12 +16,13 @@ import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class VClipA extends Check {
 
 	public VClipA(final AntiCheat AntiCheat) {
-		super("VClipA", "VClip", AntiCheat);
+		super("VClipA", "VClip", CheckType.Movement, AntiCheat);
 
 		setBannable(false);
 		setEnabled(true);

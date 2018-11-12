@@ -13,12 +13,13 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 
 public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
-		super("BlockInteractA", "BlockInteract", AntiCheat);
+		super("BlockInteractA", "BlockInteract", CheckType.Other, AntiCheat);
 		setBannable(false);
 		setEnabled(true);
 		setMaxViolations(29);

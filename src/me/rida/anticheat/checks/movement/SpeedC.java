@@ -19,6 +19,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -33,7 +34,7 @@ public class SpeedC extends Check {
 	public static Map<UUID, Double> velocity;
 	
 	public SpeedC(AntiCheat AntiCheat) {
-		super("SpeedC", "Speed", AntiCheat);
+		super("SpeedC", "Speed", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

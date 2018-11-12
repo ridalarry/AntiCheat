@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +18,7 @@ public class AscensionB extends Check {
     public static Map<Player, Float> lastYMovement = new WeakHashMap<>();
 
     public AscensionB(me.rida.anticheat.AntiCheat AntiCheat) {
-        super("AscensionB", "Ascension", AntiCheat);
+        super("AscensionB", "Ascension", CheckType.Movement, AntiCheat);
         setBannable(true);
         setEnabled(true);
         setMaxViolations(5);

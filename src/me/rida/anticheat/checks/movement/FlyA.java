@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -21,7 +22,7 @@ import org.bukkit.util.Vector;
 
 public class FlyA extends Check {
     public FlyA(AntiCheat AntiCheat) {
-		super("FlyA", "Fly", AntiCheat);
+		super("FlyA", "Fly", CheckType.Movement, AntiCheat);
 		this.setBannable(true);
 		this.setEnabled(true);
 		setMaxViolations(4);

@@ -7,6 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 
 public class AimAssistB
@@ -14,7 +15,7 @@ extends Check {
     private int aimAssist = 0;
 
     public AimAssistB(AntiCheat AntiCheat) {
-        super("AimAssistB", "AimAssist", AntiCheat);
+        super("AimAssistB", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

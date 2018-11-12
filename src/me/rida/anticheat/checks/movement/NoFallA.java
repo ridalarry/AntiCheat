@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -28,7 +29,7 @@ public class NoFallA extends Check {
 	public static ArrayList<Player> cancel;
 
 	public NoFallA(AntiCheat AntiCheat) {
-		super("NoFallA", "NoFall", AntiCheat);
+		super("NoFallA", "NoFall", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

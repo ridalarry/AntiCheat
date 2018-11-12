@@ -14,11 +14,12 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 
 public class BlockInteractC extends Check {
     public BlockInteractC(AntiCheat AntiCheat) {
-        super("BlockInteractC", "BlockInteract", AntiCheat);
+        super("BlockInteractC", "BlockInteract", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);

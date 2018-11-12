@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -21,7 +22,7 @@ public class FlyB extends Check {
 	public static Map<UUID, Long> flyTicksA;
 
 	public FlyB(AntiCheat AntiCheat) {
-		super("FlyB", "Fly", AntiCheat);
+		super("FlyB", "Fly", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

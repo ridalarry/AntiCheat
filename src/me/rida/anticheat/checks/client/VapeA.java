@@ -8,11 +8,12 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 public class VapeA extends Check implements PluginMessageListener {
 
 	public VapeA(AntiCheat AntiCheat) {
-		super("VapeA", "Vape", AntiCheat);
+		super("VapeA", "Vape", CheckType.Client, AntiCheat);
 		setEnabled(true);
 		setBannable(true);
 		setMaxViolations(0);

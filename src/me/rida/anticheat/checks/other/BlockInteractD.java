@@ -12,11 +12,12 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.VelocityUtil;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 
 public class BlockInteractD extends Check {
     public BlockInteractD(AntiCheat AntiCheat) {
-        super("BlockInteractD", "BlockInteract", AntiCheat);
+        super("BlockInteractD", "BlockInteract", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);

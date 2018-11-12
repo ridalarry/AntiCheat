@@ -17,6 +17,7 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.MathUtil;
@@ -30,7 +31,7 @@ public class ReachC extends Check {
 	public static ArrayList<Player> projectileHit;
 
 	public ReachC(AntiCheat AntiCheat) {
-		super("ReachC", "Reach", AntiCheat);
+		super("ReachC", "Reach",  CheckType.Combat, AntiCheat);
 		this.offsets = new HashMap<Player, Map.Entry<Double, Double>>();
 		this.reachTicks = new HashMap<Player, Long>();
 		this.projectileHit = new ArrayList<Player>();

@@ -12,12 +12,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 public class KillAuraE extends Check {
 	public static Map<Player, Map.Entry<Integer, Long>> lastAttack;
 
 	public KillAuraE(AntiCheat AntiCheat) {
-		super("KillAuraE", "KillAura", AntiCheat);
+		super("KillAuraE", "KillAura",  CheckType.Combat, AntiCheat);
 		
 		lastAttack = new HashMap<>();
 

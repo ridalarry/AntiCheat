@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -23,7 +24,7 @@ public class ReachB extends Check {
 	public static Map<Player, Map.Entry<Double, Double>> offsets;
 
 	public ReachB(AntiCheat AntiCheat) {
-		super("ReachB", "Reach", AntiCheat);
+		super("ReachB", "Reach",  CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setMaxViolations(7);

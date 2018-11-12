@@ -5,11 +5,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 public class SneakB extends Check {
 
 	public SneakB(AntiCheat AntiCheat) {
-		super("SneakB", "Sneak", AntiCheat);
+		super("SneakB", "Sneak", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

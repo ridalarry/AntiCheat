@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.combat;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
@@ -14,7 +15,7 @@ import org.bukkit.event.EventPriority;
 public class KillAuraG extends Check {
 
     public KillAuraG(AntiCheat AntiCheat) {
-        super("KillAuraG", "KillAura", AntiCheat);
+        super("KillAuraG", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(true);

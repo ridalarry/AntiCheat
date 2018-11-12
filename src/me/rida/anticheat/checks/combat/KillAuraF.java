@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.checks.movement.PhaseA;
 import me.rida.anticheat.utils.CheatUtil;
 
@@ -20,7 +21,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class KillAuraF extends Check {
 
 	public KillAuraF(AntiCheat AntiCheat) {
-		super("KillAuraF", "KillAura", AntiCheat);
+		super("KillAuraF", "KillAura",  CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);

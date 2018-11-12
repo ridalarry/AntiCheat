@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
@@ -25,7 +26,7 @@ public class NoSlowdownA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 
 	public NoSlowdownA(AntiCheat AntiCheat) {
-		super("NoSlowdownA", "NoSlowdown", AntiCheat);
+		super("NoSlowdownA", "NoSlowdown", CheckType.Movement, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);

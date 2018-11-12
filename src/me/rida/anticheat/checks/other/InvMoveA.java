@@ -9,10 +9,11 @@ import org.bukkit.inventory.InventoryView;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveA extends Check {
 	public InvMoveA(AntiCheat AntiCheat) {
-		super("InvMoveA", "InvMove", AntiCheat);
+		super("InvMoveA", "InvMove", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(3000);
