@@ -20,7 +20,7 @@ public class KillAuraA extends Check {
 	public static Map<UUID, List<Long>> Clicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
-	public KillAuraA(final AntiCheat AntiCheat) {
+	public KillAuraA(AntiCheat AntiCheat) {
 		super("KillAuraA", "KillAura",  CheckType.Combat, AntiCheat);
 		this.LastMS = new HashMap<>();
 		this.Clicks = new HashMap<>();

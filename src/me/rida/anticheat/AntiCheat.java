@@ -153,6 +153,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new NoFallA(this));
 		this.Checks.add(new NoSlowdownA(this));
 		this.Checks.add(new PacketsA(this));
+		this.Checks.add(new PacketsA(this));
 		this.Checks.add(new PhaseA(this));
 		this.Checks.add(new PMEA(this));
 		this.Checks.add(new ReachA(this));
@@ -457,8 +458,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				PacketsA.lastPacket.clear();
 			if (!PacketsA.packetTicks.isEmpty())
 				PacketsA.packetTicks.clear();
-			if (!PacketsA.blacklist.isEmpty())
-				PacketsA.blacklist.clear();
 			if (!SneakA.sneakTicks.isEmpty())
 				SneakA.sneakTicks.clear();
 			if (!HitBoxA.count.isEmpty())
