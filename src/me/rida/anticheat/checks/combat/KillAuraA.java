@@ -28,7 +28,7 @@ public class KillAuraA extends Check {
 
 		this.setEnabled(true);
 		this.setBannable(true);
-		this.setViolationResetTime(300000);
+		this.setViolationResetTime(250000);
 		this.setMaxViolations(10);
 	}
 
