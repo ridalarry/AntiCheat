@@ -26,10 +26,11 @@ public class KillAuraA extends Check {
 		this.Clicks = new HashMap<>();
 		this.ClickTicks = new HashMap<>();
 
-		this.setEnabled(true);
-		this.setBannable(true);
-		this.setViolationResetTime(250000);
-		this.setMaxViolations(10);
+		setEnabled(true);
+		setBannable(true);
+		setViolationResetTime(250000);
+		setViolationsToNotify(3);
+		setMaxViolations(10);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

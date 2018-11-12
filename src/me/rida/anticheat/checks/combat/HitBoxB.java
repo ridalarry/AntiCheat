@@ -21,7 +21,8 @@ extends Check {
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
-		setViolationsToNotify(1);
+		setViolationsToNotify(3);
+		setViolationResetTime(250000);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
