@@ -26,8 +26,10 @@ public class AntiKBA extends Check {
     public AntiKBA(AntiCheat AntiCheat) {
         super("AntiKBA", "AntiKB",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
-		setMaxViolations(10);
+		setMaxViolations(30);
 		setBannable(false);
+		setViolationsToNotify(3);
+		setViolationResetTime(250000);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
