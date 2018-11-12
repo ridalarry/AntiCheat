@@ -1,6 +1,8 @@
 package me.rida.anticheat.commands;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.File;
 
 import org.bukkit.command.Command;
@@ -9,6 +11,7 @@ import org.bukkit.command.CommandSender;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.MathUtil;
 
 import org.apache.commons.io.FileUtils;
 
@@ -33,7 +36,23 @@ public class GetLogCommand implements CommandExecutor {
 		}
 
 		String player = g[0];
-		int page = Integer.parseInt(g[1]);
+		String a = g[1];
+		Pattern pattern = Pattern.compile("^[0-9]");
+		Matcher matcher = pattern.matcher(a);
+		if (!(matcher.find())) {
+			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
+			return true;
+		}
+		if (!(MathUtil.isInteger(a))) {
+			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
+			return true;
+			
+		}
+		int page = Math.round(Integer.parseInt(g[1]));
+		if (page < 1) {
+			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
+			return true;
+		}
 		String path = AntiCheat.getDataFolder() + File.separator + "logs" + File.separator + g[0] + ".txt";
 		File file = new File(path);
 		if (!file.exists()) {

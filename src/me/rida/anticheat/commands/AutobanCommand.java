@@ -45,7 +45,7 @@ public class AutobanCommand implements CommandExecutor {
 					break;
 				}
 				case "ban": {
-					if (this.AntiCheat.getConfig().getBoolean("testmode") == true) {
+					if (this.AntiCheat.getConfig().getBoolean("settings.testmode") == true) {
 						s.sendMessage(Color.Red + "Test mode is enabled therefore this is disabled!");
 					} else {
 						System.out.println("[" + player.getUniqueId().toString() + "] " + s.getName()

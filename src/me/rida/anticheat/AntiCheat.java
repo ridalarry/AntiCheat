@@ -210,11 +210,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.RegisterListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
 		if (!file.exists()) {
-			this.getConfig().addDefault("EnableCustomLog", true);
-			this.getConfig().addDefault("CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
-			this.getConfig().addDefault("bans", 0);
-			this.getConfig().addDefault("testmode", false);
-			this.getConfig().addDefault("prefix", "&8[&c&lAntiCheat&8] ");
+			this.getConfig().addDefault("settings.EnableCustomLog", true);
+			this.getConfig().addDefault("settings.CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
+			this.getConfig().addDefault("settings.bans", 0);
+			this.getConfig().addDefault("settings.testmode", false);
+			this.getConfig().addDefault("settings.prefix", "&8[&c&lAntiCheat&8] ");
 			this.getConfig().addDefault("alerts.primary", "&7");
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
@@ -246,7 +246,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.saveConfig();
 			}
 		}
-		this.PREFIX = Color.translate(getConfig().getString("prefix"));
+		this.PREFIX = Color.translate(getConfig().getString("settings.prefix"));
 		new BukkitRunnable() {
 			public void run() {
 				getLogger().log(Level.INFO, "Reset Violations!");
@@ -266,9 +266,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
 
 		saveDefaultConfig();
-        if (getConfig().getBoolean("EnableCustomLog")) {
+        if (getConfig().getBoolean("settings.EnableCustomLog")) {
             try {
-                logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("CustomLogFormat"));
+                logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
             } catch (Throwable ex) {
                 getLogger().log(Level.SEVERE, ex.getMessage());
             }
@@ -697,10 +697,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void banPlayer(Player player, Check check) {
-		if (!getConfig().getBoolean("testmode")) {
+		if (!getConfig().getBoolean("settings.testmode")) {
 			this.createLog(player, check);
 		}
-		if (NamesBanned.containsKey(player.getName()) && !getConfig().getBoolean("testmode")) {
+		if (NamesBanned.containsKey(player.getName()) && !getConfig().getBoolean("settings.testmode")) {
 			return;
 		}
 		this.NamesBanned.put(player.getName(), check);
@@ -708,11 +708,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (NamesBanned.containsKey(player.getName()) && getConfig().getBoolean("testmode")) {
+				if (NamesBanned.containsKey(player.getName()) && getConfig().getBoolean("settings.testmode")) {
 					return;
 				}
 				if (Latency.getLag(player) < 250) {
-					if (getConfig().getBoolean("testmode")) {
+					if (getConfig().getBoolean("settings.testmode")) {
 						player.sendMessage(
 								PREFIX + Color.Gray + "You would be banned right now for: " + Color.Red + check.getName());
 					} else {
@@ -729,7 +729,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}.runTaskLater(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
-		this.getConfig().set("bans", (Object) (this.getConfig().getInt("bans") + 1));
+		this.getConfig().set("settings.bans", (Object) (this.getConfig().getInt("settings.bans") + 1));
 		this.saveConfig();
 	}
 
