@@ -25,9 +25,8 @@ public class KillAuraE extends Check {
 		setEnabled(true);
 		setBannable(false);
 
-		setViolationsToNotify(2);
+		setViolationsToNotify(1);
 		setMaxViolations(7);
-		setViolationResetTime(1800000L);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

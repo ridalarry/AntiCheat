@@ -21,7 +21,6 @@ public class KillAuraI extends Check {
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
-		setViolationsToNotify(1);
     }
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onDamage(EntityDamageByEntityEvent e) {

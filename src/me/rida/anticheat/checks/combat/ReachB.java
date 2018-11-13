@@ -111,7 +111,7 @@ public class ReachB extends Check {
 		}
 		if (Reach > MaxReach) {
 			this.dumplog(d,
-					"Logged for AutoClicker Type B; Count Increase (+1); Reach: " + Reach2 + ", MaxReach: " + MaxReach + ", Damager Velocity: "
+					"Logged for Reach Type B; Count Increase (+1); Reach: " + Reach2 + ", MaxReach: " + MaxReach + ", Damager Velocity: "
 							+ d.getVelocity().length() + ", " + "Player Velocity: "
 							+ p.getVelocity().length() + "; New Count: " + Count);
 			count.put(d, Count + 1);
@@ -129,7 +129,7 @@ public class ReachB extends Check {
 				getAntiCheat().logCheat(this, d, Reach + " > " + MaxReach + " MS: " + PingD + " Velocity Difference: " + speedToVelocityDif, "(Type: B)");
 
 			}
-			dumplog(d, "Logged for AutoClicker Type B; Reach: " + Reach2 + " > " + "Max reach:" + MaxReach);
+			dumplog(d, "Logged for Reach Type B; Reach: " + Reach2 + " > " + "Max reach:" + MaxReach);
 			return;
 		}
 	}

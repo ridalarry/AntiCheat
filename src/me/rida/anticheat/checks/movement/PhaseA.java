@@ -38,10 +38,9 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
-import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.BlockUtil;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();
@@ -49,128 +48,6 @@ public class PhaseA extends Check {
 	public static Set<UUID> teleported = new HashSet<UUID>();
 	public static final Map<UUID, Location> lastLocation = new HashMap<UUID, Location>();
 
-	
-
-	public PhaseA(AntiCheat AntiCheat) {
-		super("PhaseA", "Phase", CheckType.Movement, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(40);
-		setViolationsToNotify(2);
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void teleport(PlayerTeleportEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
-		}
-		if (e.getCause() != TeleportCause.UNKNOWN) {
-			teleported.add(e.getPlayer().getUniqueId());
-		}
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void death(PlayerDeathEvent e) {
-		if (BlockUtil.isNearLiquid(e.getEntity())
-				||BlockUtil.isNearHalfBlock(e.getEntity())
-				||BlockUtil.isNearAllowedPhase(e.getEntity())
-				||PlayerUtil.isNotSpider(e.getEntity())
-				||BlockUtil.isNearStair(e.getEntity())
-				||BlockUtil.isNearClimable(e.getEntity())
-				||BlockUtil.isNearFence(e.getEntity())
-				||BlockUtil.isNearSlab(e.getEntity())
-				||BlockUtil.isNearLessThanABlock(e.getEntity())) {
-			return;
-		}
-		teleported.add(e.getEntity().getUniqueId());
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void respawn(PlayerRespawnEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
-		}
-		teleported.add(e.getPlayer().getUniqueId());
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void update(PlayerMoveEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())) {
-			return;
-		}
-		Player p = e.getPlayer();
-		if (p.isDead()
-				|| (BlockUtil.isNearLiquid(p))
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-			return;
-		}
-		if (BlockUtil.isNearLiquid(p)
-					||BlockUtil.isNearHalfBlock(p)
-					||PlayerUtil.isNotSpider(p)
-					||BlockUtil.isNearStair(p)
-					||BlockUtil.isNearClimable(p)
-					||BlockUtil.isNearFence(p)
-					||BlockUtil.isNearAllowedPhase(p)
-					||BlockUtil.isNearSlab(p)
-					||BlockUtil.isNearLessThanABlock(p)) {
-			return;
-		}
-
-		UUID u = p.getUniqueId();
-		Location loc1 = lastLocation.containsKey(u) ? (Location) lastLocation.get(u)
-				: p.getLocation();
-		Location loc2 = p.getLocation();
-		if (p.getAllowFlight()) {
-			teleported.add(p.getUniqueId());
-		}
-		if (p.getGameMode().equals(GameMode.CREATIVE)) {
-			teleported.add(p.getUniqueId());
-		}
-		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(u))
-				&& (loc1.distance(loc2) > 10.0D)) {
-			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			if ((p.getLocation().getBlock().getType().isSolid())
-					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-				return;
-			}
-			if (BlockUtil.isNearLiquid(p)) {
-				return;
-			}
-			getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
-			
-		} else if (isLegit(u, loc1, loc2)) {
-			lastLocation.put(u, loc2);
-			
-		} else if (lastLocation.containsKey(u)) {
-			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			
-			if ((p.getLocation().getBlock().getType().isSolid())
-					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-				return;
-			}
-			getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
-		}
-	}
 	private final ImmutableSet<Material> blockedPearlTypes = Sets.immutableEnumSet(Material.THIN_GLASS,
 			Material.IRON_FENCE, Material.FENCE, Material.NETHER_FENCE, Material.FENCE_GATE, Material.ACACIA_STAIRS,
 			Material.BIRCH_WOOD_STAIRS, Material.BRICK_STAIRS, Material.COBBLESTONE_STAIRS, Material.DARK_OAK_STAIRS,
@@ -272,68 +149,119 @@ public class PhaseA extends Check {
 		semi.add(Material.STAINED_GLASS_PANE);
 		semi.add(Material.COBBLE_WALL);
 	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
+
+	public PhaseA(AntiCheat AntiCheat) {
+		super("PhaseA", "Phase", CheckType.Combat, AntiCheat);
+
+		setEnabled(true);
+		setBannable(false);
+		setMaxViolations(40);
+	}
+
+	@EventHandler(ignoreCancelled = true)
+	public void teleport(PlayerTeleportEvent e) {
+		if (e.getCause() != TeleportCause.UNKNOWN && e.getCause() != TeleportCause.PLUGIN) {
+			teleported.add(e.getPlayer().getUniqueId());
+		}
+	}
+
+	@EventHandler
+	public void death(PlayerDeathEvent e) {
+		teleported.add(e.getEntity().getUniqueId());
+	}
+
+	@EventHandler
+	public void respawn(PlayerRespawnEvent e) {
+		teleported.add(e.getPlayer().getUniqueId());
+	}
+
+	@EventHandler
+	public void update(PlayerMoveEvent e) {
+		Player player = e.getPlayer();
+		if (player.isDead()
+				|| (BlockUtil.isNearLiquid(player) && BlockUtil.isNearHalfBlock(player))
+				|| (BlockUtil.isNearLiquid(player))) {
 			return;
 		}
+
+		UUID playerId = player.getUniqueId();
+		Location loc1 = lastLocation.containsKey(playerId) ? (Location) lastLocation.get(playerId)
+				: player.getLocation();
+		Location loc2 = player.getLocation();
+		if (player.getAllowFlight()) {
+			teleported.add(player.getUniqueId());
+		}
+		if (player.getGameMode().equals(GameMode.CREATIVE)) {
+			teleported.add(player.getUniqueId());
+		}
+		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(playerId))
+				&& (loc1.distance(loc2) > 10.0D)) {
+			if (BlockUtil.isNearAllowedPhase(player)) {
+				return;
+			}
+			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if ((player.getLocation().getBlock().getType().isSolid())
+					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
+				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+				getAntiCheat().logCheat(this, player, "[1]", "(Type: A)");
+				return;
+			}
+			getAntiCheat().logCheat(this, player, "[2]", "(Type: A)");
+		} else if (isLegit(playerId, loc1, loc2)) {
+			lastLocation.put(playerId, loc2);
+		} else if (lastLocation.containsKey(playerId)) {
+			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if ((player.getLocation().getBlock().getType().isSolid())
+					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
+				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+
+				getAntiCheat().logCheat(this, player, "[3]", "(Type: A)");
+				return;
+			}
+			getAntiCheat().logCheat(this, player, "[4]", "(Type: A)");
+		}
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
+	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
-		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.hasItem()
-				&& e.getItem().getType() == Material.ENDER_PEARL) {
-			Block block = e.getClickedBlock();
+		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
+				&& event.getItem().getType() == Material.ENDER_PEARL) {
+			Block block = event.getClickedBlock();
 			if (block.getType().isSolid() && this.blockedPearlTypes.contains(block.getType())
 					&& !(block.getState() instanceof InventoryHolder)) {
-				final PearlGlitchEvent e2 = new PearlGlitchEvent(e.getPlayer(), e.getPlayer().getLocation(),
-						e.getPlayer().getLocation(), e.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
-				Bukkit.getPluginManager().callEvent(e2);
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getPlayer().getLocation(),
+						event.getPlayer().getLocation(), event.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
+				Bukkit.getPluginManager().callEvent(event2);
 
-				if (!e2.isCancelled()) {
-					e.setCancelled(true);
-					Player p = e.getPlayer();
-					p.setItemInHand(e.getItem());
+				if (!event2.isCancelled()) {
+					event.setCancelled(true);
+					Player player = event.getPlayer();
+					player.setItemInHand(event.getItem());
 				}
 			}
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPearlClip(PlayerTeleportEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
-		}
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
+	public void onPearlClip(PlayerTeleportEvent event) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
-		if (e.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-			Location to = e.getTo();
+		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+			Location to = event.getTo();
 			if (blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.FENCE_GATE
 					&& to.getBlock().getType() != Material.TRAP_DOOR) {
-				final PearlGlitchEvent e2 = new PearlGlitchEvent(e.getPlayer(), e.getFrom(), e.getTo(),
-						e.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
-				Bukkit.getPluginManager().callEvent(e2);
-				if (!e2.isCancelled()) {
-					Player p = e.getPlayer();
-					p.sendMessage(getAntiCheat().PREFIX + Color.Red
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
+						event.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
+				Bukkit.getPluginManager().callEvent(event2);
+				if (!event2.isCancelled()) {
+					Player player = event.getPlayer();
+					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "You have been detected trying to pearl glitch, therefore your pearl was cancelled.");
-					e.setCancelled(true);
+					event.setCancelled(true);
 				}
 				return;
 			}
@@ -344,13 +272,13 @@ public class PhaseA extends Check {
 							|| to.clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())
 					&& to.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid()
 							& !CheatUtil.isSlab(to.getBlock())) {
-				Player p = e.getPlayer();
-				final PearlGlitchEvent e2 = new PearlGlitchEvent(p, e.getFrom(), e.getTo(),
-						e.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
-				Bukkit.getPluginManager().callEvent(e2);
-				if (!e2.isCancelled()) {
-					e.setCancelled(true);
-					p.sendMessage(getAntiCheat().PREFIX + Color.Red
+				Player player = event.getPlayer();
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(player, event.getFrom(), event.getTo(),
+						event.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
+				Bukkit.getPluginManager().callEvent(event2);
+				if (!event2.isCancelled()) {
+					event.setCancelled(true);
+					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "Could not find a safe location, therefore your pearl was cancelled.");
 				}
 				return;
@@ -360,15 +288,15 @@ public class PhaseA extends Check {
 				to.setY(to.getY() - 0.7);
 			}
 
-			e.setTo(to);
+			event.setTo(to);
 		}
 	}
 
-	public boolean isLegit(UUID u, Location loc1, Location loc2) {
+	public boolean isLegit(UUID playerId, Location loc1, Location loc2) {
 		if (loc1.getWorld() != loc2.getWorld()) {
 			return true;
 		}
-		if (teleported.remove(u)) {
+		if (teleported.remove(playerId)) {
 			return true;
 		}
 		int moveMaxX = Math.max(loc1.getBlockX(), loc2.getBlockX());
@@ -388,7 +316,7 @@ public class PhaseA extends Check {
 				for (int y = moveMinY; y <= moveMaxY; y++) {
 					Block block = loc1.getWorld().getBlockAt(x, y, z);
 					if (((y != moveMinY) || (loc1.getBlockY() == loc2.getBlockY()))
-							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(u)))) {
+							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(playerId)))) {
 						return false;
 					}
 				}

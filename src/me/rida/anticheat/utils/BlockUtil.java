@@ -9,6 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 public class BlockUtil {
     public static HashSet<Byte> blockPassSet = new HashSet();
@@ -279,6 +281,7 @@ public class BlockUtil {
              }
             return out;
         }
+        
         public static boolean isNearIce(Player p) {
         	boolean out = false;
     		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {

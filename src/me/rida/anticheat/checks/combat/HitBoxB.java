@@ -21,7 +21,7 @@ extends Check {
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
-		setViolationsToNotify(3);
+		setViolationsToNotify(1);
 		setViolationResetTime(250000);
     }
 

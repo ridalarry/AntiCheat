@@ -34,8 +34,7 @@ public class KillAuraC extends Check {
 		setBannable(true);
 
 		setMaxViolations(14);
-		setViolationResetTime(120000);
-		setViolationsToNotify(4);
+		setViolationsToNotify(1);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

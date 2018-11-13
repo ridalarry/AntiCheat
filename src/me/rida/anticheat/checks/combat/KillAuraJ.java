@@ -19,7 +19,6 @@ public class KillAuraJ extends Check {
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
-		setViolationsToNotify(1);
     }
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class HitBoxA extends Check {
 
 	public HitBoxA(AntiCheat AntiCheat) {
-		super("HitBoxA", "HitBox",  CheckType.Combat, AntiCheat);
+		super("HitBoxA", "HitBox", CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -51,9 +51,7 @@ public class HitBoxA extends Check {
 		Player p = e.getAttacker();
 		
 		LivingEntity attacked = (Player) e.getAttacked();
-		if (p.getAllowFlight()
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+		if (p.getAllowFlight()) {
 			return;
 		}
 
