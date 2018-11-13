@@ -14,8 +14,8 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
 public class AntiKBB extends Check {
-    public static Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
-    public static Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
+    private Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
+    private Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
 
     public AntiKBB(AntiCheat AntiCheat) {
         super("AntiKBB", "AntiKB",  CheckType.Combat, AntiCheat);

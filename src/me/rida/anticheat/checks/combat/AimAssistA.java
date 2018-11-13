@@ -5,7 +5,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.ExtraUtil;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -27,9 +27,7 @@ public class AimAssistA extends Check {
         super("AimAssistA", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
-		setViolationResetTime(3000);
 		setBannable(false);
-		setViolationsToNotify(5);
 
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
             @Override
@@ -62,7 +60,7 @@ public class AimAssistA extends Check {
                 || data.lastHitEntity == null
                 || (System.currentTimeMillis() - data.lastAttack) > 150L) return;
 
-        float offset = MathUtil.yawTo180F((float) MathUtil.getOffsetFromEntity(e.getPlayer(), data.lastHitEntity)[0]);
+        float offset = ExtraUtil.yawTo180F((float) ExtraUtil.getOffsetFromEntity(e.getPlayer(), data.lastHitEntity)[0]);
 
         if(data.patterns.size() >= 10) {
 

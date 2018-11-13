@@ -26,12 +26,12 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class ReachC extends Check {
 
-	public static Map<Player, Map.Entry<Double, Double>> offsets;
-	public static Map<Player, Long> reachTicks;
-	public static ArrayList<Player> projectileHit;
+	private Map<Player, Map.Entry<Double, Double>> offsets;
+	private Map<Player, Long> reachTicks;
+	private ArrayList<Player> projectileHit;
 
 	public ReachC(AntiCheat AntiCheat) {
-		super("ReachC", "Reach",  CheckType.Combat, AntiCheat);
+		super("ReachC", "Reach", CheckType.Combat, AntiCheat);
 		this.offsets = new HashMap<Player, Map.Entry<Double, Double>>();
 		this.reachTicks = new HashMap<Player, Long>();
 		this.projectileHit = new ArrayList<Player>();

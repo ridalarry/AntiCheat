@@ -11,6 +11,8 @@ import me.rida.anticheat.utils.TimerUtils;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
+import java.util.concurrent.TimeUnit;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,6 +27,9 @@ public class SpeedA extends Check {
 
     public SpeedA(AntiCheat AntiCheat) {
         super("SpeedA", "Speed", CheckType.Movement, AntiCheat);
+		setEnabled(true);
+		setMaxViolations(15);
+        setBannable(true);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -92,11 +97,11 @@ public class SpeedA extends Check {
                    			|| p.hasPotionEffect(PotionEffectType.SPEED)
                    			|| p.isSprinting()){
                        return;
-                   }
+                   } else {
                    getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast.", "(Type: A)");
                    verbose = 0;
                }
-
+               }
                data.setSpeedAVerbose(verbose);
            } else {
                data.setSpeedAVerbose(0);

@@ -320,34 +320,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				AntiKBA.awaitingVelocity.clear();
 			if (!AntiKBA.totalMoved.isEmpty())
 				AntiKBA.totalMoved.clear();
-			if (!AntiKBB.lastSprintStart.isEmpty())
-				AntiKBB.lastSprintStart.clear();
-			if (!AntiKBB.lastSprintStop.isEmpty())
-				AntiKBB.lastSprintStop.clear();
-			if (!AutoClickerA.clicks.isEmpty())
-				AutoClickerA.clicks.clear();
-			if (!AutoClickerA.recording.isEmpty())
-				AutoClickerA.recording.clear();
 			if (!AutoClickerB.Clicks.isEmpty())
 				AutoClickerB.Clicks.clear();
 			if (!AutoClickerB.LastMS.isEmpty())
 				AutoClickerB.LastMS.clear();
 			if (!AutoClickerB.ClickTicks.isEmpty())
 				AutoClickerB.ClickTicks.clear();
-			if (!AutoClickerC.hitsSinceLastCheck.isEmpty())
-				AutoClickerC.hitsSinceLastCheck.clear();
-			if (!AutoClickerC.lastCheckedTick.isEmpty())
-				AutoClickerC.lastCheckedTick.clear();
-			if (!AutoClickerC.packetHitsSinceLastCheck.isEmpty())
-				AutoClickerC.packetHitsSinceLastCheck.clear();
-			if (!AutoClickerC.lastPacketTick.isEmpty())
-				AutoClickerC.lastPacketTick.clear();
-			if (!AutoClickerC.lastTickWithPacketSent.isEmpty())
-				AutoClickerC.lastTickWithPacketSent.clear();
-			if (!AutoClickerC.cps.isEmpty())
-				AutoClickerC.cps.clear();
-			if (!AutoClickerC.cpsMS.isEmpty())
-				AutoClickerC.cpsMS.clear();
 			if (!CriticalsB.CritTicks.isEmpty())
 				CriticalsB.CritTicks.clear();
 			if (!KillAuraA.ClickTicks.isEmpty())
@@ -370,16 +348,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				KillAuraE.lastAttack.clear();
 			if (!KillAuraF.counts.isEmpty())
 				KillAuraF.counts.clear();
-			if (!KillAuraI.hits.isEmpty())
-				KillAuraI.hits.clear();
 			if (!ReachB.count.isEmpty())
 				ReachB.count.clear();
 			if (!ReachB.offsets.isEmpty())
 				ReachB.offsets.clear();
-			if (!ReachC.reachTicks.isEmpty())
-				ReachC.reachTicks.clear();
-			if (!ReachC.projectileHit.isEmpty())
-				ReachC.projectileHit.clear();
 			if (!ReachD.toBan.isEmpty())
 				ReachD.toBan.clear();
 			if (!RegenA.FastHealTicks.isEmpty())
@@ -388,12 +360,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				RegenA.LastHeal.clear();
 			if (!AscensionA.AscensionTicks.isEmpty())
 				AscensionA.AscensionTicks.clear();
-			if (!AscensionB.verbose.isEmpty())
-				AscensionB.verbose.clear();
-			if (!AscensionB.lastYMovement.isEmpty())
-				AscensionB.lastYMovement.clear();
-			if (!FastLadderA.count.isEmpty())
-				FastLadderA.count.clear();
 			if (!FlyB.flyTicksA.isEmpty())
 				FlyB.flyTicksA.clear();
 			if (!GlideA.flyTicks.isEmpty())
@@ -442,12 +408,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				VClipA.teleported.clear();
 			if (!VClipA.lastLocation.isEmpty())
 				VClipA.lastLocation.clear();
-			if (!BlockInteractB.speedTicks.isEmpty())
-				BlockInteractB.speedTicks.clear();
-			if (!ChangeA.built.isEmpty())
-				ChangeA.built.clear();
-			if (!ChangeA.falling.isEmpty())
-				ChangeA.falling.clear();
 			if (!CrashA.crashTicks.isEmpty())
 				CrashA.crashTicks.clear();
 			if (!CrashA.crash2Ticks.isEmpty())

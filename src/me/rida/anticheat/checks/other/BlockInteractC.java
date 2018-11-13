@@ -22,16 +22,14 @@ public class BlockInteractC extends Check {
         super("BlockInteractC", "BlockInteract", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
-		setViolationResetTime(1000);
 		setBannable(false);
-		setViolationsToNotify(4);
+		setViolationsToNotify(1);
     }
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlaceBlock(final BlockPlaceEvent e) {
         final Player p = e.getPlayer();
         final Block t = p.getTargetBlock((Set)null, 5);
-        if (p.getGameMode().equals(GameMode.CREATIVE)
-                || p.getAllowFlight()
+        if (p.getAllowFlight()
                 || e.getPlayer().getVehicle() != null
 				|| !getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

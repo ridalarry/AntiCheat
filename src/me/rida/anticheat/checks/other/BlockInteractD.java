@@ -27,8 +27,7 @@ public class BlockInteractD extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlaceBlock(final BlockPlaceEvent e) {
         final Player p = e.getPlayer();
-        if (p.getGameMode().equals(GameMode.CREATIVE)
-                || p.getAllowFlight()
+        if (p.getAllowFlight()
                 || p.getVehicle() != null
                 || Ping.getPing(e.getPlayer()) > 100
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
