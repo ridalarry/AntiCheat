@@ -1,10 +1,10 @@
 package me.rida.anticheat;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.reflect.accessors.Accessors;
 import com.comphenix.protocol.reflect.accessors.MethodAccessor;
 import com.comphenix.protocol.reflect.fuzzy.FuzzyMethodContract;
@@ -55,7 +55,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class AntiCheat extends JavaPlugin implements Listener {
-
     public static ArrayList<Player> getOnlinePlayers() {
         ArrayList<Player> list = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -65,7 +64,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
     }
 	public static final Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
 	public static final Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
-
     private Logger logger = null;
     private DataManager dataManager;
     public static long MS_PluginLoad;
@@ -142,7 +140,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new KillAuraB(this));
 		this.Checks.add(new KillAuraC(this));
 		this.Checks.add(new KillAuraD(this));
-		this.Checks.add(new SkinBlinkerA(this));
 		this.Checks.add(new KillAuraE(this));
 		this.Checks.add(new KillAuraF(this));
 		this.Checks.add(new KillAuraG(this));
@@ -178,6 +175,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
     @Override
 	public void onEnable() {
+            
         Instance = this;
         dataManager = new DataManager();
         registerListeners();
@@ -295,7 +293,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
                 player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
             }
 
-        } 
+                }
+ 
  
 
 	public void resetDumps(Player player) {
@@ -939,4 +938,5 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
         return nmsItem != null ? MinecraftReflection.getBukkitItemStack(nmsItem) : null;
     }
+
 }
