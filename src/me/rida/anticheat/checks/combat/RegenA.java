@@ -23,7 +23,7 @@ public class RegenA extends Check {
 
 		setEnabled(true);
 		setBannable(true);
-		setViolationsToNotify(3);
+		setViolationsToNotify(1);
 		setMaxViolations(12);
 		setViolationResetTime(60000L);
 	}

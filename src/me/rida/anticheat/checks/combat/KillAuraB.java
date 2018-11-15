@@ -1,112 +1,69 @@
 package me.rida.anticheat.checks.combat;
 
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.packets.PacketPlayerType;
+import me.rida.anticheat.packets.events.PacketAttackEvent;
+import me.rida.anticheat.utils.MathUtil;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
-
-import com.comphenix.protocol.wrappers.EnumWrappers;
-
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.CheatUtil;
-import me.rida.anticheat.utils.TimeUtil;
 
 public class KillAuraB extends Check {
-	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
 
-	public KillAuraB(AntiCheat AntiCheat) {
-		super("KillAuraB", "KillAura",  CheckType.Combat, AntiCheat);
-		
-		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-
+    public KillAuraB(AntiCheat AntiCheat) {
+        super("KillAuraB", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(150);
-		setViolationsToNotify(140);
-	}
+		setMaxViolations(10);
+		setBannable(true);
+    }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onAttack(PacketAttackEvent e) {
+        Player p = e.getPlayer();
+        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+        if(e.getType() != PacketPlayerType.USE
+        		|| (data == null)) {
+        	return;
+        }
 
-		if (AuraTicks.containsKey(u)) {
-			AuraTicks.remove(u);
-		}
-	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void UseEntity(PacketUseEntityEvent e) {
-		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
-				|| !((e.getAttacked()) instanceof Player)) {
-			return;
-		}
+        int verboseA = data.getKillauraAVerbose();
+        long time = data.getLastAimTime();
 
-		Player p = e.getAttacker();
-		Player p2 = (Player) e.getAttacked();
-		
-		if (p.getAllowFlight()
-				|| p2.getAllowFlight()) {
-			return;
-		}
-		
-		int Count = 0;
-		long Time = System.currentTimeMillis();
-		if (AuraTicks.containsKey(p.getUniqueId())) {
-			Count = AuraTicks.get(p.getUniqueId()).getKey();
-			Time = AuraTicks.get(p.getUniqueId()).getValue();
-		}
-		double OffsetXZ = CheatUtil.getAimbotoffset(p.getLocation(), p.getEyeHeight(),
-				p2);
-		double LimitOffset = 200.0;
-		if (p.getVelocity().length() > 0.08
-				|| this.getAntiCheat().LastVelocity.containsKey(p.getUniqueId())) {
-			LimitOffset += 200.0;
-		}
-		int Ping = this.getAntiCheat().getLag().getPing(p);
-		if (Ping >= 100 && Ping < 200) {
-			LimitOffset += 50.0;
-		} else if (Ping >= 200 && Ping < 250) {
-			LimitOffset += 75.0;
-		} else if (Ping >= 250 && Ping < 300) {
-			LimitOffset += 150.0;
-		} else if (Ping >= 300 && Ping < 350) {
-			LimitOffset += 300.0;
-		} else if (Ping >= 350 && Ping < 400) {
-			LimitOffset += 400.0;
-		} else if (Ping > 400) {
-			return;
-		}
-		if (OffsetXZ > LimitOffset * 4.0) {
-			Count += 12;
-		} else if (OffsetXZ > LimitOffset * 3.0) {
-			Count += 10;
-		} else if (OffsetXZ > LimitOffset * 2.0) {
-			Count += 8;
-		} else if (OffsetXZ > LimitOffset) {
-			Count += 4;
-		}
-		if (AuraTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 60000L)) {
-			Count = 0;
-			Time = TimeUtil.nowlong();
-		}
-		if (Count >= 16) {
-			this.dumplog(p, "Logged for KillAura Type B; Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset +" Count: " + Count);
-			Count = 0;
-			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-				return;
-			}
-			this.getAntiCheat().logCheat(this, p, "Hit Miss Ratio", "(Type: B)");
-		}
-		AuraTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
-	}
+        if(MathUtil.elapsed(time, 1100L)) {
+            time = System.currentTimeMillis();
+            verboseA = 0;
+        }
+
+        if ((Math.abs(data.getLastKillauraPitch() - e.getPlayer().getEyeLocation().getPitch()) > 1
+                || angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) > 1
+                || Double.compare(p.getEyeLocation().getYaw(), data.getLastKillauraYaw()) != 0)
+                && !MathUtil.elapsed(data.getLastPacket(), 100L)) {
+
+            if(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
+                if(++verboseA > 9) {
+                	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                            || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+                		return;
+                	}
+                	getAntiCheat().logCheat(this, p, null, "(Type: B)");
+                }
+            }
+            data.setLastKillauraYawDif(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()));
+        } else {
+            verboseA = 0;
+        }
+
+        data.setKillauraAVerbose(verboseA);
+        data.setLastAimTime(time);
+    }
+
+    public static float angleDistance(float alpha, float beta) {
+        float phi = Math.abs(beta - alpha) % 360;
+        return phi > 180 ? 360 - phi : phi;
+    }
 }

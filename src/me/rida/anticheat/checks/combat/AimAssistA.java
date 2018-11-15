@@ -1,92 +1,64 @@
 package me.rida.anticheat.checks.combat;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.MathUtil;
-
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.EnumWrappers;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.utils.Color;
 
-import java.util.Collections;
-import java.util.Optional;
+public class AimAssistA
+extends Check {
+    private int aimAssist = 0;
 
-public class AimAssistA extends Check {
     public AimAssistA(AntiCheat AntiCheat) {
         super("AimAssistA", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
-		setViolationResetTime(3000);
 		setBannable(false);
-		setViolationsToNotify(5);
+		setViolationsToNotify(1);
+    }
 
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
-            @Override
-            public void onPacketReceiving(PacketEvent event) {
-                Optional<Entity> entityOp = event.getPlayer().getWorld().getEntities().stream().filter(entity -> entity.getEntityId() == event.getPacket().getIntegers().read(0)).findFirst();
+    public static double getFrac(double d) {
+        return d % 1.0;
+    }
 
-                if(entityOp.isPresent()) {
-                    Entity entity = entityOp.get();
+    public void setAimAssest(int n) {
+        this.aimAssist = n;
+        if (this.aimAssist < 0) {
+            this.aimAssist = 0;
+        }
+    }
 
-                    EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().read(0);
-
-                    if(action.equals(EnumWrappers.EntityUseAction.ATTACK) && entity instanceof LivingEntity) {
-                        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
-
-                        if(data != null) {
-                            data.lastAttack = System.currentTimeMillis();
-                            data.lastHitEntity = (LivingEntity) entity;
-                        }
-                    }
-                }
-            }
-        });
+    public int getAimAssist() {
+        return this.aimAssist;
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onPlayerMove(PlayerMoveEvent e) {
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
+        Location location = e.getFrom().clone();
+        Location location2 = e.getTo().clone();
         Player p = e.getPlayer();
-        if(data == null
-                || data.lastHitEntity == null
-                || (System.currentTimeMillis() - data.lastAttack) > 150L) return;
+        double d = Math.abs(location.getYaw() - location2.getYaw());
+        if (d > 0.0 && d < 360.0) {
+            if (AimAssistA.getFrac(d) == 0.0) {
+                this.setAimAssest(this.getAimAssist() + 100);
+                if (this.getAimAssist() > 2000) {
 
-        float offset = MathUtil.yawTo180F((float) MathUtil.getOffsetFromEntity(e.getPlayer(), data.lastHitEntity)[0]);
-
-        if(data.patterns.size() >= 10) {
-
-            Collections.sort(data.patterns);
-
-            float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
-
-            if(Math.abs(range - data.lastRange) < 4) {
-            	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-            			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-            		return;
-            	}
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
-                
+                	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+                		return;
+                	}
+                	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+                    this.setAimAssest(0);
+                }
+            } else {
+                this.setAimAssest(this.getAimAssist() - 21);
             }
-
-            data.lastRange = range;
-            data.patterns.clear();
-        } else {
-            data.patterns.add(offset);
         }
-
-
     }
-
-
 }
+

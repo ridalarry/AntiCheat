@@ -61,7 +61,7 @@ public class StepA extends Check {
 			return true;
 		}
 		if (CheatUtil.isBlock(p.getLocation().getBlock().getRelative(BlockFace.DOWN),
-				new Material[] { Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER })) {
+				new Material[] { Material.getMaterial("FENCE"), Material.getMaterial("FENCE_GATE"), Material.getMaterial("COBBLE_WALL"), Material.LADDER })) {
 			return true;
 		}
 		return false;
@@ -79,9 +79,9 @@ public class StepA extends Check {
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
 				|| PlayerUtil.isOnClimbable(p, 0)
-				|| CheatUtil.slabsNear(p.getLocation())
+				|| BlockUtil.isNearSlab(p)
 				|| p.getLocation().getBlock().getType().equals(Material.WATER)
-				|| p.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
+				|| p.getLocation().getBlock().getType().equals(Material.getMaterial("STATIONARY_WATER"))) {
 			return;
 		}
 

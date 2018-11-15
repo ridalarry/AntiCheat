@@ -20,7 +20,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class HitBoxA extends Check {
 
 	public HitBoxA(AntiCheat AntiCheat) {
-		super("HitBoxA", "HitBox",  CheckType.Combat, AntiCheat);
+		super("HitBoxA", "HitBox", CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -48,14 +48,12 @@ public class HitBoxA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onUse(PacketUseEntityEvent e) {
 
+		 if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player)) {
+	            return;
+	        }
 		Player p = e.getAttacker();
 		
 		LivingEntity attacked = (Player) e.getAttacked();
-		if (p.getAllowFlight()
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-			return;
-		}
 
 		int verbose = count.getOrDefault(p.getUniqueId(), 0);
 

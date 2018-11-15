@@ -1,10 +1,10 @@
 package me.rida.anticheat;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.reflect.accessors.Accessors;
 import com.comphenix.protocol.reflect.accessors.MethodAccessor;
 import com.comphenix.protocol.reflect.fuzzy.FuzzyMethodContract;
@@ -55,7 +55,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class AntiCheat extends JavaPlugin implements Listener {
-
     public static ArrayList<Player> getOnlinePlayers() {
         ArrayList<Player> list = new ArrayList<>();
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -65,7 +64,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
     }
 	public static final Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
 	public static final Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
-
     private Logger logger = null;
     private DataManager dataManager;
     public static long MS_PluginLoad;
@@ -101,23 +99,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
-		this.Checks.add(new AimAssistA(this));
 		this.Checks.add(new ChatA(this));
-		this.Checks.add(new AimAssistB(this));
-		this.Checks.add(new AimAssistC(this));
+		this.Checks.add(new AimAssistA(this));
 		this.Checks.add(new AntiKBA(this));
-		this.Checks.add(new AntiKBB(this));
-		this.Checks.add(new AntiKBC(this));
-		this.Checks.add(new AscensionA(this));
-		this.Checks.add(new AscensionB(this));
-		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new AutoClickerB(this));
-		this.Checks.add(new AutoClickerC(this));
 		this.Checks.add(new BlockInteractA(this));
-		this.Checks.add(new BlockInteractB(this));
 		this.Checks.add(new BlockInteractC(this));
 		this.Checks.add(new BlockInteractD(this));
-		this.Checks.add(new BlockInteractE(this));
+		this.Checks.add(new BlockInteractB(this));
 		this.Checks.add(new ChangeA(this));
 		this.Checks.add(new CrashA(this));
 		this.Checks.add(new CriticalsA(this));
@@ -131,25 +120,18 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new InvMoveB(this));
 		this.Checks.add(new InvMoveC(this));
 		this.Checks.add(new GlideA(this));
-		this.Checks.add(new GravityA(this));
 		this.Checks.add(new GroundSpoofA(this));
 		this.Checks.add(new HitBoxA(this));
 		this.Checks.add(new HitBoxB(this));
 		this.Checks.add(new ImpossibleMovementsA(this));
 		this.Checks.add(new ImpossiblePitchA(this));
 		this.Checks.add(new JesusA(this));
+		this.Checks.add(new AutoClickerA(this));
+		this.Checks.add(new KillAuraD(this));
 		this.Checks.add(new KillAuraA(this));
 		this.Checks.add(new KillAuraB(this));
 		this.Checks.add(new KillAuraC(this));
-		this.Checks.add(new KillAuraD(this));
-		this.Checks.add(new SkinBlinkerA(this));
 		this.Checks.add(new KillAuraE(this));
-		this.Checks.add(new KillAuraF(this));
-		this.Checks.add(new KillAuraG(this));
-		this.Checks.add(new KillAuraH(this));
-		this.Checks.add(new KillAuraI(this));
-		this.Checks.add(new KillAuraJ(this));
-		this.Checks.add(new KillAuraK(this));
 		this.Checks.add(new NoFallA(this));
 		this.Checks.add(new NoSlowdownA(this));
 		this.Checks.add(new PacketsA(this));
@@ -159,7 +141,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new ReachA(this));
 		this.Checks.add(new ReachB(this));
 		this.Checks.add(new ReachC(this));
-		this.Checks.add(new ReachD(this));
 		this.Checks.add(new RegenA(this));
 		this.Checks.add(new SneakA(this));
 		this.Checks.add(new SneakB(this));
@@ -178,6 +159,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
     @Override
 	public void onEnable() {
+            
         Instance = this;
         dataManager = new DataManager();
         registerListeners();
@@ -219,8 +201,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.primary", "&7");
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
-			this.getConfig().addDefault("bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("broadcastmsg",
+			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
+			this.getConfig().addDefault("settings.broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
 			this.getConfig().addDefault("settings.violationResetTime", 60);
@@ -295,7 +277,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
                 player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
             }
 
-        } 
+                }
+ 
  
 
 	public void resetDumps(Player player) {
@@ -320,80 +303,34 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				AntiKBA.awaitingVelocity.clear();
 			if (!AntiKBA.totalMoved.isEmpty())
 				AntiKBA.totalMoved.clear();
-			if (!AntiKBB.lastSprintStart.isEmpty())
-				AntiKBB.lastSprintStart.clear();
-			if (!AntiKBB.lastSprintStop.isEmpty())
-				AntiKBB.lastSprintStop.clear();
-			if (!AutoClickerA.clicks.isEmpty())
-				AutoClickerA.clicks.clear();
-			if (!AutoClickerA.recording.isEmpty())
-				AutoClickerA.recording.clear();
 			if (!AutoClickerB.Clicks.isEmpty())
 				AutoClickerB.Clicks.clear();
 			if (!AutoClickerB.LastMS.isEmpty())
 				AutoClickerB.LastMS.clear();
 			if (!AutoClickerB.ClickTicks.isEmpty())
 				AutoClickerB.ClickTicks.clear();
-			if (!AutoClickerC.hitsSinceLastCheck.isEmpty())
-				AutoClickerC.hitsSinceLastCheck.clear();
-			if (!AutoClickerC.lastCheckedTick.isEmpty())
-				AutoClickerC.lastCheckedTick.clear();
-			if (!AutoClickerC.packetHitsSinceLastCheck.isEmpty())
-				AutoClickerC.packetHitsSinceLastCheck.clear();
-			if (!AutoClickerC.lastPacketTick.isEmpty())
-				AutoClickerC.lastPacketTick.clear();
-			if (!AutoClickerC.lastTickWithPacketSent.isEmpty())
-				AutoClickerC.lastTickWithPacketSent.clear();
-			if (!AutoClickerC.cps.isEmpty())
-				AutoClickerC.cps.clear();
-			if (!AutoClickerC.cpsMS.isEmpty())
-				AutoClickerC.cpsMS.clear();
 			if (!CriticalsB.CritTicks.isEmpty())
 				CriticalsB.CritTicks.clear();
-			if (!KillAuraA.ClickTicks.isEmpty())
-				KillAuraA.ClickTicks.clear();
-			if (!KillAuraA.Clicks.isEmpty())
-				KillAuraA.Clicks.clear();
-			if (!KillAuraA.LastMS.isEmpty())
-				KillAuraA.LastMS.clear();
-			if (!KillAuraB.AuraTicks.isEmpty())
-				KillAuraB.AuraTicks.clear();
-			if (!KillAuraC.Differences.isEmpty())
-				KillAuraC.Differences.clear();
-			if (!KillAuraC.LastLocation.isEmpty())
-				KillAuraC.LastLocation.clear();
-			if (!KillAuraC.AimbotTicks.isEmpty())
-				KillAuraC.AimbotTicks.clear();
+			if (!AutoClickerA.ClickTicks.isEmpty())
+				AutoClickerA.ClickTicks.clear();
+			if (!AutoClickerA.Clicks.isEmpty())
+				AutoClickerA.Clicks.clear();
+			if (!AutoClickerA.LastMS.isEmpty())
+				AutoClickerA.LastMS.clear();
 			if (!KillAuraD.packetTicks.isEmpty())
 				KillAuraD.packetTicks.clear();
-			if (!KillAuraE.lastAttack.isEmpty())
-				KillAuraE.lastAttack.clear();
-			if (!KillAuraF.counts.isEmpty())
-				KillAuraF.counts.clear();
-			if (!KillAuraI.hits.isEmpty())
-				KillAuraI.hits.clear();
+			if (!KillAuraA.counts.isEmpty())
+				KillAuraA.counts.clear();
 			if (!ReachB.count.isEmpty())
 				ReachB.count.clear();
 			if (!ReachB.offsets.isEmpty())
 				ReachB.offsets.clear();
-			if (!ReachC.reachTicks.isEmpty())
-				ReachC.reachTicks.clear();
-			if (!ReachC.projectileHit.isEmpty())
-				ReachC.projectileHit.clear();
-			if (!ReachD.toBan.isEmpty())
-				ReachD.toBan.clear();
+			if (!ReachC.toBan.isEmpty())
+				ReachC.toBan.clear();
 			if (!RegenA.FastHealTicks.isEmpty())
 				RegenA.FastHealTicks.clear();
 			if (!RegenA.LastHeal.isEmpty())
 				RegenA.LastHeal.clear();
-			if (!AscensionA.AscensionTicks.isEmpty())
-				AscensionA.AscensionTicks.clear();
-			if (!AscensionB.verbose.isEmpty())
-				AscensionB.verbose.clear();
-			if (!AscensionB.lastYMovement.isEmpty())
-				AscensionB.lastYMovement.clear();
-			if (!FastLadderA.count.isEmpty())
-				FastLadderA.count.clear();
 			if (!FlyB.flyTicksA.isEmpty())
 				FlyB.flyTicksA.clear();
 			if (!GlideA.flyTicks.isEmpty())
@@ -442,12 +379,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				VClipA.teleported.clear();
 			if (!VClipA.lastLocation.isEmpty())
 				VClipA.lastLocation.clear();
-			if (!BlockInteractB.speedTicks.isEmpty())
-				BlockInteractB.speedTicks.clear();
-			if (!ChangeA.built.isEmpty())
-				ChangeA.built.clear();
-			if (!ChangeA.falling.isEmpty())
-				ChangeA.falling.clear();
 			if (!CrashA.crashTicks.isEmpty())
 				CrashA.crashTicks.clear();
 			if (!CrashA.crash2Ticks.isEmpty())
@@ -715,11 +646,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 						player.sendMessage(
 								PREFIX + Color.Gray + "You would be banned right now for: " + Color.Red + check.getName());
 					} else {
-						if (!getConfig().getString("broadcastmsg").equalsIgnoreCase("")) {
+						if (!getConfig().getString("settings.broadcastmsg").equalsIgnoreCase("")) {
 							Bukkit.broadcastMessage(Color.translate(
-									getConfig().getString("broadcastmsg").replaceAll("%player%", player.getName())));
+									getConfig().getString("settings.broadcastmsg").replaceAll("%player%", player.getName())));
 						}
-						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getConfig().getString("bancmd")
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getConfig().getString("settings.bancmd")
 								.replaceAll("%player%", player.getName()).replaceAll("%check%", check.getName()));
 					}
 				}
@@ -852,7 +783,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public String dispatchCommand;
     private void checkPacket(PacketEvent event) {
 
-        dispatchCommand = getConfig().getString("bancmd");
+        dispatchCommand = getConfig().getString("settings.bancmd");
         Player player = event.getPlayer();
         if (player == null) {
             String name = event.getPacket().getStrings().readSafely(0);
@@ -979,4 +910,5 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
         return nmsItem != null ? MinecraftReflection.getBukkitItemStack(nmsItem) : null;
     }
+
 }
