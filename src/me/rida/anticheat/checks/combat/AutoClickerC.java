@@ -13,22 +13,22 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
-public class AutoClickerC extends Check {
-    public static Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
-    public static Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
-    public static Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
-    public static Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
-    public static Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
-    public static Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
-    public static Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+public class AutoClickerC
+extends Check {
+    private static final Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
+    private static final Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
+    private static final Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
+    private static final Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
+    private static final Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+    private static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
+    private static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
 
     public AutoClickerC(AntiCheat AntiCheat) {
-        super("AutoClickerC", "AutoClicker",  CheckType.Combat, AntiCheat);
+        super("AutoClickerC", "AutoClicker", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

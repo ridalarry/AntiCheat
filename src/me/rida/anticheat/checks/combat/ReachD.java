@@ -13,7 +13,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 
@@ -22,7 +21,7 @@ public class ReachD extends Check {
 	public static HashMap<UUID, Integer> toBan;
 	
 	public ReachD(AntiCheat AntiCheat) {
-		super("ReachD", "Reach",  CheckType.Combat, AntiCheat);
+		super("ReachD", "Reach", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -89,7 +88,7 @@ public class ReachD extends Check {
 		}
 
 		if (MaxReach < Difference) {
-			this.dumplog(p, "Logged for Reach Type D; Reach: " + Difference
+			this.dumplog(p, "Logged for Reach Type D; Check is Bannable (so no special bans); Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
 			
 			getAntiCheat().logCheat(this, p, Color.Red + "Experimental" + "; Reach: " + Difference

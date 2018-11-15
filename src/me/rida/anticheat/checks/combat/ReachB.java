@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -20,11 +19,11 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class ReachB extends Check {
 
-	public static Map<Player, Integer> count;
-	public static Map<Player, Map.Entry<Double, Double>> offsets;
+	public Map<Player, Integer> count;
+	public Map<Player, Map.Entry<Double, Double>> offsets;
 
 	public ReachB(AntiCheat AntiCheat) {
-		super("ReachB", "Reach",  CheckType.Combat, AntiCheat);
+		super("ReachB", "Reach", AntiCheat);
 
 		setEnabled(true);
 		setMaxViolations(7);
@@ -111,7 +110,7 @@ public class ReachB extends Check {
 		}
 		if (Reach > MaxReach) {
 			this.dumplog(d,
-					"Logged for AutoClicker Type B; Count Increase (+1); Reach: " + Reach2 + ", MaxReach: " + MaxReach + ", Damager Velocity: "
+					"Count Increase (+1); Reach: " + Reach2 + ", MaxReach: " + MaxReach + ", Damager Velocity: "
 							+ d.getVelocity().length() + ", " + "Player Velocity: "
 							+ p.getVelocity().length() + "; New Count: " + Count);
 			count.put(d, Count + 1);
@@ -129,7 +128,7 @@ public class ReachB extends Check {
 				getAntiCheat().logCheat(this, d, Reach + " > " + MaxReach + " MS: " + PingD + " Velocity Difference: " + speedToVelocityDif, "(Type: B)");
 
 			}
-			dumplog(d, "Logged for AutoClicker Type B; Reach: " + Reach2 + " > " + "Max reach:" + MaxReach);
+			dumplog(d, "Logged for Reach" + Reach2 + " > " + MaxReach);
 			return;
 		}
 	}

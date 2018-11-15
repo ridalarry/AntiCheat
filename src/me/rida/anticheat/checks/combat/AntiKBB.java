@@ -9,16 +9,16 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
-public class AntiKBB extends Check {
-    public static Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
-    public static Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
+public class AntiKBB
+extends Check {
+    private Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
+    private Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
 
     public AntiKBB(AntiCheat AntiCheat) {
-        super("AntiKBB", "AntiKB",  CheckType.Combat, AntiCheat);
+        super("AntiKBB", "AntiKB", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

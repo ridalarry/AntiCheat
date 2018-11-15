@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketEntityActionEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -20,7 +19,7 @@ public class SneakA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> sneakTicks;
 
 	public SneakA(AntiCheat AntiCheat) {
-		super("SneakA", "Sneak", CheckType.Movement, AntiCheat);
+		super("SneakA", "Sneak", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

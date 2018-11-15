@@ -10,16 +10,15 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 
 public class FastLadderA extends Check {
 	
-	public static Map<Player, Integer> count;
+	public Map<Player, Integer> count;
 
 	public FastLadderA(AntiCheat AntiCheat) {
-		super("FastLadderA", "FastLadder", CheckType.Movement, AntiCheat);
+		super("FastLadderA", "FastLadder", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);
@@ -57,7 +56,7 @@ public class FastLadderA extends Check {
 		
 		if (OffsetY > Limit) {
 			Count++;
-			this.dumplog(p, "Logged for FastLadder Type A;  New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
+			this.dumplog(p, "[Illegitmate] New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
 		} else {
 			Count = Count > -2 ? Count - 1 : 0;
 		}
@@ -67,7 +66,7 @@ public class FastLadderA extends Check {
 		if (Count > 11) {
 			Count = 0;
 			this.dumplog(p,
-					"Logged for FastLadder Type A; Speed:" + OffsetY + "; Max: " + Limit + "; New Count: " + Count);
+					"Flagged for FastLadder; Speed:" + OffsetY + "; Max: " + Limit + "; New Count: " + Count);
 			this.getAntiCheat().logCheat(this, p, percent + "% faster than normal", "(Type: A)");
 		}
 		count.put(p, Count);

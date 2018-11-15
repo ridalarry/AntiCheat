@@ -14,18 +14,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class TimerA extends Check {
-	public static Map<UUID, Map.Entry<Integer, Long>> packets;
-	public static Map<UUID, Integer> verbose;
-	public static Map<UUID, Long> lastPacket;
-	public static List<Player> toCancel;
+	private Map<UUID, Map.Entry<Integer, Long>> packets;
+	private Map<UUID, Integer> verbose;
+	private Map<UUID, Long> lastPacket;
+	private List<Player> toCancel;
 
 	public TimerA(AntiCheat AntiCheat) {
-		super("TimerA", "Timer", CheckType.Movement, AntiCheat);
+		super("TimerA", "Timer", AntiCheat);
 		
 		packets = new HashMap<>();
 		verbose = new HashMap<>();

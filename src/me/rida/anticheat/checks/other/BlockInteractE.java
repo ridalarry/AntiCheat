@@ -1,7 +1,6 @@
 package me.rida.anticheat.checks.other;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
@@ -19,7 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BlockInteractE extends Check {
       public BlockInteractE(AntiCheat AntiCheat) {
-        super("BlockInteractE", "BlockInteract", CheckType.Other, AntiCheat);
+        super("BlockInteractE", "BlockInteract", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(true);

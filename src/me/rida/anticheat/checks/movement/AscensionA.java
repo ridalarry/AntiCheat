@@ -16,7 +16,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
@@ -27,7 +26,7 @@ public class AscensionA extends Check {
 	public static Map<UUID, Double> velocity;
 	
 	public AscensionA(AntiCheat AntiCheat) {
-		super("AscensionA", "Ascension", CheckType.Movement, AntiCheat);
+		super("AscensionA", "Ascension", AntiCheat);
 
 		setBannable(true);
 		setEnabled(true);

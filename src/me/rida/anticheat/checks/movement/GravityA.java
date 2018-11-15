@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -20,7 +19,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GravityA extends Check {
     public GravityA(AntiCheat AntiCheat) {
-		super("GravityA", "Gravity", CheckType.Movement, AntiCheat);
+		super("GravityA", "Gravity", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
@@ -43,7 +42,7 @@ public class GravityA extends Check {
     		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
                 return;
             }
-            if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || BlockUtil.isNearHalfBlock(p) || BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) || BlockUtil.isNearStair(p) || !player.getGameMode().equals(GameMode.CREATIVE) || NewVelocityUtil.didTakeVel(p)
+            if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || BlockUtil.isNearHalfBlock(p) || BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) || BlockUtil.isNearStiar(p) || !player.getGameMode().equals(GameMode.CREATIVE) || NewVelocityUtil.didTakeVel(p)
                     || PlayerUtil.wasOnSlime(p)) {
                 data.setGravity_VL(0);
                 return;

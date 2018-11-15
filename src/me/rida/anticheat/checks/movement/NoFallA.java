@@ -19,7 +19,6 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -29,7 +28,7 @@ public class NoFallA extends Check {
 	public static ArrayList<Player> cancel;
 
 	public NoFallA(AntiCheat AntiCheat) {
-		super("NoFallA", "NoFall", CheckType.Movement, AntiCheat);
+		super("NoFallA", "NoFall", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);
@@ -104,7 +103,7 @@ public class NoFallA extends Check {
 			Count = NoFallTicks.get(p.getUniqueId()).getValue().intValue();
 		}
 		if ((p.isOnGround()) || (p.getFallDistance() == 0.0F)) {
-			dumplog(p, "Logged for NoFall Type A; . Real Fall Distance: " + Falling);
+			dumplog(p, "NoFall. Real Fall Distance: " + Falling);
 			p.damage(5);
 			Count += 2;
 		} else {
@@ -115,7 +114,7 @@ public class NoFallA extends Check {
 			Time = System.currentTimeMillis();
 		}
 		if (Count >= 4) {
-			dumplog(p, "Logged for NoFall Type A;  Count: " + Count);
+			dumplog(p, "Logged. Count: " + Count);
 			Count = 0;
 
 			FallDistance.put(p.getUniqueId(), Double.valueOf(0.0D));

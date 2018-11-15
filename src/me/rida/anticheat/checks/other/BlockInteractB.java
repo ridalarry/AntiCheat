@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
 
@@ -23,7 +22,7 @@ public class BlockInteractB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 
 	public BlockInteractB(AntiCheat AntiCheat) {
-		super("BlockInteractB", "BlockInteract", CheckType.Other, AntiCheat);
+		super("BlockInteractB", "BlockInteract", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);

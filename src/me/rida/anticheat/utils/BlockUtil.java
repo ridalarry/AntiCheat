@@ -104,12 +104,12 @@ public class BlockUtil {
 		return 0;
 	}
 	public static boolean isChest(Block block) {
-		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
+		return block.getType().equals(Material.CHEST)||block.getType().equals(Material.ENDER_CHEST)||block.getType().equals(Material.TRAPPED_CHEST);
 			
 	}
 
 	public static boolean isFence(Block block) {
-		return block.getType().equals(Material.FENCE)|| block.getType().equals(Material.ACACIA_FENCE)|| block.getType().equals(Material.SPRUCE_FENCE)|| block.getType().equals(Material.BIRCH_FENCE)|| block.getType().equals(Material.JUNGLE_FENCE)|| block.getType().equals(Material.DARK_OAK_FENCE)|| block.getType().equals(Material.NETHER_FENCE);
+		return block.getType().equals(Material.FENCE)||block.getType().equals(Material.ACACIA_FENCE)||block.getType().equals(Material.SPRUCE_FENCE)||block.getType().equals(Material.BIRCH_FENCE)||block.getType().equals(Material.JUNGLE_FENCE)||block.getType().equals(Material.DARK_OAK_FENCE)||block.getType().equals(Material.NETHER_FENCE);
 			
 	}
 	public static boolean isPiston(Block block) {
@@ -137,7 +137,7 @@ public class BlockUtil {
 	}
 	
 	public static boolean isSlab(Block block) {
-		return block.getType().equals(Material.WOOD_STEP) || block.getType().equals(Material.STEP)
+		return block.getType().equals(Material.WOOD_STEP) ||block.getType().equals(Material.STEP)
 				|| block.getTypeId() == 182;
 	}
 	
@@ -233,15 +233,6 @@ public class BlockUtil {
             return blocks;
         }
 
-        public static boolean isNearAllowedPhase(Player p) {
-            boolean out = false;
-             for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-                 if (allowedPhase(b)) {
-                     out = true;
-                 }
-             }
-            return out;
-        }
         public static boolean isNearLessThanABlock(Player p) {
             boolean out = false;
              for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
@@ -324,7 +315,7 @@ public class BlockUtil {
             }
             return out;
         }
-    	public static boolean isNearStair(Player p) {
+    	public static boolean isNearStiar(Player p) {
     		boolean out = false;
     		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
     			if (BlockUtil.isStair(b)) {
@@ -364,102 +355,7 @@ public class BlockUtil {
             }
             return false;
         }
-
-    	public static boolean allowedPhase(Block block) {
-    		return block.getType().equals(Material.SIGN)
-    				|| block.getType().equals(Material.BANNER)
-    				|| block.getType().equals(Material.FENCE)
-    				|| block.getType().equals(Material.ANVIL)
-    				|| block.getType().equals(Material.TRAP_DOOR)
-    				|| block.getType().equals(Material.IRON_TRAPDOOR)
-    				|| block.getType().equals(Material.WALL_BANNER)
-    				|| block.getType().equals(Material.STANDING_BANNER)
-    				|| block.getType().equals(Material.SIGN_POST)
-    				|| block.getType().equals(Material.WALL_SIGN)
-    				|| block.getType().equals(Material.SUGAR_CANE_BLOCK)
-    				|| block.getType().equals(Material.WHEAT)
-    				|| block.getType().equals(Material.POTATO)
-    				|| block.getType().equals(Material.CARROT)
-    				|| block.getType().equals(Material.STEP)
-    				|| block.getType().equals(Material.AIR)
-    				|| block.getType().equals(Material.WOOD_STEP)
-    				|| block.getType().equals(Material.SOUL_SAND)
-    				|| block.getType().equals(Material.CARPET)
-    				|| block.getType().equals(Material.STONE_PLATE)
-    				|| block.getType().equals(Material.WOOD_PLATE)
-    				|| block.getType().equals(Material.LADDER)
-    				|| block.getType().equals(Material.CHEST)
-    				|| block.getType().equals(Material.WATER)
-    				|| block.getType().equals(Material.STATIONARY_WATER)
-    				|| block.getType().equals(Material.LAVA)
-    				|| block.getType().equals(Material.STATIONARY_LAVA)
-    				|| block.getType().equals(Material.REDSTONE_COMPARATOR)
-    				|| block.getType().equals(Material.REDSTONE_COMPARATOR_OFF)
-    				|| block.getType().equals(Material.REDSTONE_COMPARATOR_ON)
-    				|| block.getType().equals(Material.IRON_PLATE)
-    				|| block.getType().equals(Material.GOLD_PLATE)
-    				|| block.getType().equals(Material.DAYLIGHT_DETECTOR)
-    				|| block.getType().equals(Material.STONE_BUTTON)
-    				|| block.getType().equals(Material.WOOD_BUTTON)
-    				|| block.getType().equals(Material.HOPPER)
-    				|| block.getType().equals(Material.RAILS)
-    				|| block.getType().equals(Material.ACTIVATOR_RAIL)
-    				|| block.getType().equals(Material.DETECTOR_RAIL)
-    				|| block.getType().equals(Material.POWERED_RAIL)
-    				|| block.getType().equals(Material.TRIPWIRE_HOOK)
-    				|| block.getType().equals(Material.TRIPWIRE)
-    				|| block.getType().equals(Material.SNOW_BLOCK)
-    				|| block.getType().equals(Material.REDSTONE_TORCH_OFF)
-    				|| block.getType().equals(Material.REDSTONE_TORCH_ON)
-    				|| block.getType().equals(Material.DIODE_BLOCK_OFF)
-    				|| block.getType().equals(Material.DIODE_BLOCK_ON)
-    				|| block.getType().equals(Material.DIODE)
-    				|| block.getType().equals(Material.SEEDS)
-    				|| block.getType().equals(Material.MELON_SEEDS)
-    				|| block.getType().equals(Material.PUMPKIN_SEEDS)
-    				|| block.getType().equals(Material.DOUBLE_PLANT)
-    				|| block.getType().equals(Material.LONG_GRASS)
-    				|| block.getType().equals(Material.WEB)
-    				|| block.getType().equals(Material.SNOW)
-    				|| block.getType().equals(Material.FLOWER_POT)
-    				|| block.getType().equals(Material.BREWING_STAND)
-    				|| block.getType().equals(Material.CAULDRON)
-    				|| block.getType().equals(Material.CACTUS)
-    				|| block.getType().equals(Material.WATER_LILY)
-    				|| block.getType().equals(Material.RED_ROSE)
-    				|| block.getType().equals(Material.ENCHANTMENT_TABLE)
-    				|| block.getType().equals(Material.ENDER_PORTAL_FRAME)
-    				|| block.getType().equals(Material.PORTAL)
-    				|| block.getType().equals(Material.ENDER_PORTAL)
-    				|| block.getType().equals(Material.ENDER_CHEST)
-    				|| block.getType().equals(Material.NETHER_FENCE)
-    				|| block.getType().equals(Material.NETHER_WARTS)
-    				|| block.getType().equals(Material.REDSTONE_WIRE)
-    				|| block.getType().equals(Material.LEVER)
-    				|| block.getType().equals(Material.YELLOW_FLOWER)
-    				|| block.getType().equals(Material.CROPS)
-    				|| block.getType().equals(Material.WATER)
-    				|| block.getType().equals(Material.LAVA)
-    				|| block.getType().equals(Material.SKULL)
-    				|| block.getType().equals(Material.TRAPPED_CHEST)
-    				|| block.getType().equals(Material.FIRE)
-    				|| block.getType().equals(Material.BROWN_MUSHROOM)
-    				|| block.getType().equals(Material.RED_MUSHROOM)
-    				|| block.getType().equals(Material.DEAD_BUSH)
-    				|| block.getType().equals(Material.SAPLING)
-    				|| block.getType().equals(Material.TORCH)
-    				|| block.getType().equals(Material.MELON_STEM)
-    				|| block.getType().equals(Material.PUMPKIN_STEM)
-    				|| block.getType().equals(Material.COCOA)
-    				|| block.getType().equals(Material.BED)
-    				|| block.getType().equals(Material.BED_BLOCK)
-    				|| block.getType().equals(Material.PISTON_EXTENSION)
-    				|| block.getType().equals(Material.PISTON_MOVING_PIECE)
-    				|| block.getType().equals(Material.IRON_FENCE)
-    				|| block.getType().equals(Material.THIN_GLASS)
-    				|| block.getType().equals(Material.STAINED_GLASS_PANE)
-    				|| block.getType().equals(Material.COBBLE_WALL);
-    	}
+    	
 
     	public static boolean isIce(Block block) {
     		return block.getType().equals(Material.ICE)

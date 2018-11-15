@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.player;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimerUtils;
@@ -18,7 +17,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class GroundSpoofA extends Check {
      public GroundSpoofA(AntiCheat AntiCheat) {
-        super("GroundsSpoofA", "GroundSpoof", CheckType.Player, AntiCheat);
+        super("GroundsSpoofA", "GroundSpoof" , AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

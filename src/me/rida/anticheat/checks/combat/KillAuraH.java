@@ -7,15 +7,15 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
-public class KillAuraH extends Check {
+public class KillAuraH
+extends Check {
     public KillAuraH(AntiCheat AntiCheat) {
-        super("KillAuraH", "KillAura",  CheckType.Combat, AntiCheat);
+        super("KillAuraH", "KillAura", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setBannable(false);

@@ -14,14 +14,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 
 public class FastBowA extends Check {
 	public static Map<Player, Long> bowPull;
 	public static Map<Player, Integer> count;
 
 	public FastBowA(AntiCheat AntiCheat) {
-		super("FastBowA", "FastBow",  CheckType.Combat, AntiCheat);
+		super("FastBowA", "FastBow", AntiCheat);
 		
 		bowPull = new HashMap<Player, Long>();
 		count = new HashMap<Player, Integer>();

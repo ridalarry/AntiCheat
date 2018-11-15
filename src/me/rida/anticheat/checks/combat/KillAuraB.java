@@ -14,7 +14,6 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
@@ -23,7 +22,7 @@ public class KillAuraB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
 
 	public KillAuraB(AntiCheat AntiCheat) {
-		super("KillAuraB", "KillAura",  CheckType.Combat, AntiCheat);
+		super("KillAuraB", "KillAura", AntiCheat);
 		
 		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 
@@ -99,7 +98,8 @@ public class KillAuraB extends Check {
 			Time = TimeUtil.nowlong();
 		}
 		if (Count >= 16) {
-			this.dumplog(p, "Logged for KillAura Type B; Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset +" Count: " + Count);
+			this.dumplog(p, "Offset: " + OffsetXZ + ", Ping: " + Ping + ", Max Offset: " + LimitOffset);
+			this.dumplog(p, "Logged. Count: " + Count + ", Ping: " + Ping);
 			Count = 0;
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

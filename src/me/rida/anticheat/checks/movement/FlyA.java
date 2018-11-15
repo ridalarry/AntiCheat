@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -22,7 +21,7 @@ import org.bukkit.util.Vector;
 
 public class FlyA extends Check {
     public FlyA(AntiCheat AntiCheat) {
-		super("FlyA", "Fly", CheckType.Movement, AntiCheat);
+		super("FlyA", "Fly", AntiCheat);
 		this.setBannable(true);
 		this.setEnabled(true);
 		setMaxViolations(4);
@@ -91,7 +90,7 @@ public class FlyA extends Check {
         if(!PlayerUtil.isOnGround(p)) {
             double distanceToGround = getDistanceToGround(p);
             double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
-            float verbose = data.getFlyHoverVerbose();
+            int verbose = data.getFlyHoverVerbose();
 
             if(distanceToGround > 2) {
                 verbose = yDiff == 0 ? verbose + 6 : yDiff < 0.06 ? verbose + 4 : 0;
@@ -132,7 +131,7 @@ public class FlyA extends Check {
         }
         double diffY = Math.abs(from.getY() - to.getY());
         double lastDiffY = data.getLastVelocityFlyY();
-        float verboseC = data.getFlyVelocityVerbose();
+        int verboseC = data.getFlyVelocityVerbose();
         double finalDifference = Math.abs(diffY - lastDiffY);
         if(finalDifference < 0.08
                 && e.getFrom().getY() < e.getTo().getY()

@@ -11,18 +11,17 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class AutoClickerA extends Check {
 	
-	public static Map<UUID, Integer> clicks;
-	public static Map<UUID, Long> recording;
+	public Map<UUID, Integer> clicks;
+	private Map<UUID, Long> recording;
 
 	public AutoClickerA(AntiCheat AntiCheat) {
-		super("AutoClickerA", "AutoClicker",  CheckType.Combat, AntiCheat);
+		super("AutoClickerA", "AutoClicker", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

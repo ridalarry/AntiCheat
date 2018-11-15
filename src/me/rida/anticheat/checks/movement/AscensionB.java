@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -14,11 +13,11 @@ import java.util.WeakHashMap;
 
 public class AscensionB extends Check {
 
-    public static Map<Player, Integer> verbose = new WeakHashMap<>();
-    public static Map<Player, Float> lastYMovement = new WeakHashMap<>();
+    private Map<Player, Integer> verbose = new WeakHashMap<>();
+    private Map<Player, Float> lastYMovement = new WeakHashMap<>();
 
     public AscensionB(me.rida.anticheat.AntiCheat AntiCheat) {
-        super("AscensionB", "Ascension", CheckType.Movement, AntiCheat);
+        super("AscensionB", "Ascension", AntiCheat);
         setBannable(true);
         setEnabled(true);
         setMaxViolations(5);

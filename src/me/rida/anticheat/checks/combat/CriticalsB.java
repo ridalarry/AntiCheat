@@ -16,7 +16,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -25,7 +24,7 @@ public class CriticalsB extends Check {
 	public static Map<UUID, Double> FallDistance = new HashMap<UUID, Double>();
 
 	public CriticalsB(AntiCheat AntiCheat) {
-		super("CriticalsB", "Criticals",  CheckType.Combat, AntiCheat);
+		super("CriticalsB", "Criticals", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);

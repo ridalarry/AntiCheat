@@ -7,11 +7,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 
 public class ImpossiblePitchA extends Check {
       public ImpossiblePitchA(AntiCheat AntiCheat) {
-        super("ImpossiblePitchA", "ImpossiblePitch", CheckType.Player, AntiCheat);
+        super("ImpossiblePitchA", "ImpossiblePitch", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(true);

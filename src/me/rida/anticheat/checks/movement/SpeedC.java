@@ -19,7 +19,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -34,7 +33,7 @@ public class SpeedC extends Check {
 	public static Map<UUID, Double> velocity;
 	
 	public SpeedC(AntiCheat AntiCheat) {
-		super("SpeedC", "Speed", CheckType.Movement, AntiCheat);
+		super("SpeedC", "Speed", AntiCheat);
 
 		setEnabled(true);
 		setBannable(true);
@@ -173,14 +172,14 @@ public class SpeedC extends Check {
 		if (TooFastCount >= 11) {
 			TooFastCount = 0;
 			Count++;
-			dumplog(p, "Logged for Speed Type C; New Count: " + Count);
+			dumplog(p, "New Count: " + Count);
 		}
 		if (speedTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 30000L)) {
 			Count = 0;
 			Time = TimeUtil.nowlong();
 		}
 		if (Count >= 3) {
-			dumplog(p, "Logged for Speed Type C; Count: " + Count);
+			dumplog(p, "Logged for Speed. Count: " + Count);
 			Count = 0;
 			getAntiCheat().logCheat(this, p, Math.round(percent) + "% faster than normal", "(Type: C)");
 		}

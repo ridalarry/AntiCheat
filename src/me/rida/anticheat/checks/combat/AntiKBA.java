@@ -13,23 +13,20 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.ServerUtil;
 
 public class AntiKBA extends Check {
-    public static Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
-    public static Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
-    public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
+    private Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
+    private Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
+    private Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKBA", "AntiKB",  CheckType.Combat, AntiCheat);
+        super("AntiKBA", "AntiKB", AntiCheat);
 		setEnabled(true);
-		setMaxViolations(30);
+		setMaxViolations(10);
 		setBannable(false);
-		setViolationsToNotify(3);
-		setViolationResetTime(250000);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

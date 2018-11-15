@@ -14,7 +14,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -24,7 +23,7 @@ public class StepA extends Check {
 	double stepHeight;
 
 	public StepA(AntiCheat AntiCheat) {
-		super("StepA", "Step", CheckType.Movement, AntiCheat);
+		super("StepA", "Step", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -92,7 +91,7 @@ public class StepA extends Check {
 		double YSpeed = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));
 		if (yDist > 0.95) {
-			this.dumplog(p, "Logged for Step Type A; Height (Logged): " + yDist);
+			this.dumplog(p, "Height (Logged): " + yDist);
 			this.getAntiCheat().logCheat(this, p, "[1] " + Math.round(yDist) + " blocks", "(Type: A)");
 			return;
 		}

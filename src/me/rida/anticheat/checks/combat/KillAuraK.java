@@ -10,18 +10,18 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.CheatUtil;
 
-public class KillAuraK extends Check {
-    public static double allowedDistance = 3.9;
-    public static int hitCount = 0;
+public class KillAuraK
+extends Check {
+    private double allowedDistance = 3.9;
+    private int hitCount = 0;
 
     public KillAuraK(AntiCheat AntiCheat) {
-        super("KillAuraK", "KillAura",  CheckType.Combat, AntiCheat);
+        super("KillAuraK", "KillAura", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setBannable(false);

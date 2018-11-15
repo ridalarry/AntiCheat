@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
 
@@ -15,7 +14,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class ImpossibleMovementsA extends Check {
     public ImpossibleMovementsA(AntiCheat AntiCheat) {
-        super("ImpossibleMovementsA", "ImpossibleMovements", CheckType.Movement, AntiCheat);
+        super("ImpossibleMovementsA", "ImpossibleMovements", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

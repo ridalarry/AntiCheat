@@ -17,7 +17,6 @@ import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -28,7 +27,7 @@ public class AutoClickerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public AutoClickerB(AntiCheat AntiCheat) {
-		super("AutoClickerB", "AutoClicker",  CheckType.Combat, AntiCheat);
+		super("AutoClickerB", "AutoClicker", AntiCheat);
 
 		LastMS = new HashMap<UUID, Long>();
 		Clicks = new HashMap<UUID, List<Long>>();
@@ -88,7 +87,7 @@ public class AutoClickerB extends Check {
 						++Count;
 						Time = System.currentTimeMillis();
 						this.dumplog(damager,
-								"Logged for AutoClicker Type B; New Count: " + Count + "; Range: " + Range + "; Ping: "
+								"New Count: " + Count + "; Range: " + Range + "; Ping: "
 										+ getAntiCheat().getLag().getPing(damager) + "; TPS: "
 										+ getAntiCheat().getLag().getTPS());
 					}
@@ -108,12 +107,12 @@ public class AutoClickerB extends Check {
 		}
 		if ((Count > 4 && this.getAntiCheat().getLag().getPing(damager) < 100)
 				|| (Count > 6 && this.getAntiCheat().getLag().getPing(damager) < 200)) {
-			this.dumplog(damager, "Logged for AutoClicker Type B; Count: " + Count);
+			this.dumplog(damager, "Logged. Count: " + Count);
 			Count = 0;
 			this.getAntiCheat().logCheat(this, damager, "Continuous/Repeating Patterns", "(Type: B)");
 			ClickTicks.remove(damager.getUniqueId());
 		} else if (this.getAntiCheat().getLag().getPing(damager) > 250) {
-			this.dumplog(damager, "Logged for AutoClicker Type B; Would set off Autoclicker (Constant) but latency is too high!");
+			this.dumplog(damager, "Would set off Autoclicker (Constant) but latency is too high!");
 		}
 		LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
 		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));

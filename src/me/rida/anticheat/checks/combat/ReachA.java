@@ -1,7 +1,6 @@
 package me.rida.anticheat.checks.combat;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
 import me.rida.anticheat.utils.MathUtil;
@@ -16,7 +15,7 @@ import org.bukkit.event.EventPriority;
 public class ReachA extends Check {
 
     public ReachA(AntiCheat AntiCheat) {
-        super("ReachA", "Reach",  CheckType.Combat, AntiCheat);
+        super("ReachA", "Reach", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(7);
 		setBannable(true);

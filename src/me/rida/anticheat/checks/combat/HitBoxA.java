@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.CheatUtil;
@@ -20,7 +19,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class HitBoxA extends Check {
 
 	public HitBoxA(AntiCheat AntiCheat) {
-		super("HitBoxA", "HitBox",  CheckType.Combat, AntiCheat);
+		super("HitBoxA", "Hitbox", AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);

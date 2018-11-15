@@ -11,14 +11,13 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class GlideA extends Check {
 	public static Map<UUID, Long> flyTicks;
 
 	public GlideA(AntiCheat AntiCheat) {
-		super("GlideA", "Glide", CheckType.Movement, AntiCheat);
+		super("GlideA", "Glide", AntiCheat);
 		flyTicks = new HashMap<UUID, Long>();
 		setEnabled(true);
 		setBannable(false);
@@ -72,7 +71,7 @@ public class GlideA extends Check {
 		}
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 1000L) {
-			this.dumplog(p, "Logged for Glide Type A;. MS: " + MS);
+			this.dumplog(p, "Logged. MS: " + MS);
 			flyTicks.remove(p.getUniqueId());
 			if (getAntiCheat().getLag().getPing(p) < 275) {
 				this.getAntiCheat().logCheat(this, p, null, "(Type: A)");

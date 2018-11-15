@@ -38,7 +38,7 @@ public class AntiCheatCommand implements CommandExecutor {
 			if (g[0].equalsIgnoreCase("checks")) {List<String> checkNames = new ArrayList<>();
 
             for(Check checkLoop : AntiCheat.getChecks()) {
-                checkNames.add((checkLoop.isEnabled() ? Color.Green + checkLoop.getIdentifier() : Color.Red + checkLoop.getIdentifier()) + Color.Gray);
+                checkNames.add((checkLoop.isEnabled() ? Color.Green + checkLoop.getName() : Color.Red + checkLoop.getName()) + Color.Gray);
             }
 				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
 	            s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());

@@ -2,7 +2,6 @@ package me.rida.anticheat.checks.movement;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -24,7 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 public class SpeedA extends Check {
 
     public SpeedA(AntiCheat AntiCheat) {
-        super("SpeedA", "Speed", CheckType.Movement, AntiCheat);
+        super("SpeedA", "Speed", AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -55,7 +54,7 @@ public class SpeedA extends Check {
             }
             double speed = MathUtil.getHorizontalDistance(from, to);
            if(MathUtil.elapsed(data.getLastVelMS(), 3000)) {
-               float verbose = data.getSpeedAVerbose();
+               int verbose = data.getSpeedAVerbose();
                double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
                double speedAThreshold = (data.getAirTicks() > 0 ? data.getAirTicks() >= 6
                        ? data.getAirTicks() == 13 ? 0.466 : 0.35 : (0.345 * Math.pow(0.986938064, data.getAirTicks()))
@@ -133,7 +132,7 @@ public class SpeedA extends Check {
                     && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                     && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                     && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                    && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStair(p)) {
+                    && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStiar(p)) {
                 if (!NewVelocityUtil.didTakeVel(p) && PlayerUtil.getDistanceToGround(p) > 4 == false) {
                     if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !VelocityUtil.didTakeVelocity(p) && !NewVelocityUtil.didTakeVel(p)
                             && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
@@ -183,7 +182,7 @@ public class SpeedA extends Check {
                         && blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
                         && !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
                         && above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-                        && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStair(p)) {
+                        && blockLoc.getBlock().getType() != Material.AIR && !NewVelocityUtil.didTakeVel(p) && !BlockUtil.isNearStiar(p)) {
                     if (!NewVelocityUtil.didTakeVel(p) && PlayerUtil.getDistanceToGround(p) > 4 == false) {
                         if (data.getSpeed2Verbose() >= 8 || p.getNoDamageTicks() == 0 == false && !VelocityUtil.didTakeVelocity(p) && !NewVelocityUtil.didTakeVel(p)
                                 && p.getLocation().add(0, 1.94, 0).getBlock().getType() != Material.AIR) {
@@ -200,7 +199,7 @@ public class SpeedA extends Check {
                             speedPot = true;
                         }
                     }
-                    if (speed > 0.29 && PlayerUtil.isOnGround(p) && !data.isNearIce() && !BlockUtil.isNearStair(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
+                    if (speed > 0.29 && PlayerUtil.isOnGround(p) && !data.isNearIce() && !BlockUtil.isNearStiar(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
                         if (data.getSpeed_OnGround_Verbose() >= 5) {
                         }
 

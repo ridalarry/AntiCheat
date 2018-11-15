@@ -1,23 +1,21 @@
 package me.rida.anticheat.checks.other;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.entity.Player;
+import org.bukkit.event.*;
+import java.util.*;
+import org.bukkit.*;
+import org.bukkit.event.block.*;
+import org.bukkit.block.*;
+import org.bukkit.entity.*;
 
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.VelocityUtil;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 
 public class BlockInteractD extends Check {
     public BlockInteractD(AntiCheat AntiCheat) {
-        super("BlockInteractD", "BlockInteract", CheckType.Other, AntiCheat);
+        super("BlockInteractD", "BlockInteract", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);

@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -20,17 +19,16 @@ public class KillAuraA extends Check {
 	public static Map<UUID, List<Long>> Clicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
-	public KillAuraA(AntiCheat AntiCheat) {
-		super("KillAuraA", "KillAura",  CheckType.Combat, AntiCheat);
+	public KillAuraA(final AntiCheat AntiCheat) {
+		super("KillAuraA", "KillAura", AntiCheat);
 		this.LastMS = new HashMap<>();
 		this.Clicks = new HashMap<>();
 		this.ClickTicks = new HashMap<>();
 
-		setEnabled(true);
-		setBannable(true);
-		setViolationResetTime(250000);
-		setViolationsToNotify(3);
-		setMaxViolations(10);
+		this.setEnabled(true);
+		this.setBannable(true);
+		this.setViolationResetTime(300000);
+		this.setMaxViolations(10);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -79,7 +77,8 @@ public class KillAuraA extends Check {
 					if (Range < 30L) {
 						++Count;
 						Time = System.currentTimeMillis();
-						this.dumplog(p, "Logged for KillAura Type A; New Range: " + Range +"; New Count: " + Count);
+						this.dumplog(p, "New Range: " + Range);
+						this.dumplog(p, "New Count: " + Count);
 					}
 				} else {
 					Clicks.add(MS);

@@ -14,7 +14,6 @@ import me.rida.anticheat.utils.TxtFile;
 public class Check implements Listener {
 	private String Identifier;
 	private String Name;
-	protected CheckType Type;
 	private AntiCheat AntiCheat;
 	private boolean Enabled = true;
 	private boolean BanTimer = false;
@@ -25,11 +24,10 @@ public class Check implements Listener {
 	private Long ViolationResetTime = Long.valueOf(600000L);
 	public Map<String, List<String>> DumpLogs = new HashMap<String, List<String>>();
 
-	public Check(String Identifier, String Name, CheckType Type, AntiCheat AntiCheat) {
+	public Check(String Identifier, String Name, AntiCheat AntiCheat) {
 		this.Name = Name;
 		this.AntiCheat = AntiCheat;
 		this.Identifier = Identifier;
-		this.Type = Type;
 	}
 
     
@@ -94,9 +92,9 @@ public class Check implements Listener {
 	}
 
 	public void setEnabled(boolean Enabled) {
-		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".enabled") != Enabled
-				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".enabled") != null) {
-			this.Enabled = AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".enabled");
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".enabled") != Enabled
+				&& AntiCheat.getConfig().get("checks." + this.getIdentifier() + ".enabled") != null) {
+			this.Enabled = AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".enabled");
 			return;
 		}
 		if (Enabled) {
@@ -110,12 +108,12 @@ public class Check implements Listener {
 	}
 
 	public void checkValues() {
-		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".enabled") == true) {
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".enabled") == true) {
 			this.setEnabled(true);
 		} else {
 			this.setEnabled(false);
 		}
-		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".bannable") == true) {
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".bannable") == true) {
 			this.setBannable(true);
 		} else {
 			this.setEnabled(false);
@@ -123,27 +121,27 @@ public class Check implements Listener {
 	}
 
 	public void setBannable(boolean Bannable) {
-		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".bannable") != Bannable
-				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".bannable") != null) {
-			this.Bannable = AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".bannable");
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".bannable") != Bannable
+				&& AntiCheat.getConfig().get("checks." + this.getIdentifier() + ".bannable") != null) {
+			this.Bannable = AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".bannable");
 			return;
 		}
 		this.Bannable = Bannable;
 	}
 
 	public void setAutobanTimer(boolean BanTimer) {
-		if ((AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".banTimer") != BanTimer
-				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".banTimer") != null)) {
-			this.BanTimer = AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".banTimer");
+		if ((AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".banTimer") != BanTimer
+				&& AntiCheat.getConfig().get("checks." + this.getIdentifier() + ".banTimer") != null)) {
+			this.BanTimer = AntiCheat.getConfig().getBoolean("checks." + this.getIdentifier() + ".banTimer");
 			return;
 		}
 		this.BanTimer = BanTimer;
 	}
 
 	public void setMaxViolations(int MaxViolations) {
-		if (AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".maxViolations") != MaxViolations
-				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".maxViolations") != null) {
-			this.MaxViolations = AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".maxViolations");
+		if (AntiCheat.getConfig().getInt("checks." + this.getIdentifier() + ".maxViolations") != MaxViolations
+				&& AntiCheat.getConfig().get("checks." + this.getIdentifier() + ".maxViolations") != null) {
+			this.MaxViolations = AntiCheat.getConfig().getInt("checks." + this.getIdentifier() + ".maxViolations");
 			return;
 		}
 		this.MaxViolations = MaxViolations;
@@ -159,9 +157,6 @@ public class Check implements Listener {
 
 	public void setJudgementDay(boolean JudgementDay) {
 		this.JudgementDay = JudgementDay;
-	}
-	public CheckType getType() {
-		return this.Type;
 	}
 
 	public String getName() {
@@ -180,7 +175,7 @@ public class Check implements Listener {
 		if (!this.DumpLogs.containsKey(player)) {
 			return null;
 		}
-		TxtFile file = new TxtFile(this.getAntiCheat(), "/Dumps", player + "_" + this.getType() + "." + this.getName() + "." + this.getIdentifier());
+		TxtFile file = new TxtFile(this.getAntiCheat(), "/Dumps", player + "_" + this.getIdentifier());
 		file.clear();
 		for (String Line : this.DumpLogs.get(player)) {
 			file.addLine(Line);

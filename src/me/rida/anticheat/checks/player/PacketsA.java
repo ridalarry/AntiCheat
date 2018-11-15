@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -18,12 +19,9 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.utils.*;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.TimeUtil;
 
 public class PacketsA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;
@@ -31,8 +29,7 @@ public class PacketsA extends Check {
 	public List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
-		super("PacketsA", "Packets", CheckType.Player, AntiCheat);
-
+		super("PacketsA", "Packets", AntiCheat);
 		setEnabled(true);
 		setBannable(false);
 		setMaxViolations(10);
@@ -42,85 +39,99 @@ public class PacketsA extends Check {
 		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
-	@EventHandler
-	public void PlayerJoin(PlayerJoinEvent event) {
-		this.blacklist.add(event.getPlayer().getUniqueId());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void PlayerJoin(PlayerJoinEvent e) {
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
+		this.blacklist.add(u);
 	}
 
-	@EventHandler
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onLogout(PlayerQuitEvent e) {
-		if (packetTicks.containsKey(e.getPlayer().getUniqueId())) {
-			packetTicks.remove(e.getPlayer().getUniqueId());
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
+		if (packetTicks.containsKey(u)) {
+			packetTicks.remove(u);
 		}
-		if (lastPacket.containsKey(e.getPlayer().getUniqueId())) {
-			lastPacket.remove(e.getPlayer().getUniqueId());
+		if (lastPacket.containsKey(u)) {
+			lastPacket.remove(u);
 		}
-		if (blacklist.contains(e.getPlayer().getUniqueId())) {
-			blacklist.remove(e.getPlayer().getUniqueId());
+		if (blacklist.contains(u)) {
+			blacklist.remove(u);
 		}
 	}
 
-	@EventHandler
-	public void PlayerChangedWorld(PlayerChangedWorldEvent event) {
-		blacklist.add(event.getPlayer().getUniqueId());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void PlayerChangedWorld(PlayerChangedWorldEvent e) {
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
+		blacklist.add(u);
 	}
 
-	@EventHandler
-	public void PlayerRespawn(PlayerRespawnEvent event) {
-		blacklist.add(event.getPlayer().getUniqueId());
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void PlayerRespawn(PlayerRespawnEvent e) {
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
+		blacklist.add(u);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public final void PacketPlayer(PacketPlayerEvent event) {
-		Player player = event.getPlayer();
+	public final void PacketPlayer(PacketPlayerEvent e) {
+		Player p = e.getPlayer();
+		UUID u = p.getUniqueId();
 		if (!getAntiCheat().isEnabled()
-			|| player.getGameMode().equals(GameMode.CREATIVE)
-			|| getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel()
-			|| getAntiCheat().lag.getPing(player) > 200) {
+				|| (p.getGameMode().equals(GameMode.CREATIVE)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) < getAntiCheat().getPingCancel()
+				|| getAntiCheat().lag.getPing(p) > 200)
+				|| getAntiCheat().lag.getTPS() > 21.0D){
 			return;
 		}
+
 		int Count = 0;
 		long Time = System.currentTimeMillis();
-		if (packetTicks.containsKey(player.getUniqueId())) {
-			Count = packetTicks.get(player.getUniqueId()).getKey().intValue();
-			Time = packetTicks.get(player.getUniqueId()).getValue().longValue();
+		if (packetTicks.containsKey(u)) {
+			Count = packetTicks.get(u).getKey().intValue();
+			Time = packetTicks.get(u).getValue().longValue();
 		}
-		if (lastPacket.containsKey(player.getUniqueId())) {
-			long MS = System.currentTimeMillis() - lastPacket.get(player.getUniqueId()).longValue();
+		if (lastPacket.containsKey(u)) {
+			long MS = System.currentTimeMillis() - lastPacket.get(u).longValue();
 			if (MS >= 100L) {
-				blacklist.add(player.getUniqueId());
-			} else if ((MS > 1L) && (this.blacklist.contains(player.getUniqueId()))) {
-				blacklist.remove(player.getUniqueId());
+				blacklist.add(u);
+			} else if ((MS > 1L) && (this.blacklist.contains(u))) {
+				blacklist.remove(u);
 			}
 		}
-		if (!blacklist.contains(player.getUniqueId())) {
+		if (!blacklist.contains(u)) {
 			Count++;
-			if ((packetTicks.containsKey(player.getUniqueId())) && (TimeUtil.elapsed(Time, 1000L))) {
+			if ((packetTicks.containsKey(u)) && (TimeUtil.elapsed(Time, 1000L))) {
 				int maxPackets = 50;
 				if (Count > maxPackets) {
-					if (!PlayerUtil.isFullyStuck(player) && !PlayerUtil.isPartiallyStuck(player)) {
-						getAntiCheat().logCheat(this, player, "sent over " + Count  + " packets! ", "(Type: A)");
+					if (!PlayerUtil.isFullyStuck(p) && !PlayerUtil.isPartiallyStuck(p)) {
+						getAntiCheat().logCheat(this, p, "sent over " + Count  + " packets! ", "(Type: A)");
 					}
 				}
 				if (Count > 400) {
-					getAntiCheat().logCheat(this, player, Color.White + "Sent over " + Count  + " packets! " , "(Type: A)");
+					getAntiCheat().logCheat(this, p, "sent over " + Count  + " packets! ", "(Type: A)");
 				}
-
 				if (Count > 800) {
-					getAntiCheat().logCheat(this, player, Color.White + "Sent over " + Count  + " packets! " , "(Type: A)");
-				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-				        	final Player p = event.getPlayer();
-				            @Override
-				            public void run() {
-				                player.kickPlayer("Too many packets");
-				            }
-				        });
-				    }
-				Count = 0;
+						getAntiCheat().logCheat(this, p, "sent over " + Count  + " packets! ", "(Type: A)");
+				}
+				if (Count > 1000) {
+					getAntiCheat().logCheat(this, p, Color.Red + "Kicked, " + Color.White + "sent over " + Count  + " packets! " , "(Type: A)");				        	
+					AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+			        	final Player p = e.getPlayer();
+			            @Override
+			            public void run() {
+			                p.kickPlayer("Too many packets");
+			            }
+			        });
+			    }
+					Count = 0;
 				Time = TimeUtil.nowlong();
 			}
 		}
-		packetTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
-		lastPacket.put(player.getUniqueId(), System.currentTimeMillis());
+		packetTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		lastPacket.put(u, System.currentTimeMillis());
 	}
 }

@@ -8,11 +8,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveC extends Check {
     public InvMoveC(AntiCheat AntiCheat) {
-        super("InvMoveC", "InvMove", CheckType.Other, AntiCheat);
+        super("InvMoveC", "InvMove", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

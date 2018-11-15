@@ -4,7 +4,6 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;
 
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 
 import java.util.HashMap;
@@ -30,7 +29,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
     }
 
     public PMEA(AntiCheat AntiCheat) {
-        super("PMEA", "PME", CheckType.Client, AntiCheat);
+        super("PMEA", "PME", AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);

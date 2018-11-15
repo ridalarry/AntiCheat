@@ -142,7 +142,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new KillAuraB(this));
 		this.Checks.add(new KillAuraC(this));
 		this.Checks.add(new KillAuraD(this));
-		this.Checks.add(new SkinBlinkerA(this));
 		this.Checks.add(new KillAuraE(this));
 		this.Checks.add(new KillAuraF(this));
 		this.Checks.add(new KillAuraG(this));
@@ -152,7 +151,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new KillAuraK(this));
 		this.Checks.add(new NoFallA(this));
 		this.Checks.add(new NoSlowdownA(this));
-		this.Checks.add(new PacketsA(this));
 		this.Checks.add(new PacketsA(this));
 		this.Checks.add(new PhaseA(this));
 		this.Checks.add(new PMEA(this));
@@ -211,11 +209,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.RegisterListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
 		if (!file.exists()) {
-			this.getConfig().addDefault("settings.EnableCustomLog", true);
-			this.getConfig().addDefault("settings.CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
-			this.getConfig().addDefault("settings.bans", 0);
-			this.getConfig().addDefault("settings.testmode", false);
-			this.getConfig().addDefault("settings.prefix", "&8[&c&lAntiCheat&8] ");
+			this.getConfig().addDefault("EnableCustomLog", true);
+			this.getConfig().addDefault("CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
+			this.getConfig().addDefault("bans", 0);
+			this.getConfig().addDefault("testmode", false);
+			this.getConfig().addDefault("prefix", "&8[&c&lAntiCheat&8] ");
 			this.getConfig().addDefault("alerts.primary", "&7");
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
@@ -228,26 +226,26 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("settings.latency.ping", 300);
 			this.getConfig().addDefault("settings.latency.tps", 17);
 			for (Check check : Checks) {
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations",
+				this.getConfig().addDefault("checks." + check.getIdentifier() + ".enabled", check.isEnabled());
+				this.getConfig().addDefault("checks." + check.getIdentifier() + ".bannable", check.isBannable());
+				this.getConfig().addDefault("checks." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+				this.getConfig().addDefault("checks." + check.getIdentifier() + ".maxViolations",
 						check.getMaxViolations());
 			}
-			this.getConfig().addDefault("checks.Movement.Phase.PhaseA.pearlFix", true);
+			this.getConfig().addDefault("checks.Phase.pearlFix", true);
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
 		}
 		for (Check check : Checks) {
-			if (!getConfig().isConfigurationSection("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier())) {
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
+			if (!getConfig().isConfigurationSection("checks." + check.getIdentifier())) {
+				this.getConfig().set("checks." + check.getIdentifier() + ".enabled", check.isEnabled());
+				this.getConfig().set("checks." + check.getIdentifier() + ".bannable", check.isBannable());
+				this.getConfig().set("checks." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+				this.getConfig().set("checks." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
 				this.saveConfig();
 			}
 		}
-		this.PREFIX = Color.translate(getConfig().getString("settings.prefix"));
+		this.PREFIX = Color.translate(getConfig().getString("prefix"));
 		new BukkitRunnable() {
 			public void run() {
 				getLogger().log(Level.INFO, "Reset Violations!");
@@ -267,9 +265,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
 
 		saveDefaultConfig();
-        if (getConfig().getBoolean("settings.EnableCustomLog")) {
+        if (getConfig().getBoolean("EnableCustomLog")) {
             try {
-                logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
+                logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("CustomLogFormat"));
             } catch (Throwable ex) {
                 getLogger().log(Level.SEVERE, ex.getMessage());
             }
@@ -314,40 +312,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public String resetData() {
 		try {
 			resetAllViolations();
-			if (!AntiKBA.lastVelocity.isEmpty())
-				AntiKBA.lastVelocity.clear();
-			if (!AntiKBA.awaitingVelocity.isEmpty())
-				AntiKBA.awaitingVelocity.clear();
-			if (!AntiKBA.totalMoved.isEmpty())
-				AntiKBA.totalMoved.clear();
-			if (!AntiKBB.lastSprintStart.isEmpty())
-				AntiKBB.lastSprintStart.clear();
-			if (!AntiKBB.lastSprintStop.isEmpty())
-				AntiKBB.lastSprintStop.clear();
-			if (!AutoClickerA.clicks.isEmpty())
-				AutoClickerA.clicks.clear();
-			if (!AutoClickerA.recording.isEmpty())
-				AutoClickerA.recording.clear();
 			if (!AutoClickerB.Clicks.isEmpty())
 				AutoClickerB.Clicks.clear();
 			if (!AutoClickerB.LastMS.isEmpty())
 				AutoClickerB.LastMS.clear();
 			if (!AutoClickerB.ClickTicks.isEmpty())
 				AutoClickerB.ClickTicks.clear();
-			if (!AutoClickerC.hitsSinceLastCheck.isEmpty())
-				AutoClickerC.hitsSinceLastCheck.clear();
-			if (!AutoClickerC.lastCheckedTick.isEmpty())
-				AutoClickerC.lastCheckedTick.clear();
-			if (!AutoClickerC.packetHitsSinceLastCheck.isEmpty())
-				AutoClickerC.packetHitsSinceLastCheck.clear();
-			if (!AutoClickerC.lastPacketTick.isEmpty())
-				AutoClickerC.lastPacketTick.clear();
-			if (!AutoClickerC.lastTickWithPacketSent.isEmpty())
-				AutoClickerC.lastTickWithPacketSent.clear();
-			if (!AutoClickerC.cps.isEmpty())
-				AutoClickerC.cps.clear();
-			if (!AutoClickerC.cpsMS.isEmpty())
-				AutoClickerC.cpsMS.clear();
 			if (!CriticalsB.CritTicks.isEmpty())
 				CriticalsB.CritTicks.clear();
 			if (!KillAuraA.ClickTicks.isEmpty())
@@ -364,96 +334,32 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				KillAuraC.LastLocation.clear();
 			if (!KillAuraC.AimbotTicks.isEmpty())
 				KillAuraC.AimbotTicks.clear();
-			if (!KillAuraD.packetTicks.isEmpty())
-				KillAuraD.packetTicks.clear();
 			if (!KillAuraE.lastAttack.isEmpty())
 				KillAuraE.lastAttack.clear();
 			if (!KillAuraF.counts.isEmpty())
 				KillAuraF.counts.clear();
-			if (!KillAuraI.hits.isEmpty())
-				KillAuraI.hits.clear();
-			if (!ReachB.count.isEmpty())
-				ReachB.count.clear();
-			if (!ReachB.offsets.isEmpty())
-				ReachB.offsets.clear();
-			if (!ReachC.reachTicks.isEmpty())
-				ReachC.reachTicks.clear();
-			if (!ReachC.projectileHit.isEmpty())
-				ReachC.projectileHit.clear();
-			if (!ReachD.toBan.isEmpty())
-				ReachD.toBan.clear();
 			if (!RegenA.FastHealTicks.isEmpty())
 				RegenA.FastHealTicks.clear();
 			if (!RegenA.LastHeal.isEmpty())
 				RegenA.LastHeal.clear();
 			if (!AscensionA.AscensionTicks.isEmpty())
 				AscensionA.AscensionTicks.clear();
-			if (!AscensionB.verbose.isEmpty())
-				AscensionB.verbose.clear();
-			if (!AscensionB.lastYMovement.isEmpty())
-				AscensionB.lastYMovement.clear();
-			if (!FastLadderA.count.isEmpty())
-				FastLadderA.count.clear();
 			if (!FlyB.flyTicksA.isEmpty())
 				FlyB.flyTicksA.clear();
 			if (!GlideA.flyTicks.isEmpty())
 				GlideA.flyTicks.clear();
-			if (!JesusA.onWater.isEmpty())
-				JesusA.onWater.clear();
-			if (!JesusA.placedBlockOnWater.isEmpty())
-				JesusA.placedBlockOnWater.clear();
-			if (!JesusA.count.isEmpty())
-				JesusA.count.clear();
-			if (!JesusA.velocity.isEmpty())
-				JesusA.velocity.clear();
 			if (!NoFallA.FallDistance.isEmpty())
 				NoFallA.FallDistance.clear();
 			if (!NoFallA.NoFallTicks.isEmpty())
 				NoFallA.NoFallTicks.clear();
 			if (!NoSlowdownA.speedTicks.isEmpty())
 				NoSlowdownA.speedTicks.clear();
-			if (!SpeedB.speedTicks.isEmpty())
-				SpeedB.speedTicks.clear();
-			if (!SpeedB.tooFastTicks.isEmpty())
-				SpeedB.tooFastTicks.clear();
-			if (!SpeedB.lastHit.isEmpty())
-				SpeedB.lastHit.isEmpty();
 			if (!SpeedC.speedTicks.isEmpty())
 				SpeedC.speedTicks.clear();
 			if (!SpeedC.tooFastTicks.isEmpty())
 				SpeedC.tooFastTicks.clear();
 			if (!SpeedC.lastHit.isEmpty())
 				SpeedC.lastHit.isEmpty();
-			if (!SpeedC.velocity.isEmpty())
-				SpeedC.velocity.isEmpty();
-			if (!SpiderA.AscensionTicks.isEmpty())
-				SpiderA.AscensionTicks.clear();
-			if (!TimerA.packets.isEmpty())
-				TimerA.packets.clear();
-			if (!TimerA.verbose.isEmpty())
-				TimerA.verbose.clear();
-			if (!TimerA.lastPacket.isEmpty())
-				TimerA.lastPacket.clear();
-			if (!TimerA.toCancel.isEmpty())
-				TimerA.toCancel.clear();
-			if (!TimerB.timerTicks.isEmpty())
-				TimerB.timerTicks.clear();
-			if (!VClipA.teleported.isEmpty())
-				VClipA.teleported.clear();
-			if (!VClipA.lastLocation.isEmpty())
-				VClipA.lastLocation.clear();
-			if (!BlockInteractB.speedTicks.isEmpty())
-				BlockInteractB.speedTicks.clear();
-			if (!ChangeA.built.isEmpty())
-				ChangeA.built.clear();
-			if (!ChangeA.falling.isEmpty())
-				ChangeA.falling.clear();
-			if (!CrashA.crashTicks.isEmpty())
-				CrashA.crashTicks.clear();
-			if (!CrashA.crash2Ticks.isEmpty())
-				CrashA.crash2Ticks.clear();
-			if (!CrashA.crash3Ticks.isEmpty())
-				CrashA.crash3Ticks.clear();
 			if (!PacketsA.lastPacket.isEmpty())
 				PacketsA.lastPacket.clear();
 			if (!PacketsA.packetTicks.isEmpty())
@@ -510,11 +416,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public void createLog(Player player, Check checkBanned) {
 		TxtFile logFile = new TxtFile(this, File.separator + "logs", player.getName());
 		Map<Check, Integer> Checks = getViolations(player);
-		logFile.addLine("---- Player was banned for: " + checkBanned.getName() + " ----");
+		logFile.addLine("------------------- Player was banned for: " + checkBanned.getName() + " -------------------");
 		logFile.addLine("Set off checks:");
 		for (Check check : Checks.keySet()) {
 			Integer Violations = Checks.get(check);
-			logFile.addLine("- " + check.getType() + "." + check.getIdentifier() + " x" + Violations);
+			logFile.addLine("- " + check.getName() + " x" + Violations);
 		}
 		logFile.addLine(" ");
 		logFile.addLine("Dump-Log for all checks set off:");
@@ -612,6 +518,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		return null;
 	}
 
+
 	public void addViolation(Player player, Check check) {
 		Map<Check, Integer> map = new HashMap<Check, Integer>();
 		if (this.Violations.containsKey(player.getUniqueId())) {
@@ -666,7 +573,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 			msg.addText(Color.translate(
 					getConfig().getString("alerts.primary") + " set off " + getConfig().getString("alerts.secondary")
-							+ check.getType() + "." + check.getName() + getConfig().getString("alerts.primary") + " and will "
+							+ check.getName() + getConfig().getString("alerts.primary") + " and will "
 							+ getConfig().getString("alerts.primary") + "be " + getConfig().getString("alerts.primary")
 							+ "banned" + getConfig().getString("alerts.primary") + " if you don't take action. "
 							+ Color.DGray + Color.Bold + "["));
@@ -696,10 +603,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void banPlayer(Player player, Check check) {
-		if (!getConfig().getBoolean("settings.testmode")) {
+		if (!getConfig().getBoolean("testmode")) {
 			this.createLog(player, check);
 		}
-		if (NamesBanned.containsKey(player.getName()) && !getConfig().getBoolean("settings.testmode")) {
+		if (NamesBanned.containsKey(player.getName()) && !getConfig().getBoolean("testmode")) {
 			return;
 		}
 		this.NamesBanned.put(player.getName(), check);
@@ -707,11 +614,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		new BukkitRunnable() {
 			@Override
 			public void run() {
-				if (NamesBanned.containsKey(player.getName()) && getConfig().getBoolean("settings.testmode")) {
+				if (NamesBanned.containsKey(player.getName()) && getConfig().getBoolean("testmode")) {
 					return;
 				}
 				if (Latency.getLag(player) < 250) {
-					if (getConfig().getBoolean("settings.testmode")) {
+					if (getConfig().getBoolean("testmode")) {
 						player.sendMessage(
 								PREFIX + Color.Gray + "You would be banned right now for: " + Color.Red + check.getName());
 					} else {
@@ -728,7 +635,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}.runTaskLater(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
-		this.getConfig().set("settings.bans", (Object) (this.getConfig().getInt("settings.bans") + 1));
+		this.getConfig().set("bans", (Object) (this.getConfig().getInt("bans") + 1));
 		this.saveConfig();
 	}
 
@@ -807,6 +714,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
         return Instance;
     }
 
+
     public DataManager getDataManager() {
         return dataManager;
     }
@@ -821,10 +729,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
    
     private void loadChecks() {
         for(Check check : getDataManager().getChecks()) {
-            if(getConfig().get("checks." + check.getType() + "." + check.getName() + ".enabled") != null) {
-                check.setEnabled(getConfig().getBoolean("checks." + check.getType() + "." + check.getName() + ".enabled"));
+            if(getConfig().get("checks." + check.getName() + ".enabled") != null) {
+                check.setEnabled(getConfig().getBoolean("checks." + check.getName() + ".enabled"));
             } else {
-                getConfig().set("checks." + check.getType() + "." + check.getName() + ".enabled", check.isEnabled());
+                getConfig().set("checks." + check.getName() + ".enabled", check.isEnabled());
                 saveConfig();
             }
         }
@@ -832,7 +740,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
     private void saveChecks() {
         for(Check check : getDataManager().getChecks()) {
-            getConfig().set("checks." + check.getType() + "." + check.getName() + ".enabled", check.isEnabled());
+            getConfig().set("checks." + check.getName() + ".enabled", check.isEnabled());
             saveConfig();
         }
     }
@@ -843,6 +751,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new VelocityUtil(), this);
         getServer().getPluginManager().registerEvents(new NewVelocityUtil(), this);
     }
+
 
     private void addDataPlayers() {
         for (Player playerLoop : Bukkit.getOnlinePlayers()) {
@@ -932,6 +841,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
             if (pages.size() > 0 && "CustomPayloadFixer".equalsIgnoreCase(pages.getValue(0)))
                 throw new ExploitException("Testing exploit", itemStack);
+
 
         } finally {
             buffer.release();
