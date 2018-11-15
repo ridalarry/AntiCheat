@@ -25,57 +25,57 @@ public final class CheatUtil {
     private static Set<UUID> teleported = new HashSet<>();
 
     static {
-        INSTANT_BREAK.add(Material.getMaterial("RED_MUSHROOM"));
-        INSTANT_BREAK.add(Material.getMaterial("RED_ROSE"));
-        INSTANT_BREAK.add(Material.getMaterial("BROWN_MUSHROOM"));
-        INSTANT_BREAK.add(Material.getMaterial("YELLOW_FLOWER"));
-        INSTANT_BREAK.add(Material.getMaterial("REDSTONE"));
-        INSTANT_BREAK.add(Material.getMaterial("REDSTONE_TORCH_OFF"));
-        INSTANT_BREAK.add(Material.getMaterial("REDSTONE_TORCH_ON"));
-        INSTANT_BREAK.add(Material.getMaterial("REDSTONE_WIRE"));
-        INSTANT_BREAK.add(Material.getMaterial("LONG_GRASS"));
-        INSTANT_BREAK.add(Material.getMaterial("PAINTING"));
-        INSTANT_BREAK.add(Material.getMaterial("WHEAT"));
-        INSTANT_BREAK.add(Material.getMaterial("SUGAR_CANE"));
-        INSTANT_BREAK.add(Material.getMaterial("SUGAR_CANE_BLOCK"));
-        INSTANT_BREAK.add(Material.getMaterial("DIODE"));
-        INSTANT_BREAK.add(Material.getMaterial("DIODE_BLOCK_OFF"));
-        INSTANT_BREAK.add(Material.getMaterial("DIODE_BLOCK_ON"));
-        INSTANT_BREAK.add(Material.getMaterial("SAPLING"));
-        INSTANT_BREAK.add(Material.getMaterial("TORCH"));
-        INSTANT_BREAK.add(Material.getMaterial("CROPS"));
-        INSTANT_BREAK.add(Material.getMaterial("SNOW"));
-        INSTANT_BREAK.add(Material.getMaterial("TNT"));
-        INSTANT_BREAK.add(Material.getMaterial("POTATO"));
-        INSTANT_BREAK.add(Material.getMaterial("CARROT"));
+        INSTANT_BREAK.add(Material.RED_MUSHROOM);
+        INSTANT_BREAK.add(Material.RED_ROSE);
+        INSTANT_BREAK.add(Material.BROWN_MUSHROOM);
+        INSTANT_BREAK.add(Material.YELLOW_FLOWER);
+        INSTANT_BREAK.add(Material.REDSTONE);
+        INSTANT_BREAK.add(Material.REDSTONE_TORCH_OFF);
+        INSTANT_BREAK.add(Material.REDSTONE_TORCH_ON);
+        INSTANT_BREAK.add(Material.REDSTONE_WIRE);
+        INSTANT_BREAK.add(Material.LONG_GRASS);
+        INSTANT_BREAK.add(Material.PAINTING);
+        INSTANT_BREAK.add(Material.WHEAT);
+        INSTANT_BREAK.add(Material.SUGAR_CANE);
+        INSTANT_BREAK.add(Material.SUGAR_CANE_BLOCK);
+        INSTANT_BREAK.add(Material.DIODE);
+        INSTANT_BREAK.add(Material.DIODE_BLOCK_OFF);
+        INSTANT_BREAK.add(Material.DIODE_BLOCK_ON);
+        INSTANT_BREAK.add(Material.SAPLING);
+        INSTANT_BREAK.add(Material.TORCH);
+        INSTANT_BREAK.add(Material.CROPS);
+        INSTANT_BREAK.add(Material.SNOW);
+        INSTANT_BREAK.add(Material.TNT);
+        INSTANT_BREAK.add(Material.POTATO);
+        INSTANT_BREAK.add(Material.CARROT);
 
-        INTERACTABLE.add(Material.getMaterial("STONE_BUTTON"));
-        INTERACTABLE.add(Material.getMaterial("LEVER"));
-        INTERACTABLE.add(Material.getMaterial("CHEST"));
+        INTERACTABLE.add(Material.STONE_BUTTON);
+        INTERACTABLE.add(Material.LEVER);
+        INTERACTABLE.add(Material.CHEST);
 
-        FOOD.add(Material.getMaterial("COOKED_BEEF"));
-        FOOD.add(Material.getMaterial("COOKED_CHICKEN"));
-        FOOD.add(Material.getMaterial("COOKED_FISH"));
-        FOOD.add(Material.getMaterial("GRILLED_PORK"));
-        FOOD.add(Material.getMaterial("PORK"));
-        FOOD.add(Material.getMaterial("MUSHROOM_SOUP"));
-        FOOD.add(Material.getMaterial("RAW_BEEF"));
-        FOOD.add(Material.getMaterial("RAW_CHICKEN"));
-        FOOD.add(Material.getMaterial("RAW_FISH"));
-        FOOD.add(Material.getMaterial("APPLE"));
-        FOOD.add(Material.getMaterial("GOLDEN_APPLE"));
-        FOOD.add(Material.getMaterial("MELON"));
-        FOOD.add(Material.getMaterial("COOKIE"));
-        FOOD.add(Material.getMaterial("BREAD"));
-        FOOD.add(Material.getMaterial("SPIDER_EYE"));
-        FOOD.add(Material.getMaterial("ROTTEN_FLESH"));
-        FOOD.add(Material.getMaterial("POTATO_ITEM"));
+        FOOD.add(Material.COOKED_BEEF);
+        FOOD.add(Material.COOKED_CHICKEN);
+        FOOD.add(Material.COOKED_FISH);
+        FOOD.add(Material.GRILLED_PORK);
+        FOOD.add(Material.PORK);
+        FOOD.add(Material.MUSHROOM_SOUP);
+        FOOD.add(Material.RAW_BEEF);
+        FOOD.add(Material.RAW_CHICKEN);
+        FOOD.add(Material.RAW_FISH);
+        FOOD.add(Material.APPLE);
+        FOOD.add(Material.GOLDEN_APPLE);
+        FOOD.add(Material.MELON);
+        FOOD.add(Material.COOKIE);
+        FOOD.add(Material.BREAD);
+        FOOD.add(Material.SPIDER_EYE);
+        FOOD.add(Material.ROTTEN_FLESH);
+        FOOD.add(Material.POTATO_ITEM);
 
-        COMBO.put(Material.getMaterial("SHEARS"), Material.getMaterial("WOOL"));
-        COMBO.put(Material.getMaterial("IRON_SWORD"), Material.getMaterial("WEB"));
-        COMBO.put(Material.getMaterial("DIAMOND_SWORD"), Material.getMaterial("WEB"));
-        COMBO.put(Material.getMaterial("STONE_SWORD"), Material.getMaterial("WEB"));
-        COMBO.put(Material.getMaterial("WOOD_SWORD"), Material.getMaterial("WEB"));
+        COMBO.put(Material.SHEARS, Material.WOOL);
+        COMBO.put(Material.IRON_SWORD, Material.WEB);
+        COMBO.put(Material.DIAMOND_SWORD, Material.WEB);
+        COMBO.put(Material.STONE_SWORD, Material.WEB);
+        COMBO.put(Material.WOOD_SWORD, Material.WEB);
     }
 
     public static double getXDelta(Location one, Location two) {
@@ -83,16 +83,16 @@ public final class CheatUtil {
     }
 
     public static boolean isDoor(Block block) {
-        return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.getMaterial("IRON_DOOR_BLOCK"))
-                || block.getType().equals(Material.getMaterial("WOOD_DOOR")) || block.getType().equals(Material.getMaterial("WOODEN_DOOR"));
+        return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.IRON_DOOR_BLOCK)
+                || block.getType().equals(Material.WOOD_DOOR) || block.getType().equals(Material.WOODEN_DOOR);
     }
 
     public static boolean isFenceGate(Block block) {
-        return block.getType().equals(Material.getMaterial("FENCE_GATE"));
+        return block.getType().equals(Material.FENCE_GATE);
     }
 
     public static boolean isTrapDoor(Block block) {
-        return block.getType().equals(Material.getMaterial("TRAP_DOOR"));
+        return block.getType().equals(Material.TRAP_DOOR);
     }
 
     public static double getZDelta(Location one, Location two) {
@@ -157,21 +157,21 @@ public final class CheatUtil {
 
         boolean isHover = block.getType() == Material.AIR;
         boolean n = (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.STATIONARY_WATER);
         boolean s = (otherBlock.getRelative(BlockFace.SOUTH).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.SOUTH).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.SOUTH).getType() == Material.STATIONARY_WATER);
         boolean e = (otherBlock.getRelative(BlockFace.EAST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.EAST).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.EAST).getType() == Material.STATIONARY_WATER);
         boolean w = (otherBlock.getRelative(BlockFace.WEST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.WEST).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.WEST).getType() == Material.STATIONARY_WATER);
         boolean ne = (otherBlock.getRelative(BlockFace.NORTH_EAST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH_EAST).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.NORTH_EAST).getType() == Material.STATIONARY_WATER);
         boolean nw = (otherBlock.getRelative(BlockFace.NORTH_WEST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH_WEST).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.NORTH_WEST).getType() == Material.STATIONARY_WATER);
         boolean se = (otherBlock.getRelative(BlockFace.SOUTH_EAST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.STATIONARY_WATER);
         boolean sw = (otherBlock.getRelative(BlockFace.SOUTH_WEST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.SOUTH_WEST).getType() == Material.getMaterial("STATIONARY_WATER"));
+                || (otherBlock.getRelative(BlockFace.SOUTH_WEST).getType() == Material.STATIONARY_WATER);
 
         return (n) && (s) && (e) && (w) && (ne) && (nw) && (se) && (sw) && (isHover);
     }
@@ -379,7 +379,36 @@ public final class CheatUtil {
         }
     }
 
+    public static boolean isSlab(Block block) {
+        Material type = block.getType();
+        switch (type) {
+            case STEP:
+            case WOOD_STEP:
+                return true;
+        }
+        return false;
+    }
 
+    public static boolean isStair(Block block) {
+        Material type = block.getType();
+        switch (type) {
+            case COMMAND:
+            case COBBLESTONE_STAIRS:
+            case BRICK_STAIRS:
+            case ACACIA_STAIRS:
+            case BIRCH_WOOD_STAIRS:
+            case DARK_OAK_STAIRS:
+            case JUNGLE_WOOD_STAIRS:
+            case NETHER_BRICK_STAIRS:
+            case QUARTZ_STAIRS:
+            case SANDSTONE_STAIRS:
+            case SMOOTH_STAIRS:
+            case SPRUCE_WOOD_STAIRS:
+            case WOOD_STAIRS:
+                return true;
+        }
+        return false;
+    }
 
     public static boolean isInteractable(Material m) {
         return INTERACTABLE.contains(m);
@@ -391,7 +420,7 @@ public final class CheatUtil {
 
     public static boolean isOnLilyPad(Player player) {
         Block block = player.getLocation().getBlock();
-        Material lily = Material.getMaterial("WATER_LILY");
+        Material lily = Material.WATER_LILY;
 
         return (block.getType() == lily) || (block.getRelative(BlockFace.NORTH).getType() == lily)
                 || (block.getRelative(BlockFace.SOUTH).getType() == lily)
@@ -411,13 +440,18 @@ public final class CheatUtil {
     }
 
     public static boolean isInWeb(Player player) {
-        if (BlockUtil.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.getMaterial("WEB"))) {
+        if (BlockUtil.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
             return true;
         }
-        return (player.getLocation().getBlock().getType() == Material.getMaterial("WEB"))
-                || (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.getMaterial("WEB"))
-                || (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.getMaterial("WEB"))
-                || (player.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.getMaterial("WEB"));
+        return (player.getLocation().getBlock().getType() == Material.WEB)
+                || (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.WEB)
+                || (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.WEB)
+                || (player.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.WEB);
+    }
+
+    public static boolean isClimbableBlock(Block block) {
+        return (block.getType() == Material.VINE) || (block.getType() == Material.LADDER)
+                || (block.getType() == Material.WATER) || (block.getType() == Material.STATIONARY_WATER);
     }
 
     public static boolean isOnVine(Player player) {
@@ -465,7 +499,7 @@ public final class CheatUtil {
             nearBlocks = true;
         }
         if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN),
-                new Material[]{Material.getMaterial("FENCE"), Material.getMaterial("FENCE_GATE"), Material.getMaterial("COBBLE_WALL"), Material.LADDER})) {
+                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER})) {
             nearBlocks = true;
         }
         return nearBlocks;
@@ -484,12 +518,34 @@ public final class CheatUtil {
             nearBlocks = true;
         }
         if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN),
-                new Material[]{Material.getMaterial("FENCE"), Material.getMaterial("FENCE_GATE"), Material.getMaterial("COBBLE_WALL"), Material.LADDER})) {
+                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER})) {
             nearBlocks = true;
         }
         return nearBlocks;
     }
 
+    public static boolean slabsNear(Location loc) {
+        boolean nearBlocks = false;
+        for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
+            if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
+                    || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
+                nearBlocks = true;
+                break;
+            }
+        }
+        for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
+            if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
+                    || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
+                nearBlocks = true;
+                break;
+            }
+        }
+        if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN), new Material[]{Material.STEP, Material.DOUBLE_STEP,
+                Material.WOOD_DOUBLE_STEP, Material.WOOD_STEP})) {
+            nearBlocks = true;
+        }
+        return nearBlocks;
+    }
 
     public static boolean isBlock(Block block, Material[] materials) {
         Material type = block.getType();

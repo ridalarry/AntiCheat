@@ -72,7 +72,7 @@ public class NoSlowdownA extends Check {
 		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
 				MathUtil.getHorizontalVector(e.getTo().toVector()));
 
-		if (!p.getLocation().getBlock().getType().equals(Material.getMaterial("WEB")) || (OffsetXZ < 0.2)) {
+		if (!p.getLocation().getBlock().getType().equals(Material.WEB) || (OffsetXZ < 0.2)) {
 			return;
 		}
 
@@ -83,7 +83,7 @@ public class NoSlowdownA extends Check {
 	public void onInteract(PlayerInteractEvent e) {
 		if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				&& e.getItem() != null) {
-			if (e.getItem().equals(Material.getMaterial("EXP_BOTTLE")) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
+			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
 					|| e.getItem().getType().equals(Material.POTION)) {
 				return;
 			}

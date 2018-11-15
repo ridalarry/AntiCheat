@@ -4,9 +4,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="Dependancies/ProtocolLib.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Gigabite/Documents/GitHub/AntiCheat2/Dependancies/spigot1_8.jar"/>
-<<<<<<< HEAD
-=======
-	<classpathentry kind="lib" path="C:/Users/Gigabite/Documents/GitHub/AntiCheat2/Dependancies/spigot1_13.jar"/>
->>>>>>> 8e79c1bfba5702a6380405bbe1b9a062bff98200
 	<classpathentry kind="output" path="bin"/>
 </classpath>

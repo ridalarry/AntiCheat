@@ -50,8 +50,8 @@ public class AntiKBA extends Check {
     public void Move(PlayerMoveEvent e) {
         double d;
         Player p = e.getPlayer();
-        if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.getMaterial("WEB")}) 
-        		|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.getMaterial("WEB")}) 
+        if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
+        		|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
         		|| (ServerUtil.isHoveringOverWater(p, 1) 
         		|| ServerUtil.isHoveringOverWater(p, 0)) 
         		|| (p.getAllowFlight()) 
@@ -121,7 +121,7 @@ public class AntiKBA extends Check {
         double d;
         long l;
         Player p = e.getPlayer();
-        if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.getMaterial("WEB")}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.getMaterial("WEB")})) {
+        if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
             return;
         }
         if (ServerUtil.isHoveringOverWater(p, 1) || ServerUtil.isHoveringOverWater(p, 0)) {

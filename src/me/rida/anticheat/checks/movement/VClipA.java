@@ -35,14 +35,14 @@ public class VClipA extends Check {
 	public static HashMap<Player, Location> lastLocation = new HashMap<Player, Location>();
 
 	static {
-		allowed.add(Material.getMaterial("PISTON_EXTENSION"));
-		allowed.add(Material.getMaterial("PISTON_STICKY_BASE"));
-		allowed.add(Material.getMaterial("PISTON_BASE"));
-		allowed.add(Material.getMaterial("SIGN_POST"));
+		allowed.add(Material.PISTON_EXTENSION);
+		allowed.add(Material.PISTON_STICKY_BASE);
+		allowed.add(Material.PISTON_BASE);
+		allowed.add(Material.SIGN_POST);
 		allowed.add(Material.WALL_SIGN);
 		allowed.add(Material.STRING);
 		allowed.add(Material.AIR);
-		allowed.add(Material.getMaterial("FENCE_GATE"));
+		allowed.add(Material.FENCE_GATE);
 		allowed.add(Material.CHEST);
 	}
 

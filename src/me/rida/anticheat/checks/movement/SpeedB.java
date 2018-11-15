@@ -106,7 +106,7 @@ public class SpeedB extends Check {
 			if (speed >= maxSpeed && p.isOnGround() && p.getFallDistance() < 0.15
 					&& blockLoc.getBlock().getType() != Material.ICE
 					&& blockLoc.getBlock().getType() != Material.PACKED_ICE
-					&& loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
+					&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 					&& above3.getBlock().getType() == Material.AIR) {
 				getAntiCheat().logCheat(this, p, "On Ground", "(Type: B)");
 			}
@@ -119,7 +119,7 @@ public class SpeedB extends Check {
 				getAntiCheat().logCheat(this, p, "Mid Air", "(Type: B)");
 			}
 		if (speed >= newmaxspeed && isOnIce(p) && p.getFallDistance() < 0.6
-				&& loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
+				&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 				&& loc2.getBlock().getType() == Material.AIR) {
 			getAntiCheat().logCheat(this, p, "Limit", "(Type: B)");
 
@@ -128,7 +128,7 @@ public class SpeedB extends Check {
 		if (speed > ig && !isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4
 				&& !flaggyStuffNear(p.getLocation()) && blockLoc.getBlock().getType() != Material.ICE
 				&& e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
-				&& loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
+				&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 				&& above3.getBlock().getType() == Material.AIR) {
 			getAntiCheat().logCheat(this, p, "Vanilla", "(Type: B)");
 		}
@@ -177,7 +177,7 @@ public class SpeedB extends Check {
 		int z = l.getBlockZ();
 		Location b = new Location(p.getWorld(), x, y - 1, z);
 
-		if (p.isOnGround() && b.getBlock().getType() != Material.AIR && b.getBlock().getType() != Material.getMaterial("WEB")
+		if (p.isOnGround() && b.getBlock().getType() != Material.AIR && b.getBlock().getType() != Material.WEB
 				&& !b.getBlock().isLiquid()) {
 			return true;
 		} else {
@@ -188,23 +188,23 @@ public class SpeedB extends Check {
 	public static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
 		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
-			if ((bl.getType().equals(Material.getMaterial("STEP"))) || (bl.getType().equals(Material.getMaterial("DOUBLE_STEP")))
-					|| (bl.getType().equals(Material.getMaterial("BED"))) || (bl.getType().equals(Material.getMaterial("WOOD_DOUBLE_STEP")))
-					|| (bl.getType().equals(Material.getMaterial("WOOD_STEP")))) {
+			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
+					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
+					|| (bl.getType().equals(Material.WOOD_STEP))) {
 				nearBlocks = true;
 				break;
 			}
 		}
 		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
-			if ((bl.getType().equals(Material.getMaterial("STEP"))) || (bl.getType().equals(Material.getMaterial("DOUBLE_STEP")))
-					|| (bl.getType().equals(Material.getMaterial("BED"))) || (bl.getType().equals(Material.getMaterial("WOOD_DOUBLE_STEP")))
-					|| (bl.getType().equals(Material.getMaterial("WOOD_STEP")))) {
+			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
+					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
+					|| (bl.getType().equals(Material.WOOD_STEP))) {
 				nearBlocks = true;
 				break;
 			}
 		}
-		if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN), new Material[] { Material.getMaterial("STEP"), Material.getMaterial("BED"),
-				Material.getMaterial("DOUBLE_STEP"), Material.getMaterial("WOOD_DOUBLE_STEP"), Material.getMaterial("WOOD_STEP") })) {
+		if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN), new Material[] { Material.STEP, Material.BED,
+				Material.DOUBLE_STEP, Material.WOOD_DOUBLE_STEP, Material.WOOD_STEP })) {
 			nearBlocks = true;
 		}
 		return nearBlocks;
