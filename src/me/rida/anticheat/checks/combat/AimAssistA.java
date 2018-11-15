@@ -4,9 +4,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.ExtraUtil;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketAdapter;
@@ -16,7 +14,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.Collections;
@@ -24,7 +21,7 @@ import java.util.Optional;
 
 public class AimAssistA extends Check {
     public AimAssistA(AntiCheat AntiCheat) {
-        super("AimAssistA", "AimAssist",  CheckType.Combat, AntiCheat);
+        super("AimAssistA", "AimAssist", CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
@@ -52,30 +49,28 @@ public class AimAssistA extends Check {
         });
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPlayerMove(PlayerMoveEvent e) {
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
-        Player p = e.getPlayer();
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
+
         if(data == null
                 || data.lastHitEntity == null
-                || (System.currentTimeMillis() - data.lastAttack) > 150L) return;
+                || (System.currentTimeMillis() - data.lastAttack) > 350L) return;
 
-        float offset = ExtraUtil.yawTo180F((float) ExtraUtil.getOffsetFromEntity(e.getPlayer(), data.lastHitEntity)[0]);
+        float offset = ExtraUtil.yawTo180F((float) ExtraUtil.getOffsetFromEntity(event.getPlayer(), data.lastHitEntity)[0]);
 
         if(data.patterns.size() >= 10) {
+            //TODO Check
 
             Collections.sort(data.patterns);
 
             float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 
             if(Math.abs(range - data.lastRange) < 4) {
-            	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-            			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-            		return;
+
+            	getAntiCheat().logCheat(this, event.getPlayer(), null, "(Type: A)");
             	}
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
-                
-            }
+            event.getPlayer().sendMessage("Range: " + range);
 
             data.lastRange = range;
             data.patterns.clear();

@@ -46,7 +46,7 @@ public class CriticalsA extends Check {
             return;
         }
 
-        float verbose = data.getCriticalsVerbose();
+        int verbose = data.getCriticalsVerbose();
 
         if(p.getFallDistance() > 0 && data.getFallDistance() == 0) {
             if(++verbose > 3) {

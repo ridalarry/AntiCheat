@@ -31,7 +31,7 @@ public class KillAuraG extends Check {
         }
 
 
-        float verboseA = data.getKillauraAVerbose();
+        int verboseA = data.getKillauraAVerbose();
         long time = data.getLastAimTime();
 
         if(MathUtil.elapsed(time, 1100L)) {

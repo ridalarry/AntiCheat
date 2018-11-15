@@ -60,7 +60,7 @@ public class SpeedA extends Check {
             }
             double speed = MathUtil.getHorizontalDistance(from, to);
            if(MathUtil.elapsed(data.getLastVelMS(), 3000)) {
-               float verbose = data.getSpeedAVerbose();
+               int verbose = data.getSpeedAVerbose();
                double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
                double speedAThreshold = (data.getAirTicks() > 0 ? data.getAirTicks() >= 6
                        ? data.getAirTicks() == 13 ? 0.466 : 0.35 : (0.345 * Math.pow(0.986938064, data.getAirTicks()))
