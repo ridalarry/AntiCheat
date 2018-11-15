@@ -217,8 +217,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.primary", "&7");
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
-			this.getConfig().addDefault("bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("broadcastmsg",
+			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
+			this.getConfig().addDefault("settings.broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
 			this.getConfig().addDefault("settings.violationResetTime", 60);
@@ -674,11 +674,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 						player.sendMessage(
 								PREFIX + Color.Gray + "You would be banned right now for: " + Color.Red + check.getName());
 					} else {
-						if (!getConfig().getString("broadcastmsg").equalsIgnoreCase("")) {
+						if (!getConfig().getString("settings.broadcastmsg").equalsIgnoreCase("")) {
 							Bukkit.broadcastMessage(Color.translate(
-									getConfig().getString("broadcastmsg").replaceAll("%player%", player.getName())));
+									getConfig().getString("settings.broadcastmsg").replaceAll("%player%", player.getName())));
 						}
-						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getConfig().getString("bancmd")
+						Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getConfig().getString("settings.bancmd")
 								.replaceAll("%player%", player.getName()).replaceAll("%check%", check.getName()));
 					}
 				}
@@ -811,7 +811,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public String dispatchCommand;
     private void checkPacket(PacketEvent event) {
 
-        dispatchCommand = getConfig().getString("bancmd");
+        dispatchCommand = getConfig().getString("settings.bancmd");
         Player player = event.getPlayer();
         if (player == null) {
             String name = event.getPacket().getStrings().readSafely(0);
