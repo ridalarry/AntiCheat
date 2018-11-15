@@ -22,7 +22,7 @@ public class ReachC extends Check {
 	public static HashMap<UUID, Integer> toBan;
 	
 	public ReachC(AntiCheat AntiCheat) {
-		super("ReachD", "Reach",  CheckType.Combat, AntiCheat);
+		super("ReachC", "Reach",  CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -89,11 +89,11 @@ public class ReachC extends Check {
 		}
 
 		if (MaxReach < Difference) {
-			this.dumplog(p, "Logged for Reach Type D; Reach: " + Difference
+			this.dumplog(p, "Logged for Reach Type C; Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
 			
 			getAntiCheat().logCheat(this, p, Color.Red + "Experimental" + "; Reach: " + Difference
-				+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: D)");
+				+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: C)");
 		}
 	}
 

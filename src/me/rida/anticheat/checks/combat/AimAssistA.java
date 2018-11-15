@@ -15,7 +15,7 @@ extends Check {
     private int aimAssist = 0;
 
     public AimAssistA(AntiCheat AntiCheat) {
-        super("AimAssistB", "AimAssist",  CheckType.Combat, AntiCheat);
+        super("AimAssistA", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
@@ -52,7 +52,7 @@ extends Check {
                 			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
                 		return;
                 	}
-                	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
+                	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
                     this.setAimAssest(0);
                 }
             } else {

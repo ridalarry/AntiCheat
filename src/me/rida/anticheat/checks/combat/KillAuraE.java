@@ -21,7 +21,7 @@ public class KillAuraE extends Check {
     public static int hitCount = 0;
 
     public KillAuraE(AntiCheat AntiCheat) {
-        super("KillAuraK", "KillAura",  CheckType.Combat, AntiCheat);
+        super("KillAuraE", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setBannable(false);
@@ -71,7 +71,7 @@ public class KillAuraE extends Check {
                     || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
         		return;
         	}
-        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Heuristic (Flows)", "(Type: K)");
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Heuristic Flows", "(Type: E)");
         }
     }
 }

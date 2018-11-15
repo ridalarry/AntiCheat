@@ -15,7 +15,7 @@ import me.rida.anticheat.utils.MathUtil;
 
 public class KillAuraC extends Check {
     public KillAuraC(AntiCheat AntiCheat) {
-        super("KillAuraH", "KillAura",  CheckType.Combat, AntiCheat);
+        super("KillAuraC", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setBannable(false);
@@ -54,7 +54,7 @@ public class KillAuraC extends Check {
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
         		return;
         	}
-        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: H)");
+        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
         }
     }
 }

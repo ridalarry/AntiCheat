@@ -30,8 +30,7 @@ public class CriticalsA extends Check {
 
         Player p = (Player) e.getDamager();
 
-        if(!Bukkit.getOnlinePlayers().contains(p)
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+        if(getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;
         }

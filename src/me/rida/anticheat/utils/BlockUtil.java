@@ -111,7 +111,13 @@ public class BlockUtil {
 	}
 
 	public static boolean isFence(Block block) {
-		return block.getType().equals(Material.FENCE)|| block.getType().equals(Material.ACACIA_FENCE)|| block.getType().equals(Material.SPRUCE_FENCE)|| block.getType().equals(Material.BIRCH_FENCE)|| block.getType().equals(Material.JUNGLE_FENCE)|| block.getType().equals(Material.DARK_OAK_FENCE)|| block.getType().equals(Material.NETHER_FENCE);
+		return block.getType().equals(Material.FENCE)
+				|| block.getTypeId() == 192
+				|| block.getTypeId() == 188
+				|| block.getTypeId() == 189
+				|| block.getTypeId() == 190
+				|| block.getTypeId() == 191
+				|| block.getType().equals(Material.NETHER_FENCE);
 			
 	}
 	public static boolean isPiston(Block block) {
@@ -132,7 +138,8 @@ public class BlockUtil {
 	    		|| block.getType().equals(Material.DARK_OAK_STAIRS) || block.getType().equals(Material.NETHER_BRICK_STAIRS)
 	    		|| block.getType().equals(Material.JUNGLE_WOOD_STAIRS) || block.getType().equals(Material.QUARTZ_STAIRS)
 	    		|| block.getType().equals(Material.SMOOTH_STAIRS) || block.getType().equals(Material.WOOD_STAIRS)
-	    		|| block.getType().equals(Material.SANDSTONE_STAIRS) || block.getType().equals(Material.SPRUCE_WOOD_STAIRS)|| block.getType().equals(Material.RED_SANDSTONE_STAIRS)) {
+	    		|| block.getType().equals(Material.SANDSTONE_STAIRS) || block.getType().equals(Material.SPRUCE_WOOD_STAIRS)
+	    		|| block.getTypeId()==180) {
 	    	return true;
 	    }
 	    return false;
@@ -370,13 +377,13 @@ public class BlockUtil {
 
     	public static boolean allowedPhase(Block block) {
     		return block.getType().equals(Material.SIGN)
-    				|| block.getType().equals(Material.BANNER)
+    				|| block.getTypeId() == 425
+    	    		|| block.getTypeId() == 167
+    	    		|| block.getTypeId() == 177
+    	    		|| block.getTypeId() == 176
     				|| block.getType().equals(Material.FENCE)
     				|| block.getType().equals(Material.ANVIL)
     				|| block.getType().equals(Material.TRAP_DOOR)
-    				|| block.getType().equals(Material.IRON_TRAPDOOR)
-    				|| block.getType().equals(Material.WALL_BANNER)
-    				|| block.getType().equals(Material.STANDING_BANNER)
     				|| block.getType().equals(Material.SIGN_POST)
     				|| block.getType().equals(Material.WALL_SIGN)
     				|| block.getType().equals(Material.SUGAR_CANE_BLOCK)
@@ -470,6 +477,6 @@ public class BlockUtil {
     				|| block.getType().equals(Material.getMaterial("FROSTED_ICE"));
     	}
     	public static boolean isSlime(Block block) {
-    		return block.getType().equals(Material.SLIME_BLOCK);
+    		return block.getTypeId() == 165;
     	}
 }

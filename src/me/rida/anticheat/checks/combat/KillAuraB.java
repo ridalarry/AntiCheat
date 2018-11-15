@@ -15,7 +15,7 @@ import org.bukkit.event.EventPriority;
 public class KillAuraB extends Check {
 
     public KillAuraB(AntiCheat AntiCheat) {
-        super("KillAuraG", "KillAura",  CheckType.Combat, AntiCheat);
+        super("KillAuraB", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(true);
@@ -50,7 +50,7 @@ public class KillAuraB extends Check {
                             || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
                 		return;
                 	}
-                	getAntiCheat().logCheat(this, p, null, "(Type: G)");
+                	getAntiCheat().logCheat(this, p, null, "(Type: B)");
                 }
             }
             data.setLastKillauraYawDif(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()));

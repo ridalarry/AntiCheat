@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class KillAuraA extends Check {
 
 	public KillAuraA(AntiCheat AntiCheat) {
-		super("KillAuraF", "KillAura",  CheckType.Combat, AntiCheat);
+		super("KillAuraA", "KillAura",  CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
@@ -96,7 +96,7 @@ public class KillAuraA extends Check {
 
 		}
 		if (Count > 3) {
-			getAntiCheat().logCheat(this, p, "Wall", "(Type: F)");
+			getAntiCheat().logCheat(this, p, "Wall", "(Type: A)");
 			Count = 0;
 		}
 		counts.put(p, Count);
