@@ -1,73 +1,77 @@
 package me.rida.anticheat.checks.other;
 
-import java.util.AbstractMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.Color;
 
 
 public class BlockInteractB extends Check {
-	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
-
-	public BlockInteractB(AntiCheat AntiCheat) {
-		super("BlockInteractB", "BlockInteract", CheckType.Other, AntiCheat);
-
+      public BlockInteractB(AntiCheat AntiCheat) {
+        super("BlockInteractE", "BlockInteract", CheckType.Other, AntiCheat);
 		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(5);
-		
-		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	}
+		setMaxViolations(10);
+		setBannable(true);
+    }
+
+  	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onBlockBreak(BlockBreakEvent e) {
+  		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
+				|| Ping.getPing(e.getPlayer()) > 400) {
+  			return;
+  		}
+     Player p = e.getPlayer();
+     if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+    	 return;
+     }
+          if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
+             && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
+              getAntiCheat().logCheat(this, p,"[1] Broke a block without a line of sight too it.", "(Type: E)");
+              e.setCancelled(true);
+          }
+    }
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onInteract(PlayerInteractEvent e) {
-		if ((e.getAction() == Action.RIGHT_CLICK_BLOCK)
-				&& e.getItem() != null) {
-			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
-					|| e.getItem().getType().equals(Material.POTION)
-					|| Ping.getPing(e.getPlayer()) > 400
-					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
-				return;
-			}
-			Player p = e.getPlayer();
-			UUID u = p.getUniqueId();
-			if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-				return;
-			}
-			long Time = System.currentTimeMillis();
-			int level = 0;
-			if (speedTicks.containsKey(p.getUniqueId())) {
-				level = speedTicks.get(p.getUniqueId()).getKey().intValue();
-				Time = speedTicks.get(p.getUniqueId()).getValue().longValue();
-			}
-			double diff = System.currentTimeMillis() - Time;
-			level = diff >= 2.0
-					? (diff <= 51.0 ? (level += 2)
-							: (diff <= 100.0 ? (level += 0) : (diff <= 500.0 ? (level -= 6) : (level -= 12))))
-					: ++level;
-			int max = 50;
-			if (level > max * 0.9D && diff <= 100.0D) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Experimental! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: B)");
-				if (level > max) {
-					level = max / 4;
-				}
-			} else if (level < 0) {
-				level = 0;
-			}
-			speedTicks.put(u,
-					new AbstractMap.SimpleEntry<Integer, Long>(level, System.currentTimeMillis()));
-		}
-	}
+    public void onBlockPlace(BlockPlaceEvent e) {
+  		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
+				|| Ping.getPing(e.getPlayer()) > 400) {
+  			return;
+  		}
+          Player p = e.getPlayer();
+            if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
+             && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
+              getAntiCheat().logCheat(this, p,"[2] Placed a block without a line of sight too it.", "(Type: E)");
+              e.setCancelled(true);
+          }
+    }
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+    public void onInteract(PlayerInteractEvent e) {
+  		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+                || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
+				|| Ping.getPing(e.getPlayer()) > 400) {
+  			return;
+  		}
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
+            if (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.TRAPPED_CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST) {
+                Player p = e.getPlayer();
+                if ((e.getClickedBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
+                        && !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getClickedBlock().getLocation()).contains(e.getClickedBlock()) && !e.isCancelled()) {
+                    getAntiCheat().logCheat(this, p, "[3] Interacted without a line of sight too it.", "(Type: E)");
+                    e.setCancelled(true);
+                }
+            }
+        }
+    }
 }

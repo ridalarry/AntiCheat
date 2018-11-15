@@ -38,10 +38,9 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
-import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.BlockUtil;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<Material>();
@@ -49,291 +48,220 @@ public class PhaseA extends Check {
 	public static Set<UUID> teleported = new HashSet<UUID>();
 	public static final Map<UUID, Location> lastLocation = new HashMap<UUID, Location>();
 
-	
+	private final ImmutableSet<Material> blockedPearlTypes = Sets.immutableEnumSet(Material.getMaterial("THIN_GLASS"),
+			Material.getMaterial("IRON_FENCE"), Material.getMaterial("FENCE"), Material.getMaterial("NETHER_FENCE"), Material.getMaterial("FENCE_GATE"), Material.getMaterial("ACACIA_STAIRS"),
+			Material.getMaterial("BIRCH_WOOD_STAIRS"), Material.BRICK_STAIRS, Material.COBBLESTONE_STAIRS, Material.DARK_OAK_STAIRS,
+			Material.getMaterial("JUNGLE_WOOD_STAIRS"), Material.getMaterial("NETHER_BRICK_STAIRS"), Material.getMaterial("QUARTZ_STAIRS"),
+			Material.SANDSTONE_STAIRS, Material.getMaterial("SMOOTH_STAIRS"), Material.getMaterial("SPRUCE_WOOD_STAIRS"), Material.getMaterial("WOOD_STAIRS"));
+
+	static {
+		allowed.add(Material.SIGN);
+		allowed.add(Material.getMaterial("FENCE"));
+		allowed.add(Material.ANVIL);
+		allowed.add(Material.getMaterial("TRAP_DOOR"));
+		allowed.add(Material.getMaterial("BANNER"));
+		allowed.add(Material.getMaterial("IRON_TRAPDOOR"));
+		allowed.add(Material.getMaterial("WALL_BANNER"));
+		allowed.add(Material.getMaterial("STANDING_BANNER"));
+		allowed.add(Material.getMaterial("SIGN_POST"));
+		allowed.add(Material.getMaterial("WALL_SIGN"));
+		allowed.add(Material.getMaterial("SUGAR_CANE_BLOCK"));
+		allowed.add(Material.getMaterial("WHEAT"));
+		allowed.add(Material.getMaterial("POTATO"));
+		allowed.add(Material.getMaterial("CARROT"));
+		allowed.add(Material.getMaterial("STEP"));
+		allowed.add(Material.AIR);
+		allowed.add(Material.getMaterial("WOOD_STEP"));
+		allowed.add(Material.getMaterial("SOUL_SAND"));
+		allowed.add(Material.getMaterial("CARPET"));
+		allowed.add(Material.getMaterial("STONE_PLATE"));
+		allowed.add(Material.getMaterial("WOOD_PLATE"));
+		allowed.add(Material.getMaterial("LADDER"));
+		allowed.add(Material.getMaterial("CHEST"));
+		allowed.add(Material.getMaterial("WATER"));
+		allowed.add(Material.getMaterial("STATIONARY_WATER"));
+		allowed.add(Material.getMaterial("LAVA"));
+		allowed.add(Material.getMaterial("STATIONARY_LAVA"));
+		allowed.add(Material.getMaterial("REDSTONE_COMPARATOR"));
+		allowed.add(Material.getMaterial("REDSTONE_COMPARATOR_OFF"));
+		allowed.add(Material.getMaterial("REDSTONE_COMPARATOR_ON"));
+		allowed.add(Material.getMaterial("IRON_PLATE"));
+		allowed.add(Material.getMaterial("GOLD_PLATE"));
+		allowed.add(Material.getMaterial("DAYLIGHT_DETECTOR"));
+		allowed.add(Material.getMaterial("STONE_BUTTON"));
+		allowed.add(Material.getMaterial("WOOD_BUTTON"));
+		allowed.add(Material.getMaterial("HOPPER"));
+		allowed.add(Material.getMaterial("RAILS"));
+		allowed.add(Material.getMaterial("ACTIVATOR_RAIL"));
+		allowed.add(Material.getMaterial("DETECTOR_RAIL"));
+		allowed.add(Material.getMaterial("POWERED_RAIL"));
+		allowed.add(Material.getMaterial("TRIPWIRE_HOOK"));
+		allowed.add(Material.getMaterial("TRIPWIRE"));
+		allowed.add(Material.getMaterial("SNOW_BLOCK"));
+		allowed.add(Material.getMaterial("REDSTONE_TORCH_OFF"));
+		allowed.add(Material.getMaterial("REDSTONE_TORCH_ON"));
+		allowed.add(Material.getMaterial("DIODE_BLOCK_OFF"));
+		allowed.add(Material.getMaterial("DIODE_BLOCK_ON"));
+		allowed.add(Material.getMaterial("DIODE"));
+		allowed.add(Material.getMaterial("SEEDS"));
+		allowed.add(Material.getMaterial("MELON_SEEDS"));
+		allowed.add(Material.getMaterial("PUMPKIN_SEEDS"));
+		allowed.add(Material.getMaterial("DOUBLE_PLANT"));
+		allowed.add(Material.getMaterial("LONG_GRASS"));
+		allowed.add(Material.getMaterial("WEB"));
+		allowed.add(Material.getMaterial("SNOW"));
+		allowed.add(Material.getMaterial("FLOWER_POT"));
+		allowed.add(Material.getMaterial("BREWING_STAND"));
+		allowed.add(Material.getMaterial("CAULDRON"));
+		allowed.add(Material.getMaterial("CACTUS"));
+		allowed.add(Material.getMaterial("WATER_LILY"));
+		allowed.add(Material.getMaterial("RED_ROSE"));
+		allowed.add(Material.getMaterial("ENCHANTMENT_TABLE"));
+		allowed.add(Material.getMaterial("ENDER_PORTAL_FRAME"));
+		allowed.add(Material.getMaterial("PORTAL"));
+		allowed.add(Material.getMaterial("ENDER_PORTAL"));
+		allowed.add(Material.getMaterial("ENDER_CHEST"));
+		allowed.add(Material.getMaterial("NETHER_FENCE"));
+		allowed.add(Material.getMaterial("NETHER_WARTS"));
+		allowed.add(Material.getMaterial("REDSTONE_WIRE"));
+		allowed.add(Material.getMaterial("LEVER"));
+		allowed.add(Material.getMaterial("YELLOW_FLOWER"));
+		allowed.add(Material.getMaterial("CROPS"));
+		allowed.add(Material.getMaterial("WATER"));
+		allowed.add(Material.getMaterial("LAVA"));
+		allowed.add(Material.getMaterial("SKULL"));
+		allowed.add(Material.getMaterial("TRAPPED_CHEST"));
+		allowed.add(Material.getMaterial("FIRE"));
+		allowed.add(Material.getMaterial("BROWN_MUSHROOM"));
+		allowed.add(Material.getMaterial("RED_MUSHROOM"));
+		allowed.add(Material.getMaterial("DEAD_BUSH"));
+		allowed.add(Material.getMaterial("SAPLING"));
+		allowed.add(Material.getMaterial("TORCH"));
+		allowed.add(Material.getMaterial("MELON_STEM"));
+		allowed.add(Material.getMaterial("PUMPKIN_STEM"));
+		allowed.add(Material.getMaterial("COCOA"));
+		allowed.add(Material.getMaterial("BED"));
+		allowed.add(Material.getMaterial("BED_BLOCK"));
+		allowed.add(Material.getMaterial("PISTON_EXTENSION"));
+		allowed.add(Material.getMaterial("PISTON_MOVING_PIECE"));
+		semi.add(Material.getMaterial("IRON_FENCE"));
+		semi.add(Material.getMaterial("THIN_GLASS"));
+		semi.add(Material.getMaterial("STAINED_GLASS_PANE"));
+		semi.add(Material.getMaterial("COBBLE_WALL"));
+	}
 
 	public PhaseA(AntiCheat AntiCheat) {
-		super("PhaseA", "Phase", CheckType.Movement, AntiCheat);
+		super("PhaseA", "Phase", CheckType.Combat, AntiCheat);
 
 		setEnabled(true);
 		setBannable(false);
 		setMaxViolations(40);
-		setViolationsToNotify(2);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true)
 	public void teleport(PlayerTeleportEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
-		}
-		if (e.getCause() != TeleportCause.UNKNOWN) {
+		if (e.getCause() != TeleportCause.UNKNOWN && e.getCause() != TeleportCause.PLUGIN) {
 			teleported.add(e.getPlayer().getUniqueId());
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler
 	public void death(PlayerDeathEvent e) {
-		if (BlockUtil.isNearLiquid(e.getEntity())
-				||BlockUtil.isNearHalfBlock(e.getEntity())
-				||BlockUtil.isNearAllowedPhase(e.getEntity())
-				||PlayerUtil.isNotSpider(e.getEntity())
-				||BlockUtil.isNearStair(e.getEntity())
-				||BlockUtil.isNearClimable(e.getEntity())
-				||BlockUtil.isNearFence(e.getEntity())
-				||BlockUtil.isNearSlab(e.getEntity())
-				||BlockUtil.isNearLessThanABlock(e.getEntity())) {
-			return;
-		}
 		teleported.add(e.getEntity().getUniqueId());
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler
 	public void respawn(PlayerRespawnEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
-		}
 		teleported.add(e.getPlayer().getUniqueId());
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler
 	public void update(PlayerMoveEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())) {
-			return;
-		}
-		Player p = e.getPlayer();
-		if (p.isDead()
-				|| (BlockUtil.isNearLiquid(p))
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-			return;
-		}
-		if (BlockUtil.isNearLiquid(p)
-					||BlockUtil.isNearHalfBlock(p)
-					||PlayerUtil.isNotSpider(p)
-					||BlockUtil.isNearStair(p)
-					||BlockUtil.isNearClimable(p)
-					||BlockUtil.isNearFence(p)
-					||BlockUtil.isNearAllowedPhase(p)
-					||BlockUtil.isNearSlab(p)
-					||BlockUtil.isNearLessThanABlock(p)) {
+		Player player = e.getPlayer();
+		if (player.isDead()
+				|| (BlockUtil.isNearLiquid(player) && BlockUtil.isNearHalfBlock(player))
+				|| (BlockUtil.isNearLiquid(player))) {
 			return;
 		}
 
-		UUID u = p.getUniqueId();
-		Location loc1 = lastLocation.containsKey(u) ? (Location) lastLocation.get(u)
-				: p.getLocation();
-		Location loc2 = p.getLocation();
-		if (p.getAllowFlight()) {
-			teleported.add(p.getUniqueId());
+		UUID playerId = player.getUniqueId();
+		Location loc1 = lastLocation.containsKey(playerId) ? (Location) lastLocation.get(playerId)
+				: player.getLocation();
+		Location loc2 = player.getLocation();
+		if (player.getAllowFlight()) {
+			teleported.add(player.getUniqueId());
 		}
-		if (p.getGameMode().equals(GameMode.CREATIVE)) {
-			teleported.add(p.getUniqueId());
+		if (player.getGameMode().equals(GameMode.CREATIVE)) {
+			teleported.add(player.getUniqueId());
 		}
-		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(u))
+		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(playerId))
 				&& (loc1.distance(loc2) > 10.0D)) {
-			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			if ((p.getLocation().getBlock().getType().isSolid())
-					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if (BlockUtil.isNearAllowedPhase(player)) {
 				return;
 			}
-			if (BlockUtil.isNearLiquid(p)) {
+			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if ((player.getLocation().getBlock().getType().isSolid())
+					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
+				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+				getAntiCheat().logCheat(this, player, "[1]", "(Type: A)");
 				return;
 			}
-			getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
-			
-		} else if (isLegit(u, loc1, loc2)) {
-			lastLocation.put(u, loc2);
-			
-		} else if (lastLocation.containsKey(u)) {
-			p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			
-			if ((p.getLocation().getBlock().getType().isSolid())
-					|| (p.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				p.teleport((Location) lastLocation.get(u), PlayerTeleportEvent.TeleportCause.PLUGIN);
-				return;
-			}
-			getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
-		}
-	}
-	private final ImmutableSet<Material> blockedPearlTypes = Sets.immutableEnumSet(Material.THIN_GLASS,
-			Material.IRON_FENCE, Material.FENCE, Material.NETHER_FENCE, Material.FENCE_GATE, Material.ACACIA_STAIRS,
-			Material.BIRCH_WOOD_STAIRS, Material.BRICK_STAIRS, Material.COBBLESTONE_STAIRS, Material.DARK_OAK_STAIRS,
-			Material.JUNGLE_WOOD_STAIRS, Material.NETHER_BRICK_STAIRS, Material.QUARTZ_STAIRS,
-			Material.SANDSTONE_STAIRS, Material.SMOOTH_STAIRS, Material.SPRUCE_WOOD_STAIRS, Material.WOOD_STAIRS);
+			getAntiCheat().logCheat(this, player, "[2]", "(Type: A)");
+		} else if (isLegit(playerId, loc1, loc2)) {
+			lastLocation.put(playerId, loc2);
+		} else if (lastLocation.containsKey(playerId)) {
+			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			if ((player.getLocation().getBlock().getType().isSolid())
+					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
+				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 
-	static {
-		allowed.add(Material.SIGN);
-		allowed.add(Material.BANNER);
-		allowed.add(Material.FENCE);
-		allowed.add(Material.ANVIL);
-		allowed.add(Material.TRAP_DOOR);
-		allowed.add(Material.IRON_TRAPDOOR);
-		allowed.add(Material.WALL_BANNER);
-		allowed.add(Material.STANDING_BANNER);
-		allowed.add(Material.SIGN_POST);
-		allowed.add(Material.WALL_SIGN);
-		allowed.add(Material.SUGAR_CANE_BLOCK);
-		allowed.add(Material.WHEAT);
-		allowed.add(Material.POTATO);
-		allowed.add(Material.CARROT);
-		allowed.add(Material.STEP);
-		allowed.add(Material.AIR);
-		allowed.add(Material.WOOD_STEP);
-		allowed.add(Material.SOUL_SAND);
-		allowed.add(Material.CARPET);
-		allowed.add(Material.STONE_PLATE);
-		allowed.add(Material.WOOD_PLATE);
-		allowed.add(Material.LADDER);
-		allowed.add(Material.CHEST);
-		allowed.add(Material.WATER);
-		allowed.add(Material.STATIONARY_WATER);
-		allowed.add(Material.LAVA);
-		allowed.add(Material.STATIONARY_LAVA);
-		allowed.add(Material.REDSTONE_COMPARATOR);
-		allowed.add(Material.REDSTONE_COMPARATOR_OFF);
-		allowed.add(Material.REDSTONE_COMPARATOR_ON);
-		allowed.add(Material.IRON_PLATE);
-		allowed.add(Material.GOLD_PLATE);
-		allowed.add(Material.DAYLIGHT_DETECTOR);
-		allowed.add(Material.STONE_BUTTON);
-		allowed.add(Material.WOOD_BUTTON);
-		allowed.add(Material.HOPPER);
-		allowed.add(Material.RAILS);
-		allowed.add(Material.ACTIVATOR_RAIL);
-		allowed.add(Material.DETECTOR_RAIL);
-		allowed.add(Material.POWERED_RAIL);
-		allowed.add(Material.TRIPWIRE_HOOK);
-		allowed.add(Material.TRIPWIRE);
-		allowed.add(Material.SNOW_BLOCK);
-		allowed.add(Material.REDSTONE_TORCH_OFF);
-		allowed.add(Material.REDSTONE_TORCH_ON);
-		allowed.add(Material.DIODE_BLOCK_OFF);
-		allowed.add(Material.DIODE_BLOCK_ON);
-		allowed.add(Material.DIODE);
-		allowed.add(Material.SEEDS);
-		allowed.add(Material.MELON_SEEDS);
-		allowed.add(Material.PUMPKIN_SEEDS);
-		allowed.add(Material.DOUBLE_PLANT);
-		allowed.add(Material.LONG_GRASS);
-		allowed.add(Material.WEB);
-		allowed.add(Material.SNOW);
-		allowed.add(Material.FLOWER_POT);
-		allowed.add(Material.BREWING_STAND);
-		allowed.add(Material.CAULDRON);
-		allowed.add(Material.CACTUS);
-		allowed.add(Material.WATER_LILY);
-		allowed.add(Material.RED_ROSE);
-		allowed.add(Material.ENCHANTMENT_TABLE);
-		allowed.add(Material.ENDER_PORTAL_FRAME);
-		allowed.add(Material.PORTAL);
-		allowed.add(Material.ENDER_PORTAL);
-		allowed.add(Material.ENDER_CHEST);
-		allowed.add(Material.NETHER_FENCE);
-		allowed.add(Material.NETHER_WARTS);
-		allowed.add(Material.REDSTONE_WIRE);
-		allowed.add(Material.LEVER);
-		allowed.add(Material.YELLOW_FLOWER);
-		allowed.add(Material.CROPS);
-		allowed.add(Material.WATER);
-		allowed.add(Material.LAVA);
-		allowed.add(Material.SKULL);
-		allowed.add(Material.TRAPPED_CHEST);
-		allowed.add(Material.FIRE);
-		allowed.add(Material.BROWN_MUSHROOM);
-		allowed.add(Material.RED_MUSHROOM);
-		allowed.add(Material.DEAD_BUSH);
-		allowed.add(Material.SAPLING);
-		allowed.add(Material.TORCH);
-		allowed.add(Material.MELON_STEM);
-		allowed.add(Material.PUMPKIN_STEM);
-		allowed.add(Material.COCOA);
-		allowed.add(Material.BED);
-		allowed.add(Material.BED_BLOCK);
-		allowed.add(Material.PISTON_EXTENSION);
-		allowed.add(Material.PISTON_MOVING_PIECE);
-		semi.add(Material.IRON_FENCE);
-		semi.add(Material.THIN_GLASS);
-		semi.add(Material.STAINED_GLASS_PANE);
-		semi.add(Material.COBBLE_WALL);
-	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPlayerInteract(PlayerInteractEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
+				getAntiCheat().logCheat(this, player, "[3]", "(Type: A)");
+				return;
+			}
+			getAntiCheat().logCheat(this, player, "[4]", "(Type: A)");
 		}
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
+	public void onPlayerInteract(PlayerInteractEvent event) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
-		if (e.getAction() == Action.RIGHT_CLICK_BLOCK && e.hasItem()
-				&& e.getItem().getType() == Material.ENDER_PEARL) {
-			Block block = e.getClickedBlock();
+		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
+				&& event.getItem().getType() == Material.ENDER_PEARL) {
+			Block block = event.getClickedBlock();
 			if (block.getType().isSolid() && this.blockedPearlTypes.contains(block.getType())
 					&& !(block.getState() instanceof InventoryHolder)) {
-				final PearlGlitchEvent e2 = new PearlGlitchEvent(e.getPlayer(), e.getPlayer().getLocation(),
-						e.getPlayer().getLocation(), e.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
-				Bukkit.getPluginManager().callEvent(e2);
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getPlayer().getLocation(),
+						event.getPlayer().getLocation(), event.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
+				Bukkit.getPluginManager().callEvent(event2);
 
-				if (!e2.isCancelled()) {
-					e.setCancelled(true);
-					Player p = e.getPlayer();
-					p.setItemInHand(e.getItem());
+				if (!event2.isCancelled()) {
+					event.setCancelled(true);
+					Player player = event.getPlayer();
+					player.setItemInHand(event.getItem());
 				}
 			}
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPearlClip(PlayerTeleportEvent e) {
-		if (BlockUtil.isNearLiquid(e.getPlayer())
-				||BlockUtil.isNearHalfBlock(e.getPlayer())
-				||PlayerUtil.isNotSpider(e.getPlayer())
-				||BlockUtil.isNearStair(e.getPlayer())
-				||BlockUtil.isNearClimable(e.getPlayer())
-				||BlockUtil.isNearFence(e.getPlayer())
-				||BlockUtil.isNearAllowedPhase(e.getPlayer())
-				||BlockUtil.isNearSlab(e.getPlayer())
-				||BlockUtil.isNearLessThanABlock(e.getPlayer())) {
-			return;
-		}
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
+	public void onPearlClip(PlayerTeleportEvent event) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
-		if (e.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-			Location to = e.getTo();
-			if (blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.FENCE_GATE
-					&& to.getBlock().getType() != Material.TRAP_DOOR) {
-				final PearlGlitchEvent e2 = new PearlGlitchEvent(e.getPlayer(), e.getFrom(), e.getTo(),
-						e.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
-				Bukkit.getPluginManager().callEvent(e2);
-				if (!e2.isCancelled()) {
-					Player p = e.getPlayer();
-					p.sendMessage(getAntiCheat().PREFIX + Color.Red
+		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
+			Location to = event.getTo();
+			if (blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.getMaterial("FENCE_GATE")
+					&& to.getBlock().getType() != Material.getMaterial("TRAP_DOOR")) {
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
+						event.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
+				Bukkit.getPluginManager().callEvent(event2);
+				if (!event2.isCancelled()) {
+					Player player = event.getPlayer();
+					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "You have been detected trying to pearl glitch, therefore your pearl was cancelled.");
-					e.setCancelled(true);
+					event.setCancelled(true);
 				}
 				return;
 			}
@@ -343,14 +271,14 @@ public class PhaseA extends Check {
 					&& (to.getBlock().getType().isSolid()
 							|| to.clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())
 					&& to.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid()
-							& !CheatUtil.isSlab(to.getBlock())) {
-				Player p = e.getPlayer();
-				final PearlGlitchEvent e2 = new PearlGlitchEvent(p, e.getFrom(), e.getTo(),
-						e.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
-				Bukkit.getPluginManager().callEvent(e2);
-				if (!e2.isCancelled()) {
-					e.setCancelled(true);
-					p.sendMessage(getAntiCheat().PREFIX + Color.Red
+							& !BlockUtil.isSlab(to.getBlock())) {
+				Player player = event.getPlayer();
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(player, event.getFrom(), event.getTo(),
+						event.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
+				Bukkit.getPluginManager().callEvent(event2);
+				if (!event2.isCancelled()) {
+					event.setCancelled(true);
+					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "Could not find a safe location, therefore your pearl was cancelled.");
 				}
 				return;
@@ -360,15 +288,15 @@ public class PhaseA extends Check {
 				to.setY(to.getY() - 0.7);
 			}
 
-			e.setTo(to);
+			event.setTo(to);
 		}
 	}
 
-	public boolean isLegit(UUID u, Location loc1, Location loc2) {
+	public boolean isLegit(UUID playerId, Location loc1, Location loc2) {
 		if (loc1.getWorld() != loc2.getWorld()) {
 			return true;
 		}
-		if (teleported.remove(u)) {
+		if (teleported.remove(playerId)) {
 			return true;
 		}
 		int moveMaxX = Math.max(loc1.getBlockX(), loc2.getBlockX());
@@ -388,7 +316,7 @@ public class PhaseA extends Check {
 				for (int y = moveMinY; y <= moveMaxY; y++) {
 					Block block = loc1.getWorld().getBlockAt(x, y, z);
 					if (((y != moveMinY) || (loc1.getBlockY() == loc2.getBlockY()))
-							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(u)))) {
+							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(playerId)))) {
 						return false;
 					}
 				}
@@ -398,8 +326,8 @@ public class PhaseA extends Check {
 	}
 
 	private boolean hasPhased(Block block, Location loc1, Location loc2, Player p) {
-		if (((allowed.contains(block.getType())) || (CheatUtil.isStair(block)) || (CheatUtil.isSlab(block))
-				|| (CheatUtil.isClimbableBlock(block)) || (block.isLiquid()))) {
+		if (((allowed.contains(block.getType())) || (BlockUtil.isStair(block)) || (BlockUtil.isSlab(block))
+				|| (BlockUtil.isClimbableBlock(block)) || (block.isLiquid()))) {
 			return false;
 		}
 		double moveMaxX = Math.max(loc1.getX(), loc2.getX());
@@ -417,7 +345,7 @@ public class PhaseA extends Check {
 		if (blockMinY > moveMinY) {
 			blockMaxY -= 1.0D;
 		}
-		if ((block.getType().equals(Material.IRON_DOOR_BLOCK)) || (block.getType().equals(Material.WOODEN_DOOR))) {
+		if ((block.getType().equals(Material.getMaterial("IRON_DOOR_BLOCK"))) || (block.getType().equals(Material.getMaterial("WOODEN_DOOR")))) {
 			Door door = (Door) block.getType().getNewData(block.getData());
 			if (door.isTopHalf()) {
 				return false;
@@ -426,7 +354,7 @@ public class PhaseA extends Check {
 			if (door.isOpen()) {
 				Block up = block.getRelative(BlockFace.UP);
 				boolean hinge;
-				if ((up.getType().equals(Material.IRON_DOOR_BLOCK)) || (up.getType().equals(Material.WOODEN_DOOR))) {
+				if ((up.getType().equals(Material.getMaterial("IRON_DOOR_BLOCK"))) || (up.getType().equals(Material.getMaterial("WOODEN_DOOR")))) {
 					hinge = (up.getData() & 0x1) == 1;
 				} else {
 					return false;
@@ -453,7 +381,7 @@ public class PhaseA extends Check {
 			if (facing == BlockFace.SOUTH) {
 				blockMinZ += 0.8D;
 			}
-		} else if (block.getType().equals(Material.FENCE_GATE)) {
+		} else if (block.getType().equals(Material.getMaterial("FENCE_GATE"))) {
 			if (((Gate) block.getType().getNewData(block.getData())).isOpen()) {
 				return false;
 			}
@@ -465,7 +393,7 @@ public class PhaseA extends Check {
 				blockMaxZ -= 0.2D;
 				blockMinZ += 0.2D;
 			}
-		} else if (block.getType().equals(Material.TRAP_DOOR)) {
+		} else if (block.getType().equals(Material.getMaterial("TRAP_DOOR"))) {
 			TrapDoor door = (TrapDoor) block.getType().getNewData(block.getData());
 			if (door.isOpen()) {
 				return false;
@@ -475,7 +403,7 @@ public class PhaseA extends Check {
 			} else {
 				blockMaxY -= (blockMinY > moveMinY ? 0.85D : 1.85D);
 			}
-		} else if (block.getType().equals(Material.FENCE) || semi.contains(block.getType())) {
+		} else if (block.getType().equals(Material.getMaterial("FENCE")) || semi.contains(block.getType())) {
 			blockMaxX -= 0.2D;
 			blockMinX += 0.2D;
 			blockMaxZ -= 0.2D;

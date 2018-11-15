@@ -38,9 +38,6 @@ public class SneakA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void EntityAction(PacketEntityActionEvent e) {
-		if (e.getAction() != 1) {
-			return;
-		}
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

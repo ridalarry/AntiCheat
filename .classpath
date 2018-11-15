@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="Dependancies/ProtocolLib.jar"/>
-	<classpathentry kind="lib" path="Dependancies/spigot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gigabite/Documents/GitHub/AntiCheat2/Dependancies/spigot1_8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Gigabite/Documents/GitHub/AntiCheat2/Dependancies/spigot1_13.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

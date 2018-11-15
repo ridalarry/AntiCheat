@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -55,7 +56,7 @@ public class CriticalsB extends Check {
 		Player p = (Player) e.getDamager();
 		if (p.getAllowFlight()
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
-				|| CheatUtil.slabsNear(p.getLocation())
+				|| BlockUtil.isNearSlab(p)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;

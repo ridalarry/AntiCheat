@@ -8,116 +8,116 @@ import java.util.List;
 
 public class DataPlayer {
 	
-    public boolean alerts = false;
-    public double fallDistance = 0D;
-    public float aboveBlockTicks = 0;
-    public float waterTicks = 0;
-    public long LastBlockPlacedTicks = 0;
-    public boolean LastBlockPlaced_GroundSpoof = false;
-    public float airTicks = 0;
-    public float groundTicks = 0;
-    public boolean ShouldSetBack = false;
-    public float setBackTicks = 0;
-    public long LastVelMS = 0;
-    public boolean DidTakeVelocity = false;
-    public long lastDelayedPacket;
-    public long lastPlayerPacket;
-    public Location setbackLocation;
-    public double GoingUp_Blocks;
-    public double LastY_Gravity;
-    public float Gravity_VL;
-    public float AntiCactus_VL;
-    public double lastVelocityFlyY = 0;
-    public double lastKillauraPitch = 0;
-    public double lastKillauraYaw = 0;
-    public long lastPacket = 0;
-    public long lastAimTime = System.currentTimeMillis();
-    public long Speed_Ticks = 0;
-    public boolean Speed_TicksSet = false;
-    public boolean isNearIce = false;
-    public long isNearIceTicks = 0;
-    public long LastVelUpdate = 0;
-    public boolean LastVelUpdateBoolean = false;
-    public double lastKillauraYawDif = 0;
-    public long lastPacketTimer = 0;
-    public long LastTimeTimer = 0;
-    public float LastPACKETSTimer = 0;
-    public long WebFloatMS = 0;
-    public boolean WebFloatMS_Set = false;
-    public float WebFloat_BlockCount = 0;
-    public long AboveSpeedTicks = 0;
-    public boolean AboveSpeedSet = false;
-    public long HalfBlocks_MS = 0;
-    public boolean HalfBlocks_MS_Set = false;
-    public boolean Speed_C_2_Set = false;
-    public long Speed_C_2_MS = 0;
-    public long GlideTicks = 0;
-    public long Speed_PistonExpand_MS = 0;
-    public boolean Speed_PistonExpand_Set = false;
-    public long BlockAbove = 0;
-    public boolean BlockAbove_Set = false;
-    public long Speed_YPORT_MS = 0;
-    public boolean Speed_YPORT_Set = false;
-    public float iceTicks = 0;
-    public long Speed_YPort2_MS = 0;
-    public boolean Speed_YPort2_Set = false;
-    public long speedGroundReset = 0;
-    public float slimeTicks = 0;
+    private boolean alerts = false;
+    private double fallDistance = 0D;
+    private int aboveBlockTicks = 0;
+    private int waterTicks = 0;
+    private long LastBlockPlacedTicks = 0;
+    private boolean LastBlockPlaced_GroundSpoof = false;
+    public int airTicks = 0;
+    public int groundTicks = 0;
+    private boolean ShouldSetBack = false;
+    private int setBackTicks = 0;
+    private long LastVelMS = 0;
+    private boolean DidTakeVelocity = false;
+    private long lastDelayedPacket;
+    private long lastPlayerPacket;
+    private Location setbackLocation;
+    private double GoingUp_Blocks;
+    private double LastY_Gravity;
+    private int Gravity_VL;
+    private int AntiCactus_VL;
+    private double lastVelocityFlyY = 0;
+    private double lastKillauraPitch = 0;
+    private double lastKillauraYaw = 0;
+    private long lastPacket = 0;
+    private long lastAimTime = System.currentTimeMillis();
+    private long Speed_Ticks = 0;
+    private boolean Speed_TicksSet = false;
+    private boolean isNearIce = false;
+    private long isNearIceTicks = 0;
+    private long LastVelUpdate = 0;
+    private boolean LastVelUpdateBoolean = false;
+    private double lastKillauraYawDif = 0;
+    private long lastPacketTimer = 0;
+    private long LastTimeTimer = 0;
+    private int LastPACKETSTimer = 0;
+    private long WebFloatMS = 0;
+    private boolean WebFloatMS_Set = false;
+    private int WebFloat_BlockCount = 0;
+    private long AboveSpeedTicks = 0;
+    private boolean AboveSpeedSet = false;
+    private long HalfBlocks_MS = 0;
+    private boolean HalfBlocks_MS_Set = false;
+    private boolean Speed_C_2_Set = false;
+    private long Speed_C_2_MS = 0;
+    private long GlideTicks = 0;
+    private long Speed_PistonExpand_MS = 0;
+    private boolean Speed_PistonExpand_Set = false;
+    private long BlockAbove = 0;
+    private boolean BlockAbove_Set = false;
+    private long Speed_YPORT_MS = 0;
+    private boolean Speed_YPORT_Set = false;
+    public int iceTicks = 0;
+    private long Speed_YPort2_MS = 0;
+    private boolean Speed_YPort2_Set = false;
+    private long speedGroundReset = 0;
+    private int slimeTicks = 0;
     
     public Player player;
     public boolean onGround, inLiquid, onStairSlab, onIce, onClimbable, underBlock;
-    public float liquidTicks, blockTicks;
+    public int liquidTicks, blockTicks;
     public long lastVelocityTaken, lastAttack;
     public LivingEntity lastHitEntity;
 
     public List<Float> patterns = Lists.newArrayList();
     public float lastRange;
 
-    public float speedThreshold;
+    public int speedThreshold;
 
-    public DataPlayer(Player p) {
-        this.player = p;
+    public DataPlayer(Player player) {
+        this.player = player;
     }
 
-    public float criticalsVerbose = 0;
-    public float flyHoverVerbose = 0;
-    public float flyVelocityVerbose = 0;
-    public float GroundSpoofVL = 0;
-    public float killauraAVerbose = 0;
-    public float Speed2Verbose = 0;
-    public float Speed_OnGround_Verbose = 0;
-    public float TimerVerbose = 0;
-    public float SpeedAC2_Verbose = 0;
-    public float SpeedC_Verbose = 0;
-    public float Speed_C_3_Verbose = 0;
-    public float Speed_YPORT_Verbose = 0;
-    public float Speed_YPort2_Verbose = 0;
-    public float NEWSpeed_Verbose = 0;
-    public float speedAVerbose = 0;
-    public float Speed_C3_Verbose = 0;
-    public float Jesus_Verbose = 0;
+    private int criticalsVerbose = 0;
+    private int flyHoverVerbose = 0;
+    private int flyVelocityVerbose = 0;
+    private int GroundSpoofVL = 0;
+    private int killauraAVerbose = 0;
+    private int Speed2Verbose = 0;
+    private int Speed_OnGround_Verbose = 0;
+    private int TimerVerbose = 0;
+    private int SpeedAC2_Verbose = 0;
+    private int SpeedC_Verbose = 0;
+    private int Speed_C_3_Verbose = 0;
+    private int Speed_YPORT_Verbose = 0;
+    private int Speed_YPort2_Verbose = 0;
+    private int NEWSpeed_Verbose = 0;
+    private int speedAVerbose = 0;
+    private int Speed_C3_Verbose = 0;
+    private int Jesus_Verbose = 0;
 
-    public float getJesus_Verbose() {
+    public int getJesus_Verbose() {
         return Jesus_Verbose;
     }
 
-    public void setJesus_Verbose(float jesus_Verbose) {
+    public void setJesus_Verbose(int jesus_Verbose) {
         Jesus_Verbose = jesus_Verbose;
     }
 
-    public float getSpeed_C3_Verbose() {
+    public int getSpeed_C3_Verbose() {
         return Speed_C3_Verbose;
     }
 
-    public void setSpeed_C3_Verbose(float speed_C3_Verbose) {
+    public void setSpeed_C3_Verbose(int speed_C3_Verbose) {
         Speed_C3_Verbose = speed_C3_Verbose;
     }
 
-    public float getNEWSpeed_Verbose() {
+    public int getNEWSpeed_Verbose() {
         return NEWSpeed_Verbose;
     }
 
-    public void setNEWSpeed_Verbose(float NEWSpeed_Verbose) {
+    public void setNEWSpeed_Verbose(int NEWSpeed_Verbose) {
         this.NEWSpeed_Verbose = NEWSpeed_Verbose;
     }
 
@@ -141,43 +141,43 @@ public class DataPlayer {
         this.fallDistance = fallDistance;
     }
 
-    public float getIceTicks() {
+    public int getIceTicks() {
         return iceTicks;
     }
 
-    public void setIceTicks(float iceTicks) {
+    public void setIceTicks(int iceTicks) {
         this.iceTicks = iceTicks;
     }
 
-    public float getAboveBlockTicks() {
+    public int getAboveBlockTicks() {
         return aboveBlockTicks;
     }
 
-    public void setAboveBlockTicks(float aboveBlockTicks) {
+    public void setAboveBlockTicks(int aboveBlockTicks) {
         this.aboveBlockTicks = aboveBlockTicks;
     }
 
-    public float getWaterTicks() {
+    public int getWaterTicks() {
         return waterTicks;
     }
 
-    public void setWaterTicks(float waterTicks) {
+    public void setWaterTicks(int waterTicks) {
         this.waterTicks = waterTicks;
     }
 
-    public float getSpeedAVerbose() {
+    public int getSpeedAVerbose() {
         return speedAVerbose;
     }
 
-    public void setSpeedAVerbose(float speedAVerbose) {
+    public void setSpeedAVerbose(int speedAVerbose) {
         this.speedAVerbose = speedAVerbose;
     }
 
-    public float getSlimeTicks() {
+    public int getSlimeTicks() {
         return slimeTicks;
     }
 
-    public void setSlimeTicks(float slimeTicks) {
+    public void setSlimeTicks(int slimeTicks) {
         this.slimeTicks = slimeTicks;
     }
 
@@ -189,11 +189,11 @@ public class DataPlayer {
         this.speedGroundReset = speedGroundReset;
     }
 
-    public float getCriticalsVerbose() {
+    public int getCriticalsVerbose() {
         return criticalsVerbose;
     }
 
-    public void setCriticalsVerbose(float criticalsVerbose) {
+    public void setCriticalsVerbose(int criticalsVerbose) {
         this.criticalsVerbose = criticalsVerbose;
     }
 
@@ -221,11 +221,11 @@ public class DataPlayer {
         this.lastKillauraYaw = lastKillauraYaw;
     }
 
-    public float getKillauraAVerbose() {
+    public int getKillauraAVerbose() {
         return killauraAVerbose;
     }
 
-    public void setKillauraAVerbose(float killauraAVerbose) {
+    public void setKillauraAVerbose(int killauraAVerbose) {
         this.killauraAVerbose = killauraAVerbose;
     }
 
@@ -260,35 +260,35 @@ public class DataPlayer {
     public void setLastBlockPlaced_GroundSpoof(boolean lastBlockPlaced_GroundSpoof) {
         LastBlockPlaced_GroundSpoof = lastBlockPlaced_GroundSpoof;
     }
-    public float getAirTicks() {
+    public int getAirTicks() {
         return airTicks;
     }
 
-    public void setAirTicks(float airTicks) {
+    public void setAirTicks(int airTicks) {
         this.airTicks = airTicks;
     }
 
-    public float getGroundTicks() {
+    public int getGroundTicks() {
         return groundTicks;
     }
 
-    public void setGroundTicks(float groundTicks) {
+    public void setGroundTicks(int groundTicks) {
         this.groundTicks = groundTicks;
     }
 
-    public float getFlyHoverVerbose() {
+    public int getFlyHoverVerbose() {
         return flyHoverVerbose;
     }
 
-    public void setFlyHoverVerbose(float flyHoverVerbose) {
+    public void setFlyHoverVerbose(int flyHoverVerbose) {
         this.flyHoverVerbose = flyHoverVerbose;
     }
 
-    public float getGroundSpoofVL() {
+    public int getGroundSpoofVL() {
         return GroundSpoofVL;
     }
 
-    public void setGroundSpoofVL(float groundSpoofVL) {
+    public void setGroundSpoofVL(int groundSpoofVL) {
         GroundSpoofVL = groundSpoofVL;
     }
 
@@ -308,11 +308,11 @@ public class DataPlayer {
         this.lastVelocityFlyY = lastVelocityFlyY;
     }
 
-    public float getSetBackTicks() {
+    public int getSetBackTicks() {
         return setBackTicks;
     }
 
-    public void setSetBackTicks(float setBackTicks) {
+    public void setSetBackTicks(int setBackTicks) {
         this.setBackTicks = setBackTicks;
     }
 
@@ -332,11 +332,11 @@ public class DataPlayer {
         DidTakeVelocity = didTakeVelocity;
     }
 
-    public float getFlyVelocityVerbose() {
+    public int getFlyVelocityVerbose() {
         return flyVelocityVerbose;
     }
 
-    public void setFlyVelocityVerbose(float flyVelocityVerbose) {
+    public void setFlyVelocityVerbose(int flyVelocityVerbose) {
         this.flyVelocityVerbose = flyVelocityVerbose;
     }
 
@@ -388,19 +388,19 @@ public class DataPlayer {
         LastY_Gravity = lastY_Gravity;
     }
 
-    public float getGravity_VL() {
+    public int getGravity_VL() {
         return Gravity_VL;
     }
 
-    public void setGravity_VL(float gravity_VL) {
+    public void setGravity_VL(int gravity_VL) {
         Gravity_VL = gravity_VL;
     }
 
-    public float getAntiCactus_VL() {
+    public int getAntiCactus_VL() {
         return AntiCactus_VL;
     }
 
-    public void setAntiCactus_VL(float antiCactus_VL) {
+    public void setAntiCactus_VL(int antiCactus_VL) {
         AntiCactus_VL = antiCactus_VL;
     }
 
@@ -448,20 +448,20 @@ public class DataPlayer {
         LastVelUpdateBoolean = lastVelUpdateBoolean;
     }
 
-    public float getSpeed2Verbose() {
+    public int getSpeed2Verbose() {
         return Speed2Verbose;
     }
 
-    public void setSpeed2Verbose(float speed2Verbose) {
+    public void setSpeed2Verbose(int speed2Verbose) {
         Speed2Verbose = speed2Verbose;
     }
 
 
-    public float getSpeed_OnGround_Verbose() {
+    public int getSpeed_OnGround_Verbose() {
         return Speed_OnGround_Verbose;
     }
 
-    public void setSpeed_OnGround_Verbose(float speed_OnGround_Verbose) {
+    public void setSpeed_OnGround_Verbose(int speed_OnGround_Verbose) {
         Speed_OnGround_Verbose = speed_OnGround_Verbose;
     }
 
@@ -481,19 +481,19 @@ public class DataPlayer {
         LastTimeTimer = lastTimeTimer;
     }
 
-    public float getTimerVerbose() {
+    public int getTimerVerbose() {
         return TimerVerbose;
     }
 
-    public void setTimerVerbose(float timerVerbose) {
+    public void setTimerVerbose(int timerVerbose) {
         TimerVerbose = timerVerbose;
     }
 
-    public float getLastPACKETSTimer() {
+    public int getLastPACKETSTimer() {
         return LastPACKETSTimer;
     }
 
-    public void setLastPACKETSTimer(float lastPACKETSTimer) {
+    public void setLastPACKETSTimer(int lastPACKETSTimer) {
         LastPACKETSTimer = lastPACKETSTimer;
     }
 
@@ -513,11 +513,11 @@ public class DataPlayer {
         WebFloatMS_Set = webFloatMS_Set;
     }
 
-    public float getWebFloat_BlockCount() {
+    public int getWebFloat_BlockCount() {
         return WebFloat_BlockCount;
     }
 
-    public void setWebFloat_BlockCount(float webFloat_BlockCount) {
+    public void setWebFloat_BlockCount(int webFloat_BlockCount) {
         WebFloat_BlockCount = webFloat_BlockCount;
     }
 
@@ -537,11 +537,11 @@ public class DataPlayer {
         AboveSpeedSet = aboveSpeedSet;
     }
 
-    public float getSpeedAC2_Verbose() {
+    public int getSpeedAC2_Verbose() {
         return SpeedAC2_Verbose;
     }
 
-    public void setSpeedAC2_Verbose(float speedAC2_Verbose) {
+    public void setSpeedAC2_Verbose(int speedAC2_Verbose) {
         SpeedAC2_Verbose = speedAC2_Verbose;
     }
 
@@ -577,11 +577,11 @@ public class DataPlayer {
         Speed_C_2_MS = speed_C_2_MS;
     }
 
-    public float getSpeedC_Verbose() {
+    public int getSpeedC_Verbose() {
         return SpeedC_Verbose;
     }
 
-    public void setSpeedC_Verbose(float speedC_Verbose) {
+    public void setSpeedC_Verbose(int speedC_Verbose) {
         SpeedC_Verbose = speedC_Verbose;
     }
 
@@ -593,11 +593,11 @@ public class DataPlayer {
         GlideTicks = glideTicks;
     }
 
-    public float getSpeed_C_3_Verbose() {
+    public int getSpeed_C_3_Verbose() {
         return Speed_C_3_Verbose;
     }
 
-    public void setSpeed_C_3_Verbose(float speed_C_3_Verbose) {
+    public void setSpeed_C_3_Verbose(int speed_C_3_Verbose) {
         Speed_C_3_Verbose = speed_C_3_Verbose;
     }
 
@@ -633,11 +633,11 @@ public class DataPlayer {
         BlockAbove_Set = blockAbove_Set;
     }
 
-    public float getSpeed_YPORT_Verbose() {
+    public int getSpeed_YPORT_Verbose() {
         return Speed_YPORT_Verbose;
     }
 
-    public void setSpeed_YPORT_Verbose(float speed_YPORT_Verbose) {
+    public void setSpeed_YPORT_Verbose(int speed_YPORT_Verbose) {
         Speed_YPORT_Verbose = speed_YPORT_Verbose;
     }
 
@@ -673,11 +673,11 @@ public class DataPlayer {
         Speed_YPort2_Set = speed_YPort2_Set;
     }
 
-    public float getSpeed_YPort2_Verbose() {
+    public int getSpeed_YPort2_Verbose() {
         return Speed_YPort2_Verbose;
     }
 
-    public void setSpeed_YPort2_Verbose(float speed_YPort2_Verbose) {
+    public void setSpeed_YPort2_Verbose(int speed_YPort2_Verbose) {
         Speed_YPort2_Verbose = speed_YPort2_Verbose;
     }
 }

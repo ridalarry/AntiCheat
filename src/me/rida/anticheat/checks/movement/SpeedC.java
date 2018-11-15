@@ -130,7 +130,7 @@ public class SpeedC extends Check {
 			} else if (lastHitDiff < 2000L) {
 				LimitXZ += 0.1;
 			}
-			if (CheatUtil.slabsNear(p.getLocation())) {
+			if (BlockUtil.isNearSlab(p)) {
 				LimitXZ += 0.05D;
 			}
 			Location b = PlayerUtil.getEyeLocation(p);
@@ -140,7 +140,7 @@ public class SpeedC extends Check {
 			}
 			Location below = p.getLocation().clone().add(0.0D, -1.0D, 0.0D);
 
-			if (CheatUtil.isStair(below.getBlock())) {
+			if (BlockUtil.isStair(below.getBlock())) {
 				LimitXZ += 0.6;
 			}
 

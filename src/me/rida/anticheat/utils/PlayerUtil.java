@@ -19,17 +19,29 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 
 public class PlayerUtil {
-	private static ImmutableSet<Material> ground = Sets.immutableEnumSet(Material.SUGAR_CANE, Material.SUGAR_CANE_BLOCK,
-            Material.TORCH, Material.ACTIVATOR_RAIL, Material.AIR, Material.CARROT, Material.CROPS, Material.DEAD_BUSH,
-            Material.DETECTOR_RAIL, Material.DIODE_BLOCK_OFF, Material.DIODE_BLOCK_ON, Material.DOUBLE_PLANT,
-            Material.FIRE, Material.GOLD_PLATE, Material.IRON_PLATE, Material.LAVA, Material.LEVER, Material.LONG_GRASS,
-            Material.MELON_STEM, Material.NETHER_WARTS, Material.PORTAL, Material.POTATO, Material.POWERED_RAIL,
-            Material.PUMPKIN_STEM, Material.RAILS, Material.RED_ROSE, Material.REDSTONE_COMPARATOR_OFF,
-            Material.REDSTONE_COMPARATOR_ON, Material.REDSTONE_TORCH_OFF, Material.REDSTONE_TORCH_ON,
-            Material.REDSTONE_WIRE, Material.SAPLING, Material.SEEDS, Material.SIGN, Material.SIGN_POST,
-            Material.STATIONARY_LAVA, Material.STATIONARY_WATER, Material.STONE_BUTTON, Material.STONE_PLATE,
-            Material.SUGAR_CANE_BLOCK, Material.TORCH, Material.TRIPWIRE, Material.TRIPWIRE_HOOK, Material.WALL_SIGN,
-            Material.WATER, Material.WEB, Material.WOOD_BUTTON, Material.WOOD_PLATE, Material.YELLOW_FLOWER);
+	private static ImmutableSet<Material> ground = Sets.immutableEnumSet(Material.SUGAR_CANE, 
+            Material.TORCH, Material.ACTIVATOR_RAIL, Material.AIR, Material.CARROT, Material.DEAD_BUSH,
+            Material.DETECTOR_RAIL, 
+            Material.FIRE, 
+            Material.LAVA, Material.LEVER, 
+            Material.MELON_STEM, 
+            Material.POTATO, Material.POWERED_RAIL,
+            Material.PUMPKIN_STEM, Material.REDSTONE_WIRE, 
+            Material.SIGN, 
+            Material.STONE_BUTTON, 
+            Material.getMaterial("SUGAR_CANE_BLOCK"), Material.getMaterial("CROPS"), Material.getMaterial("DIODE_BLOCK_OFF"), 
+            Material.getMaterial("Material.DIODE_BLOCK_ON"), Material.getMaterial("DOUBLE_PLANT"), Material.getMaterial("GOLD_PLATE"), Material.getMaterial("IRON_PLATE"), 
+            Material.getMaterial("LONG_GRASS"),
+            Material.getMaterial("NETHER_WARTS"), Material.getMaterial("PORTAL"), 
+            Material.getMaterial("SAPLING"), Material.getMaterial("SEEDS"), 
+            Material.getMaterial("RAILS"), Material.getMaterial("RED_ROSE"), Material.getMaterial("REDSTONE_COMPARATOR_OFF"),
+            Material.getMaterial("REDSTONE_COMPARATOR_ON"), Material.getMaterial("REDSTONE_TORCH_OFF"), Material.getMaterial("REDSTONE_TORCH_ON"),
+            Material.getMaterial("SIGN_POST"),
+            Material.getMaterial("STATIONARY_LAVA"), Material.getMaterial("STATIONARY_WATER"), 
+            Material.getMaterial(".STONE_PLATE"), Material.getMaterial("WEB"), Material.getMaterial("WOOD_BUTTON"), Material.getMaterial(".WOOD_PLATE"), Material.getMaterial("YELLOW_FLOWER"),
+            Material.getMaterial("SUGAR_CANE_BLOCK"), 
+            Material.TORCH, Material.TRIPWIRE, Material.TRIPWIRE_HOOK, Material.WALL_SIGN,
+            Material.WATER);
 
    
 
@@ -59,7 +71,7 @@ public class PlayerUtil {
         a = player.getLocation().clone();
         a.setY(a.getY() + 0.5);
         return a.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR || isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
-                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER});
+                new Material[]{Material.getMaterial("FENCE"), Material.getMaterial("FENCE_GATE"), Material.getMaterial("COBBLE_WALL"), Material.LADDER});
     }
 
 	    public static int getDistanceToGround(Player p){
@@ -152,7 +164,7 @@ public class PlayerUtil {
 				&&user.getSetbackLocation() != null) {
 			Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
 
-			if(location.getBlock().getType().equals(Material.SLIME_BLOCK)){
+			if(location.getBlock().getType().equals(Material.getMaterial("SLIME_BLOCK"))){
 				return true;
 			}
 		}
@@ -243,7 +255,7 @@ public class PlayerUtil {
 	}
 	 
     public static boolean isInWeb(Player player) {
-        if (player.getLocation().getBlock().getType() != Material.WEB && player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.WEB && player.getLocation().getBlock().getRelative(BlockFace.UP).getType() != Material.WEB) {
+        if (player.getLocation().getBlock().getType() != Material.getMaterial("WEB") && player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.getMaterial("WEB") && player.getLocation().getBlock().getRelative(BlockFace.UP).getType() != Material.getMaterial("WEB")) {
             return false;
         }
         return true;
@@ -366,8 +378,8 @@ public class PlayerUtil {
 
                     if(BlockUtil.isStair(block)
                             || BlockUtil.isSlab(block)
-                            || block.getType().equals(Material.SKULL)
-                            || block.getType().equals(Material.CAKE_BLOCK)) {
+                            || block.getType().equals(Material.getMaterial("SKULL"))
+                            || block.getType().equals(Material.getMaterial("CAKE_BLOCK"))) {
                         return true;
                     }
                 }
@@ -406,7 +418,29 @@ public class PlayerUtil {
         }
         return false;
     }
+    public static boolean isOnAllowedPhase(Player player) {
+        Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
+        double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+        double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+        double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+        double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+        double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+        double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+
+        for(double x = minX ; x < maxX ; x++) {
+            for(double y = minY ; y < maxY ; y++) {
+                for(double z = minZ ; z < maxZ ; z++) {
+                    Block block = new Location(player.getWorld(), x, y, z).getBlock();
+
+                    if(BlockUtil.allowedPhase(block)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
     
     public static boolean isOnIce(Player player) {
         Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
@@ -436,7 +470,7 @@ public class PlayerUtil {
 
     public static boolean isInWater(Player player) {
         final Material m = player.getLocation().getBlock().getType();
-        return m == Material.STATIONARY_WATER || m == Material.WATER;
+        return m == Material.getMaterial("STATIONARY_WATER") || m == Material.WATER;
     }
 
 
@@ -445,7 +479,7 @@ public class PlayerUtil {
             return false;
         }
         Block block = player.getLocation().clone().getBlock();
-        if (CheatUtil.isSlab(block) || CheatUtil.isStair(block)) {
+        if (BlockUtil.isSlab(block) || BlockUtil.isStair(block)) {
             return false;
         }
         if (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType().isSolid()
@@ -486,6 +520,6 @@ public class PlayerUtil {
         a.setY(a.getY() + 0.5);
         return a.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR
                 || CheatUtil.isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
-                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER});
+                new Material[]{Material.getMaterial("FENCE"), Material.getMaterial("FENCE_GATE"), Material.getMaterial("COBBLE_WALL"), Material.LADDER});
     }
 }

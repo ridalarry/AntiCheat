@@ -1,114 +1,105 @@
 package me.rida.anticheat.checks.combat;
 
-import com.comphenix.protocol.wrappers.EnumWrappers;
-
-import java.util.*;
-
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.TimeUtil;
+import me.rida.anticheat.checks.movement.PhaseA;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.CheatUtil;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class KillAuraA extends Check {
-	public static Map<UUID, Long> LastMS;
-	public static Map<UUID, List<Long>> Clicks;
-	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public KillAuraA(AntiCheat AntiCheat) {
 		super("KillAuraA", "KillAura",  CheckType.Combat, AntiCheat);
-		this.LastMS = new HashMap<>();
-		this.Clicks = new HashMap<>();
-		this.ClickTicks = new HashMap<>();
 
 		setEnabled(true);
-		setBannable(true);
-		setViolationResetTime(250000);
-		setViolationsToNotify(3);
-		setMaxViolations(10);
+		setBannable(false);
+
+		setMaxViolations(7);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+	public static HashMap<Player, Integer> counts = new HashMap<Player, Integer>();
+	private ArrayList<Player> blockGlitched = new ArrayList<Player>();
 
-		if (LastMS.containsKey(u)) {
-			LastMS.remove(u);
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	public void onPlayerLogout(PlayerQuitEvent e) {
+		if (counts.containsKey(e.getPlayer())) {
+			counts.remove(e.getPlayer());
 		}
-		if (Clicks.containsKey(u)) {
-			Clicks.remove(u);
-		}
-		if (ClickTicks.containsKey(u)) {
-			ClickTicks.remove(u);
+		if (blockGlitched.contains(e.getPlayer())) {
+			blockGlitched.remove(e.getPlayer());
 		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void UseEntity(PacketUseEntityEvent e) {
-		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
-				|| !(e.getAttacked() instanceof Player)) {
+	public void onBreak(BlockBreakEvent e) {
+		if (e.isCancelled()) {
+			blockGlitched.add(e.getPlayer());
+		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void checkKillaura(EntityDamageByEntityEvent e) {
+		if (e.getCause() != DamageCause.ENTITY_ATTACK
+				|| !getAntiCheat().isEnabled()
+				|| !(e.getDamager() instanceof Player) 
+				|| !(e.getEntity() instanceof Player)) {
 			return;
 		}
 
-		Player p = e.getAttacker();
-		UUID u = p.getUniqueId();
-		int Count = 0;
-		long Time = System.currentTimeMillis();
-		if (ClickTicks.containsKey(u)) {
-			Count = ClickTicks.get(u).getKey();
-			Time = ClickTicks.get(u).getValue();
-		}
-		if (LastMS.containsKey(u)) {
-			long MS = TimeUtil.nowlong() - LastMS.get(u);
-			if (MS > 500L || MS < 5L) {
-				LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
-				return;
-			}
-			if (Clicks.containsKey(u)) {
-				List<Long> Clicks = this.Clicks.get(u);
-				if (Clicks.size() == 10) {
-					this.Clicks.remove(u);
-					Collections.sort(Clicks);
-					final long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
-					if (Range < 30L) {
-						++Count;
-						Time = System.currentTimeMillis();
-						this.dumplog(p, "Logged for KillAura Type A; New Range: " + Range +"; New Count: " + Count);
-					}
-				} else {
-					Clicks.add(MS);
-					this.Clicks.put(u, Clicks);
-				}
-			} else {
-				final List<Long> Clicks = new ArrayList<Long>();
-				Clicks.add(MS);
-				this.Clicks.put(p.getUniqueId(), Clicks);
-			}
-		}
-		if (ClickTicks.containsKey(u) && TimeUtil.elapsed(Time, 5000L)) {
-			Count = 0;
-			Time = TimeUtil.nowlong();
-		}
-		if ((Count > 2 && this.getAntiCheat().getLag().getPing(p) < 100)
-				|| (Count > 4 && this.getAntiCheat().getLag().getPing(p) <= 400)) {
-				dumplog(p, "Logged. Count: " + Count);
-			Count = 0;
-			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		Player p = (Player) e.getDamager();
+		if (BlockUtil.isNearSlab(p)
+				|| BlockUtil.isNearSlab(p)
+        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-				return;
-			}
-			getAntiCheat().logCheat(this, p, "Click Pattern", "(Type: A)");
-			ClickTicks.remove(p.getUniqueId());
-		} else if (this.getAntiCheat().getLag().getPing(p) > 400) {
-			dumplog(p, "Would set off Killaura (Click Pattern) but latency is too high!");
+			return;
 		}
-		LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
-		ClickTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		int Count = 0;
+
+		if (counts.containsKey(p)) {
+			Count = counts.get(p);
+		}
+
+		Player a = (Player) e.getEntity();
+		Location dloc = p.getLocation();
+		Location aloc = a.getLocation();
+		double zdif = Math.abs(dloc.getZ() - aloc.getZ());
+		double xdif = Math.abs(dloc.getX() - aloc.getX());
+
+		if (xdif == 0 || zdif == 0
+				|| CheatUtil.getOffsetOffCursor(p, a) > 20) {
+			return;
+		}
+
+		for (int y = 0; y < 1; y += 1) {
+			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
+			if (!PhaseA.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
+					&& !p.hasLineOfSight(a) && !BlockUtil.isSlab(zBlock.getBlock())) {
+				Count++;
+			}
+			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
+			if (!PhaseA.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
+					&& !p.hasLineOfSight(a) && !BlockUtil.isSlab(xBlock.getBlock())) {
+				Count++;
+			}
+
+		}
+		if (Count > 3) {
+			getAntiCheat().logCheat(this, p, "Wall", "(Type: A)");
+			Count = 0;
+		}
+		counts.put(p, Count);
 	}
 }

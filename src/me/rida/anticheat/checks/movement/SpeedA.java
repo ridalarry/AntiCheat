@@ -11,6 +11,8 @@ import me.rida.anticheat.utils.TimerUtils;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
+import java.util.concurrent.TimeUnit;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,6 +27,9 @@ public class SpeedA extends Check {
 
     public SpeedA(AntiCheat AntiCheat) {
         super("SpeedA", "Speed", CheckType.Movement, AntiCheat);
+		setEnabled(true);
+		setMaxViolations(15);
+        setBannable(true);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -55,7 +60,7 @@ public class SpeedA extends Check {
             }
             double speed = MathUtil.getHorizontalDistance(from, to);
            if(MathUtil.elapsed(data.getLastVelMS(), 3000)) {
-               float verbose = data.getSpeedAVerbose();
+               int verbose = data.getSpeedAVerbose();
                double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
                double speedAThreshold = (data.getAirTicks() > 0 ? data.getAirTicks() >= 6
                        ? data.getAirTicks() == 13 ? 0.466 : 0.35 : (0.345 * Math.pow(0.986938064, data.getAirTicks()))
@@ -92,11 +97,11 @@ public class SpeedA extends Check {
                    			|| p.hasPotionEffect(PotionEffectType.SPEED)
                    			|| p.isSprinting()){
                        return;
-                   }
+                   } else {
                    getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast.", "(Type: A)");
                    verbose = 0;
                }
-
+               }
                data.setSpeedAVerbose(verbose);
            } else {
                data.setSpeedAVerbose(0);
@@ -149,17 +154,17 @@ public class SpeedA extends Check {
             double onGroundDiff = (to.getY() - from.getY());
             if (speed > Max && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                     && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
-                    && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
+                    && loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
                     && above3.getBlock().getType() == Material.AIR && data.getAboveBlockTicks() != 0) {
                 getAntiCheat().logCheat(this, p, "[2] - Player Moved Too Fast.", "(Type: A)");
             }
 
             if (speed > 0.7 && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                     && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
-                    && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
+                    && loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
                     && above3.getBlock().getType() == Material.AIR && !NewVelocityUtil.didTakeVel(p) && !VelocityUtil.didTakeVelocity(p) && !PlayerUtil.hasPistonNear(p) &&
-                    p.getLocation().getBlock().getType() != Material.PISTON_MOVING_PIECE && p.getLocation().getBlock().getType() != Material.PISTON_BASE
-                    && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtil.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
+                    p.getLocation().getBlock().getType() != Material.getMaterial("PISTON_MOVING_PIECE") && p.getLocation().getBlock().getType() != Material.getMaterial("PISTON_BASE")
+                    && p.getLocation().getBlock().getType() != Material.getMaterial("PISTON_STICKY_BASE") && !BlockUtil.isNearPistion(p) && !data.isSpeed_PistonExpand_Set()) {
                 if (!data.isSpeed_PistonExpand_Set()) {
                     if (data.getSpeed_C_3_Verbose() > 1) {
                         getAntiCheat().logCheat(this, p, "[3] - Player Moved Too Fast.", "(Type: A)");
@@ -206,17 +211,17 @@ public class SpeedA extends Check {
 
                         if (speed > Max && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                                 && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
-                                && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
+                                && loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
                                 && above3.getBlock().getType() == Material.AIR && data.getIceTicks() == 0 && !PlayerUtil.hasIceNear(p)) {
                             getAntiCheat().logCheat(this, p, "[5] - Player Moved Too Fast.", "(Type: A)");
                         }
 
                         if (speed > 0.7 && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
                                 && e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
-                                && loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
+                                && loc2.getBlock().getType() != Material.getMaterial("TRAP_DOOR") && above.getBlock().getType() == Material.AIR
                                 && above3.getBlock().getType() == Material.AIR && !NewVelocityUtil.didTakeVel(p) && !VelocityUtil.didTakeVelocity(p) && !PlayerUtil.hasPistonNear(p) &&
-                                p.getLocation().getBlock().getType() != Material.PISTON_MOVING_PIECE && p.getLocation().getBlock().getType() != Material.PISTON_BASE
-                                && p.getLocation().getBlock().getType() != Material.PISTON_STICKY_BASE && !BlockUtil.isNearPistion(p)) {
+                                p.getLocation().getBlock().getType() != Material.getMaterial("PISTON_MOVING_PIECE") && p.getLocation().getBlock().getType() != Material.getMaterial("PISTON_BASE")
+                                && p.getLocation().getBlock().getType() != Material.getMaterial("PISTON_STICKY_BASE") && !BlockUtil.isNearPistion(p)) {
                             getAntiCheat().logCheat(this, p, "[6] - Player Moved Too Fast.", "(Type: A)");
 
                         }

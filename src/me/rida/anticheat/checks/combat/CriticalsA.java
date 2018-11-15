@@ -30,8 +30,7 @@ public class CriticalsA extends Check {
 
         Player p = (Player) e.getDamager();
 
-        if(!Bukkit.getOnlinePlayers().contains(p)
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+        if(getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;
         }
@@ -46,7 +45,7 @@ public class CriticalsA extends Check {
             return;
         }
 
-        float verbose = data.getCriticalsVerbose();
+        int verbose = data.getCriticalsVerbose();
 
         if(p.getFallDistance() > 0 && data.getFallDistance() == 0) {
             if(++verbose > 3) {
