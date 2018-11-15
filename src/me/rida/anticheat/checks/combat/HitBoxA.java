@@ -48,12 +48,12 @@ public class HitBoxA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onUse(PacketUseEntityEvent e) {
 
+		 if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player)) {
+	            return;
+	        }
 		Player p = e.getAttacker();
 		
 		LivingEntity attacked = (Player) e.getAttacked();
-		if (p.getAllowFlight()) {
-			return;
-		}
 
 		int verbose = count.getOrDefault(p.getUniqueId(), 0);
 
