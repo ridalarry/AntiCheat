@@ -12,17 +12,15 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
-public class HitBoxB
-extends Check {
+public class HitBoxB extends Check {
     private double HITBOX_LENGTH = 1.05;
 
     public HitBoxB(AntiCheat AntiCheat) {
-        super("HitBoxB", "HitBox",  CheckType.Combat, AntiCheat);
+        super("HitBoxB", "HitBox", CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
 		setViolationsToNotify(1);
-		setViolationResetTime(250000);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -50,4 +48,3 @@ extends Check {
         return bl;
     }
 }
-
