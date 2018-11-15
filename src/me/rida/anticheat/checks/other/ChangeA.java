@@ -53,7 +53,7 @@ public class ChangeA extends Check {
         }
         int n = 0;
         int n2 = 5;
-        if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
+        if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.getMaterial("CARPET")}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
             if (e.getFrom().getY() > e.getTo().getY()) {
                 if (!this.falling.contains(u)) {
                     this.falling.add(u);

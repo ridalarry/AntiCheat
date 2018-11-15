@@ -60,7 +60,7 @@ public class SpiderA extends Check {
                 || p.getAllowFlight()
                 || p.getVehicle() != null
                 || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
-                || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == 165
+                || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.getMaterial("SLIME_BLOCK")
                 || PlayerUtil.isOnClimbable(p, 0)
                 || PlayerUtil.isOnClimbable(p, 1) 
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

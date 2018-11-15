@@ -7,6 +7,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.checks.movement.PhaseA;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 
 import org.bukkit.Location;
@@ -59,8 +60,8 @@ public class KillAuraA extends Check {
 		}
 
 		Player p = (Player) e.getDamager();
-		if (CheatUtil.slabsNear(p.getEyeLocation())
-				|| CheatUtil.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))
+		if (BlockUtil.isNearSlab(p)
+				|| BlockUtil.isNearSlab(p)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
@@ -85,12 +86,12 @@ public class KillAuraA extends Check {
 		for (int y = 0; y < 1; y += 1) {
 			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
 			if (!PhaseA.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
-					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(zBlock.getBlock())) {
+					&& !p.hasLineOfSight(a) && !BlockUtil.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
 			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
 			if (!PhaseA.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
-					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(xBlock.getBlock())) {
+					&& !p.hasLineOfSight(a) && !BlockUtil.isSlab(xBlock.getBlock())) {
 				Count++;
 			}
 
