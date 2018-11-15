@@ -10,11 +10,11 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 
-public class AimAssistB
+public class AimAssistA
 extends Check {
     private int aimAssist = 0;
 
-    public AimAssistB(AntiCheat AntiCheat) {
+    public AimAssistA(AntiCheat AntiCheat) {
         super("AimAssistB", "AimAssist",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
@@ -44,7 +44,7 @@ extends Check {
         Player p = e.getPlayer();
         double d = Math.abs(location.getYaw() - location2.getYaw());
         if (d > 0.0 && d < 360.0) {
-            if (AimAssistB.getFrac(d) == 0.0) {
+            if (AimAssistA.getFrac(d) == 0.0) {
                 this.setAimAssest(this.getAimAssist() + 100);
                 if (this.getAimAssist() > 2000) {
 

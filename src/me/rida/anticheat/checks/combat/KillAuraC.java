@@ -13,8 +13,8 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
-public class KillAuraH extends Check {
-    public KillAuraH(AntiCheat AntiCheat) {
+public class KillAuraC extends Check {
+    public KillAuraC(AntiCheat AntiCheat) {
         super("KillAuraH", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);

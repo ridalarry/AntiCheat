@@ -17,11 +17,11 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 
-public class ReachD extends Check {
+public class ReachC extends Check {
 
 	public static HashMap<UUID, Integer> toBan;
 	
-	public ReachD(AntiCheat AntiCheat) {
+	public ReachC(AntiCheat AntiCheat) {
 		super("ReachD", "Reach",  CheckType.Combat, AntiCheat);
 
 		setEnabled(true);

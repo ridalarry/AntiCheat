@@ -17,8 +17,8 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 
-public class BlockInteractE extends Check {
-      public BlockInteractE(AntiCheat AntiCheat) {
+public class BlockInteractB extends Check {
+      public BlockInteractB(AntiCheat AntiCheat) {
         super("BlockInteractE", "BlockInteract", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);

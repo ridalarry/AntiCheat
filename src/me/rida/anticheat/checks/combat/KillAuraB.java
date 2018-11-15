@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
-public class KillAuraG extends Check {
+public class KillAuraB extends Check {
 
-    public KillAuraG(AntiCheat AntiCheat) {
+    public KillAuraB(AntiCheat AntiCheat) {
         super("KillAuraG", "KillAura",  CheckType.Combat, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);

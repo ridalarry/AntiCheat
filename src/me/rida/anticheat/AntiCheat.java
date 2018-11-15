@@ -100,13 +100,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	public void addChecks() {
 		this.Checks.add(new ChatA(this));
-		this.Checks.add(new AimAssistB(this));
+		this.Checks.add(new AimAssistA(this));
 		this.Checks.add(new AntiKBA(this));
 		this.Checks.add(new AutoClickerB(this));
 		this.Checks.add(new BlockInteractA(this));
 		this.Checks.add(new BlockInteractC(this));
 		this.Checks.add(new BlockInteractD(this));
-		this.Checks.add(new BlockInteractE(this));
+		this.Checks.add(new BlockInteractB(this));
 		this.Checks.add(new ChangeA(this));
 		this.Checks.add(new CrashA(this));
 		this.Checks.add(new CriticalsA(this));
@@ -126,12 +126,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new ImpossibleMovementsA(this));
 		this.Checks.add(new ImpossiblePitchA(this));
 		this.Checks.add(new JesusA(this));
-		this.Checks.add(new KillAuraA(this));
+		this.Checks.add(new AutoClickerA(this));
 		this.Checks.add(new KillAuraD(this));
-		this.Checks.add(new KillAuraF(this));
-		this.Checks.add(new KillAuraG(this));
-		this.Checks.add(new KillAuraH(this));
-		this.Checks.add(new KillAuraK(this));
+		this.Checks.add(new KillAuraA(this));
+		this.Checks.add(new KillAuraB(this));
+		this.Checks.add(new KillAuraC(this));
+		this.Checks.add(new KillAuraE(this));
 		this.Checks.add(new NoFallA(this));
 		this.Checks.add(new NoSlowdownA(this));
 		this.Checks.add(new PacketsA(this));
@@ -140,7 +140,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new PMEA(this));
 		this.Checks.add(new ReachA(this));
 		this.Checks.add(new ReachB(this));
-		this.Checks.add(new ReachD(this));
+		this.Checks.add(new ReachC(this));
 		this.Checks.add(new RegenA(this));
 		this.Checks.add(new SneakA(this));
 		this.Checks.add(new SneakB(this));
@@ -311,22 +311,22 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				AutoClickerB.ClickTicks.clear();
 			if (!CriticalsB.CritTicks.isEmpty())
 				CriticalsB.CritTicks.clear();
-			if (!KillAuraA.ClickTicks.isEmpty())
-				KillAuraA.ClickTicks.clear();
-			if (!KillAuraA.Clicks.isEmpty())
-				KillAuraA.Clicks.clear();
-			if (!KillAuraA.LastMS.isEmpty())
-				KillAuraA.LastMS.clear();
+			if (!AutoClickerA.ClickTicks.isEmpty())
+				AutoClickerA.ClickTicks.clear();
+			if (!AutoClickerA.Clicks.isEmpty())
+				AutoClickerA.Clicks.clear();
+			if (!AutoClickerA.LastMS.isEmpty())
+				AutoClickerA.LastMS.clear();
 			if (!KillAuraD.packetTicks.isEmpty())
 				KillAuraD.packetTicks.clear();
-			if (!KillAuraF.counts.isEmpty())
-				KillAuraF.counts.clear();
+			if (!KillAuraA.counts.isEmpty())
+				KillAuraA.counts.clear();
 			if (!ReachB.count.isEmpty())
 				ReachB.count.clear();
 			if (!ReachB.offsets.isEmpty())
 				ReachB.offsets.clear();
-			if (!ReachD.toBan.isEmpty())
-				ReachD.toBan.clear();
+			if (!ReachC.toBan.isEmpty())
+				ReachC.toBan.clear();
 			if (!RegenA.FastHealTicks.isEmpty())
 				RegenA.FastHealTicks.clear();
 			if (!RegenA.LastHeal.isEmpty())
