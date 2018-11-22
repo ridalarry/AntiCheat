@@ -160,7 +160,7 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true)
 	public void teleport(PlayerTeleportEvent e) {
-		if (e.getCause() != TeleportCause.UNKNOWN && e.getCause() != TeleportCause.PLUGIN) {
+		if (e.getCause() != TeleportCause.UNKNOWN) {
 			teleported.add(e.getPlayer().getUniqueId());
 		}
 	}
@@ -217,8 +217,7 @@ public class PhaseA extends Check {
 
 				getAntiCheat().logCheat(this, player, "[3]", "(Type: A)");
 				return;
-			}
-			getAntiCheat().logCheat(this, player, "[4]", "(Type: A)");
+			} return;
 		}
 	}
 
@@ -247,7 +246,8 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	public void onPearlClip(PlayerTeleportEvent event) {
-		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
+		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")
+				|| event.getCause() == TeleportCause.PLUGIN) {
 			return;
 		}
 		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {

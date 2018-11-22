@@ -66,9 +66,17 @@ public class SpiderA extends Check {
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
-				|| (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p))
 				|| PlayerUtil.isNotSpider(p)
-                || VelocityUtil.didTakeVelocity(p)) return;
+				|| PlayerUtil.isOnFence(p.getLocation())
+				|| PlayerUtil.isOnPressure(p.getLocation())
+				|| BlockUtil.isNearFence(p)
+				|| BlockUtil.isNearPressure(p)
+                || VelocityUtil.didTakeVelocity(p)) {
+        	return;
+        }
+        if (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p)) {
+        	return;
+        }
 		
 
 		long Time = System.currentTimeMillis();

@@ -212,6 +212,30 @@ public class PlayerUtil {
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, diff).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
+	public static boolean isOnFence(Location loc) {
+		double diff = 0.3;
+		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(diff, 0D, 0).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, 0).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(0, 0D, diff).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(0, 0D, -diff).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(diff, 0D, diff).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(diff, 0D, -diff).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, diff).getBlock())
+				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, -diff).getBlock());
+	}
+	public static boolean isOnPressure(Location loc) {
+		double diff = 0.3;
+		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(diff, 0D, 0).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(0, 0D, diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(0, 0D, -diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(diff, 0D, diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(diff, 0D, -diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, diff).getBlock())
+				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, -diff).getBlock());
+	}
 
 	public static boolean hasSlabsNear(Location location) {
 		for(Block block : BlockUtil.getSurroundingXZ(location.getBlock(), true)) {

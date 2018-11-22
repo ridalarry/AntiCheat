@@ -28,7 +28,7 @@ public class TimerB extends Check {
 		setMaxViolations(9);
 		setEnabled(true);
 		setBannable(false);
-		setViolationResetTime(1000);
+		setViolationResetTime(6000);
 
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
@@ -56,8 +56,8 @@ public class TimerB extends Check {
 		Count++;
 
 		if ((timerTicks.containsKey(p.getUniqueId())) && (TimeUtil.elapsed(Time, 1000L))) {
-			if (Count > 35) {
-				this.getAntiCheat().logCheat(this, p, Color.Red + "Experimental", "(Type: B)");
+			if (Count > 40) {
+				this.getAntiCheat().logCheat(this, p, Color.Red + "Experimental; Count: " + Count + ", Time: " + Time, "(Type: B)");
 			}
 			Count = 0;
 			Time = TimeUtil.nowlong();

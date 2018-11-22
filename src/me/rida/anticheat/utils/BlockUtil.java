@@ -107,6 +107,12 @@ public class BlockUtil {
 		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
 			
 	}
+	public static boolean isPressure(Block block) {
+		return block.getTypeId() == 70
+				|| block.getTypeId() == 72
+				|| block.getTypeId() == 147
+				|| block.getTypeId() == 148;
+	}
 
 	public static boolean isFence(Block block) {
 		return block.getType().equals(Material.FENCE)
@@ -253,6 +259,15 @@ public class BlockUtil {
             boolean out = false;
              for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
                  if (isLessThanBlock(b)) {
+                     out = true;
+                 }
+             }
+            return out;
+        }
+        public static boolean isNearPressure(Player p) {
+            boolean out = false;
+             for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+                 if (isPressure(b)) {
                      out = true;
                  }
              }
