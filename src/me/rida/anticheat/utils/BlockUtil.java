@@ -9,8 +9,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 public class BlockUtil {
     public static HashSet<Byte> blockPassSet = new HashSet();
@@ -473,8 +471,7 @@ public class BlockUtil {
 
     	public static boolean isIce(Block block) {
     		return block.getType().equals(Material.ICE)
-    				|| block.getType().equals(Material.PACKED_ICE)
-    				|| block.getType().equals(Material.getMaterial("FROSTED_ICE"));
+    				|| block.getType().equals(Material.PACKED_ICE);
     	}
     	public static boolean isSlime(Block block) {
     		return block.getTypeId() == 165;

@@ -28,6 +28,7 @@ public class TimerB extends Check {
 		setMaxViolations(9);
 		setEnabled(true);
 		setBannable(false);
+		setViolationResetTime(1000);
 
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}

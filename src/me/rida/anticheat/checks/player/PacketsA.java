@@ -99,6 +99,10 @@ public class PacketsA extends Check {
 				int maxPackets = 50;
 				if (Count > maxPackets) {
 					if (!PlayerUtil.isFullyStuck(player) && !PlayerUtil.isPartiallyStuck(player)) {
+						if (player.getAllowFlight() || player.isFlying()) {
+							return;
+						}
+							
 						getAntiCheat().logCheat(this, player, "sent over " + Count  + " packets! ", "(Type: A)");
 					}
 				}

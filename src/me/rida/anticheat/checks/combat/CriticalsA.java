@@ -40,6 +40,8 @@ public class CriticalsA extends Check {
 
         if(data.getAboveBlockTicks() > 0
                 || PlayerUtil.isInWeb(p)
+                || p.getAllowFlight()
+                || p.isFlying()
                 || data.getWaterTicks() > 0
                 || PlayerUtil.hasSlabsNear(p.getLocation())) {
             return;
