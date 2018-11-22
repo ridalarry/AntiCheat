@@ -335,14 +335,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				FlyB.flyTicksA.clear();
 			if (!GlideA.flyTicks.isEmpty())
 				GlideA.flyTicks.clear();
-			if (!JesusA.onWater.isEmpty())
-				JesusA.onWater.clear();
-			if (!JesusA.placedBlockOnWater.isEmpty())
-				JesusA.placedBlockOnWater.clear();
-			if (!JesusA.count.isEmpty())
-				JesusA.count.clear();
-			if (!JesusA.velocity.isEmpty())
-				JesusA.velocity.clear();
 			if (!NoFallA.FallDistance.isEmpty())
 				NoFallA.FallDistance.clear();
 			if (!NoFallA.NoFallTicks.isEmpty())

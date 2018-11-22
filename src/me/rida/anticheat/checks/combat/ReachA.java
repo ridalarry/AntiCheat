@@ -7,6 +7,7 @@ import me.rida.anticheat.packets.events.PacketAttackEvent;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.AntiCheat;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -32,6 +33,7 @@ public class ReachA extends Check {
                 || e.getEntity() == null 
         		|| p2 instanceof Enderman 
         		|| p2.isDead()
+        		|| p.getGameMode().equals(GameMode.CREATIVE)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()){
             return;

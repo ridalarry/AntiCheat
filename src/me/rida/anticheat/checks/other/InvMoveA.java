@@ -18,7 +18,7 @@ public class InvMoveA extends Check {
 		setMaxViolations(20);
 		setViolationResetTime(3000);
 		setBannable(false);
-		setViolationsToNotify(5);
+		setViolationsToNotify(20);
 	}
 
 

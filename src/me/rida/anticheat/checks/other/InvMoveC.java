@@ -1,5 +1,6 @@
 package me.rida.anticheat.checks.other;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,7 +24,8 @@ public class InvMoveC extends Check {
     public void InventoryClickEvent(InventoryClickEvent e) {
 		Player p = (Player) e.getWhoClicked();
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+			|| p.getGameMode().equals(GameMode.CREATIVE)) {
 		return;
 	} else {
 		if (p.isSprinting()) {

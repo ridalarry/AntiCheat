@@ -11,6 +11,7 @@ import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.CheatUtil;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -48,7 +49,7 @@ public class HitBoxA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onUse(PacketUseEntityEvent e) {
 
-		 if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player)) {
+		 if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player) || e.getAttacker().getGameMode().equals(GameMode.CREATIVE)) {
 	            return;
 	        }
 		Player p = e.getAttacker();

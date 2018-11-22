@@ -3,6 +3,7 @@ package me.rida.anticheat.checks.combat;
 import java.util.HashMap;
 import java.util.UUID;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,6 +48,7 @@ public class ReachC extends Check {
 		Player d = (Player) e.getEntity();
 		if (d.getAllowFlight()
 				|| p.getAllowFlight()
+				|| p.getGameMode().equals(GameMode.CREATIVE)
 		        || getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 		        || getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {

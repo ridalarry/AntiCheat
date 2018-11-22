@@ -96,7 +96,7 @@ public class PacketsA extends Check {
 		if (!blacklist.contains(player.getUniqueId())) {
 			Count++;
 			if ((packetTicks.containsKey(player.getUniqueId())) && (TimeUtil.elapsed(Time, 1000L))) {
-				int maxPackets = 50;
+				int maxPackets = 85;
 				if (Count > maxPackets) {
 					if (!PlayerUtil.isFullyStuck(player) && !PlayerUtil.isPartiallyStuck(player)) {
 						if (player.getAllowFlight() || player.isFlying()) {

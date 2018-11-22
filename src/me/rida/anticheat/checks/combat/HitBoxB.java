@@ -1,5 +1,6 @@
 package me.rida.anticheat.checks.combat;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,11 +30,13 @@ public class HitBoxB extends Check {
             return;
         }
         Player p = (Player)e.getDamager();
-        Player p2 = (Player)e.getDamager();
+        Player p2 = (Player)e.getEntity();
         if (!this.hasInHitBox((LivingEntity)p2)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-                || getAntiCheat().getLag().getPing(p2) > getAntiCheat().getPingCancel()) {
+                || getAntiCheat().getLag().getPing(p2) > getAntiCheat().getPingCancel()
+                || p.getGameMode().equals(GameMode.CREATIVE)
+                || p2.getGameMode().equals(GameMode.CREATIVE)) {
         	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
              }
     }

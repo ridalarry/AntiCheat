@@ -4,6 +4,7 @@ import java.util.AbstractMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -59,6 +60,7 @@ public class ReachB extends Check {
 		Player p = (Player) e.getEntity();
 		if (d.getAllowFlight()
 			|| p.getAllowFlight()
+			|| p.getGameMode().equals(GameMode.CREATIVE)
     		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
             || getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
 				return;
