@@ -31,12 +31,14 @@ public class HitBoxB extends Check {
         }
         Player p = (Player)e.getDamager();
         Player p2 = (Player)e.getEntity();
-        if (!this.hasInHitBox((LivingEntity)p2)
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-                || getAntiCheat().getLag().getPing(p2) > getAntiCheat().getPingCancel()
-                || p.getGameMode().equals(GameMode.CREATIVE)
-                || p2.getGameMode().equals(GameMode.CREATIVE)) {
+        if (p.getGameMode().equals(GameMode.CREATIVE)
+        || p2.getGameMode().equals(GameMode.CREATIVE)
+		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+        || getAntiCheat().getLag().getPing(p2) > getAntiCheat().getPingCancel()) {
+        	return;
+        }
+        if (!this.hasInHitBox((LivingEntity)p2)) {
         	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
              }
     }

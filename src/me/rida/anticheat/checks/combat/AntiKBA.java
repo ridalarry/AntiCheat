@@ -2,6 +2,8 @@ package me.rida.anticheat.checks.combat;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,6 +59,7 @@ public class AntiKBA extends Check {
         		|| (p.getAllowFlight()) 
         		|| (p.isDead()) 
         		|| (Ping.getPing(p) > 400)
+                || p.getGameMode().equals(GameMode.CREATIVE)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;

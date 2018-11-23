@@ -6,6 +6,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,7 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class ImpossibleMovementsA extends Check {
     public ImpossibleMovementsA(AntiCheat AntiCheat) {
-        super("ImpossibleMovementsA", "ImpossibleMovements", CheckType.Movement, AntiCheat);
+        super("ImpossibleMovementsA", "ImpMove", CheckType.Movement, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(false);
@@ -27,14 +28,15 @@ public class ImpossibleMovementsA extends Check {
         Location from  =e.getFrom();
         Location to = e.getTo();
         if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+		        || p.getGameMode().equals(GameMode.CREATIVE)) {
         	return;
         }
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
         if (data != null) {
             if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {
                 if (data.getAntiCactus_VL() >= 3) {
-                    getAntiCheat().logCheat(this, p, "(Anti Cactus)", "(Type: A)");
+                    getAntiCheat().logCheat(this, p, "Impossible Movements: (Anti Cactus)", "(Type: A)");
                 } else {
                     data.setAntiCactus_VL(data.getAntiCactus_VL()+1);
                 }
@@ -54,7 +56,7 @@ public class ImpossibleMovementsA extends Check {
                                 data.setWebFloatMS_Set(false);
                                 data.setWebFloat_BlockCount(0);
                             }
-                            getAntiCheat().logCheat(this, p, "(Web Float)", "(Type: A)");
+                            getAntiCheat().logCheat(this, p, "Impossible Movements: (Web Float)", "(Type: A)");
                         } else {
                             data.setWebFloat_BlockCount(data.getWebFloat_BlockCount()+1);
                         }

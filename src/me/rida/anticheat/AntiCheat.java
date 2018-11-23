@@ -272,7 +272,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
                     iterator.remove();
             }
         }, 20L, 20L);
-            getLogger().severe("Reloading... will kick all online players to avoid crash.");
+            getLogger().info("Reloading... will kick all online players to avoid crash.");
             for (Player player : Bukkit.getOnlinePlayers()) {
                 player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
             }
