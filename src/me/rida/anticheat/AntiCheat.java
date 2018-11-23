@@ -672,6 +672,53 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
 		Integer violations = this.getViolations(player, check);
 		if (violations >= check.getViolationsToNotify()) {
+			if (check.getViolationsToNotify() != null
+					||(check.getViolationsToNotify() != 0)) {
+				int x = violations / check.getViolationsToNotify();
+				
+				ActionMessageUtil msg = new ActionMessageUtil();
+				msg.addText(PREFIX);
+				msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
+						+ player.getName())
+						.addHoverText(Color.translate(getConfig().getString("alerts.primary"))
+								+ "(Click to teleport to "
+								+ Color.translate(getConfig().getString("alerts.secondary"))
+								+ player.getName()
+								+ Color.translate(getConfig().getString("alerts.primary"))
+								+ ")")
+						.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
+				msg.addText(Color.translate(getConfig().getString("alerts.primary"))
+						+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
+				ActionMessageUtil.AMText CheckText = msg
+						.addText(Color.translate(getConfig().getString("alerts.checkColor"))
+								+ check.getName());
+				if (hoverabletext != null) {
+					CheckText.addHoverText(hoverabletext);
+				}
+				msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
+						+ Color.translate(getConfig().getString("alerts.primary")) + " ");
+				msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
+						+ "x" + x);
+				if (violations % check.getViolationsToNotify() == 0) {
+						for (Player playerplayer : this.AlertsOn) {
+							if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
+								continue;
+							}
+							msg.sendToPlayer(playerplayer);
+						}
+					}
+				}
+				if (check.isJudgmentDay()) {
+					return;
+				}
+				if (violations > check.getMaxViolations() && check.isBannable()) {
+					this.autoban(check, player);
+				}
+				
+			}
+			else {
+				int x = violations;
+			
 			ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
 			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
@@ -694,7 +741,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
 					+ Color.translate(getConfig().getString("alerts.primary")) + " ");
 			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
-					+ "x" + violations);
+					+ "x" + x);
 			if (violations % check.getViolationsToNotify() == 0) {
 					for (Player playerplayer : this.AlertsOn) {
 						if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
@@ -710,6 +757,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (violations > check.getMaxViolations() && check.isBannable()) {
 				this.autoban(check, player);
 			}
+			
 		}
 
 	public void RegisterListener(Listener listener) {
