@@ -27,5 +27,4 @@ public class AntiCheatAPI {
 	public static Integer getPing(Player player) {
 		return Integer.valueOf(Math.round((Latency.getLag(player) / 2) * 6));
 	}
-
 }

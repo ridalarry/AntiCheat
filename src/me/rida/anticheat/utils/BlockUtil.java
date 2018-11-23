@@ -11,7 +11,8 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 
 public class BlockUtil {
-    public static HashSet<Byte> blockPassSet = new HashSet();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public static HashSet<Byte> blockPassSet = new HashSet();
 
     public static boolean isSolid(final byte block) {
         if (blockPassSet.isEmpty()) {
@@ -80,7 +81,8 @@ public class BlockUtil {
         return false;
     }
 
-    public static boolean isSolid(Block block) {
+    @SuppressWarnings("deprecation")
+	public static boolean isSolid(Block block) {
         if (block != null && isSolid(block.getTypeId())) {
             return true;
         }
@@ -107,6 +109,7 @@ public class BlockUtil {
 		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
 			
 	}
+	@SuppressWarnings("deprecation")
 	public static boolean isPressure(Block block) {
 		return block.getTypeId() == 70
 				|| block.getTypeId() == 72
@@ -114,6 +117,7 @@ public class BlockUtil {
 				|| block.getTypeId() == 148;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isFence(Block block) {
 		return block.getType().equals(Material.FENCE)
 				|| block.getTypeId() == 192
@@ -136,6 +140,7 @@ public class BlockUtil {
 	    return false;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static boolean isStair(Block block) {
 	    if(block.getType().equals(Material.ACACIA_STAIRS) || block.getType().equals(Material.BIRCH_WOOD_STAIRS)
 	    		|| block.getType().equals(Material.BRICK_STAIRS) || block.getType().equals(Material.COBBLESTONE_STAIRS)
@@ -149,6 +154,7 @@ public class BlockUtil {
 	    return false;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public static boolean isSlab(Block block) {
 		return block.getType().equals(Material.WOOD_STEP) || block.getType().equals(Material.STEP)
 				|| block.getTypeId() == 182;
@@ -194,7 +200,8 @@ public class BlockUtil {
 
 
 
-        public static ArrayList<Block> getBlocksAroundCenter(Location loc, int radius) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+		public static ArrayList<Block> getBlocksAroundCenter(Location loc, int radius) {
             ArrayList<Block> blocks = new ArrayList();
             for (int x = loc.getBlockX() - radius; x <= loc.getBlockX() + radius; x++) {
                 for (int y = loc.getBlockY() - radius; y <= loc.getBlockY() + radius; y++) {
@@ -209,7 +216,8 @@ public class BlockUtil {
             return blocks;
         }
         
-        public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+		public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
             ArrayList<Block> blocks = new ArrayList();
             if (diagonals) {
                 for (int x = -1; x <= 1; x++) {
@@ -232,7 +240,8 @@ public class BlockUtil {
             return blocks;
         }
 
-        public static ArrayList<Block> getSurroundingB(Block block) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+		public static ArrayList<Block> getSurroundingB(Block block) {
             ArrayList<Block> blocks = new ArrayList();
             for (double x = -0.5; x <= 0.5; x += 0.5) {
                 for (double y = -0.5; y <= 0.5; y += 0.5) {
@@ -378,7 +387,8 @@ public class BlockUtil {
             }
             return false;
         }
-        public static boolean isLessThanBlock(Block block) {
+        @SuppressWarnings("unused")
+		public static boolean isLessThanBlock(Block block) {
             Material type = block.getType();
             for (String types : HalfBlocksArray) {
                 if (type.toString().toLowerCase().contains("chest")||type.toString().toLowerCase().contains("anvil")) {
@@ -388,7 +398,8 @@ public class BlockUtil {
             return false;
         }
 
-    	public static boolean allowedPhase(Block block) {
+    	@SuppressWarnings("deprecation")
+		public static boolean allowedPhase(Block block) {
     		return block.getType().equals(Material.SIGN)
     				|| block.getTypeId() == 425
     	    		|| block.getTypeId() == 167
@@ -488,7 +499,8 @@ public class BlockUtil {
     		return block.getType().equals(Material.ICE)
     				|| block.getType().equals(Material.PACKED_ICE);
     	}
-    	public static boolean isSlime(Block block) {
+    	@SuppressWarnings("deprecation")
+		public static boolean isSlime(Block block) {
     		return block.getTypeId() == 165;
     	}
 }

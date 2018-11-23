@@ -50,6 +50,7 @@ public class ReachB extends Check {
 				new AbstractMap.SimpleEntry<Double, Double>(Double.valueOf(OffsetXZ), Double.valueOf(horizontal)));
 	}
 
+	@SuppressWarnings("static-access")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)

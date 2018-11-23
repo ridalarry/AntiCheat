@@ -22,6 +22,7 @@ public class InvMoveA extends Check {
 	}
 
 
+	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void move(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

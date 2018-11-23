@@ -325,6 +325,7 @@ public class PhaseA extends Check {
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	private boolean hasPhased(Block block, Location loc1, Location loc2, Player p) {
 		if (((allowed.contains(block.getType())) || (CheatUtil.isStair(block)) || (CheatUtil.isSlab(block))
 				|| (CheatUtil.isClimbableBlock(block)) || (block.isLiquid()))) {

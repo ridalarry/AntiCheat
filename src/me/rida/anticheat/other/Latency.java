@@ -30,6 +30,7 @@ public class Latency implements Listener {
 	private static Map<UUID, Integer> packets;
 
 	private AntiCheat Ping;
+	@SuppressWarnings("unused")
 	private double tps;
 
 	public Latency(AntiCheat AntiCheat) {

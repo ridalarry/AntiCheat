@@ -40,7 +40,8 @@ public class SpiderA extends Check {
 		setMaxViolations(5);
 	}
 
-    public void onMove(PlayerMoveEvent e) {
+    @SuppressWarnings("unused")
+	public void onMove(PlayerMoveEvent e) {
         Location from = e.getFrom();
         Location to = e.getTo();
         Player p = e.getPlayer();
@@ -51,6 +52,7 @@ public class SpiderA extends Check {
     }
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
+	@SuppressWarnings({ "deprecation", "static-access" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

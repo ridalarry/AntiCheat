@@ -28,6 +28,7 @@ public class KillAuraE extends Check {
 		setViolationsToNotify(3);
     }
 
+	@SuppressWarnings({ "static-access", "unused", "deprecation" })
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onDamage(EntityDamageByEntityEvent e) {
         int n;

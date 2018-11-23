@@ -21,6 +21,7 @@ public class ChatA extends Check{
 
 }
 
+	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();

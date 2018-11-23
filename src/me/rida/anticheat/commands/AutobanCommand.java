@@ -15,6 +15,7 @@ public class AutobanCommand implements CommandExecutor {
 		this.AntiCheat = AntiCheat;
 	}
 
+	@SuppressWarnings("unused")
 	public boolean onCommand(final CommandSender sender, final Command command, final String alias,
 			final String[] args) {
 		if (!sender.hasPermission("anticheat.staff")) {

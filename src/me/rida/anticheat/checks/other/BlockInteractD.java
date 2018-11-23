@@ -33,6 +33,7 @@ public class BlockInteractD extends Check {
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
+				|| p.getGameMode().equals(GameMode.CREATIVE)
                 || VelocityUtil.didTakeVelocity(p)) return;
         if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
             

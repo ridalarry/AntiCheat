@@ -20,6 +20,7 @@ public class AutoClickerA extends Check {
 	public static Map<UUID, List<Long>> Clicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
+	@SuppressWarnings("static-access")
 	public AutoClickerA(AntiCheat AntiCheat) {
 		super("AutoClickerA", "AutoClicker",  CheckType.Combat, AntiCheat);
 		this.LastMS = new HashMap<>();
@@ -49,6 +50,7 @@ public class AutoClickerA extends Check {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK

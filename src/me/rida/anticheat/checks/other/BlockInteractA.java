@@ -57,7 +57,7 @@ public class BlockInteractA extends Check {
 			}
 		}
 		if ((!isValid) && (!p.getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, p, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", null);
+			getAntiCheat().logCheat(this, p, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", "(Type: A)");
 			e.setCancelled(true);
 		}
 	}
@@ -93,6 +93,7 @@ public class BlockInteractA extends Check {
 		return a;
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean checkPhase(Material m) {
 		int[] whitelist = { 355, 196, 194, 197, 195, 193, 64, 96, 187, 184, 186, 107, 185, 183, 192, 189, 139, 191, 85,
 				101, 190, 113, 188, 160, 102, 163, 157, 0, 145, 49, 77, 135, 108, 67, 164, 136, 114, 156, 180, 128, 143,

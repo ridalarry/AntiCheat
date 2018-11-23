@@ -18,11 +18,16 @@ import java.util.regex.Pattern;
 
 public final class CheatUtil {
     public static final String SPY_METADATA = "ac-spydata";
-    private static final List<Material> INSTANT_BREAK = new ArrayList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private static final List<Material> INSTANT_BREAK = new ArrayList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private static final List<Material> FOOD = new ArrayList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private static final List<Material> INTERACTABLE = new ArrayList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private static final Map<Material, Material> COMBO = new HashMap();
-    private static Set<UUID> teleported = new HashSet<>();
+    @SuppressWarnings("unused")
+	private static Set<UUID> teleported = new HashSet<>();
 
     static {
         INSTANT_BREAK.add(Material.RED_MUSHROOM);
@@ -379,7 +384,8 @@ public final class CheatUtil {
         }
     }
 
-    public static boolean isSlab(Block block) {
+    @SuppressWarnings("incomplete-switch")
+	public static boolean isSlab(Block block) {
         Material type = block.getType();
         switch (type) {
             case STEP:
@@ -389,7 +395,8 @@ public final class CheatUtil {
         return false;
     }
 
-    public static boolean isStair(Block block) {
+    @SuppressWarnings("incomplete-switch")
+	public static boolean isStair(Block block) {
         Material type = block.getType();
         switch (type) {
             case COMMAND:
@@ -439,7 +446,8 @@ public final class CheatUtil {
                 || (player.getLocation().getBlock().getRelative(BlockFace.UP).isLiquid());
     }
 
-    public static boolean isInWeb(Player player) {
+    @SuppressWarnings("unlikely-arg-type")
+	public static boolean isInWeb(Player player) {
         if (BlockUtil.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
             return true;
         }

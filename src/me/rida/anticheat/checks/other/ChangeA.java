@@ -84,6 +84,7 @@ public class ChangeA extends Check {
         }
     }
 
+	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onAttack(BlockPlaceEvent e) {
         if (e.getPlayer() instanceof Player) {

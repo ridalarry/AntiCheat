@@ -46,12 +46,14 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
     	getAntiCheat().logCheat(this, p, Color.Red + "[1] Experemental detection of a hack client!", "(Type: A)");
     }
 
-    public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
+    @SuppressWarnings("unchecked")
+	public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
         ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
         if ("ForgeMods".equals(byteArrayDataInput.readUTF())) {
             String string2 = byteArrayDataInput.readUTF();
             try {
-                Map map = (Map)this.parser.parse(string2);
+                @SuppressWarnings("rawtypes")
+				Map map = (Map)this.parser.parse(string2);
                 forgeMods.put(p.getUniqueId(), map);
                 String string3 = this.getClientType(p);
                 if (string3 != null) {

@@ -19,6 +19,7 @@ public class InvMoveB extends Check {
 	setBannable(false);
 }
 
+@SuppressWarnings("unused")
 @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 public void attack(EntityDamageByEntityEvent e) {
 	if (!(e.getDamager() instanceof Player)) {

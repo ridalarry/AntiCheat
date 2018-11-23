@@ -618,6 +618,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.LastVelocity.put(event.getPlayer().getUniqueId(), System.currentTimeMillis());
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	public void banPlayer(Player player, Check check) {
 		if (!getConfig().getBoolean("settings.testmode")) {
 			this.createLog(player, check);

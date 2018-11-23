@@ -55,6 +55,7 @@ public class TimerA extends Check {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@EventHandler
 	public void PacketPlayer(PacketPlayerEvent e) {
 		Player p = e.getPlayer();

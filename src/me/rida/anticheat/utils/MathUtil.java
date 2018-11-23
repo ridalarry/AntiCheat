@@ -59,7 +59,8 @@ public class MathUtil {
         return new double[]{yawOffset, pitchOffset};
     }
 
-    public static boolean close(Double[] arrdouble, int n) {
+    @SuppressWarnings("unused")
+	public static boolean close(Double[] arrdouble, int n) {
         boolean bl;
         double d = arrdouble[4];
         double d2 = arrdouble[3];
@@ -143,6 +144,7 @@ public class MathUtil {
 	    return d5;
 	}
 
+	@SuppressWarnings("unused")
 	public static float getOffset(Player player, LivingEntity livingEntity) {
 	    double d = 0.0;
 	    Location location = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);

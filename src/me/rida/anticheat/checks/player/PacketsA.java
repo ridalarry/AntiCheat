@@ -113,7 +113,8 @@ public class PacketsA extends Check {
 				if (Count > 800) {
 					getAntiCheat().logCheat(this, player, Color.White + "Sent over " + Count  + " packets! " , "(Type: A)");
 				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-				        	final Player p = event.getPlayer();
+				        	@SuppressWarnings("unused")
+							final Player p = event.getPlayer();
 				            @Override
 				            public void run() {
 				                player.kickPlayer("Too many packets");

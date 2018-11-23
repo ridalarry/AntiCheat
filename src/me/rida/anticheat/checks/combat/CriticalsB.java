@@ -45,6 +45,7 @@ public class CriticalsB extends Check {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)

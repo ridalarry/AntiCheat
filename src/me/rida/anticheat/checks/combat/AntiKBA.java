@@ -34,6 +34,7 @@ public class AntiKBA extends Check {
 		setViolationResetTime(250000);
     }
 
+	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
@@ -48,6 +49,7 @@ public class AntiKBA extends Check {
         }
     }
 
+	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void Move(PlayerMoveEvent e) {
         double d;
@@ -119,6 +121,7 @@ public class AntiKBA extends Check {
         this.totalMoved.put(p, d2);
     }
 
+	@SuppressWarnings({ "static-access", "unused" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void Velocity(PlayerVelocityEvent e) {
         double d;

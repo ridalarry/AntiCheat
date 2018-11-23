@@ -6,7 +6,6 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.PlayerUtil;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +34,8 @@ public class CriticalsA extends Check {
             return;
         }
 
-        Entity entity = e.getEntity();
+        @SuppressWarnings("unused")
+		Entity entity = e.getEntity();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 
         if(data.getAboveBlockTicks() > 0

@@ -25,6 +25,7 @@ public class VapeA extends Check implements PluginMessageListener {
 	}
 
 	public void onPluginMessageReceived(String s, Player p, byte[] data) {
+		@SuppressWarnings("unused")
 		String str;
 		try {
 			str = new String(data);

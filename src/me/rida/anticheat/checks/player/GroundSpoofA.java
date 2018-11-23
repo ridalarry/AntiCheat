@@ -23,7 +23,8 @@ public class GroundSpoofA extends Check {
 		setMaxViolations(10);
 		setBannable(false);
     }
- 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+ 	@SuppressWarnings("deprecation")
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
          Player p = e.getPlayer();
           DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

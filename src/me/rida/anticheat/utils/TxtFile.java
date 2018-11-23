@@ -9,7 +9,8 @@ import java.util.List;
 public class TxtFile {
     private File File;
     private String Name;
-    private List<String> Lines = new ArrayList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private List<String> Lines = new ArrayList();
 
     public TxtFile(JavaPlugin Plugin, String Path, String Name) {
         this.File = new File(Plugin.getDataFolder() + Path);

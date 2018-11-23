@@ -4,6 +4,7 @@ import me.rida.anticheat.packets.PacketPlayerType;
 import org.bukkit.event.HandlerList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
 public class PacketPlayerEvent extends Event {
 	private Player Player;
 	private double x;
@@ -48,6 +49,7 @@ public class PacketPlayerEvent extends Event {
 	public void setType(PacketPlayerType type) {
 		this.type = type;
 	}
+	@SuppressWarnings("static-access")
 	public HandlerList getHandlers() {
 		return this.handlers;
 	}

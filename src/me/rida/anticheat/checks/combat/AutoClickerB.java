@@ -55,6 +55,7 @@ public class AutoClickerB extends Check {
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK

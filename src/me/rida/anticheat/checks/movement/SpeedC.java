@@ -81,6 +81,7 @@ public class SpeedC extends Check {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void CheckSpeed(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

@@ -32,6 +32,7 @@ public class SpeedB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> tooFastTicks;
 	public static Map<UUID, Long> lastHit;
 
+	@SuppressWarnings("static-access")
 	public SpeedB(AntiCheat AntiCheat) {
 		super("SpeedB", "Speed", CheckType.Movement, AntiCheat);
 		
@@ -46,6 +47,7 @@ public class SpeedB extends Check {
 		this.speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
 
@@ -170,6 +172,7 @@ public class SpeedB extends Check {
 		V.setY(0);
 		return V;
 	}
+	@SuppressWarnings("deprecation")
 	public static boolean isReallyOnGround(Player p) {
 		Location l = p.getLocation();
 		int x = l.getBlockX();

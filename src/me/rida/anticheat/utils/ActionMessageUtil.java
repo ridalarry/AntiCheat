@@ -7,7 +7,8 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class ActionMessageUtil {
-    private List<AMText> Text = new ArrayList();
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	private List<AMText> Text = new ArrayList();
 
     public AMText addText(String Message) {
         AMText Text = new AMText(Message);
@@ -89,7 +90,8 @@ public class ActionMessageUtil {
 
     public class AMText {
         private String Message = "";
-        private Map<String, Map.Entry<String, String>> Modifiers = new HashMap();
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+		private Map<String, Map.Entry<String, String>> Modifiers = new HashMap();
 
         public AMText(String Text) {
             this.Message = Text;
@@ -110,7 +112,8 @@ public class ActionMessageUtil {
             return Chat;
         }
 
-        public AMText addHoverText(String... Text) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+		public AMText addHoverText(String... Text) {
             String Event = "hoverEvent";
             String Key = "show_text";
             String Value = "";
@@ -132,7 +135,8 @@ public class ActionMessageUtil {
             return this;
         }
 
-        public AMText addHoverItem(org.bukkit.inventory.ItemStack Item) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+		public AMText addHoverItem(org.bukkit.inventory.ItemStack Item) {
             try {
                 String Event = "hoverEvent";
                 String Key = "show_item";
@@ -149,7 +153,8 @@ public class ActionMessageUtil {
             return null;
         }
 
-        public AMText setClickEvent(ActionMessageUtil.ClickableType Type, String Value) {
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+		public AMText setClickEvent(ActionMessageUtil.ClickableType Type, String Value) {
             String Event = "clickEvent";
             String Key = Type.Action;
             Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, "\"" + Value + "\"");

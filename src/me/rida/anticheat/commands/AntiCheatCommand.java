@@ -20,6 +20,7 @@ public class AntiCheatCommand implements CommandExecutor {
 	public AntiCheatCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
 	}
+	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String a, String[] g) {
 
