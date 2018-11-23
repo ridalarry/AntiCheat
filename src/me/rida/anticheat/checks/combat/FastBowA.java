@@ -22,7 +22,7 @@ public class FastBowA extends Check {
         super("FastBowA", "FastBow", CheckType.Combat, AntiCheat);
         bowPull = new HashMap<>();
         count = new HashMap<>();
-        setViolationsToNotify(2);
+        setViolationsToNotify(1);
         setMaxViolations(7);
         setEnabled(true);
         setBannable(true);
@@ -63,8 +63,11 @@ public class FastBowA extends Check {
                     } else {
                         count.put(player, Count > 0 ? Count - 1 : Count);
                     }
+                    if (Count > 5) {
+						getAntiCheat().logCheat(this, player, "Count: > 5 in " + time + " ms", "(Type: A)");
+                    }
                     if (Count > 8) {
-						getAntiCheat().logCheat(this, player, time + " ms", "(Type: A)");
+						getAntiCheat().logCheat(this, player, "Count: > 8 in " + time + " ms", "(Type: A)");
                         count.remove(player);
                     }
                 }

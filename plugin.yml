@@ -9,7 +9,7 @@ commands:
   alerts:
     description: Toggles off and on alerts.
   autoban:
-    description: Stops autobanning.
+    description: Stops autobanning (seems broken).
   getlog:
     description: Get a player's log!
 permissions:
