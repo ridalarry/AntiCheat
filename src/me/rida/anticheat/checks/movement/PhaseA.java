@@ -38,15 +38,16 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.PlayerUtil;
 
 public class PhaseA extends Check {
-	public static List<Material> allowed = new ArrayList<Material>();
-	public static List<Material> semi = new ArrayList<Material>();
-	public static Set<UUID> teleported = new HashSet<UUID>();
-	public static final Map<UUID, Location> lastLocation = new HashMap<UUID, Location>();
+	public static List<Material> allowed = new ArrayList<>();
+	public static List<Material> semi = new ArrayList<>();
+	public static Set<UUID> teleported = new HashSet<>();
+	public static final Map<UUID, Location> lastLocation = new HashMap<>();
 
 	private final ImmutableSet<Material> blockedPearlTypes = Sets.immutableEnumSet(Material.THIN_GLASS,
 			Material.IRON_FENCE, Material.FENCE, Material.NETHER_FENCE, Material.FENCE_GATE, Material.ACACIA_STAIRS,
@@ -177,17 +178,20 @@ public class PhaseA extends Check {
 
 	@EventHandler
 	public void update(PlayerMoveEvent e) {
-		Player player = e.getPlayer();
+		final Player player = e.getPlayer();
 		if (player.isDead()
 				|| (BlockUtil.isNearLiquid(player) && BlockUtil.isNearHalfBlock(player))
-				|| (BlockUtil.isNearLiquid(player))) {
+				|| (BlockUtil.isNearLiquid(player))
+				|| PlayerUtil.wasOnSlime(player)
+				|| BlockUtil.isNearSlime(player)
+				|| PlayerUtil.isOnSlime(player.getLocation())) {
 			return;
 		}
 
-		UUID playerId = player.getUniqueId();
-		Location loc1 = lastLocation.containsKey(playerId) ? (Location) lastLocation.get(playerId)
+		final UUID playerId = player.getUniqueId();
+		final Location loc1 = lastLocation.containsKey(playerId) ? (Location) lastLocation.get(playerId)
 				: player.getLocation();
-		Location loc2 = player.getLocation();
+		final Location loc2 = player.getLocation();
 		if (player.getAllowFlight()) {
 			teleported.add(player.getUniqueId());
 		}
@@ -199,10 +203,10 @@ public class PhaseA extends Check {
 			if (BlockUtil.isNearAllowedPhase(player)) {
 				return;
 			}
-			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 			if ((player.getLocation().getBlock().getType().isSolid())
 					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+				player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 				getAntiCheat().logCheat(this, player, "[1]", "(Type: A)");
 				return;
 			}
@@ -210,10 +214,10 @@ public class PhaseA extends Check {
 		} else if (isLegit(playerId, loc1, loc2)) {
 			lastLocation.put(playerId, loc2);
 		} else if (lastLocation.containsKey(playerId)) {
-			player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+			player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 			if ((player.getLocation().getBlock().getType().isSolid())
 					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				player.teleport((Location) lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
+				player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
 
 				getAntiCheat().logCheat(this, player, "[3]", "(Type: A)");
 				return;
@@ -228,7 +232,7 @@ public class PhaseA extends Check {
 		}
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
 				&& event.getItem().getType() == Material.ENDER_PEARL) {
-			Block block = event.getClickedBlock();
+			final Block block = event.getClickedBlock();
 			if (block.getType().isSolid() && this.blockedPearlTypes.contains(block.getType())
 					&& !(block.getState() instanceof InventoryHolder)) {
 				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getPlayer().getLocation(),
@@ -237,7 +241,7 @@ public class PhaseA extends Check {
 
 				if (!event2.isCancelled()) {
 					event.setCancelled(true);
-					Player player = event.getPlayer();
+					final Player player = event.getPlayer();
 					player.setItemInHand(event.getItem());
 				}
 			}
@@ -251,14 +255,14 @@ public class PhaseA extends Check {
 			return;
 		}
 		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-			Location to = event.getTo();
+			final Location to = event.getTo();
 			if (blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.FENCE_GATE
 					&& to.getBlock().getType() != Material.TRAP_DOOR) {
 				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
 						event.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
 				Bukkit.getPluginManager().callEvent(event2);
 				if (!event2.isCancelled()) {
-					Player player = event.getPlayer();
+					final Player player = event.getPlayer();
 					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "You have been detected trying to pearl glitch, therefore your pearl was cancelled.");
 					event.setCancelled(true);
@@ -271,8 +275,8 @@ public class PhaseA extends Check {
 					&& (to.getBlock().getType().isSolid()
 							|| to.clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())
 					&& to.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid()
-							& !CheatUtil.isSlab(to.getBlock())) {
-				Player player = event.getPlayer();
+					& !CheatUtil.isSlab(to.getBlock())) {
+				final Player player = event.getPlayer();
 				final PearlGlitchEvent event2 = new PearlGlitchEvent(player, event.getFrom(), event.getTo(),
 						event.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
 				Bukkit.getPluginManager().callEvent(event2);
@@ -300,11 +304,11 @@ public class PhaseA extends Check {
 			return true;
 		}
 		int moveMaxX = Math.max(loc1.getBlockX(), loc2.getBlockX());
-		int moveMinX = Math.min(loc1.getBlockX(), loc2.getBlockX());
-		int moveMaxY = Math.max(loc1.getBlockY(), loc2.getBlockY()) + 1;
+		final int moveMinX = Math.min(loc1.getBlockX(), loc2.getBlockX());
+		final int moveMaxY = Math.max(loc1.getBlockY(), loc2.getBlockY()) + 1;
 		int moveMinY = Math.min(loc1.getBlockY(), loc2.getBlockY());
-		int moveMaxZ = Math.max(loc1.getBlockZ(), loc2.getBlockZ());
-		int moveMinZ = Math.min(loc1.getBlockZ(), loc2.getBlockZ());
+		final int moveMaxZ = Math.max(loc1.getBlockZ(), loc2.getBlockZ());
+		final int moveMinZ = Math.min(loc1.getBlockZ(), loc2.getBlockZ());
 		if (moveMaxY > 256) {
 			moveMaxX = 256;
 		}
@@ -314,7 +318,7 @@ public class PhaseA extends Check {
 		for (int x = moveMinX; x <= moveMaxX; x++) {
 			for (int z = moveMinZ; z <= moveMaxZ; z++) {
 				for (int y = moveMinY; y <= moveMaxY; y++) {
-					Block block = loc1.getWorld().getBlockAt(x, y, z);
+					final Block block = loc1.getWorld().getBlockAt(x, y, z);
 					if (((y != moveMinY) || (loc1.getBlockY() == loc2.getBlockY()))
 							&& (hasPhased(block, loc1, loc2, Bukkit.getPlayer(playerId)))) {
 						return false;
@@ -331,12 +335,12 @@ public class PhaseA extends Check {
 				|| (CheatUtil.isClimbableBlock(block)) || (block.isLiquid()))) {
 			return false;
 		}
-		double moveMaxX = Math.max(loc1.getX(), loc2.getX());
-		double moveMinX = Math.min(loc1.getX(), loc2.getX());
-		double moveMaxY = Math.max(loc1.getY(), loc2.getY()) + 1.8D;
-		double moveMinY = Math.min(loc1.getY(), loc2.getY());
-		double moveMaxZ = Math.max(loc1.getZ(), loc2.getZ());
-		double moveMinZ = Math.min(loc1.getZ(), loc2.getZ());
+		final double moveMaxX = Math.max(loc1.getX(), loc2.getX());
+		final double moveMinX = Math.min(loc1.getX(), loc2.getX());
+		final double moveMaxY = Math.max(loc1.getY(), loc2.getY()) + 1.8D;
+		final double moveMinY = Math.min(loc1.getY(), loc2.getY());
+		final double moveMaxZ = Math.max(loc1.getZ(), loc2.getZ());
+		final double moveMinZ = Math.min(loc1.getZ(), loc2.getZ());
 		double blockMaxX = block.getLocation().getBlockX() + 1;
 		double blockMinX = block.getLocation().getBlockX();
 		double blockMaxY = block.getLocation().getBlockY() + 2;
@@ -347,13 +351,13 @@ public class PhaseA extends Check {
 			blockMaxY -= 1.0D;
 		}
 		if ((block.getType().equals(Material.IRON_DOOR_BLOCK)) || (block.getType().equals(Material.WOODEN_DOOR))) {
-			Door door = (Door) block.getType().getNewData(block.getData());
+			final Door door = (Door) block.getType().getNewData(block.getData());
 			if (door.isTopHalf()) {
 				return false;
 			}
 			BlockFace facing = door.getFacing();
 			if (door.isOpen()) {
-				Block up = block.getRelative(BlockFace.UP);
+				final Block up = block.getRelative(BlockFace.UP);
 				boolean hinge;
 				if ((up.getType().equals(Material.IRON_DOOR_BLOCK)) || (up.getType().equals(Material.WOODEN_DOOR))) {
 					hinge = (up.getData() & 0x1) == 1;
@@ -386,7 +390,7 @@ public class PhaseA extends Check {
 			if (((Gate) block.getType().getNewData(block.getData())).isOpen()) {
 				return false;
 			}
-			BlockFace face = ((Directional) block.getType().getNewData(block.getData())).getFacing();
+			final BlockFace face = ((Directional) block.getType().getNewData(block.getData())).getFacing();
 			if ((face == BlockFace.NORTH) || (face == BlockFace.SOUTH)) {
 				blockMaxX -= 0.2D;
 				blockMinX += 0.2D;
@@ -395,7 +399,7 @@ public class PhaseA extends Check {
 				blockMinZ += 0.2D;
 			}
 		} else if (block.getType().equals(Material.TRAP_DOOR)) {
-			TrapDoor door = (TrapDoor) block.getType().getNewData(block.getData());
+			final TrapDoor door = (TrapDoor) block.getType().getNewData(block.getData());
 			if (door.isOpen()) {
 				return false;
 			}
@@ -431,11 +435,11 @@ public class PhaseA extends Check {
 				blockMinZ -= 0.2D;
 			}
 		}
-		boolean x = loc1.getX() < loc2.getX();
-		boolean y = loc1.getY() < loc2.getY();
-		boolean z = loc1.getZ() < loc2.getZ();
+		final boolean x = loc1.getX() < loc2.getX();
+		final boolean y = loc1.getY() < loc2.getY();
+		final boolean z = loc1.getZ() < loc2.getZ();
 
-		double distance = loc1.distance(loc2) - Math.abs(loc1.getY() - loc2.getY());
+		final double distance = loc1.distance(loc2) - Math.abs(loc1.getY() - loc2.getY());
 
 		if (distance > 0.5 && block.getType().isSolid()) {
 			return true;
