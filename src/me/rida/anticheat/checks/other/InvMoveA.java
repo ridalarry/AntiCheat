@@ -31,7 +31,7 @@ public class InvMoveA extends Check {
 		Inventory bottom = view.getBottomInventory();
 		if (view !=null) {
 			if (top.toString().contains("CraftInventoryCrafting")
-					||getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
         			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			} else {
