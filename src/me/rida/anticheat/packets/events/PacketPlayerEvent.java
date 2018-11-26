@@ -52,4 +52,7 @@ public class PacketPlayerEvent extends Event {
 	public HandlerList getHandlers() {
 		return handlers;
 	}
+	public static HandlerList getHandlerList() {
+		return PacketPlayerEvent.handlers;
+	}
 }
