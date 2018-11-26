@@ -20,12 +20,11 @@ public class AutoClickerA extends Check {
 	public static Map<UUID, List<Long>> Clicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
-	@SuppressWarnings("static-access")
 	public AutoClickerA(AntiCheat AntiCheat) {
 		super("AutoClickerA", "AutoClicker",  CheckType.Combat, AntiCheat);
-		this.LastMS = new HashMap<>();
-		this.Clicks = new HashMap<>();
-		this.ClickTicks = new HashMap<>();
+		AutoClickerA.LastMS = new HashMap<>();
+		AutoClickerA.Clicks = new HashMap<>();
+		AutoClickerA.ClickTicks = new HashMap<>();
 
 		setEnabled(true);
 		setBannable(true);
@@ -50,7 +49,6 @@ public class AutoClickerA extends Check {
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
@@ -73,9 +71,9 @@ public class AutoClickerA extends Check {
 				return;
 			}
 			if (Clicks.containsKey(u)) {
-				List<Long> Clicks = this.Clicks.get(u);
+				List<Long> Clicks = AutoClickerA.Clicks.get(u);
 				if (Clicks.size() == 10) {
-					this.Clicks.remove(u);
+					AutoClickerA.Clicks.remove(u);
 					Collections.sort(Clicks);
 					final long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
 					if (Range < 30L) {
@@ -85,12 +83,12 @@ public class AutoClickerA extends Check {
 					}
 				} else {
 					Clicks.add(MS);
-					this.Clicks.put(u, Clicks);
+					AutoClickerA.Clicks.put(u, Clicks);
 				}
 			} else {
 				final List<Long> Clicks = new ArrayList<Long>();
 				Clicks.add(MS);
-				this.Clicks.put(p.getUniqueId(), Clicks);
+				AutoClickerA.Clicks.put(p.getUniqueId(), Clicks);
 			}
 		}
 		if (ClickTicks.containsKey(u) && TimeUtil.elapsed(Time, 5000L)) {

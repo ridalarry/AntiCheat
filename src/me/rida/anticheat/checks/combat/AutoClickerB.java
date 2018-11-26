@@ -55,7 +55,6 @@ public class AutoClickerB extends Check {
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
@@ -79,9 +78,9 @@ public class AutoClickerB extends Check {
 				return;
 			}
 			if (Clicks.containsKey(damager.getUniqueId())) {
-				List<Long> Clicks = this.Clicks.get(damager.getUniqueId());
+				List<Long> Clicks = AutoClickerB.Clicks.get(damager.getUniqueId());
 				if (Clicks.size() == 3) {
-					this.Clicks.remove(damager.getUniqueId());
+					AutoClickerB.Clicks.remove(damager.getUniqueId());
 					Collections.sort(Clicks);
 					long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
 
@@ -95,12 +94,12 @@ public class AutoClickerB extends Check {
 					}
 				} else {
 					Clicks.add(MS);
-					this.Clicks.put(damager.getUniqueId(), Clicks);
+					AutoClickerB.Clicks.put(damager.getUniqueId(), Clicks);
 				}
 			} else {
 				List<Long> Clicks = new ArrayList<Long>();
 				Clicks.add(MS);
-				this.Clicks.put(damager.getUniqueId(), Clicks);
+				AutoClickerB.Clicks.put(damager.getUniqueId(), Clicks);
 			}
 		}
 		if (ClickTicks.containsKey(damager.getUniqueId()) && TimeUtil.elapsed(Time, 5000L)) {

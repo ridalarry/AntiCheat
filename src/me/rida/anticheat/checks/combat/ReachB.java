@@ -50,7 +50,6 @@ public class ReachB extends Check {
 				new AbstractMap.SimpleEntry<Double, Double>(Double.valueOf(OffsetXZ), Double.valueOf(horizontal)));
 	}
 
-	@SuppressWarnings("static-access")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
@@ -82,9 +81,9 @@ public class ReachB extends Check {
 		double offsets = 0.0D;
 
 		double lastHorizontal = 0.0D;
-		if (this.offsets.containsKey(d)) {
-			offsets = (this.offsets.get(d)).getKey().doubleValue();
-			lastHorizontal = (this.offsets.get(d)).getValue().doubleValue();
+		if (ReachB.offsets.containsKey(d)) {
+			offsets = (ReachB.offsets.get(d)).getKey().doubleValue();
+			lastHorizontal = (ReachB.offsets.get(d)).getValue().doubleValue();
 		}
 		if (Latency.getLag(d) > 92 || Latency.getLag(p) > 92) {
 			return;

@@ -34,22 +34,20 @@ public class AntiKBA extends Check {
 		setViolationResetTime(250000);
     }
 
-	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
-        if (this.lastVelocity.containsKey((Object)p)) {
-            this.lastVelocity.remove((Object)p);
+        if (AntiKBA.lastVelocity.containsKey((Object)p)) {
+            AntiKBA.lastVelocity.remove((Object)p);
         }
-        if (this.awaitingVelocity.containsKey((Object)p)) {
-            this.awaitingVelocity.remove((Object)p);
+        if (AntiKBA.awaitingVelocity.containsKey((Object)p)) {
+            AntiKBA.awaitingVelocity.remove((Object)p);
         }
-        if (this.totalMoved.containsKey((Object)p)) {
-            this.totalMoved.remove((Object)p);
+        if (AntiKBA.totalMoved.containsKey((Object)p)) {
+            AntiKBA.totalMoved.remove((Object)p);
         }
     }
 
-	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void Move(PlayerMoveEvent e) {
         double d;
@@ -67,12 +65,12 @@ public class AntiKBA extends Check {
             return;
         }
         int n = 0;
-        if (this.awaitingVelocity.containsKey((Object)p)) {
-            n = this.awaitingVelocity.get((Object)p);
+        if (AntiKBA.awaitingVelocity.containsKey((Object)p)) {
+            n = AntiKBA.awaitingVelocity.get((Object)p);
         }
         long l = 0;
-        if (this.lastVelocity.containsKey((Object)p)) {
-            l = this.lastVelocity.get((Object)p);
+        if (AntiKBA.lastVelocity.containsKey((Object)p)) {
+            l = AntiKBA.lastVelocity.get((Object)p);
         }
         if (p.getLastDamageCause() == null || p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
             n = 0;
@@ -81,8 +79,8 @@ public class AntiKBA extends Check {
             --n;
         }
         double d2 = 0.0;
-        if (this.totalMoved.containsKey((Object)p)) {
-            d2 = this.totalMoved.get((Object)p);
+        if (AntiKBA.totalMoved.containsKey((Object)p)) {
+            d2 = AntiKBA.totalMoved.get((Object)p);
         }
         if ((d = e.getTo().getY() - e.getFrom().getY()) > 0.0) {
             d2 += d;
@@ -117,11 +115,11 @@ public class AntiKBA extends Check {
             d2 = 0.0;
             --n;
         }
-        this.awaitingVelocity.put(p, n);
-        this.totalMoved.put(p, d2);
+        AntiKBA.awaitingVelocity.put(p, n);
+        AntiKBA.totalMoved.put(p, d2);
     }
 
-	@SuppressWarnings({ "static-access", "unused" })
+	@SuppressWarnings( "unused" )
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void Velocity(PlayerVelocityEvent e) {
         double d;
@@ -139,18 +137,18 @@ public class AntiKBA extends Check {
         if (p.getAllowFlight()) {
             return;
         }
-        if (this.lastVelocity.containsKey((Object)p) && (l = System.currentTimeMillis() - this.lastVelocity.get((Object)p)) < 500) {
+        if (AntiKBA.lastVelocity.containsKey((Object)p) && (l = System.currentTimeMillis() - AntiKBA.lastVelocity.get((Object)p)) < 500) {
             return;
         }
         Vector vector = e.getVelocity();
         double d2 = Math.abs(vector.getY());
         if (d2 > 0.0 && (d = (double)((int)(Math.pow(d2 + 2.0, 2.0) * 5.0))) > 20.0) {
             int n = 0;
-            if (this.awaitingVelocity.containsKey((Object)p)) {
-                n = this.awaitingVelocity.get((Object)p);
+            if (AntiKBA.awaitingVelocity.containsKey((Object)p)) {
+                n = AntiKBA.awaitingVelocity.get((Object)p);
             }
-            this.awaitingVelocity.put(p, ++n);
-            this.lastVelocity.put(p, System.currentTimeMillis());
+            AntiKBA.awaitingVelocity.put(p, ++n);
+            AntiKBA.lastVelocity.put(p, System.currentTimeMillis());
         }
     }
 }
