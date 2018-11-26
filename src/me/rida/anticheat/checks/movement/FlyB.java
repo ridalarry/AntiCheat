@@ -32,7 +32,7 @@ public class FlyB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLog(PlayerQuitEvent e) {
+	private void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 
@@ -42,7 +42,7 @@ public class FlyB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void CheckFlyA(PlayerMoveEvent e) {
+	private void CheckFlyA(PlayerMoveEvent e) {
 		if (!getAntiCheat().isEnabled()) {
 			return;
 		}

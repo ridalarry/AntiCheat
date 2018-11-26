@@ -17,7 +17,7 @@ public class ImpossiblePitchA extends Check {
 		setBannable(true);
     }
   	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onMove(PlayerMoveEvent e) {
+  	private void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         double x = p.getLocation().getPitch();
         if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

@@ -28,9 +28,9 @@ public class KillAuraE extends Check {
 		setViolationsToNotify(3);
     }
 
-	@SuppressWarnings({ "static-access", "unused", "deprecation" })
+	@SuppressWarnings({ "unused", "deprecation" })
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onDamage(EntityDamageByEntityEvent e) {
+	private void onDamage(EntityDamageByEntityEvent e) {
         int n;
         if (!(e.getEntity() instanceof Player) 
         		|| !(e.getDamager() instanceof Player)
@@ -40,13 +40,13 @@ public class KillAuraE extends Check {
 
         Player p = (Player)e.getDamager();
         Player p2 = (Player)e.getEntity();
-        ++this.hitCount;
+        ++KillAuraE.hitCount;
         Bukkit.getScheduler().runTaskLater((Plugin)AntiCheat.Instance, () -> {
             int hitCount = 0;
         }
         , 300);
         double d = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
-        double d2 = this.allowedDistance;
+        double d2 = KillAuraE.allowedDistance;
         int n2 = Ping.getPing(p);
         int n3 = Ping.getPing(p2);
         int n4 = n2 + n3 / 2;

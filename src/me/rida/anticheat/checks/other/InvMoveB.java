@@ -17,27 +17,26 @@ public class InvMoveB extends Check {
 	setEnabled(true);
 	setMaxViolations(10);
 	setBannable(false);
-}
-
-@SuppressWarnings("unused")
-@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-public void attack(EntityDamageByEntityEvent e) {
-	if (!(e.getDamager() instanceof Player)) {
-		return;
 	}
-	Player p = (Player) e.getDamager();
-	InventoryView view = p.getOpenInventory();
-	Inventory top = view.getTopInventory();
-	Inventory bottom = view.getBottomInventory();
-	if (view !=null) {
-		if (top.toString().contains("CraftInventoryCrafting")
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-    			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+
+	@SuppressWarnings("unused")
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	private void attack(EntityDamageByEntityEvent e) {
+		if (!(e.getDamager() instanceof Player)) {
 			return;
-		} else {
-			getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: B)");
+		}
+		Player p = (Player) e.getDamager();
+		InventoryView view = p.getOpenInventory();
+		Inventory top = view.getTopInventory();
+		Inventory bottom = view.getBottomInventory();
+		if (view !=null) {
+			if (top.toString().contains("CraftInventoryCrafting")
+					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				return;
+			} else {
+				getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: B)");
+			}
 		}
 	}
 }
-}
-

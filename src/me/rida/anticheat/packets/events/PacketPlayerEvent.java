@@ -49,11 +49,7 @@ public class PacketPlayerEvent extends Event {
 	public void setType(PacketPlayerType type) {
 		this.type = type;
 	}
-	@SuppressWarnings("static-access")
 	public HandlerList getHandlers() {
-		return this.handlers;
-	}
-	public static HandlerList getHandlerList() {
-		return PacketPlayerEvent.handlers;
+		return handlers;
 	}
 }

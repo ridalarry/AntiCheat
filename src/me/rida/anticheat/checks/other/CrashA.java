@@ -23,7 +23,7 @@ public class CrashA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> crashTicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> crash2Ticks;
 	public static Map<UUID, Map.Entry<Integer, Long>> crash3Ticks;
-	public List<UUID> crashs;
+	private List<UUID> crashs;
 
 	public CrashA(AntiCheat AntiCheat) {
 		super("CrashA", "Crash", CheckType.Other, AntiCheat);
@@ -38,7 +38,7 @@ public class CrashA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void Swing(final PacketSwingArmEvent e) {
+	private void Swing(final PacketSwingArmEvent e) {
 		final Player p = e.getPlayer();
 		final UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -68,7 +68,7 @@ public class CrashA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void Switch(final PacketHeldItemChangeEvent e) {
+	private void Switch(final PacketHeldItemChangeEvent e) {
 		final Player p = e.getPlayer();
 		final UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {
@@ -98,7 +98,7 @@ public class CrashA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void BlockPlace(final PacketBlockPlacementEvent e) {
+	private void BlockPlace(final PacketBlockPlacementEvent e) {
 		final Player p = e.getPlayer();
 		final UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {

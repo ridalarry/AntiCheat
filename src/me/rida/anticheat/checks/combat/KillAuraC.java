@@ -23,7 +23,7 @@ public class KillAuraC extends Check {
     }
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onAngleHit(EntityDamageByEntityEvent e) {
+	private void onAngleHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) 
         		||!(e.getDamager() instanceof Player)) {
             return;

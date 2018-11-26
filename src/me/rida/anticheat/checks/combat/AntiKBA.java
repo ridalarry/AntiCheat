@@ -36,7 +36,7 @@ public class AntiKBA extends Check {
 
 	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onQuit(PlayerQuitEvent e) {
+	private void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         if (this.lastVelocity.containsKey((Object)p)) {
             this.lastVelocity.remove((Object)p);
@@ -51,7 +51,7 @@ public class AntiKBA extends Check {
 
 	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void Move(PlayerMoveEvent e) {
+	private void Move(PlayerMoveEvent e) {
         double d;
         Player p = e.getPlayer();
         if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
@@ -123,7 +123,7 @@ public class AntiKBA extends Check {
 
 	@SuppressWarnings({ "static-access", "unused" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void Velocity(PlayerVelocityEvent e) {
+	private void Velocity(PlayerVelocityEvent e) {
         double d;
         long l;
         Player p = e.getPlayer();

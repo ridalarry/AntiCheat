@@ -30,7 +30,7 @@ public class VClipA extends Check {
 		setViolationResetTime(10000);
 	}
 
-	public static List<Material> allowed = new ArrayList<Material>();
+	private static List<Material> allowed = new ArrayList<Material>();
 	public static ArrayList<Player> teleported = new ArrayList<Player>();
 	public static HashMap<Player, Location> lastLocation = new HashMap<Player, Location>();
 
@@ -47,14 +47,14 @@ public class VClipA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onTeleport(PlayerTeleportEvent e) {
+	private void onTeleport(PlayerTeleportEvent e) {
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			return;
 		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 
 		Location to = e.getTo().clone();

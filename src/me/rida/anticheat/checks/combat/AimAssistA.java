@@ -10,8 +10,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 
-public class AimAssistA
-extends Check {
+public class AimAssistA extends Check {
     private int aimAssist = 0;
 
     public AimAssistA(AntiCheat AntiCheat) {
@@ -22,23 +21,23 @@ extends Check {
 		setViolationsToNotify(1);
     }
 
-    public static double getFrac(double d) {
+    private static double getFrac(double d) {
         return d % 1.0;
     }
 
-    public void setAimAssest(int n) {
+    private void setAimAssest(int n) {
         this.aimAssist = n;
         if (this.aimAssist < 0) {
             this.aimAssist = 0;
         }
     }
 
-    public int getAimAssist() {
+    private int getAimAssist() {
         return this.aimAssist;
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPlayerMove(PlayerMoveEvent e) {
+	private void onPlayerMove(PlayerMoveEvent e) {
         Location location = e.getFrom().clone();
         Location location2 = e.getTo().clone();
         Player p = e.getPlayer();

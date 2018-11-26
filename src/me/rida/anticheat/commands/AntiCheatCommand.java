@@ -23,7 +23,6 @@ public class AntiCheatCommand implements CommandExecutor {
 	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String a, String[] g) {
-
         if(g.length == 0) {
         s.sendMessage(Color.Red + "Do '/anticheat help' for list of commands.");
         
@@ -95,12 +94,10 @@ public class AntiCheatCommand implements CommandExecutor {
 				}
 				return true;
 			}
-
 			else {
-			s.sendMessage(Color.Red + "Unknown argument '/" + a + " " + g[0] + "'! Do " + Color.Italics
+				s.sendMessage(Color.Red + "Unknown argument '/" + a + " " + g[0] + "'! Do " + Color.Italics
 					+ "/anticheat help " + Color.Red + "for more info!");
-		}
-		return true;
-				}
-
+			}
+			return true;
+	}
 }

@@ -14,7 +14,7 @@ import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
 public class HitBoxB extends Check {
-    private double HITBOX_LENGTH = 1.05;
+    private final double HITBOX_LENGTH = 1.05;
 
     public HitBoxB(AntiCheat AntiCheat) {
         super("HitBoxB", "HitBox", CheckType.Combat, AntiCheat);
@@ -25,7 +25,7 @@ public class HitBoxB extends Check {
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onHitPlayer(EntityDamageByEntityEvent e) {
+	private void onHitPlayer(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) {
             return;
         }
@@ -43,7 +43,7 @@ public class HitBoxB extends Check {
              }
     }
 
-    public boolean hasInHitBox(LivingEntity e) {
+	private boolean hasInHitBox(LivingEntity e) {
         boolean bl = false;
         Vector vector = e.getLocation().toVector().subtract(e.getLocation().toVector());
         Vector vector2 = e.getLocation().toVector().subtract(e.getLocation().toVector());

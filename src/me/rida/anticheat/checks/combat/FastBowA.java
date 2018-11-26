@@ -29,7 +29,7 @@ public class FastBowA extends Check {
     }
 
     @EventHandler
-    public void Interact(final PlayerInteractEvent e) {
+    private void Interact(final PlayerInteractEvent e) {
         Player Player = e.getPlayer();
         if (Player.getItemInHand() != null && Player.getItemInHand().getType().equals(Material.BOW)) {
             bowPull.put(Player, System.currentTimeMillis());
@@ -37,14 +37,14 @@ public class FastBowA extends Check {
     }
 
     @EventHandler
-    public void onLogout(PlayerQuitEvent e) {
+    private void onLogout(PlayerQuitEvent e) {
         bowPull.remove(e.getPlayer());
 
         count.remove(e.getPlayer());
     }
 
     @EventHandler
-    public void onShoot(final ProjectileLaunchEvent e) {
+    private void onShoot(final ProjectileLaunchEvent e) {
         if (!this.isEnabled()) return;
         if (e.getEntity() instanceof Arrow) {
             Arrow arrow = (Arrow) e.getEntity();

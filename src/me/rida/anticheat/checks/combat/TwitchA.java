@@ -21,7 +21,7 @@ public class TwitchA extends Check {
 	}
 
     @EventHandler(priority=EventPriority.MONITOR)
-	public void Player(PacketPlayerEvent e) {
+    private void Player(PacketPlayerEvent e) {
 		Player p = e.getPlayer();
 		if (e.getType() != PacketPlayerType.LOOK) {
 			return;

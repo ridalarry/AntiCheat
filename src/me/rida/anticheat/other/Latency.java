@@ -30,7 +30,6 @@ public class Latency implements Listener {
 	private static Map<UUID, Integer> packets;
 
 	private AntiCheat Ping;
-	@SuppressWarnings("unused")
 	private double tps;
 
 	public Latency(AntiCheat AntiCheat) {
@@ -126,5 +125,10 @@ public class Latency implements Listener {
 		Latency.packetTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 		Latency.lastPacket.put(u, System.currentTimeMillis());
 	}
+
+	public double getTps() {
+		return tps;
+	}
+
 
 }

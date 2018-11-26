@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.packets.PacketCore;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -38,7 +39,7 @@ public class TimerA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLogout(PlayerQuitEvent e) {
+	private void onLogout(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if(packets.containsKey(u)) {
@@ -55,9 +56,8 @@ public class TimerA extends Check {
 		}
 	}
 
-	@SuppressWarnings("static-access")
 	@EventHandler
-	public void PacketPlayer(PacketPlayerEvent e) {
+	private void PacketPlayer(PacketPlayerEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (!this.getAntiCheat().isEnabled()
@@ -70,18 +70,18 @@ public class TimerA extends Check {
 			return;
 		}
 		
-		long lastPacket = this.lastPacket.getOrDefault(p.getUniqueId(), 0L);
+		long lastPacket = TimerA.lastPacket.getOrDefault(p.getUniqueId(), 0L);
 		int packets = 0;
 		long Time = System.currentTimeMillis();
-		int verbose = this.verbose.getOrDefault(p.getUniqueId(), 0);
+		int verbose = TimerA.verbose.getOrDefault(p.getUniqueId(), 0);
 		
-		if (this.packets.containsKey(p.getUniqueId())) {
-			packets = this.packets.get(p.getUniqueId()).getKey();
-			Time = this.packets.get(p.getUniqueId()).getValue();
+		if (TimerA.packets.containsKey(p.getUniqueId())) {
+			packets = TimerA.packets.get(p.getUniqueId()).getKey();
+			Time = TimerA.packets.get(p.getUniqueId()).getValue();
 		}
 
 		if(System.currentTimeMillis() - lastPacket < 5) {
-			this.lastPacket.put(u, System.currentTimeMillis());
+			TimerA.lastPacket.put(u, System.currentTimeMillis());
 			return;
 		}
 		double threshold = 21;
@@ -89,7 +89,7 @@ public class TimerA extends Check {
 			if(toCancel.remove(p) && packets <= 13) {
 				return;
 			}
-			if(packets > threshold + getAntiCheat().packet.movePackets.getOrDefault(u, 0) && getAntiCheat().packet.movePackets.getOrDefault(u, 0) < 5) {
+			if(packets > threshold + PacketCore.movePackets.getOrDefault(u, 0) && PacketCore.movePackets.getOrDefault(u, 0) < 5) {
 				verbose = (packets - threshold) > 10 ? verbose + 2 : verbose + 1;
 			} else {
 				verbose = 0;
@@ -100,12 +100,12 @@ public class TimerA extends Check {
 			}
 			packets = 0;
 			Time = TimeUtil.nowlong();
-			getAntiCheat().packet.movePackets.remove(u);
+			PacketCore.movePackets.remove(u);
 		}
 		packets++;
 
-		this.lastPacket.put(u, System.currentTimeMillis());
-		this.packets.put(u, new SimpleEntry<Integer, Long>(packets, Time));
-		this.verbose.put(u, verbose);
+		TimerA.lastPacket.put(u, System.currentTimeMillis());
+		TimerA.packets.put(u, new SimpleEntry<Integer, Long>(packets, Time));
+		TimerA.verbose.put(u, verbose);
 	}
 }

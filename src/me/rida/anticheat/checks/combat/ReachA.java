@@ -26,7 +26,7 @@ public class ReachA extends Check {
     }
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-    public void onAttack(PacketAttackEvent e) {
+	private void onAttack(PacketAttackEvent e) {
         Entity p2 = e.getEntity();
         Player p = e.getPlayer();
         if(e.getType() != PacketPlayerType.USE

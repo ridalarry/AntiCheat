@@ -49,7 +49,7 @@ public class SpeedB extends Check {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 
 		Location from = e.getFrom().clone();
 		Location to = e.getTo().clone();
@@ -137,7 +137,7 @@ public class SpeedB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPlayerQuit(PlayerQuitEvent e) {
+	private void onPlayerQuit(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());
 		}
@@ -149,7 +149,7 @@ public class SpeedB extends Check {
 		}
 	}
 
-	public boolean isOnIce(final Player player) {
+	private boolean isOnIce(final Player player) {
 		final Location a = player.getLocation();
 		a.setY(a.getY() - 1.0);
 		if (a.getBlock().getType().equals((Object) Material.ICE)) {
@@ -173,7 +173,7 @@ public class SpeedB extends Check {
 		return V;
 	}
 	@SuppressWarnings("deprecation")
-	public static boolean isReallyOnGround(Player p) {
+	private static boolean isReallyOnGround(Player p) {
 		Location l = p.getLocation();
 		int x = l.getBlockX();
 		int y = l.getBlockY();
@@ -188,7 +188,7 @@ public class SpeedB extends Check {
 		}
 	}
 	
-	public static boolean flaggyStuffNear(Location loc) {
+	private static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
 		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
@@ -214,7 +214,7 @@ public class SpeedB extends Check {
 	}
 	
 
-	public static boolean isBlock(Block block, Material[] materials) {
+	private static boolean isBlock(Block block, Material[] materials) {
 		Material type = block.getType();
 		Material[] arrayOfMaterial;
 		int j = (arrayOfMaterial = materials).length;
@@ -227,7 +227,7 @@ public class SpeedB extends Check {
 		return false;
 	}
 
-	public static boolean isAir(final Player player) {
+	private static boolean isAir(final Player player) {
 		final Block b = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
 		return b.getType().equals((Object) Material.AIR)
 				&& b.getRelative(BlockFace.WEST).getType().equals((Object) Material.AIR)

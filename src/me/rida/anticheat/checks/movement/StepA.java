@@ -34,7 +34,7 @@ public class StepA extends Check {
 		setViolationResetTime(90000);
 	}
 
-	public boolean isOnGround(Player p) {
+	private boolean isOnGround(Player p) {
 		if (PlayerUtil.isOnClimbable(p, 0)) {
 			return false;
 		}
@@ -68,7 +68,7 @@ public class StepA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 
 		if (!getAntiCheat().isEnabled() 

@@ -11,7 +11,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.rida.anticheat.AntiCheat;
 
 public class LagCore implements Listener {
-	public AntiCheat AntiCheat;
+	private AntiCheat AntiCheat;
 	private double tps;
 
 	public LagCore(AntiCheat AntiCheat) {

@@ -65,15 +65,20 @@ public class DataPlayer {
     private int slimeTicks = 0;
     
     public Player player;
-    public boolean onGround, inLiquid, onStairSlab, onIce, onClimbable, underBlock;
+    private boolean onGround;
+    private boolean inLiquid;
+    private boolean onStairSlab;
+    private boolean onIce;
+    private boolean onClimbable;
+    private boolean underBlock;
     public int liquidTicks, blockTicks;
     public long lastVelocityTaken, lastAttack;
-    public LivingEntity lastHitEntity;
+    private LivingEntity lastHitEntity;
 
-    public List<Float> patterns = Lists.newArrayList();
-    public float lastRange;
+    private List<Float> patterns = Lists.newArrayList();
+    private float lastRange;
 
-    public int speedThreshold;
+    private int speedThreshold;
 
     public DataPlayer(Player player) {
         this.player = player;
@@ -680,4 +685,84 @@ public class DataPlayer {
     public void setSpeed_YPort2_Verbose(int speed_YPort2_Verbose) {
         Speed_YPort2_Verbose = speed_YPort2_Verbose;
     }
+
+	public List<Float> getPatterns() {
+		return patterns;
+	}
+
+	public void setPatterns(List<Float> patterns) {
+		this.patterns = patterns;
+	}
+
+	public float getLastRange() {
+		return lastRange;
+	}
+
+	public void setLastRange(float lastRange) {
+		this.lastRange = lastRange;
+	}
+
+	public int getSpeedThreshold() {
+		return speedThreshold;
+	}
+
+	public void setSpeedThreshold(int speedThreshold) {
+		this.speedThreshold = speedThreshold;
+	}
+
+	public LivingEntity getLastHitEntity() {
+		return lastHitEntity;
+	}
+
+	public void setLastHitEntity(LivingEntity lastHitEntity) {
+		this.lastHitEntity = lastHitEntity;
+	}
+
+	public boolean isOnGround() {
+		return onGround;
+	}
+
+	public void setOnGround(boolean onGround) {
+		this.onGround = onGround;
+	}
+
+	public boolean isInLiquid() {
+		return inLiquid;
+	}
+
+	public void setInLiquid(boolean inLiquid) {
+		this.inLiquid = inLiquid;
+	}
+
+	public boolean isOnStairSlab() {
+		return onStairSlab;
+	}
+
+	public void setOnStairSlab(boolean onStairSlab) {
+		this.onStairSlab = onStairSlab;
+	}
+
+	public boolean isOnIce() {
+		return onIce;
+	}
+
+	public void setOnIce(boolean onIce) {
+		this.onIce = onIce;
+	}
+
+	public boolean isOnClimbable() {
+		return onClimbable;
+	}
+
+	public void setOnClimbable(boolean onClimbable) {
+		this.onClimbable = onClimbable;
+	}
+
+	public boolean isUnderBlock() {
+		return underBlock;
+	}
+
+	public void setUnderBlock(boolean underBlock) {
+		this.underBlock = underBlock;
+	}
 }

@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 public class PacketHeldItemChangeEvent extends Event {
-	public Player Player;
-	public PacketEvent Event;
+	private Player Player;
+	private PacketEvent Event;
 	private static final HandlerList handlers;
 
 	static {

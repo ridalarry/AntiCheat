@@ -25,7 +25,6 @@ public class KillAuraA extends Check {
 
 		setEnabled(true);
 		setBannable(false);
-
 		setMaxViolations(7);
 	}
 
@@ -33,7 +32,7 @@ public class KillAuraA extends Check {
 	private ArrayList<Player> blockGlitched = new ArrayList<Player>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPlayerLogout(PlayerQuitEvent e) {
+	private void onPlayerLogout(PlayerQuitEvent e) {
 		if (counts.containsKey(e.getPlayer())) {
 			counts.remove(e.getPlayer());
 		}
@@ -43,14 +42,14 @@ public class KillAuraA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onBreak(BlockBreakEvent e) {
+	private void onBreak(BlockBreakEvent e) {
 		if (e.isCancelled()) {
 			blockGlitched.add(e.getPlayer());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void checkKillaura(EntityDamageByEntityEvent e) {
+	private void checkKillaura(EntityDamageByEntityEvent e) {
 		if (e.getCause() != DamageCause.ENTITY_ATTACK
 				|| !getAntiCheat().isEnabled()
 				|| !(e.getDamager() instanceof Player) 

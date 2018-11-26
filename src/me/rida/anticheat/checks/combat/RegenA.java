@@ -32,7 +32,7 @@ public class RegenA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> FastHealTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onLog(PlayerQuitEvent e) {
+	private void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 
@@ -44,7 +44,7 @@ public class RegenA extends Check {
 		}
 	}
 
-	public boolean checkFastHeal(Player p) {
+	private boolean checkFastHeal(Player p) {
 		if (LastHeal.containsKey(p.getUniqueId())) {
 			long l = LastHeal.get(p.getUniqueId()).longValue();
 			LastHeal.remove(p.getUniqueId());
@@ -56,7 +56,7 @@ public class RegenA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onHeal(EntityRegainHealthEvent e) {
+	private void onHeal(EntityRegainHealthEvent e) {
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}

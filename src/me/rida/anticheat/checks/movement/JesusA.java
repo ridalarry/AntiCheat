@@ -41,14 +41,14 @@ public class JesusA extends Check {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onLeave(PlayerQuitEvent e) {
+	private void onLeave(PlayerQuitEvent e) {
 		if (placedBlockOnWater.contains(e.getPlayer())) {
 			placedBlockOnWater.remove(e.getPlayer());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
-	public void onDeath(PlayerDeathEvent e) {
+	private void onDeath(PlayerDeathEvent e) {
 		if (onWater.containsKey(e.getEntity())) {
 			onWater.remove(e.getEntity());
 		}
@@ -61,19 +61,19 @@ public class JesusA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onVelocity(PlayerVelocityEvent e) {
+	private void onVelocity(PlayerVelocityEvent e) {
 		velocity.put(e.getPlayer(), System.currentTimeMillis());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void OnPlace(BlockPlaceEvent e) {
+	private void OnPlace(BlockPlaceEvent e) {
 		if (e.getBlockReplacedState().getBlock().getType() == Material.WATER) {
 			placedBlockOnWater.add(e.getPlayer());
 		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void CheckJesus(PlayerMoveEvent event) {
+	private void CheckJesus(PlayerMoveEvent event) {
 		Player p = event.getPlayer();
 		if (event.isCancelled()
 				|| (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getZ() == event.getTo().getZ())

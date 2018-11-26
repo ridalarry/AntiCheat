@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 public class PacketKeepAliveEvent extends Event {
-	public Player Player;
+	private Player Player;
 	private static final HandlerList handlers;
 
 	static {

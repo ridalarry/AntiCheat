@@ -30,21 +30,20 @@ public class NoSlowdownA extends Check {
 
 		setEnabled(true);
 		setBannable(false);
-
 		setMaxViolations(5);
 		
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onPlayerQuit(PlayerQuitEvent e) {
+	private void onPlayerQuit(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());
 		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void BowShoot(final EntityShootBowEvent e) {
+	private void BowShoot(final EntityShootBowEvent e) {
 		if (!this.isEnabled()) {
 			return;
 		}
@@ -63,7 +62,7 @@ public class NoSlowdownA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		if (e.getTo().getX() == e.getFrom().getX() && e.getFrom().getY() == e.getTo().getY()
 				&& e.getTo().getZ() == e.getFrom().getZ()) {
 			return;
@@ -80,7 +79,7 @@ public class NoSlowdownA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onInteract(PlayerInteractEvent e) {
+	private void onInteract(PlayerInteractEvent e) {
 		if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				&& e.getItem() != null) {
 			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)

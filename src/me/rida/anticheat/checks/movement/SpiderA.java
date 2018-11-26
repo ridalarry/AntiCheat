@@ -41,7 +41,7 @@ public class SpiderA extends Check {
 	}
 
     @SuppressWarnings("unused")
-	public void onMove(PlayerMoveEvent e) {
+    private void onMove(PlayerMoveEvent e) {
         Location from = e.getFrom();
         Location to = e.getTo();
         Player p = e.getPlayer();
@@ -52,9 +52,9 @@ public class SpiderA extends Check {
     }
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
-	@SuppressWarnings({ "deprecation", "static-access" })
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void CheckSpider(PlayerMoveEvent e) {
+	private void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		
@@ -83,7 +83,7 @@ public class SpiderA extends Check {
 
 		long Time = System.currentTimeMillis();
 		double TotalBlocks = 0.0D;
-		if (this.AscensionTicks.containsKey(u)) {
+		if (SpiderA.AscensionTicks.containsKey(u)) {
 			Time = AscensionTicks.get(u).getKey().longValue();
 			TotalBlocks = AscensionTicks.get(u).getValue().doubleValue();
 		}
@@ -127,7 +127,7 @@ public class SpiderA extends Check {
 		} else {
 			Time = System.currentTimeMillis();
 		}
-		this.AscensionTicks.put(u, new AbstractMap.SimpleEntry<>(Time, TotalBlocks));
+		SpiderA.AscensionTicks.put(u, new AbstractMap.SimpleEntry<>(Time, TotalBlocks));
 	}
 
 }

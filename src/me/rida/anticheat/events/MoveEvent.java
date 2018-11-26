@@ -27,14 +27,14 @@ public class MoveEvent implements Listener {
             DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
 
             if (data != null) {
-                data.onGround = PlayerUtil.isOnTheGround(p);
-                data.onStairSlab = PlayerUtil.isInStairs(p);
-                data.inLiquid = PlayerUtil.isInLiquid(p);
-                data.onIce = PlayerUtil.isOnIce(p);
-                data.onClimbable = PlayerUtil.isOnClimbable(p);
-                data.underBlock = PlayerUtil.inUnderBlock(p);
+                data.setOnGround(PlayerUtil.isOnTheGround(p));
+                data.setOnStairSlab(PlayerUtil.isInStairs(p));
+                data.setInLiquid(PlayerUtil.isInLiquid(p));
+                data.setOnIce(PlayerUtil.isOnIce(p));
+                data.setOnClimbable(PlayerUtil.isOnClimbable(p));
+                data.setUnderBlock(PlayerUtil.inUnderBlock(p));
                 
-                if(data.onGround) {
+                if(data.isOnGround()) {
                     data.groundTicks++;
                     data.airTicks = 0;
                 } else {
@@ -42,9 +42,9 @@ public class MoveEvent implements Listener {
                     data.groundTicks = 0;
                 }
                 
-                data.iceTicks = Math.max(0, data.onIce ? data.iceTicks + 1  : data.iceTicks - 1);
-                data.liquidTicks = Math.max(0, data.inLiquid ? data.liquidTicks + 1  : data.liquidTicks - 1);
-                data.blockTicks = Math.max(0, data.underBlock ? data.blockTicks + 1  : data.blockTicks - 1);
+                data.iceTicks = Math.max(0, data.isOnIce() ? data.iceTicks + 1  : data.iceTicks - 1);
+                data.liquidTicks = Math.max(0, data.isInLiquid() ? data.liquidTicks + 1  : data.liquidTicks - 1);
+                data.blockTicks = Math.max(0, data.isUnderBlock() ? data.blockTicks + 1  : data.blockTicks - 1);
             }
         }
 
@@ -111,11 +111,11 @@ public class MoveEvent implements Listener {
                 data.setHalfBlocks_MS(TimerUtils.nowlong());
             } else {
                 if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
-                    if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
-                        data.setHalfBlocks_MS_Set(true);
+                	if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
+                    	data.setHalfBlocks_MS_Set(true);
                         data.setHalfBlocks_MS(TimerUtils.nowlong());
                     } else {
-                        data.setHalfBlocks_MS_Set(false);
+                    	data.setHalfBlocks_MS_Set(false);
                     }
                 }
             }
@@ -125,57 +125,56 @@ public class MoveEvent implements Listener {
                     data.setHalfBlocks_MS_Set(true);
                     data.setHalfBlocks_MS(TimerUtils.nowlong());
                 } else {
-                    data.setHalfBlocks_MS_Set(false);
+                	data.setHalfBlocks_MS_Set(false);
                 }
             }
         }
         if (BlockUtil.isNearIce(p) && !data.isNearIce()) {
-            data.setNearIce(true);
+        	data.setNearIce(true);
             data.setIsNearIceTicks(TimerUtils.nowlong());
         } else if (BlockUtil.isNearIce(p)) {
-            data.setIsNearIceTicks(TimerUtils.nowlong());
+        	data.setIsNearIceTicks(TimerUtils.nowlong());
         }
-
+        
         double distance = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 
         boolean onGround = PlayerUtil.isOnGround4(p);
         if(!onGround
-                && e.getFrom().getY() > e.getTo().getY()) {
-            data.setFallDistance(data.getFallDistance() + distance);
+        		&& e.getFrom().getY() > e.getTo().getY()) {
+        	data.setFallDistance(data.getFallDistance() + distance);
         } else {
-            data.setFallDistance(0);
+        	data.setFallDistance(0);
         }
-
+        
         if(onGround) {
-            data.setGroundTicks(data.getGroundTicks() + 1);
+        	data.setGroundTicks(data.getGroundTicks() + 1);
             data.setAirTicks(0);
         } else {
-            data.setAirTicks(data.getAirTicks() + 1);
+        	data.setAirTicks(data.getAirTicks() + 1);
             data.setGroundTicks(0);
         }
-
+        
         if(PlayerUtil.isOnGround(p.getLocation().add(0, 2, 0))) {
-            data.setAboveBlockTicks(data.getAboveBlockTicks() + 2);
+        	data.setAboveBlockTicks(data.getAboveBlockTicks() + 2);
         } else if(data.getAboveBlockTicks() > 0) {
             data.setAboveBlockTicks(data.getAboveBlockTicks() - 1);
         }
-
         if(PlayerUtil.isInWater(p.getLocation())
-                || PlayerUtil.isInWater(p.getLocation().add(0, 1, 0))) {
-            data.setWaterTicks(data.getWaterTicks() + 1);
+        		|| PlayerUtil.isInWater(p.getLocation().add(0, 1, 0))) {
+        	data.setWaterTicks(data.getWaterTicks() + 1);
         } else if(data.getWaterTicks() > 0) {
-            data.setWaterTicks(data.getWaterTicks() - 1);
+        	data.setWaterTicks(data.getWaterTicks() - 1);
         }
-    }
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onVelocity(PlayerVelocityEvent e) {
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
-
+	public void onVelocity(PlayerVelocityEvent e) {
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
+        
         if(data == null) {
-            return;
+        	return;
         }
         if(e.getVelocity().getY() > -0.078 || e.getVelocity().getY() < -0.08) {
-            data.lastVelocityTaken = System.currentTimeMillis();
+        	data.lastVelocityTaken = System.currentTimeMillis();
         }
-    }
+	}
 }

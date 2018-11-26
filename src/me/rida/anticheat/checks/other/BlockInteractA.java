@@ -19,14 +19,14 @@ import me.rida.anticheat.other.Ping;
 public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
-		super("BlockInteractA", "BlockInteract", CheckType.Other, AntiCheat);
+		super("BlockInteractA", "BI", CheckType.Other, AntiCheat);
 		setBannable(false);
 		setEnabled(true);
 		setMaxViolations(29);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void checkFreecam(PlayerInteractEvent e) {
+	private void checkFreecam(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK
 				|| Ping.getPing(e.getPlayer()) > 400
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -57,7 +57,7 @@ public class BlockInteractA extends Check {
 			}
 		}
 		if ((!isValid) && (!p.getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, p, "FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", "(Type: A)");
+			getAntiCheat().logCheat(this, p, "BlockInteract: FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", "(Type: A)");
 			e.setCancelled(true);
 		}
 	}
@@ -94,7 +94,7 @@ public class BlockInteractA extends Check {
 	}
 
 	@SuppressWarnings("deprecation")
-	public boolean checkPhase(Material m) {
+	private boolean checkPhase(Material m) {
 		int[] whitelist = { 355, 196, 194, 197, 195, 193, 64, 96, 187, 184, 186, 107, 185, 183, 192, 189, 139, 191, 85,
 				101, 190, 113, 188, 160, 102, 163, 157, 0, 145, 49, 77, 135, 108, 67, 164, 136, 114, 156, 180, 128, 143,
 				109, 134, 53, 126, 44, 416, 8, 425, 138, 26, 397, 372, 13, 135, 117, 108, 39, 81, 92, 71, 171, 141, 118,

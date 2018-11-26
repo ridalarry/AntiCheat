@@ -23,13 +23,14 @@ public class ImpossibleMovementsA extends Check {
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         Location from  =e.getFrom();
         Location to = e.getTo();
         if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-		        || p.getGameMode().equals(GameMode.CREATIVE)) {
+		        || p.getGameMode().equals(GameMode.CREATIVE)
+		        || p.getAllowFlight()) {
         	return;
         }
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

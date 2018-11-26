@@ -6,8 +6,8 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class PacketSwingArmEvent extends Event {
-	public Player Player;
-	public PacketEvent Event;
+	private Player Player;
+	private PacketEvent Event;
 	private static final HandlerList handlers = new HandlerList();
 
 	public PacketSwingArmEvent(PacketEvent Event, Player Player) {

@@ -21,9 +21,9 @@ import org.json.simple.parser.JSONParser;
 import me.rida.anticheat.AntiCheat;
 
 public class PMEA extends Check implements PluginMessageListener, Listener {
-    public static String type;
+	private static String type;
     private final JSONParser parser = new JSONParser();
-    public static final Map<UUID, Map<String, String>> forgeMods;
+    private static final Map<UUID, Map<String, String>> forgeMods;
 
     static {
         forgeMods = new HashMap<UUID, Map<String, String>>();

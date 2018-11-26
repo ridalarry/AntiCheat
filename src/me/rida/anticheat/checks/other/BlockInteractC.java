@@ -19,17 +19,16 @@ import me.rida.anticheat.other.Ping;
 
 public class BlockInteractC extends Check {
     public BlockInteractC(AntiCheat AntiCheat) {
-        super("BlockInteractC", "BlockInteract", CheckType.Other, AntiCheat);
+        super("BlockInteractC", "BI", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setBannable(false);
 		setViolationsToNotify(1);
     }
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPlaceBlock(final BlockPlaceEvent e) {
+	private void onPlaceBlock(final BlockPlaceEvent e) {
         final Player p = e.getPlayer();
-        @SuppressWarnings("rawtypes")
 		final Block t = p.getTargetBlock((Set)null, 5);
         if (p.getAllowFlight()
                 || e.getPlayer().getVehicle() != null

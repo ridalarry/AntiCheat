@@ -17,7 +17,7 @@ import me.rida.anticheat.other.Ping;
 
 public class BlockInteractD extends Check {
     public BlockInteractD(AntiCheat AntiCheat) {
-        super("BlockInteractD", "BlockInteract", CheckType.Other, AntiCheat);
+        super("BlockInteractD", "BI", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(20);
 		setViolationResetTime(1000);
@@ -25,7 +25,7 @@ public class BlockInteractD extends Check {
 		setViolationsToNotify(4);
     }
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onPlaceBlock(final BlockPlaceEvent e) {
+	private void onPlaceBlock(final BlockPlaceEvent e) {
         final Player p = e.getPlayer();
         if (p.getAllowFlight()
                 || p.getVehicle() != null
@@ -42,7 +42,7 @@ public class BlockInteractD extends Check {
             }
         }
     }
-    public static boolean groundAround(final Location loc) {
+	private static boolean groundAround(final Location loc) {
         for (int radius = 2, x = -radius; x < radius; ++x) {
             for (int y = -radius; y < radius; ++y) {
                 for (int z = -radius; z < radius; ++z) {

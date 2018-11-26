@@ -7,8 +7,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.checks.client.SpookA;
 import me.rida.anticheat.utils.MathUtil;
 
-public class SpookListener
-implements Listener {
+public class SpookListener implements Listener {
     public void playerSpookCheck(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof Player)) {
             return;

@@ -40,7 +40,7 @@ public class AutoClickerB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLog(PlayerQuitEvent e) {
+	private void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 
@@ -57,7 +57,7 @@ public class AutoClickerB extends Check {
 
 	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void UseEntity(PacketUseEntityEvent e) {
+	private void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
 				|| !((e.getAttacked()) instanceof Player)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

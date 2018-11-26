@@ -34,7 +34,7 @@ public class TimerB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (!getAntiCheat().isEnabled() 

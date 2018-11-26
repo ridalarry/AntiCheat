@@ -18,7 +18,8 @@ public class SneakB extends Check {
 
 	}
 
-    public void onMove(PlayerMoveEvent e) {
+	@SuppressWarnings("unused")
+	private void onMove(PlayerMoveEvent e) {
     	 final Player p = e.getPlayer();
     	if (p.isSneaking()) {
     		if (p.isSprinting()) {

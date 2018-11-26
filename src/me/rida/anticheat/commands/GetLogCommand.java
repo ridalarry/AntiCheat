@@ -82,5 +82,4 @@ public class GetLogCommand implements CommandExecutor {
 		}
 		return true;
 	}
-
 }

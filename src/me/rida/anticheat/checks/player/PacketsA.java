@@ -28,7 +28,7 @@ import me.rida.anticheat.utils.TimeUtil;
 public class PacketsA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;
 	public static Map<UUID, Long> lastPacket;
-	public List<UUID> blacklist;
+	private List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
 		super("PacketsA", "Packets", CheckType.Player, AntiCheat);
@@ -43,12 +43,12 @@ public class PacketsA extends Check {
 	}
 
 	@EventHandler
-	public void PlayerJoin(PlayerJoinEvent event) {
+	private void PlayerJoin(PlayerJoinEvent event) {
 		this.blacklist.add(event.getPlayer().getUniqueId());
 	}
 
 	@EventHandler
-	public void onLogout(PlayerQuitEvent e) {
+	private void onLogout(PlayerQuitEvent e) {
 		if (packetTicks.containsKey(e.getPlayer().getUniqueId())) {
 			packetTicks.remove(e.getPlayer().getUniqueId());
 		}
@@ -66,12 +66,12 @@ public class PacketsA extends Check {
 	}
 
 	@EventHandler
-	public void PlayerRespawn(PlayerRespawnEvent event) {
+	private void PlayerRespawn(PlayerRespawnEvent event) {
 		blacklist.add(event.getPlayer().getUniqueId());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public final void PacketPlayer(PacketPlayerEvent event) {
+	private final void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()
 			|| player.getGameMode().equals(GameMode.CREATIVE)

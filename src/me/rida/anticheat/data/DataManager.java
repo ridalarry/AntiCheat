@@ -11,9 +11,9 @@ import me.rida.anticheat.checks.Check;
 import java.util.*;
 
 public class DataManager {
-    public List<Check> checks;
+	private List<Check> checks;
     private Map<Player, Map<Check, Integer>> violations;
-    public List<DataPlayer> players;
+    private List<DataPlayer> players;
     
     private Set<DataPlayer> dataSet = new HashSet<>();
 
@@ -22,7 +22,6 @@ public class DataManager {
         checks = new ArrayList<>();
         violations = new WeakHashMap<>();
         players = new ArrayList<>();
-        addChecks();
     }
 
     public DataPlayer getDataPlayer(Player p) {
@@ -35,10 +34,6 @@ public class DataManager {
 
     public void remove(Player p) {
         dataSet.removeIf(dataPlayer -> dataPlayer.player == p);
-    }
-
-
-    private void addChecks() {
     }
 
     public void removeCheck(Check c) {

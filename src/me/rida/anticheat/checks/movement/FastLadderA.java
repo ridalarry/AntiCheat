@@ -29,7 +29,7 @@ public class FastLadderA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void checkFastLadder(PlayerMoveEvent e) {
+	private void checkFastLadder(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 
 		if(e.isCancelled()

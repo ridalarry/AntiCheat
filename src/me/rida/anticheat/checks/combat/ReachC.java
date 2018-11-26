@@ -36,7 +36,7 @@ public class ReachC extends Check {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onATTACK(EntityDamageByEntityEvent e) {
+	private void onAttack(EntityDamageByEntityEvent e) {
 		if (!e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)
 				|| !(e.getDamager() instanceof Player)
 				|| !(e.getEntity() instanceof Player)

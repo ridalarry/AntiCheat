@@ -38,7 +38,7 @@ public class ReachB extends Check {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		if (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()) {
 			return;
 		}
@@ -52,7 +52,7 @@ public class ReachB extends Check {
 
 	@SuppressWarnings("static-access")
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onDamage(EntityDamageByEntityEvent e) {
+	private void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
 				|| !(e.getEntity() instanceof Player)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel())

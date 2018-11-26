@@ -22,7 +22,7 @@ public class CriticalsA extends Check {
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onAttack(EntityDamageByEntityEvent e) {
+	private void onAttack(EntityDamageByEntityEvent e) {
         if(!(e.getDamager() instanceof Player)) {
             return;
         }

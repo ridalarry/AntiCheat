@@ -26,7 +26,7 @@ import me.rida.anticheat.utils.TimeUtil;
 public class NoFallA extends Check {
 	public static Map<UUID, Map.Entry<Long, Integer>> NoFallTicks;
 	public static Map<UUID, Double> FallDistance;
-	public static ArrayList<Player> cancel;
+	private static ArrayList<Player> cancel;
 
 	public NoFallA(AntiCheat AntiCheat) {
 		super("NoFallA", "NoFall", CheckType.Movement, AntiCheat);
@@ -43,12 +43,12 @@ public class NoFallA extends Check {
 	}
 
 	@EventHandler
-	public void onDeath(PlayerDeathEvent e) {
+	private void onDeath(PlayerDeathEvent e) {
 		cancel.add(e.getEntity());
 	}
 
 	@EventHandler
-	public void onLogout(PlayerQuitEvent e) {
+	private void onLogout(PlayerQuitEvent e) {
 		if (FallDistance.containsKey(e.getPlayer().getUniqueId())) {
 			FallDistance.remove(e.getPlayer().getUniqueId());
 		}
@@ -61,7 +61,7 @@ public class NoFallA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onTeleport(PlayerTeleportEvent e) {
+	private void onTeleport(PlayerTeleportEvent e) {
 		if (e.getCause() == TeleportCause.ENDER_PEARL) {
 			cancel.add(e.getPlayer());
 		}
@@ -69,7 +69,7 @@ public class NoFallA extends Check {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void Move(PlayerMoveEvent e) {
+	private void Move(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)

@@ -47,7 +47,7 @@ public class SpeedC extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onHit(EntityDamageByEntityEvent e) {
+	private void onHit(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
 			Player p = (Player) e.getEntity();
 
@@ -55,7 +55,7 @@ public class SpeedC extends Check {
 		}
 	}
 
-	public boolean isOnIce(final Player p) {
+	private boolean isOnIce(final Player p) {
 		Location a = p.getLocation();
 		a.setY(a.getY() - 1.0);
 		if (a.getBlock().getType().equals((Object) Material.ICE)) {
@@ -66,7 +66,7 @@ public class SpeedC extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLog(PlayerQuitEvent e) {
+	private void onLog(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());
 		}
@@ -83,7 +83,7 @@ public class SpeedC extends Check {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler
-	public void CheckSpeed(PlayerMoveEvent e) {
+	private void CheckSpeed(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (((e.getFrom().getX() == e.getTo().getX()) && (e.getFrom().getY() == e.getTo().getY()) && (e.getFrom().getZ() == e.getFrom().getZ()))

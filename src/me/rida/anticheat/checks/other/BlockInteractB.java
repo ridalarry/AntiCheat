@@ -19,14 +19,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BlockInteractB extends Check {
       public BlockInteractB(AntiCheat AntiCheat) {
-        super("BlockInteractE", "BlockInteract", CheckType.Other, AntiCheat);
+        super("BlockInteractE", "BI", CheckType.Other, AntiCheat);
 		setEnabled(true);
 		setMaxViolations(10);
 		setBannable(true);
     }
 
   	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onBlockBreak(BlockBreakEvent e) {
+  	private void onBlockBreak(BlockBreakEvent e) {
   		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
 				|| Ping.getPing(e.getPlayer()) > 400) {
@@ -43,7 +43,7 @@ public class BlockInteractB extends Check {
           }
     }
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onBlockPlace(BlockPlaceEvent e) {
+	private void onBlockPlace(BlockPlaceEvent e) {
   		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
 				|| Ping.getPing(e.getPlayer()) > 400) {
@@ -57,7 +57,7 @@ public class BlockInteractB extends Check {
           }
     }
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-    public void onInteract(PlayerInteractEvent e) {
+	private void onInteract(PlayerInteractEvent e) {
   		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
 				|| Ping.getPing(e.getPlayer()) > 400) {

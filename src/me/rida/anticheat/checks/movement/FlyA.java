@@ -29,7 +29,7 @@ public class FlyA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		final Location from = e.getFrom();
 		final Location to = e.getTo();
 		final Player p = e.getPlayer();
@@ -40,6 +40,8 @@ public class FlyA extends Check {
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.wasOnSlime(p)
 				|| BlockUtil.isNearSlime(p)
+				|| BlockUtil.isNearLiquid(p)
+				|| PlayerUtil.isInLiquid(p)
 				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

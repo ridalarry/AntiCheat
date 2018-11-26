@@ -26,7 +26,7 @@ public class GlideA extends Check {
 	}
 
 	@EventHandler
-	public void onLog(PlayerQuitEvent e) {
+	private void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 
@@ -36,7 +36,7 @@ public class GlideA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void CheckGlide(PlayerMoveEvent e) {
+	private void CheckGlide(PlayerMoveEvent e) {
 		if (!this.getAntiCheat().isEnabled()) {
 			return;
 		}

@@ -30,14 +30,14 @@ public class SneakA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void onLog(PlayerQuitEvent e) {
+	private void onLog(PlayerQuitEvent e) {
 		if (sneakTicks.containsKey(e.getPlayer().getUniqueId())) {
 			sneakTicks.remove(e.getPlayer().getUniqueId());
 		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	public void EntityAction(PacketEntityActionEvent e) {
+	private void EntityAction(PacketEntityActionEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

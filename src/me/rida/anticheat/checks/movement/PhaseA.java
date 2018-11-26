@@ -160,24 +160,24 @@ public class PhaseA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true)
-	public void teleport(PlayerTeleportEvent e) {
+	private void teleport(PlayerTeleportEvent e) {
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			teleported.add(e.getPlayer().getUniqueId());
 		}
 	}
 
 	@EventHandler
-	public void death(PlayerDeathEvent e) {
+	private void death(PlayerDeathEvent e) {
 		teleported.add(e.getEntity().getUniqueId());
 	}
 
 	@EventHandler
-	public void respawn(PlayerRespawnEvent e) {
+	private void respawn(PlayerRespawnEvent e) {
 		teleported.add(e.getPlayer().getUniqueId());
 	}
 
 	@EventHandler
-	public void update(PlayerMoveEvent e) {
+	private void update(PlayerMoveEvent e) {
 		final Player player = e.getPlayer();
 		if (player.isDead()
 				|| (BlockUtil.isNearLiquid(player) && BlockUtil.isNearHalfBlock(player))
@@ -226,7 +226,7 @@ public class PhaseA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
-	public void onPlayerInteract(PlayerInteractEvent event) {
+	private void onPlayerInteract(PlayerInteractEvent event) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
 			return;
 		}
@@ -249,7 +249,7 @@ public class PhaseA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
-	public void onPearlClip(PlayerTeleportEvent event) {
+	private void onPearlClip(PlayerTeleportEvent event) {
 		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")
 				|| event.getCause() == TeleportCause.PLUGIN) {
 			return;
@@ -296,7 +296,7 @@ public class PhaseA extends Check {
 		}
 	}
 
-	public boolean isLegit(UUID playerId, Location loc1, Location loc2) {
+	private boolean isLegit(UUID playerId, Location loc1, Location loc2) {
 		if (loc1.getWorld() != loc2.getWorld()) {
 			return true;
 		}

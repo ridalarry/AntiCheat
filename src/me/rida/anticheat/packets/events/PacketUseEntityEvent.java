@@ -7,9 +7,9 @@ import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class PacketUseEntityEvent extends Event {
-	public EnumWrappers.EntityUseAction Action;
-	public Player Attacker;
-	public Entity Attacked;
+	private EnumWrappers.EntityUseAction Action;
+	private Player Attacker;
+	private Entity Attacked;
 	private static final HandlerList handlers = new HandlerList();
 
 	public PacketUseEntityEvent(EnumWrappers.EntityUseAction Action, Player Attacker, Player Attacked) {

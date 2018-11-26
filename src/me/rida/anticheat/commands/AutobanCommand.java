@@ -10,11 +10,10 @@ import me.rida.anticheat.utils.Color;
 
 public class AutobanCommand implements CommandExecutor {
 	private AntiCheat AntiCheat;
-
+	
 	public AutobanCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
 	}
-
 	@SuppressWarnings("unused")
 	public boolean onCommand(final CommandSender sender, final Command command, final String alias,
 			final String[] args) {
@@ -35,13 +34,12 @@ public class AutobanCommand implements CommandExecutor {
 				switch (lowerCase = type.toLowerCase()) {
 				case "cancel": {
 					System.out.println("[" + player.getUniqueId().toString() + "] " + sender.getName()
-							+ "'s auto-ban has been cancelled by " + sender.getName());
+					+ "'s auto-ban has been cancelled by " + sender.getName());
 					Bukkit.broadcast(
-							Color.translate(
-									AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary")
-											+ player.getName() + AntiCheat.getConfig().getString("alerts.primary")
-											+ "'s auto-ban has been cancelled by "
-											+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
+							Color.translate(AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary")
+									+ player.getName() + AntiCheat.getConfig().getString("alerts.primary")
+									+ "'s auto-ban has been cancelled by "
+									+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
 							"anticheat.staff");
 					break;
 				}
@@ -50,12 +48,12 @@ public class AutobanCommand implements CommandExecutor {
 						sender.sendMessage(Color.Red + "Test mode is enabled therefore this is disabled!");
 					} else {
 						System.out.println("[" + player.getUniqueId().toString() + "] " + sender.getName()
-								+ "'s auto-ban has been forced by " + sender.getName());
-						Bukkit.broadcast(Color.translate(
-								AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary") + player.getName()
-										+ AntiCheat.getConfig().getString("alerts.primary")
-										+ "'s auto-ban has been forced by "
-										+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
+						+ "'s auto-ban has been forced by " + sender.getName());
+						Bukkit.broadcast(Color.translate(AntiCheat.PREFIX + AntiCheat.getConfig().getString(
+								"alerts.secondary") + player.getName()
+								+ AntiCheat.getConfig().getString("alerts.primary")
+								+ "'s auto-ban has been forced by "
+								+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
 								"anticheat.staff");
 						this.AntiCheat.autobanOver(player);
 					}

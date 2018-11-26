@@ -5,8 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 public class PacketEntityActionEvent extends Event {
-	public int Action;
-	public Player Player;
+	private int Action;
+	private Player Player;
 	private static final HandlerList handlers;
 
 	static {

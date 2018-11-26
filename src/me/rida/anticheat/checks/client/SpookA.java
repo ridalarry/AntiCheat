@@ -7,11 +7,10 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.AntiCheat;
 
-public class SpookA
-extends Check {
-	public float lastYaw;
-    public int lastBad;
-    public static SpookA spooka;
+public class SpookA extends Check {
+	private float lastYaw;
+	private int lastBad;
+	private static SpookA spooka;
 
     public SpookA(AntiCheat AntiCheat) {
         super("SpookA", "Spook", CheckType.Client, AntiCheat);
