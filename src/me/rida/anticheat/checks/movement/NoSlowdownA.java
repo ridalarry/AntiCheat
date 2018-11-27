@@ -43,14 +43,14 @@ public class NoSlowdownA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	private void BowShoot(final EntityShootBowEvent e) {
+	private void BowShoot(EntityShootBowEvent e) {
 		if (!this.isEnabled()) {
 			return;
 		}
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
-		final Player p = (Player) e.getEntity();
+		Player p = (Player) e.getEntity();
 		if (p.isInsideVehicle()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

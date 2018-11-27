@@ -34,47 +34,47 @@ public class BoundingBox {
 	}
 
 	public BoundingBox add(float x, float y, float z) {
-		final float newMinX = minX + x;
-		final float newMaxX = maxX + x;
-		final float newMinY = minY + y;
-		final float newMaxY = maxY + y;
-		final float newMinZ = minZ + z;
-		final float newMaxZ = maxZ + z;
+		float newMinX = minX + x;
+		float newMaxX = maxX + x;
+		float newMinY = minY + y;
+		float newMaxY = maxY + y;
+		float newMinZ = minZ + z;
+		float newMaxZ = maxZ + z;
 
 		return new BoundingBox(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
 	}
 
 	public BoundingBox add(Vector vector) {
-		final float x = (float) vector.getX(), y = (float) vector.getY(), z = (float) vector.getZ();
+		float x = (float) vector.getX(), y = (float) vector.getY(), z = (float) vector.getZ();
 
-		final float newMinX = minX + x;
-		final float newMaxX = maxX + x;
-		final float newMinY = minY + y;
-		final float newMaxY = maxY + y;
-		final float newMinZ = minZ + z;
-		final float newMaxZ = maxZ + z;
+		float newMinX = minX + x;
+		float newMaxX = maxX + x;
+		float newMinY = minY + y;
+		float newMaxY = maxY + y;
+		float newMinZ = minZ + z;
+		float newMaxZ = maxZ + z;
 
 		return new BoundingBox(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
 	}
 
 	public BoundingBox grow(float x, float y, float z) {
-		final float newMinX = minX - x;
-		final float newMaxX = maxX + x;
-		final float newMinY = minY - y;
-		final float newMaxY = maxY + y;
-		final float newMinZ = minZ - z;
-		final float newMaxZ = maxZ + z;
+		float newMinX = minX - x;
+		float newMaxX = maxX + x;
+		float newMinY = minY - y;
+		float newMaxY = maxY + y;
+		float newMinZ = minZ - z;
+		float newMaxZ = maxZ + z;
 
 		return new BoundingBox(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
 	}
 
 	public BoundingBox shrink(float x, float y, float z) {
-		final float newMinX = minX + x;
-		final float newMaxX = maxX - x;
-		final float newMinY = minY + y;
-		final float newMaxY = maxY - y;
-		final float newMinZ = minZ + z;
-		final float newMaxZ = maxZ - z;
+		float newMinX = minX + x;
+		float newMaxX = maxX - x;
+		float newMinY = minY + y;
+		float newMaxY = maxY - y;
+		float newMinZ = minZ + z;
+		float newMaxZ = maxZ - z;
 
 		return new BoundingBox(newMinX, newMinY, newMinZ, newMaxX, newMaxY, newMaxZ);
 	}
@@ -92,29 +92,29 @@ public class BoundingBox {
 	}
 
 	public List<BoundingBox> getCollidingBlockBoxes(Player player) {
-		final List<BoundingBox> toReturn = new ArrayList<>();
-		final int minX = MathUtil.floor(this.minX);
-		final int maxX = MathUtil.floor(this.maxX + 1);
-		final int minY = MathUtil.floor(this.minY);
-		final int maxY = MathUtil.floor(this.maxY + 1);
-		final int minZ = MathUtil.floor(this.minZ);
-		final int maxZ = MathUtil.floor(this.maxZ + 1);
+		List<BoundingBox> toReturn = new ArrayList<>();
+		int minX = MathUtil.floor(this.minX);
+		int maxX = MathUtil.floor(this.maxX + 1);
+		int minY = MathUtil.floor(this.minY);
+		int maxY = MathUtil.floor(this.maxY + 1);
+		int minZ = MathUtil.floor(this.minZ);
+		int maxZ = MathUtil.floor(this.maxZ + 1);
 
 
 		for (int x = minX; x < maxX; x++) {
 			for (int z = minZ; z < maxZ; z++) {
 				for (int y = minY - 1; y < maxY; y++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
-					if (BlockUtil.isSolid(block)) {
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					if (BlockUtil.isSolid2(block)) {
 						if (BlockUtil.collisionBoundingBoxes.containsKey(block.getType())) {
-							for (final BoundingBox box : BlockUtil.getBlockBoundingBox(block)) {
+							for (BoundingBox box : BlockUtil.getBlockBoundingBox(block)) {
 								if (intersectsWithBox(box)) {
 									toReturn.add(box);
 									break;
 								}
 							}
 						} else {
-							final BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
+							BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
 							if (intersectsWithBox(box)) {
 								toReturn.add(box);
 							}
@@ -135,28 +135,28 @@ public class BoundingBox {
 	}
 
 	public List<Block> getCollidingBlocks(Player player) {
-		final List<Block> toReturn = new ArrayList<>();
-		final int minX = MathUtil.floor(this.minX);
-		final int maxX = MathUtil.floor(this.maxX + 1);
-		final int minY = MathUtil.floor(this.minY);
-		final int maxY = MathUtil.floor(this.maxY + 1);
-		final int minZ = MathUtil.floor(this.minZ);
-		final int maxZ = MathUtil.floor(this.maxZ + 1);
+		List<Block> toReturn = new ArrayList<>();
+		int minX = MathUtil.floor(this.minX);
+		int maxX = MathUtil.floor(this.maxX + 1);
+		int minY = MathUtil.floor(this.minY);
+		int maxY = MathUtil.floor(this.maxY + 1);
+		int minZ = MathUtil.floor(this.minZ);
+		int maxZ = MathUtil.floor(this.maxZ + 1);
 
 
 		for (int x = minX; x < maxX; x++) {
 			for (int z = minZ; z < maxZ; z++) {
 				for (int y = minY - 1; y < maxY; y++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 					if (BlockUtil.isSolid(block)) {
 						if (BlockUtil.collisionBoundingBoxes.containsKey(block.getType())) {
-							for (final BoundingBox box : BlockUtil.getBlockBoundingBox(block)) {
+							for (BoundingBox box : BlockUtil.getBlockBoundingBox(block)) {
 								if (intersectsWithBox(box)) {
 									toReturn.add(block);
 								}
 							}
 						} else {
-							final BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
+							BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
 							if (intersectsWithBox(box)) {
 								toReturn.add(block);
 							}
@@ -170,13 +170,13 @@ public class BoundingBox {
 
 
 	public List<Block> getAllBlocks(Player player) {
-		final Location min = new Location(player.getWorld(), minX, minY, minZ).getBlock().getLocation();
-		final Location max = new Location(player.getWorld(), maxX, maxY, maxZ).getBlock().getLocation();
-		final List<Block> all = Lists.newArrayList();
+		Location min = new Location(player.getWorld(), minX, minY, minZ).getBlock().getLocation();
+		Location max = new Location(player.getWorld(), maxX, maxY, maxZ).getBlock().getLocation();
+		List<Block> all = Lists.newArrayList();
 		for (float x = (float) min.getX(); x < max.getX(); x++) {
 			for (float y = (float) min.getY(); y < max.getY(); y++) {
 				for (float z = (float) min.getZ(); z < max.getZ(); z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 					if (!block.getType().equals(Material.AIR)) {
 						all.add(new Location(player.getWorld(), x, y, z).getBlock());
 					}
@@ -192,10 +192,10 @@ public class BoundingBox {
 
 	public boolean intersectsWithBox(Object other) {
 		if (other instanceof BoundingBox) {
-			final BoundingBox otherBox = (BoundingBox) other;
+			BoundingBox otherBox = (BoundingBox) other;
 			return otherBox.maxX > this.minX && otherBox.minX < this.maxX && otherBox.maxY > this.minY && otherBox.minY < this.maxY && otherBox.maxZ > this.minZ && otherBox.minZ < this.maxZ;
 		} else {
-			final BoundingBox otherBox = ReflectionUtil.toBoundingBox(other);
+			BoundingBox otherBox = ReflectionUtil.toBoundingBox(other);
 			return otherBox.maxX > this.minX && otherBox.minX < this.maxX && otherBox.maxY > this.minY && otherBox.minY < this.maxY && otherBox.maxZ > this.minZ && otherBox.minZ < this.maxZ;
 		}
 	}

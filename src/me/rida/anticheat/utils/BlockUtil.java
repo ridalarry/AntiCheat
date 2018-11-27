@@ -108,8 +108,9 @@ public class BlockUtil {
 		allowed.add(Material.BED_BLOCK);
 		allowed.add(Material.PISTON_EXTENSION);
 		allowed.add(Material.PISTON_MOVING_PIECE);
-	}public static boolean isSolid2(Block block) {
-		final int type = block.getType().getId();
+	}@SuppressWarnings("deprecation")
+	public static boolean isSolid2(Block block) {
+		int type = block.getType().getId();
 
 		switch (type) {
 		case 1:
@@ -326,7 +327,7 @@ public class BlockUtil {
 		}
 		return false;
 	}
-	public static boolean isSolid(final byte block) {
+	public static boolean isSolid(byte block) {
 		if (blockPassSet.isEmpty()) {
 			blockPassSet.add((byte) 0);
 			blockPassSet.add((byte) 6);
@@ -446,11 +447,11 @@ public class BlockUtil {
 	}
 
 	public static boolean containsBlockType(Material[] arrmaterial, Block block) {
-		final Material[] arrmaterial2 = arrmaterial;
-		final int n = arrmaterial2.length;
+		Material[] arrmaterial2 = arrmaterial;
+		int n = arrmaterial2.length;
 		int n2 = 0;
 		while (n2 < n) {
-			final Material material = arrmaterial2[n2];
+			Material material = arrmaterial2[n2];
 			if (material == block.getType()) {
 				return true;
 			}
@@ -503,7 +504,7 @@ public class BlockUtil {
 
 
 	public static ArrayList<Block> getSurroundingXZ(Block block, boolean diagonals) {
-		final ArrayList<Block> blocks = new ArrayList<>();
+		ArrayList<Block> blocks = new ArrayList<>();
 		if (diagonals) {
 			blocks.add(block.getRelative(BlockFace.NORTH));
 			blocks.add(block.getRelative(BlockFace.NORTH_EAST));
@@ -523,7 +524,7 @@ public class BlockUtil {
 		return blocks;
 	}
 	public static List<Block> getNearbyBlocks(Location location, int radius) {
-		final List<Block> blocks = new ArrayList<>();
+		List<Block> blocks = new ArrayList<>();
 		for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
 			for(int y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
 				for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
@@ -539,11 +540,11 @@ public class BlockUtil {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<Block> getBlocksAroundCenter(Location loc, int radius) {
-		final ArrayList<Block> blocks = new ArrayList();
+		ArrayList<Block> blocks = new ArrayList();
 		for (int x = loc.getBlockX() - radius; x <= loc.getBlockX() + radius; x++) {
 			for (int y = loc.getBlockY() - radius; y <= loc.getBlockY() + radius; y++) {
 				for (int z = loc.getBlockZ() - radius; z <= loc.getBlockZ() + radius; z++) {
-					final Location l = new Location(loc.getWorld(), x, y, z);
+					Location l = new Location(loc.getWorld(), x, y, z);
 					if (l.distance(loc) <= radius) {
 						blocks.add(l.getBlock());
 					}
@@ -555,7 +556,7 @@ public class BlockUtil {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
-		final ArrayList<Block> blocks = new ArrayList();
+		ArrayList<Block> blocks = new ArrayList();
 		if (diagonals) {
 			for (int x = -1; x <= 1; x++) {
 				for (int y = -1; y <= 1; y++) {
@@ -579,7 +580,7 @@ public class BlockUtil {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<Block> getSurroundingB(Block block) {
-		final ArrayList<Block> blocks = new ArrayList();
+		ArrayList<Block> blocks = new ArrayList();
 		for (double x = -0.5; x <= 0.5; x += 0.5) {
 			for (double y = -0.5; y <= 0.5; y += 0.5) {
 				for (double z = -0.5; z <= 0.5; z += 0.5) {
@@ -594,7 +595,7 @@ public class BlockUtil {
 
 	public static boolean isNearAllowedPhase(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (allowedPhase(b)) {
 				out = true;
 			}
@@ -603,7 +604,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearLessThanABlock(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isLessThanBlock(b)) {
 				out = true;
 			}
@@ -612,7 +613,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearPressure(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isPressure(b)) {
 				out = true;
 			}
@@ -621,7 +622,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearSlab(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isSlab(b)) {
 				out = true;
 			}
@@ -630,7 +631,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearAir(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isAir(b)) {
 				out = true;
 			}
@@ -640,7 +641,7 @@ public class BlockUtil {
 
 	public static boolean isNearHalfBlock(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isHalfBlock(b)) {
 				out = true;
 			}
@@ -650,7 +651,7 @@ public class BlockUtil {
 
 	public static boolean isNearIce(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isIce(b)) {
 				out = true;
 			}
@@ -659,7 +660,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearSlime(Location loc) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(loc, 1)) {
+		for (Block b : getNearbyBlocks(loc, 1)) {
 			if (isSlime(b)) {
 				out = true;
 			}
@@ -668,7 +669,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearSlime(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isSlime(b)) {
 				out = true;
 			}
@@ -677,7 +678,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearSlime2(Player p, int x) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), x+1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), x+1)) {
 			if (isSlime(b)) {
 				out = true;
 			}
@@ -686,7 +687,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearClimable(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isClimbableBlock(b)) {
 				out = true;
 			}
@@ -695,7 +696,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearPistion(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (b.getType() == Material.PISTON_BASE || b.getType() == Material.PISTON_MOVING_PIECE || b.getType() == Material.PISTON_STICKY_BASE || b.getType() == Material.PISTON_EXTENSION) {
 				out = true;
 			}
@@ -704,7 +705,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearFence(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isFence(b)) {
 				out = true;
 			}
@@ -713,7 +714,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearStair(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isStair(b)) {
 				out = true;
 			}
@@ -722,7 +723,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearLiquid(Player p) {
 		boolean out = false;
-		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isLiquid(b)) {
 				out = true;
 			}
@@ -734,8 +735,8 @@ public class BlockUtil {
 			"button", "mushroom", "torch", "frame", "armor", "banner", "lever", "hook", "redstone", "rail", "brewing",
 			"rose", "skull", "enchantment", "cake", "bed"};
 	public static boolean isHalfBlock(Block block) {
-		final Material type = block.getType();
-		for (final String types : HalfBlocksArray) {
+		Material type = block.getType();
+		for (String types : HalfBlocksArray) {
 			if (type.toString().toLowerCase().contains(types)) {
 				return true;
 			}
@@ -744,8 +745,8 @@ public class BlockUtil {
 	}
 	@SuppressWarnings("unused")
 	public static boolean isLessThanBlock(Block block) {
-		final Material type = block.getType();
-		for (final String types : HalfBlocksArray) {
+		Material type = block.getType();
+		for (String types : HalfBlocksArray) {
 			if (type.toString().toLowerCase().contains("chest")||type.toString().toLowerCase().contains("anvil")) {
 				return true;
 			}
@@ -857,11 +858,11 @@ public class BlockUtil {
 	}
 	public static BoundingBox[] getBlockBoundingBox(Block block) {
 		if (collisionBoundingBoxes.containsKey(block.getType())) {
-			final BoundingBox[] newBox = collisionBoundingBoxes.get(block.getType());
+			BoundingBox[] newBox = collisionBoundingBoxes.get(block.getType());
 
 			return new BoundingBox[]{newBox[0].add((float) (newBox[0].minX != -69 ? block.getLocation().getX() : 0), (float) (newBox[0].minY != -69 ? block.getLocation().getY() : 0), (float) (newBox[0].minZ != -69 ? block.getLocation().getZ() : 0), (float) (newBox[0].maxX != -69 ? block.getLocation().getX() : 0), (float) (newBox[0].maxY != -69 ? block.getLocation().getY() : 0), (float) (newBox[0].maxZ != -69 ? block.getLocation().getZ() : 0)), newBox[1].add((float) (newBox[1].minX != -69 ? block.getLocation().getX() : 0), (float) (newBox[1].minY != -69 ? block.getLocation().getY() : 0), (float) (newBox[1].minZ != -69 ? block.getLocation().getZ() : 0), (float) (newBox[1].maxX != -69 ? block.getLocation().getX() : 0), (float) (newBox[1].maxY != -69 ? block.getLocation().getY() : 0), (float) (newBox[1].maxZ != -69 ? block.getLocation().getZ() : 0))};
 		}
-		final BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
+		BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
 
 		if (box != null) {
 			return new BoundingBox[]{ReflectionUtil.getBlockBoundingBox(block), new BoundingBox(0, 0, 0, 0, 0, 0)};
@@ -869,6 +870,7 @@ public class BlockUtil {
 		return new BoundingBox[]{new BoundingBox(0, 0, 0, 0, 0, 0), new BoundingBox(0, 0, 0, 0, 0, 0)};
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isDoor(Block block) {
 		return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.IRON_DOOR_BLOCK) || block.getType().equals(Material.WOOD_DOOR) || block.getType().equals(Material.WOODEN_DOOR) || block.getTypeId() == 193 || block.getTypeId() == 194 || block.getTypeId() == 195 || block.getTypeId() == 196 || block.getTypeId() == 197 || block.getTypeId() == 324 || block.getTypeId() == 428 || block.getTypeId() == 429 || block.getTypeId() == 430 || block.getTypeId() == 431;
 	}
@@ -877,11 +879,13 @@ public class BlockUtil {
 		return block.getType().equals(Material.BED_BLOCK) || block.getType().equals(Material.BED);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isTrapDoor(Block block) {
 		return block.getType().equals(Material.TRAP_DOOR) || block.getTypeId() == 167;
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public static boolean isFenceGate(Block block) {
 		return block.getType().equals(Material.FENCE_GATE) || block.getTypeId() == 183 || block.getTypeId() == 184 || block.getTypeId() == 185 || block.getTypeId() == 186 || block.getTypeId() == 187;
 	}

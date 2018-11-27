@@ -1,13 +1,19 @@
 package me.rida.anticheat.checks.combat;
 
-import com.comphenix.protocol.wrappers.EnumWrappers;
-
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import com.comphenix.protocol.wrappers.EnumWrappers;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -20,7 +26,7 @@ public class AutoClickerA extends Check {
 	public static Map<UUID, List<Long>> Clicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
-	public AutoClickerA(AntiCheat AntiCheat) {
+	public AutoClickerA(final AntiCheat AntiCheat) {
 		super("AutoClickerA", "AutoClicker",  CheckType.Combat, AntiCheat);
 		AutoClickerA.LastMS = new HashMap<>();
 		AutoClickerA.Clicks = new HashMap<>();

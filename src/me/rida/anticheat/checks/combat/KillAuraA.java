@@ -29,7 +29,7 @@ public class KillAuraA extends Check {
 	}
 
 	public static HashMap<Player, Integer> counts = new HashMap<>();
-	private final ArrayList<Player> blockGlitched = new ArrayList<>();
+	private ArrayList<Player> blockGlitched = new ArrayList<>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void onPlayerLogout(PlayerQuitEvent e) {
@@ -57,7 +57,7 @@ public class KillAuraA extends Check {
 			return;
 		}
 
-		final Player p = (Player) e.getDamager();
+		Player p = (Player) e.getDamager();
 		if (CheatUtil.slabsNear(p.getEyeLocation())
 				|| CheatUtil.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -70,11 +70,11 @@ public class KillAuraA extends Check {
 			Count = counts.get(p);
 		}
 
-		final Player a = (Player) e.getEntity();
-		final Location dloc = p.getLocation();
-		final Location aloc = a.getLocation();
-		final double zdif = Math.abs(dloc.getZ() - aloc.getZ());
-		final double xdif = Math.abs(dloc.getX() - aloc.getX());
+		Player a = (Player) e.getEntity();
+		Location dloc = p.getLocation();
+		Location aloc = a.getLocation();
+		double zdif = Math.abs(dloc.getZ() - aloc.getZ());
+		double xdif = Math.abs(dloc.getX() - aloc.getX());
 
 		if (xdif == 0 || zdif == 0
 				|| CheatUtil.getOffsetOffCursor(p, a) > 20) {
@@ -82,12 +82,12 @@ public class KillAuraA extends Check {
 		}
 
 		for (int y = 0; y < 1; y += 1) {
-			final Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
+			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
 			if (!PhaseB.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
-			final Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
+			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
 			if (!PhaseB.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(xBlock.getBlock())) {
 				Count++;

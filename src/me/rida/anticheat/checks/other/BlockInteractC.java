@@ -1,21 +1,21 @@
 package me.rida.anticheat.checks.other;
 
-import java.util.*;
+import java.util.Set;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.VelocityUtil;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPlaceEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.VelocityUtil;
 
 public class BlockInteractC extends Check {
     public BlockInteractC(AntiCheat AntiCheat) {
@@ -27,9 +27,9 @@ public class BlockInteractC extends Check {
     }
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	private void onPlaceBlock(final BlockPlaceEvent e) {
-        final Player p = e.getPlayer();
-		final Block t = p.getTargetBlock((Set)null, 5);
+	private void onPlaceBlock(BlockPlaceEvent e) {
+        Player p = e.getPlayer();
+		Block t = p.getTargetBlock((Set)null, 5);
         if (p.getAllowFlight()
                 || e.getPlayer().getVehicle() != null
 				|| !getAntiCheat().isEnabled()

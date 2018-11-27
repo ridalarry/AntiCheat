@@ -21,9 +21,9 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class SpeedC extends Check {
@@ -55,7 +55,7 @@ public class SpeedC extends Check {
 		}
 	}
 
-	private boolean isOnIce(final Player p) {
+	private boolean isOnIce(Player p) {
 		Location a = p.getLocation();
 		a.setY(a.getY() - 1.0);
 		if (a.getBlock().getType().equals((Object) Material.ICE)) {

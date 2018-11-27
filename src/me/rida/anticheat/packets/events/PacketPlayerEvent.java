@@ -1,9 +1,10 @@
 package me.rida.anticheat.packets.events;
 
-import me.rida.anticheat.packets.PacketPlayerType;
-import org.bukkit.event.HandlerList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+
+import me.rida.anticheat.packets.PacketPlayerType;
 
 public class PacketPlayerEvent extends Event {
 	private Player Player;
@@ -15,7 +16,7 @@ public class PacketPlayerEvent extends Event {
 	private static final HandlerList handlers;
 	private PacketPlayerType type;
 	static { handlers = new HandlerList();}
-	public PacketPlayerEvent(Player Player, double x, double y, double z, float yaw, float pitch, PacketPlayerType type) {
+	public PacketPlayerEvent(final Player Player, final double x, final double y, final double z, final float yaw, final float pitch, final PacketPlayerType type) {
 		super();
 		this.Player = Player;
         	this.x = x;

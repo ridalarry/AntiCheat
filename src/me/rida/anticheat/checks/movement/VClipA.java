@@ -21,7 +21,7 @@ import me.rida.anticheat.utils.CheatUtil;
 
 public class VClipA extends Check {
 
-	public VClipA(final AntiCheat AntiCheat) {
+	public VClipA(AntiCheat AntiCheat) {
 		super("VClipA", "VClip", CheckType.Movement, AntiCheat);
 
 		setBannable(false);
@@ -81,7 +81,7 @@ public class VClipA extends Check {
 					&& l.getBlock().getType().isSolid() && !allowed.contains(l.getBlock().getType())) {
 
 				AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-		        	final Player p = e.getPlayer();
+		        	Player p = e.getPlayer();
 		            @Override
 		            public void run() {
 		                p.kickPlayer("Too many packets");

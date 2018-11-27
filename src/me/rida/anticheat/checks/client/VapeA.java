@@ -20,7 +20,7 @@ public class VapeA extends Check implements PluginMessageListener {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	private void onPlayerJoin(final PlayerJoinEvent event) {
+	private void onPlayerJoin(PlayerJoinEvent event) {
 		event.getPlayer().sendMessage("§8 §8 §1 §3 §3 §7 §8 ");
 	}
 

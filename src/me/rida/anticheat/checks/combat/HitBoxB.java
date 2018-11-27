@@ -8,13 +8,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.util.Vector;
 
+import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.AntiCheat;
 
 public class HitBoxB extends Check {
-    private final double HITBOX_LENGTH = 1.05;
+    private double HITBOX_LENGTH = 1.05;
 
     public HitBoxB(AntiCheat AntiCheat) {
         super("HitBoxB", "HitBox", CheckType.Combat, AntiCheat);

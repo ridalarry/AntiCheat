@@ -260,16 +260,16 @@ public enum WrappedMaterial {
         return NA;
     }
 
-    private final boolean air;
-    private final boolean climbable;
-    private final boolean fullBlock;
-    private final boolean liquid;
+    private boolean air;
+    private boolean climbable;
+    private boolean fullBlock;
+    private boolean liquid;
     private Material material;
-    private final boolean solid;
-    private final boolean stairs;
-    private final double x;
-    private final double y;
-    private final double z;
+    private boolean solid;
+    private boolean stairs;
+    private double x;
+    private double y;
+    private double z;
 
     private WrappedMaterial(double x, double y, double z, boolean solid, boolean liquid, boolean air, boolean climbable, boolean stairs, boolean fullBlock) {
         this.x = x;

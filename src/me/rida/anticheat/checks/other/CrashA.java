@@ -40,7 +40,7 @@ public class CrashA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void Swing(final PacketSwingArmEvent e) {
 		final Player p = e.getPlayer();
-		final UUID u = p.getUniqueId();
+		UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
@@ -70,7 +70,7 @@ public class CrashA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void Switch(final PacketHeldItemChangeEvent e) {
 		final Player p = e.getPlayer();
-		final UUID u = p.getUniqueId();
+		UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
@@ -100,7 +100,7 @@ public class CrashA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void BlockPlace(final PacketBlockPlacementEvent e) {
 		final Player p = e.getPlayer();
-		final UUID u = p.getUniqueId();
+		UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;

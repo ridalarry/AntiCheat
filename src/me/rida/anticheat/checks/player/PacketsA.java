@@ -71,7 +71,7 @@ public class PacketsA extends Check {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	private final void PacketPlayer(PacketPlayerEvent event) {
+	private void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()
 			|| player.getGameMode().equals(GameMode.CREATIVE)
@@ -114,7 +114,7 @@ public class PacketsA extends Check {
 					getAntiCheat().logCheat(this, player, Color.White + "Sent over " + Count  + " packets! " , "(Type: A)");
 				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
 				        	@SuppressWarnings("unused")
-							final Player p = event.getPlayer();
+							Player p = event.getPlayer();
 				            @Override
 				            public void run() {
 				                player.kickPlayer("Too many packets");

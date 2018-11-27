@@ -1,19 +1,19 @@
 package me.rida.anticheat.checks.other;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPlaceEvent;
 
-import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.VelocityUtil;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.VelocityUtil;
 
 public class BlockInteractD extends Check {
     public BlockInteractD(AntiCheat AntiCheat) {
@@ -25,8 +25,8 @@ public class BlockInteractD extends Check {
 		setViolationsToNotify(4);
     }
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
-	private void onPlaceBlock(final BlockPlaceEvent e) {
-        final Player p = e.getPlayer();
+	private void onPlaceBlock(BlockPlaceEvent e) {
+        Player p = e.getPlayer();
         if (p.getAllowFlight()
                 || p.getVehicle() != null
                 || Ping.getPing(e.getPlayer()) > 100
@@ -42,11 +42,11 @@ public class BlockInteractD extends Check {
             }
         }
     }
-	private static boolean groundAround(final Location loc) {
+	private static boolean groundAround(Location loc) {
         for (int radius = 2, x = -radius; x < radius; ++x) {
             for (int y = -radius; y < radius; ++y) {
                 for (int z = -radius; z < radius; ++z) {
-                    final Material mat = loc.getWorld().getBlockAt(loc.add((double)x, (double)y, (double)z)).getType();
+                    Material mat = loc.getWorld().getBlockAt(loc.add((double)x, (double)y, (double)z)).getType();
                     if (mat.isSolid() || mat == Material.WATER || mat == Material.STATIONARY_WATER || mat == Material.LAVA || mat == Material.STATIONARY_LAVA) {
                         loc.subtract((double)x, (double)y, (double)z);
                         return true;

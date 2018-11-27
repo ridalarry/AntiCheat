@@ -1,14 +1,14 @@
 package me.rida.anticheat.utils;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.data.DataPlayer;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
+
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.data.DataPlayer;
 
 public class VelocityUtil implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)

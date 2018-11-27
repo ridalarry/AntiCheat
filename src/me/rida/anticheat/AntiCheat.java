@@ -141,14 +141,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public int maxMove = 10;
 	public ExecutorService service;
 	public static ArrayList<Player> getOnlinePlayers() {
-		final ArrayList<Player> list = new ArrayList<>();
-		for (final Player player : Bukkit.getOnlinePlayers()) {
+		ArrayList<Player> list = new ArrayList<>();
+		for (Player player : Bukkit.getOnlinePlayers()) {
 			list.add(player);
 		}
 		return list;
 	}
-	public static final Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
-	public static final Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
+	public static Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
+	public static Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
 	private Logger logger = null;
 	private DataManager dataManager;
 	public static long MS_PluginLoad;
@@ -250,10 +250,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 		getConfig().getStringList("excluded_blocks").forEach(string -> {
 			try {
-				final Material material = Material.getMaterial(string);
+				Material material = Material.getMaterial(string);
 
 				excludedBlocks.add(material);
-			} catch (final NullPointerException e) {
+			} catch (NullPointerException e) {
 				throw new NullPointerException("The material '" + string + "' in the config does not exist!");
 			}
 		});
@@ -275,7 +275,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.packet = new PacketCore(this);
 		this.lag = new LagCore(this);
 		this.updater = new Updater(this);
-		final VapeA vapers = new VapeA(this);
+		VapeA vapers = new VapeA(this);
 		new AntiCheatAPI(this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER",
 				vapers);
@@ -285,7 +285,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.RegisterListener(check);
 			}
 		}
-		final File file = new File(getDataFolder(), "config.yml");
+		File file = new File(getDataFolder(), "config.yml");
 		this.getCommand("alerts").setExecutor(new AlertsCommand(this));
 		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
 		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
@@ -309,7 +309,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("settings.resetViolationsAutomatically", true);
 			this.getConfig().addDefault("settings.latency.ping", 300);
 			this.getConfig().addDefault("settings.latency.tps", 17);
-			for (final Check check : Checks) {
+			for (Check check : Checks) {
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
@@ -320,7 +320,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
 		}
-		for (final Check check : Checks) {
+		for (Check check : Checks) {
 			if (!getConfig().isConfigurationSection("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier())) {
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
@@ -336,7 +336,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				getLogger().log(Level.INFO, "Reset Violations!");
 				if (getConfig().getBoolean("resetViolationsAutomatically")) {
 					if (getConfig().getBoolean("settings.broadcastResetViolationsMsg")) {
-						for (final Player online : Bukkit.getServer().getOnlinePlayers()) {
+						for (Player online : Bukkit.getServer().getOnlinePlayers()) {
 							if (online.hasPermission("anticheat.admin") && hasAlertsOn(online)) {
 								online.sendMessage(PREFIX + Color.translate(
 										"&7Reset violations for all players!"));
@@ -353,7 +353,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (getConfig().getBoolean("settings.EnableCustomLog")) {
 			try {
 				logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
-			} catch (final Throwable ex) {
+			} catch (Throwable ex) {
 				getLogger().log(Level.SEVERE, ex.getMessage());
 			}
 		}
@@ -367,14 +367,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		});
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> {
-			for (final Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
-				final Player player = iterator.next().getKey();
+			for (Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
+				Player player = iterator.next().getKey();
 				if (!player.isOnline() || !player.isValid())
 					iterator.remove();
 			}
 		}, 20L, 20L);
 		getLogger().info("Reloading... will kick all online players to avoid crash.");
-		for (final Player player : Bukkit.getOnlinePlayers()) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
 		}
 
@@ -383,7 +383,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 
 	public void resetDumps(Player player) {
-		for (final Check check : Checks) {
+		for (Check check : Checks) {
 			if (check.hasDump(player)) {
 				check.clearDump(player);
 			}
@@ -492,7 +492,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				HitBoxA.yawDif.clear();
 			if (!FastBowA.count.isEmpty())
 				FastBowA.count.clear();
-		} catch (final Exception e) {
+		} catch (Exception e) {
 			return Color.translate(PREFIX + Color.Red + "Unknown error occured!");
 		}
 		return Color.translate(PREFIX + Color.Green + "Successfully reset data!");
@@ -532,21 +532,21 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void createLog(Player player, Check checkBanned) {
-		final TxtFile logFile = new TxtFile(this, File.separator + "logs", player.getName());
-		final Map<Check, Integer> Checks = getViolations(player);
+		TxtFile logFile = new TxtFile(this, File.separator + "logs", player.getName());
+		Map<Check, Integer> Checks = getViolations(player);
 		logFile.addLine("---- Player was banned for: " + checkBanned.getName() + " ----");
 		logFile.addLine("Set off checks:");
-		for (final Check check : Checks.keySet()) {
-			final Integer Violations = Checks.get(check);
+		for (Check check : Checks.keySet()) {
+			Integer Violations = Checks.get(check);
 			logFile.addLine("- " + check.getType() + "." + check.getIdentifier() + " x" + Violations);
 		}
 		logFile.addLine(" ");
 		logFile.addLine("Dump-Log for all checks set off:");
-		for (final Check check : Checks.keySet()) {
+		for (Check check : Checks.keySet()) {
 			logFile.addLine(" ");
 			logFile.addLine(check.getName() + ":");
 			if (check.getDump(player) != null) {
-				for (final String line : check.getDump(player)) {
+				for (String line : check.getDump(player)) {
 					logFile.addLine(line);
 				}
 			} else {
@@ -594,12 +594,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (!event.getType().equals(UpdateType.SEC)) {
 			return;
 		}
-		final Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<>(this.AutoBan);
-		for (final Player player : AutoBan.keySet()) {
+		Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<>(this.AutoBan);
+		for (Player player : AutoBan.keySet()) {
 			if (player == null || !player.isOnline()) {
 				this.AutoBan.remove(player);
 			} else {
-				final Long time = AutoBan.get(player).getValue();
+				Long time = AutoBan.get(player).getValue();
 				if (System.currentTimeMillis() < time) {
 					continue;
 				}
@@ -607,13 +607,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		}
 		final Map<UUID, Map<Check, Long>> ViolationResets = new HashMap<>(this.ViolationReset);
-		for (final UUID uid : ViolationResets.keySet()) {
+		for (UUID uid : ViolationResets.keySet()) {
 			if (!this.Violations.containsKey(uid)) {
 				continue;
 			}
-			final Map<Check, Long> Checks = new HashMap<>(ViolationResets.get(uid));
-			for (final Check check : Checks.keySet()) {
-				final Long time2 = Checks.get(check);
+			Map<Check, Long> Checks = new HashMap<>(ViolationResets.get(uid));
+			for (Check check : Checks.keySet()) {
+				Long time2 = Checks.get(check);
 				if (System.currentTimeMillis() >= time2) {
 					this.ViolationReset.get(uid).remove(check);
 					this.Violations.get(uid).remove(check);
@@ -704,7 +704,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			msg.addText(Color.DGray + Color.Bold + "]");
 			ArrayList<Player> players;
 			for (int length = (players = getOnlinePlayers()).size(), i = 0; i < length; ++i) {
-				final Player playerplayer = players.get(i);
+				Player playerplayer = players.get(i);
 				if (playerplayer.hasPermission("anticheat.staff")) {
 					msg.sendToPlayer(playerplayer);
 				}
@@ -758,7 +758,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void alert(String message) {
-		for (final Player playerplayer : this.AlertsOn) {
+		for (Player playerplayer : this.AlertsOn) {
 			playerplayer.sendMessage(String.valueOf(PREFIX) + message);
 		}
 	}
@@ -766,19 +766,19 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public void logCheat(Check check, Player player, String hoverabletext, String... identefier) {
 		String a = "";
 		if (identefier != null) {
-			for (final String b : identefier) {
+			for (String b : identefier) {
 				a = a + " " + b;
 			}
 		}
 		this.addViolation(player, check);
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
-		final Integer violations = this.getViolations(player, check);
+		Integer violations = this.getViolations(player, check);
 		if (violations >= check.getViolationsToNotify()) {
 			if (check.getViolationsToNotify() != null
 					||(check.getViolationsToNotify() != 0)) {
-				final int x = violations / check.getViolationsToNotify();
+				int x = violations / check.getViolationsToNotify();
 
-				final ActionMessageUtil msg = new ActionMessageUtil();
+				ActionMessageUtil msg = new ActionMessageUtil();
 				msg.addText(PREFIX);
 				msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 						+ player.getName())
@@ -791,7 +791,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 				msg.addText(Color.translate(getConfig().getString("alerts.primary"))
 						+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
-				final ActionMessageUtil.AMText CheckText = msg
+				ActionMessageUtil.AMText CheckText = msg
 						.addText(Color.translate(getConfig().getString("alerts.checkColor"))
 								+ check.getName());
 				if (hoverabletext != null) {
@@ -802,7 +802,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 						+ "x" + x);
 				if (violations % check.getViolationsToNotify() == 0) {
-					for (final Player playerplayer : this.AlertsOn) {
+					for (Player playerplayer : this.AlertsOn) {
 						if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
 							continue;
 						}
@@ -819,9 +819,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 		}
 		else {
-			final int x = violations;
+			int x = violations;
 
-			final ActionMessageUtil msg = new ActionMessageUtil();
+			ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
 			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 					+ player.getName())
@@ -834,7 +834,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 			msg.addText(Color.translate(getConfig().getString("alerts.primary"))
 					+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
-			final ActionMessageUtil.AMText CheckText = msg
+			ActionMessageUtil.AMText CheckText = msg
 					.addText(Color.translate(getConfig().getString("alerts.checkColor"))
 							+ check.getName());
 			if (hoverabletext != null) {
@@ -845,7 +845,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 					+ "x" + x);
 			if (violations % check.getViolationsToNotify() == 0) {
-				for (final Player playerplayer : this.AlertsOn) {
+				for (Player playerplayer : this.AlertsOn) {
 					if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
 						continue;
 					}
@@ -894,7 +894,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}}
 
 	private void loadChecks() {
-		for(final Check check : getDataManager().getChecks()) {
+		for(Check check : getDataManager().getChecks()) {
 			if(getConfig().get("checks." + check.getType() + "." + check.getName() + ".enabled") != null) {
 				check.setEnabled(getConfig().getBoolean("checks." + check.getType() + "." + check.getName() + ".enabled"));
 			} else {
@@ -905,7 +905,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	private void saveChecks() {
-		for(final Check check : getDataManager().getChecks()) {
+		for(Check check : getDataManager().getChecks()) {
 			getConfig().set("checks." + check.getType() + "." + check.getName() + ".enabled", check.isEnabled());
 			saveConfig();
 		}
@@ -919,7 +919,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	private void addDataPlayers() {
-		for (final Player playerLoop : Bukkit.getOnlinePlayers()) {
+		for (Player playerLoop : Bukkit.getOnlinePlayers()) {
 			getInstance().getDataManager().addPlayerData(playerLoop);
 		}
 	}
@@ -927,22 +927,22 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	private void checkPacket(PacketEvent event) {
 
 		dispatchCommand = getConfig().getString("settings.bancmd");
-		final Player player = event.getPlayer();
+		Player player = event.getPlayer();
 		if (player == null) {
-			final String name = event.getPacket().getStrings().readSafely(0);
+			String name = event.getPacket().getStrings().readSafely(0);
 			getLogger().log(Level.SEVERE, "packet ''{0}'' without player ", name);
 			if (logger != null) logger.log(Level.SEVERE, "packet ''{0}'' without player ", name);
 			event.setCancelled(true);
 			return;
 		}
-		final long lastPacket = PACKET_USAGE.getOrDefault(player, -1L);
+		long lastPacket = PACKET_USAGE.getOrDefault(player, -1L);
 
 		if (lastPacket == -2L) {
 			event.setCancelled(true);
 			return;
 		}
 
-		final String packetName = event.getPacket().getStrings().readSafely(0);
+		String packetName = event.getPacket().getStrings().readSafely(0);
 		if (packetName == null || !PACKET_NAMES.contains(packetName))
 			return;
 
@@ -958,7 +958,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 				checkNbtTags(event);
 			}
-		} catch (final ExploitException ex) {
+		} catch (ExploitException ex) {
 			PACKET_USAGE.put(player, -2L);
 
 			Bukkit.getScheduler().runTask(this, () -> {
@@ -972,7 +972,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			getLogger().warning(player.getName() + " tried to exploit CustomPayload: " + ex.getMessage());
 			if (logger != null) logger.log(Level.WARNING, "{0} tried exploit CustomPayload: {1}{2}", new Object[]{player.getName(), ex.getMessage(), ex.itemstackToLogString(" ")});
 			event.setCancelled(true);
-		} catch (final Throwable ex) {
+		} catch (Throwable ex) {
 			getLogger().severe(String.format("Failed to check packet '%s' for %s: %s", packetName, player.getName(), ex.getMessage()));
 			if (logger != null) logger.log(Level.SEVERE, String.format("Failed to check packet '%s': ", packetName, player.getName()), ex);
 			event.setCancelled(true);
@@ -980,27 +980,27 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	private void checkNbtTags(PacketEvent event) throws ExploitException {
-		final PacketContainer container = event.getPacket();
-		final ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
+		PacketContainer container = event.getPacket();
+		ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
 
 		try {
 			ItemStack itemStack = null;
 			try {
 				itemStack = deserializeItemStack(buffer);
-			} catch (final Throwable ex) {
+			} catch (Throwable ex) {
 				throw new ExploitException("Unable to deserialize ItemStack", ex);
 			}
 			if (itemStack == null)
 				throw new ExploitException("Unable to deserialize ItemStack");
 
-			final NbtCompound root = (NbtCompound) NbtFactory.fromItemTag(itemStack);
+			NbtCompound root = (NbtCompound) NbtFactory.fromItemTag(itemStack);
 			if (root == null)
 				throw new ExploitException("No NBT tag?!", itemStack);
 
 			if (!root.containsKey("pages"))
 				throw new ExploitException("No 'pages' NBT compound was found", itemStack);
 
-			final NbtList<String> pages = root.getList("pages");
+			NbtList<String> pages = root.getList("pages");
 			if (pages.size() > 50)
 				throw new ExploitException("Too much pages", itemStack);
 
@@ -1015,8 +1015,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	private void checkChannels(PacketEvent event) throws ExploitException {
 		int channelsSize = event.getPlayer().getListeningPluginChannels().size();
 
-		final PacketContainer container = event.getPacket();
-		final ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
+		PacketContainer container = event.getPacket();
+		ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
 
 		try {
 			for (int i = 0; i < buffer.toString(Charsets.UTF_8).split("\0").length; i++)
@@ -1040,14 +1040,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				READ_ITEM_METHOD = Accessors.getMethodAccessor(FuzzyReflection.fromClass(MinecraftReflection.getPacketDataSerializerClass(), true).getMethodByParameters("readItemStack", MinecraftReflection.getItemStackClass(), new Class[0]));
 			}
 
-			final Object serializer = MinecraftReflection.getPacketDataSerializer(buf);
+			Object serializer = MinecraftReflection.getPacketDataSerializer(buf);
 			nmsItem = READ_ITEM_METHOD.invoke(serializer);
 		} else {
 			if (READ_ITEM_METHOD == null) {
 				READ_ITEM_METHOD = Accessors.getMethodAccessor(FuzzyReflection.fromClass(MinecraftReflection.getPacketClass()).getMethod(FuzzyMethodContract.newBuilder().parameterCount(1).parameterDerivedOf(DataInput.class).returnDerivedOf(MinecraftReflection.getItemStackClass()).build()));
 			}
 
-			final DataInputStream input = new DataInputStream(new ByteBufferInputStream(buf.nioBuffer()));
+			DataInputStream input = new DataInputStream(new ByteBufferInputStream(buf.nioBuffer()));
 			nmsItem = READ_ITEM_METHOD.invoke((Object)null, new Object[]{input});
 		}
 
@@ -1060,19 +1060,19 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		maxMove = getConfig().getInt("max_move");
 		getConfig().getStringList("excluded_blocks").forEach(string -> {
 			try {
-				final Material material = Material.getMaterial(string);
+				Material material = Material.getMaterial(string);
 
 				excludedBlocks.add(material);
-			} catch (final NullPointerException e) {
+			} catch (NullPointerException e) {
 				throw new NullPointerException("The material '" + string + "' in the config does not exist!");
 			}
 		});
 	}
 
 	public String formatArrayToString(List<String> array) {
-		final StringBuilder toReturn = new StringBuilder();
+		StringBuilder toReturn = new StringBuilder();
 		for (int i = 0; i < array.size(); i++) {
-			final String string = array.get(i);
+			String string = array.get(i);
 
 			toReturn.append(string).append(array.size() - i > 1 ? ", " : "");
 		}

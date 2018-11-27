@@ -1,15 +1,9 @@
 package me.rida.anticheat.checks.client;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
-
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,12 +12,19 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.json.simple.parser.JSONParser;
+
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
+
 import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.utils.Color;
 
 public class PMEA extends Check implements PluginMessageListener, Listener {
 	private static String type;
     private final JSONParser parser = new JSONParser();
-    private static final Map<UUID, Map<String, String>> forgeMods;
+    private final static Map<UUID, Map<String, String>> forgeMods;
 
     static {
         forgeMods = new HashMap<UUID, Map<String, String>>();

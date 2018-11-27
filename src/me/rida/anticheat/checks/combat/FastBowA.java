@@ -1,8 +1,7 @@
 package me.rida.anticheat.checks.combat;
 
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.CheckType;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
@@ -12,8 +11,9 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.HashMap;
-import java.util.Map;
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
 
 public class FastBowA extends Check {
 	public static Map<Player, Long> bowPull;

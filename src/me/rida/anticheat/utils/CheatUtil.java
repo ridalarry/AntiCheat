@@ -1,5 +1,15 @@
 package me.rida.anticheat.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -11,10 +21,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
-
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class CheatUtil {
     public static final String SPY_METADATA = "ac-spydata";
@@ -273,16 +279,16 @@ public final class CheatUtil {
     }
 
     public static boolean isOnGround(final Location location, final int down) {
-        final double posX = location.getX();
-        final double posZ = location.getZ();
-        final double fracX = (MathUtil.getFraction(posX) > 0.0) ? Math.abs(MathUtil.getFraction(posX))
+    	final double posX = location.getX();
+    	final double posZ = location.getZ();
+    	final double fracX = (MathUtil.getFraction(posX) > 0.0) ? Math.abs(MathUtil.getFraction(posX))
                 : (1.0 - Math.abs(MathUtil.getFraction(posX)));
-        final double fracZ = (MathUtil.getFraction(posZ) > 0.0) ? Math.abs(MathUtil.getFraction(posZ))
+    	final double fracZ = (MathUtil.getFraction(posZ) > 0.0) ? Math.abs(MathUtil.getFraction(posZ))
                 : (1.0 - Math.abs(MathUtil.getFraction(posZ)));
-        final int blockX = location.getBlockX();
-        final int blockY = location.getBlockY() - down;
-        final int blockZ = location.getBlockZ();
-        final World world = location.getWorld();
+    	final int blockX = location.getBlockX();
+    	final int blockY = location.getBlockY() - down;
+    	final int blockZ = location.getBlockZ();
+    	final World world = location.getWorld();
         if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
             return true;
         }
@@ -484,19 +490,19 @@ public final class CheatUtil {
         return false;
     }
 
-    public static boolean blocksNear(Player player) {
+    public static boolean blocksNear(final Player player) {
         return blocksNear(player.getLocation());
     }
 
-    public static boolean blocksNear(final Location loc) {
+    public static boolean blocksNear(Location loc) {
         boolean nearBlocks = false;
-        for (Block block : BlockUtil.getSurrounding(loc.getBlock(), true)) {
+        for (final Block block : BlockUtil.getSurrounding(loc.getBlock(), true)) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;
             }
         }
-        for (final Block block : BlockUtil.getSurrounding(loc.getBlock(), false)) {
+        for (Block block : BlockUtil.getSurrounding(loc.getBlock(), false)) {
             if (block.getType() != Material.AIR) {
                 nearBlocks = true;
                 break;

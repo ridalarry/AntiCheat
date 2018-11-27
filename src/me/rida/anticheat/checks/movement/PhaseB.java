@@ -35,9 +35,10 @@ public class PhaseB extends Check implements Listener {
 	public static List<Material> allowed = new ArrayList<>();
 	public static List<Material> semi = new ArrayList<>();
 	public static Set<UUID> teleported = new HashSet<>();
-	public static final Map<UUID, Location> lastLocation = new HashMap<>();
+	public static Map<UUID, Location> lastLocation = new HashMap<>();
 
-	private final ImmutableSet<Material> blockedPearlTypes = Sets.immutableEnumSet(Material.THIN_GLASS,
+	@SuppressWarnings("unused")
+	private ImmutableSet<Material> blockedPearlTypes = Sets.immutableEnumSet(Material.THIN_GLASS,
 			Material.IRON_FENCE, Material.FENCE, Material.NETHER_FENCE, Material.FENCE_GATE, Material.ACACIA_STAIRS,
 			Material.BIRCH_WOOD_STAIRS, Material.BRICK_STAIRS, Material.COBBLESTONE_STAIRS, Material.DARK_OAK_STAIRS,
 			Material.JUNGLE_WOOD_STAIRS, Material.NETHER_BRICK_STAIRS, Material.QUARTZ_STAIRS,
@@ -138,7 +139,7 @@ public class PhaseB extends Check implements Listener {
 		semi.add(Material.STAINED_GLASS_PANE);
 		semi.add(Material.COBBLE_WALL);
 	}
-	private final Map<Player, Long> lastDoorSwing;
+	private Map<Player, Long> lastDoorSwing;
 
 	public PhaseB(AntiCheat AntiCheat) {
 		super("PhaseB", "Phase", CheckType.Combat, AntiCheat);
@@ -152,7 +153,7 @@ public class PhaseB extends Check implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPhase(PlayerMoveEvent e) {
-		final Player player = e.getPlayer();
+		Player player = e.getPlayer();
 
 		if (player.getAllowFlight()
 				|| player.getVehicle() != null
@@ -165,10 +166,10 @@ public class PhaseB extends Check implements Listener {
 			return;
 		}
 
-		final float minX = (float) Math.min(e.getFrom().getX(), e.getTo().getX()), minY = (float) Math.min(e.getFrom().getY(), e.getTo().getY()), minZ = (float) Math.min(e.getFrom().getZ(), e.getTo().getZ()),
+		float minX = (float) Math.min(e.getFrom().getX(), e.getTo().getX()), minY = (float) Math.min(e.getFrom().getY(), e.getTo().getY()), minZ = (float) Math.min(e.getFrom().getZ(), e.getTo().getZ()),
 				maxX = (float) Math.max(e.getFrom().getX(), e.getTo().getX()), maxY = (float) Math.max(e.getFrom().getY(), e.getTo().getY()), maxZ = (float) Math.max(e.getFrom().getZ(), e.getTo().getZ());
 
-		final Object box = new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ).add(0f, 0f, 0f, 0f, 1.8f, 0f).toAxisAlignedBB();
+		Object box = new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ).add(0f, 0f, 0f, 0f, 1.8f, 0f).toAxisAlignedBB();
 
 		if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
 			e.setTo(e.getFrom());

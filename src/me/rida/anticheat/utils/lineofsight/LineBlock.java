@@ -4,7 +4,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 public class LineBlock {
-    private final LineBlock parent;
+    private LineBlock parent;
     private int x;
     private int y;
     private int z;

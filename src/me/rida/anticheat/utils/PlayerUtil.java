@@ -63,8 +63,8 @@ public class PlayerUtil {
 	}
 
 	public static int getDistanceToGround(Player p){
-		final Location loc = p.getLocation().clone();
-		final double y = loc.getBlockY();
+		Location loc = p.getLocation().clone();
+		double y = loc.getBlockY();
 		int distance = 0;
 		for (double i = y; i >= 0; i--){
 			loc.setY(i);
@@ -79,7 +79,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnGround(Location loc) {
-		final double diff = .3;
+		double diff = .3;
 
 		return !isGround(loc.clone().add(0, -.1, 0).getBlock().getType())
 				|| !isGround(loc.clone().add(diff, -.1, 0).getBlock().getType())
@@ -103,22 +103,22 @@ public class PlayerUtil {
 
 
 	public static boolean isOnGround(Player player) {
-		final Object box = ServerUtil.getBoundingBox(player);
-		final Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.1D, 0D);
+		Object box = ServerUtil.getBoundingBox(player);
+		Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.1D, 0D);
 		return ServerUtil.inBlock(player, outcome);
 	}
 
 	public static boolean hasPistonNear(Player player) {
-		final Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 2D, 3D, 2D);
+		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 2D, 3D, 2D);
 
-		final Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
+		Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
 
-		for(final Object object : collidingBlocks) {
-			final double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
-			final double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
-			final double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
+		for(Object object : collidingBlocks) {
+			double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
+			double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
+			double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
 
-			final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+			Block block = new Location(player.getWorld(), x, y, z).getBlock();
 			if(BlockUtil.isPiston(block)) {
 				return true;
 			}
@@ -127,16 +127,16 @@ public class PlayerUtil {
 	}
 
 	public static boolean hasIceNear(Player player) {
-		final Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 0D, 1.5D, 0D);
+		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 0D, 1.5D, 0D);
 
-		final Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
+		Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
 
-		for(final Object object : collidingBlocks) {
-			final double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
-			final double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
-			final double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
+		for(Object object : collidingBlocks) {
+			double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
+			double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
+			double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
 
-			final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+			Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 			if(BlockUtil.isIce(block)) {
 				return true;
@@ -147,11 +147,11 @@ public class PlayerUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean wasOnSlime(Player player) {
-		final DataPlayer user = AntiCheat.getInstance().getDataManager().getData(player);
+		DataPlayer user = AntiCheat.getInstance().getDataManager().getData(player);
 
 		if(user != null
 				&&user.getSetbackLocation() != null) {
-			final Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
+			Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
 
 			if(location.getBlock().getTypeId() == 165){
 				return true;
@@ -161,13 +161,13 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnGround3(Player player) {
-		final Object box = ServerUtil.getBoundingBox(player);
-		final Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.3D, 0D);
+		Object box = ServerUtil.getBoundingBox(player);
+		Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.3D, 0D);
 		return ServerUtil.inBlock(player, outcome);
 	}
 
 	public static boolean isInWater(Location loc) {
-		final double diff = .3;
+		double diff = .3;
 		return BlockUtil.isLiquid(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isLiquid(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isLiquid(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -188,7 +188,7 @@ public class PlayerUtil {
 						|| BlockUtil.isLiquid(loc.clone().add(-diff,  0D, -diff).getBlock())));
 	}
 	public static boolean isOnSlime(Location loc) {
-		final double diff = .3;
+		double diff = .3;
 		return BlockUtil.isSlime(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isSlime(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isSlime(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -202,7 +202,7 @@ public class PlayerUtil {
 
 
 	public static boolean isOnSlab(Location loc) {
-		final double diff = .3;
+		double diff = .3;
 		return BlockUtil.isSlab(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isSlab(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isSlab(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -215,7 +215,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnStair(Location loc) {
-		final double diff = 0.3;
+		double diff = 0.3;
 		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -227,7 +227,7 @@ public class PlayerUtil {
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
 	public static boolean isOnFence(Location loc) {
-		final double diff = 0.3;
+		double diff = 0.3;
 		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isFence(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -239,7 +239,7 @@ public class PlayerUtil {
 				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
 	public static boolean isOnPressure(Location loc) {
-		final double diff = 0.3;
+		double diff = 0.3;
 		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -252,7 +252,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean hasSlabsNear(Location location) {
-		for(final Block block : BlockUtil.getSurroundingXZ(location.getBlock(), true)) {
+		for(Block block : BlockUtil.getSurroundingXZ(location.getBlock(), true)) {
 			if(BlockUtil.isSlab(block)) {
 				return true;
 			}
@@ -263,13 +263,13 @@ public class PlayerUtil {
 
 	public static boolean isOnClimbable(Player player, int blocks) {
 		if (blocks == 0) {
-			for (final Block block : getSurrounding(player.getLocation().getBlock(), false)) {
+			for (Block block : getSurrounding(player.getLocation().getBlock(), false)) {
 				if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
 					return true;
 				}
 			}
 		} else {
-			for (final Block block : getSurrounding(player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock(),
+			for (Block block : getSurrounding(player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock(),
 					false)) {
 				if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
 					return true;
@@ -288,7 +288,7 @@ public class PlayerUtil {
 	}
 
 	public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
-		final ArrayList<Block> blocks = new ArrayList<>();
+		ArrayList<Block> blocks = new ArrayList<>();
 		if (diagonals) {
 			for (int x = -1; x <= 1; x++) {
 				for (int y = -1; y <= 1; y++) {
@@ -311,18 +311,18 @@ public class PlayerUtil {
 	}
 
 
-	public static Location getEyeLocation(final Player player) {
+	public static Location getEyeLocation(Player player) {
 		final Location eye = player.getLocation();
 		eye.setY(eye.getY() + player.getEyeHeight());
 		return eye;
 	}
 
 	public static boolean isBlock(Block block, Material[] materials) {
-		final Material type = block.getType();
+		Material type = block.getType();
 		Material[] arrayOfMaterial;
-		final int j = (arrayOfMaterial = materials).length;
+		int j = (arrayOfMaterial = materials).length;
 		for (int i = 0; i < j; i++) {
-			final Material m = arrayOfMaterial[i];
+			Material m = arrayOfMaterial[i];
 			if (m == type) {
 				return true;
 			}
@@ -330,8 +330,8 @@ public class PlayerUtil {
 		return false;
 	}
 
-	public static boolean isAir(final Player player) {
-		final Block b = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
+	public static boolean isAir(Player player) {
+		Block b = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
 		return b.getType().equals(Material.AIR)
 				&& b.getRelative(BlockFace.WEST).getType().equals(Material.AIR)
 				&& b.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)
@@ -341,7 +341,7 @@ public class PlayerUtil {
 
 
 	public static int getPotionEffectLevel(Player player, PotionEffectType pet) {
-		for (final PotionEffect pe : player.getActivePotionEffects()) {
+		for (PotionEffect pe : player.getActivePotionEffects()) {
 			if (pe.getType().getName().equals(pet.getName())) {
 				return pe.getAmplifier() + 1;
 			}
@@ -354,7 +354,7 @@ public class PlayerUtil {
 		return isOnTheGround(player, 0.25);
 	}
 	public static boolean isOnTheGround(Player player, double yExpanded) {
-		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
+		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
 
 		return ReflectionUtil.getCollidingBlocks(player, box).size() > 0;
 	}
@@ -363,19 +363,19 @@ public class PlayerUtil {
 		return isOnTheGround(player, 1.25);
 	}
 	public static boolean isInSlime(Player player) {
-		final Object box = ReflectionUtil.getBoundingBox(player);
+		Object box = ReflectionUtil.getBoundingBox(player);
 
-		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.isSlime(block)) {
 						return true;
@@ -387,19 +387,19 @@ public class PlayerUtil {
 	}
 
 	public static boolean isInLiquid(Player player) {
-		final Object box = ReflectionUtil.getBoundingBox(player);
+		Object box = ReflectionUtil.getBoundingBox(player);
 
-		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.isLiquid(block)) {
 						return true;
@@ -411,19 +411,19 @@ public class PlayerUtil {
 	}
 
 	public static boolean isInStairs(Player player) {
-		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.isStair(block)
 							|| BlockUtil.isSlab(block)
@@ -445,19 +445,19 @@ public class PlayerUtil {
 
 
 	public static boolean inUnderBlock(Player player) {
-		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
+		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
 
-		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(block.getType().isSolid()) {
 						return true;
@@ -468,19 +468,19 @@ public class PlayerUtil {
 		return false;
 	}
 	public static boolean isOnAllowedPhase(Player player) {
-		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.allowedPhase(block)) {
 						return true;
@@ -492,19 +492,19 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnIce(Player player) {
-		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(block.getType().equals(Material.ICE)
 							|| block.getType().equals(Material.PACKED_ICE)) {
@@ -527,7 +527,7 @@ public class PlayerUtil {
 		if (player.getLocation().clone().getBlock() == null) {
 			return false;
 		}
-		final Block block = player.getLocation().clone().getBlock();
+		Block block = player.getLocation().clone().getBlock();
 		if (CheatUtil.isSlab(block) || CheatUtil.isStair(block)) {
 			return false;
 		}
@@ -545,8 +545,8 @@ public class PlayerUtil {
 	}
 
 	public static boolean isFullyStuck(Player player) {
-		final Block block1 = player.getLocation().clone().getBlock();
-		final Block block2 = player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock();
+		Block block1 = player.getLocation().clone().getBlock();
+		Block block2 = player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock();
 		if (block1.getType().isSolid() && block2.getType().isSolid()) {
 			return true;
 		}

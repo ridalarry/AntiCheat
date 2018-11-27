@@ -1,13 +1,14 @@
 package me.rida.anticheat.utils;
 
-import me.rida.anticheat.AntiCheat;
-import org.bukkit.configuration.file.YamlConfiguration;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.bukkit.configuration.file.YamlConfiguration;
+
+import me.rida.anticheat.AntiCheat;
 
 public class ConfigFile {
 
