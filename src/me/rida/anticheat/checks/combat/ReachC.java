@@ -35,7 +35,7 @@ public class ReachC extends Check {
 		toBan = new HashMap<UUID, Integer>();
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(EntityDamageByEntityEvent e) {
 		if (!e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)
 				|| !(e.getDamager() instanceof Player)

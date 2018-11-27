@@ -48,7 +48,9 @@ public class CriticalsA extends Check {
                 || PlayerUtil.hasSlabsNear(p.getLocation())) {
             return;
         }
-
+        if (BlockUtil.isNearLiquid(p) && BlockUtil.isNearFence(p)) {
+        	return;
+        }
         int verbose = data.getCriticalsVerbose();
 
         if(p.getFallDistance() > 0 && data.getFallDistance() == 0) {

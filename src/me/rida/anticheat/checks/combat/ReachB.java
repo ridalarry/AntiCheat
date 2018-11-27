@@ -37,7 +37,7 @@ public class ReachB extends Check {
 		count = new WeakHashMap<Player, Integer>();
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onMove(PlayerMoveEvent e) {
 		if (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()) {
 			return;
@@ -50,7 +50,7 @@ public class ReachB extends Check {
 				new AbstractMap.SimpleEntry<Double, Double>(Double.valueOf(OffsetXZ), Double.valueOf(horizontal)));
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
 				|| !(e.getEntity() instanceof Player)
