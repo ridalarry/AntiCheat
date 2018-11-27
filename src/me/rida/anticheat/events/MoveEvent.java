@@ -36,6 +36,7 @@ public class MoveEvent implements Listener {
 	// This starts the timer
 	  public void startTimer(Player player)
 	  {
+		  Bukkit.broadcastMessage("Added to list");
 	    this.ticksLeft.put(player.getName(), defaultWait);
 	    this.cooldownTask.put(player.getName(), new BukkitRunnable(){
 	      public void run()
@@ -45,6 +46,7 @@ public class MoveEvent implements Listener {
 	        	ticksLeft.remove(player.getName());
 	        	cooldownTask.remove(player.getName());
 	          Bukkit.getServer().getScheduler().cancelTask(getTaskId());
+			Bukkit.broadcastMessage("Removed player from timer");
 	          cancel();
 	          return;
 	        }
@@ -59,12 +61,14 @@ public class MoveEvent implements Listener {
 	public boolean inTimer(Player player) {
 		
 		if(ticksLeft.isEmpty() || !ticksLeft.containsKey(player.getName().toString())) {
+			Bukkit.broadcastMessage("Not in list");
 			return false;
 		}
 		
 		
 		// Just making sure!
 		if(ticksLeft.containsKey(player.getName().toString())) {
+			Bukkit.broadcastMessage("Is in list");
 			return true;
 		}
 		return false;
