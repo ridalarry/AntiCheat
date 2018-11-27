@@ -7,6 +7,10 @@ import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimerUtils;
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -15,12 +19,82 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class MoveEvent implements Listener {
 
+	
+	int defaultWait = 4; // This is in ticks
+	
+	// We need to create hashmaps to store the amount of time left
+	
+	  public HashMap<String, Integer> ticksLeft = new HashMap(); // This is the amount of ticks left to wait
+	  public HashMap<String, BukkitRunnable> cooldownTask = new HashMap(); // This is the task event
+	
+	
+	// This starts the timer
+	  public void startTimer(Player player)
+	  {
+	    this.ticksLeft.put(player.getName(), defaultWait);
+	    this.cooldownTask.put(player.getName(), new BukkitRunnable(){
+	      public void run()
+	      {
+	    	  ticksLeft.put(player.getName(), Integer.valueOf(((Integer)ticksLeft.get(player.getName())).intValue() - 1));
+	        if (((Integer)ticksLeft.get(player.getName())).intValue() == 0){
+	        	ticksLeft.remove(player.getName());
+	        	cooldownTask.remove(player.getName());
+	          Bukkit.getServer().getScheduler().cancelTask(getTaskId());
+	          cancel();
+	          return;
+	        }
+	      }
+	    });
+	    ((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer((Plugin) this, 0L, 1L);
+	  }
+	  
+	  
+	
+	// Checks to see if the person is in the timer
+	public boolean inTimer(Player player) {
+		
+		if(ticksLeft.isEmpty() || !ticksLeft.containsKey(player.getName().toString())) {
+			return false;
+		}
+		
+		
+		// Just making sure!
+		if(ticksLeft.containsKey(player.getName().toString())) {
+			return true;
+		}
+		return false;
+	}
+	
+
+	
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onMove(PlayerMoveEvent e) {
+		
+		
         Player p = e.getPlayer();
+        
+        
+		// We need to make sure this doesn't get run to much
+		// The event will be run a lot, but nothing will come out of it!
+        
+        // If it is true, then the person is in the timer and will not run the below processes.
+        if(inTimer(p) == true) {
+        	
+        	return;
+        	
+        }else {
+        	// The person is not in the timer, and needs to get the timer to start.
+        	startTimer(p);
+        	// At this point, the player is in the timer.  So the below stuff will be run once until the person isn't in the timer
+        }
+        
+        
+        
         if (e.getFrom().getX() != e.getTo().getX()
                 || e.getFrom().getY() != e.getTo().getY()
                 || e.getFrom().getZ() != e.getTo().getZ()) {
