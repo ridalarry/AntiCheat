@@ -147,6 +147,7 @@ public class PhaseB extends Check implements Listener {
 		setEnabled(true);
 		setBannable(false);
 		setMaxViolations(40);
+		setViolationsToNotify(3);
 		lastDoorSwing = new WeakHashMap<>();
 
 	}
@@ -157,7 +158,8 @@ public class PhaseB extends Check implements Listener {
 
 		if (player.getAllowFlight()
 				|| player.getVehicle() != null
-				|| MathUtil.elapsed(lastDoorSwing.getOrDefault(player, 0L)) < 500) {
+				|| MathUtil.elapsed(lastDoorSwing.getOrDefault(player, 0L)) < 500
+				|| BlockUtil.isNearPistion(player)) {
 			return;
 		}
 
@@ -172,7 +174,6 @@ public class PhaseB extends Check implements Listener {
 		Object box = new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ).add(0f, 0f, 0f, 0f, 1.8f, 0f).toAxisAlignedBB();
 
 		if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
-			e.setTo(e.getFrom());
 			getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
 		}
 

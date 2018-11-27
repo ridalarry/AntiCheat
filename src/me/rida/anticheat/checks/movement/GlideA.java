@@ -3,6 +3,7 @@ package me.rida.anticheat.checks.movement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,7 +36,7 @@ public class GlideA extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void CheckGlide(PlayerMoveEvent e) {
 		if (!this.getAntiCheat().isEnabled()) {
 			return;

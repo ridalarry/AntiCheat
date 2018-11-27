@@ -40,14 +40,14 @@ public class JesusA extends Check {
 		velocity = new WeakHashMap<Player, Long>();
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGH)
 	private void onLeave(PlayerQuitEvent e) {
 		if (placedBlockOnWater.contains(e.getPlayer())) {
 			placedBlockOnWater.remove(e.getPlayer());
 		}
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGH)
 	private void onDeath(PlayerDeathEvent e) {
 		if (onWater.containsKey(e.getEntity())) {
 			onWater.remove(e.getEntity());
@@ -60,19 +60,19 @@ public class JesusA extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onVelocity(PlayerVelocityEvent e) {
 		velocity.put(e.getPlayer(), System.currentTimeMillis());
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void OnPlace(BlockPlaceEvent e) {
 		if (e.getBlockReplacedState().getBlock().getType() == Material.WATER) {
 			placedBlockOnWater.add(e.getPlayer());
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void CheckJesus(PlayerMoveEvent event) {
 		Player p = event.getPlayer();
 		if (event.isCancelled()

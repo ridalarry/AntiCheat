@@ -28,7 +28,7 @@ public class FastLadderA extends Check {
 		count = new WeakHashMap<Player, Integer>();
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void checkFastLadder(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 

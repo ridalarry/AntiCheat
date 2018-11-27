@@ -611,6 +611,15 @@ public class BlockUtil {
 		}
 		return out;
 	}
+	public static boolean isNearPiston(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+			if (isPiston(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean isNearPressure(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {

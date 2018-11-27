@@ -60,7 +60,7 @@ public class NoFallA extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onTeleport(PlayerTeleportEvent e) {
 		if (e.getCause() == TeleportCause.ENDER_PEARL) {
 			cancel.add(e.getPlayer());
@@ -68,7 +68,7 @@ public class NoFallA extends Check {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Move(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (p.getAllowFlight()

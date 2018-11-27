@@ -1,11 +1,5 @@
 package me.rida.anticheat.checks.movement;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.TimerUtils;
-
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,6 +7,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.TimerUtils;
 
 public class ImpossibleMovementsA extends Check {
     public ImpossibleMovementsA(AntiCheat AntiCheat) {
@@ -22,7 +22,7 @@ public class ImpossibleMovementsA extends Check {
 		setBannable(false);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         Location from  =e.getFrom();

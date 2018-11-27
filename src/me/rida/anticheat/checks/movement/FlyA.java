@@ -28,7 +28,7 @@ public class FlyA extends Check {
 		setMaxViolations(4);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Location from = e.getFrom();
 		Location to = e.getTo();

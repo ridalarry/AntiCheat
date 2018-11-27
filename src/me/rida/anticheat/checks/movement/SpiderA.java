@@ -22,10 +22,10 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class SpiderA extends Check {
@@ -35,8 +35,6 @@ public class SpiderA extends Check {
 
 		this.setEnabled(true);
 		this.setBannable(false);
-		setViolationResetTime(1000);
-		setViolationsToNotify(2);
 		setMaxViolations(5);
 	}
 
@@ -53,18 +51,19 @@ public class SpiderA extends Check {
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		
         if (p.getGameMode().equals(GameMode.CREATIVE)
                 || p.getAllowFlight()
+				|| e.getTo().getY() < e.getFrom().getY()
                 || p.getVehicle() != null
                 || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
                 || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == 165
                 || PlayerUtil.isOnClimbable(p, 0)
-                || PlayerUtil.isOnClimbable(p, 1) 
+                || PlayerUtil.isOnClimbable(p, 1)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
@@ -79,7 +78,6 @@ public class SpiderA extends Check {
         if (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p)) {
         	return;
         }
-		
 
 		long Time = System.currentTimeMillis();
 		double TotalBlocks = 0.0D;
@@ -121,7 +119,7 @@ public class SpiderA extends Check {
 		}
 		if ((ya) && (TotalBlocks > Limit)) {
 			if (MS > 500L) {
-				getAntiCheat().logCheat(this, p, Color.Red + "(WallClimb) False flag if the player is falling next to a wall!", "(Type: A)");
+				getAntiCheat().logCheat(this, p, Color.Red + "(WallClimb)", "(Type: A)");
 				Time = System.currentTimeMillis();
 			}
 		} else {

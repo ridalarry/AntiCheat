@@ -1,16 +1,17 @@
 package me.rida.anticheat.checks.combat;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.PlayerUtil;
-
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 
 public class CriticalsA extends Check {
 
@@ -42,6 +43,7 @@ public class CriticalsA extends Check {
                 || PlayerUtil.isInWeb(p)
                 || p.getAllowFlight()
                 || p.isFlying()
+				|| BlockUtil.isNearPistion(p)
                 || data.getWaterTicks() > 0
                 || PlayerUtil.hasSlabsNear(p.getLocation())) {
             return;

@@ -29,14 +29,14 @@ public class SneakA extends Check {
 		sneakTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onLog(PlayerQuitEvent e) {
 		if (sneakTicks.containsKey(e.getPlayer().getUniqueId())) {
 			sneakTicks.remove(e.getPlayer().getUniqueId());
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void EntityAction(PacketEntityActionEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();

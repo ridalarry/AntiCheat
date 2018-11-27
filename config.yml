@@ -1,0 +1,396 @@
+# 
+# The message sent to players with Phase alerts on.
+settings:
+  EnableCustomLog: true
+  CustomLogFormat: '[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n'
+  bans: 9
+  testmode: false
+  prefix: '&8[&c&lAntiCheat&8] '
+  bancmd: ban %player% [AntiCheat] Unfair Advantage!
+  broadcastmsg: '&c&lAntiCheat &7has detected &c%player% &7to be cheating and has
+    been removed from the network.'
+  broadcastResetViolationsMsg: true
+  violationResetTime: 60
+  resetViolationsAutomatically: true
+  latency:
+    ping: 300
+    tps: 17
+alerts:
+  primary: '&7'
+  secondary: '&c'
+  checkColor: '&b'
+checks:
+  Other:
+    Chat:
+      ChatA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 0
+    BlockInteract:
+      BlockInteractA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 29
+      BlockInteractC:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 20
+      BlockInteractD:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 20
+      BlockInteractE:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 10
+    Change:
+      ChangeA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    Crash:
+      CrashA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 0
+    Exploit:
+      ExploitA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 1
+    InvMove:
+      InvMoveA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 20
+      InvMoveB:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+      InvMoveC:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    BI:
+      BlockInteractA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 29
+      BlockInteractC:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 20
+      BlockInteractD:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 20
+      BlockInteractE:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 10
+  Combat:
+    AimAssist:
+      AimAssistA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    AntiKB:
+      AntiKBA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 30
+    AutoClicker:
+      AutoClickerB:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 5
+      AutoClickerA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 10
+    Criticals:
+      CriticalsA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+      CriticalsB:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 4
+    FastBow:
+      FastBowA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 7
+    HitBox:
+      HitBoxB:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+      HitBoxA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    KillAura:
+      KillAuraA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 150
+      KillAuraB:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 7
+      KillAuraC:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 10
+      KillAuraD:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 20
+      KillAuraE:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 20
+    Phase:
+      PhaseA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 40
+      PhaseB:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 40
+    Reach:
+      ReachA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 7
+      ReachB:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 7
+      ReachC:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 9
+    Regen:
+      RegenA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 12
+    Twitch:
+      TwitchA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 5
+  Movement:
+    FastLadder:
+      FastLadderA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 7
+    Fly:
+      FlyA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 4
+      FlyB:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 5
+    Glide:
+      GlideA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 5
+    ImpossibleMovements:
+      ImpossibleMovementsA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    Jesus:
+      Jesus:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 5
+    NoFall:
+      NoFallA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 9
+    NoSlowdown:
+      NoSlowdownA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 5
+    Sneak:
+      SneakA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 5
+      SneakB:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 5
+    Speed:
+      SpeedA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 15
+      SpeedB:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 15
+      SpeedC:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 3
+    Spider:
+      SpiderA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 5
+    Step:
+      StepA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 7
+    Timer:
+      TimerA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 5
+      TimerB:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 9
+    VClip:
+      VClipA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 19
+    Phase:
+      PhaseA:
+        pearlFix: true
+    ImpMove:
+      ImpossibleMovementsA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+  Player:
+    GroundSpoof:
+      GroundsSpoofA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    ImpossiblePitch:
+      ImpossiblePitchA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 10
+    Packets:
+      PacketsA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+  Client:
+    PME:
+      PMEA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    Spook:
+      SpookA:
+        enabled: true
+        bannable: false
+        banTimer: false
+        maxViolations: 10
+    Vape:
+      VapeA:
+        enabled: true
+        bannable: true
+        banTimer: false
+        maxViolations: 0
+excluded_blocks:
+- SLIME_BLOCK
+- CAULDRON
+- BREWING_STAND
+- PISTON_MOVING_PIECE
+- PISTON_STICKY_BASE
+- PISTON_BASE
+- HOPPER
+- COBBLESTONE_STAIRS
+- OAK_STAIRS
+- BRICK_STAIRS
+- STONE_BRICK_STAIRS
+- NETHER_BRICK_STAIRS
+- SANDSTONE_STAIRS
+- SPRUCE_STAIRS
+- BIRCH_STAIRS
+- JUNGLE_STAIRS
+- QUARTZ_STAIRS
+- ACACIA_STAIRS
+- DARK_OAK_STAIRS
+- RED_SANDSTONE_STAIRS
+alert_message: '&8[&4!&8] &c%player% &7was caught phasing/vclipping.'
+max_move: 10
