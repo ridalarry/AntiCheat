@@ -58,14 +58,18 @@ public class FlyA extends Check {
 			final Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
 			final double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
 			if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
+				final int x = (int) Math.round(to.getY());
+				if (BlockUtil.isNearSlime2(p, x)) {
+					return;
+				}
 				if (Distance > 0.50 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
-					getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance,  "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
 				} else if (Distance > 0.90 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance, "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
 				} else if (Distance > 1.0 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance, "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
 				} else if (Distance > 3.24 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance, "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
 				}
 			}
 		}

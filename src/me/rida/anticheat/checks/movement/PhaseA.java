@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,7 +19,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -38,10 +36,8 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.PearlGlitchEvent;
 import me.rida.anticheat.other.PearlGlitchType;
-import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
-import me.rida.anticheat.utils.PlayerUtil;
 
 public class PhaseA extends Check {
 	public static List<Material> allowed = new ArrayList<>();
@@ -174,55 +170,6 @@ public class PhaseA extends Check {
 	@EventHandler
 	private void respawn(PlayerRespawnEvent e) {
 		teleported.add(e.getPlayer().getUniqueId());
-	}
-
-	@EventHandler
-	private void update(PlayerMoveEvent e) {
-		final Player player = e.getPlayer();
-		if (player.isDead()
-				|| (BlockUtil.isNearLiquid(player) && BlockUtil.isNearHalfBlock(player))
-				|| (BlockUtil.isNearLiquid(player))
-				|| PlayerUtil.wasOnSlime(player)
-				|| BlockUtil.isNearSlime(player)
-				|| PlayerUtil.isOnSlime(player.getLocation())) {
-			return;
-		}
-
-		final UUID playerId = player.getUniqueId();
-		final Location loc1 = lastLocation.containsKey(playerId) ? (Location) lastLocation.get(playerId)
-				: player.getLocation();
-		final Location loc2 = player.getLocation();
-		if (player.getAllowFlight()) {
-			teleported.add(player.getUniqueId());
-		}
-		if (player.getGameMode().equals(GameMode.CREATIVE)) {
-			teleported.add(player.getUniqueId());
-		}
-		if ((loc1.getWorld() == loc2.getWorld()) && (!teleported.contains(playerId))
-				&& (loc1.distance(loc2) > 10.0D)) {
-			if (BlockUtil.isNearAllowedPhase(player)) {
-				return;
-			}
-			player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			if ((player.getLocation().getBlock().getType().isSolid())
-					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
-				getAntiCheat().logCheat(this, player, "[1]", "(Type: A)");
-				return;
-			}
-			getAntiCheat().logCheat(this, player, "[2]", "(Type: A)");
-		} else if (isLegit(playerId, loc1, loc2)) {
-			lastLocation.put(playerId, loc2);
-		} else if (lastLocation.containsKey(playerId)) {
-			player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
-			if ((player.getLocation().getBlock().getType().isSolid())
-					|| (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())) {
-				player.teleport(lastLocation.get(playerId), PlayerTeleportEvent.TeleportCause.PLUGIN);
-
-				getAntiCheat().logCheat(this, player, "[3]", "(Type: A)");
-				return;
-			} return;
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)

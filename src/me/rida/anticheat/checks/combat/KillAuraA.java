@@ -3,12 +3,6 @@ package me.rida.anticheat.checks.combat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.checks.movement.PhaseA;
-import me.rida.anticheat.utils.CheatUtil;
-
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +11,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.checks.movement.PhaseB;
+import me.rida.anticheat.utils.CheatUtil;
 
 public class KillAuraA extends Check {
 
@@ -28,8 +28,8 @@ public class KillAuraA extends Check {
 		setMaxViolations(7);
 	}
 
-	public static HashMap<Player, Integer> counts = new HashMap<Player, Integer>();
-	private ArrayList<Player> blockGlitched = new ArrayList<Player>();
+	public static HashMap<Player, Integer> counts = new HashMap<>();
+	private final ArrayList<Player> blockGlitched = new ArrayList<>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void onPlayerLogout(PlayerQuitEvent e) {
@@ -52,16 +52,16 @@ public class KillAuraA extends Check {
 	private void checkKillaura(EntityDamageByEntityEvent e) {
 		if (e.getCause() != DamageCause.ENTITY_ATTACK
 				|| !getAntiCheat().isEnabled()
-				|| !(e.getDamager() instanceof Player) 
+				|| !(e.getDamager() instanceof Player)
 				|| !(e.getEntity() instanceof Player)) {
 			return;
 		}
 
-		Player p = (Player) e.getDamager();
+		final Player p = (Player) e.getDamager();
 		if (CheatUtil.slabsNear(p.getEyeLocation())
 				|| CheatUtil.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		int Count = 0;
@@ -70,11 +70,11 @@ public class KillAuraA extends Check {
 			Count = counts.get(p);
 		}
 
-		Player a = (Player) e.getEntity();
-		Location dloc = p.getLocation();
-		Location aloc = a.getLocation();
-		double zdif = Math.abs(dloc.getZ() - aloc.getZ());
-		double xdif = Math.abs(dloc.getX() - aloc.getX());
+		final Player a = (Player) e.getEntity();
+		final Location dloc = p.getLocation();
+		final Location aloc = a.getLocation();
+		final double zdif = Math.abs(dloc.getZ() - aloc.getZ());
+		final double xdif = Math.abs(dloc.getX() - aloc.getX());
 
 		if (xdif == 0 || zdif == 0
 				|| CheatUtil.getOffsetOffCursor(p, a) > 20) {
@@ -82,13 +82,13 @@ public class KillAuraA extends Check {
 		}
 
 		for (int y = 0; y < 1; y += 1) {
-			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
-			if (!PhaseA.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
+			final Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
+			if (!PhaseB.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
-			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
-			if (!PhaseA.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
+			final Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
+			if (!PhaseB.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(xBlock.getBlock())) {
 				Count++;
 			}
