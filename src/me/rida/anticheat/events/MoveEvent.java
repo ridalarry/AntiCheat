@@ -25,35 +25,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class MoveEvent implements Listener {
 
 	
-	int defaultWait = 4; // This is in ticks
+	public static int defaultWait = 4; // This is in ticks
 	
 	// We need to create hashmaps to store the amount of time left
 	
-	  public HashMap<String, Integer> ticksLeft = new HashMap(); // This is the amount of ticks left to wait
-	  public HashMap<String, BukkitRunnable> cooldownTask = new HashMap(); // This is the task event
-	
-	
-	// This starts the timer
-	  public void startTimer(Player player)
-	  {
-		  Bukkit.broadcastMessage("Added to list");
-	    this.ticksLeft.put(player.getName(), defaultWait);
-	    this.cooldownTask.put(player.getName(), new BukkitRunnable(){
-	      public void run()
-	      {
-	    	  ticksLeft.put(player.getName(), Integer.valueOf(((Integer)ticksLeft.get(player.getName())).intValue() - 1));
-	        if (((Integer)ticksLeft.get(player.getName())).intValue() == 0){
-	        	ticksLeft.remove(player.getName());
-	        	cooldownTask.remove(player.getName());
-	          Bukkit.getServer().getScheduler().cancelTask(getTaskId());
-			Bukkit.broadcastMessage("Removed player from timer");
-	          cancel();
-	          return;
-	        }
-	      }
-	    });
-	    ((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer((Plugin) this, 0L, 1L);
-	  }
+	  public static HashMap<String, Integer> ticksLeft = new HashMap(); // This is the amount of ticks left to wait
+	  public static HashMap<String, BukkitRunnable> cooldownTask = new HashMap(); // This is the task event
+
 	  
 	  
 	
@@ -61,14 +39,12 @@ public class MoveEvent implements Listener {
 	public boolean inTimer(Player player) {
 		
 		if(ticksLeft.isEmpty() || !ticksLeft.containsKey(player.getName().toString())) {
-			Bukkit.broadcastMessage("Not in list");
 			return false;
 		}
 		
 		
 		// Just making sure!
 		if(ticksLeft.containsKey(player.getName().toString())) {
-			Bukkit.broadcastMessage("Is in list");
 			return true;
 		}
 		return false;
@@ -93,7 +69,7 @@ public class MoveEvent implements Listener {
         	
         }else {
         	// The person is not in the timer, and needs to get the timer to start.
-        	startTimer(p);
+        	AntiCheat.Instance.startTimer(p);
         	// At this point, the player is in the timer.  So the below stuff will be run once until the person isn't in the timer
         }
         
