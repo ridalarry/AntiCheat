@@ -27,7 +27,7 @@ public class JesusA extends Check {
 	public static Map<Player, Long> velocity;
 
 	public JesusA(AntiCheat AntiCheat) {
-		super("Jesus", "Jesus", CheckType.Movement, AntiCheat);
+		super("JesusA", "Jesus", CheckType.Movement, AntiCheat);
 
 		this.setEnabled(true);
 		this.setBannable(true);

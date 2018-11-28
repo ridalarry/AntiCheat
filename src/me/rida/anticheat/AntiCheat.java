@@ -58,6 +58,7 @@ import me.rida.anticheat.checks.client.PMEA;
 import me.rida.anticheat.checks.client.SpookA;
 import me.rida.anticheat.checks.client.VapeA;
 import me.rida.anticheat.checks.combat.AimAssistA;
+import me.rida.anticheat.checks.combat.AimAssistB;
 import me.rida.anticheat.checks.combat.AntiKBA;
 import me.rida.anticheat.checks.combat.AutoClickerA;
 import me.rida.anticheat.checks.combat.AutoClickerB;
@@ -79,6 +80,7 @@ import me.rida.anticheat.checks.combat.TwitchA;
 import me.rida.anticheat.checks.movement.FastLadderA;
 import me.rida.anticheat.checks.movement.FlyA;
 import me.rida.anticheat.checks.movement.FlyB;
+import me.rida.anticheat.checks.movement.FrictionA;
 import me.rida.anticheat.checks.movement.GlideA;
 import me.rida.anticheat.checks.movement.ImpossibleMovementsA;
 import me.rida.anticheat.checks.movement.JesusA;
@@ -91,6 +93,7 @@ import me.rida.anticheat.checks.movement.SneakB;
 import me.rida.anticheat.checks.movement.SpeedA;
 import me.rida.anticheat.checks.movement.SpeedB;
 import me.rida.anticheat.checks.movement.SpeedC;
+import me.rida.anticheat.checks.movement.SpeedD;
 import me.rida.anticheat.checks.movement.SpiderA;
 import me.rida.anticheat.checks.movement.StepA;
 import me.rida.anticheat.checks.movement.TimerA;
@@ -187,6 +190,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new ChatA(this));
 		this.Checks.add(new PhaseB(this));
 		this.Checks.add(new AimAssistA(this));
+		this.Checks.add(new AimAssistB(this));
 		this.Checks.add(new AntiKBA(this));
 		this.Checks.add(new AutoClickerB(this));
 		this.Checks.add(new BlockInteractA(this));
@@ -241,11 +245,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new TwitchA(this));
 		this.Checks.add(new VapeA(this));
 		this.Checks.add(new VClipA(this));
+		this.Checks.add(new FrictionA(this));
+		this.Checks.add(new SpeedD(this));
 	}
 
 	@Override
 	public void onEnable() {
-		excludedBlocks = new ArrayList<>();toggled = true;
+		new ReflectionUtil();
+		excludedBlocks = new ArrayList<>();
 		service = Executors.newSingleThreadExecutor();
 
 		getConfig().getStringList("excluded_blocks").forEach(string -> {

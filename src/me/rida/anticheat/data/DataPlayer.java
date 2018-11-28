@@ -1,10 +1,12 @@
 package me.rida.anticheat.data;
 
-import com.google.common.collect.Lists;
+import java.util.List;
+
+import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.Location;
-import java.util.List;
+
+import com.google.common.collect.Lists;
 
 public class DataPlayer {
 	
@@ -63,22 +65,23 @@ public class DataPlayer {
     private boolean Speed_YPort2_Set = false;
     private long speedGroundReset = 0;
     private int slimeTicks = 0;
-    
+    public float lastDeltaXZ;
     public Player player;
-    private boolean onGround;
-    private boolean inLiquid;
-    private boolean onStairSlab;
+    public boolean onGround;
+    public boolean inLiquid;
+    public boolean onStairSlab;
     private boolean onIce;
-    private boolean onClimbable;
+    public boolean onClimbable;
     private boolean underBlock;
-    public int liquidTicks, blockTicks;
+    public int liquidTicks = 0;
+    public int blockTicks = 0;
     public long lastVelocityTaken, lastAttack;
-    private LivingEntity lastHitEntity;
+    public LivingEntity lastHitEntity;
 
-    private List<Float> patterns = Lists.newArrayList();
-    private float lastRange;
+    public List<Float> patterns = Lists.newArrayList();
+    public float lastRange;
 
-    private int speedThreshold;
+    public int speedThreshold;
 
     public DataPlayer(Player player) {
         this.player = player;
