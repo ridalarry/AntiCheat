@@ -34,7 +34,7 @@ public class SpiderA extends Check {
 		super("SpiderA", "Spider", CheckType.Movement, AntiCheat);
 
 		this.setEnabled(true);
-		this.setBannable(false);
+		this.setBannable(true);
 		setMaxViolations(5);
 	}
 
