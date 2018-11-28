@@ -153,7 +153,8 @@ public class PhaseB extends Check implements Listener {
 		if (player.getAllowFlight()
 				|| player.getVehicle() != null
 				|| MathUtil.elapsed(lastDoorSwing.getOrDefault(player, 0L)) < 500
-				|| BlockUtil.isNearPistion(player)) {
+				|| BlockUtil.isNearPistion(player)
+				|| BlockUtil.isNearAllowed(player)) {
 			return;
 		}
 		if (BlockUtil.isNearLava(player) && BlockUtil.isNearWater(player)) {

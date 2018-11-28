@@ -415,6 +415,15 @@ public class BlockUtil {
 				|| block.getTypeId() == 205;
 	}
 
+	public static boolean isAllowed(Block block) {
+		return block.getType().equals(Material.SLIME_BLOCK)
+				|| block.getType().equals(Material.CAULDRON)
+				|| block.getType().equals(Material.BREWING_STAND)
+				|| block.getType().equals(Material.HOPPER)
+				|| block.getType().equals(Material.CARPET)
+				|| isStair(block)
+				|| isPiston(block);
+	}
 	@SuppressWarnings("deprecation")
 	public static boolean isStair(Block block) {
 		if(block.getType().equals(Material.ACACIA_STAIRS)
@@ -611,6 +620,15 @@ public class BlockUtil {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (allowedPhase(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearAllowed(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+			if (isAllowed(b)) {
 				out = true;
 			}
 		}
