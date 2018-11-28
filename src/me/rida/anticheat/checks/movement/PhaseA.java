@@ -174,9 +174,6 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerInteract(PlayerInteractEvent event) {
-		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")) {
-			return;
-		}
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
 				&& event.getItem().getType() == Material.ENDER_PEARL) {
 			Block block = event.getClickedBlock();
@@ -197,8 +194,7 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPearlClip(PlayerTeleportEvent event) {
-		if (!getAntiCheat().getConfig().getBoolean("checks.Movement.Phase.PhaseA.pearlFix")
-				|| event.getCause() == TeleportCause.PLUGIN) {
+		if (event.getCause() == TeleportCause.PLUGIN) {
 			return;
 		}
 		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {

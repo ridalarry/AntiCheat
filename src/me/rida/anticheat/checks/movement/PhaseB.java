@@ -183,8 +183,7 @@ public class PhaseB extends Check implements Listener {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if (event.getAction() == Action.RIGHT_CLICK_BLOCK
-				&& AntiCheat.Instance.toggled) {
+		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if ((BlockUtil.isDoor(event.getClickedBlock())
 					|| BlockUtil.isFenceGate(event.getClickedBlock())
 					|| BlockUtil.isTrapDoor(event.getClickedBlock()))

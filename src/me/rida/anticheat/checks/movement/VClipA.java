@@ -64,7 +64,7 @@ public class VClipA extends Check {
 				|| from.getY() == to.getY()
 				|| p.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| p.getVehicle() != null
 				|| teleported.remove(e.getPlayer())
 				|| e.getTo().getY() <= 0 || e.getTo().getY() >= p.getWorld().getMaxHeight()
@@ -81,13 +81,13 @@ public class VClipA extends Check {
 					&& l.getBlock().getType().isSolid() && !allowed.contains(l.getBlock().getType())) {
 
 				AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-		        	Player p = e.getPlayer();
-		            @Override
-		            public void run() {
-		                p.kickPlayer("Too many packets");
-		            }
-		        });	
-            
+					Player p = e.getPlayer();
+					@Override
+					public void run() {
+						p.kickPlayer("Too many packets");
+					}
+				});	
+
 				getAntiCheat().logCheat(this, p, "[1] More than 20 blocks.", "(Type: A)");
 				p.teleport(from);
 				return;

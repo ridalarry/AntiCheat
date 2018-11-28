@@ -54,65 +54,6 @@ import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
 import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.client.PMEA;
-import me.rida.anticheat.checks.client.SpookA;
-import me.rida.anticheat.checks.client.VapeA;
-import me.rida.anticheat.checks.combat.AimAssistA;
-import me.rida.anticheat.checks.combat.AimAssistB;
-import me.rida.anticheat.checks.combat.AntiKBA;
-import me.rida.anticheat.checks.combat.AutoClickerA;
-import me.rida.anticheat.checks.combat.AutoClickerB;
-import me.rida.anticheat.checks.combat.CriticalsA;
-import me.rida.anticheat.checks.combat.CriticalsB;
-import me.rida.anticheat.checks.combat.FastBowA;
-import me.rida.anticheat.checks.combat.HitBoxA;
-import me.rida.anticheat.checks.combat.HitBoxB;
-import me.rida.anticheat.checks.combat.KillAuraA;
-import me.rida.anticheat.checks.combat.KillAuraB;
-import me.rida.anticheat.checks.combat.KillAuraC;
-import me.rida.anticheat.checks.combat.KillAuraD;
-import me.rida.anticheat.checks.combat.KillAuraE;
-import me.rida.anticheat.checks.combat.ReachA;
-import me.rida.anticheat.checks.combat.ReachB;
-import me.rida.anticheat.checks.combat.ReachC;
-import me.rida.anticheat.checks.combat.RegenA;
-import me.rida.anticheat.checks.combat.TwitchA;
-import me.rida.anticheat.checks.movement.FastLadderA;
-import me.rida.anticheat.checks.movement.FlyA;
-import me.rida.anticheat.checks.movement.FlyB;
-import me.rida.anticheat.checks.movement.FrictionA;
-import me.rida.anticheat.checks.movement.GlideA;
-import me.rida.anticheat.checks.movement.ImpossibleMovementsA;
-import me.rida.anticheat.checks.movement.JesusA;
-import me.rida.anticheat.checks.movement.NoFallA;
-import me.rida.anticheat.checks.movement.NoSlowdownA;
-import me.rida.anticheat.checks.movement.PhaseA;
-import me.rida.anticheat.checks.movement.PhaseB;
-import me.rida.anticheat.checks.movement.SneakA;
-import me.rida.anticheat.checks.movement.SneakB;
-import me.rida.anticheat.checks.movement.SpeedA;
-import me.rida.anticheat.checks.movement.SpeedB;
-import me.rida.anticheat.checks.movement.SpeedC;
-import me.rida.anticheat.checks.movement.SpeedD;
-import me.rida.anticheat.checks.movement.SpiderA;
-import me.rida.anticheat.checks.movement.StepA;
-import me.rida.anticheat.checks.movement.TimerA;
-import me.rida.anticheat.checks.movement.TimerB;
-import me.rida.anticheat.checks.movement.VClipA;
-import me.rida.anticheat.checks.other.BlockInteractA;
-import me.rida.anticheat.checks.other.BlockInteractB;
-import me.rida.anticheat.checks.other.BlockInteractC;
-import me.rida.anticheat.checks.other.BlockInteractD;
-import me.rida.anticheat.checks.other.ChangeA;
-import me.rida.anticheat.checks.other.ChatA;
-import me.rida.anticheat.checks.other.CrashA;
-import me.rida.anticheat.checks.other.ExploitA;
-import me.rida.anticheat.checks.other.InvMoveA;
-import me.rida.anticheat.checks.other.InvMoveB;
-import me.rida.anticheat.checks.other.InvMoveC;
-import me.rida.anticheat.checks.player.GroundSpoofA;
-import me.rida.anticheat.checks.player.ImpossiblePitchA;
-import me.rida.anticheat.checks.player.PacketsA;
 import me.rida.anticheat.commands.AlertsCommand;
 import me.rida.anticheat.commands.AntiCheatCommand;
 import me.rida.anticheat.commands.AutobanCommand;
@@ -138,7 +79,6 @@ import me.rida.anticheat.utils.TxtFile;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class AntiCheat extends JavaPlugin implements Listener {
-	public boolean toggled;
 	public List<Material> excludedBlocks;
 	public Set<UUID> hasAlertsOn;
 	public int maxMove = 10;
@@ -187,66 +127,65 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void addChecks() {
-		this.Checks.add(new ChatA(this));
-		this.Checks.add(new PhaseB(this));
-		this.Checks.add(new AimAssistA(this));
-		this.Checks.add(new AimAssistB(this));
-		this.Checks.add(new AntiKBA(this));
-		this.Checks.add(new AutoClickerB(this));
-		this.Checks.add(new BlockInteractA(this));
-		this.Checks.add(new BlockInteractC(this));
-		this.Checks.add(new BlockInteractD(this));
-		this.Checks.add(new BlockInteractB(this));
-		this.Checks.add(new ChangeA(this));
-		this.Checks.add(new CrashA(this));
-		this.Checks.add(new CriticalsA(this));
-		this.Checks.add(new CriticalsB(this));
-		this.Checks.add(new ExploitA(this));
-		this.Checks.add(new FastBowA(this));
-		this.Checks.add(new FastLadderA(this));
-		this.Checks.add(new FlyA(this));
-		this.Checks.add(new FlyB(this));
-		this.Checks.add(new InvMoveA(this));
-		this.Checks.add(new InvMoveB(this));
-		this.Checks.add(new InvMoveC(this));
-		this.Checks.add(new GlideA(this));
-		this.Checks.add(new GroundSpoofA(this));
-		this.Checks.add(new HitBoxA(this));
-		this.Checks.add(new HitBoxB(this));
-		this.Checks.add(new ImpossibleMovementsA(this));
-		this.Checks.add(new ImpossiblePitchA(this));
-		this.Checks.add(new JesusA(this));
-		this.Checks.add(new AutoClickerA(this));
-		this.Checks.add(new KillAuraD(this));
-		this.Checks.add(new KillAuraA(this));
-		this.Checks.add(new KillAuraB(this));
-		this.Checks.add(new KillAuraC(this));
-		this.Checks.add(new KillAuraE(this));
-		this.Checks.add(new NoFallA(this));
-		this.Checks.add(new NoSlowdownA(this));
-		this.Checks.add(new PacketsA(this));
-		this.Checks.add(new PacketsA(this));
-		this.Checks.add(new PhaseA(this));
-		this.Checks.add(new PMEA(this));
-		this.Checks.add(new ReachA(this));
-		this.Checks.add(new ReachB(this));
-		this.Checks.add(new ReachC(this));
-		this.Checks.add(new RegenA(this));
-		this.Checks.add(new SneakA(this));
-		this.Checks.add(new SneakB(this));
-		this.Checks.add(new SpeedA(this));
-		this.Checks.add(new SpeedB(this));
-		this.Checks.add(new SpeedC(this));
-		this.Checks.add(new SpiderA(this));
-		this.Checks.add(new SpookA(this));
-		this.Checks.add(new StepA(this));
-		this.Checks.add(new TimerA(this));
-		this.Checks.add(new TimerB(this));
-		this.Checks.add(new TwitchA(this));
-		this.Checks.add(new VapeA(this));
-		this.Checks.add(new VClipA(this));
-		this.Checks.add(new FrictionA(this));
-		this.Checks.add(new SpeedD(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.ChatA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.PhaseB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerB(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractA(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractC(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractD(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractB(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.ChangeA(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.CrashA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.CriticalsA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.CriticalsB(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.ExploitA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.FastBowA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.FastLadderA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.FlyA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.FlyB(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveA(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveB(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveC(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.GlideA(this));
+		this.Checks.add(new me.rida.anticheat.checks.player.GroundSpoofA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxB(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.ImpossibleMovementsA(this));
+		this.Checks.add(new me.rida.anticheat.checks.player.ImpossiblePitchA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.JesusA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraD(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraC(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraE(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.NoFallA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.NoSlowdownA(this));
+		this.Checks.add(new me.rida.anticheat.checks.player.PacketsA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.PhaseA(this));
+		this.Checks.add(new me.rida.anticheat.checks.client.PMEA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachC(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.RegenA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SneakA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SneakB(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SpeedA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SpeedB(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SpeedC(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SpiderA(this));
+		this.Checks.add(new me.rida.anticheat.checks.client.SpookA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.StepA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.TimerA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.TimerB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.TwitchA(this));
+		this.Checks.add(new me.rida.anticheat.checks.client.VapeA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.VClipA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.FrictionA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.SpeedD(this));
 	}
 
 	@Override
@@ -282,7 +221,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.packet = new PacketCore(this);
 		this.lag = new LagCore(this);
 		this.updater = new Updater(this);
-		VapeA vapers = new VapeA(this);
+		me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
 		new AntiCheatAPI(this);
 		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER",
 				vapers);
@@ -323,7 +262,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations",
 						check.getMaxViolations());
 			}
-			this.getConfig().addDefault("checks.Movement.Phase.PhaseA.pearlFix", true);
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
 		}
@@ -345,8 +283,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					if (getConfig().getBoolean("settings.broadcastResetViolationsMsg")) {
 						for (Player online : Bukkit.getServer().getOnlinePlayers()) {
 							if (online.hasPermission("anticheat.admin") && hasAlertsOn(online)) {
-								online.sendMessage(PREFIX + Color.translate(
-										"&7Reset violations for all players!"));
+								online.sendMessage(PREFIX + Color.translate("&7Reset violations for all players!"));
 							}
 						}
 					}
@@ -405,100 +342,100 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public String resetData() {
 		try {
 			resetAllViolations();
-			if (!AntiKBA.lastVelocity.isEmpty())
-				AntiKBA.lastVelocity.clear();
-			if (!AntiKBA.awaitingVelocity.isEmpty())
-				AntiKBA.awaitingVelocity.clear();
-			if (!AntiKBA.totalMoved.isEmpty())
-				AntiKBA.totalMoved.clear();
-			if (!AutoClickerB.Clicks.isEmpty())
-				AutoClickerB.Clicks.clear();
-			if (!AutoClickerB.LastMS.isEmpty())
-				AutoClickerB.LastMS.clear();
-			if (!AutoClickerB.ClickTicks.isEmpty())
-				AutoClickerB.ClickTicks.clear();
-			if (!CriticalsB.CritTicks.isEmpty())
-				CriticalsB.CritTicks.clear();
-			if (!AutoClickerA.ClickTicks.isEmpty())
-				AutoClickerA.ClickTicks.clear();
-			if (!AutoClickerA.Clicks.isEmpty())
-				AutoClickerA.Clicks.clear();
-			if (!AutoClickerA.LastMS.isEmpty())
-				AutoClickerA.LastMS.clear();
-			if (!KillAuraD.packetTicks.isEmpty())
-				KillAuraD.packetTicks.clear();
-			if (!KillAuraA.counts.isEmpty())
-				KillAuraA.counts.clear();
-			if (!ReachB.count.isEmpty())
-				ReachB.count.clear();
-			if (!ReachB.offsets.isEmpty())
-				ReachB.offsets.clear();
-			if (!ReachC.toBan.isEmpty())
-				ReachC.toBan.clear();
-			if (!RegenA.FastHealTicks.isEmpty())
-				RegenA.FastHealTicks.clear();
-			if (!RegenA.LastHeal.isEmpty())
-				RegenA.LastHeal.clear();
-			if (!FlyB.flyTicksA.isEmpty())
-				FlyB.flyTicksA.clear();
-			if (!GlideA.flyTicks.isEmpty())
-				GlideA.flyTicks.clear();
-			if (!NoFallA.FallDistance.isEmpty())
-				NoFallA.FallDistance.clear();
-			if (!NoFallA.NoFallTicks.isEmpty())
-				NoFallA.NoFallTicks.clear();
-			if (!NoSlowdownA.speedTicks.isEmpty())
-				NoSlowdownA.speedTicks.clear();
-			if (!SpeedB.speedTicks.isEmpty())
-				SpeedB.speedTicks.clear();
-			if (!SpeedB.tooFastTicks.isEmpty())
-				SpeedB.tooFastTicks.clear();
-			if (!SpeedB.lastHit.isEmpty())
-				SpeedB.lastHit.isEmpty();
-			if (!SpeedC.speedTicks.isEmpty())
-				SpeedC.speedTicks.clear();
-			if (!SpeedC.tooFastTicks.isEmpty())
-				SpeedC.tooFastTicks.clear();
-			if (!SpeedC.lastHit.isEmpty())
-				SpeedC.lastHit.isEmpty();
-			if (!SpeedC.velocity.isEmpty())
-				SpeedC.velocity.isEmpty();
-			if (!SpiderA.AscensionTicks.isEmpty())
-				SpiderA.AscensionTicks.clear();
-			if (!TimerA.packets.isEmpty())
-				TimerA.packets.clear();
-			if (!TimerA.verbose.isEmpty())
-				TimerA.verbose.clear();
-			if (!TimerA.lastPacket.isEmpty())
-				TimerA.lastPacket.clear();
-			if (!TimerA.toCancel.isEmpty())
-				TimerA.toCancel.clear();
-			if (!TimerB.timerTicks.isEmpty())
-				TimerB.timerTicks.clear();
-			if (!VClipA.teleported.isEmpty())
-				VClipA.teleported.clear();
-			if (!VClipA.lastLocation.isEmpty())
-				VClipA.lastLocation.clear();
-			if (!CrashA.crashTicks.isEmpty())
-				CrashA.crashTicks.clear();
-			if (!CrashA.crash2Ticks.isEmpty())
-				CrashA.crash2Ticks.clear();
-			if (!CrashA.crash3Ticks.isEmpty())
-				CrashA.crash3Ticks.clear();
-			if (!PacketsA.lastPacket.isEmpty())
-				PacketsA.lastPacket.clear();
-			if (!PacketsA.packetTicks.isEmpty())
-				PacketsA.packetTicks.clear();
-			if (!SneakA.sneakTicks.isEmpty())
-				SneakA.sneakTicks.clear();
-			if (!HitBoxA.count.isEmpty())
-				HitBoxA.count.clear();
-			if (!HitBoxA.lastHit.isEmpty())
-				HitBoxA.lastHit.clear();
-			if (!HitBoxA.yawDif.isEmpty())
-				HitBoxA.yawDif.clear();
-			if (!FastBowA.count.isEmpty())
-				FastBowA.count.clear();
+			if (!me.rida.anticheat.checks.combat.AntiKBA.lastVelocity.isEmpty())
+				me.rida.anticheat.checks.combat.AntiKBA.lastVelocity.clear();
+			if (!me.rida.anticheat.checks.combat.AntiKBA.awaitingVelocity.isEmpty())
+				me.rida.anticheat.checks.combat.AntiKBA.awaitingVelocity.clear();
+			if (!me.rida.anticheat.checks.combat.AntiKBA.totalMoved.isEmpty())
+				me.rida.anticheat.checks.combat.AntiKBA.totalMoved.clear();
+			if (!me.rida.anticheat.checks.combat.AutoClickerB.Clicks.isEmpty())
+				me.rida.anticheat.checks.combat.AutoClickerB.Clicks.clear();
+			if (!me.rida.anticheat.checks.combat.AutoClickerB.LastMS.isEmpty())
+				me.rida.anticheat.checks.combat.AutoClickerB.LastMS.clear();
+			if (!me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.isEmpty())
+				me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.clear();
+			if (!me.rida.anticheat.checks.combat.CriticalsB.CritTicks.isEmpty())
+				me.rida.anticheat.checks.combat.CriticalsB.CritTicks.clear();
+			if (!me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.isEmpty())
+				me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.clear();
+			if (!me.rida.anticheat.checks.combat.AutoClickerA.Clicks.isEmpty())
+				me.rida.anticheat.checks.combat.AutoClickerA.Clicks.clear();
+			if (!me.rida.anticheat.checks.combat.AutoClickerA.LastMS.isEmpty())
+				me.rida.anticheat.checks.combat.AutoClickerA.LastMS.clear();
+			if (!me.rida.anticheat.checks.combat.KillAuraD.packetTicks.isEmpty())
+				me.rida.anticheat.checks.combat.KillAuraD.packetTicks.clear();
+			if (!me.rida.anticheat.checks.combat.KillAuraA.counts.isEmpty())
+				me.rida.anticheat.checks.combat.KillAuraA.counts.clear();
+			if (!me.rida.anticheat.checks.combat.ReachB.count.isEmpty())
+				me.rida.anticheat.checks.combat.ReachB.count.clear();
+			if (!me.rida.anticheat.checks.combat.ReachB.offsets.isEmpty())
+				me.rida.anticheat.checks.combat.ReachB.offsets.clear();
+			if (!me.rida.anticheat.checks.combat.ReachC.toBan.isEmpty())
+				me.rida.anticheat.checks.combat.ReachC.toBan.clear();
+			if (!me.rida.anticheat.checks.combat.RegenA.FastHealTicks.isEmpty())
+				me.rida.anticheat.checks.combat.RegenA.FastHealTicks.clear();
+			if (!me.rida.anticheat.checks.combat.RegenA.LastHeal.isEmpty())
+				me.rida.anticheat.checks.combat.RegenA.LastHeal.clear();
+			if (!me.rida.anticheat.checks.movement.FlyB.flyTicksA.isEmpty())
+				me.rida.anticheat.checks.movement.FlyB.flyTicksA.clear();
+			if (!me.rida.anticheat.checks.movement.GlideA.flyTicks.isEmpty())
+				me.rida.anticheat.checks.movement.GlideA.flyTicks.clear();
+			if (!me.rida.anticheat.checks.movement.NoFallA.FallDistance.isEmpty())
+				me.rida.anticheat.checks.movement.NoFallA.FallDistance.clear();
+			if (!me.rida.anticheat.checks.movement.NoFallA.NoFallTicks.isEmpty())
+				me.rida.anticheat.checks.movement.NoFallA.NoFallTicks.clear();
+			if (!me.rida.anticheat.checks.movement.NoSlowdownA.speedTicks.isEmpty())
+				me.rida.anticheat.checks.movement.NoSlowdownA.speedTicks.clear();
+			if (!me.rida.anticheat.checks.movement.SpeedB.speedTicks.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedB.speedTicks.clear();
+			if (!me.rida.anticheat.checks.movement.SpeedB.tooFastTicks.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedB.tooFastTicks.clear();
+			if (!me.rida.anticheat.checks.movement.SpeedB.lastHit.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedB.lastHit.isEmpty();
+			if (!me.rida.anticheat.checks.movement.SpeedC.speedTicks.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedC.speedTicks.clear();
+			if (!me.rida.anticheat.checks.movement.SpeedC.tooFastTicks.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedC.tooFastTicks.clear();
+			if (!me.rida.anticheat.checks.movement.SpeedC.lastHit.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedC.lastHit.isEmpty();
+			if (!me.rida.anticheat.checks.movement.SpeedC.velocity.isEmpty())
+				me.rida.anticheat.checks.movement.SpeedC.velocity.isEmpty();
+			if (!me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.isEmpty())
+				me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.clear();
+			if (!me.rida.anticheat.checks.movement.TimerA.packets.isEmpty())
+				me.rida.anticheat.checks.movement.TimerA.packets.clear();
+			if (!me.rida.anticheat.checks.movement.TimerA.verbose.isEmpty())
+				me.rida.anticheat.checks.movement.TimerA.verbose.clear();
+			if (!me.rida.anticheat.checks.movement.TimerA.lastPacket.isEmpty())
+				me.rida.anticheat.checks.movement.TimerA.lastPacket.clear();
+			if (!me.rida.anticheat.checks.movement.TimerA.toCancel.isEmpty())
+				me.rida.anticheat.checks.movement.TimerA.toCancel.clear();
+			if (!me.rida.anticheat.checks.movement.TimerB.timerTicks.isEmpty())
+				me.rida.anticheat.checks.movement.TimerB.timerTicks.clear();
+			if (!me.rida.anticheat.checks.movement.VClipA.teleported.isEmpty())
+				me.rida.anticheat.checks.movement.VClipA.teleported.clear();
+			if (!me.rida.anticheat.checks.movement.VClipA.lastLocation.isEmpty())
+				me.rida.anticheat.checks.movement.VClipA.lastLocation.clear();
+			if (!me.rida.anticheat.checks.other.CrashA.crashTicks.isEmpty())
+				me.rida.anticheat.checks.other.CrashA.crashTicks.clear();
+			if (!me.rida.anticheat.checks.other.CrashA.crash2Ticks.isEmpty())
+				me.rida.anticheat.checks.other.CrashA.crash2Ticks.clear();
+			if (!me.rida.anticheat.checks.other.CrashA.crash3Ticks.isEmpty())
+				me.rida.anticheat.checks.other.CrashA.crash3Ticks.clear();
+			if (!me.rida.anticheat.checks.player.PacketsA.lastPacket.isEmpty())
+				me.rida.anticheat.checks.player.PacketsA.lastPacket.clear();
+			if (!me.rida.anticheat.checks.player.PacketsA.packetTicks.isEmpty())
+				me.rida.anticheat.checks.player.PacketsA.packetTicks.clear();
+			if (!me.rida.anticheat.checks.movement.SneakA.sneakTicks.isEmpty())
+				me.rida.anticheat.checks.movement.SneakA.sneakTicks.clear();
+			if (!me.rida.anticheat.checks.combat.HitBoxA.count.isEmpty())
+				me.rida.anticheat.checks.combat.HitBoxA.count.clear();
+			if (!me.rida.anticheat.checks.combat.HitBoxA.lastHit.isEmpty())
+				me.rida.anticheat.checks.combat.HitBoxA.lastHit.clear();
+			if (!me.rida.anticheat.checks.combat.HitBoxA.yawDif.isEmpty())
+				me.rida.anticheat.checks.combat.HitBoxA.yawDif.clear();
+			if (!me.rida.anticheat.checks.combat.FastBowA.count.isEmpty())
+				me.rida.anticheat.checks.combat.FastBowA.count.clear();
 		} catch (Exception e) {
 			return Color.translate(PREFIX + Color.Red + "Unknown error occured!");
 		}
@@ -879,8 +816,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void Kick(PlayerKickEvent event) {
+		if (event.getReason().contains("Too many packets")) {
+			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for sending too many packets!");
+		}
 		if (event.getReason().equals("Flying is not enabled on this server")) {
-			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for flying");
+			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for flying!");
 		}
 	}
 	public static AntiCheat getInstance() {
@@ -1085,25 +1025,23 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		return toReturn.toString();
 	}
-	
-	public void startTimer(Player player)
-	  {
-	    MoveEvent.ticksLeft.put(player.getName(), MoveEvent.defaultWait);
-	    MoveEvent.cooldownTask.put(player.getName(), new BukkitRunnable(){
-	      public void run()
-	      {
-	    	  MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() - 1));
-	        if (((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() == 0){
-	        	MoveEvent.ticksLeft.remove(player.getName());
-	        	MoveEvent.cooldownTask.remove(player.getName());
-	          Bukkit.getServer().getScheduler().cancelTask(getTaskId());
-	          cancel();
-	          return;
-	        }
-	      }
-	    });
-	    ((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 1L);
-	  }
-	
 
+	public void startTimer(Player player)
+	{
+		MoveEvent.ticksLeft.put(player.getName(), MoveEvent.defaultWait);
+		MoveEvent.cooldownTask.put(player.getName(), new BukkitRunnable(){
+			public void run()
+			{
+				MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() - 1));
+				if (((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() == 0){
+					MoveEvent.ticksLeft.remove(player.getName());
+					MoveEvent.cooldownTask.remove(player.getName());
+					Bukkit.getServer().getScheduler().cancelTask(getTaskId());
+					cancel();
+					return;
+				}
+			}
+		});
+		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 1L);
+	}
 }
