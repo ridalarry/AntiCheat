@@ -248,6 +248,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
 			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
+			this.getConfig().addDefault("max_move", "10");
 			this.getConfig().addDefault("settings.broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
@@ -261,6 +262,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations",
 						check.getMaxViolations());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
 			}
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
@@ -271,6 +275,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
 				this.saveConfig();
 			}
 		}
@@ -760,50 +767,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (violations > check.getMaxViolations() && check.isBannable()) {
 				this.autoban(check, player);
 			}
-
 		}
-		else {
-			int x = violations;
-
-			ActionMessageUtil msg = new ActionMessageUtil();
-			msg.addText(PREFIX);
-			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
-					+ player.getName())
-			.addHoverText(Color.translate(getConfig().getString("alerts.primary"))
-					+ "(Click to teleport to "
-					+ Color.translate(getConfig().getString("alerts.secondary"))
-					+ player.getName()
-					+ Color.translate(getConfig().getString("alerts.primary"))
-					+ ")")
-			.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
-			msg.addText(Color.translate(getConfig().getString("alerts.primary"))
-					+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
-			ActionMessageUtil.AMText CheckText = msg
-					.addText(Color.translate(getConfig().getString("alerts.checkColor"))
-							+ check.getName());
-			if (hoverabletext != null) {
-				CheckText.addHoverText(hoverabletext);
-			}
-			msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
-					+ Color.translate(getConfig().getString("alerts.primary")) + " ");
-			msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
-					+ "x" + x);
-			if (violations % check.getViolationsToNotify() == 0) {
-				for (Player playerplayer : this.AlertsOn) {
-					if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
-						continue;
-					}
-					msg.sendToPlayer(playerplayer);
-				}
-			}
-		}
-		if (check.isJudgmentDay()) {
-			return;
-		}
-		if (violations > check.getMaxViolations() && check.isBannable()) {
-			this.autoban(check, player);
-		}
-
 	}
 
 	public void RegisterListener(Listener listener) {

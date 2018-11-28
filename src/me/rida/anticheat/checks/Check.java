@@ -33,6 +33,7 @@ public class Check implements Listener {
 		this.Type = Type;
 		this.Enabled = Enabled;
 		this.Bannable = Bannable;
+		
 		this.JudgementDay = JudgementDay;
 		this.MaxViolations = MaxViolations;
 		this.ViolationsToNotify = ViolationsToNotify;
@@ -125,7 +126,27 @@ public class Check implements Listener {
 		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".bannable") == true) {
 			this.setBannable(true);
 		} else {
-			this.setEnabled(false);
+			this.setBannable(false);
+		}
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".judgementDay") == true) {
+			this.setJudgementDay(true);
+		} else {
+			this.setJudgementDay(false);
+		}
+		if (AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationsToNotify") != 0) {
+			this.setViolationsToNotify((AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationsToNotify")));
+		} else {
+			this.setViolationsToNotify(0);
+		}
+		if (AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".maxViolations") != 0) {
+			this.setMaxViolations((AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".maxViolations")));
+		} else {
+			this.setMaxViolations(0);
+		}
+		if (AntiCheat.getConfig().getLong("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationResetTime") != 0) {
+			this.setViolationResetTime((AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationResetTime")));
+		} else {
+			this.setViolationResetTime(0);
 		}
 	}
 
@@ -157,14 +178,29 @@ public class Check implements Listener {
 	}
 
 	public void setViolationsToNotify(int ViolationsToNotify) {
+		if (AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationsToNotify") != ViolationsToNotify
+				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationsToNotify") != null) {
+			this.ViolationsToNotify = AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationsToNotify");
+			return;
+		}
 		this.ViolationsToNotify = ViolationsToNotify;
 	}
 
 	public void setViolationResetTime(long ViolationResetTime) {
+		if (AntiCheat.getConfig().getInt("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationResetTime") != ViolationResetTime
+				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationResetTime") != null) {
+			this.ViolationResetTime = AntiCheat.getConfig().getLong("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".violationResetTime");
+			return;
+		}
 		this.ViolationResetTime = ViolationResetTime;
 	}
 
 	public void setJudgementDay(boolean JudgementDay) {
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".judgementDay") != JudgementDay
+				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".judgementDay") != null) {
+			this.JudgementDay = AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".judgementDay");
+			return;
+		}
 		this.JudgementDay = JudgementDay;
 	}
 	public CheckType getType() {
