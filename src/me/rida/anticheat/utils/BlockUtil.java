@@ -384,9 +384,23 @@ public class BlockUtil {
 				|| block.getType().equals(Material.getMaterial("FROSTED_ICE"));
 	}
 
-
 	public static boolean isLiquid(Block block) {
 		if (block != null && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER || block.getType() == Material.LAVA || block.getType() == Material.STATIONARY_LAVA)) {
+			return true;
+		}
+		return false;
+	}
+	
+
+	public static boolean isLava(Block block) {
+		if (block != null && (block.getType() == Material.LAVA || block.getType() == Material.STATIONARY_LAVA)) {
+			return true;
+		}
+		return false;
+	}
+
+	public static boolean isWater(Block block) {
+		if (block != null && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
 			return true;
 		}
 		return false;
@@ -725,6 +739,26 @@ public class BlockUtil {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isLiquid(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+
+	public static boolean isNearLava(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 2)) {
+			if (isLava(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+
+	public static boolean isNearWater(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 2)) {
+			if (isWater(b)) {
 				out = true;
 			}
 		}

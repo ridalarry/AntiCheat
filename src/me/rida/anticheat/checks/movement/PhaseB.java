@@ -162,7 +162,9 @@ public class PhaseB extends Check implements Listener {
 				|| BlockUtil.isNearPistion(player)) {
 			return;
 		}
-
+		if (BlockUtil.isNearLava(player) && BlockUtil.isNearWater(player)) {
+			return;
+		}
 		if (e.getFrom().distance(e.getTo()) > AntiCheat.Instance.maxMove) {
 			e.setTo(e.getFrom());
 			return;
