@@ -38,7 +38,7 @@ public class TimerA extends Check {
 		setMaxViolations(5);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onLogout(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();

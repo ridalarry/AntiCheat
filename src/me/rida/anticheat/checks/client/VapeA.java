@@ -19,7 +19,7 @@ public class VapeA extends Check implements PluginMessageListener {
 		setMaxViolations(0);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		event.getPlayer().sendMessage("§8 §8 §1 §3 §3 §7 §8 ");
 	}

@@ -9,22 +9,23 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+
 public class ServerUtil {
 
 	private static final String version = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
-	public static final Class<?> EntityPlayer = ServerUtil.getNMSClass("EntityPlayer");
-	public static final Class<?> Entity = ServerUtil.getNMSClass("Entity");
-	private static final Class<?> CraftPlayer = ServerUtil.getCBClass("entity.CraftPlayer");
-	private static final Class<?> CraftWorld = ServerUtil.getCBClass("CraftWorld");
-	private static final Class<?> World = ServerUtil.getNMSClass("World");
-	private static final Method getCubes = ServerUtil.getMethod(World, "a", ServerUtil.getNMSClass("AxisAlignedBB"));
+	public static final Class<?> EntityPlayer = getNMSClass("EntityPlayer");
+	public static final Class<?> Entity = getNMSClass("Entity");
+	private static final Class<?> CraftPlayer = getCBClass("entity.CraftPlayer");
+	private static final Class<?> CraftWorld = getCBClass("CraftWorld");
+	private static final Class<?> World = getNMSClass("World");
+	private static final Method getCubes = getMethod(World, "a", getNMSClass("AxisAlignedBB"));
 
 	public static Object getEntityPlayer(Player player) {
-		return ServerUtil.getMethodValue(ServerUtil.getMethod(CraftPlayer, "getHandle"), player);
+		return getMethodValue(getMethod(CraftPlayer, "getHandle"), player);
 	}
 
 	public static Object getBoundingBox(Player player) {
-		return ServerUtil.isBukkitVerison("1_7") ? ServerUtil.getFieldValue(ServerUtil.getFieldByName(Entity, "boundingBox"), getEntityPlayer(player)) : ServerUtil.getMethodValue(ServerUtil.getMethod(EntityPlayer, "getBoundingBox"), getEntityPlayer(player));
+		return isBukkitVerison("1_7") ? getFieldValue(getFieldByName(Entity, "boundingBox"), getEntityPlayer(player)) : getMethodValue(getMethod(EntityPlayer, "getBoundingBox"), getEntityPlayer(player));
 	}
 
 	public static boolean isBukkitVerison(String version) {
@@ -59,13 +60,13 @@ public class ServerUtil {
 	}
 
 	public static boolean inBlock(Player player, Object axisAlignedBB) {
-		Object world = ServerUtil.getMethodValue(ServerUtil.getMethod(CraftWorld, "getHandle"), player.getWorld());
-		return ((Collection<?>)ServerUtil.getMethodValue(getCubes, world, axisAlignedBB)).size() > 0;
+		Object world = getMethodValue(getMethod(CraftWorld, "getHandle"), player.getWorld());
+		return ((Collection<?>)getMethodValue(getCubes, world, axisAlignedBB)).size() > 0;
 	}
 
 	public static Collection<?> getCollidingBlocks(Player player, Object axisAlignedBB) {
-		Object world = ServerUtil.getMethodValue(ServerUtil.getMethod(CraftWorld, "getHandle"), player.getWorld());
-		return ((Collection<?>)ServerUtil.getMethodValue(getCubes, world, axisAlignedBB));
+		Object world = getMethodValue(getMethod(CraftWorld, "getHandle"), player.getWorld());
+		return ((Collection<?>)getMethodValue(getCubes, world, axisAlignedBB));
 	}
 
 

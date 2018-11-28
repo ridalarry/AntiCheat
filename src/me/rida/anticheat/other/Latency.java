@@ -48,14 +48,14 @@ public class Latency implements Listener {
 		return 0;
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void PlayerJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		this.blacklist.add(u);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onLogout(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
@@ -73,14 +73,14 @@ public class Latency implements Listener {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void PlayerChangedWorld(PlayerChangedWorldEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		this.blacklist.add(u);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void PlayerRespawn(PlayerRespawnEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();

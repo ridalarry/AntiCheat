@@ -34,7 +34,7 @@ public class AntiKBA extends Check {
 		setViolationResetTime(250000);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         if (AntiKBA.lastVelocity.containsKey((Object)p)) {
@@ -48,7 +48,7 @@ public class AntiKBA extends Check {
         }
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Move(PlayerMoveEvent e) {
         double d;
         Player p = e.getPlayer();
@@ -120,7 +120,7 @@ public class AntiKBA extends Check {
     }
 
 	@SuppressWarnings( "unused" )
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Velocity(PlayerVelocityEvent e) {
         double d;
         long l;

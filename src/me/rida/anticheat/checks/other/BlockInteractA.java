@@ -25,7 +25,7 @@ public class BlockInteractA extends Check {
 		setMaxViolations(29);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void checkFreecam(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK
 				|| Ping.getPing(e.getPlayer()) > 400

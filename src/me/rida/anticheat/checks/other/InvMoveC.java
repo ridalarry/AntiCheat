@@ -19,7 +19,7 @@ public class InvMoveC extends Check {
 		setViolationsToNotify(1);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void InventoryClickEvent(InventoryClickEvent e) {
 		Player p = (Player) e.getWhoClicked();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

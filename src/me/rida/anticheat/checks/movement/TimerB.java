@@ -33,7 +33,7 @@ public class TimerB extends Check {
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();

@@ -24,7 +24,7 @@ public class GroundSpoofA extends Check {
 		setBannable(false);
     }
  	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
  	private void onMove(PlayerMoveEvent e) {
          Player p = e.getPlayer();
          DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
@@ -65,7 +65,7 @@ public class GroundSpoofA extends Check {
              }
          }
  	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onBlockPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

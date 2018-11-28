@@ -32,7 +32,7 @@ public class KillAuraD extends Check {
 		packetTicks = new HashMap<>();
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void packet(PacketKillauraEvent e) {
     	Player p = e.getPlayer();
 		if (!getAntiCheat().isEnabled()
@@ -67,7 +67,7 @@ public class KillAuraD extends Check {
 		packetTicks.put(e.getPlayer().getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Other));
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void logout(PlayerQuitEvent e) {
 		if(packetTicks.containsKey(e.getPlayer().getUniqueId())) {
 			packetTicks.remove(e.getPlayer().getUniqueId());

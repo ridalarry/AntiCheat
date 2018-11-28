@@ -47,7 +47,7 @@ public class SpeedB extends Check {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 
 		Location from = e.getFrom().clone();
@@ -135,7 +135,7 @@ public class SpeedB extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlayerQuit(PlayerQuitEvent e) {
 		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
 			speedTicks.remove(e.getPlayer().getUniqueId());

@@ -31,7 +31,7 @@ public class KillAuraA extends Check {
 	public static HashMap<Player, Integer> counts = new HashMap<>();
 	private ArrayList<Player> blockGlitched = new ArrayList<>();
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlayerLogout(PlayerQuitEvent e) {
 		if (counts.containsKey(e.getPlayer())) {
 			counts.remove(e.getPlayer());
@@ -41,7 +41,7 @@ public class KillAuraA extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onBreak(BlockBreakEvent e) {
 		if (e.isCancelled()) {
 			blockGlitched.add(e.getPlayer());

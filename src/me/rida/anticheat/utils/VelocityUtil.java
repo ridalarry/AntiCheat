@@ -11,7 +11,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 
 public class VelocityUtil implements Listener {
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
@@ -23,7 +23,7 @@ public class VelocityUtil implements Listener {
             }
         }
     }
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onVelEvent(PlayerVelocityEvent e) {
         Player p = e.getPlayer();
          DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

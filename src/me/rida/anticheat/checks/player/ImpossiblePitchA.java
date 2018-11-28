@@ -16,7 +16,7 @@ public class ImpossiblePitchA extends Check {
 		setMaxViolations(10);
 		setBannable(true);
     }
-  	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+  	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
   	private void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         double x = p.getLocation().getPitch();

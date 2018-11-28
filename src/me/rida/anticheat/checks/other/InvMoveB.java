@@ -20,7 +20,7 @@ public class InvMoveB extends Check {
 	}
 
 	@SuppressWarnings("unused")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void attack(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)) {
 			return;

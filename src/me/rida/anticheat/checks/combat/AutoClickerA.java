@@ -39,7 +39,7 @@ public class AutoClickerA extends Check {
 		setMaxViolations(10);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
@@ -55,7 +55,7 @@ public class AutoClickerA extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
 				|| !(e.getAttacked() instanceof Player)) {

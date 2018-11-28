@@ -25,7 +25,7 @@ public class BlockInteractB extends Check {
 		setBannable(true);
     }
 
-  	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+  	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
   	private void onBlockBreak(BlockBreakEvent e) {
   		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
@@ -42,7 +42,7 @@ public class BlockInteractB extends Check {
               e.setCancelled(true);
           }
     }
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onBlockPlace(BlockPlaceEvent e) {
   		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
@@ -56,7 +56,7 @@ public class BlockInteractB extends Check {
               e.setCancelled(true);
           }
     }
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onInteract(PlayerInteractEvent e) {
   		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || e.getPlayer().getGameMode().equals(GameMode.CREATIVE)

@@ -37,7 +37,7 @@ public class CrashA extends Check {
 		this.setBannable(true);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Swing(final PacketSwingArmEvent e) {
 		final Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
@@ -67,7 +67,7 @@ public class CrashA extends Check {
 		crashTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Switch(final PacketHeldItemChangeEvent e) {
 		final Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
@@ -97,7 +97,7 @@ public class CrashA extends Check {
 		crash2Ticks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void BlockPlace(final PacketBlockPlacementEvent e) {
 		final Player p = e.getPlayer();
 		UUID u = p.getUniqueId();

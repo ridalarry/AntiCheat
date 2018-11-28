@@ -24,7 +24,7 @@ public class HitBoxB extends Check {
 		setViolationsToNotify(1);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onHitPlayer(EntityDamageByEntityEvent e) {
         if (!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) {
             return;

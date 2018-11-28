@@ -38,7 +38,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 		setViolationsToNotify(1);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onJoin(PlayerJoinEvent e) {
         this.getClientType(e.getPlayer());
     }
@@ -68,7 +68,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
         }
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onPlayerQuit(PlayerQuitEvent e) {
         forgeMods.remove(e.getPlayer().getUniqueId());
     }

@@ -46,14 +46,14 @@ public class VClipA extends Check {
 		allowed.add(Material.CHEST);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onTeleport(PlayerTeleportEvent e) {
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			return;
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 

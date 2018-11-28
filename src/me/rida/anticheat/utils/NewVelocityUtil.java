@@ -12,7 +12,7 @@ import me.rida.anticheat.data.DataPlayer;
 
 public class NewVelocityUtil implements Listener {
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
@@ -31,7 +31,7 @@ public class NewVelocityUtil implements Listener {
             }
         }
     }
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onVelChange(PlayerVelocityEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

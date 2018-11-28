@@ -22,7 +22,7 @@ public class ChatA extends Check{
 }
 
 	@SuppressWarnings("unused")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		InventoryView view = p.getOpenInventory();

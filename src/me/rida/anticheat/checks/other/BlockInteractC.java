@@ -26,7 +26,7 @@ public class BlockInteractC extends Check {
 		setViolationsToNotify(1);
     }
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlaceBlock(BlockPlaceEvent e) {
         Player p = e.getPlayer();
 		Block t = p.getTargetBlock((Set)null, 5);

@@ -69,9 +69,9 @@ public class AntiCheatCommand implements CommandExecutor {
 				if (s instanceof Player) {
 					Player p = (Player) s;
 					if (g.length == 1) {
-						s.sendMessage(AntiCheat.PREFIX + Color.DGray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
+						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
 								+ AntiCheat.getLag().getPing(p));
-						s.sendMessage(AntiCheat.PREFIX + Color.DGray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
+						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
 								+ AntiCheatAPI.getPing(p));
 						return true;
 					}
@@ -81,9 +81,9 @@ public class AntiCheatCommand implements CommandExecutor {
 							s.sendMessage(AntiCheat.PREFIX + Color.Red + "That player is not online!");
 							return true;
 						}
-						s.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + " ping: "
+						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
 								+ Color.Red + AntiCheat.getLag().getPing(target));
-						s.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + " ping: "
+						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
 								+ Color.Red + AntiCheatAPI.getPing(target));
 						return true;
 					}

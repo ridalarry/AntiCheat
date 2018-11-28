@@ -55,7 +55,7 @@ public class RegenA extends Check {
 		return false;
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onHeal(EntityRegainHealthEvent e) {
 		if (!(e.getEntity() instanceof Player)) {
 			return;

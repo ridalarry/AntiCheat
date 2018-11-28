@@ -33,7 +33,7 @@ public class HitBoxA extends Check {
 	public static Map<UUID, Player> lastHit = new HashMap<>();
 	public static Map<UUID, Double> yawDif = new HashMap<>();
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGH)
 	private void onQuit(PlayerQuitEvent e) {
 		if (count.containsKey(e.getPlayer().getUniqueId())) {
 			count.remove(e.getPlayer().getUniqueId());
@@ -46,7 +46,7 @@ public class HitBoxA extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onUse(PacketUseEntityEvent e) {
 
 		 if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player) || e.getAttacker().getGameMode().equals(GameMode.CREATIVE)) {

@@ -22,7 +22,7 @@ public class CriticalsA extends Check {
 		setBannable(false);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onAttack(EntityDamageByEntityEvent e) {
         if(!(e.getDamager() instanceof Player)) {
             return;

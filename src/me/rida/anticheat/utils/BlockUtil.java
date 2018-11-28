@@ -685,15 +685,6 @@ public class BlockUtil {
 		}
 		return out;
 	}
-	public static boolean isNearSlime2(Player p, int x) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), x+1)) {
-			if (isSlime(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
 	public static boolean isNearClimable(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
@@ -724,7 +715,7 @@ public class BlockUtil {
 	public static boolean isNearStair(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (BlockUtil.isStair(b)) {
+			if (isStair(b)) {
 				out = true;
 			}
 		}
@@ -733,7 +724,7 @@ public class BlockUtil {
 	public static boolean isNearLiquid(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (BlockUtil.isLiquid(b)) {
+			if (isLiquid(b)) {
 				out = true;
 			}
 		}

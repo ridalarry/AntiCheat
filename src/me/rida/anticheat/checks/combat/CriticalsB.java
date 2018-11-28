@@ -32,7 +32,7 @@ public class CriticalsB extends Check {
 		setMaxViolations(4);
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onLog(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
@@ -46,7 +46,7 @@ public class CriticalsB extends Check {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
 				|| !e.getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)) {
@@ -90,7 +90,7 @@ public class CriticalsB extends Check {
 	}
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Move(PlayerMoveEvent e) {
 		Player p2 = e.getPlayer();
 		double Falling = 0.0;

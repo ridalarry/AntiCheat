@@ -67,7 +67,7 @@ public class StepA extends Check {
 		return false;
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 

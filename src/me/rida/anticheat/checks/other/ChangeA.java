@@ -32,7 +32,7 @@ public class ChangeA extends Check {
 		setViolationsToNotify(1);
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
         if (!this.isEnabled()) {
             return;
@@ -75,7 +75,7 @@ public class ChangeA extends Check {
         }
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onQuit(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         UUID u = p.getUniqueId();
@@ -85,7 +85,7 @@ public class ChangeA extends Check {
     }
 
 	@SuppressWarnings("unused")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onAttack(BlockPlaceEvent e) {
         if (e.getPlayer() instanceof Player) {
             Player p = e.getPlayer();

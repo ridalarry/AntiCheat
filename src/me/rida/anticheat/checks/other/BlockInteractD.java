@@ -24,7 +24,7 @@ public class BlockInteractD extends Check {
 		setBannable(true);
 		setViolationsToNotify(4);
     }
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlaceBlock(BlockPlaceEvent e) {
         Player p = e.getPlayer();
         if (p.getAllowFlight()

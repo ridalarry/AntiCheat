@@ -23,7 +23,7 @@ public class InvMoveA extends Check {
 
 
 	@SuppressWarnings("unused")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void move(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		InventoryView view = p.getOpenInventory();

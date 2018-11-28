@@ -36,7 +36,7 @@ public class AimAssistA extends Check {
         return this.aimAssist;
     }
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlayerMove(PlayerMoveEvent e) {
         Location location = e.getFrom().clone();
         Location location2 = e.getTo().clone();
