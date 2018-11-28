@@ -15,6 +15,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.utils.BlockUtil;
 
 public class BlockInteractA extends Check {
 
@@ -32,6 +33,9 @@ public class BlockInteractA extends Check {
 		}
 		boolean isValid = false;
 		Player p = e.getPlayer();
+		if (BlockUtil.isNearLog(p) && BlockUtil.isNearGrass(p)) {
+			return;
+		}
 		Location scanLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation();
 		double x = scanLocation.getX();
 		double y = scanLocation.getY();
@@ -55,7 +59,6 @@ public class BlockInteractA extends Check {
 		}
 		if ((!isValid) && (!p.getItemInHand().getType().equals(Material.ENDER_PEARL))) {
 			getAntiCheat().logCheat(this, p, "BlockInteract: FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", "(Type: A)");
-			e.setCancelled(true);
 		}
 	}
 

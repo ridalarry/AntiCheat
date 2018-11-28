@@ -625,6 +625,24 @@ public class BlockUtil {
 		}
 		return out;
 	}
+	public static boolean isNearGrass(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+			if (isGrass(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearLog(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+			if (isLog(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean isNearAllowed(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
@@ -907,6 +925,17 @@ public class BlockUtil {
 	@SuppressWarnings("deprecation")
 	public static boolean isSlime(Block block) {
 		return block.getTypeId() == 165;
+	}
+	@SuppressWarnings("deprecation")
+	public static boolean isGrass(Block block) {
+		return block.getTypeId() == 2
+				|| block.getTypeId() == 3;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static boolean isLog(Block block) {
+		return block.getTypeId() == 17
+				|| block.getTypeId() == 162;
 	}
 	public static BoundingBox[] getBlockBoundingBox(Block block) {
 		if (collisionBoundingBoxes.containsKey(block.getType())) {
