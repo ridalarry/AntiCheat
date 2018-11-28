@@ -28,19 +28,18 @@ public class ReachA extends Check {
     }
 
     @SuppressWarnings("unused")
-	private boolean hasKB(Player p){
+	private int getKB(Player p){
     	int enchantmentLevel = 0;
     	ItemStack[] inv = p.getInventory().getContents();
     	for(ItemStack item:inv){
     		if (item != null)
     			if(item.getType() != null){
     				if(item.getEnchantments().containsKey(Enchantment.KNOCKBACK)){
-    					enchantmentLevel = item.getEnchantmentLevel(Enchantment.KNOCKBACK);
-    						return true;
+    						return enchantmentLevel = item.getEnchantmentLevel(Enchantment.KNOCKBACK);
     					}
     				}
     			}
-    	return false;
+    	return 0;
     }
     
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -60,18 +59,18 @@ public class ReachA extends Check {
         double distance = MathUtil.getHorizontalDistance(p.getLocation(), p2.getLocation()) - 0.35;
         double maxReach = 4.2;
         double yawDifference = 180 - Math.abs(Math.abs(p.getEyeLocation().getYaw()) - Math.abs(p2.getLocation().getYaw()));
-
+        double KB = getKB(p);
         maxReach+= Math.abs(p.getVelocity().length() + p2.getVelocity().length()) * 0.4;
         maxReach+= yawDifference * 0.01;
 
         if(maxReach < 4.2) maxReach = 4.2;
-        if(hasKB(p)) {
-        	//maxReach += enchantmentLevel;
+        if(KB > 0) {
+        	maxReach += KB;
         }
         
 
         if(distance > maxReach) {
-        	getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach), "(Type: A)");
+        	getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach) + " KB: " + KB, "(Type: A)");
         }
     }
 }
