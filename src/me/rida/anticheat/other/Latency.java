@@ -87,7 +87,7 @@ public class Latency implements Listener {
 		this.blacklist.add(u);
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void PacketPlayer(PacketPlayerEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();

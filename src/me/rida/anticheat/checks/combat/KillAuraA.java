@@ -48,7 +48,7 @@ public class KillAuraA extends Check {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void checkKillaura(EntityDamageByEntityEvent e) {
 		if (e.getCause() != DamageCause.ENTITY_ATTACK
 				|| !getAntiCheat().isEnabled()

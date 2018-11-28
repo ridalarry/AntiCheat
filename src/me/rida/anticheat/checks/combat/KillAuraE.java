@@ -9,12 +9,12 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.Color;
 
 public class KillAuraE extends Check {
     public static double allowedDistance = 3.9;
@@ -29,7 +29,7 @@ public class KillAuraE extends Check {
     }
 
 	@SuppressWarnings({ "unused", "deprecation" })
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onDamage(EntityDamageByEntityEvent e) {
         int n;
         if (!(e.getEntity() instanceof Player) 

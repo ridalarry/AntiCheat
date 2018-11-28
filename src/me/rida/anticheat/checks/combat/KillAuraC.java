@@ -6,10 +6,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
@@ -22,7 +22,7 @@ public class KillAuraC extends Check {
 		setViolationsToNotify(3);
     }
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAngleHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player) 
         		||!(e.getDamager() instanceof Player)) {

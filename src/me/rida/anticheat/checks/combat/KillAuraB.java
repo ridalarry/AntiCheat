@@ -1,5 +1,9 @@
 package me.rida.anticheat.checks.combat;
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
@@ -7,10 +11,6 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketAttackEvent;
 import me.rida.anticheat.utils.MathUtil;
-
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 
 public class KillAuraB extends Check {
 
@@ -21,7 +21,7 @@ public class KillAuraB extends Check {
 		setBannable(true);
     }
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(PacketAttackEvent e) {
         Player p = e.getPlayer();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

@@ -70,7 +70,7 @@ public class PacketsA extends Check {
 		blacklist.add(event.getPlayer().getUniqueId());
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()
