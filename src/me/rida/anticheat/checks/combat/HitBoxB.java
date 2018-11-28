@@ -14,7 +14,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 
 public class HitBoxB extends Check {
-    private double HITBOX_LENGTH = 1.05;
+    private final double HITBOX_LENGTH = 1.05;
 
     public HitBoxB(AntiCheat AntiCheat) {
         super("HitBoxB", "HitBox", CheckType.Combat, AntiCheat);
