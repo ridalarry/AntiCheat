@@ -14,12 +14,8 @@ import me.rida.anticheat.checks.CheckType;
 public class ChatA extends Check{
 
 	public ChatA(AntiCheat AntiCheat) {
-		super("ChatA", "Chat", CheckType.Other, AntiCheat);
-		setMaxViolations(0);
-		this.setEnabled(true);
-		this.setBannable(false);
-
-}
+		super("ChatA", "Chat", CheckType.Other, true, false, false, 1, 1, 600000L, AntiCheat);
+	}
 
 	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -30,7 +26,7 @@ public class ChatA extends Check{
 		Inventory bottom = view.getBottomInventory();
 		if (view !=null) {
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-        			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			} if (!top.toString().contains("CraftInventoryCrafting")) {
 				getAntiCheat().logCheat(this, p, "Chatting while a gui is open!", "(Type: A)");
@@ -42,6 +38,6 @@ public class ChatA extends Check{
 				getAntiCheat().logCheat(this, p, "Chatting while being dead!", "(Type: A)");
 			}
 		}
-		
+
 	}
 }

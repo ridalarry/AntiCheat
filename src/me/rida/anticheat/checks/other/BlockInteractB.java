@@ -1,11 +1,5 @@
 package me.rida.anticheat.checks.other;
 
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
-
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,13 +10,16 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
+
 
 public class BlockInteractB extends Check {
       public BlockInteractB(AntiCheat AntiCheat) {
-        super("BlockInteractE", "BI", CheckType.Other, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(true);
+        super("BlockInteractE", "BI", CheckType.Other, true, true, false, 10, 1, 600000L, AntiCheat);
     }
 
   	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

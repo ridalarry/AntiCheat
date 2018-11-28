@@ -26,15 +26,11 @@ public class CrashA extends Check {
 	private List<UUID> crashs;
 
 	public CrashA(AntiCheat AntiCheat) {
-		super("CrashA", "Crash", CheckType.Other, AntiCheat);
+		super("CrashA", "Crash", CheckType.Other, true, true, false, 5, 1, 600000L, AntiCheat);
 		crashTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash2Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash3Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crashs = new ArrayList<UUID>();
-		setMaxViolations(0);
-
-		this.setEnabled(true);
-		this.setBannable(true);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

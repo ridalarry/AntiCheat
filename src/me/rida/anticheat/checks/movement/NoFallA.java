@@ -29,17 +29,10 @@ public class NoFallA extends Check {
 	private static ArrayList<Player> cancel;
 
 	public NoFallA(AntiCheat AntiCheat) {
-		super("NoFallA", "NoFall", CheckType.Movement, AntiCheat);
-
-		setEnabled(true);
-		setBannable(true);
-		
+		super("NoFallA", "NoFall", CheckType.Movement, true, true, false, 9, 1, 120000L, AntiCheat);
 		NoFallTicks = new HashMap<UUID, Map.Entry<Long, Integer>>();
 		FallDistance = new HashMap<UUID, Double>();
 		cancel = new ArrayList<Player>();
-		
-		this.setViolationResetTime(120000);
-		setMaxViolations(9);
 	}
 
 	@EventHandler

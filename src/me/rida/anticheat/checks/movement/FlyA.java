@@ -22,10 +22,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 public class FlyA extends Check {
 	public FlyA(AntiCheat AntiCheat) {
-		super("FlyA", "Fly", CheckType.Movement, AntiCheat);
-		this.setBannable(true);
-		this.setEnabled(true);
-		setMaxViolations(4);
+		super("FlyA", "Fly", CheckType.Movement, true, true, false, 4, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

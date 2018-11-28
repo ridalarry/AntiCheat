@@ -22,12 +22,7 @@ import me.rida.anticheat.utils.CheatUtil;
 public class VClipA extends Check {
 
 	public VClipA(AntiCheat AntiCheat) {
-		super("VClipA", "VClip", CheckType.Movement, AntiCheat);
-
-		setBannable(false);
-		setEnabled(true);
-		setMaxViolations(19);
-		setViolationResetTime(10000);
+		super("VClipA", "VClip", CheckType.Movement, true, false, false, 19, 1, 10000, AntiCheat);
 	}
 
 	private static List<Material> allowed = new ArrayList<Material>();

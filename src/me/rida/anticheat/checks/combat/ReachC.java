@@ -23,15 +23,7 @@ public class ReachC extends Check {
 	public static HashMap<UUID, Integer> toBan;
 	
 	public ReachC(AntiCheat AntiCheat) {
-		super("ReachC", "Reach",  CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-
-		setViolationResetTime(30000);
-		setViolationsToNotify(1);
-		setMaxViolations(9);
-		
+		super("ReachC", "Reach",  CheckType.Combat, true, false, false, 9, 1, 30000, AntiCheat);
 		toBan = new HashMap<UUID, Integer>();
 	}
 

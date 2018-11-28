@@ -26,12 +26,7 @@ public class NoSlowdownA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 
 	public NoSlowdownA(AntiCheat AntiCheat) {
-		super("NoSlowdownA", "NoSlowdown", CheckType.Movement, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(5);
-		
+		super("NoSlowdownA", "NoSlowdown", CheckType.Movement, true, false, false, 5, 1, 600000L, AntiCheat);
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

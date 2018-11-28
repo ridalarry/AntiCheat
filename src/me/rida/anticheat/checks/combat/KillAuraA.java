@@ -21,11 +21,7 @@ import me.rida.anticheat.utils.CheatUtil;
 public class KillAuraA extends Check {
 
 	public KillAuraA(AntiCheat AntiCheat) {
-		super("KillAuraA", "KillAura",  CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(7);
+		super("KillAuraA", "KillAura",  CheckType.Combat, true, false, false, 7, 1, 600000L, AntiCheat);
 	}
 
 	public static HashMap<Player, Integer> counts = new HashMap<>();

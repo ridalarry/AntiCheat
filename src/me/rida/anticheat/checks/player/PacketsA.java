@@ -31,12 +31,7 @@ public class PacketsA extends Check {
 	private List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
-		super("PacketsA", "Packets", CheckType.Player, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(10);
-
+		super("PacketsA", "Packets", CheckType.Player, true, false, false, 10, 1, 600000L, AntiCheat);
 		blacklist = new ArrayList<UUID>();
 		lastPacket = new HashMap<UUID, Long>();
 		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();

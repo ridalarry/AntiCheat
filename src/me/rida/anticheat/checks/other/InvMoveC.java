@@ -12,11 +12,7 @@ import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveC extends Check {
     public InvMoveC(AntiCheat AntiCheat) {
-        super("InvMoveC", "InvMove", CheckType.Other, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(false);
-		setViolationsToNotify(1);
+        super("InvMoveC", "InvMove", CheckType.Other, true, false, false, 10, 1, 600000L, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

@@ -29,13 +29,8 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
     static {
         forgeMods = new HashMap<UUID, Map<String, String>>();
     }
-
     public PMEA(AntiCheat AntiCheat) {
-        super("PMEA", "PME", CheckType.Client, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(false);
-		setViolationsToNotify(1);
+        super("PMEA", "PME", CheckType.Client, true, false, false, 10, 1, 600000L, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

@@ -22,14 +22,7 @@ public class TimerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> timerTicks;
 
 	public TimerB(AntiCheat AntiCheat) {
-		super("TimerB", "Timer", CheckType.Movement, AntiCheat);
-
-		setViolationsToNotify(1);
-		setMaxViolations(9);
-		setEnabled(true);
-		setBannable(false);
-		setViolationResetTime(6000);
-
+		super("TimerB", "Timer", CheckType.Movement, true, false, false, 9, 1, 6000, AntiCheat);
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

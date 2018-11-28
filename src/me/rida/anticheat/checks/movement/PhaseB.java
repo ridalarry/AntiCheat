@@ -142,14 +142,8 @@ public class PhaseB extends Check implements Listener {
 	private Map<Player, Long> lastDoorSwing;
 
 	public PhaseB(AntiCheat AntiCheat) {
-		super("PhaseB", "Phase", CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(40);
-		setViolationsToNotify(3);
+		super("PhaseB", "Phase", CheckType.Combat, true, false, false, 40, 3, 600000L, AntiCheat);
 		lastDoorSwing = new WeakHashMap<>();
-
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)

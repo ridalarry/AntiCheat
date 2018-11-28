@@ -25,13 +25,7 @@ public class ReachB extends Check {
 	public static Map<Player, Map.Entry<Double, Double>> offsets;
 
 	public ReachB(AntiCheat AntiCheat) {
-		super("ReachB", "Reach",  CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setMaxViolations(7);
-		setViolationResetTime(30000);
-		setBannable(true);
-		setViolationsToNotify(1);
+		super("ReachB", "Reach",  CheckType.Combat, true, true, false, 7, 1, 30000, AntiCheat);
 
 		offsets = new WeakHashMap<Player, Map.Entry<Double, Double>>();
 		count = new WeakHashMap<Player, Integer>();

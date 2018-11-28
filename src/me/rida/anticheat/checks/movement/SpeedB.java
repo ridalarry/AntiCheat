@@ -33,14 +33,7 @@ public class SpeedB extends Check {
 	public static Map<UUID, Long> lastHit;
 
 	public SpeedB(AntiCheat AntiCheat) {
-		super("SpeedB", "Speed", CheckType.Movement, AntiCheat);
-		
-		setEnabled(true);
-		setMaxViolations(15);
-		setViolationResetTime(TimeUnit.MINUTES.toMillis(2));
-        setBannable(true);
-        setViolationsToNotify(4);
-        
+		super("SpeedB", "Speed", CheckType.Movement, true, true, false, 15, 4, TimeUnit.MINUTES.toMillis(2), AntiCheat);
 		SpeedB.lastHit = new HashMap<UUID, Long>();
 		SpeedB.tooFastTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		SpeedB.speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();

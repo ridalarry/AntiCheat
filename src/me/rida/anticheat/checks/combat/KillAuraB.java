@@ -15,10 +15,7 @@ import me.rida.anticheat.utils.MathUtil;
 public class KillAuraB extends Check {
 
     public KillAuraB(AntiCheat AntiCheat) {
-        super("KillAuraB", "KillAura",  CheckType.Combat, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(true);
+        super("KillAuraB", "KillAura",  CheckType.Combat, true, true, false, 10, 1, 600000L, AntiCheat);
     }
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

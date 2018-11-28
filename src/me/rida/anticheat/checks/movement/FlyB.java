@@ -23,12 +23,7 @@ public class FlyB extends Check {
 	public static Map<UUID, Long> flyTicksA;
 
 	public FlyB(AntiCheat AntiCheat) {
-		super("FlyB", "Fly", CheckType.Movement, AntiCheat);
-
-		setEnabled(true);
-		setBannable(true);
-		setMaxViolations(5);
-		
+		super("FlyB", "Fly", CheckType.Movement, true, true, false, 5, 1, 600000L, AntiCheat);
 		flyTicksA = new HashMap<UUID, Long>();
 	}
 

@@ -19,10 +19,7 @@ import me.rida.anticheat.other.Ping;
 public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
-		super("BlockInteractA", "BI", CheckType.Other, AntiCheat);
-		setBannable(false);
-		setEnabled(true);
-		setMaxViolations(29);
+		super("BlockInteractA", "BI", CheckType.Other, true, false, false, 29, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

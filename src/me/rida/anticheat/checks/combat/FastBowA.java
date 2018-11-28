@@ -19,13 +19,9 @@ public class FastBowA extends Check {
 	public static Map<Player, Long> bowPull;
     public static Map<Player, Integer> count;
     public FastBowA(AntiCheat AntiCheat) {
-        super("FastBowA", "FastBow", CheckType.Combat, AntiCheat);
+        super("FastBowA", "FastBow", CheckType.Combat, true, true, false, 7, 1, 600000L, AntiCheat);
         bowPull = new HashMap<>();
         count = new HashMap<>();
-        setViolationsToNotify(1);
-        setMaxViolations(7);
-        setEnabled(true);
-        setBannable(true);
     }
 
     @EventHandler

@@ -148,11 +148,7 @@ public class PhaseA extends Check {
 	}
 
 	public PhaseA(AntiCheat AntiCheat) {
-		super("PhaseA", "Phase", CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(40);
+		super("PhaseA", "Phase", CheckType.Combat, true, false, false, 40, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true)

@@ -1,27 +1,15 @@
 package me.rida.anticheat.checks.movement;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerMoveEvent;
-
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.ReflectionUtil;
 
 public class FrictionA extends Check {
     public FrictionA(AntiCheat AntiCheat) {
-		super("FrictionA", "Friction", CheckType.Movement, AntiCheat);
-
-		this.setEnabled(true);
-		this.setBannable(true);
-		setViolationsToNotify(1);
-		setMaxViolations(5);
+		super("FrictionA", "Friction", CheckType.Movement, true, false, false, 5, 1, 600000L, AntiCheat);
     }
 
-    @SuppressWarnings("deprecation")
+    /*@SuppressWarnings("deprecation")
 	@EventHandler
     public void onMove(PlayerMoveEvent event) {
         DataPlayer player = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
@@ -37,4 +25,4 @@ public class FrictionA extends Check {
         }
         player.lastDeltaXZ = deltaXZ;
     }
-}
+*/}

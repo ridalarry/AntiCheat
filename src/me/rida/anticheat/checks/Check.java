@@ -26,11 +26,17 @@ public class Check implements Listener {
 	private Long ViolationResetTime = Long.valueOf(600000L);
 	public Map<String, List<String>> DumpLogs = new HashMap<String, List<String>>();
 
-	public Check(String Identifier, String Name, CheckType Type, AntiCheat AntiCheat) {
+	public Check(String Identifier, String Name, CheckType Type, boolean Enabled, boolean Bannable, boolean JudgementDay, Integer MaxViolations, Integer ViolationsToNotify, long ViolationResetTime, AntiCheat AntiCheat) {
 		this.Name = Name;
 		this.AntiCheat = AntiCheat;
 		this.Identifier = Identifier;
 		this.Type = Type;
+		this.Enabled = Enabled;
+		this.Bannable = Bannable;
+		this.JudgementDay = JudgementDay;
+		this.MaxViolations = MaxViolations;
+		this.ViolationsToNotify = ViolationsToNotify;
+		this.ViolationResetTime = ViolationResetTime;
 	}
 
     

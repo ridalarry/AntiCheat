@@ -1,15 +1,5 @@
 package me.rida.anticheat.checks.movement;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.BlockUtil;
-import me.rida.anticheat.utils.MathUtil;
-import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.TimerUtils;
-import me.rida.anticheat.utils.NewVelocityUtil;
-import me.rida.anticheat.utils.VelocityUtil;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -20,13 +10,21 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.NewVelocityUtil;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.VelocityUtil;
+
 public class SpeedA extends Check {
 
     public SpeedA(AntiCheat AntiCheat) {
-        super("SpeedA", "Speed", CheckType.Movement, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(15);
-        setBannable(true);
+        super("SpeedA", "Speed", CheckType.Movement, true, true, false, 15, 1, 600000L, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

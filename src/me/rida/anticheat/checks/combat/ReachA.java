@@ -19,12 +19,7 @@ import me.rida.anticheat.utils.MathUtil;
 public class ReachA extends Check {
 
     public ReachA(AntiCheat AntiCheat) {
-        super("ReachA", "Reach",  CheckType.Combat, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(7);
-		setBannable(true);
-		setViolationResetTime(30000);
-		setViolationsToNotify(1);
+        super("ReachA", "Reach",  CheckType.Combat, true, true, false, 7, 1, 30000, AntiCheat);
     }
 
     @SuppressWarnings("unused")

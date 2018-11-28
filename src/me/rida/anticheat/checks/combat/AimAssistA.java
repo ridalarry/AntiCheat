@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
@@ -14,11 +15,7 @@ public class AimAssistA extends Check {
     private int aimAssist = 0;
 
     public AimAssistA(AntiCheat AntiCheat) {
-        super("AimAssistA", "AimAssist",  CheckType.Combat, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(false);
-		setViolationsToNotify(1);
+        super("AimAssistA", "AimAssist",  CheckType.Combat, true, false, false, 10, 1, 600000L, AntiCheat);
     }
 
     private static double getFrac(double d) {

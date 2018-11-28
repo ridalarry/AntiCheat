@@ -19,11 +19,8 @@ public class GlideA extends Check {
 	public static Map<UUID, Long> flyTicks;
 
 	public GlideA(AntiCheat AntiCheat) {
-		super("GlideA", "Glide", CheckType.Movement, AntiCheat);
+		super("GlideA", "Glide", CheckType.Movement, true, false, false, 5, 1, 600000L, AntiCheat);
 		flyTicks = new HashMap<UUID, Long>();
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(5);
 	}
 
 	@EventHandler

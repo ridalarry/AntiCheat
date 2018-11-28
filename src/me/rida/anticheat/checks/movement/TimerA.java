@@ -26,16 +26,11 @@ public class TimerA extends Check {
 	public static List<Player> toCancel;
 
 	public TimerA(AntiCheat AntiCheat) {
-		super("TimerA", "Timer", CheckType.Movement, AntiCheat);
-		
+		super("TimerA", "Timer", CheckType.Movement, true, false, false, 5, 1, 600000L, AntiCheat);
 		packets = new HashMap<>();
 		verbose = new HashMap<>();
 		toCancel = new ArrayList<>();
 		lastPacket = new HashMap<>();
-
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(5);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

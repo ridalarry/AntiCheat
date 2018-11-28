@@ -16,22 +16,15 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.CheatUtil;
 
 public class StepA extends Check {
 	double stepHeight;
 
 	public StepA(AntiCheat AntiCheat) {
-		super("StepA", "Step", CheckType.Movement, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-
-		setMaxViolations(7);
-		setViolationsToNotify(1);
-		setViolationResetTime(90000);
+		super("StepA", "Step", CheckType.Movement, true, true, false, 7, 1, 90000, AntiCheat);
 	}
 
 	private boolean isOnGround(Player p) {

@@ -13,10 +13,7 @@ import me.rida.anticheat.checks.CheckType;
 public class VapeA extends Check implements PluginMessageListener {
 
 	public VapeA(AntiCheat AntiCheat) {
-		super("VapeA", "Vape", CheckType.Client, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setMaxViolations(0);
+		super("VapeA", "Vape", CheckType.Client, true, true, false, 0, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

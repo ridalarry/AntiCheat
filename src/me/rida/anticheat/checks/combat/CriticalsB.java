@@ -25,11 +25,7 @@ public class CriticalsB extends Check {
 	public static Map<UUID, Double> FallDistance = new HashMap<UUID, Double>();
 
 	public CriticalsB(AntiCheat AntiCheat) {
-		super("CriticalsB", "Criticals",  CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(true);
-		setMaxViolations(4);
+		super("CriticalsB", "Criticals",  CheckType.Combat, true, true, false, 4, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

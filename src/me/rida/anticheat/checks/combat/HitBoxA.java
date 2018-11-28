@@ -4,13 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.packets.events.PacketUseEntityEvent;
-import me.rida.anticheat.utils.MathUtil;
-import me.rida.anticheat.utils.CheatUtil;
-
 import org.bukkit.GameMode;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -18,15 +11,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.packets.events.PacketUseEntityEvent;
+import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.MathUtil;
+
 public class HitBoxA extends Check {
 
 	public HitBoxA(AntiCheat AntiCheat) {
-		super("HitBoxA", "HitBox", CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(false);
-		setViolationsToNotify(1);
-		setMaxViolations(10);
+		super("HitBoxA", "HitBox", CheckType.Combat, true, false, false, 10, 1, 600000L, AntiCheat);
 	}
 
 	public static Map<UUID, Integer> count = new HashMap<>();

@@ -25,10 +25,7 @@ import me.rida.anticheat.utils.MathUtil;
 
 public class AimAssistB extends Check {
     public AimAssistB(AntiCheat AntiCheat) {
-        super("AimAssistB", "AimAssist",  CheckType.Combat, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(false);
+        super("AimAssistB", "AimAssist",  CheckType.Combat, true, false, false, 10, 1, 600000L, AntiCheat);
 
 
         ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {

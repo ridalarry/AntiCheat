@@ -28,15 +28,11 @@ public class AutoClickerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public AutoClickerB(AntiCheat AntiCheat) {
-		super("AutoClickerB", "AutoClicker",  CheckType.Combat, AntiCheat);
+		super("AutoClickerB", "AutoClicker",  CheckType.Combat, true, false, false, 5, 2, 600000L, AntiCheat);
 
 		LastMS = new HashMap<UUID, Long>();
 		Clicks = new HashMap<UUID, List<Long>>();
 		ClickTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		setViolationsToNotify(2);
-		setEnabled(true);
-		setBannable(false);
-		setMaxViolations(5);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

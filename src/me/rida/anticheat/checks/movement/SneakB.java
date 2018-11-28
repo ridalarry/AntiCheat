@@ -10,12 +10,7 @@ import me.rida.anticheat.checks.CheckType;
 public class SneakB extends Check {
 
 	public SneakB(AntiCheat AntiCheat) {
-		super("SneakB", "Sneak", CheckType.Movement, AntiCheat);
-
-		setEnabled(true);
-		setBannable(true);
-		setMaxViolations(5);
-
+		super("SneakB", "Sneak", CheckType.Movement, true, true, false, 5, 1, 600000L, AntiCheat);
 	}
 
 	@SuppressWarnings("unused")

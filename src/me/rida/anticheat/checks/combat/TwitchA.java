@@ -1,5 +1,6 @@
 package me.rida.anticheat.checks.combat;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
@@ -8,16 +9,10 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
-import org.bukkit.entity.Player;
 
 public class TwitchA extends Check {
 	public TwitchA(AntiCheat AntiCheat) {
-		super("TwitchA", "Twitch",  CheckType.Combat, AntiCheat);
-
-		setEnabled(true);
-		setBannable(true);
-
-		setMaxViolations(5);
+		super("TwitchA", "Twitch",  CheckType.Combat, true, true, false, 5, 1, 600000L, AntiCheat);
 	}
 
     @EventHandler(priority=EventPriority.HIGH)

@@ -1,13 +1,5 @@
 package me.rida.anticheat.checks.player;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.checks.Check;
-import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.TimerUtils;
-import me.rida.anticheat.utils.VelocityUtil;
-
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -16,12 +8,17 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.Check;
+import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.VelocityUtil;
+
 public class GroundSpoofA extends Check {
      public GroundSpoofA(AntiCheat AntiCheat) {
-        super("GroundsSpoofA", "GroundSpoof", CheckType.Player, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(10);
-		setBannable(false);
+        super("GroundsSpoofA", "GroundSpoof", CheckType.Player, true, false, false, 10, 1, 600000L, AntiCheat);
     }
  	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

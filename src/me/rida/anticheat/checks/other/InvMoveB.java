@@ -13,10 +13,7 @@ import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveB extends Check {
 	public InvMoveB(AntiCheat AntiCheat) {
-	super("InvMoveB", "InvMove", CheckType.Other, AntiCheat);
-	setEnabled(true);
-	setMaxViolations(10);
-	setBannable(false);
+	super("InvMoveB", "InvMove", CheckType.Other, true, false, false, 10, 1, 600000L, AntiCheat);
 	}
 
 	@SuppressWarnings("unused")

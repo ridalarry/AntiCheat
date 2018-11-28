@@ -27,13 +27,7 @@ public class JesusA extends Check {
 	public static Map<Player, Long> velocity;
 
 	public JesusA(AntiCheat AntiCheat) {
-		super("JesusA", "Jesus", CheckType.Movement, AntiCheat);
-
-		this.setEnabled(true);
-		this.setBannable(true);
-		setViolationsToNotify(1);
-		setMaxViolations(5);
-		
+		super("JesusA", "Jesus", CheckType.Movement, true, true, false, 5, 1, 600000L, AntiCheat);
 		count = new WeakHashMap<Player, Integer>();
 		placedBlockOnWater = new ArrayList<Player>();
 		onWater = new WeakHashMap<Player, Integer>();

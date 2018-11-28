@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.util.Vector;
+
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
@@ -26,12 +27,7 @@ public class AntiKBA extends Check {
     public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKBA", "AntiKB",  CheckType.Combat, AntiCheat);
-		setEnabled(true);
-		setMaxViolations(30);
-		setBannable(false);
-		setViolationsToNotify(3);
-		setViolationResetTime(250000);
+        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, 30, 3, 250000, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

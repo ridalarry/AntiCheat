@@ -1,25 +1,16 @@
 package me.rida.anticheat.checks.movement;
 
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.potion.PotionEffectType;
-
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.BlockUtil;
-import me.rida.anticheat.utils.MathUtil;
-import me.rida.anticheat.utils.PlayerUtil;
 
 public class SpeedD extends Check {
 
     public SpeedD(AntiCheat AntiCheat) {
-		super("SpeedD", "Speed", CheckType.Movement, AntiCheat);
+		super("SpeedD", "Speed", CheckType.Movement, true, false, false, 15, 1, 600000L, AntiCheat);
     }
 
-    @EventHandler
+    /*@EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
         Player p = event.getPlayer();
@@ -44,7 +35,7 @@ public class SpeedD extends Check {
     			getAntiCheat().logCheat(this, p, horizontal + ">-" + threshold, "(Type: D)");
                 data.speedThreshold = 10;
             }
-        } else data.speedThreshold = Math.max(0, data.speedThreshold - 1);
+       } else data.speedThreshold = Math.max(0, data.speedThreshold - 1);
     }
 
-}
+*/}
