@@ -43,10 +43,6 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
         this.getClientType(e.getPlayer());
     }
 
-    public void addVio(Player p) {
-    	getAntiCheat().logCheat(this, p, Color.Red + "[1] Experemental detection of a hack client!", "(Type: A)");
-    }
-
     @SuppressWarnings("unchecked")
 	public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
         ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
