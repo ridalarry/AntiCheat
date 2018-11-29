@@ -170,6 +170,11 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerInteract(PlayerInteractEvent event) {
+		
+		if(AntiCheat.isInPhaseTimer(event.getPlayer())) {
+			return;
+		}
+		
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
 				&& event.getItem().getType() == Material.ENDER_PEARL) {
 			Block block = event.getClickedBlock();
@@ -190,6 +195,12 @@ public class PhaseA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPearlClip(PlayerTeleportEvent event) {
+		
+		if(AntiCheat.isInPhaseTimer(event.getPlayer())) {
+			return;
+		}
+		
+		
 		if (event.getCause() == TeleportCause.PLUGIN) {
 			return;
 		}

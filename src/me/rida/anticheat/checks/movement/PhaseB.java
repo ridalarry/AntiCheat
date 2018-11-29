@@ -148,7 +148,14 @@ public class PhaseB extends Check implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPhase(PlayerMoveEvent e) {
+		
+		
 		Player player = e.getPlayer();
+		
+		if(AntiCheat.isInPhaseTimer(player)) {
+			return;
+		}
+		
 
 		if (player.getAllowFlight()
 				|| player.getVehicle() != null
@@ -181,6 +188,11 @@ public class PhaseB extends Check implements Listener {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
+		
+		if(AntiCheat.isInPhaseTimer(event.getPlayer())) {
+			return;
+		}
+		
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if ((BlockUtil.isDoor(event.getClickedBlock())
 					|| BlockUtil.isFenceGate(event.getClickedBlock())
