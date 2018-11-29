@@ -38,7 +38,7 @@ public class CrashA extends Check {
 		final Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		if (this.crashs.contains(u)) {
@@ -72,7 +72,7 @@ public class CrashA extends Check {
 			return;
 		}
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		int Count = 0;
@@ -114,7 +114,7 @@ public class CrashA extends Check {
 		}
 		if (Count > 2000) {
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-			        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
 			this.getAntiCheat().logCheat(this, p, "[3]", "(Type: A)");

@@ -13,43 +13,43 @@ import me.rida.anticheat.data.DataPlayer;
 public class NewVelocityUtil implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onMove(PlayerMoveEvent e) {
-        Player p = e.getPlayer();
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-        if (data != null) {
-            if (data.isLastVelUpdateBoolean()) {
-                if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1_FORCE_RESET)) {
-                    data.setLastVelUpdateBoolean(false);
-                }
-                if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1)) {
-                    if (!p.isOnGround()) {
-                        data.setLastVelUpdate(TimerUtils.nowlong());
-                    } else {
-                        data.setLastVelUpdateBoolean(false);
-                    }
-                }
-            }
-        }
-    }
+	public void onMove(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (data != null) {
+			if (data.isLastVelUpdateBoolean()) {
+				if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1_FORCE_RESET)) {
+					data.setLastVelUpdateBoolean(false);
+				}
+				if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1)) {
+					if (!p.isOnGround()) {
+						data.setLastVelUpdate(TimerUtils.nowlong());
+					} else {
+						data.setLastVelUpdateBoolean(false);
+					}
+				}
+			}
+		}
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onVelChange(PlayerVelocityEvent e) {
-        Player p = e.getPlayer();
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-        if (data != null) {
-            if (p.getNoDamageTicks() > 0 == false) {
-                if (!data.isLastVelUpdateBoolean()) {
-                    data.setLastVelUpdateBoolean(true);
-                    data.setLastVelUpdate(TimerUtils.nowlong());
-                }
-            }
-        }
-    }
-    public static boolean didTakeVel(Player p) {
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-        if (data != null) {
-            return data.isLastVelUpdateBoolean();
-        } else {
-            return false;
-        }
-    }
+	public void onVelChange(PlayerVelocityEvent e) {
+		Player p = e.getPlayer();
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (data != null) {
+			if (p.getNoDamageTicks() > 0 == false) {
+				if (!data.isLastVelUpdateBoolean()) {
+					data.setLastVelUpdateBoolean(true);
+					data.setLastVelUpdate(TimerUtils.nowlong());
+				}
+			}
+		}
+	}
+	public static boolean didTakeVel(Player p) {
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (data != null) {
+			return data.isLastVelUpdateBoolean();
+		} else {
+			return false;
+		}
+	}
 }

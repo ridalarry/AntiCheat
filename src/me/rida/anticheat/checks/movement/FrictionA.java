@@ -5,7 +5,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 
 public class FrictionA extends Check {
-    public FrictionA(AntiCheat AntiCheat) {
+	public FrictionA(AntiCheat AntiCheat) {
 		super("FrictionA", "Friction", CheckType.Movement, true, false, false, 5, 1, 600000L, AntiCheat);
     }
 

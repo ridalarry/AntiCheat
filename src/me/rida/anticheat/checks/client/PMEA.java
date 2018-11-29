@@ -23,72 +23,71 @@ import me.rida.anticheat.utils.Color;
 
 public class PMEA extends Check implements PluginMessageListener, Listener {
 	private static String type;
-    private final JSONParser parser = new JSONParser();
-    private final static Map<UUID, Map<String, String>> forgeMods;
+	private final JSONParser parser = new JSONParser();
+	private final static Map<UUID, Map<String, String>> forgeMods;
 
-    static {
-        forgeMods = new HashMap<UUID, Map<String, String>>();
-    }
-    public PMEA(AntiCheat AntiCheat) {
-        super("PMEA", "PME", CheckType.Client, true, false, false, 10, 1, 600000L, AntiCheat);
-    }
+	static {
+		forgeMods = new HashMap<UUID, Map<String, String>>();
+	}
+	public PMEA(AntiCheat AntiCheat) {
+		super("PMEA", "PME", CheckType.Client, true, false, false, 10, 1, 600000L, AntiCheat);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onJoin(PlayerJoinEvent e) {
-        this.getClientType(e.getPlayer());
-    }
+	public void onJoin(PlayerJoinEvent e) {
+		this.getClientType(e.getPlayer());
+	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
 	public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
-        ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
-        if ("ForgeMods".equals(byteArrayDataInput.readUTF())) {
-            String string2 = byteArrayDataInput.readUTF();
-            try {
-                @SuppressWarnings("rawtypes")
+		ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
+		if ("ForgeMods".equals(byteArrayDataInput.readUTF())) {
+			String string2 = byteArrayDataInput.readUTF();
+			try {
+				@SuppressWarnings("rawtypes")
 				Map map = (Map)this.parser.parse(string2);
-                forgeMods.put(p.getUniqueId(), map);
-                String string3 = this.getClientType(p);
-                if (string3 != null) {
-                    type = string3;
-                	getAntiCheat().logCheat(this, p, Color.Red + "[2] Experemental detection of a hack client!", "(Type: A)");
-                }
-            }
-            catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        }
-    }
+				forgeMods.put(p.getUniqueId(), map);
+				String string3 = this.getClientType(p);
+				if (string3 != null) {
+					type = string3;
+					getAntiCheat().logCheat(this, p, Color.Red + "[2] Experemental detection of a hack client!", "(Type: A)");
+				}
+			}
+			catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		}
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onPlayerQuit(PlayerQuitEvent e) {
-        forgeMods.remove(e.getPlayer().getUniqueId());
-    }
+	public void onPlayerQuit(PlayerQuitEvent e) {
+		forgeMods.remove(e.getPlayer().getUniqueId());
+	}
 
-    public String getClientType(Player p) {
-        Map<String, String> map = forgeMods.get(p.getUniqueId());
-        if (map != null) {
-            if (map.containsKey("gc")) {
-                type = "gc";
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
-                return "gc";
-            }
-            if (map.containsKey("ethylene")) {
-                type = "ethylene";
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
-                return "ethylene";
-            }
-            if ("1.0".equals(map.get("OpenComputers"))) {
-                type = "OpenComputers 1.0";
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type A)");
-                return "C";
-            }
-            if ("1.7.6.git".equals(map.get("Schematica"))) {
-                type = "Schematica 1.7.6.git";
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
-                return "Schematica 1.7.6.git";
-            }
-        }
-        return null;
-    }
+	public String getClientType(Player p) {
+		Map<String, String> map = forgeMods.get(p.getUniqueId());
+		if (map != null) {
+			if (map.containsKey("gc")) {
+				type = "gc";
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+				return "gc";
+			}
+			if (map.containsKey("ethylene")) {
+				type = "ethylene";
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+				return "ethylene";
+			}
+			if ("1.0".equals(map.get("OpenComputers"))) {
+				type = "OpenComputers 1.0";
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type A)");
+				return "C";
+			}
+			if ("1.7.6.git".equals(map.get("Schematica"))) {
+				type = "Schematica 1.7.6.git";
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+				return "Schematica 1.7.6.git";
+			}
+		}
+		return null;
+	}
 }
-

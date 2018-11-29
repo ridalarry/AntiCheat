@@ -13,10 +13,9 @@ import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveB extends Check {
 	public InvMoveB(AntiCheat AntiCheat) {
-	super("InvMoveB", "InvMove", CheckType.Other, true, false, false, 10, 1, 600000L, AntiCheat);
+		super("InvMoveB", "InvMove", CheckType.Other, true, false, false, 10, 1, 600000L, AntiCheat);
 	}
 
-	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void attack(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)) {
@@ -25,7 +24,6 @@ public class InvMoveB extends Check {
 		Player p = (Player) e.getDamager();
 		InventoryView view = p.getOpenInventory();
 		Inventory top = view.getTopInventory();
-		Inventory bottom = view.getBottomInventory();
 		if (view !=null) {
 			if (top.toString().contains("CraftInventoryCrafting")
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

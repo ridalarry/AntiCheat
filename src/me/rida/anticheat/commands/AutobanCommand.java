@@ -11,7 +11,7 @@ import me.rida.anticheat.utils.Color;
 
 public class AutobanCommand implements CommandExecutor {
 	private AntiCheat AntiCheat;
-	
+
 	public AutobanCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
 	}

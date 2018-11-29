@@ -69,7 +69,7 @@ public class NoFallA extends Check {
 				|| p.getVehicle() != null
 				|| cancel.remove(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.isInWater(p)) {
 			return;
@@ -119,5 +119,4 @@ public class NoFallA extends Check {
 				new AbstractMap.SimpleEntry<Long, Integer>(Time, Count));
 		return;
 	}
-
 }

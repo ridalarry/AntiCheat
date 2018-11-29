@@ -1,10 +1,11 @@
 package me.rida.anticheat.commands;
 
+import java.io.File;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.File;
 
+import org.apache.commons.io.FileUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,8 +13,6 @@ import org.bukkit.command.CommandSender;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
-
-import org.apache.commons.io.FileUtils;
 
 public class GetLogCommand implements CommandExecutor {
 
@@ -46,7 +45,7 @@ public class GetLogCommand implements CommandExecutor {
 		if (!(MathUtil.isInteger(a))) {
 			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
 			return true;
-			
+
 		}
 		int page = Math.round(Integer.parseInt(g[1]));
 		if (page < 1) {

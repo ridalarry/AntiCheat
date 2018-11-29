@@ -55,12 +55,12 @@ public class AutoClickerB extends Check {
 	private void UseEntity(PacketUseEntityEvent e) {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
 				|| !((e.getAttacked()) instanceof Player)
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(e.getAttacker()) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(e.getAttacker()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		
-        Player damager = e.getAttacker();
+
+		Player damager = e.getAttacker();
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (ClickTicks.containsKey(damager.getUniqueId())) {
@@ -85,8 +85,7 @@ public class AutoClickerB extends Check {
 						Time = System.currentTimeMillis();
 						this.dumplog(damager,
 								"Logged for AutoClicker Type B; New Count: " + Count + "; Range: " + Range + "; Ping: "
-										+ getAntiCheat().getLag().getPing(damager) + "; TPS: "
-										+ getAntiCheat().getLag().getTPS());
+										+ getAntiCheat().getLag().getPing(damager) + "; TPS: " + getAntiCheat().getLag().getTPS());
 					}
 				} else {
 					Clicks.add(MS);
@@ -114,5 +113,4 @@ public class AutoClickerB extends Check {
 		LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
 		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
-
 }

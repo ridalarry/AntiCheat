@@ -15,15 +15,15 @@ public class TwitchA extends Check {
 		super("TwitchA", "Twitch",  CheckType.Combat, true, true, false, 5, 1, 600000L, AntiCheat);
 	}
 
-    @EventHandler(priority=EventPriority.HIGH)
-    private void Player(PacketPlayerEvent e) {
+	@EventHandler(priority=EventPriority.HIGH)
+	private void Player(PacketPlayerEvent e) {
 		Player p = e.getPlayer();
 		if (e.getType() != PacketPlayerType.LOOK) {
 			return;
 		}
 		if ((e.getPitch() > 90.1F) || (e.getPitch() < -90.1F)) {
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
 			getAntiCheat().logCheat(this, p, null, "(Type: A)");

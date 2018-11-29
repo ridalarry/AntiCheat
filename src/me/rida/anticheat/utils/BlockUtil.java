@@ -390,7 +390,7 @@ public class BlockUtil {
 		}
 		return false;
 	}
-	
+
 
 	public static boolean isLava(Block block) {
 		if (block != null && (block.getType() == Material.LAVA || block.getType() == Material.STATIONARY_LAVA)) {
@@ -979,7 +979,6 @@ public class BlockUtil {
 	private void setupCollisionBB() {
 		collisionBoundingBoxes.put(Material.BREWING_STAND, new BoundingBox[]{new BoundingBox(0.4375f, 0, 0.4375f, 0.5625f, 0.875f, 0.5625f), new BoundingBox(0, 0, 0, 1f, 0.125f, 1f)});
 		Arrays.stream(Material.values()).filter(material -> material.name().contains("FENCE") && !material.name().contains("GATE")).forEach(material -> collisionBoundingBoxes.put(material, new BoundingBox[]{new BoundingBox(-69, 0, -69, -69, 1.5f, -69), new BoundingBox(0, 0, 0, 0, 0, 0)}));
-		//Arrays.stream(Material.values()).filter(material -> material.name().contains("STAIR")).forEach(material -> collisionBoundingBoxes.put(material, new BoundingBox[]{new BoundingBox(0, 0, 0, 1, 1f, 1), new BoundingBox(0, 0, 0, 0, 0, 0)}));
 		collisionBoundingBoxes.put(Material.STATIONARY_LAVA, new BoundingBox[]{new BoundingBox(0, 0, 0, 1, 1, 1), new BoundingBox(0, 0, 0, 0, 0, 0)});
 	}
 }

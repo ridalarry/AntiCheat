@@ -29,12 +29,12 @@ public class ReflectionUtil {
 	public static final Class<?> World = getNMSClass("World");
 	private static final Method getBlocks = getMethod(World, "a", getNMSClass("AxisAlignedBB"));
 	private static final Method getBlocks1_12 = getMethod(World, "getCubes", getNMSClass("Entity"), getNMSClass("AxisAlignedBB"));
-	
+
 	public static float getFriction(Block block) {
-        Object blockNMS = getVanillaBlock(block);
-         return (float) getFieldValue(getFieldByName(vanillaBlock, "frictionFactor"), blockNMS);
-    }
-	
+		Object blockNMS = getVanillaBlock(block);
+		return (float) getFieldValue(getFieldByName(vanillaBlock, "frictionFactor"), blockNMS);
+	}
+
 	public static Method getMethod(Class<?> object, String method, Class<?>... args) {
 		try {
 			Method methodObject = object.getMethod(method, args);
@@ -309,7 +309,6 @@ public class ReflectionUtil {
 		return new BoundingBox((float) min.getX(), (float) min.getY(), (float) min.getZ(), (float) max.getX(), (float) max.getY(), (float) max.getZ());
 	}
 
-	@SuppressWarnings("unused")
 	private static Method getMethodNoST(Class<?> clazz, String methodName, Class<?>... args) {
 		try {
 			Method method = clazz.getMethod(methodName, args);
@@ -319,6 +318,4 @@ public class ReflectionUtil {
 		}
 		return null;
 	}
-
 }
-

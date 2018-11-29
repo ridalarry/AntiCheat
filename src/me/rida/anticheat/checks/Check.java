@@ -33,14 +33,14 @@ public class Check implements Listener {
 		this.Type = Type;
 		this.Enabled = Enabled;
 		this.Bannable = Bannable;
-		
+
 		this.JudgementDay = JudgementDay;
 		this.MaxViolations = MaxViolations;
 		this.ViolationsToNotify = ViolationsToNotify;
 		this.ViolationResetTime = ViolationResetTime;
 	}
 
-    
+
 	public void dumplog(Player player, String log) {
 		if (!this.DumpLogs.containsKey(player.getName())) {
 			List<String> logs = new ArrayList<String>();

@@ -1,112 +1,115 @@
 package me.rida.anticheat.data;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.WeakHashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import me.rida.anticheat.checks.Check;
-
-import java.util.*;
 
 public class DataManager {
 	private List<Check> checks;
-    private Map<Player, Map<Check, Integer>> violations;
-    private List<DataPlayer> players;
-    
-    private Set<DataPlayer> dataSet = new HashSet<>();
+	private Map<Player, Map<Check, Integer>> violations;
+	private List<DataPlayer> players;
 
-    public DataManager() {
-        Bukkit.getOnlinePlayers().forEach(this::add);
-        checks = new ArrayList<>();
-        violations = new WeakHashMap<>();
-        players = new ArrayList<>();
-    }
+	private Set<DataPlayer> dataSet = new HashSet<>();
 
-    public DataPlayer getDataPlayer(Player p) {
-        return dataSet.stream().filter(dataPlayer -> dataPlayer.player == p).findFirst().orElse(null);
-    }
+	public DataManager() {
+		Bukkit.getOnlinePlayers().forEach(this::add);
+		checks = new ArrayList<>();
+		violations = new WeakHashMap<>();
+		players = new ArrayList<>();
+	}
 
-    public void add(Player p) {
-        dataSet.add(new DataPlayer(p));
-    }
+	public DataPlayer getDataPlayer(Player p) {
+		return dataSet.stream().filter(dataPlayer -> dataPlayer.player == p).findFirst().orElse(null);
+	}
 
-    public void remove(Player p) {
-        dataSet.removeIf(dataPlayer -> dataPlayer.player == p);
-    }
+	public void add(Player p) {
+		dataSet.add(new DataPlayer(p));
+	}
 
-    public void removeCheck(Check c) {
-        if(checks.contains(c)) checks.remove(c);
-    }
+	public void remove(Player p) {
+		dataSet.removeIf(dataPlayer -> dataPlayer.player == p);
+	}
 
-    public boolean isCheck(Check c) {
-        return checks.contains(c);
-    }
+	public void removeCheck(Check c) {
+		if(checks.contains(c)) checks.remove(c);
+	}
 
-    public Check getCheckAyName(String cn) {
-        for(Check checkLoop : Collections.synchronizedList(checks)) {
-            if(checkLoop.getName().equalsIgnoreCase(cn)) return checkLoop;
-        }
+	public boolean isCheck(Check c) {
+		return checks.contains(c);
+	}
 
-        return null;
-    }
+	public Check getCheckAyName(String cn) {
+		for(Check checkLoop : Collections.synchronizedList(checks)) {
+			if(checkLoop.getName().equalsIgnoreCase(cn)) return checkLoop;
+		}
 
-    public Map<Player, Map<Check, Integer>> getViolationsMap() {
-        return violations;
-    }
+		return null;
+	}
 
-    public int getViolatonsPlayer(Player p, Check c) {
-        if(violations.containsKey(p)) {
-            Map<Check, Integer> vlMap = violations.get(p);
+	public Map<Player, Map<Check, Integer>> getViolationsMap() {
+		return violations;
+	}
 
-            return vlMap.getOrDefault(c, 0);
-        }
-        return 0;
-    }
+	public int getViolatonsPlayer(Player p, Check c) {
+		if(violations.containsKey(p)) {
+			Map<Check, Integer> vlMap = violations.get(p);
 
-    public void addViolation(Player p, Check c) {
-        if (violations.containsKey(p)) {
-            Map<Check, Integer> vlMap = violations.get(p);
+			return vlMap.getOrDefault(c, 0);
+		}
+		return 0;
+	}
 
-            vlMap.put(c, vlMap.getOrDefault(c, 0) + 1);
-            violations.put(p, vlMap);
-        } else {
-            Map<Check, Integer> vlMap = new HashMap<>();
+	public void addViolation(Player p, Check c) {
+		if (violations.containsKey(p)) {
+			Map<Check, Integer> vlMap = violations.get(p);
 
-            vlMap.put(c, 1);
+			vlMap.put(c, vlMap.getOrDefault(c, 0) + 1);
+			violations.put(p, vlMap);
+		} else {
+			Map<Check, Integer> vlMap = new HashMap<>();
 
-            violations.put(p, vlMap);
-        }
-    }
+			vlMap.put(c, 1);
 
-    public void addPlayerData(Player p) {
-        players.add(new DataPlayer(p));
-    }
+			violations.put(p, vlMap);
+		}
+	}
 
-    public DataPlayer getData(Player p) {
-        for(DataPlayer dataLoop : Collections.synchronizedList(players)) {
-            if(dataLoop.getPlayer() == p) {
-                return dataLoop;
-            }
-        }
-        return null;
-    }
+	public void addPlayerData(Player p) {
+		players.add(new DataPlayer(p));
+	}
 
-    public void removePlayerData(Player p) {
-        for(DataPlayer dataLoop : Collections.synchronizedList(players)) {
-            if(dataLoop.getPlayer() == p) {
-                players.remove(dataLoop);
-                break;
-            }
-        }
-    }
+	public DataPlayer getData(Player p) {
+		for(DataPlayer dataLoop : Collections.synchronizedList(players)) {
+			if(dataLoop.getPlayer() == p) {
+				return dataLoop;
+			}
+		}
+		return null;
+	}
 
+	public void removePlayerData(Player p) {
+		for(DataPlayer dataLoop : Collections.synchronizedList(players)) {
+			if(dataLoop.getPlayer() == p) {
+				players.remove(dataLoop);
+				break;
+			}
+		}
+	}
 
-    public void addCheck(Check c) {
-        if(!checks.contains(c)) checks.add(c);
-    }
-    public List<Check> getChecks() {
-        return checks;
-    }
+	public void addCheck(Check c) {
+		if(!checks.contains(c)) checks.add(c);
+	}
+	public List<Check> getChecks() {
+		return checks;
+	}
 }

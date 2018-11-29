@@ -61,7 +61,7 @@ public class RegenA extends Check {
 				|| p.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		int Count = 0;
@@ -75,7 +75,7 @@ public class RegenA extends Check {
 		} else {
 			Count = Count > 0 ? Count - 1 : Count;
 		}
-		
+
 		if(Count > 2) {
 			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}

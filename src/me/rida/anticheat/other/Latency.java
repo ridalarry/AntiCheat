@@ -129,6 +129,4 @@ public class Latency implements Listener {
 	public double getTps() {
 		return tps;
 	}
-
-
 }

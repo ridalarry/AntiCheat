@@ -109,5 +109,4 @@ public class BlockInteractA extends Check {
 		}
 		return false;
 	}
-
 }

@@ -15,7 +15,7 @@ import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 
 public class FastLadderA extends Check {
-	
+
 	public static Map<Player, Integer> count;
 
 	public FastLadderA(AntiCheat AntiCheat) {
@@ -34,7 +34,7 @@ public class FastLadderA extends Check {
 				|| !PlayerUtil.isOnClimbable(p, 1) 
 				|| !PlayerUtil.isOnClimbable(p, 0)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 
@@ -42,14 +42,12 @@ public class FastLadderA extends Check {
 		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));
 		double Limit = 0.13;
-		
+
 		double updown = e.getTo().getY() - e.getFrom().getY();
 		if (updown <= 0) {
 			return;
 		}
 
-		
-		
 		if (OffsetY > Limit) {
 			Count++;
 			this.dumplog(p, "Logged for FastLadder Type A;  New Count: " + Count + " (+1); Speed: " + OffsetY + "; Max: " + Limit);
@@ -58,7 +56,7 @@ public class FastLadderA extends Check {
 		}
 
 		long percent = Math.round((OffsetY - Limit) * 120);
-		
+
 		if (Count > 11) {
 			Count = 0;
 			this.dumplog(p,
@@ -67,5 +65,4 @@ public class FastLadderA extends Check {
 		}
 		count.put(p, Count);
 	}
-
 }

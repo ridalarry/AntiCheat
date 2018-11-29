@@ -57,19 +57,19 @@ public class TimerA extends Check {
 		UUID u = p.getUniqueId();
 		if (!this.getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 			return;
 		}
-		
+
 		long lastPacket = TimerA.lastPacket.getOrDefault(p.getUniqueId(), 0L);
 		int packets = 0;
 		long Time = System.currentTimeMillis();
 		int verbose = TimerA.verbose.getOrDefault(p.getUniqueId(), 0);
-		
+
 		if (TimerA.packets.containsKey(p.getUniqueId())) {
 			packets = TimerA.packets.get(p.getUniqueId()).getKey();
 			Time = TimerA.packets.get(p.getUniqueId()).getValue();
@@ -89,7 +89,7 @@ public class TimerA extends Check {
 			} else {
 				verbose = 0;
 			}
-			
+
 			if(verbose > 2) {
 				getAntiCheat().logCheat(this, p, "Packets: " + packets, "(Type: A)");
 			}

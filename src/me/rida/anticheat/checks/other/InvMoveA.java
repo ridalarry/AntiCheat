@@ -16,18 +16,15 @@ public class InvMoveA extends Check {
 		super("InvMoveA", "InvMove", CheckType.Other, true, false, false, 30, 20, 3000, AntiCheat);
 	}
 
-
-	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void move(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		InventoryView view = p.getOpenInventory();
 		Inventory top = view.getTopInventory();
-		Inventory bottom = view.getBottomInventory();
 		if (view !=null) {
 			if (top.toString().contains("CraftInventoryCrafting")
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-        			|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			} else {
 				getAntiCheat().logCheat(this, p, "Moving while having a gui open!", "(Type: A)");

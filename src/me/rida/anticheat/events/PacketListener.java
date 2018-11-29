@@ -1,13 +1,13 @@
 package me.rida.anticheat.events;
 
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.packets.events.PacketPlayerEvent;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.packets.events.PacketPlayerEvent;
 
 public class PacketListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

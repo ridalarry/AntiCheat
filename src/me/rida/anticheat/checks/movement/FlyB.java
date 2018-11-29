@@ -19,7 +19,7 @@ import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 
 public class FlyB extends Check {
-	
+
 	public static Map<UUID, Long> flyTicksA;
 
 	public FlyB(AntiCheat AntiCheat) {
@@ -43,7 +43,7 @@ public class FlyB extends Check {
 			return;
 		}
 		Player p = e.getPlayer();
-		
+
 		if (e.isCancelled()
 				|| (e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
 				|| p.getAllowFlight()
@@ -52,11 +52,11 @@ public class FlyB extends Check {
 				|| PlayerUtil.isInWater(p)
 				|| CheatUtil.isInWeb(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| Latency.getLag(p) > 92) {
 			return;
 		}
-		
+
 		if (CheatUtil.blocksNear(p.getLocation())) {
 			if (flyTicksA.containsKey(p.getUniqueId())) {
 				flyTicksA.remove(p.getUniqueId());
@@ -69,7 +69,7 @@ public class FlyB extends Check {
 			}
 			return;
 		}
-		
+
 		long Time = System.currentTimeMillis();
 		if (flyTicksA.containsKey(p.getUniqueId())) {
 			Time = flyTicksA.get(p.getUniqueId()).longValue();

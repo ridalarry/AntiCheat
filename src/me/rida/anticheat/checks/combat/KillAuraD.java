@@ -28,10 +28,10 @@ public class KillAuraD extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void packet(PacketKillauraEvent e) {
-    	Player p = e.getPlayer();
+		Player p = e.getPlayer();
 		if (!getAntiCheat().isEnabled()
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 
@@ -49,7 +49,7 @@ public class KillAuraD extends Check {
 		if (e.getType() == PacketPlayerType.USE) {
 			Count++;
 		}
-		
+
 		if(Count > Other && Other == 2) {
 			getAntiCheat().logCheat(this, p, "Packet", "(Type: D)");
 		}
@@ -67,5 +67,4 @@ public class KillAuraD extends Check {
 			packetTicks.remove(e.getPlayer().getUniqueId());
 		}
 	}
-
 }

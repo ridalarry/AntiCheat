@@ -3,18 +3,18 @@ package me.rida.anticheat.utils;
 import org.bukkit.ChatColor;
 
 public class Color {
-    public static String Head = ChatColor.AQUA.toString();
-    public static String Scramble = ChatColor.MAGIC.toString();
-    public static String Strike = ChatColor.STRIKETHROUGH.toString();
-    public static String Line = ChatColor.UNDERLINE.toString();
-    public static String Reset = ChatColor.WHITE.toString();
-    public static String DAqua = ChatColor.DARK_AQUA.toString();
-    public static String DBlue = ChatColor.DARK_BLUE.toString();
-    public static String DGray = ChatColor.DARK_GRAY.toString();
-    public static String DGreen = ChatColor.DARK_GREEN.toString();
-    public static String DPurple = ChatColor.DARK_PURPLE.toString();
-    public static String DRed = ChatColor.DARK_RED.toString();
-    public static String Split = "�";
+	public static String Head = ChatColor.AQUA.toString();
+	public static String Scramble = ChatColor.MAGIC.toString();
+	public static String Strike = ChatColor.STRIKETHROUGH.toString();
+	public static String Line = ChatColor.UNDERLINE.toString();
+	public static String Reset = ChatColor.WHITE.toString();
+	public static String DAqua = ChatColor.DARK_AQUA.toString();
+	public static String DBlue = ChatColor.DARK_BLUE.toString();
+	public static String DGray = ChatColor.DARK_GRAY.toString();
+	public static String DGreen = ChatColor.DARK_GREEN.toString();
+	public static String DPurple = ChatColor.DARK_PURPLE.toString();
+	public static String DRed = ChatColor.DARK_RED.toString();
+	public static String Split = "�";
 
 	public static String Dark_Red = ChatColor.DARK_RED.toString();
 	public static String Red = ChatColor.RED.toString();
@@ -39,9 +39,8 @@ public class Color {
 	public static String translate(String string) {
 		return ChatColor.translateAlternateColorCodes('&', string);
 	}
-	
+
 	public static String strip(String string) {
 		return ChatColor.stripColor(string);
 	}
-
 }

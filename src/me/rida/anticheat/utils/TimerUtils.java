@@ -46,5 +46,4 @@ public class TimerUtils {
 	public void reset() {
 		this.lastMS = getCurrentMS();
 	}
-
 }

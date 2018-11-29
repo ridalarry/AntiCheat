@@ -34,16 +34,16 @@ public class SpiderA extends Check {
 		super("SpiderA", "Spider", CheckType.Movement, true, true, false, 5, 1, 600000L, AntiCheat);
 	}
 
-    @SuppressWarnings("unused")
-    private void onMove(PlayerMoveEvent e) {
-        Location from = e.getFrom();
-        Location to = e.getTo();
-        Player p = e.getPlayer();
-    	double OffSet = e.getFrom().getY() - e.getTo().getY();
+	@SuppressWarnings("unused")
+	private void onMove(PlayerMoveEvent e) {
+		Location from = e.getFrom();
+		Location to = e.getTo();
+		Player p = e.getPlayer();
+		double OffSet = e.getFrom().getY() - e.getTo().getY();
 		if (OffSet <= 0.0 || OffSet > 0.16) {
-			
+
 		}
-    }
+	}
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
 	@SuppressWarnings("deprecation")
@@ -51,29 +51,29 @@ public class SpiderA extends Check {
 	private void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
-		
-        if (p.getGameMode().equals(GameMode.CREATIVE)
-                || p.getAllowFlight()
+
+		if (p.getGameMode().equals(GameMode.CREATIVE)
+				|| p.getAllowFlight()
 				|| e.getTo().getY() < e.getFrom().getY()
-                || p.getVehicle() != null
-                || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
-                || p.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == 165
-                || PlayerUtil.isOnClimbable(p, 0)
-                || PlayerUtil.isOnClimbable(p, 1)
+				|| p.getVehicle() != null
+				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
+				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == 165
+				|| PlayerUtil.isOnClimbable(p, 0)
+				|| PlayerUtil.isOnClimbable(p, 1)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
 				|| PlayerUtil.isNotSpider(p)
 				|| PlayerUtil.isOnFence(p.getLocation())
 				|| PlayerUtil.isOnPressure(p.getLocation())
 				|| BlockUtil.isNearFence(p)
 				|| BlockUtil.isNearPressure(p)
-                || VelocityUtil.didTakeVelocity(p)) {
-        	return;
-        }
-        if (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p)) {
-        	return;
-        }
+				|| VelocityUtil.didTakeVelocity(p)) {
+			return;
+		}
+		if (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p)) {
+			return;
+		}
 
 		long Time = System.currentTimeMillis();
 		double TotalBlocks = 0.0D;
@@ -82,7 +82,7 @@ public class SpiderA extends Check {
 			TotalBlocks = AscensionTicks.get(u).getValue().doubleValue();
 		}
 		long MS = System.currentTimeMillis() - Time;
-        double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()), MathUtil.getVerticalVector(e.getTo().toVector()));
+		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()), MathUtil.getVerticalVector(e.getTo().toVector()));
 
 		boolean ya = false;
 		List<Material> Types = new ArrayList<Material>();
@@ -123,5 +123,4 @@ public class SpiderA extends Check {
 		}
 		SpiderA.AscensionTicks.put(u, new AbstractMap.SimpleEntry<>(Time, TotalBlocks));
 	}
-
 }

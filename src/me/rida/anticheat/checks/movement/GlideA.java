@@ -39,12 +39,12 @@ public class GlideA extends Check {
 			return;
 		}
 		Player p = e.getPlayer();
-		
+
 		if (e.isCancelled()
 				|| !(e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ())
 				|| p.getVehicle() != null
 				|| p.getAllowFlight()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| CheatUtil.isInWeb(p)) {
 			return;

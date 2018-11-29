@@ -97,10 +97,10 @@ public class AutoClickerA extends Check {
 		}
 		if ((Count > 2 && this.getAntiCheat().getLag().getPing(p) < 100)
 				|| (Count > 4 && this.getAntiCheat().getLag().getPing(p) <= 400)) {
-				dumplog(p, "Logged. Count: " + Count);
+			dumplog(p, "Logged. Count: " + Count);
 			Count = 0;
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
 			getAntiCheat().logCheat(this, p, "Click Pattern", "(Type: A)");

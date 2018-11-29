@@ -17,13 +17,11 @@ public class ChatA extends Check{
 		super("ChatA", "Chat", CheckType.Other, true, false, false, 1, 1, 600000L, AntiCheat);
 	}
 
-	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		InventoryView view = p.getOpenInventory();
 		Inventory top = view.getTopInventory();
-		Inventory bottom = view.getBottomInventory();
 		if (view !=null) {
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

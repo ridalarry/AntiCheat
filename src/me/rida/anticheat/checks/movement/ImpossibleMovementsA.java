@@ -15,55 +15,55 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.TimerUtils;
 
 public class ImpossibleMovementsA extends Check {
-    public ImpossibleMovementsA(AntiCheat AntiCheat) {
-        super("ImpossibleMovementsA", "ImpMove", CheckType.Movement, true, false, false, 10, 1, 600000L, AntiCheat);
-    }
+	public ImpossibleMovementsA(AntiCheat AntiCheat) {
+		super("ImpossibleMovementsA", "ImpMove", CheckType.Movement, true, false, false, 10, 1, 600000L, AntiCheat);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-        Player p = e.getPlayer();
-        Location from  =e.getFrom();
-        Location to = e.getTo();
-        if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-		        || p.getGameMode().equals(GameMode.CREATIVE)
-		        || p.getAllowFlight()) {
-        	return;
-        }
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-        if (data != null) {
-            if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {
-                if (data.getAntiCactus_VL() >= 3) {
-                    getAntiCheat().logCheat(this, p, "Impossible Movements: (Anti Cactus)", "(Type: A)");
-                } else {
-                    data.setAntiCactus_VL(data.getAntiCactus_VL()+1);
-                }
-            } else {
-                data.setAntiCactus_VL(0);
-            }
-            if (!data.isWebFloatMS_Set() && p.getLocation().add(0,-0.50,0).getBlock().getType() == Material.WEB) {
-                data.setWebFloatMS_Set(true);
-             data.setWebFloatMS(TimerUtils.nowlong());
-            } else if (data.isWebFloatMS_Set()) {
-                if (e.getTo().getY() == e.getFrom().getY()) {
-                    double x = Math.floor(from.getX());
-                    double z = Math.floor(from.getZ());
-                    if(Math.floor(to.getX())!=x||Math.floor(to.getZ())!=z) {
-                        if (data.getWebFloat_BlockCount() > 0) {
-                            if (p.getLocation().add(0,-0.50,0).getBlock().getType() != Material.WEB) {
-                                data.setWebFloatMS_Set(false);
-                                data.setWebFloat_BlockCount(0);
-                            }
-                            getAntiCheat().logCheat(this, p, "Impossible Movements: (Web Float)", "(Type: A)");
-                        } else {
-                            data.setWebFloat_BlockCount(data.getWebFloat_BlockCount()+1);
-                        }
-                    }
-                } else {
-                    data.setWebFloatMS_Set(false);
-                    data.setWebFloat_BlockCount(0);
-                }
-            }
-        }
-    }
+		Player p = e.getPlayer();
+		Location from  =e.getFrom();
+		Location to = e.getTo();
+		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| p.getGameMode().equals(GameMode.CREATIVE)
+				|| p.getAllowFlight()) {
+			return;
+		}
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (data != null) {
+			if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {
+				if (data.getAntiCactus_VL() >= 3) {
+					getAntiCheat().logCheat(this, p, "Impossible Movements: (Anti Cactus)", "(Type: A)");
+				} else {
+					data.setAntiCactus_VL(data.getAntiCactus_VL()+1);
+				}
+			} else {
+				data.setAntiCactus_VL(0);
+			}
+			if (!data.isWebFloatMS_Set() && p.getLocation().add(0,-0.50,0).getBlock().getType() == Material.WEB) {
+				data.setWebFloatMS_Set(true);
+				data.setWebFloatMS(TimerUtils.nowlong());
+			} else if (data.isWebFloatMS_Set()) {
+				if (e.getTo().getY() == e.getFrom().getY()) {
+					double x = Math.floor(from.getX());
+					double z = Math.floor(from.getZ());
+					if(Math.floor(to.getX())!=x||Math.floor(to.getZ())!=z) {
+						if (data.getWebFloat_BlockCount() > 0) {
+							if (p.getLocation().add(0,-0.50,0).getBlock().getType() != Material.WEB) {
+								data.setWebFloatMS_Set(false);
+								data.setWebFloat_BlockCount(0);
+							}
+							getAntiCheat().logCheat(this, p, "Impossible Movements: (Web Float)", "(Type: A)");
+						} else {
+							data.setWebFloat_BlockCount(data.getWebFloat_BlockCount()+1);
+						}
+					}
+				} else {
+					data.setWebFloatMS_Set(false);
+					data.setWebFloat_BlockCount(0);
+				}
+			}
+		}
+	}
 }

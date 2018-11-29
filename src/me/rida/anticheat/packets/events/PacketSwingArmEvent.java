@@ -1,9 +1,10 @@
 package me.rida.anticheat.packets.events;
 
-import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import com.comphenix.protocol.events.PacketEvent;
 
 public class PacketSwingArmEvent extends Event {
 	private Player Player;

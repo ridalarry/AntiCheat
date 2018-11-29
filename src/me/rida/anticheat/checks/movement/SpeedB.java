@@ -57,7 +57,7 @@ public class SpeedB extends Check {
 		Location above = new Location(p.getWorld(), x, y + 2, z);
 		Location above3 = new Location(p.getWorld(), x - 1, y + 2, z - 1);
 		long lastHitDiff = Math.abs(System.currentTimeMillis() - SpeedC.lastHit.getOrDefault(p.getUniqueId(), 0L));
-		
+
 		if ((e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
 				&& (e.getTo().getY() == e.getFrom().getY())
 				|| lastHitDiff < 1500L 
@@ -66,10 +66,10 @@ public class SpeedB extends Check {
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-           		|| BlockUtil.isNearIce(p)
-   		        || BlockUtil.isNearSlime(p)
-           		|| PlayerUtil.wasOnSlime(p)){
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| BlockUtil.isNearIce(p)
+				|| BlockUtil.isNearSlime(p)
+				|| PlayerUtil.wasOnSlime(p)){
 			return;
 		}
 
@@ -105,13 +105,13 @@ public class SpeedB extends Check {
 				getAntiCheat().logCheat(this, p, "On Ground", "(Type: B)");
 			}
 		}
-			if (!isReallyOnGround(p) && speed >= Airmaxspeed && !isOnIce(p)
-					&& blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
-					&& !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
-					&& above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
-					&& blockLoc.getBlock().getType() != Material.AIR) {
-				getAntiCheat().logCheat(this, p, "Mid Air", "(Type: B)");
-			}
+		if (!isReallyOnGround(p) && speed >= Airmaxspeed && !isOnIce(p)
+				&& blockLoc.getBlock().getType() != Material.ICE && !blockLoc.getBlock().isLiquid()
+				&& !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
+				&& above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
+				&& blockLoc.getBlock().getType() != Material.AIR) {
+			getAntiCheat().logCheat(this, p, "Mid Air", "(Type: B)");
+		}
 		if (speed >= newmaxspeed && isOnIce(p) && p.getFallDistance() < 0.6
 				&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 				&& loc2.getBlock().getType() == Material.AIR) {
@@ -179,7 +179,7 @@ public class SpeedB extends Check {
 			return false;
 		}
 	}
-	
+
 	private static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
 		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
@@ -204,7 +204,7 @@ public class SpeedB extends Check {
 		}
 		return nearBlocks;
 	}
-	
+
 
 	private static boolean isBlock(Block block, Material[] materials) {
 		Material type = block.getType();

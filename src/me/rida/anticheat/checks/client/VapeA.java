@@ -31,5 +31,4 @@ public class VapeA extends Check implements PluginMessageListener {
 		}
 		getAntiCheat().logCheat(this, p, "Banned for using Cracked Vape!", "(Type: A)");
 	}
-
 }

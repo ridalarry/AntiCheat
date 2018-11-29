@@ -36,7 +36,7 @@ public class SneakA extends Check {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		int Count = 0;

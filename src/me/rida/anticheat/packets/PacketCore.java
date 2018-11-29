@@ -48,8 +48,8 @@ public class PacketCore {
 		PacketCore.AntiCheat = AntiCheat;
 		enabled = new HashSet<EntityType>();
 		enabled.add(EntityType.valueOf((String) "PLAYER"));
-        movePackets = new HashMap<UUID, Integer>();
-		
+		movePackets = new HashMap<UUID, Integer>();
+
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.USE_ENTITY }) {
 			public void onPacketReceiving(final PacketEvent event) {
@@ -93,7 +93,7 @@ public class PacketCore {
 				Bukkit.getServer().getPluginManager().callEvent((Event) new PacketUseEntityEvent(type, player, entity));
 				if (type == EntityUseAction.ATTACK) {
 					Bukkit.getServer().getPluginManager()
-							.callEvent(new PacketKillauraEvent(player, PacketPlayerType.USE));
+					.callEvent(new PacketKillauraEvent(player, PacketPlayerType.USE));
 				}
 			}
 		});
@@ -147,10 +147,10 @@ public class PacketCore {
 						}
 
 						Bukkit.getServer().getPluginManager()
-								.callEvent(new PacketPlayerEvent(player, event.getPacket().getDoubles().read(0),
-										event.getPacket().getDoubles().read(1), event.getPacket().getDoubles().read(2),
-										event.getPacket().getFloat().read(0), event.getPacket().getFloat().read(1),
-										PacketPlayerType.POSLOOK));
+						.callEvent(new PacketPlayerEvent(player, event.getPacket().getDoubles().read(0),
+								event.getPacket().getDoubles().read(1), event.getPacket().getDoubles().read(2),
+								event.getPacket().getFloat().read(0), event.getPacket().getFloat().read(1),
+								PacketPlayerType.POSLOOK));
 					}
 				});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
@@ -174,7 +174,7 @@ public class PacketCore {
 				if (player == null) {
 					return;
 				}
-				
+
 				int i = movePackets.getOrDefault(player.getUniqueId(), 0);
 				i++;
 				movePackets.put(player.getUniqueId(), i);
@@ -189,7 +189,7 @@ public class PacketCore {
 					return;
 				}
 				Bukkit.getServer().getPluginManager()
-						.callEvent((Event) new PacketEntityActionEvent(player, (int) packet.getIntegers().read(1)));
+				.callEvent((Event) new PacketEntityActionEvent(player, (int) packet.getIntegers().read(1)));
 			}
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
@@ -210,7 +210,7 @@ public class PacketCore {
 					return;
 				}
 				Bukkit.getServer().getPluginManager()
-						.callEvent(new PacketKillauraEvent(player, PacketPlayerType.ARM_SWING));
+				.callEvent(new PacketKillauraEvent(player, PacketPlayerType.ARM_SWING));
 				Bukkit.getServer().getPluginManager().callEvent((Event) new PacketSwingArmEvent(event, player));
 			}
 		});
@@ -242,10 +242,10 @@ public class PacketCore {
 							return;
 						}
 						Bukkit.getServer().getPluginManager()
-								.callEvent((Event) new PacketPlayerEvent(player, player.getLocation().getX(),
-										player.getLocation().getY(), player.getLocation().getZ(),
-										player.getLocation().getYaw(), player.getLocation().getPitch(),
-										PacketPlayerType.FLYING));
+						.callEvent((Event) new PacketPlayerEvent(player, player.getLocation().getX(),
+								player.getLocation().getY(), player.getLocation().getZ(),
+								player.getLocation().getYaw(), player.getLocation().getPitch(),
+								PacketPlayerType.FLYING));
 					}
 				});
 	}
@@ -262,108 +262,108 @@ public class PacketCore {
 		}
 	}
 	public static void init() {
-        movePackets = new HashMap<>();
+		movePackets = new HashMap<>();
 
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Server.POSITION) {
-            public void onPacketSending(final PacketEvent event) {
-                Player player = event.getPlayer();
-                if (player == null) {
-                    return;
-                }
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Server.POSITION) {
+			public void onPacketSending(final PacketEvent event) {
+				Player player = event.getPlayer();
+				if (player == null) {
+					return;
+				}
 
-                movePackets.put(player.getUniqueId(), movePackets.getOrDefault(player.getUniqueId(), 0) + 1);
-            }
-        });
-        ProtocolLibrary.getProtocolManager().addPacketListener(
-                new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
-                    @Override
-                    public void onPacketReceiving(PacketEvent event) {
-                        PacketContainer packet = event.getPacket();
-                        Player player = event.getPlayer();
-                        if (player == null) {
-                            return;
-                        }
+				movePackets.put(player.getUniqueId(), movePackets.getOrDefault(player.getUniqueId(), 0) + 1);
+			}
+		});
+		ProtocolLibrary.getProtocolManager().addPacketListener(
+				new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
+					@Override
+					public void onPacketReceiving(PacketEvent event) {
+						PacketContainer packet = event.getPacket();
+						Player player = event.getPlayer();
+						if (player == null) {
+							return;
+						}
 
-                        EnumWrappers.EntityUseAction type;
-                        try {
-                            type = packet.getEntityUseActions().read(0);
-                        } catch (Exception ex) {
-                            return;
-                        }
+						EnumWrappers.EntityUseAction type;
+						try {
+							type = packet.getEntityUseActions().read(0);
+						} catch (Exception ex) {
+							return;
+						}
 
-                        Entity entity = event.getPacket().getEntityModifier(player.getWorld()).read(0);
+						Entity entity = event.getPacket().getEntityModifier(player.getWorld()).read(0);
 
-                        if (entity == null) {
-                            return;
-                        }
+						if (entity == null) {
+							return;
+						}
 
-                        if (type == EnumWrappers.EntityUseAction.ATTACK) {
-                            Bukkit.getServer().getPluginManager().callEvent(new PacketAttackEvent(player, entity, PacketPlayerType.USE));
-                        }
-                    }
-                });
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.LOOK) {
-            public void onPacketReceiving(PacketEvent packetEvent) {
-                Player player = packetEvent.getPlayer();
-                if (player == null) {
-                    return;
-                }
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.LOOK));
+						if (type == EnumWrappers.EntityUseAction.ATTACK) {
+							Bukkit.getServer().getPluginManager().callEvent(new PacketAttackEvent(player, entity, PacketPlayerType.USE));
+						}
+					}
+				});
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.LOOK) {
+			public void onPacketReceiving(PacketEvent packetEvent) {
+				Player player = packetEvent.getPlayer();
+				if (player == null) {
+					return;
+				}
+				Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.LOOK));
 
-                DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
+				DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
 
-                if(data != null) {
-                    data.setLastPacket(System.currentTimeMillis());
-                }
-            }
-        });
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.POSITION) {
-            public void onPacketReceiving(PacketEvent packetEvent) {
-                Player player = packetEvent.getPlayer();
-                if (player == null) {
-                    return;
-                }
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.POSITION));
+				if(data != null) {
+					data.setLastPacket(System.currentTimeMillis());
+				}
+			}
+		});
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.POSITION) {
+			public void onPacketReceiving(PacketEvent packetEvent) {
+				Player player = packetEvent.getPlayer();
+				if (player == null) {
+					return;
+				}
+				Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.POSITION));
 
-                DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
+				DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
 
-                if(data != null) {
-                    data.setLastPacket(System.currentTimeMillis());
-                }
-            }
-        });
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.POSITION_LOOK) {
-            public void onPacketReceiving(PacketEvent packetEvent) {
-                Player player = packetEvent.getPlayer();
-                if (player == null) {
-                    return;
-                }
+				if(data != null) {
+					data.setLastPacket(System.currentTimeMillis());
+				}
+			}
+		});
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.POSITION_LOOK) {
+			public void onPacketReceiving(PacketEvent packetEvent) {
+				Player player = packetEvent.getPlayer();
+				if (player == null) {
+					return;
+				}
 
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.POSLOOK));
+				Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, packetEvent.getPacket().getDoubles().read(0), packetEvent.getPacket().getDoubles().read(1), packetEvent.getPacket().getDoubles().read(2), packetEvent.getPacket().getFloat().read(0), packetEvent.getPacket().getFloat().read(1), PacketPlayerType.POSLOOK));
 
-                DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
+				DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
 
-                if(data != null) {
-                    data.setLastKillauraPitch(packetEvent.getPacket().getFloat().read(1));
-                    data.setLastKillauraYaw(packetEvent.getPacket().getFloat().read(0));
-                    data.setLastPacket(System.currentTimeMillis());
-                }
-            }
-        });
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.FLYING) {
-            public void onPacketReceiving(PacketEvent packetEvent) {
-                Player player = packetEvent.getPlayer();
-                if (player == null) {
-                    return;
-                }
-                Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.FLYING));
+				if(data != null) {
+					data.setLastKillauraPitch(packetEvent.getPacket().getFloat().read(1));
+					data.setLastKillauraYaw(packetEvent.getPacket().getFloat().read(0));
+					data.setLastPacket(System.currentTimeMillis());
+				}
+			}
+		});
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.FLYING) {
+			public void onPacketReceiving(PacketEvent packetEvent) {
+				Player player = packetEvent.getPlayer();
+				if (player == null) {
+					return;
+				}
+				Bukkit.getServer().getPluginManager().callEvent(new PacketPlayerEvent(player, player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getYaw(), player.getLocation().getPitch(), PacketPlayerType.FLYING));
 
-                DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
+				DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getData(player);
 
-                if(data != null) {
-                    data.setLastPacket(System.currentTimeMillis());
-                }
-            }
-        });
-    }
+				if(data != null) {
+					data.setLastPacket(System.currentTimeMillis());
+				}
+			}
+		});
+	}
 }

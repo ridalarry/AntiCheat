@@ -29,12 +29,12 @@ public class AlertsCommand implements CommandExecutor {
 			this.AntiCheat.toggleAlerts(p);
 			p.sendMessage(Color.translate(
 					AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Red
-							+ "off" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
+					+ "off" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
 		} else {
 			this.AntiCheat.toggleAlerts(p);
 			p.sendMessage(Color.translate(
 					AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Green
-							+ "on" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
+					+ "on" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
 		}
 		return true;
 	}

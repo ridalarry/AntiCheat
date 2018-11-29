@@ -148,4 +148,3 @@ public class AntiKBA extends Check {
         }
     }
 }
-

@@ -24,62 +24,58 @@ import me.rida.anticheat.utils.ExtraUtil;
 import me.rida.anticheat.utils.MathUtil;
 
 public class AimAssistB extends Check {
-    public AimAssistB(AntiCheat AntiCheat) {
-        super("AimAssistB", "AimAssist",  CheckType.Combat, true, false, false, 10, 1, 600000L, AntiCheat);
+	public AimAssistB(AntiCheat AntiCheat) {
+		super("AimAssistB", "AimAssist",  CheckType.Combat, true, false, false, 10, 1, 600000L, AntiCheat);
 
 
-        ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
-            @Override
-            public void onPacketReceiving(PacketEvent event) {
-                Optional<Entity> entityOp = event.getPlayer().getWorld().getEntities().stream().filter(entity -> entity.getEntityId() == event.getPacket().getIntegers().read(0)).findFirst();
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
+			@Override
+			public void onPacketReceiving(PacketEvent event) {
+				Optional<Entity> entityOp = event.getPlayer().getWorld().getEntities().stream().filter(entity -> entity.getEntityId() == event.getPacket().getIntegers().read(0)).findFirst();
 
-                if(entityOp.isPresent()) {
-                    Entity entity = entityOp.get();
+				if(entityOp.isPresent()) {
+					Entity entity = entityOp.get();
 
-                    EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().read(0);
+					EnumWrappers.EntityUseAction action = event.getPacket().getEntityUseActions().read(0);
 
-                    if(action.equals(EnumWrappers.EntityUseAction.ATTACK) && entity instanceof LivingEntity) {
-                        DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
+					if(action.equals(EnumWrappers.EntityUseAction.ATTACK) && entity instanceof LivingEntity) {
+						DataPlayer data = me.rida.anticheat.AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
 
-                        if(data != null) {
-                            data.lastAttack = System.currentTimeMillis();
-                            data.lastHitEntity = (LivingEntity) entity;
-                        }
-                    }
-                }
-            }
-        });
-    }
+						if(data != null) {
+							data.lastAttack = System.currentTimeMillis();
+							data.lastHitEntity = (LivingEntity) entity;
+						}
+					}
+				}
+			}
+		});
+	}
 
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
-        Player p = event.getPlayer();
-        if(data == null
-                || data.lastHitEntity == null
-                || (System.currentTimeMillis() - data.lastAttack) > 350L) return;
+	@EventHandler
+	public void onPlayerMove(PlayerMoveEvent event) {
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
+		Player p = event.getPlayer();
+		if(data == null
+				|| data.lastHitEntity == null
+				|| (System.currentTimeMillis() - data.lastAttack) > 350L) return;
 
-        float offset = ExtraUtil.yawTo180F((float) MathUtil.getOffsetFromEntity(event.getPlayer(), data.lastHitEntity)[0]);
+		float offset = ExtraUtil.yawTo180F((float) MathUtil.getOffsetFromEntity(event.getPlayer(), data.lastHitEntity)[0]);
 
-        if(data.patterns.size() >= 10) {
+		if(data.patterns.size() >= 10) {
 
-            Collections.sort(data.patterns);
+			Collections.sort(data.patterns);
 
-            float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
+			float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 
-            if(Math.abs(range - data.lastRange) < 4) {
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
-            }
-            event.getPlayer().sendMessage("Range: " + range);
+			if(Math.abs(range - data.lastRange) < 4) {
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+			}
+			event.getPlayer().sendMessage("Range: " + range);
 
-            data.lastRange = range;
-            data.patterns.clear();
-        } else {
-            data.patterns.add(offset);
-        }
-
-
-    }
-
-
+			data.lastRange = range;
+			data.patterns.clear();
+		} else {
+			data.patterns.add(offset);
+		}
+	}
 }

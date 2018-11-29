@@ -44,11 +44,11 @@ public class HitBoxA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onUse(PacketUseEntityEvent e) {
 
-		 if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player) || e.getAttacker().getGameMode().equals(GameMode.CREATIVE)) {
-	            return;
-	        }
+		if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player) || e.getAttacker().getGameMode().equals(GameMode.CREATIVE)) {
+			return;
+		}
 		Player p = e.getAttacker();
-		
+
 		LivingEntity attacked = (Player) e.getAttacked();
 
 		int verbose = count.getOrDefault(p.getUniqueId(), 0);
@@ -62,8 +62,6 @@ public class HitBoxA extends Check {
 		} else if(verbose > 0) {
 			verbose--;
 		}
-
 		count.put(p.getUniqueId(), verbose);
 	}
-
 }

@@ -33,12 +33,12 @@ public class TimerB extends Check {
 		if (!getAntiCheat().isEnabled() 
 				|| (Latency.getLag(p) > 500)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()
-						&& e.getFrom().getY() == e.getTo().getY())) {
+				&& e.getFrom().getY() == e.getTo().getY())) {
 			return;
 		}
-		
+
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (timerTicks.containsKey(u)) {
@@ -57,5 +57,4 @@ public class TimerB extends Check {
 		}
 		timerTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
-
 }

@@ -21,7 +21,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 public class ReachC extends Check {
 
 	public static HashMap<UUID, Integer> toBan;
-	
+
 	public ReachC(AntiCheat AntiCheat) {
 		super("ReachC", "Reach",  CheckType.Combat, true, false, false, 9, 1, 30000, AntiCheat);
 		toBan = new HashMap<UUID, Integer>();
@@ -41,9 +41,9 @@ public class ReachC extends Check {
 		if (d.getAllowFlight()
 				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
-		        || getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-		        || getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));
@@ -69,13 +69,13 @@ public class ReachC extends Check {
 				MaxReach += 0.2D * (effect.getAmplifier() + 1);
 			}
 		}
-		
+
 		double velocity = p.getVelocity().length() + d.getVelocity().length();
-		
+
 		MaxReach += velocity * 1.5;
 		MaxReach += Ping < 250 ? Ping * 0.00212 : Ping * 0.031;
 		MaxReach += YawDifference * 0.008;
-		
+
 		double ChanceVal = Math.round(Math.abs((Difference - MaxReach) * 100));
 
 		if (ChanceVal > 100) {
@@ -85,10 +85,9 @@ public class ReachC extends Check {
 		if (MaxReach < Difference) {
 			this.dumplog(p, "Logged for Reach Type C; Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
-			
+
 			getAntiCheat().logCheat(this, p, Color.Red + "Experimental" + "; Reach: " + Difference
-				+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: C)");
+					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: C)");
 		}
 	}
-
 }

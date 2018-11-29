@@ -69,9 +69,9 @@ public class PacketsA extends Check {
 	private void PacketPlayer(PacketPlayerEvent event) {
 		Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()
-			|| player.getGameMode().equals(GameMode.CREATIVE)
-			|| getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel()
-			|| getAntiCheat().lag.getPing(player) > 200) {
+				|| player.getGameMode().equals(GameMode.CREATIVE)
+				|| getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().lag.getPing(player) > 200) {
 			return;
 		}
 		int Count = 0;
@@ -97,7 +97,7 @@ public class PacketsA extends Check {
 						if (player.getAllowFlight() || player.isFlying()) {
 							return;
 						}
-							
+
 						getAntiCheat().logCheat(this, player, "sent over " + Count  + " packets! ", "(Type: A)");
 					}
 				}
@@ -107,15 +107,15 @@ public class PacketsA extends Check {
 
 				if (Count > 800) {
 					getAntiCheat().logCheat(this, player, Color.White + "Sent over " + Count  + " packets! " , "(Type: A)");
-				        AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
-				        	@SuppressWarnings("unused")
-							Player p = event.getPlayer();
-				            @Override
-				            public void run() {
-				                player.kickPlayer("Too many packets");
-				            }
-				        });
-				    }
+					AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+						@SuppressWarnings("unused")
+						Player p = event.getPlayer();
+						@Override
+						public void run() {
+							player.kickPlayer("Too many packets");
+						}
+					});
+				}
 				Count = 0;
 				Time = TimeUtil.nowlong();
 			}

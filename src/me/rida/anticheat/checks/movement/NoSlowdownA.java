@@ -48,7 +48,7 @@ public class NoSlowdownA extends Check {
 		Player p = (Player) e.getEntity();
 		if (p.isInsideVehicle()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-		        || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		if (p.isSprinting()) {
@@ -73,6 +73,7 @@ public class NoSlowdownA extends Check {
 		getAntiCheat().logCheat(this, p, "Offset: " + OffsetXZ, "(Type: A)");
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onInteract(PlayerInteractEvent e) {
 		if ((e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
@@ -82,7 +83,7 @@ public class NoSlowdownA extends Check {
 				return;
 			}
 			Player p = e.getPlayer();
-			
+
 			long Time = System.currentTimeMillis();
 			int level = 0;
 			if (speedTicks.containsKey(p.getUniqueId())) {
@@ -93,21 +94,21 @@ public class NoSlowdownA extends Check {
 			level = diff >= 2.0
 					? (diff <= 51.0 ? (level += 2)
 							: (diff <= 100.0 ? (level += 0) : (diff <= 500.0 ? (level -= 6) : (level -= 12))))
-					: ++level;
-			int max = 50;
-			if (level > max * 0.9D && diff <= 100.0D) {
-				if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
-					return;
-				}
-				getAntiCheat().logCheat(this, p, Color.Red + "Expermintal! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: A)");
-				if (level > max) {
-					level = max / 4;
-				}
-			} else if (level < 0) {
-				level = 0;
-			}
-			speedTicks.put(p.getUniqueId(),
-					new AbstractMap.SimpleEntry<Integer, Long>(level, System.currentTimeMillis()));
+							: ++level;
+					int max = 50;
+					if (level > max * 0.9D && diff <= 100.0D) {
+						if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
+							return;
+						}
+						getAntiCheat().logCheat(this, p, Color.Red + "Expermintal! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: A)");
+						if (level > max) {
+							level = max / 4;
+						}
+					} else if (level < 0) {
+						level = 0;
+					}
+					speedTicks.put(p.getUniqueId(),
+							new AbstractMap.SimpleEntry<Integer, Long>(level, System.currentTimeMillis()));
 		}
 	}
 }

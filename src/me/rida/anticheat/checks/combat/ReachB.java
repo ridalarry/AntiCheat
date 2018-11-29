@@ -53,12 +53,12 @@ public class ReachB extends Check {
 		Player d = (Player) e.getDamager();
 		Player p = (Player) e.getEntity();
 		if (d.getAllowFlight()
-			|| p.getAllowFlight()
-			|| p.getGameMode().equals(GameMode.CREATIVE)
-    		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-            || getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
-				return;
-			}
+				|| p.getAllowFlight()
+				|| p.getGameMode().equals(GameMode.CREATIVE)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
+			return;
+		}
 		double Reach = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
 		double Reach2 = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
 		double Difference;
@@ -99,7 +99,7 @@ public class ReachB extends Check {
 		int PingP = this.getAntiCheat().getLag().getPing(p);
 		MaxReach += ((PingD + PingP) / 2) * 0.0024;
 		if(PingD > 400) {
-		     MaxReach += 1.0D;
+			MaxReach += 1.0D;
 		}
 		if (TimeUtil.elapsed(Time, 10000)) {
 			count.remove(d);
@@ -129,5 +129,4 @@ public class ReachB extends Check {
 			return;
 		}
 	}
-
 }

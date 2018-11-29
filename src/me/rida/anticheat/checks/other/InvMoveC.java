@@ -11,9 +11,9 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveC extends Check {
-    public InvMoveC(AntiCheat AntiCheat) {
-        super("InvMoveC", "InvMove", CheckType.Other, true, false, false, 10, 1, 600000L, AntiCheat);
-    }
+	public InvMoveC(AntiCheat AntiCheat) {
+		super("InvMoveC", "InvMove", CheckType.Other, true, false, false, 10, 1, 600000L, AntiCheat);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void InventoryClickEvent(InventoryClickEvent e) {

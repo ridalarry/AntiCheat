@@ -19,12 +19,12 @@ public class PacketPlayerEvent extends Event {
 	public PacketPlayerEvent(final Player Player, final double x, final double y, final double z, final float yaw, final float pitch, final PacketPlayerType type) {
 		super();
 		this.Player = Player;
-        	this.x = x;
-        	this.y = y;
-        	this.z = z;
-        	this.pitch = pitch;
-        	this.yaw = yaw;
-        	this.type = type;
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.pitch = pitch;
+		this.yaw = yaw;
+		this.type = type;
 	}
 	public Player getPlayer() {
 		return this.Player;

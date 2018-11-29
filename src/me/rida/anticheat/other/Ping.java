@@ -2,10 +2,11 @@ package me.rida.anticheat.other;
 
 import java.lang.reflect.Field;
 
-import me.rida.anticheat.AntiCheat;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import me.rida.anticheat.AntiCheat;
 
 public class Ping {
 
@@ -52,5 +53,4 @@ public class Ping {
 			return -1;
 		}
 	}
-
 }
