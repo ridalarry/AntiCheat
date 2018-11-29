@@ -184,6 +184,21 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.TwitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.client.VapeA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.VClipA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistC(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBC(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerC(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerD(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachD(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraF(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraG(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraH(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraI(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraJ(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.AscensionA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.AscensionB(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.GravityA(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractE(this));
 	}
 
 	@Override

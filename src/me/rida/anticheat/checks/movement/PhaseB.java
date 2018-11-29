@@ -142,20 +142,20 @@ public class PhaseB extends Check implements Listener {
 	private Map<Player, Long> lastDoorSwing;
 
 	public PhaseB(AntiCheat AntiCheat) {
-		super("PhaseB", "Phase", CheckType.Combat, true, false, false, 40, 3, 600000L, AntiCheat);
+		super("PhaseB", "Phase", CheckType.Combat, true, false, false, 40, 10, 600000L, AntiCheat);
 		lastDoorSwing = new WeakHashMap<>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPhase(PlayerMoveEvent e) {
-		
-		
+
+
 		Player player = e.getPlayer();
-		
+
 		if(AntiCheat.isInPhaseTimer(player)) {
 			return;
 		}
-		
+
 
 		if (player.getAllowFlight()
 				|| player.getVehicle() != null
@@ -183,16 +183,15 @@ public class PhaseB extends Check implements Listener {
 		if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
 			getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
 		}
-
 	}
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		
+
 		if(AntiCheat.isInPhaseTimer(event.getPlayer())) {
 			return;
 		}
-		
+
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
 			if ((BlockUtil.isDoor(event.getClickedBlock())
 					|| BlockUtil.isFenceGate(event.getClickedBlock())
