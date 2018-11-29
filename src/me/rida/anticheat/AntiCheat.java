@@ -967,6 +967,28 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		return toReturn.toString();
 	}
+	
+	public void startTimerPhaseCheck(Player player)
+	{
+		MoveEvent.ticksLeft.put(player.getName(), 3);
+		MoveEvent.cooldownTask.put(player.getName(), new BukkitRunnable(){
+			public void run()
+			{
+				MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() - 1));
+				if (((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() == 0){
+					MoveEvent.ticksLeft.remove(player.getName());
+					MoveEvent.cooldownTask.remove(player.getName());
+					Bukkit.getServer().getScheduler().cancelTask(getTaskId());
+					cancel();
+					return;
+				}
+			}
+		});
+		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
+	}
+	
+	
+	
 
 	public void startTimer(Player player)
 	{
