@@ -179,8 +179,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.movement.SpiderA(this));
 		this.Checks.add(new me.rida.anticheat.checks.client.SpookA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.StepA(this));
-		this.Checks.add(new me.rida.anticheat.checks.movement.TimerA(this));
-		this.Checks.add(new me.rida.anticheat.checks.movement.TimerB(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.TimerA(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.TimerB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.TwitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.client.VapeA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.VClipA(this));
@@ -404,16 +404,16 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				me.rida.anticheat.checks.movement.SpeedC.velocity.isEmpty();
 			if (!me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.isEmpty())
 				me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.clear();
-			if (!me.rida.anticheat.checks.movement.TimerA.packets.isEmpty())
-				me.rida.anticheat.checks.movement.TimerA.packets.clear();
-			if (!me.rida.anticheat.checks.movement.TimerA.verbose.isEmpty())
-				me.rida.anticheat.checks.movement.TimerA.verbose.clear();
-			if (!me.rida.anticheat.checks.movement.TimerA.lastPacket.isEmpty())
-				me.rida.anticheat.checks.movement.TimerA.lastPacket.clear();
-			if (!me.rida.anticheat.checks.movement.TimerA.toCancel.isEmpty())
-				me.rida.anticheat.checks.movement.TimerA.toCancel.clear();
-			if (!me.rida.anticheat.checks.movement.TimerB.timerTicks.isEmpty())
-				me.rida.anticheat.checks.movement.TimerB.timerTicks.clear();
+			if (!me.rida.anticheat.checks.other.TimerA.packets.isEmpty())
+				me.rida.anticheat.checks.other.TimerA.packets.clear();
+			if (!me.rida.anticheat.checks.other.TimerA.verbose.isEmpty())
+				me.rida.anticheat.checks.other.TimerA.verbose.clear();
+			if (!me.rida.anticheat.checks.other.TimerA.lastPacket.isEmpty())
+				me.rida.anticheat.checks.other.TimerA.lastPacket.clear();
+			if (!me.rida.anticheat.checks.other.TimerA.toCancel.isEmpty())
+				me.rida.anticheat.checks.other.TimerA.toCancel.clear();
+			if (!me.rida.anticheat.checks.other.TimerB.timerTicks.isEmpty())
+				me.rida.anticheat.checks.other.TimerB.timerTicks.clear();
 			if (!me.rida.anticheat.checks.movement.VClipA.teleported.isEmpty())
 				me.rida.anticheat.checks.movement.VClipA.teleported.clear();
 			if (!me.rida.anticheat.checks.movement.VClipA.lastLocation.isEmpty())

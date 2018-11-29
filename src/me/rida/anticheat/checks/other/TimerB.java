@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.movement;
+package me.rida.anticheat.checks.other;
 
 import java.util.AbstractMap;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ public class TimerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> timerTicks;
 
 	public TimerB(AntiCheat AntiCheat) {
-		super("TimerB", "Timer", CheckType.Movement, true, false, false, 9, 1, 6000, AntiCheat);
+		super("TimerB", "Timer", CheckType.Other, true, false, false, 9, 1, 6000, AntiCheat);
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.movement;
+package me.rida.anticheat.checks.other;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class TimerA extends Check {
 	public static List<Player> toCancel;
 
 	public TimerA(AntiCheat AntiCheat) {
-		super("TimerA", "Timer", CheckType.Movement, true, false, false, 5, 1, 600000L, AntiCheat);
+		super("TimerA", "Timer", CheckType.Other, true, false, false, 5, 1, 600000L, AntiCheat);
 		packets = new HashMap<>();
 		verbose = new HashMap<>();
 		toCancel = new ArrayList<>();
