@@ -184,8 +184,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.TwitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.client.VapeA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.VClipA(this));
-		this.Checks.add(new me.rida.anticheat.checks.movement.FrictionA(this));
-		this.Checks.add(new me.rida.anticheat.checks.movement.SpeedD(this));
 	}
 
 	@Override

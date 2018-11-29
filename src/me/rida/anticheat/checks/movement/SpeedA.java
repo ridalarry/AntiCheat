@@ -35,7 +35,6 @@ public class SpeedA extends Check {
 		Location from = e.getFrom();
 
 		if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
-				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| e.getPlayer().getVehicle() != null
 				|| BlockUtil.isNearIce(p)
@@ -57,21 +56,26 @@ public class SpeedA extends Check {
 			if(MathUtil.elapsed(data.getLastVelMS(), 3000)) {
 				int verbose = data.getSpeedAVerbose();
 				double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
+				double x = 0;
+				double depth = BlockUtil.isNearLiquid(p) ? 0.34 + (PlayerUtil.hasDepthStrider(p) * 0.02) : x;
 				double speedAThreshold = (data.getAirTicks() > 0 ? data.getAirTicks() >= 6
 						? data.getAirTicks() == 13 ? 0.466 : 0.35 : (0.345 * Math.pow(0.986938064, data.getAirTicks()))
 								: data.getGroundTicks() > 5 ? 0.362 : data.getGroundTicks() == 3 ? 0.62 : 0.4)
-						+ (data.getAirTicks() > 0 ? (-0.001 * data.getAirTicks() + 0.014) : (0.018 - (data.getGroundTicks() >= 6 ? 0 : data.getGroundTicks() * 0.001)) * speedEffect);
-
+						+ (data.getAirTicks() > 0 ? (-0.001 * data.getAirTicks() + 0.014) : (0.018 - (data.getGroundTicks() >= 6 ? 0 : data.getGroundTicks() * 0.001)) * speedEffect
+								+ depth);
 				speedAThreshold = data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.25 : speedAThreshold;
 				speedAThreshold = data.getIceTicks() > 0 ? speedAThreshold + 0.14 : speedAThreshold;
 				speedAThreshold = data.getSlimeTicks() > 0 ? speedAThreshold + 0.1 : speedAThreshold;
 				speedAThreshold = data.getIceTicks() > 0 && data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.24 : speedAThreshold;
+				speedAThreshold += Math.abs((p.getWalkSpeed() - 0.2) * 0.45);
 
 				if(PlayerUtil.isOnStair(p.getLocation())
 						|| PlayerUtil.isOnSlab(p.getLocation())) {
 					speedAThreshold+= 0.12;
 				}
-
+				if (p.getAllowFlight()) {
+					speedAThreshold += p.getFlySpeed();
+				}
 
 				if (speed > speedAThreshold) {
 					verbose += 8;
@@ -82,7 +86,6 @@ public class SpeedA extends Check {
 				if (verbose > 40) {
 
 					if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
-							|| p.getAllowFlight()
 							|| p.getGameMode().equals(GameMode.CREATIVE)
 							|| e.getPlayer().getVehicle() != null
 							|| BlockUtil.isNearIce(p)
@@ -93,8 +96,10 @@ public class SpeedA extends Check {
 							|| p.isSprinting()){
 						return;
 					} else {
-						getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast.", "(Type: A)");
-						verbose = 0;
+						if (!p.getAllowFlight()) {
+							getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast.", "(Type: A)");
+							verbose = 0;
+						}
 					}
 				}
 				data.setSpeedAVerbose(verbose);

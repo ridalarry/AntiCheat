@@ -81,7 +81,7 @@ public class DataPlayer {
 	public List<Float> patterns = Lists.newArrayList();
 	public float lastRange;
 
-	public int speedThreshold;
+	public int speedThreshold = 10;
 
 	public DataPlayer(Player player) {
 		this.player = player;
