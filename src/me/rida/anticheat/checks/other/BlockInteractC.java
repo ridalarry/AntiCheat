@@ -15,6 +15,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class BlockInteractC extends Check {
@@ -34,10 +35,14 @@ public class BlockInteractC extends Check {
 				|| Ping.getPing(e.getPlayer()) > 100
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| VelocityUtil.didTakeVelocity(p)) return;
+
+		double x = PlayerUtil.getEff(p);
 		if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
 			if (!e.getBlock().getLocation().equals((Object)t.getLocation()) && !e.isCancelled() && t.getType().isSolid() && !t.getType().name().toLowerCase().contains("sign") && !t.getType().toString().toLowerCase().contains("fence") && p.getLocation().getY() > e.getBlock().getLocation().getY()) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [1]", "(Type: C)");
+				if (x != 0) {
 
+					getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [1]", "(Type: C)");
+				}
 			}
 
 			if (e.getBlockAgainst().isLiquid() && e.getBlock().getType() != Material.WATER_LILY) {

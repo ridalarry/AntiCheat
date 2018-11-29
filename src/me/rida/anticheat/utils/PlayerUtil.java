@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -32,6 +33,20 @@ public class PlayerUtil {
 			Material.WATER, Material.WEB, Material.WOOD_BUTTON, Material.WOOD_PLATE, Material.YELLOW_FLOWER);
 
 
+	@SuppressWarnings("unused")
+	public static int getEff(Player p){
+		int enchantmentLevel = 0;
+		ItemStack[] inv = p.getInventory().getContents();
+		for(ItemStack item:inv){
+			if (item != null)
+				if(item.getType() != null){
+					if(item.getEnchantments().containsKey(Enchantment.DIG_SPEED)){
+						return enchantmentLevel = item.getEnchantmentLevel(Enchantment.DIG_SPEED);
+					}
+				}
+		}
+		return 0;
+	}
 
 	public static boolean onGround2(Player p) {
 		if (p.getLocation().getBlock().getType() == Material.AIR) {
