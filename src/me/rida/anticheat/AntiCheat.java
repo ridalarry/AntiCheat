@@ -190,7 +190,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		new ReflectionUtil();
 		excludedBlocks = new ArrayList<>();
 		service = Executors.newSingleThreadExecutor();
 
@@ -205,11 +204,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		});
 		new ReflectionUtil();
 		new BlockUtil();
+		new Ping(this);
 		Instance = this;
 		dataManager = new DataManager();
 		registerListeners();
 		loadChecks();
-		new Ping(this);
 		addDataPlayers();
 		PacketCore.init();
 		MS_PluginLoad = TimerUtil.nowlong();
@@ -248,7 +247,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
 			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("max_move", "10");
 			this.getConfig().addDefault("settings.broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
@@ -328,10 +326,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
 		}
-
 	}
-
-
 
 	public void resetDumps(Player player) {
 		for (Check check : Checks) {
@@ -963,21 +958,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 
 		return nmsItem != null ? MinecraftReflection.getBukkitItemStack(nmsItem) : null;
-	}
-
-	public void reloadPhase() {
-		reloadConfig();
-		excludedBlocks.clear();
-		maxMove = getConfig().getInt("max_move");
-		getConfig().getStringList("excluded_blocks").forEach(string -> {
-			try {
-				Material material = Material.getMaterial(string);
-
-				excludedBlocks.add(material);
-			} catch (NullPointerException e) {
-				throw new NullPointerException("The material '" + string + "' in the config does not exist!");
-			}
-		});
 	}
 
 	public String formatArrayToString(List<String> array) {
