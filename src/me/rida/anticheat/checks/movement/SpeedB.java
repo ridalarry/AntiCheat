@@ -3,7 +3,6 @@ package me.rida.anticheat.checks.movement;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -33,7 +32,7 @@ public class SpeedB extends Check {
 	public static Map<UUID, Long> lastHit;
 
 	public SpeedB(AntiCheat AntiCheat) {
-		super("SpeedB", "Speed", CheckType.Movement, true, true, false, 15, 4, TimeUnit.MINUTES.toMillis(2), AntiCheat);
+		super("SpeedB", "Speed", CheckType.Movement, true, true, false, 15, 4, 120000, AntiCheat);
 		SpeedB.lastHit = new HashMap<UUID, Long>();
 		SpeedB.tooFastTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		SpeedB.speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
