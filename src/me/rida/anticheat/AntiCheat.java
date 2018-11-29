@@ -968,23 +968,37 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		return toReturn.toString();
 	}
 	
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static HashMap<String, Integer> timerLeft = new HashMap(); // Time left until checks will start.
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public static HashMap<String, BukkitRunnable> cooldownTask = new HashMap(); // This is the task event
+	
 	public void startTimerPhaseCheck(Player player)
 	{
-		MoveEvent.ticksLeft.put(player.getName(), 3);
-		MoveEvent.cooldownTask.put(player.getName(), new BukkitRunnable(){
+		timerLeft.put(player.getName(), 3);
+		cooldownTask.put(player.getName(), new BukkitRunnable(){
 			public void run()
 			{
-				MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() - 1));
-				if (((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() == 0){
-					MoveEvent.ticksLeft.remove(player.getName());
-					MoveEvent.cooldownTask.remove(player.getName());
+				timerLeft.put(player.getName(), Integer.valueOf(((Integer)timerLeft.get(player.getName())).intValue() - 1));
+				if (((Integer)timerLeft.get(player.getName())).intValue() == 0){
+					timerLeft.remove(player.getName());
+					cooldownTask.remove(player.getName());
 					Bukkit.getServer().getScheduler().cancelTask(getTaskId());
 					cancel();
 					return;
 				}
 			}
 		});
-		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
+		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
+	}
+	
+	public static boolean isInPhaseTimer(Player player) {
+		if(!timerLeft.isEmpty() && timerLeft.containsKey(player.getName().toString())) {
+			return true; // They are in the timer
+		}
+		
+		return false; // They aren't in the timer
 	}
 	
 	
