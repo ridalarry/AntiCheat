@@ -12,6 +12,14 @@ public class JoinQuitEvent implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
+		
+		if(AntiCheat.isInPhaseTimer(e.getPlayer())) {
+			AntiCheat.timerLeft.put(e.getPlayer().getName().toString(), 3);
+		}else {
+			AntiCheat.getInstance().startTimerPhaseCheck(e.getPlayer());
+		}
+		
+		
 		AntiCheat.getInstance().getDataManager().addPlayerData(e.getPlayer());
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
