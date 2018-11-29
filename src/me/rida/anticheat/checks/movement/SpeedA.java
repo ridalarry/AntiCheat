@@ -18,7 +18,7 @@ import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.TimerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class SpeedA extends Check {
@@ -49,7 +49,7 @@ public class SpeedA extends Check {
 		if (data != null) {
 
 			if (data.isSpeed_PistonExpand_Set()) {
-				if (TimerUtils.elapsed(data.getSpeed_PistonExpand_MS(), 9900L)) {
+				if (TimerUtil.elapsed(data.getSpeed_PistonExpand_MS(), 9900L)) {
 					data.setSpeed_PistonExpand_Set(false);
 				}
 			}

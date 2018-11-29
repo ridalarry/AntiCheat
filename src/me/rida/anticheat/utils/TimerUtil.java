@@ -1,6 +1,6 @@
 package me.rida.anticheat.utils;
 
-public class TimerUtils {
+public class TimerUtil {
 
 	private long lastMS = 0L;
 

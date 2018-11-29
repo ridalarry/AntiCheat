@@ -18,12 +18,12 @@ public class NewVelocityUtil implements Listener {
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (data.isLastVelUpdateBoolean()) {
-				if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1_FORCE_RESET)) {
+				if (TimerUtil.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1_FORCE_RESET)) {
 					data.setLastVelUpdateBoolean(false);
 				}
-				if (TimerUtils.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1)) {
+				if (TimerUtil.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1)) {
 					if (!p.isOnGround()) {
-						data.setLastVelUpdate(TimerUtils.nowlong());
+						data.setLastVelUpdate(TimerUtil.nowlong());
 					} else {
 						data.setLastVelUpdateBoolean(false);
 					}
@@ -39,7 +39,7 @@ public class NewVelocityUtil implements Listener {
 			if (p.getNoDamageTicks() > 0 == false) {
 				if (!data.isLastVelUpdateBoolean()) {
 					data.setLastVelUpdateBoolean(true);
-					data.setLastVelUpdate(TimerUtils.nowlong());
+					data.setLastVelUpdate(TimerUtil.nowlong());
 				}
 			}
 		}

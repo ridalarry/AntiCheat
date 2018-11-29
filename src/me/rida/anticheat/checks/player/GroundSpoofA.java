@@ -13,7 +13,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.TimerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class GroundSpoofA extends Check {
@@ -32,7 +32,7 @@ public class GroundSpoofA extends Check {
 				return;
 			}
 			if (data.isLastBlockPlaced_GroundSpoof()) {
-				if (TimerUtils.elapsed(data.getLastBlockPlacedTicks(),500L)) {
+				if (TimerUtil.elapsed(data.getLastBlockPlacedTicks(),500L)) {
 					data.setLastBlockPlaced_GroundSpoof(false);
 				}
 				return;
@@ -69,7 +69,7 @@ public class GroundSpoofA extends Check {
 		if (data != null) {
 			if (!data.isLastBlockPlaced_GroundSpoof()) {
 				data.setLastBlockPlaced_GroundSpoof(true);
-				data.setLastBlockPlacedTicks(TimerUtils.nowlong());
+				data.setLastBlockPlacedTicks(TimerUtil.nowlong());
 			}
 		}
 	}

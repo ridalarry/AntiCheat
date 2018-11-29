@@ -74,7 +74,7 @@ import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.ReflectionUtil;
-import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.TimerUtil;
 import me.rida.anticheat.utils.TxtFile;
 import me.rida.anticheat.utils.VelocityUtil;
 
@@ -212,7 +212,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		new Ping(this);
 		addDataPlayers();
 		PacketCore.init();
-		MS_PluginLoad = TimerUtils.nowlong();
+		MS_PluginLoad = TimerUtil.nowlong();
 		coreVersion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
 		dataManager = new DataManager();
 		saveChecks();

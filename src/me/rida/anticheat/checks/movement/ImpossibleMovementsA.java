@@ -12,7 +12,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.TimerUtil;
 
 public class ImpossibleMovementsA extends Check {
 	public ImpossibleMovementsA(AntiCheat AntiCheat) {
@@ -43,7 +43,7 @@ public class ImpossibleMovementsA extends Check {
 			}
 			if (!data.isWebFloatMS_Set() && p.getLocation().add(0,-0.50,0).getBlock().getType() == Material.WEB) {
 				data.setWebFloatMS_Set(true);
-				data.setWebFloatMS(TimerUtils.nowlong());
+				data.setWebFloatMS(TimerUtil.nowlong());
 			} else if (data.isWebFloatMS_Set()) {
 				if (e.getTo().getY() == e.getFrom().getY()) {
 					double x = Math.floor(from.getX());

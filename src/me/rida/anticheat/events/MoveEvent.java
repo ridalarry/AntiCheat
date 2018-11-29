@@ -17,7 +17,7 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.TimerUtils;
+import me.rida.anticheat.utils.TimerUtil;
 
 public class MoveEvent implements Listener {
 
@@ -81,11 +81,11 @@ public class MoveEvent implements Listener {
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 
 		if (data.isNearIce()) {
-			if (TimerUtils.elapsed(data.getIsNearIceTicks(),500L)) {
+			if (TimerUtil.elapsed(data.getIsNearIceTicks(),500L)) {
 				if (!BlockUtil.isNearIce(p)) {
 					data.setNearIce(false);
 				} else {
-					data.setIsNearIceTicks(TimerUtils.nowlong());
+					data.setIsNearIceTicks(TimerUtil.nowlong());
 				}
 			}
 		}
@@ -97,25 +97,25 @@ public class MoveEvent implements Listener {
 		if (loc1.getBlock().getType() != Material.AIR) {
 			if (!data.isBlockAbove_Set()) {
 				data.setBlockAbove_Set(true);
-				data.setBlockAbove(TimerUtils.nowlong());
+				data.setBlockAbove(TimerUtil.nowlong());
 			} else {
-				if (TimerUtils.elapsed(data.getBlockAbove(),1000L)) {
+				if (TimerUtil.elapsed(data.getBlockAbove(),1000L)) {
 					if (loc1.getBlock().getType() == Material.AIR) {
 						data.setBlockAbove_Set(false);
 					} else {
 						data.setBlockAbove_Set(true);
-						data.setBlockAbove(TimerUtils.nowlong());
+						data.setBlockAbove(TimerUtil.nowlong());
 					}
 				}
 			}
 		} else {
 			if (data.isBlockAbove_Set()) {
-				if (TimerUtils.elapsed(data.getBlockAbove(), 1000L)) {
+				if (TimerUtil.elapsed(data.getBlockAbove(), 1000L)) {
 					if (loc1.getBlock().getType() == Material.AIR) {
 						data.setBlockAbove_Set(false);
 					} else {
 						data.setBlockAbove_Set(true);
-						data.setBlockAbove(TimerUtils.nowlong());
+						data.setBlockAbove(TimerUtil.nowlong());
 					}
 				}
 			}
@@ -138,22 +138,22 @@ public class MoveEvent implements Listener {
 		if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock())|| BlockUtil.isLessThanBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
 			if (!data.isHalfBlocks_MS_Set()) {
 				data.setHalfBlocks_MS_Set(true);
-				data.setHalfBlocks_MS(TimerUtils.nowlong());
+				data.setHalfBlocks_MS(TimerUtil.nowlong());
 			} else {
-				if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
+				if (TimerUtil.elapsed(data.getHalfBlocks_MS(),900L)) {
 					if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
 						data.setHalfBlocks_MS_Set(true);
-						data.setHalfBlocks_MS(TimerUtils.nowlong());
+						data.setHalfBlocks_MS(TimerUtil.nowlong());
 					} else {
 						data.setHalfBlocks_MS_Set(false);
 					}
 				}
 			}
 		} else {
-			if (TimerUtils.elapsed(data.getHalfBlocks_MS(),900L)) {
+			if (TimerUtil.elapsed(data.getHalfBlocks_MS(),900L)) {
 				if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
 					data.setHalfBlocks_MS_Set(true);
-					data.setHalfBlocks_MS(TimerUtils.nowlong());
+					data.setHalfBlocks_MS(TimerUtil.nowlong());
 				} else {
 					data.setHalfBlocks_MS_Set(false);
 				}
@@ -161,9 +161,9 @@ public class MoveEvent implements Listener {
 		}
 		if (BlockUtil.isNearIce(p) && !data.isNearIce()) {
 			data.setNearIce(true);
-			data.setIsNearIceTicks(TimerUtils.nowlong());
+			data.setIsNearIceTicks(TimerUtil.nowlong());
 		} else if (BlockUtil.isNearIce(p)) {
-			data.setIsNearIceTicks(TimerUtils.nowlong());
+			data.setIsNearIceTicks(TimerUtil.nowlong());
 		}
 
 		double distance = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());

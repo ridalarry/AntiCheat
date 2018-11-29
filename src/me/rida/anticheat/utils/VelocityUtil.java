@@ -17,7 +17,7 @@ public class VelocityUtil implements Listener {
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (data.isDidTakeVelocity()) {
-				if (TimerUtils.elapsed(data.getLastVelMS(),2000L)) {
+				if (TimerUtil.elapsed(data.getLastVelMS(),2000L)) {
 					data.setDidTakeVelocity(false);
 				}
 			}
@@ -29,7 +29,7 @@ public class VelocityUtil implements Listener {
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			data.setDidTakeVelocity(true);
-			data.setLastVelMS(TimerUtils.nowlong());
+			data.setLastVelMS(TimerUtil.nowlong());
 		}
 	}
 	public static boolean didTakeVelocity(Player p) {
