@@ -235,8 +235,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.updater = new Updater(this);
 		me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
 		new AntiCheatAPI(this);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER",
-				vapers);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER",vapers);
 
 		for (final Check check : this.Checks) {
 			if (check.isEnabled()) {
@@ -982,13 +981,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		return toReturn.toString();
 	}
-	
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static HashMap<String, Integer> timerLeft = new HashMap(); // Time left until checks will start.
+	public static HashMap<String, Integer> timerLeft = new HashMap(); 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static HashMap<String, BukkitRunnable> cooldownTask = new HashMap(); // This is the task event
-	
+	public static HashMap<String, BukkitRunnable> cooldownTask = new HashMap();
+
 	public void startTimerPhaseCheck(Player player)
 	{
 		timerLeft.put(player.getName(), 3);
@@ -1007,17 +1005,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		});
 		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
 	}
-	
+
 	public static boolean isInPhaseTimer(Player player) {
 		if(!timerLeft.isEmpty() && timerLeft.containsKey(player.getName().toString())) {
 			return true; // They are in the timer
 		}
-		
+
 		return false; // They aren't in the timer
 	}
-	
-	
-	
 
 	public void startTimer(Player player)
 	{
