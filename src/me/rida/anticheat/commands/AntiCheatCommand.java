@@ -45,6 +45,66 @@ public class AntiCheatCommand implements CommandExecutor {
 		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
 		return true;
 		}
+		if (g[0].equalsIgnoreCase("bchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add((checkLoop.isBannable() ? Color.Green + checkLoop.getIdentifier() : Color.Red + checkLoop.getIdentifier()) + Color.Gray);
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
+		if (g[0].equalsIgnoreCase("btchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add((checkLoop.hasBanTimer() ? Color.Green + checkLoop.getIdentifier() : Color.Red + checkLoop.getIdentifier()) + Color.Gray);
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
+		if (g[0].equalsIgnoreCase("jchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add((checkLoop.isJudgmentDay() ? Color.Green + checkLoop.getIdentifier() : Color.Red + checkLoop.getIdentifier()) + Color.Gray);
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
+		if (g[0].equalsIgnoreCase("mvchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add(Color.Green + checkLoop.getIdentifier() + ": " + checkLoop.getMaxViolations());
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
+		if (g[0].equalsIgnoreCase("vnchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add(Color.Green + checkLoop.getIdentifier() + ": " + checkLoop.getViolationsToNotify());
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
+		if (g[0].equalsIgnoreCase("vtchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add(Color.Green + checkLoop.getIdentifier() + ": " + checkLoop.getViolationResetTime());
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
 		if (g[0].equalsIgnoreCase("reload")) {
 			s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Reloading AntiCheat...");
 			AntiCheat.reloadConfig();
