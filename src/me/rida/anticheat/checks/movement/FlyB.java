@@ -20,11 +20,11 @@ import me.rida.anticheat.utils.PlayerUtil;
 
 public class FlyB extends Check {
 
-	public static Map<UUID, Long> flyTicksA;
+	public static Map<UUID, Long> flyTicks;
 
 	public FlyB(AntiCheat AntiCheat) {
 		super("FlyB", "Fly", CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
-		flyTicksA = new HashMap<UUID, Long>();
+		flyTicks = new HashMap<UUID, Long>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -32,8 +32,8 @@ public class FlyB extends Check {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 
-		if (flyTicksA.containsKey(uuid)) {
-			flyTicksA.remove(uuid);
+		if (flyTicks.containsKey(uuid)) {
+			flyTicks.remove(uuid);
 		}
 	}
 
@@ -58,30 +58,30 @@ public class FlyB extends Check {
 		}
 
 		if (CheatUtil.blocksNear(p.getLocation())) {
-			if (flyTicksA.containsKey(p.getUniqueId())) {
-				flyTicksA.remove(p.getUniqueId());
+			if (flyTicks.containsKey(p.getUniqueId())) {
+				flyTicks.remove(p.getUniqueId());
 			}
 			return;
 		} 
 		if (Math.abs(e.getTo().getY() - e.getFrom().getY()) > 0.06) {
-			if (flyTicksA.containsKey(p.getUniqueId())) {
-				flyTicksA.remove(p.getUniqueId());
+			if (flyTicks.containsKey(p.getUniqueId())) {
+				flyTicks.remove(p.getUniqueId());
 			}
 			return;
 		}
 
 		long Time = System.currentTimeMillis();
-		if (flyTicksA.containsKey(p.getUniqueId())) {
-			Time = flyTicksA.get(p.getUniqueId()).longValue();
+		if (flyTicks.containsKey(p.getUniqueId())) {
+			Time = flyTicks.get(p.getUniqueId()).longValue();
 		}
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(p, "Logged for Fly Type B;  MS: " + MS);
 			getAntiCheat().logCheat(this, p, "Hovering for " + MathUtil.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
 					);
-			flyTicksA.remove(p.getUniqueId());
+			flyTicks.remove(p.getUniqueId());
 			return;
 		}
-		flyTicksA.put(p.getUniqueId(), Time);
+		flyTicks.put(p.getUniqueId(), Time);
 	}
 }

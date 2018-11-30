@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 
@@ -34,7 +35,10 @@ public class FastLadderA extends Check {
 				|| !PlayerUtil.isOnClimbable(p, 1) 
 				|| !PlayerUtil.isOnClimbable(p, 0)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| BlockUtil.isNearSlime(e.getFrom())
+				|| BlockUtil.isNearSlime(p)
+				|| BlockUtil.isNearSlime(e.getTo())) {
 			return;
 		}
 

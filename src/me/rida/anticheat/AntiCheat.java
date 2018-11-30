@@ -148,6 +148,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.movement.FastLadderA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FlyA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FlyB(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.FlyC(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveC(this));
@@ -394,8 +395,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				me.rida.anticheat.checks.combat.RegenA.FastHealTicks.clear();
 			if (!me.rida.anticheat.checks.combat.RegenA.LastHeal.isEmpty())
 				me.rida.anticheat.checks.combat.RegenA.LastHeal.clear();
-			if (!me.rida.anticheat.checks.movement.FlyB.flyTicksA.isEmpty())
-				me.rida.anticheat.checks.movement.FlyB.flyTicksA.clear();
+			if (!me.rida.anticheat.checks.movement.FlyB.flyTicks.isEmpty())
+				me.rida.anticheat.checks.movement.FlyB.flyTicks.clear();
 			if (!me.rida.anticheat.checks.movement.GlideA.flyTicks.isEmpty())
 				me.rida.anticheat.checks.movement.GlideA.flyTicks.clear();
 			if (!me.rida.anticheat.checks.movement.NoFallA.FallDistance.isEmpty())

@@ -42,7 +42,9 @@ public class FlyA extends Check {
 				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| BlockUtil.isNearSlime(e.getFrom())
+				|| BlockUtil.isNearSlime(e.getTo())) {
 			return;
 		}
 
@@ -59,14 +61,8 @@ public class FlyA extends Check {
 						||BlockUtil.isNearSlime(to)) {
 					return;
 				}
-				if (Distance > 0.50 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
-					getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
-				} else if (Distance > 0.90 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
-				} else if (Distance > 1.0 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
-				} else if (Distance > 3.24 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: A)");
+				if (Distance > 3.5 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+					getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
 				}
 			}
 		}
@@ -75,8 +71,6 @@ public class FlyA extends Check {
 				if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnGround(p)) {
 					if (PlayerUtil.getDistanceToGround(p) > 2) {
 						if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
-							// getAntiCheat().logCheat(this, p, "[5] Distance: 10 blocks or more", "(Type: A)");
-							//   setBackPlayer(p);
 						} else {
 							data.setGoingUp_Blocks(data.getGoingUp_Blocks() + 1);
 						}
@@ -109,7 +103,7 @@ public class FlyA extends Check {
 			}
 
 			if(verbose > 20) {
-				getAntiCheat().logCheat(this, p, "[6]", "(Type: A)");
+				getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
 				verbose = 0;
 			}
 			data.setFlyHoverVerbose(verbose);
@@ -130,7 +124,7 @@ public class FlyA extends Check {
 					return;
 				}
 				if (!BlockUtil.isNearLiquid(p)) {
-					getAntiCheat().logCheat(this, p, "[7]", "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[3]", "(Type: A)");
 
 					data.setGlideTicks(0);
 				}
@@ -152,7 +146,7 @@ public class FlyA extends Check {
 					verboseC = 0;
 				}
 				else {
-					getAntiCheat().logCheat(this, p, "[8]", "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[4]", "(Type: A)");
 					verboseC = 0;
 				}
 			}

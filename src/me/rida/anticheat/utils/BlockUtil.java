@@ -719,7 +719,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearSlime(Location loc) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(loc, 1)) {
+		for (Block b : getNearbyBlocks(loc, 3)) {
 			if (isSlime(b)) {
 				out = true;
 			}
