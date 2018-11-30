@@ -19,7 +19,7 @@ public class FastLadderA extends Check {
 	public static Map<Player, Integer> count;
 
 	public FastLadderA(AntiCheat AntiCheat) {
-		super("FastLadderA", "FastLadder", CheckType.Movement, true, true, false, false, 7, 1, 600000L, AntiCheat);
+		super("FastLadderA", "FastLadder", CheckType.Movement, true, true, false, true, 7, 1, 600000L, AntiCheat);
 		count = new WeakHashMap<Player, Integer>();
 	}
 

@@ -29,7 +29,7 @@ public class NoFallA extends Check {
 	private static ArrayList<Player> cancel;
 
 	public NoFallA(AntiCheat AntiCheat) {
-		super("NoFallA", "NoFall", CheckType.Movement, true, true, false, false, 9, 1, 120000L, AntiCheat);
+		super("NoFallA", "NoFall", CheckType.Movement, true, true, false, true, 9, 1, 120000L, AntiCheat);
 		NoFallTicks = new HashMap<UUID, Map.Entry<Long, Integer>>();
 		FallDistance = new HashMap<UUID, Double>();
 		cancel = new ArrayList<Player>();

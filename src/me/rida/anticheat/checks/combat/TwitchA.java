@@ -12,7 +12,7 @@ import me.rida.anticheat.packets.events.PacketPlayerEvent;
 
 public class TwitchA extends Check {
 	public TwitchA(AntiCheat AntiCheat) {
-		super("TwitchA", "Twitch",  CheckType.Combat, true, true, false, false, 5, 1, 600000L, AntiCheat);
+		super("TwitchA", "Twitch",  CheckType.Combat, true, true, false, true, 5, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(priority=EventPriority.HIGH)

@@ -22,7 +22,7 @@ public class KillAuraG extends Check {
 	public static Map<UUID, Double> Differences;
 	public static Map<UUID, Location> LastLocation;
 	public KillAuraG(final AntiCheat AntiCheat) {
-		super("KillAuraG", "KillAura",  CheckType.Combat, true, false, false, false, 14, 1, 600000, AntiCheat);
+		super("KillAuraG", "KillAura",  CheckType.Combat, true, false, false, false, 14, 1, 600000L, AntiCheat);
 		AimbotTicks = new HashMap<>();
 		Differences = new HashMap<>();
 		LastLocation = new HashMap<>();

@@ -16,7 +16,7 @@ import me.rida.anticheat.checks.CheckType;
 public class KillAuraH extends Check {
 	public static Map<Player, Map.Entry<Integer, Long>> lastAttack;
 	public KillAuraH(AntiCheat AntiCheat) {
-		super("KillAuraH", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000, AntiCheat);
+		super("KillAuraH", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000L, AntiCheat);
 		lastAttack = new HashMap<>();
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
