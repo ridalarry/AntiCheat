@@ -16,15 +16,6 @@ public class AscensionB extends Check {
 	private Map<Player, Float> lastYMovement = new WeakHashMap<>();
 	public AscensionB(me.rida.anticheat.AntiCheat AntiCheat) {
 		super("AscensionB", "Ascension",  CheckType.Combat, true, true, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {

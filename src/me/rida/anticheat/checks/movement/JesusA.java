@@ -28,15 +28,6 @@ public class JesusA extends Check {
 
 	public JesusA(AntiCheat AntiCheat) {
 		super("JesusA", "Jesus", CheckType.Movement, true, true, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		count = new WeakHashMap<Player, Integer>();
 		placedBlockOnWater = new ArrayList<Player>();
 		onWater = new WeakHashMap<Player, Integer>();

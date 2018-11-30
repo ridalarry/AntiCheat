@@ -11,15 +11,6 @@ public class SneakB extends Check {
 
 	public SneakB(AntiCheat AntiCheat) {
 		super("SneakB", "Sneak", CheckType.Movement, true, true, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 
 	@SuppressWarnings("unused")

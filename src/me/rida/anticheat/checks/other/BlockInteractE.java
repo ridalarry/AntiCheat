@@ -21,15 +21,6 @@ public class BlockInteractE extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 	public BlockInteractE(AntiCheat AntiCheat) {
 		super("BlockInteractE", "BI", CheckType.Other, true, false, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

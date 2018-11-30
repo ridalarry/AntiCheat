@@ -14,15 +14,6 @@ public class VapeA extends Check implements PluginMessageListener {
 
 	public VapeA(AntiCheat AntiCheat) {
 		super("VapeA", "Vape", CheckType.Client, true, true, false, false, 0, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(10);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

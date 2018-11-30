@@ -32,15 +32,6 @@ public class SpiderA extends Check {
 
 	public SpiderA(AntiCheat AntiCheat) {
 		super("SpiderA", "Spider", CheckType.Movement, true, true, false, false, 10, 1, 10000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(10);
-		setViolationsToNotify(1);
-		setViolationResetTime(10000L);
 	}
 
 	@SuppressWarnings("unused")
@@ -69,6 +60,7 @@ public class SpiderA extends Check {
 				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == 165
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.isOnClimbable(p, 1)
+				|| p.hasPotionEffect(PotionEffectType.JUMP)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()

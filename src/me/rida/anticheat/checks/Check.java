@@ -31,13 +31,27 @@ public class Check implements Listener {
 		this.AntiCheat = AntiCheat;
 		this.Identifier = Identifier;
 		this.Type = Type;
+		
 		this.Enabled = Enabled;
+		this.setEnabled(Enabled);
+		
 		this.Bannable = Bannable;
+		this.setBannable(Bannable);
+		
 		this.JudgementDay = JudgementDay;
+		this.setJudgementDay(JudgementDay);
+		
 		this.BanTimer = BanTimer;
+		this.setAutobanTimer(BanTimer);
+		
 		this.MaxViolations = MaxViolations;
+		this.setMaxViolations(MaxViolations);
+		
 		this.ViolationsToNotify = ViolationsToNotify;
+		this.setViolationsToNotify(ViolationsToNotify);
+		
 		this.ViolationResetTime = ViolationResetTime;
+		this.setViolationResetTime(ViolationResetTime);
 	}
 
 

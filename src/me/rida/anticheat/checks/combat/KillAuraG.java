@@ -23,22 +23,9 @@ public class KillAuraG extends Check {
 	public static Map<UUID, Location> LastLocation;
 	public KillAuraG(final AntiCheat AntiCheat) {
 		super("KillAuraG", "KillAura",  CheckType.Combat, true, false, false, false, 14, 1, 600000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(14);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		AimbotTicks = new HashMap<>();
 		Differences = new HashMap<>();
 		LastLocation = new HashMap<>();
-		setEnabled(true);
-		setBannable(true);
-		setMaxViolations(14);
-		setViolationsToNotify(1);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onLogout(PlayerQuitEvent e) {

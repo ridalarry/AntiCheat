@@ -25,15 +25,6 @@ public class StepA extends Check {
 
 	public StepA(AntiCheat AntiCheat) {
 		super("StepA", "Step", CheckType.Movement, true, true, false, false, 7, 1, 90000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(7);
-		setViolationsToNotify(1);
-		setViolationResetTime(90000);
 	}
 
 	private boolean isOnGround(Player p) {

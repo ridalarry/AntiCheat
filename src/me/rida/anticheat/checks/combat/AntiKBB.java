@@ -19,15 +19,6 @@ public class AntiKBB extends Check {
 	private Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
 	public AntiKBB(AntiCheat AntiCheat) {
 		super("AntiKBB", "AntiKB",  CheckType.Combat, true, false, false, false, 10, 1, 600000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(10);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onQuit(PlayerQuitEvent e) {

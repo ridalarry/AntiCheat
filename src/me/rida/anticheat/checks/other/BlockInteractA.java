@@ -21,15 +21,6 @@ public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
 		super("BlockInteractA", "BI", CheckType.Other, true, false, false, false, 29, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(29);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

@@ -23,15 +23,6 @@ public class TimerB extends Check {
 
 	public TimerB(AntiCheat AntiCheat) {
 		super("TimerB", "Timer", CheckType.Other, true, false, false, false, 9, 1, 6000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(9);
-		setViolationsToNotify(1);
-		setViolationResetTime(6000);
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

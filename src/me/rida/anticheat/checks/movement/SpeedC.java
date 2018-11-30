@@ -35,15 +35,6 @@ public class SpeedC extends Check {
 
 	public SpeedC(AntiCheat AntiCheat) {
 		super("SpeedC", "Speed", CheckType.Movement, true, true, false, false, 3, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(3);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		tooFastTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		lastHit = new HashMap<UUID, Long>();

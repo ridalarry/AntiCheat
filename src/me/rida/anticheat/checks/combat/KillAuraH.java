@@ -17,15 +17,6 @@ public class KillAuraH extends Check {
 	public static Map<Player, Map.Entry<Integer, Long>> lastAttack;
 	public KillAuraH(AntiCheat AntiCheat) {
 		super("KillAuraH", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(7);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		lastAttack = new HashMap<>();
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

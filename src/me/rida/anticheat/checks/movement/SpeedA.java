@@ -25,15 +25,6 @@ public class SpeedA extends Check {
 
 	public SpeedA(AntiCheat AntiCheat) {
 		super("SpeedA", "Speed", CheckType.Movement, true, true, false, false, 15, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(15);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

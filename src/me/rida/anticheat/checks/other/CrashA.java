@@ -27,15 +27,6 @@ public class CrashA extends Check {
 
 	public CrashA(AntiCheat AntiCheat) {
 		super("CrashA", "Crash", CheckType.Other, true, true, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		crashTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash2Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		crash3Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();

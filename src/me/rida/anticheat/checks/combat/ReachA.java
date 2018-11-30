@@ -20,15 +20,6 @@ public class ReachA extends Check {
 
 	public ReachA(AntiCheat AntiCheat) {
 		super("ReachA", "Reach",  CheckType.Combat, true, true, false, false, 7, 1, 30000, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(7);
-		setViolationsToNotify(1);
-		setViolationResetTime(30000);
 	}
 
 	@SuppressWarnings("unused")

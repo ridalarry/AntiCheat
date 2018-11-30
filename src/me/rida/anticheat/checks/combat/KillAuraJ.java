@@ -12,16 +12,7 @@ public class KillAuraJ extends Check {
 	private float lastYaw;
 	private float lastBad;
 	public KillAuraJ(AntiCheat AntiCheat) {
-		super("KillAuraJ", "KillAura",  CheckType.Combat, true, false, false, false, 10, 1, 600000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(10);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
+		super("KillAuraJ", "KillAura",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
 	}
 	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

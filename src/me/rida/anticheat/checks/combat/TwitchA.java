@@ -13,15 +13,6 @@ import me.rida.anticheat.packets.events.PacketPlayerEvent;
 public class TwitchA extends Check {
 	public TwitchA(AntiCheat AntiCheat) {
 		super("TwitchA", "Twitch",  CheckType.Combat, true, true, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 
 	@EventHandler(priority=EventPriority.HIGH)

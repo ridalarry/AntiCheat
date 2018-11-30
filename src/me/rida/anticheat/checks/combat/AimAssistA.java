@@ -16,15 +16,6 @@ public class AimAssistA extends Check {
 
 	public AimAssistA(AntiCheat AntiCheat) {
 		super("AimAssistA", "AimAssist",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(10);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 	}
 
 	private static double getFrac(double d) {

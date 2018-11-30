@@ -143,15 +143,6 @@ public class PhaseB extends Check implements Listener {
 
 	public PhaseB(AntiCheat AntiCheat) {
 		super("PhaseB", "Phase", CheckType.Combat, true, false, false, false, 40, 10, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(40);
-		setViolationsToNotify(10);
-		setViolationResetTime(600000L);
 		lastDoorSwing = new WeakHashMap<>();
 	}
 

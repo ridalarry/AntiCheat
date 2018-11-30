@@ -30,15 +30,6 @@ public class NoFallA extends Check {
 
 	public NoFallA(AntiCheat AntiCheat) {
 		super("NoFallA", "NoFall", CheckType.Movement, true, true, false, false, 9, 1, 120000L, AntiCheat);
-		setEnabled(true);
-		setBannable(true);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(9);
-		setViolationsToNotify(1);
-		setViolationResetTime(120000L);
 		NoFallTicks = new HashMap<UUID, Map.Entry<Long, Integer>>();
 		FallDistance = new HashMap<UUID, Double>();
 		cancel = new ArrayList<Player>();

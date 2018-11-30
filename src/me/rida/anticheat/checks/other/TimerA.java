@@ -27,15 +27,6 @@ public class TimerA extends Check {
 
 	public TimerA(AntiCheat AntiCheat) {
 		super("TimerA", "Timer", CheckType.Other, true, false, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		packets = new HashMap<>();
 		verbose = new HashMap<>();
 		toCancel = new ArrayList<>();

@@ -19,15 +19,6 @@ import me.rida.anticheat.utils.VelocityUtil;
 public class BlockInteractD extends Check {
 	public BlockInteractD(AntiCheat AntiCheat) {
 		super("BlockInteractD", "BI", CheckType.Other, true, true, false, false, 20, 4, 1000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(20);
-		setViolationsToNotify(4);
-		setViolationResetTime(1000);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlaceBlock(BlockPlaceEvent e) {

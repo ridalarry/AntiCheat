@@ -14,15 +14,6 @@ import me.rida.anticheat.checks.CheckType;
 public class InvMoveA extends Check {
 	public InvMoveA(AntiCheat AntiCheat) {
 		super("InvMoveA", "InvMove", CheckType.Other, true, false, false, false, 30, 20, 3000, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(30);
-		setViolationsToNotify(20);
-		setViolationResetTime(3000);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

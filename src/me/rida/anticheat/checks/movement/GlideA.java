@@ -20,15 +20,6 @@ public class GlideA extends Check {
 
 	public GlideA(AntiCheat AntiCheat) {
 		super("GlideA", "Glide", CheckType.Movement, true, false, false, false, 5, 1, 600000L, AntiCheat);
-		setEnabled(true);
-		setBannable(false);
-		setJudgementDay(false);
-		
-		setAutobanTimer(false);
-		
-		setMaxViolations(5);
-		setViolationsToNotify(1);
-		setViolationResetTime(600000L);
 		flyTicks = new HashMap<UUID, Long>();
 	}
 
