@@ -23,6 +23,10 @@ public class AntiCheatCommand implements CommandExecutor {
 	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String a, String[] g) {
+		if (!s.hasPermission("anticheat.staff")) {
+			s.sendMessage(Color.Red + "No permission.");
+			return true;
+		}
 		if(g.length == 0) {
 			s.sendMessage(Color.Red + "Do '/anticheat help' for list of commands.");
 
