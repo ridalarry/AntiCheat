@@ -33,7 +33,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.comphenix.protocol.PacketType;
@@ -233,10 +235,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.packet = new PacketCore(this);
 		this.lag = new LagCore(this);
 		this.updater = new Updater(this);
-		me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
 		new AntiCheatAPI(this);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER",vapers);
-
+		me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
+		this.getServer().getMessenger().registerIncomingPluginChannel((Plugin)this, "LOLIMAHCKER", (PluginMessageListener)vapeA);
+		this.getServer().getPluginManager().registerEvents((Listener)vapeA, (Plugin)this);
+		me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
+		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapers);
 		for (final Check check : this.Checks) {
 			if (check.isEnabled()) {
 				this.RegisterListener(check);
