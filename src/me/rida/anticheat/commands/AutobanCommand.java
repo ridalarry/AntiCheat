@@ -22,6 +22,9 @@ public class AutobanCommand implements CommandExecutor {
 			sender.sendMessage(Color.Red + "No permission.");
 			return true;
 		}
+		if (args.length != 2) {
+			sender.sendMessage(Color.Red + "Invalid argument.");
+		}
 		if (args.length == 2) {
 			final String type = args[0];
 			final String playerName = args[1];
@@ -64,6 +67,7 @@ public class AutobanCommand implements CommandExecutor {
 					break;
 				}
 				default:
+					sender.sendMessage(String.valueOf(Color.Red) + "Invalid argument.");
 					break;
 				}
 			} else {
