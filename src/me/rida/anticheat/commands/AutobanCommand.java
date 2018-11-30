@@ -40,8 +40,9 @@ public class AutobanCommand implements CommandExecutor {
 							Color.translate(AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary")
 									+ player.getName() + AntiCheat.getConfig().getString("alerts.primary")
 									+ "'s auto-ban has been cancelled by "
-									+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
-							"anticheat.staff");
+									+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()), "anticheat.staff");
+					this.AntiCheat.removeFromAutobanQueue(player);
+					this.AntiCheat.removeViolations(player);
 					break;
 				}
 				case "ban": {
@@ -56,15 +57,15 @@ public class AutobanCommand implements CommandExecutor {
 								+ "'s auto-ban has been forced by "
 								+ AntiCheat.getConfig().getString("alerts.secondary") + sender.getName()),
 								"anticheat.staff");
-						this.AntiCheat.autobanOver(player);
+						this.AntiCheat.banPlayer(player);
+						this.AntiCheat.removeFromAutobanQueue(player);
+						this.AntiCheat.removeViolations(player);
 					}
 					break;
 				}
 				default:
 					break;
 				}
-				this.AntiCheat.removeFromAutobanQueue(player);
-				this.AntiCheat.removeViolations(player);
 			} else {
 				sender.sendMessage(String.valueOf(Color.Red) + "This player is not in the autoban queue!");
 			}

@@ -19,7 +19,16 @@ public class AutoClickerD extends Check {
 	public Map<UUID, Integer> clicks;
 	private Map<UUID, Long> recording;
 	public AutoClickerD(AntiCheat AntiCheat) {
-		super("AutoClickerD", "AutoClicker",  CheckType.Combat, true, true, false, 5, 1, 600000, AntiCheat);
+		super("AutoClickerD", "AutoClicker",  CheckType.Combat, true, true, false, false, 5, 1, 600000, AntiCheat);
+		setEnabled(true);
+		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(5);
+		setViolationsToNotify(1);
+		setViolationResetTime(600000L);
 
 		clicks = new HashMap<UUID, Integer>();
 		recording = new HashMap<UUID, Long>();

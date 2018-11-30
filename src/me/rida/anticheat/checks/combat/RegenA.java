@@ -20,7 +20,16 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class RegenA extends Check {
 	public RegenA(AntiCheat AntiCheat) {
-		super("RegenA", "Regen",  CheckType.Combat, true, true, false, 12, 1, 600000L, AntiCheat);
+		super("RegenA", "Regen",  CheckType.Combat, true, true, false, false, 12, 1, 600000L, AntiCheat);
+		setEnabled(true);
+		setBannable(true);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(12);
+		setViolationsToNotify(1);
+		setViolationResetTime(600000L);
 	}
 
 	public static Map<UUID, Long> LastHeal = new HashMap<UUID, Long>();

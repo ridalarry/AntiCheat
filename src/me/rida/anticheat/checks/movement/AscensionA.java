@@ -25,10 +25,16 @@ public class AscensionA extends Check {
 	public static Map<UUID, Double> velocity;
 
 	public AscensionA(AntiCheat AntiCheat) {
-		super("AscensionA", "Ascension",  CheckType.Combat, true, true, false, 4, 1, 600000L, AntiCheat);
-		setBannable(true);
+		super("AscensionA", "Ascension",  CheckType.Combat, true, true, false, false, 4, 1, 600000L, AntiCheat);
 		setEnabled(true);
+		setBannable(true);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
 		setMaxViolations(4);
+		setViolationsToNotify(1);
+		setViolationResetTime(600000L);
 
 		AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 		velocity = new HashMap<UUID, Double>();

@@ -20,7 +20,16 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 public class BlockInteractC extends Check {
 	public BlockInteractC(AntiCheat AntiCheat) {
-		super("BlockInteractC", "BI", CheckType.Other, true, false, false, 20, 1, 600000L, AntiCheat);
+		super("BlockInteractC", "BI", CheckType.Other, true, false, false, false, 20, 1, 600000L, AntiCheat);
+		setEnabled(true);
+		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(20);
+		setViolationsToNotify(1);
+		setViolationResetTime(600000L);
 	}
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

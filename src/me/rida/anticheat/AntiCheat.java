@@ -561,7 +561,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				if (System.currentTimeMillis() < time) {
 					continue;
 				}
-				this.autobanOver(player);
+				this.banPlayer(player);
 			}
 		}
 		final Map<UUID, Map<Check, Long>> ViolationResets = new HashMap<>(this.ViolationReset);
@@ -622,14 +622,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.ViolationReset.put(player.getUniqueId(), map);
 	}
 
-	public void autobanOver(Player player) {
-		final Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<>(this.AutoBan);
-		if (AutoBan.containsKey(player)) {
-			this.banPlayer(player, AutoBan.get(player).getKey());
-			this.AutoBan.remove(player);
-		}
-	}
-
 	public void autoban(Check check, Player player) {
 		if (this.lag.getTPS() < 17.0) {
 			return;
@@ -638,8 +630,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (this.AutoBan.containsKey(player)) {
 				return;
 			}
-			this.AutoBan.put(player,
-					new AbstractMap.SimpleEntry<>(check, System.currentTimeMillis() + 10000L));
+			this.AutoBan.put(player, new AbstractMap.SimpleEntry<>(check, System.currentTimeMillis() + 10000L));
+			System.out.println("[" + player.getUniqueId().toString() + "] " + player.getName() + " will be banned in 15s for " + check.getType() + "." + check.getIdentifier() + ".");
+
 			final ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
 			msg.addText(Color.translate(
@@ -648,7 +641,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 			msg.addText(Color.translate(
 					getConfig().getString("alerts.primary") + " set off " + getConfig().getString("alerts.secondary")
-					+ check.getType() + "." + check.getName() + getConfig().getString("alerts.primary") + " and will "
+					+ check.getType() + "." + check.getIdentifier() + getConfig().getString("alerts.primary") + " and will "
 					+ getConfig().getString("alerts.primary") + "be " + getConfig().getString("alerts.primary")
 					+ "banned" + getConfig().getString("alerts.primary") + " if you don't take action. "
 					+ Color.DGray + Color.Bold + "["));
@@ -661,6 +654,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/autoban cancel " + player.getName());
 			msg.addText(Color.DGray + Color.Bold + "]");
 			ArrayList<Player> players;
+			this.banPlayer(player, check);
 			for (int length = (players = getOnlinePlayers()).size(), i = 0; i < length; ++i) {
 				Player playerplayer = players.get(i);
 				if (playerplayer.hasPermission("anticheat.staff")) {
@@ -715,6 +709,24 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.saveConfig();
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
+	public void banPlayer(Player player) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				Bukkit.broadcastMessage(Color.translate(
+						getConfig().getString("settings.broadcastmsg").replaceAll("%player%", player.getName())));
+				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), getConfig().getString("settings.bancmd")
+						.replaceAll("%player%", player.getName()).replaceAll("%check%", ""));
+			}
+
+
+		}.runTaskLater(this, 10L);
+		if (Violations.containsKey(player))
+			this.Violations.remove(player);
+		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
+		this.saveConfig();
+	}
 	public void alert(String message) {
 		for (Player playerplayer : this.AlertsOn) {
 			playerplayer.sendMessage(String.valueOf(PREFIX) + message);

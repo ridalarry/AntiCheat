@@ -21,7 +21,16 @@ public class KillAuraD extends Check {
 	public static Map<UUID, Map.Entry<Double, Double>> packetTicks;
 
 	public KillAuraD(AntiCheat AntiCheat) {
-		super("KillAuraD", "KillAura",  CheckType.Combat, true, false, false, 150, 50, 3000, AntiCheat);
+		super("KillAuraD", "KillAura",  CheckType.Combat, true, false, false, false, 150, 50, 3000, AntiCheat);
+		setEnabled(true);
+		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(150);
+		setViolationsToNotify(50);
+		setViolationResetTime(3000);
 
 		packetTicks = new HashMap<>();
 	}

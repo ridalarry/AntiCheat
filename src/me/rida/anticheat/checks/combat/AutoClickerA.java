@@ -27,7 +27,16 @@ public class AutoClickerA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public AutoClickerA(final AntiCheat AntiCheat) {
-		super("AutoClickerA", "AutoClicker",  CheckType.Combat, true, true, false, 10, 3, 250000, AntiCheat);
+		super("AutoClickerA", "AutoClicker",  CheckType.Combat, true, true, false, false, 10, 3, 250000, AntiCheat);
+		setEnabled(true);
+		setBannable(true);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(10);
+		setViolationsToNotify(1);
+		setViolationResetTime(250000);
 		AutoClickerA.LastMS = new HashMap<>();
 		AutoClickerA.Clicks = new HashMap<>();
 		AutoClickerA.ClickTicks = new HashMap<>();

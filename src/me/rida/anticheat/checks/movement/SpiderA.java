@@ -31,7 +31,16 @@ import me.rida.anticheat.utils.VelocityUtil;
 public class SpiderA extends Check {
 
 	public SpiderA(AntiCheat AntiCheat) {
-		super("SpiderA", "Spider", CheckType.Movement, true, true, false, 10, 1, 10000L, AntiCheat);
+		super("SpiderA", "Spider", CheckType.Movement, true, true, false, false, 10, 1, 10000L, AntiCheat);
+		setEnabled(true);
+		setBannable(true);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(10);
+		setViolationsToNotify(1);
+		setViolationResetTime(10000L);
 	}
 
 	@SuppressWarnings("unused")

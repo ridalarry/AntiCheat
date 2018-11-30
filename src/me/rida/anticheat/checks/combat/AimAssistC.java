@@ -17,7 +17,16 @@ extends Check {
     private int streak;
     private int min;
      public AimAssistC(AntiCheat AntiCheat) {
-        super("AimAssistC", "AimAssist",  CheckType.Combat, true, false, false, 10, 1, 600000, AntiCheat);
+        super("AimAssistC", "AimAssist",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		setEnabled(true);
+		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(10);
+		setViolationsToNotify(1);
+		setViolationResetTime(600000L);
     }
  	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

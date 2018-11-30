@@ -15,10 +15,16 @@ import me.rida.anticheat.utils.Color;
  public class KillAuraI extends Check {
     Map<UUID, Integer> hits = new HashMap<UUID, Integer>();
      public KillAuraI(AntiCheat AntiCheat) {
- 		super("KillAuraI", "KillAura",  CheckType.Combat, true, false, false, 7, 1, 600000, AntiCheat);
+ 		super("KillAuraI", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000, AntiCheat);
 		setEnabled(true);
-		setMaxViolations(10);
 		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(7);
+		setViolationsToNotify(1);
+		setViolationResetTime(600000L);
     }
 	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

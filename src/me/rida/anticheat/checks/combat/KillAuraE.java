@@ -21,7 +21,16 @@ public class KillAuraE extends Check {
 	public static int hitCount = 0;
 
 	public KillAuraE(AntiCheat AntiCheat) {
-		super("KillAuraE", "KillAura",  CheckType.Combat, true, false, false, 20, 3, 600000L, AntiCheat);
+		super("KillAuraE", "KillAura",  CheckType.Combat, true, false, false, false, 20, 3, 600000L, AntiCheat);
+		setEnabled(true);
+		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(20);
+		setViolationsToNotify(3);
+		setViolationResetTime(600000L);
 	}
 
 	@SuppressWarnings({ "unused", "deprecation" })

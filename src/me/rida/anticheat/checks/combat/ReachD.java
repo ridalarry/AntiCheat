@@ -28,7 +28,16 @@ public class ReachD extends Check {
 	private Map<Player, Long> reachTicks;
 	private ArrayList<Player> projectileHit;
 	public ReachD(AntiCheat AntiCheat) {
-		super("ReachD", "Reach",  CheckType.Combat, true, true, false, 5, 1, 30000, AntiCheat);
+		super("ReachD", "Reach",  CheckType.Combat, true, true, false, false, 5, 1, 30000, AntiCheat);
+		setEnabled(true);
+		setBannable(true);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(5);
+		setViolationsToNotify(1);
+		setViolationResetTime(30000);
 		offsets = new HashMap<>();
 		reachTicks = new HashMap<>();
 		projectileHit = new ArrayList<>();

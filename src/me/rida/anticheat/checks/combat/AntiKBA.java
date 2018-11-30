@@ -27,7 +27,16 @@ public class AntiKBA extends Check {
     public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, 30, 3, 250000, AntiCheat);
+        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, 30, 3, 250000, AntiCheat);
+		setEnabled(true);
+		setBannable(false);
+		setJudgementDay(false);
+		
+		setAutobanTimer(false);
+		
+		setMaxViolations(30);
+		setViolationsToNotify(3);
+		setViolationResetTime(250000);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
