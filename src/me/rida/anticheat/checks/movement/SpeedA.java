@@ -37,10 +37,10 @@ public class SpeedA extends Check {
 		if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| e.getPlayer().getVehicle() != null
-				|| BlockUtil.isNearIce(p)
+				|| PlayerUtil.isNearIce(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| BlockUtil.isNearSlime(p)
+				|| PlayerUtil.isNearSlime(p)
 				|| PlayerUtil.wasOnSlime(p)){
 			return;
 		}
@@ -88,8 +88,8 @@ public class SpeedA extends Check {
 					if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
 							|| p.getGameMode().equals(GameMode.CREATIVE)
 							|| e.getPlayer().getVehicle() != null
-							|| BlockUtil.isNearIce(p)
-							|| BlockUtil.isNearSlime(p)
+							|| PlayerUtil.isNearIce(p)
+							|| PlayerUtil.isNearSlime(p)
 							|| PlayerUtil.wasOnSlime(p)
 							|| p.hasPotionEffect(PotionEffectType.JUMP)
 							|| p.hasPotionEffect(PotionEffectType.SPEED)

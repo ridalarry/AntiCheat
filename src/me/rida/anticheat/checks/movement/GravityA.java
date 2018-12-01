@@ -39,7 +39,7 @@ public class GravityA extends Check {
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
-			if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || BlockUtil.isNearHalfBlock(p) || BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) || BlockUtil.isNearStair(p) || !player.getGameMode().equals(GameMode.CREATIVE) || NewVelocityUtil.didTakeVel(p)
+			if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || PlayerUtil.isNearHalfBlock(p) || BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) || BlockUtil.isNearStair(p) || !player.getGameMode().equals(GameMode.CREATIVE) || NewVelocityUtil.didTakeVel(p)
 					|| PlayerUtil.wasOnSlime(p)) {
 				data.setGravity_VL(0);
 				return;

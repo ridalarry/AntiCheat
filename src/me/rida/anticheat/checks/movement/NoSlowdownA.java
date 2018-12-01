@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -66,10 +67,12 @@ public class NoSlowdownA extends Check {
 		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
 				MathUtil.getHorizontalVector(e.getTo().toVector()));
 
-		if (!p.getLocation().getBlock().getType().equals(Material.WEB) || (OffsetXZ < 0.2)) {
+		if (!p.getLocation().getBlock().getType().equals(Material.WEB) 
+				|| (OffsetXZ < 0.2) 
+				|| p.getAllowFlight() 
+				|| p.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-
 		getAntiCheat().logCheat(this, p, "Offset: " + OffsetXZ, "(Type: A)");
 	}
 

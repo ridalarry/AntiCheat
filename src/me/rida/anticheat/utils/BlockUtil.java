@@ -618,144 +618,6 @@ public class BlockUtil {
 		}
 		return blocks;
 	}
-
-	public static boolean isNearWeb(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isWeb(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearAllowedPhase(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (allowedPhase(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearGrass(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isGrass(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearLog(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isLog(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearAllowed(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isAllowed(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearLessThanABlock(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isLessThanBlock(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearPiston(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isPiston(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearPressure(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isPressure(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearSlab(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isSlab(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearAir(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isAir(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-
-	public static boolean isNearHalfBlock(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isHalfBlock(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-
-	public static boolean isNearIce(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isIce(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearSlime(Location loc) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(loc, 3)) {
-			if (isSlime(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearSlime(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isSlime(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearClimable(Player p) {
-		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (isClimbableBlock(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
 	public static boolean isNearPistion(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
@@ -942,6 +804,12 @@ public class BlockUtil {
 	public static boolean isGrass(Block block) {
 		return block.getTypeId() == 2
 				|| block.getTypeId() == 3;
+	}
+	@SuppressWarnings("deprecation")
+	public static boolean isSign(Block block) {
+		return block.getTypeId() == 63
+				|| block.getTypeId() == 68
+				|| block.getTypeId() == 323;
 	}
 
 	@SuppressWarnings("deprecation")

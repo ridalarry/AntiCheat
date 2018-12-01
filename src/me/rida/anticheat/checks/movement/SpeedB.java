@@ -66,8 +66,8 @@ public class SpeedB extends Check {
 				|| p.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| BlockUtil.isNearIce(p)
-				|| BlockUtil.isNearSlime(p)
+				|| PlayerUtil.isNearIce(p)
+				|| PlayerUtil.isNearSlime(p)
 				|| PlayerUtil.wasOnSlime(p)){
 			return;
 		}

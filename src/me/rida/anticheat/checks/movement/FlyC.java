@@ -37,7 +37,7 @@ public class FlyC extends Check {
 				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.wasOnSlime(p)
-				|| BlockUtil.isNearSlime(p)
+				|| PlayerUtil.isNearSlime(p)
 				|| BlockUtil.isNearLiquid(p)
 				|| PlayerUtil.isInLiquid(p)
 				|| data == null
@@ -45,8 +45,8 @@ public class FlyC extends Check {
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| BlockUtil.isNearSlime(e.getFrom())
-				|| BlockUtil.isNearSlime(e.getTo())) {
+				|| PlayerUtil.isNearSlime(e.getFrom())
+				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
 
@@ -54,8 +54,8 @@ public class FlyC extends Check {
 		double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
 		if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
 			if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
-				if (BlockUtil.isNearSlime(from)
-						|| BlockUtil.isNearSlime(to)) {
+				if (PlayerUtil.isNearSlime(from)
+						|| PlayerUtil.isNearSlime(to)) {
 					return;
 				}
 				if (Distance > 0.50 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
@@ -73,8 +73,8 @@ public class FlyC extends Check {
 					if (PlayerUtil.getDistanceToGround(p) > 2) {
 						if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
 							if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
-								if (BlockUtil.isNearSlime(from)
-										|| BlockUtil.isNearSlime(to)
+								if (PlayerUtil.isNearSlime(from)
+										|| PlayerUtil.isNearSlime(to)
 										|| Distance <= 3.5) {
 									return;
 								}

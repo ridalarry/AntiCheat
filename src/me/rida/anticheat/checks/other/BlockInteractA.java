@@ -15,7 +15,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.BlockUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 
 public class BlockInteractA extends Check {
 
@@ -33,7 +33,7 @@ public class BlockInteractA extends Check {
 		}
 		boolean isValid = false;
 		Player p = e.getPlayer();
-		if (BlockUtil.isNearLog(p) && BlockUtil.isNearGrass(p)) {
+		if (PlayerUtil.isNearLog(p) && PlayerUtil.isNearGrass(p)) {
 			return;
 		}
 		Location scanLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation();

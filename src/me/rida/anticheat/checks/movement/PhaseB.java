@@ -28,6 +28,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.BoundingBox;
 import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ReflectionUtil;
 
 
@@ -161,13 +162,13 @@ public class PhaseB extends Check implements Listener {
 				|| player.getVehicle() != null
 				|| MathUtil.elapsed(lastDoorSwing.getOrDefault(player, 0L)) < 500
 				|| BlockUtil.isNearPistion(player)
-				|| BlockUtil.isNearAllowed(player)) {
+				|| PlayerUtil.isNearAllowed(player)) {
 			return;
 		}
 		if (BlockUtil.isNearLava(player) && BlockUtil.isNearWater(player)) {
 			return;
 		}
-		if (BlockUtil.isNearLog(player) && BlockUtil.isNearGrass(player)) {
+		if (PlayerUtil.isNearLog(player) && PlayerUtil.isNearGrass(player)) {
 			return;
 		}
 		if (e.getFrom().distance(e.getTo()) > AntiCheat.Instance.maxMove) {

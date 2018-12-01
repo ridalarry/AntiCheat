@@ -68,14 +68,14 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isOnFence(p.getLocation())
 				|| PlayerUtil.isOnPressure(p.getLocation())
 				|| BlockUtil.isNearFence(p)
-				|| BlockUtil.isNearPressure(p)
+				|| PlayerUtil.isNearPressure(p)
 				|| VelocityUtil.didTakeVelocity(p)
-				|| BlockUtil.isNearSlime(p)
-				|| BlockUtil.isNearSlime(e.getFrom())
-				|| BlockUtil.isNearSlime(e.getTo())) {
+				|| PlayerUtil.isNearSlime(p)
+				|| PlayerUtil.isNearSlime(e.getFrom())
+				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
-		if (BlockUtil.isNearLiquid(p) && BlockUtil.isNearHalfBlock(p)) {
+		if (BlockUtil.isNearLiquid(p) && PlayerUtil.isNearHalfBlock(p)) {
 			return;
 		}
 

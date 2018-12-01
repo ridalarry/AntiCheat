@@ -36,15 +36,15 @@ public class FlyA extends Check {
 				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.wasOnSlime(p)
-				|| BlockUtil.isNearSlime(p)
+				|| PlayerUtil.isNearSlime(p)
 				|| BlockUtil.isNearLiquid(p)
 				|| PlayerUtil.isInLiquid(p)
 				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| BlockUtil.isNearSlime(e.getFrom())
-				|| BlockUtil.isNearSlime(e.getTo())) {
+				|| PlayerUtil.isNearSlime(e.getFrom())
+				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
 
@@ -57,8 +57,8 @@ public class FlyA extends Check {
 			Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
 			double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
 			if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
-				if (BlockUtil.isNearSlime(from)
-						||BlockUtil.isNearSlime(to)) {
+				if (PlayerUtil.isNearSlime(from)
+						|| PlayerUtil.isNearSlime(to)) {
 					return;
 				}
 				if (Distance > 3.5 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
@@ -92,7 +92,7 @@ public class FlyA extends Check {
 			double distanceToGround = getDistanceToGround(p);
 			double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 			int verbose = data.getFlyHoverVerbose();
-			if (BlockUtil.isNearWeb(p)) {
+			if (PlayerUtil.isNearWeb(p)) {
 				return;
 			}
 			if(distanceToGround > 2) {
@@ -123,7 +123,7 @@ public class FlyA extends Check {
 			long Millis = System.currentTimeMillis() - Time;
 			if (Millis > 200L) {
 				if (PlayerUtil.isInLiquid(p)
-						|| BlockUtil.isNearWeb(p)) {
+						|| PlayerUtil.isNearWeb(p)) {
 					return;
 				}
 				if (!BlockUtil.isNearLiquid(p)) {

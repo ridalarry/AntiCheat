@@ -73,9 +73,9 @@ public class StepA extends Check {
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| CheatUtil.slabsNear(p.getLocation())
-				|| BlockUtil.isNearSlime(p.getLocation())
-				|| BlockUtil.isNearSlime(e.getFrom())
-				|| BlockUtil.isNearSlime(e.getTo())
+				|| PlayerUtil.isNearSlime(p.getLocation())
+				|| PlayerUtil.isNearSlime(e.getFrom())
+				|| PlayerUtil.isNearSlime(e.getTo())
 				|| p.getLocation().getBlock().getType().equals(Material.WATER)
 				|| p.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
 			return;

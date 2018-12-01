@@ -20,7 +20,6 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -86,11 +85,11 @@ public class SpeedC extends Check {
 				|| p.getAllowFlight()
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
-				|| BlockUtil.isNearIce(p)
+				|| PlayerUtil.isNearIce(p)
 				|| PlayerUtil.wasOnSlime(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| BlockUtil.isNearSlime(p)
+				|| PlayerUtil.isNearSlime(p)
 				|| p.getVelocity().length() + 0.1 < velocity.getOrDefault(p.getUniqueId(), -1.0D)
 				|| (getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
 						&& !p.hasPotionEffect(PotionEffectType.POISON)

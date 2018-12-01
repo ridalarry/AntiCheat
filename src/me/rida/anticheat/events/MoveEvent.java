@@ -82,7 +82,7 @@ public class MoveEvent implements Listener {
 
 		if (data.isNearIce()) {
 			if (TimerUtil.elapsed(data.getIsNearIceTicks(),500L)) {
-				if (!BlockUtil.isNearIce(p)) {
+				if (!PlayerUtil.isNearIce(p)) {
 					data.setNearIce(false);
 				} else {
 					data.setIsNearIceTicks(TimerUtil.nowlong());
@@ -135,13 +135,13 @@ public class MoveEvent implements Listener {
 			}
 		}
 
-		if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock())|| BlockUtil.isLessThanBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
+		if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock())|| BlockUtil.isLessThanBlock(p.getLocation().add(0,-0.50,0).getBlock()) || PlayerUtil.isNearHalfBlock(p)) {
 			if (!data.isHalfBlocks_MS_Set()) {
 				data.setHalfBlocks_MS_Set(true);
 				data.setHalfBlocks_MS(TimerUtil.nowlong());
 			} else {
 				if (TimerUtil.elapsed(data.getHalfBlocks_MS(),900L)) {
-					if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
+					if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || PlayerUtil.isNearHalfBlock(p)) {
 						data.setHalfBlocks_MS_Set(true);
 						data.setHalfBlocks_MS(TimerUtil.nowlong());
 					} else {
@@ -151,7 +151,7 @@ public class MoveEvent implements Listener {
 			}
 		} else {
 			if (TimerUtil.elapsed(data.getHalfBlocks_MS(),900L)) {
-				if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || BlockUtil.isNearHalfBlock(p)) {
+				if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock()) || PlayerUtil.isNearHalfBlock(p)) {
 					data.setHalfBlocks_MS_Set(true);
 					data.setHalfBlocks_MS(TimerUtil.nowlong());
 				} else {
@@ -159,10 +159,10 @@ public class MoveEvent implements Listener {
 				}
 			}
 		}
-		if (BlockUtil.isNearIce(p) && !data.isNearIce()) {
+		if (PlayerUtil.isNearIce(p) && !data.isNearIce()) {
 			data.setNearIce(true);
 			data.setIsNearIceTicks(TimerUtil.nowlong());
-		} else if (BlockUtil.isNearIce(p)) {
+		} else if (PlayerUtil.isNearIce(p)) {
 			data.setIsNearIceTicks(TimerUtil.nowlong());
 		}
 

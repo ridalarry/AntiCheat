@@ -48,6 +48,153 @@ public class PlayerUtil {
 		return 0;
 	}
 
+	public static boolean isNearSign(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isSign(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+
+	public static boolean isNearWeb(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isWeb(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearAllowedPhase(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.allowedPhase(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearGrass(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isGrass(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearLog(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isLog(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearAllowed(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isAllowed(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearLessThanABlock(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isLessThanBlock(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearPiston(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isPiston(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearPressure(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isPressure(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearSlab(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isSlab(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearAir(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isAir(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+
+	public static boolean isNearHalfBlock(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isHalfBlock(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+
+	public static boolean isNearIce(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isIce(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearSlime(Location loc) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
+			if (BlockUtil.isSlime(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearSlime(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isSlime(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearClimable(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isClimbableBlock(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean onGround2(Player p) {
 		if (p.getLocation().getBlock().getType() == Material.AIR) {
 			return false;
