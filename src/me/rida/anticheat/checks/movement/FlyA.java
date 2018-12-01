@@ -92,7 +92,9 @@ public class FlyA extends Check {
 			double distanceToGround = getDistanceToGround(p);
 			double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 			int verbose = data.getFlyHoverVerbose();
-
+			if (BlockUtil.isNearWeb(p)) {
+				return;
+			}
 			if(distanceToGround > 2) {
 				verbose = yDiff == 0 ? verbose + 6 : yDiff < 0.06 ? verbose + 4 : 0;
 			} else if(data.getAirTicks() > 7
@@ -120,7 +122,8 @@ public class FlyA extends Check {
 			}
 			long Millis = System.currentTimeMillis() - Time;
 			if (Millis > 200L) {
-				if (PlayerUtil.isInLiquid(p)) {
+				if (PlayerUtil.isInLiquid(p)
+						|| BlockUtil.isNearWeb(p)) {
 					return;
 				}
 				if (!BlockUtil.isNearLiquid(p)) {

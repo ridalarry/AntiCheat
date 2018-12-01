@@ -454,6 +454,9 @@ public class BlockUtil {
 		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
 
 	}
+	public static boolean isWeb(Block block) {
+		return block.getType().equals(Material.WEB);
+	}
 	@SuppressWarnings("deprecation")
 	public static boolean isFence(Block block) {
 		return block.getType().equals(Material.FENCE)
@@ -616,6 +619,15 @@ public class BlockUtil {
 		return blocks;
 	}
 
+	public static boolean isNearWeb(Player p) {
+		boolean out = false;
+		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+			if (isWeb(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean isNearAllowedPhase(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
