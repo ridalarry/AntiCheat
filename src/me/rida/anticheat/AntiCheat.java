@@ -152,6 +152,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveC(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveD(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.GlideA(this));
 		this.Checks.add(new me.rida.anticheat.checks.player.GroundSpoofA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxA(this));
@@ -1008,6 +1009,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	{
 		timerLeft.put(player.getName(), 3);
 		cooldownTask.put(player.getName(), new BukkitRunnable(){
+			@Override
 			public void run()
 			{
 				timerLeft.put(player.getName(), Integer.valueOf(((Integer)timerLeft.get(player.getName())).intValue() - 1));
@@ -1035,6 +1037,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	{
 		MoveEvent.ticksLeft.put(player.getName(), MoveEvent.defaultWait);
 		MoveEvent.cooldownTask.put(player.getName(), new BukkitRunnable(){
+			@Override
 			public void run()
 			{
 				MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() - 1));

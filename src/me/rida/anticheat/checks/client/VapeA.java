@@ -22,6 +22,7 @@ public class VapeA extends Check implements Listener, PluginMessageListener {
 		event.getPlayer().sendMessage("§8 §8 §1 §3 §3 §7 §8 ");
 	}
 
+	@Override
 	@SuppressWarnings("unused")
 	public void onPluginMessageReceived(String s, Player p, byte[] data) {
 		String str;

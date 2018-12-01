@@ -1,5 +1,6 @@
 package me.rida.anticheat.checks.other;
 
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,11 +28,12 @@ public class InvMoveB extends Check {
 		if (view !=null) {
 			if (top.toString().contains("CraftInventoryCrafting")
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+					|| p.getAllowFlight()
+					|| p.getGameMode().equals(GameMode.CREATIVE)) {
 				return;
-			} else {
-				getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: B)");
-			}
+			} 
+			getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: B)");
 		}
 	}
 }

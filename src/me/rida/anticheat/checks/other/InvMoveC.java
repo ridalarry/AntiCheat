@@ -20,15 +20,12 @@ public class InvMoveC extends Check {
 		Player p = (Player) e.getWhoClicked();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
-		} else {
-			if (p.isSprinting()) {
-				getAntiCheat().logCheat(this, p, "Sprinting while having a gui open!", "(Type: C)");
-			}
-			if (p.isSneaking()) {
-				getAntiCheat().logCheat(this, p, "Sneaking while having a gui open!", "(Type: C)");
-			}
+		}
+		if (p.isSneaking()) {
+			getAntiCheat().logCheat(this, p, "Sneaking while having a gui open!", "(Type: C)");
 		}
 	}
 }
