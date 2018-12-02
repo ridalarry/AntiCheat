@@ -16,6 +16,8 @@ import me.rida.anticheat.utils.Color;
 
 public class AntiCheatCommand implements CommandExecutor {
 	private AntiCheat AntiCheat;
+	this.plugin = plugin;
+	reload();
 
 	public AntiCheatCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
@@ -110,8 +112,8 @@ public class AntiCheatCommand implements CommandExecutor {
 		return true;
 		}
 		if (g[0].equalsIgnoreCase("reload")) {
-			s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Reloading AntiCheat...");
 			AntiCheat.reloadConfig();
+			s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Reloading AntiCheat...");
 			s.sendMessage(AntiCheat.PREFIX + Color.Green + "Successfully reloaded AntiCheat.");
 			s.sendMessage(AntiCheat.PREFIX + Color.Red + " Restart is recommended specially if noticed any bug!");
 			return true;

@@ -85,6 +85,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public Set<UUID> hasAlertsOn;
 	public int maxMove = 10;
 	public ExecutorService service;
+	private boolean EnableCustomLog;
 	public static ArrayList<Player> getOnlinePlayers() {
 		ArrayList<Player> list = new ArrayList<>();
 		for (Player player : Bukkit.getOnlinePlayers()) {
@@ -92,6 +93,46 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		return list;
 	}
+	public void reload(){
+		boolean EnableCustomLog = true
+		this.EnableCustomLog = getConfig().getBoolean("settings.EnableCustomLog");
+		this.getConfig().addDefault("settings.CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
+		this.getConfig().addDefault("settings.bans", 0);
+		this.getConfig().addDefault("settings.testmode", false);
+		this.getConfig().addDefault("settings.prefix", "&8[&c&lAntiCheat&8] ");
+		this.getConfig().addDefault("alerts.primary", "&7");
+		this.getConfig().addDefault("alerts.secondary", "&c");
+		this.getConfig().addDefault("alerts.checkColor", "&b");
+		this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
+		this.getConfig().addDefault("settings.broadcastmsg",
+				"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
+		this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
+		this.getConfig().addDefault("settings.violationResetTime", 60);
+		this.getConfig().addDefault("settings.resetViolationsAutomatically", true);
+		this.getConfig().addDefault("settings.latency.ping", 300);
+		this.getConfig().addDefault("settings.latency.tps", 17);
+		for (Check check : Checks) {
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations",
+					check.getMaxViolations());
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
+			this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
+		}
+		this.getConfig().options().copyDefaults(true);
+		saveConfig();
+		this.prefix = plugin.getConfig().getString("Messages.Prefix").replace('&', '\u00A7');
+	       this.noPermMsg = plugin.getConfig().getString("Messages.noPermMsg").replace('&', '\u00A7').replaceAll("%PREFIX%", prefix);
+	       this.ReloadMsg = plugin.getConfig().getString("Messages.ReloadMsg").replace('&', '\u00A7').replaceAll("%PREFIX%", prefix);
+	       this.noCraftEnabled = plugin.getConfig().getBoolean("Craft.noCraftEnabled");
+	       this.noCraftMsg = plugin.getConfig().getString("Craft.noCraftMsg").replace('&', '\u00A7').replaceAll("%PREFIX%", prefix);
+	       this.BannedCraftItems = plugin.getConfig().getList("Craft.BannedCraftItems");
+	       this.noSmeltEnabled = plugin.getConfig().getBoolean("Smelt.noSmeltEnabled");
+	       //this.noSmeltMsg = plugin.getConfig().getString("Messages.noSmeltMsg").replace('&', '\u00A7').replaceAll("%PREFIX%", prefix).replaceAll("%ORE", plugin.getOre());;
+	   }
+	
 	public static Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
 	public static Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
 	private Logger logger = null;
