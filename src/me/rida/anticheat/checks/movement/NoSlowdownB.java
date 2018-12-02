@@ -37,9 +37,9 @@ public class NoSlowdownB extends Check {
 			Player p = e.getPlayer();
 
 			double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(from.toVector()), MathUtil.getVerticalVector(to.toVector()));
-			double Offset = e.getFrom().getY() - e.getFrom().getY();
-			double Offset2 = e.getFrom().getY() - e.getFrom().getY();
-			double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
+			//double Offset = e.getFrom().getY() - e.getFrom().getY();
+			//double Offset2 = e.getFrom().getY() - e.getFrom().getY();
+			//double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
 
 			if (!BlockUtil.isNearLiquid(p)
 					|| p.getAllowFlight() 
@@ -53,9 +53,9 @@ public class NoSlowdownB extends Check {
 					|| OffsetY < 0.13 ) {
 				return;
 			}
-			if (PlayerUtil.isInLiquid(p))
-				//getAntiCheat().logCheat(this, p, "OffsetY: " + OffsetY + " OffsetXZ: " + OffsetXZ + " Offset: " + Offset + " Offset2: " + Offset2 + " From Y: " + from.getY() + " To Y:  " + to.getY(), "(Type: B)")
-				;
+			//if (PlayerUtil.isInLiquid(p)) {
+				//getAntiCheat().logCheat(this, p, "OffsetY: " + OffsetY + " OffsetXZ: " + OffsetXZ + " Offset: " + Offset + " Offset2: " + Offset2 + " From Y: " + from.getY() + " To Y:  " + to.getY(), "(Type: B)");
+			//}
 		}
 	}
 }
