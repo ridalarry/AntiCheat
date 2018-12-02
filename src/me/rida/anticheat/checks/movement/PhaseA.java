@@ -148,7 +148,7 @@ public class PhaseA extends Check {
 	}
 
 	public PhaseA(AntiCheat AntiCheat) {
-		super("PhaseA", "Phase", CheckType.Combat, true, false, false, false, 40, 1, 600000L, AntiCheat);
+		super("PhaseA", "Phase", CheckType.Movement, true, false, false, false, 40, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true)

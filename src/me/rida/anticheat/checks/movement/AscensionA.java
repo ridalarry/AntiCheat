@@ -25,7 +25,7 @@ public class AscensionA extends Check {
 	public static Map<UUID, Double> velocity;
 
 	public AscensionA(AntiCheat AntiCheat) {
-		super("AscensionA", "Ascension",  CheckType.Combat, true, true, false, true, 4, 1, 600000L, AntiCheat);
+		super("AscensionA", "Ascension",  CheckType.Movement, true, true, false, true, 4, 1, 600000L, AntiCheat);
 
 		AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 		velocity = new HashMap<UUID, Double>();

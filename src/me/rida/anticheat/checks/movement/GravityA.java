@@ -19,7 +19,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 public class GravityA extends Check {
 	public GravityA(AntiCheat AntiCheat) {
-		super("GravityA", "Gravity",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("GravityA", "Gravity",  CheckType.Movement, true, false, false, false, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

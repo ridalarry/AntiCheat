@@ -143,7 +143,7 @@ public class PhaseB extends Check implements Listener {
 	private Map<Player, Long> lastDoorSwing;
 
 	public PhaseB(AntiCheat AntiCheat) {
-		super("PhaseB", "Phase", CheckType.Combat, true, false, false, false, 40, 10, 600000L, AntiCheat);
+		super("PhaseB", "Phase", CheckType.Movement, true, false, false, false, 40, 10, 600000L, AntiCheat);
 		lastDoorSwing = new WeakHashMap<>();
 	}
 
