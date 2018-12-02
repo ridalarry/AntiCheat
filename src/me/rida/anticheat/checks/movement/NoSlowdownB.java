@@ -22,7 +22,7 @@ public class NoSlowdownB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 
 	public NoSlowdownB(AntiCheat AntiCheat) {
-		super("NoSlowdownB", "NoSlowdown", CheckType.Movement, false, false, false, false, 5, 1, 600000L, AntiCheat);
+		super("NoSlowdownB", "NoSlowdown", CheckType.Movement, true, false, false, false, 5, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -37,9 +37,7 @@ public class NoSlowdownB extends Check {
 			Player p = e.getPlayer();
 
 			double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(from.toVector()), MathUtil.getVerticalVector(to.toVector()));
-			//double Offset = e.getFrom().getY() - e.getFrom().getY();
-			//double Offset2 = e.getFrom().getY() - e.getFrom().getY();
-			//double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
+			double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
 
 			if (!BlockUtil.isNearLiquid(p)
 					|| p.getAllowFlight() 
@@ -48,14 +46,16 @@ public class NoSlowdownB extends Check {
 					|| BlockUtil.isNearFence(p)
 					|| BlockUtil.isNearStair(p)
 					|| PlayerUtil.isNearSign(p)
-					//|| from.getY() > to.getY()
-					//|| from.getY() < to.getY()
+					|| OffsetY > 0.55 
+					|| OffsetXZ > 0.3
+					|| to.getY() < from.getY()
+					|| PlayerUtil.isNearAir(p)
 					|| OffsetY < 0.13 ) {
 				return;
 			}
-			//if (PlayerUtil.isInLiquid(p)) {
-				//getAntiCheat().logCheat(this, p, "OffsetY: " + OffsetY + " OffsetXZ: " + OffsetXZ + " Offset: " + Offset + " Offset2: " + Offset2 + " From Y: " + from.getY() + " To Y:  " + to.getY(), "(Type: B)");
-			//}
+			if (PlayerUtil.isInLiquid(p)) {
+				getAntiCheat().logCheat(this, p, "OffsetY: " + OffsetY + " OffsetXZ: " + OffsetXZ, "(Type: B)");
+			}
 		}
 	}
 }
