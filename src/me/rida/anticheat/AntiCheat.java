@@ -99,6 +99,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public static long MS_PluginLoad;
 	public static String coreVersion;
 	public static AntiCheat Instance;
+	public static Plugin plugin = Instance;
 	public String PREFIX;
 	public Updater updater;
 	public PacketCore packet;
@@ -828,7 +829,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (logger != null){
 			logger.log(Level.INFO, "Plugin disabled");
 			PluginLoggerHelper.closeLogger(logger);
-		}}
+		}
+		Bukkit.shutdown();
+	}
 
 	private void loadChecks() {
 		for(Check check : getDataManager().getChecks()) {
