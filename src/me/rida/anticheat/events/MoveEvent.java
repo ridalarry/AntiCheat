@@ -13,6 +13,10 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.checks.movement.FlyA;
+import me.rida.anticheat.checks.movement.FlyB;
+import me.rida.anticheat.checks.movement.FlyC;
+import me.rida.anticheat.checks.movement.SpiderA;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
@@ -34,6 +38,18 @@ public class MoveEvent implements Listener {
 	// Checks to see if the person is in the timer
 	public boolean inTimer(Player player) {
 		if(ticksLeft.isEmpty() || !ticksLeft.containsKey(player.getName().toString())) {
+			if (!FlyA.blockPlacedFA.isEmpty()) {
+				FlyA.resetCBPE(player);
+			}
+			if (!FlyB.blockPlacedFB.isEmpty()) {
+			FlyB.resetCBPE(player);
+			}
+			if (!FlyC.blockPlacedFC.isEmpty()) {
+			FlyC.resetCBPE(player);
+			}
+			if (!SpiderA.blockPlacedSA.isEmpty()) {
+			SpiderA.resetCBPE(player);
+			}
 			return false;
 		}
 		// Just making sure!

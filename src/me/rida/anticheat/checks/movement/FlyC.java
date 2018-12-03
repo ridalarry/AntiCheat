@@ -1,5 +1,8 @@
 package me.rida.anticheat.checks.movement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -7,6 +10,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
@@ -24,9 +28,19 @@ public class FlyC extends Check {
 		super("FlyC", "Fly", CheckType.Movement, true, false, false, false, 4, 1, 600000L, AntiCheat);
 	}
 
+	public static void resetCBPE(Player p) {
+		blockPlacedFC.remove(p.getName().toString());
+	}
+	public static List<String> blockPlacedFC = new ArrayList<>();
+	@EventHandler(priority = EventPriority.MONITOR)
+	public static void blockPlaceCancelled (BlockPlaceEvent e) {
+		if (e.isCancelled()) {
+			blockPlacedFC.add(e.getPlayer().getName().toString());
+		}
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		
+
 		Location from = e.getFrom();
 		Location to = e.getTo();
 		Player p = e.getPlayer();
@@ -41,6 +55,7 @@ public class FlyC extends Check {
 				|| BlockUtil.isNearLiquid(p)
 				|| PlayerUtil.isInLiquid(p)
 				|| data == null
+				|| blockPlacedFC.contains(p.getName().toString())
 				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

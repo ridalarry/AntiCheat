@@ -14,6 +14,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -26,7 +27,6 @@ import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class SpiderA extends Check {
@@ -45,10 +45,21 @@ public class SpiderA extends Check {
 
 		}
 	}
+
+	public static void resetCBPE(Player p) {
+		blockPlacedSA.remove(p.getName().toString());
+	}
+	public static List<String> blockPlacedSA = new ArrayList<>();
+	@EventHandler(priority = EventPriority.MONITOR)
+	public static void blockPlaceCancelled (BlockPlaceEvent e) {
+		if (e.isCancelled()) {
+			blockPlacedSA.add(e.getPlayer().getName().toString());
+		}
+	}
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	private void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
@@ -61,6 +72,7 @@ public class SpiderA extends Check {
 				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getTypeId() == 165
 				|| PlayerUtil.isOnClimbable(p, 0)
 				|| PlayerUtil.isOnClimbable(p, 1)
+				|| blockPlacedSA.contains(p.getName().toString())
 				|| p.hasPotionEffect(PotionEffectType.JUMP)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
@@ -79,7 +91,6 @@ public class SpiderA extends Check {
 		if (BlockUtil.isNearLiquid(p) && PlayerUtil.isNearHalfBlock(p)) {
 			return;
 		}
-
 		long Time = System.currentTimeMillis();
 		double TotalBlocks = 0.0D;
 		if (SpiderA.AscensionTicks.containsKey(u)) {
@@ -120,7 +131,6 @@ public class SpiderA extends Check {
 		}
 		if ((ya) && (TotalBlocks > Limit)) {
 			if (MS > 500L) {
-				SetBackSystem.setBack(p);
 				getAntiCheat().logCheat(this, p, Color.Red + "(WallClimb)", "(Type: A)");
 				Time = System.currentTimeMillis();
 			}

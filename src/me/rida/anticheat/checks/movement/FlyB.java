@@ -1,12 +1,15 @@
 package me.rida.anticheat.checks.movement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -37,6 +40,16 @@ public class FlyB extends Check {
 		}
 	}
 
+	public static void resetCBPE(Player p) {
+		blockPlacedFB.remove(p.getName().toString());
+	}
+	public static List<String> blockPlacedFB = new ArrayList<>();
+	@EventHandler(priority = EventPriority.MONITOR)
+	public static void blockPlaceCancelled (BlockPlaceEvent e) {
+		if (e.isCancelled()) {
+			blockPlacedFB.add(e.getPlayer().getName().toString());
+		}
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void CheckFlyA(PlayerMoveEvent e) {
 		if (!getAntiCheat().isEnabled()) {
@@ -46,6 +59,7 @@ public class FlyB extends Check {
 
 		if (e.isCancelled()
 				|| (e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
+				|| blockPlacedFB.contains(p.getName().toString())
 				|| p.getAllowFlight()
 				|| p.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

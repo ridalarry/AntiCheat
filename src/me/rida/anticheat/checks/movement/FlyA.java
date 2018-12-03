@@ -1,5 +1,8 @@
 package me.rida.anticheat.checks.movement;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -7,6 +10,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.util.Vector;
 
@@ -25,6 +29,16 @@ public class FlyA extends Check {
 		super("FlyA", "Fly", CheckType.Movement, true, true, false, true, 4, 1, 600000L, AntiCheat);
 	}
 
+	public static void resetCBPE(Player p) {
+		blockPlacedFA.remove(p.getName().toString());
+	}
+	public static List<String> blockPlacedFA = new ArrayList<>();
+	@EventHandler(priority = EventPriority.MONITOR)
+	public static void blockPlaceCancelled (BlockPlaceEvent e) {
+		if (e.isCancelled()) {
+			blockPlacedFA.add(e.getPlayer().getName().toString());
+		}
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Location from = e.getFrom();
@@ -32,6 +46,7 @@ public class FlyA extends Check {
 		Player p = e.getPlayer();
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
+				|| blockPlacedFA.contains(p.getName().toString())
 				|| e.getPlayer().getVehicle() != null
 				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
 				|| PlayerUtil.isOnClimbable(p, 0)
