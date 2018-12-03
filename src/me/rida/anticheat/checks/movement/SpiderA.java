@@ -26,7 +26,6 @@ import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
-import me.rida.anticheat.utils.SetBackSystem;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class SpiderA extends Check {
@@ -48,7 +47,7 @@ public class SpiderA extends Check {
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 
 	@SuppressWarnings("deprecation")
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
@@ -120,7 +119,6 @@ public class SpiderA extends Check {
 		}
 		if ((ya) && (TotalBlocks > Limit)) {
 			if (MS > 500L) {
-				SetBackSystem.setBack(p);
 				getAntiCheat().logCheat(this, p, Color.Red + "(WallClimb)", "(Type: A)");
 				Time = System.currentTimeMillis();
 			}
