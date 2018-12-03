@@ -639,8 +639,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				return;
 			}
 			this.AutoBan.put(player, new AbstractMap.SimpleEntry<>(check, System.currentTimeMillis() + 10000L));
-			System.out.println("[" + player.getUniqueId().toString() + "] " + player.getName() + " will be banned in 15s for " + check.getType() + "." + check.getIdentifier() + ".");
-
+			System.out.println(Color.strip(PREFIX) + player.getName() + " will be banned in 15s for " + check.getType() + "." + check.getIdentifier() + ".");
 			final ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
 			msg.addText(Color.translate(
@@ -751,49 +750,44 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.addViolation(player, check);
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
 		Integer violations = this.getViolations(player, check);
-		if (violations >= check.getViolationsToNotify()) {
-			if (check.getViolationsToNotify() != null
-					||(check.getViolationsToNotify() != 0)) {
-				int x = violations / check.getViolationsToNotify();
-
-				ActionMessageUtil msg = new ActionMessageUtil();
-				msg.addText(PREFIX);
-				msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
-						+ player.getName())
-				.addHoverText(Color.translate(getConfig().getString("alerts.primary"))
-						+ "(Click to teleport to "
-						+ Color.translate(getConfig().getString("alerts.secondary"))
-						+ player.getName()
-						+ Color.translate(getConfig().getString("alerts.primary"))
-						+ ")")
-				.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
-				msg.addText(Color.translate(getConfig().getString("alerts.primary"))
-						+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
-				ActionMessageUtil.AMText CheckText = msg
-						.addText(Color.translate(getConfig().getString("alerts.checkColor"))
-								+ check.getName());
-				if (hoverabletext != null) {
-					CheckText.addHoverText(hoverabletext);
+		int x = violations / check.getViolationsToNotify();
+		System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + x);
+		ActionMessageUtil msg = new ActionMessageUtil();
+		msg.addText(PREFIX);
+		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
+				+ player.getName())
+		.addHoverText(Color.translate(getConfig().getString("alerts.primary"))
+				+ "(Click to teleport to "
+				+ Color.translate(getConfig().getString("alerts.secondary"))
+				+ player.getName()
+				+ Color.translate(getConfig().getString("alerts.primary"))
+				+ ")")
+		.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
+		msg.addText(Color.translate(getConfig().getString("alerts.primary"))
+				+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
+		ActionMessageUtil.AMText CheckText = msg
+				.addText(Color.translate(getConfig().getString("alerts.checkColor"))
+						+ check.getName());
+		if (hoverabletext != null) {
+			CheckText.addHoverText(hoverabletext);
+		}
+		msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
+				+ Color.translate(getConfig().getString("alerts.primary")) + " ");
+		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
+				+ "x" + x);
+		if (violations % check.getViolationsToNotify() == 0) {
+			for (Player playerplayer : this.AlertsOn) {
+				if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
+					continue;
 				}
-				msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
-						+ Color.translate(getConfig().getString("alerts.primary")) + " ");
-				msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
-						+ "x" + x);
-				if (violations % check.getViolationsToNotify() == 0) {
-					for (Player playerplayer : this.AlertsOn) {
-						if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
-							continue;
-						}
-						msg.sendToPlayer(playerplayer);
-					}
-				}
+				msg.sendToPlayer(playerplayer);
 			}
-			if (check.isJudgmentDay()) {
-				return;
-			}
-			if (violations > check.getMaxViolations() && check.isBannable()) {
-				this.autoban(check, player);
-			}
+		}
+		if (check.isJudgmentDay()) {
+			return;
+		}
+		if (violations > check.getMaxViolations() && check.isBannable()) {
+			this.autoban(check, player);
 		}
 	}
 
