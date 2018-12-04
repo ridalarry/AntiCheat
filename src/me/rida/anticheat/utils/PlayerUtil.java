@@ -47,6 +47,24 @@ public class PlayerUtil {
 		}
 		return 0;
 	}
+	public static boolean isNearChest(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isChest(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearBar(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isBar(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 
 	public static boolean isNearSign(Player p) {
 		boolean out = false;

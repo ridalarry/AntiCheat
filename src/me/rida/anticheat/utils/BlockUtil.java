@@ -454,6 +454,10 @@ public class BlockUtil {
 		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
 
 	}
+	public static boolean isBar(Block block) {
+		return block.getType().equals(Material.IRON_FENCE);
+
+	}
 	public static boolean isWeb(Block block) {
 		return block.getType().equals(Material.WEB);
 	}

@@ -69,6 +69,8 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isOnPressure(p.getLocation())
 				|| BlockUtil.isNearFence(p)
 				|| PlayerUtil.isNearPressure(p)
+				|| PlayerUtil.isNearChest(p)
+				|| PlayerUtil.isNearBar(p)
 				|| VelocityUtil.didTakeVelocity(p)
 				|| PlayerUtil.isNearSlime(p)
 				|| PlayerUtil.isNearSlime(e.getFrom())
