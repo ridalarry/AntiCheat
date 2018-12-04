@@ -33,7 +33,6 @@ public class SpeedA extends Check {
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		Location to = e.getTo();
 		Location from = e.getFrom();
-
 		if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| e.getPlayer().getVehicle() != null
