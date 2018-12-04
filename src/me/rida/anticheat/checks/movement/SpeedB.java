@@ -45,9 +45,9 @@ public class SpeedB extends Check {
 		Location from = e.getFrom().clone();
 		Location to = e.getTo().clone();
 		Player p = e.getPlayer();
-		double velx = p.getVelocity().getX();
-		double vely = p.getVelocity().getX();
-		double velz = p.getVelocity().getX();
+		double velx = Math.abs(p.getVelocity().getX());
+		double vely = Math.abs(p.getVelocity().getX());
+		double velz = Math.abs(p.getVelocity().getX());
 
 		Location l = p.getLocation();
 		int x = l.getBlockX();
@@ -97,18 +97,12 @@ public class SpeedB extends Check {
 		}
 		Airmaxspeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
 		maxSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
-		if (velx > 0) {
-			maxSpeed += velx;
-			Airmaxspeed += velx;
-		}if (vely > 0) {
-			maxSpeed += vely;
-			Airmaxspeed += vely;
-		}
-		if (velz > 0) {
-			maxSpeed += velz;
-			Airmaxspeed += velz;
-		}
-
+		maxSpeed += velx;
+		Airmaxspeed += velx;
+		maxSpeed += vely;
+		Airmaxspeed += vely;
+		maxSpeed += velz;
+		Airmaxspeed += velz;
 
 		if (isReallyOnGround(p) && to.getY() == from.getY()) {
 			if (speed >= maxSpeed && p.isOnGround() && p.getFallDistance() < 0.15
@@ -116,7 +110,7 @@ public class SpeedB extends Check {
 					&& blockLoc.getBlock().getType() != Material.PACKED_ICE
 					&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 					&& above3.getBlock().getType() == Material.AIR) {
-				getAntiCheat().logCheat(this, p, "On Ground VelX;" + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
+				getAntiCheat().logCheat(this, p, "On Ground VelX; " + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
 			}
 		}
 		if (!isReallyOnGround(p) && speed >= Airmaxspeed && !isOnIce(p)
@@ -124,12 +118,12 @@ public class SpeedB extends Check {
 				&& !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
 				&& above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
 				&& blockLoc.getBlock().getType() != Material.AIR) {
-			getAntiCheat().logCheat(this, p, "Mid Air VelX;" + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
+			getAntiCheat().logCheat(this, p, "Mid Air VelX; " + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
 		}
 		if (speed >= newmaxspeed && isOnIce(p) && p.getFallDistance() < 0.6
 				&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
 				&& loc2.getBlock().getType() == Material.AIR) {
-			getAntiCheat().logCheat(this, p, "Limit VelX;" + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
+			getAntiCheat().logCheat(this, p, "Limit VelX; " + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
 
 		}
 
