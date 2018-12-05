@@ -24,6 +24,7 @@ public class FastBowA extends Check {
 		count = new HashMap<>();
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	private void Interact(final PlayerInteractEvent e) {
 		Player Player = e.getPlayer();
