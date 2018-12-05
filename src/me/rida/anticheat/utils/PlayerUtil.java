@@ -300,7 +300,6 @@ public class PlayerUtil {
 		return false;
 	}
 
-
 	@SuppressWarnings("deprecation")
 	public static boolean wasOnSlime(Player player) {
 		DataPlayer user = AntiCheat.getInstance().getDataManager().getData(player);

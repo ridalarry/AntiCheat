@@ -50,6 +50,7 @@ public class PacketPlayerEvent extends Event {
 	public void setType(PacketPlayerType type) {
 		this.type = type;
 	}
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}
