@@ -20,7 +20,6 @@ public class GroundSpoofA extends Check {
 	public GroundSpoofA(AntiCheat AntiCheat) {
 		super("GroundsSpoofA", "GroundSpoof", CheckType.Player, true, false, false, false, 10, 1, 600000L, AntiCheat);
 	}
-	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

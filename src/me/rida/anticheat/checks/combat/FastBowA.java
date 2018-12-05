@@ -35,7 +35,6 @@ public class FastBowA extends Check {
 	@EventHandler
 	private void onLogout(PlayerQuitEvent e) {
 		bowPull.remove(e.getPlayer());
-
 		count.remove(e.getPlayer());
 	}
 

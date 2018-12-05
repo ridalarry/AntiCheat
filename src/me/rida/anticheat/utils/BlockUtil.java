@@ -454,6 +454,26 @@ public class BlockUtil {
 		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
 
 	}
+	@SuppressWarnings("deprecation")
+	public static boolean isShulker(Block block) {
+		return (block.getTypeId() == 219
+				|| block.getTypeId() == 220
+				|| block.getTypeId() == 221
+				|| block.getTypeId() == 222
+				|| block.getTypeId() == 223
+				|| block.getTypeId() == 224
+				|| block.getTypeId() == 225
+				|| block.getTypeId() == 226
+				|| block.getTypeId() == 227
+				|| block.getTypeId() == 228
+				|| block.getTypeId() == 229
+				|| block.getTypeId() == 230
+				|| block.getTypeId() == 231
+				|| block.getTypeId() == 232
+				|| block.getTypeId() == 233
+				|| block.getTypeId() == 234
+				|| block.getTypeId() == 250);
+	}
 	public static boolean isBar(Block block) {
 		return block.getType().equals(Material.IRON_FENCE);
 
