@@ -376,6 +376,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				me.rida.anticheat.checks.combat.AutoClickerB.LastMS.clear();
 			if (!me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.isEmpty())
 				me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.clear();
+			if (!me.rida.anticheat.checks.movement.AscensionB.flyTicks.isEmpty())
+				me.rida.anticheat.checks.movement.AscensionB.flyTicks.clear();
 			if (!me.rida.anticheat.checks.combat.CriticalsB.CritTicks.isEmpty())
 				me.rida.anticheat.checks.combat.CriticalsB.CritTicks.clear();
 			if (!me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.isEmpty())

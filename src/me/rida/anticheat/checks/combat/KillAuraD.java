@@ -58,7 +58,7 @@ public class KillAuraD extends Check {
 			Count = 0;
 			Other = 0;
 		}
-		packetTicks.put(e.getPlayer().getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Other));
+		packetTicks.put(e.getPlayer().getUniqueId(), new AbstractMap.SimpleEntry<Double, Double>(Count, Other));
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
