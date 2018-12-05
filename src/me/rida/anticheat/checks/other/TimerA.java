@@ -27,10 +27,10 @@ public class TimerA extends Check {
 
 	public TimerA(AntiCheat AntiCheat) {
 		super("TimerA", "Timer", CheckType.Other, true, false, false, false, 5, 1, 600000L, AntiCheat);
-		packets = new HashMap<>();
-		verbose = new HashMap<>();
-		toCancel = new ArrayList<>();
-		lastPacket = new HashMap<>();
+		packets = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		verbose = new HashMap<UUID, Integer>();
+		toCancel = new ArrayList<Player>();
+		lastPacket = new HashMap<UUID, Long>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -65,21 +65,21 @@ public class TimerA extends Check {
 			return;
 		}
 
-		long lastPacket = TimerA.lastPacket.getOrDefault(p.getUniqueId(), 0L);
+		long lastPacket = TimerA.lastPacket.getOrDefault(p.getUniqueId(), System.currentTimeMillis());
 		int packets = 0;
 		long Time = System.currentTimeMillis();
 		int verbose = TimerA.verbose.getOrDefault(p.getUniqueId(), 0);
 
 		if (TimerA.packets.containsKey(p.getUniqueId())) {
-			packets = TimerA.packets.get(p.getUniqueId()).getKey();
-			Time = TimerA.packets.get(p.getUniqueId()).getValue();
+			packets = TimerA.packets.get(p.getUniqueId()).getKey().intValue();
+			Time = TimerA.packets.get(p.getUniqueId()).getValue().intValue();
 		}
 
 		if(System.currentTimeMillis() - lastPacket < 5) {
 			TimerA.lastPacket.put(u, System.currentTimeMillis());
 			return;
 		}
-		double threshold = 21;
+		double threshold = 23;
 		if(TimeUtil.elapsed(Time, 1000L)) {
 			if(toCancel.remove(p) && packets <= 13) {
 				return;
@@ -98,7 +98,6 @@ public class TimerA extends Check {
 			PacketCore.movePackets.remove(u);
 		}
 		packets++;
-
 		TimerA.lastPacket.put(u, System.currentTimeMillis());
 		TimerA.packets.put(u, new SimpleEntry<Integer, Long>(packets, Time));
 		TimerA.verbose.put(u, verbose);

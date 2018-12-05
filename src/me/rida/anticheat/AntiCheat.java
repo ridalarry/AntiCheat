@@ -158,6 +158,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.player.GroundSpoofA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraK(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.ImpossibleMovementsA(this));
 		this.Checks.add(new me.rida.anticheat.checks.player.ImpossiblePitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.JesusA(this));
