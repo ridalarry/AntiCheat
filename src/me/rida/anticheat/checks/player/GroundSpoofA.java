@@ -48,7 +48,7 @@ public class GroundSpoofA extends Check {
 				data.setGroundSpoofVL(0);
 				return;
 			}
-			if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
+			if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnTheGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
 				if (data.getGroundSpoofVL() >= 4) {
 					if (data.getAirTicks() >= 10) {
 						getAntiCheat().logCheat(this, p, "[1] Spoofed On-Ground Packet.", "(Type: A)");

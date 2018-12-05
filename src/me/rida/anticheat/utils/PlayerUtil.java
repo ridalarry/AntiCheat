@@ -282,12 +282,6 @@ public class PlayerUtil {
 	}
 
 
-	public static boolean isOnGround(Player player) {
-		Object box = ServerUtil.getBoundingBox(player);
-		Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.1D, 0D);
-		return ServerUtil.inBlock(player, outcome);
-	}
-
 	public static boolean hasPistonNear(Player player) {
 		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 2D, 3D, 2D);
 
@@ -306,24 +300,6 @@ public class PlayerUtil {
 		return false;
 	}
 
-	public static boolean hasIceNear(Player player) {
-		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 0D, 1.5D, 0D);
-
-		Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
-
-		for(Object object : collidingBlocks) {
-			double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
-			double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
-			double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
-
-			Block block = new Location(player.getWorld(), x, y, z).getBlock();
-
-			if(BlockUtil.isIce(block)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
 	@SuppressWarnings("deprecation")
 	public static boolean wasOnSlime(Player player) {
@@ -340,11 +316,6 @@ public class PlayerUtil {
 		return false;
 	}
 
-	public static boolean isOnGround3(Player player) {
-		Object box = ServerUtil.getBoundingBox(player);
-		Object outcome = ServerUtil.getMethodValue(ServerUtil.getMethod(box.getClass(), "grow", double.class, double.class, double.class), box, 0D, 0.3D, 0D);
-		return ServerUtil.inBlock(player, outcome);
-	}
 
 	public static boolean isInWater(Location loc) {
 		double diff = .3;

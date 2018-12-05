@@ -61,14 +61,14 @@ public class FlyA extends Check {
 						|| PlayerUtil.isNearSlime(to)) {
 					return;
 				}
-				if (Distance > 3.5 && !PlayerUtil.isOnGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+				if (Distance > 3.5 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
 					getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
 				}
 			}
 		}
 		if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
 			if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !VelocityUtil.didTakeVelocity(p)) {
-				if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnGround(p)) {
+				if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnTheGround(p)) {
 					if (PlayerUtil.getDistanceToGround(p) > 2) {
 						if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
 						} else {
@@ -88,7 +88,7 @@ public class FlyA extends Check {
 		} else {
 			data.setGoingUp_Blocks(0);
 		}
-		if(!PlayerUtil.isOnGround(p)) {
+		if(!PlayerUtil.isOnTheGround(p)) {
 			double distanceToGround = getDistanceToGround(p);
 			double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 			int verbose = data.getFlyHoverVerbose();
@@ -142,7 +142,7 @@ public class FlyA extends Check {
 		double finalDifference = Math.abs(diffY - lastDiffY);
 		if(finalDifference < 0.08
 				&& e.getFrom().getY() < e.getTo().getY()
-				&& !PlayerUtil.isOnGround(p) && !p.getLocation().getBlock().isLiquid() && !BlockUtil.isNearLiquid(p)
+				&& !PlayerUtil.isOnTheGround(p) && !p.getLocation().getBlock().isLiquid() && !BlockUtil.isNearLiquid(p)
 				&& !NewVelocityUtil.didTakeVel(p) && !VelocityUtil.didTakeVelocity(p)) {
 			if(++verboseC > 8) {
 				if (!PlayerUtil.wasOnSlime(p)) {

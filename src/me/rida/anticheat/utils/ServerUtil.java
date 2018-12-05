@@ -59,10 +59,6 @@ public class ServerUtil {
 		}
 	}
 
-	public static boolean inBlock(Player player, Object axisAlignedBB) {
-		Object world = getMethodValue(getMethod(CraftWorld, "getHandle"), player.getWorld());
-		return ((Collection<?>)getMethodValue(getCubes, world, axisAlignedBB)).size() > 0;
-	}
 
 	public static Collection<?> getCollidingBlocks(Player player, Object axisAlignedBB) {
 		Object world = getMethodValue(getMethod(CraftWorld, "getHandle"), player.getWorld());
