@@ -36,8 +36,6 @@ public class PacketCore {
 	private static AntiCheat AntiCheat;
 	private HashSet<EntityType> enabled;
 	public static Map<UUID, Integer> movePackets;
-	private static final PacketType[] ENTITY_PACKETS = new PacketType[] { PacketType.Play.Server.SPAWN_ENTITY_LIVING,
-			PacketType.Play.Server.NAMED_ENTITY_SPAWN, PacketType.Play.Server.ENTITY_METADATA };
 
 	public PacketCore(AntiCheat AntiCheat) {
 		super();
