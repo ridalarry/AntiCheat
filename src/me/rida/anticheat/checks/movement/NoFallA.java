@@ -60,6 +60,7 @@ public class NoFallA extends Check {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Move(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

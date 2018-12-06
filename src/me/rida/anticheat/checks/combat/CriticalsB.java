@@ -41,6 +41,7 @@ public class CriticalsB extends Check {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
@@ -84,6 +85,7 @@ public class CriticalsB extends Check {
 		CritTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Move(PlayerMoveEvent e) {
 		Player p2 = e.getPlayer();

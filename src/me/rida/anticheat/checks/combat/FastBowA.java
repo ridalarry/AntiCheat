@@ -24,7 +24,6 @@ public class FastBowA extends Check {
 		count = new HashMap<>();
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	private void Interact(final PlayerInteractEvent e) {
 		Player Player = e.getPlayer();
@@ -39,6 +38,7 @@ public class FastBowA extends Check {
 		count.remove(e.getPlayer());
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler
 	private void onShoot(final ProjectileLaunchEvent e) {
 		if (!this.isEnabled()) return;

@@ -38,6 +38,7 @@ public class SpeedB extends Check {
 		SpeedB.speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 
@@ -171,6 +172,7 @@ public class SpeedB extends Check {
 		V.setY(0);
 		return V;
 	}
+	@SuppressWarnings("deprecation")
 	private static boolean isReallyOnGround(Player p) {
 		Location l = p.getLocation();
 		int x = l.getBlockX();

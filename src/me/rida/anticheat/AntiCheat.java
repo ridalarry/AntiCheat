@@ -1,9 +1,6 @@
 package me.rida.anticheat;
 
-import java.io.DataInput;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -32,34 +28,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.reflect.FuzzyReflection;
-import com.comphenix.protocol.reflect.accessors.Accessors;
-import com.comphenix.protocol.reflect.accessors.MethodAccessor;
-import com.comphenix.protocol.reflect.fuzzy.FuzzyMethodContract;
-import com.comphenix.protocol.utility.ByteBufferInputStream;
-import com.comphenix.protocol.utility.MinecraftReflection;
-import com.comphenix.protocol.wrappers.nbt.NbtCompound;
-import com.comphenix.protocol.wrappers.nbt.NbtFactory;
-import com.comphenix.protocol.wrappers.nbt.NbtList;
-import com.google.common.base.Charsets;
 
-import io.netty.buffer.ByteBuf;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.commands.AlertsCommand;
 import me.rida.anticheat.commands.AntiCheatCommand;
 import me.rida.anticheat.commands.AutobanCommand;
-import me.rida.anticheat.commands.GetLogCommand;
 import me.rida.anticheat.data.DataManager;
 import me.rida.anticheat.events.JoinQuitEvent;
 import me.rida.anticheat.events.MoveEvent;
@@ -86,6 +65,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public Set<UUID> hasAlertsOn;
 	public int maxMove = 10;
 	public ExecutorService service;
+	@SuppressWarnings("deprecation")
 	public static ArrayList<Player> getOnlinePlayers() {
 		ArrayList<Player> list = new ArrayList<>();
 		for (Player player : Bukkit.getOnlinePlayers()) {
@@ -138,7 +118,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractA(this));
-		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractC(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractD(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.ChangeA(this));
@@ -149,15 +128,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.other.ExploitA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.FastBowA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FastLadderA(this));
-		this.Checks.add(new me.rida.anticheat.checks.movement.FlyA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FlyB(this));
-		this.Checks.add(new me.rida.anticheat.checks.movement.FlyC(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveC(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveD(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.GlideA(this));
-		this.Checks.add(new me.rida.anticheat.checks.player.GroundSpoofA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraK(this));
@@ -211,6 +187,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractE(this));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onEnable() {
 		excludedBlocks = new ArrayList<>();
@@ -258,7 +235,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.getCommand("alerts").setExecutor(new AlertsCommand(this));
 		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
 		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
-		this.getCommand("getLog").setExecutor(new GetLogCommand(this));
 		Bukkit.getServer().getPluginManager().registerEvents(new GUI(this), this);
 		this.RegisterListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
@@ -332,13 +308,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		}
 
-
-		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
-			@Override
-			public void onPacketReceiving(PacketEvent event) {
-				checkPacket(event);
-			}
-		});
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> {
 			for (Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
@@ -862,140 +831,18 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		getServer().getPluginManager().registerEvents(new NewVelocityUtil(), this);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void addDataPlayers() {
 		for (Player playerLoop : Bukkit.getOnlinePlayers()) {
 			getInstance().getDataManager().addPlayerData(playerLoop);
 		}
 	}
 	public String dispatchCommand;
-	private void checkPacket(PacketEvent event) {
 
-		dispatchCommand = getConfig().getString("settings.bancmd");
-		Player player = event.getPlayer();
-		if (player == null) {
-			String name = event.getPacket().getStrings().readSafely(0);
-			getLogger().log(Level.SEVERE, "packet ''{0}'' without player ", name);
-			if (logger != null) logger.log(Level.SEVERE, "packet ''{0}'' without player ", name);
-			event.setCancelled(true);
-			return;
-		}
-		long lastPacket = PACKET_USAGE.getOrDefault(player, -1L);
 
-		if (lastPacket == -2L) {
-			event.setCancelled(true);
-			return;
-		}
-
-		String packetName = event.getPacket().getStrings().readSafely(0);
-		if (packetName == null || !PACKET_NAMES.contains(packetName))
-			return;
-
-		try {
-			if ("REGISTER".equals(packetName)) {
-				checkChannels(event);
-			} else {
-				if (elapsed(lastPacket, 100L)) {
-					PACKET_USAGE.put(player, System.currentTimeMillis());
-				} else {
-					throw new ExploitException("Packet flood");
-				}
-
-				checkNbtTags(event);
-			}
-		} catch (ExploitException ex) {
-			PACKET_USAGE.put(player, -2L);
-
-			Bukkit.getScheduler().runTask(this, () -> {
-				player.kickPlayer("You failed to use an exploit that would crash the server!");
-
-				if (dispatchCommand != null)
-					getServer().dispatchCommand(Bukkit.getConsoleSender(),
-							dispatchCommand.replace("%player%", player.getName()));
-			});
-
-			getLogger().warning(player.getName() + " tried to exploit CustomPayload: " + ex.getMessage());
-			if (logger != null) logger.log(Level.WARNING, "{0} tried exploit CustomPayload: {1}{2}", new Object[]{player.getName(), ex.getMessage(), ex.itemstackToLogString(" ")});
-			event.setCancelled(true);
-		} catch (Throwable ex) {
-			getLogger().severe(String.format("Failed to check packet '%s' for %s: %s", packetName, player.getName(), ex.getMessage()));
-			if (logger != null) logger.log(Level.SEVERE, String.format("Failed to check packet '%s': ", packetName, player.getName()), ex);
-			event.setCancelled(true);
-		}
-	}
-
-	private void checkNbtTags(PacketEvent event) throws ExploitException {
-		PacketContainer container = event.getPacket();
-		ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
-
-		try {
-			ItemStack itemStack = null;
-			try {
-				itemStack = deserializeItemStack(buffer);
-			} catch (Throwable ex) {
-				throw new ExploitException("Unable to deserialize ItemStack", ex);
-			}
-			if (itemStack == null)
-				throw new ExploitException("Unable to deserialize ItemStack");
-
-			NbtCompound root = (NbtCompound) NbtFactory.fromItemTag(itemStack);
-			if (root == null)
-				throw new ExploitException("No NBT tag?!", itemStack);
-
-			if (!root.containsKey("pages"))
-				throw new ExploitException("No 'pages' NBT compound was found", itemStack);
-
-			NbtList<String> pages = root.getList("pages");
-			if (pages.size() > 50)
-				throw new ExploitException("Too much pages", itemStack);
-
-			if (pages.size() > 0 && "CustomPayloadFixer".equalsIgnoreCase(pages.getValue(0)))
-				throw new ExploitException("Testing exploit", itemStack);
-
-		} finally {
-			buffer.release();
-		}
-	}
-
-	private void checkChannels(PacketEvent event) throws ExploitException {
-		int channelsSize = event.getPlayer().getListeningPluginChannels().size();
-
-		PacketContainer container = event.getPacket();
-		ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
-
-		try {
-			for (int i = 0; i < buffer.toString(Charsets.UTF_8).split("\0").length; i++)
-				if (++channelsSize > 124)
-					throw new ExploitException("Too much channels");
-		} finally {
-			buffer.release();
-		}
-	}
-
+	@SuppressWarnings("unused")
 	private boolean elapsed(long from, long required) {
 		return from == -1L || System.currentTimeMillis() - from > required;
-	}
-
-	private static MethodAccessor READ_ITEM_METHOD;
-	public ItemStack deserializeItemStack(ByteBuf buf) throws IOException {
-		Validate.notNull(buf, "input cannot be null!");
-		Object nmsItem = null;
-		if (MinecraftReflection.isUsingNetty()) {
-			if (READ_ITEM_METHOD == null) {
-				READ_ITEM_METHOD = Accessors.getMethodAccessor(FuzzyReflection.fromClass(MinecraftReflection.getPacketDataSerializerClass(), true).getMethodByParameters("readItemStack", MinecraftReflection.getItemStackClass(), new Class[0]));
-			}
-
-			Object serializer = MinecraftReflection.getPacketDataSerializer(buf);
-			nmsItem = READ_ITEM_METHOD.invoke(serializer);
-		} else {
-			if (READ_ITEM_METHOD == null) {
-				READ_ITEM_METHOD = Accessors.getMethodAccessor(FuzzyReflection.fromClass(MinecraftReflection.getPacketClass()).getMethod(FuzzyMethodContract.newBuilder().parameterCount(1).parameterDerivedOf(DataInput.class).returnDerivedOf(MinecraftReflection.getItemStackClass()).build()));
-			}
-
-			DataInputStream input = new DataInputStream(new ByteBufferInputStream(buf.nioBuffer()));
-			nmsItem = READ_ITEM_METHOD.invoke((Object)null, new Object[]{input});
-		}
-
-		return nmsItem != null ? MinecraftReflection.getBukkitItemStack(nmsItem) : null;
 	}
 
 	public String formatArrayToString(List<String> array) {

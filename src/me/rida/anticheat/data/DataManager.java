@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import me.rida.anticheat.checks.Check;
@@ -22,7 +21,6 @@ public class DataManager {
 	private Set<DataPlayer> dataSet = new HashSet<>();
 
 	public DataManager() {
-		Bukkit.getOnlinePlayers().forEach(this::add);
 		checks = new ArrayList<>();
 		violations = new WeakHashMap<>();
 		players = new ArrayList<>();

@@ -11,6 +11,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 
 public class NewVelocityUtil implements Listener {
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
