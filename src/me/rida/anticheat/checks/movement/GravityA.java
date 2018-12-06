@@ -46,7 +46,7 @@ public class GravityA extends Check {
 			}
 			if (p.getLocation().getBlock().getType() != Material.CHEST &&
 					p.getLocation().getBlock().getType() != Material.TRAPPED_CHEST && p.getLocation().getBlock().getType() != Material.ENDER_CHEST && data.getAboveBlockTicks() == 0) {
-				if (!PlayerUtil.onGround2(p) && !PlayerUtil.isOnGround3(p) && !PlayerUtil.isOnGround(p)) {
+				if (!PlayerUtil.onGround2(p) && !PlayerUtil.isOnGround4(p) && !PlayerUtil.isOnTheGround(p)) {
 					if ((((ServerUtil.isBukkitVerison("1_7") || ServerUtil.isBukkitVerison("1_8")) && Math.abs(p.getVelocity().getY() - LastY) > 0.000001)
 							|| (!ServerUtil.isBukkitVerison("1_7") && !ServerUtil.isBukkitVerison("1_8") && Math.abs(p.getVelocity().getY() - diff) > 0.000001))
 							&& !PlayerUtil.onGround2(p)

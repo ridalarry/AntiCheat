@@ -168,6 +168,7 @@ public class PhaseA extends Check {
 		teleported.add(e.getPlayer().getUniqueId());
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		
@@ -193,6 +194,7 @@ public class PhaseA extends Check {
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPearlClip(PlayerTeleportEvent event) {
 		

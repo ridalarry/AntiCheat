@@ -204,14 +204,14 @@ public class SpeedA extends Check {
 							speedPot = true;
 						}
 					}
-					if (speed > 0.29 && PlayerUtil.isOnGround(p) && !data.isNearIce() && !BlockUtil.isNearStair(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
+					if (speed > 0.29 && PlayerUtil.isOnTheGround(p) && !data.isNearIce() && !BlockUtil.isNearStair(p) && !NewVelocityUtil.didTakeVel(p) && !speedPot) {
 						if (data.getSpeed_OnGround_Verbose() >= 5) {
 						}
 
 						if (speed > Max && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
 								&& e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
 								&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
-								&& above3.getBlock().getType() == Material.AIR && data.getIceTicks() == 0 && !PlayerUtil.hasIceNear(p)) {
+								&& above3.getBlock().getType() == Material.AIR && data.getIceTicks() == 0 && !PlayerUtil.isNearIce(p)) {
 							getAntiCheat().logCheat(this, p, "[5] - Player Moved Too Fast.", "(Type: A)");
 						}
 

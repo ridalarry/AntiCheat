@@ -2,14 +2,12 @@ package me.rida.anticheat.packets;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -21,8 +19,6 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
-import com.comphenix.protocol.wrappers.WrappedDataWatcher;
-import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
@@ -40,8 +36,6 @@ public class PacketCore {
 	private static AntiCheat AntiCheat;
 	private HashSet<EntityType> enabled;
 	public static Map<UUID, Integer> movePackets;
-	private static final PacketType[] ENTITY_PACKETS = new PacketType[] { PacketType.Play.Server.SPAWN_ENTITY_LIVING,
-			PacketType.Play.Server.NAMED_ENTITY_SPAWN, PacketType.Play.Server.ENTITY_METADATA };
 
 	public PacketCore(AntiCheat AntiCheat) {
 		super();
@@ -52,6 +46,7 @@ public class PacketCore {
 
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.USE_ENTITY }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				final PacketContainer packet = event.getPacket();
 				final Player player = event.getPlayer();
@@ -97,34 +92,9 @@ public class PacketCore {
 				}
 			}
 		});
-		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(AntiCheat, ENTITY_PACKETS) {
-
-			public void onPacketSending(PacketEvent event) {
-				PacketContainer packet = event.getPacket();
-				Entity e = (Entity) packet.getEntityModifier(event).read(0);
-				if (e instanceof LivingEntity && enabled.contains((Object) e.getType())
-						&& packet.getWatchableCollectionModifier().read(0) != null
-						&& e.getUniqueId() != event.getPlayer().getUniqueId()) {
-					packet = packet.deepClone();
-					event.setPacket(packet);
-					if (event.getPacket().getType() == PacketType.Play.Server.ENTITY_METADATA) {
-						WrappedDataWatcher watcher = new WrappedDataWatcher(
-								packet.getWatchableCollectionModifier().read(0));
-						this.processDataWatcher(watcher);
-						packet.getWatchableCollectionModifier().write(0,
-								(List<WrappedWatchableObject>) watcher.getWatchableObjects());
-					}
-				}
-			}
-
-			private void processDataWatcher(WrappedDataWatcher watcher) {
-				if (watcher != null && watcher.getObject(6) != null && watcher.getFloat(6) != 0.0F) {
-					watcher.setObject(6, 1.0f);
-				}
-			}
-		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.POSITION_LOOK }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -139,6 +109,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener(
 				(PacketListener) new PacketAdapter(PacketCore.AntiCheat, new PacketType[] { PacketType.Play.Client.LOOK }) {
+					@Override
 					public void onPacketReceiving(final PacketEvent event) {
 						Player player = event.getPlayer();
 
@@ -155,6 +126,7 @@ public class PacketCore {
 				});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.POSITION }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -169,6 +141,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Server.POSITION}) {
+			@Override
 			public void onPacketSending(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -182,6 +155,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.ENTITY_ACTION }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				PacketContainer packet = event.getPacket();
 				Player player = event.getPlayer();
@@ -194,6 +168,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.KEEP_ALIVE }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -204,6 +179,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.ARM_ANIMATION }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				final Player player = event.getPlayer();
 				if (player == null) {
@@ -216,6 +192,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.HELD_ITEM_SLOT }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -226,6 +203,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener((PacketListener) new PacketAdapter(PacketCore.AntiCheat,
 				new PacketType[] { PacketType.Play.Client.BLOCK_PLACE }) {
+			@Override
 			public void onPacketReceiving(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -236,6 +214,7 @@ public class PacketCore {
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener(
 				(PacketListener) new PacketAdapter(PacketCore.AntiCheat, new PacketType[] { PacketType.Play.Client.FLYING }) {
+					@Override
 					public void onPacketReceiving(final PacketEvent event) {
 						final Player player = event.getPlayer();
 						if (player == null) {
@@ -265,6 +244,7 @@ public class PacketCore {
 		movePackets = new HashMap<>();
 
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Server.POSITION) {
+			@Override
 			public void onPacketSending(final PacketEvent event) {
 				Player player = event.getPlayer();
 				if (player == null) {
@@ -303,6 +283,7 @@ public class PacketCore {
 					}
 				});
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.LOOK) {
+			@Override
 			public void onPacketReceiving(PacketEvent packetEvent) {
 				Player player = packetEvent.getPlayer();
 				if (player == null) {
@@ -318,6 +299,7 @@ public class PacketCore {
 			}
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.POSITION) {
+			@Override
 			public void onPacketReceiving(PacketEvent packetEvent) {
 				Player player = packetEvent.getPlayer();
 				if (player == null) {
@@ -333,6 +315,7 @@ public class PacketCore {
 			}
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.POSITION_LOOK) {
+			@Override
 			public void onPacketReceiving(PacketEvent packetEvent) {
 				Player player = packetEvent.getPlayer();
 				if (player == null) {
@@ -351,6 +334,7 @@ public class PacketCore {
 			}
 		});
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.FLYING) {
+			@Override
 			public void onPacketReceiving(PacketEvent packetEvent) {
 				Player player = packetEvent.getPlayer();
 				if (player == null) {

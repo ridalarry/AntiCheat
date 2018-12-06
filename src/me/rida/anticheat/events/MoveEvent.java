@@ -121,7 +121,7 @@ public class MoveEvent implements Listener {
 			}
 		}
 
-		if (PlayerUtil.hasIceNear(p)) {
+		if (PlayerUtil.isNearIce(p)) {
 			if(data.getIceTicks() < 60) data.setIceTicks(data.getIceTicks() + 1);
 		} else if(data.getIceTicks() > 0) {
 			data.setIceTicks(data.getIceTicks() - 1);

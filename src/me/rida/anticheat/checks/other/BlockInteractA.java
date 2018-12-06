@@ -23,6 +23,7 @@ public class BlockInteractA extends Check {
 		super("BlockInteractA", "BI", CheckType.Other, true, false, false, false, 29, 1, 600000L, AntiCheat);
 	}
 
+	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void checkFreecam(PlayerInteractEvent e) {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK

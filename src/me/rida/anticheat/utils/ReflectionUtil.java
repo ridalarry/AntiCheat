@@ -34,7 +34,6 @@ public class ReflectionUtil {
 		Object blockNMS = getVanillaBlock(block);
 		return (float) getFieldValue(getFieldByName(vanillaBlock, "frictionFactor"), blockNMS);
 	}
-
 	public static Method getMethod(Class<?> object, String method, Class<?>... args) {
 		try {
 			Method methodObject = object.getMethod(method, args);

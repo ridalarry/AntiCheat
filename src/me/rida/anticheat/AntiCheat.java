@@ -63,6 +63,7 @@ import me.rida.anticheat.commands.GetLogCommand;
 import me.rida.anticheat.data.DataManager;
 import me.rida.anticheat.events.JoinQuitEvent;
 import me.rida.anticheat.events.MoveEvent;
+import me.rida.anticheat.other.GUI;
 import me.rida.anticheat.other.LagCore;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.other.Ping;
@@ -144,6 +145,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.other.CrashA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.CriticalsA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.CriticalsB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxC(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.ExploitA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.FastBowA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FastLadderA(this));
@@ -158,6 +160,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.player.GroundSpoofA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.HitBoxB(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraK(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.ImpossibleMovementsA(this));
 		this.Checks.add(new me.rida.anticheat.checks.player.ImpossiblePitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.JesusA(this));
@@ -177,6 +180,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachC(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.RegenA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.AscensionC(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.SneakA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.SneakB(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.SpeedA(this));
@@ -255,6 +259,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
 		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
 		this.getCommand("getLog").setExecutor(new GetLogCommand(this));
+		Bukkit.getServer().getPluginManager().registerEvents(new GUI(this), this);
 		this.RegisterListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
 		if (!file.exists()) {
@@ -376,6 +381,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				me.rida.anticheat.checks.combat.AutoClickerB.LastMS.clear();
 			if (!me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.isEmpty())
 				me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.clear();
+			if (!me.rida.anticheat.checks.movement.AscensionC.flyTicks.isEmpty())
+				me.rida.anticheat.checks.movement.AscensionC.flyTicks.clear();
 			if (!me.rida.anticheat.checks.combat.CriticalsB.CritTicks.isEmpty())
 				me.rida.anticheat.checks.combat.CriticalsB.CritTicks.clear();
 			if (!me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.isEmpty())
@@ -752,7 +759,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		Integer violations = this.getViolations(player, check);
 		
 		int x = (check.getViolationsToNotify() !=0) ? violations / check.getViolationsToNotify() : 1;
+		if (x > 0) {
 		System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + x);
+		}
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
