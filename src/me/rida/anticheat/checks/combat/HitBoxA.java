@@ -103,7 +103,7 @@ public HitBoxA(AntiCheat AntiCheat) {
 
 		if (Count > 8) {
 			getAntiCheat().logCheat(this, player, offset + " > " + Limit,
-					new String[] { "Experimental" });
+					"(Type: A)");
 			Count = 0;
 		}
 
