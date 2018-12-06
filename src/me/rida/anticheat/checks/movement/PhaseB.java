@@ -50,10 +50,10 @@ public class PhaseB extends Check implements Listener {
 		allowed.add(Material.FENCE);
 		allowed.add(Material.ANVIL);
 		allowed.add(Material.TRAP_DOOR);
-		allowed.add(Material.BANNER);
-		allowed.add(Material.IRON_TRAPDOOR);
-		allowed.add(Material.WALL_BANNER);
-		allowed.add(Material.STANDING_BANNER);
+		allowed.add(Material.getMaterial("BANNER"));
+		allowed.add(Material.getMaterial("IRON_TRAPDOOR"));
+		allowed.add(Material.getMaterial("WALL_BANNER"));
+		allowed.add(Material.getMaterial("STANDING_BANNER"));
 		allowed.add(Material.SIGN_POST);
 		allowed.add(Material.WALL_SIGN);
 		allowed.add(Material.SUGAR_CANE_BLOCK);
