@@ -2,12 +2,14 @@ package me.rida.anticheat.packets;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
@@ -19,6 +21,8 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.events.PacketListener;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.EnumWrappers.EntityUseAction;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
@@ -31,11 +35,14 @@ import me.rida.anticheat.packets.events.PacketKillauraEvent;
 import me.rida.anticheat.packets.events.PacketPlayerEvent;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class PacketCore {
 	private static AntiCheat AntiCheat;
 	private HashSet<EntityType> enabled;
 	public static Map<UUID, Integer> movePackets;
+	private static final PacketType[] ENTITY_PACKETS = new PacketType[] { PacketType.Play.Server.SPAWN_ENTITY_LIVING,
+			PacketType.Play.Server.NAMED_ENTITY_SPAWN, PacketType.Play.Server.ENTITY_METADATA };
 
 	public PacketCore(AntiCheat AntiCheat) {
 		super();
@@ -89,6 +96,45 @@ public class PacketCore {
 				if (type == EntityUseAction.ATTACK) {
 					Bukkit.getServer().getPluginManager()
 					.callEvent(new PacketKillauraEvent(player, PacketPlayerType.USE));
+				}
+			}
+		});
+		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(AntiCheat, ENTITY_PACKETS) {
+
+			@Override
+			public void onPacketSending(PacketEvent event) {
+				PacketContainer packet = event.getPacket();
+				Entity e = (Entity) packet.getEntityModifier(event).read(0);
+				if (e instanceof LivingEntity && enabled.contains((Object) e.getType())
+						&& packet.getWatchableCollectionModifier().read(0) != null
+						&& e.getUniqueId() != event.getPlayer().getUniqueId()) {
+					packet = packet.deepClone();
+					event.setPacket(packet);
+					if (event.getPacket().getType() == PacketType.Play.Server.ENTITY_METADATA) {
+						WrappedDataWatcher watcher = new WrappedDataWatcher(
+								packet.getWatchableCollectionModifier().read(0));
+						if (ServerUtil.isBukkitVerison("1_7")
+								|| ServerUtil.isBukkitVerison("1_8")
+								|| ServerUtil.isBukkitVerison("1_9")) {
+							this.processDataWatcher1(watcher);
+						}
+						else {
+							this.processDataWatcher2(watcher);
+						}
+						packet.getWatchableCollectionModifier().write(0,
+								(List<WrappedWatchableObject>) watcher.getWatchableObjects());
+					}
+				}
+			}
+
+			private void processDataWatcher1(WrappedDataWatcher watcher) {
+				if (watcher != null && watcher.getObject(6) != null && watcher.getFloat(6) != 0.0F) {
+					watcher.setObject(6, 1.0f);
+				}
+			}
+			private void processDataWatcher2(WrappedDataWatcher watcher) {
+				if (watcher != null && watcher.getObject(6) != null && watcher.getByte(6) != 0.0F) {
+					watcher.setObject(6, 1.0f);
 				}
 			}
 		});

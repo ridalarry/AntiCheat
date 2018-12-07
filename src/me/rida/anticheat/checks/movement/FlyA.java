@@ -158,6 +158,8 @@ public class FlyA extends Check {
 				int verbose = data.getFlyHoverVerbose();
 				if (PlayerUtil.isNearWeb(p)
 						|| p.isSneaking()
+						|| BlockUtil.isSolid(p.getLocation().getBlock())
+						|| PlayerUtil.isNearSolid(p)
 						|| !PlayerUtil.isFlying(e, p)
 						|| !PlayerUtil.isFlying2(e, p)) {
 					return;

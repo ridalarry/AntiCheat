@@ -177,6 +177,15 @@ public class PlayerUtil {
 		}
 		return out;
 	}
+	public static boolean isNearSolid(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.isSolid(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean isNearAllowedPhase(Player p) {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
