@@ -70,7 +70,7 @@ public class PlayerUtil {
 		loc.setY(loc.getY() -1);
 
 		Block block = loc.getWorld().getBlockAt(loc);
-		if (!block.getType().equals(Material.AIR))
+		if (block.getType().equals(Material.AIR))
 		{
 			return true;
 		}
