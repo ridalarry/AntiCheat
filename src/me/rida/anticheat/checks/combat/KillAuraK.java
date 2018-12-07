@@ -60,7 +60,7 @@ public class KillAuraK extends Check {
 		
 		if(verbose > 4) {
 			verbose = 0;
-			getAntiCheat().logCheat(this, player, "Hit another player while dead.", "(Type: K)");
+			getAntiCheat().logCheat(this, player, "Attacking while dead.", "(Type: K)");
 		}
 		
 		this.verbose.put(player.getUniqueId(), verbose);
@@ -82,7 +82,7 @@ public class KillAuraK extends Check {
 			long lastArmSwing = this.lastArmSwing.getOrDefault(player.getUniqueId(), System.currentTimeMillis());
 			
 			if((System.currentTimeMillis() - lastArmSwing) > 100 && Latency.getLag(player) < 50) {
-				getAntiCheat().logCheat(this, player, "Missed while looking at player", "(Type: K)");
+				getAntiCheat().logCheat(this, player, "Missed while looking at victim.", "(Type: K)");
 			}
 		}
 	}

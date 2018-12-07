@@ -308,7 +308,7 @@ public class PlayerUtil {
 				&&user.getSetbackLocation() != null) {
 			Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
 
-			if(location.getBlock().getTypeId() == 165){
+			if(location.getBlock().getType().getId() == 165){
 				return true;
 			}
 		}

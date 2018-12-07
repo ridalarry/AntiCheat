@@ -409,10 +409,10 @@ public class BlockUtil {
 	public static boolean isSlab(Block block) {
 		return block.getType().equals(Material.WOOD_STEP)
 				|| block.getType().equals(Material.STEP)
-				|| block.getTypeId() == 182
-				|| block.getTypeId() == 44
-				|| block.getTypeId() == 126
-				|| block.getTypeId() == 205;
+				|| block.getType().getId() == 182
+				|| block.getType().getId() == 44
+				|| block.getType().getId() == 126
+				|| block.getType().getId() == 205;
 	}
 
 	public static boolean isAllowed(Block block) {
@@ -438,8 +438,8 @@ public class BlockUtil {
 				|| block.getType().equals(Material.WOOD_STAIRS)
 				|| block.getType().equals(Material.SANDSTONE_STAIRS)
 				|| block.getType().equals(Material.SPRUCE_WOOD_STAIRS)
-				|| block.getTypeId()==180
-				|| block.getTypeId() == 203) {
+				|| block.getType().getId()==180
+				|| block.getType().getId() == 203) {
 			return true;
 		}
 		return false;
@@ -456,23 +456,23 @@ public class BlockUtil {
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isShulker(Block block) {
-		return (block.getTypeId() == 219
-				|| block.getTypeId() == 220
-				|| block.getTypeId() == 221
-				|| block.getTypeId() == 222
-				|| block.getTypeId() == 223
-				|| block.getTypeId() == 224
-				|| block.getTypeId() == 225
-				|| block.getTypeId() == 226
-				|| block.getTypeId() == 227
-				|| block.getTypeId() == 228
-				|| block.getTypeId() == 229
-				|| block.getTypeId() == 230
-				|| block.getTypeId() == 231
-				|| block.getTypeId() == 232
-				|| block.getTypeId() == 233
-				|| block.getTypeId() == 234
-				|| block.getTypeId() == 250);
+		return (block.getType().getId() == 219
+				|| block.getType().getId() == 220
+				|| block.getType().getId() == 221
+				|| block.getType().getId() == 222
+				|| block.getType().getId() == 223
+				|| block.getType().getId() == 224
+				|| block.getType().getId() == 225
+				|| block.getType().getId() == 226
+				|| block.getType().getId() == 227
+				|| block.getType().getId() == 228
+				|| block.getType().getId() == 229
+				|| block.getType().getId() == 230
+				|| block.getType().getId() == 231
+				|| block.getType().getId() == 232
+				|| block.getType().getId() == 233
+				|| block.getType().getId() == 234
+				|| block.getType().getId() == 250);
 	}
 	public static boolean isBar(Block block) {
 		return block.getType().equals(Material.IRON_FENCE);
@@ -487,11 +487,11 @@ public class BlockUtil {
 				|| block.getType().getId() == 85
 				|| block.getType().getId() == 139
 				|| block.getType().getId() == 113
-				|| block.getTypeId() == 188
-				|| block.getTypeId() == 189
-				|| block.getTypeId() == 190
-				|| block.getTypeId() == 191
-				|| block.getTypeId() == 192
+				|| block.getType().getId() == 188
+				|| block.getType().getId() == 189
+				|| block.getType().getId() == 190
+				|| block.getType().getId() == 191
+				|| block.getType().getId() == 192
 				|| block.getType().equals(Material.NETHER_FENCE);
 
 	}
@@ -513,7 +513,7 @@ public class BlockUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isSolid(Block block) {
-		if (block != null && isSolid(block.getTypeId())) {
+		if (block != null && isSolid(block.getType().getId())) {
 			return true;
 		}
 		return false;
@@ -537,10 +537,10 @@ public class BlockUtil {
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isPressure(Block block) {
-		return block.getTypeId() == 70
-				|| block.getTypeId() == 72
-				|| block.getTypeId() == 147
-				|| block.getTypeId() == 148;
+		return block.getType().getId() == 70
+				|| block.getType().getId() == 72
+				|| block.getType().getId() == 147
+				|| block.getType().getId() == 148;
 	}
 
 
@@ -725,11 +725,11 @@ public class BlockUtil {
 	@SuppressWarnings("deprecation")
 	public static boolean allowedPhase(Block block) {
 		return block.getType().equals(Material.SIGN)
-				|| block.getTypeId() == 425
-				|| block.getTypeId() == 167
-				|| block.getTypeId() == 177
-				|| block.getTypeId() == 176
-				|| block.getTypeId() == 165
+				|| block.getType().getId() == 425
+				|| block.getType().getId() == 167
+				|| block.getType().getId() == 177
+				|| block.getType().getId() == 176
+				|| block.getType().getId() == 165
 				|| block.getType().equals(Material.FENCE)
 				|| block.getType().equals(Material.ANVIL)
 				|| block.getType().equals(Material.TRAP_DOOR)
@@ -822,24 +822,24 @@ public class BlockUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isSlime(Block block) {
-		return block.getTypeId() == 165;
+		return block.getType().getId() == 165;
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isGrass(Block block) {
-		return block.getTypeId() == 2
-				|| block.getTypeId() == 3;
+		return block.getType().getId() == 2
+				|| block.getType().getId() == 3;
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isSign(Block block) {
-		return block.getTypeId() == 63
-				|| block.getTypeId() == 68
-				|| block.getTypeId() == 323;
+		return block.getType().getId() == 63
+				|| block.getType().getId() == 68
+				|| block.getType().getId() == 323;
 	}
 
 	@SuppressWarnings("deprecation")
 	public static boolean isLog(Block block) {
-		return block.getTypeId() == 17
-				|| block.getTypeId() == 162;
+		return block.getType().getId() == 17
+				|| block.getType().getId() == 162;
 	}
 	public static BoundingBox[] getBlockBoundingBox(Block block) {
 		if (collisionBoundingBoxes.containsKey(block.getType())) {
@@ -857,7 +857,7 @@ public class BlockUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isDoor(Block block) {
-		return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.IRON_DOOR_BLOCK) || block.getType().equals(Material.WOOD_DOOR) || block.getType().equals(Material.WOODEN_DOOR) || block.getTypeId() == 193 || block.getTypeId() == 194 || block.getTypeId() == 195 || block.getTypeId() == 196 || block.getTypeId() == 197 || block.getTypeId() == 324 || block.getTypeId() == 428 || block.getTypeId() == 429 || block.getTypeId() == 430 || block.getTypeId() == 431;
+		return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.IRON_DOOR_BLOCK) || block.getType().equals(Material.WOOD_DOOR) || block.getType().equals(Material.WOODEN_DOOR) || block.getType().getId() == 193 || block.getType().getId() == 194 || block.getType().getId() == 195 || block.getType().getId() == 196 || block.getType().getId() == 197 || block.getType().getId() == 324 || block.getType().getId() == 428 || block.getType().getId() == 429 || block.getType().getId() == 430 || block.getType().getId() == 431;
 	}
 
 	public static boolean isBed(Block block) {
@@ -866,13 +866,13 @@ public class BlockUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isTrapDoor(Block block) {
-		return block.getType().equals(Material.TRAP_DOOR) || block.getTypeId() == 167;
+		return block.getType().equals(Material.TRAP_DOOR) || block.getType().getId() == 167;
 	}
 
 
 	@SuppressWarnings("deprecation")
 	public static boolean isFenceGate(Block block) {
-		return block.getType().equals(Material.FENCE_GATE) || block.getTypeId() == 183 || block.getTypeId() == 184 || block.getTypeId() == 185 || block.getTypeId() == 186 || block.getTypeId() == 187;
+		return block.getType().equals(Material.FENCE_GATE) || block.getType().getId() == 183 || block.getType().getId() == 184 || block.getType().getId() == 185 || block.getType().getId() == 186 || block.getType().getId() == 187;
 	}
 
 
