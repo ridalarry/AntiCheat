@@ -21,8 +21,7 @@ public class KillAuraD extends Check {
 	public static Map<UUID, Map.Entry<Double, Double>> packetTicks;
 
 	public KillAuraD(AntiCheat AntiCheat) {
-		super("KillAuraD", "KillAura",  CheckType.Combat, true, false, false, false, 150, 50, 3000L, AntiCheat);
-
+		super("KillAuraD", "KillAura",  CheckType.Combat, true, false, false, false, 150, 1, 600000L, AntiCheat);
 		packetTicks = new HashMap<>();
 	}
 
@@ -50,11 +49,12 @@ public class KillAuraD extends Check {
 			Count++;
 		}
 
-		if(Count > Other && Other == 2) {
-			getAntiCheat().logCheat(this, p, "Packet", "(Type: D)");
+		if(Count > Other && Other >= 2) {
+			if (Count > 3) {
+				getAntiCheat().logCheat(this, p, "Packet" + " Count: " + Count + " Other: " + Other, "(Type: D)");
+			}
 		}
-
-		if(Count > 3 || Other > 3) {
+		if(Count > 3 || Other >= 3) {
 			Count = 0;
 			Other = 0;
 		}

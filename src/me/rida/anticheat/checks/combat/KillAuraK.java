@@ -16,6 +16,7 @@ import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.PacketPlayerType;
 import me.rida.anticheat.packets.events.PacketKillauraEvent;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class KillAuraK extends Check {
 	
@@ -70,7 +71,8 @@ public class KillAuraK extends Check {
 	@EventHandler
 	public void onSwing(PacketKillauraEvent e) {
 		if(!getAntiCheat().isEnabled()
-				|| getAntiCheat().getLag().getTPS() < 19) {
+				|| getAntiCheat().getLag().getTPS() < 19
+				|| ServerUtil.isBukkitVerison("1_13")) {
 			return;
 		}
 		

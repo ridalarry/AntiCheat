@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -48,6 +49,36 @@ public class PlayerUtil {
 		}
 		return 0;
 	}
+	public static boolean isFlying2(BlockPlaceEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY() -1);
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public static boolean isFlying2(PlayerMoveEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY() -1);
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (!block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	public static boolean isOnGround(PlayerMoveEvent e, Player p)
 	{
 		Location loc = p.getLocation();
@@ -63,7 +94,37 @@ public class PlayerUtil {
 			return false;
 		}
 	}
+	public static boolean isOnGround(BlockPlaceEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY());
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (!block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	public static boolean isFlying(PlayerMoveEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY() -2);
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public static boolean isFlying(BlockPlaceEvent e, Player p)
 	{
 		Location loc = p.getLocation();
 		loc.setY(loc.getY() -2);
@@ -225,6 +286,14 @@ public class PlayerUtil {
 			}
 		}
 		return out;
+	}
+	public static int getFallHeight(Player p) {
+		int y1 = (int) p.getLocation().getY();
+		int y2 = 0;
+		Block b = p.getLocation().getBlock();
+		while(!(b = b.getRelative(BlockFace.DOWN)).getType().isSolid())
+			y2 = b.getY();
+		return y1-y2;
 	}
 	public static boolean isNearSlime(Player p) {
 		boolean out = false;

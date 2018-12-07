@@ -23,7 +23,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 public class FlyA extends Check {
 	public FlyA(AntiCheat AntiCheat) {
-		super("FlyA", "Fly", CheckType.Movement, true, true, false, true, 4, 1, 600000L, AntiCheat);
+		super("FlyA", "Fly", CheckType.Movement, true, true, false, true, 25, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -39,12 +39,13 @@ public class FlyA extends Check {
 				|| PlayerUtil.wasOnSlime(p)
 				|| PlayerUtil.isNearSlime(p)
 				|| BlockUtil.isNearLiquid(p)
-				|| PlayerUtil.isOnSlime(p.getLocation())
-				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| PlayerUtil.isNearSlime(e.getFrom())
-				|| PlayerUtil.isNearSlime(e.getTo())) {
+				|| PlayerUtil.isNearSlime(e.getTo())
+				|| PlayerUtil.isOnSlime(p.getLocation())
+				|| PlayerUtil.isOnClimbable(p, 1) 
+				|| VelocityUtil.didTakeVelocity(p)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
@@ -155,7 +156,10 @@ public class FlyA extends Check {
 				double distanceToGround = getDistanceToGround(p);
 				double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 				int verbose = data.getFlyHoverVerbose();
-				if (PlayerUtil.isNearWeb(p)) {
+				if (PlayerUtil.isNearWeb(p)
+						|| p.isSneaking()
+						|| !PlayerUtil.isFlying(e, p)
+						|| !PlayerUtil.isFlying2(e, p)) {
 					return;
 				}
 				if(distanceToGround > 2) {

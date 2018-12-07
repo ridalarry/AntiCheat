@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
@@ -17,6 +20,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.CheatUtil;
+import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class AscensionC extends Check {
@@ -35,24 +39,35 @@ public class AscensionC extends Check {
 			flyTicks.remove(uuid);
 		}
 	}
-
-	@EventHandler
+	@SuppressWarnings("deprecation")
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void CheckAscension(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		if (e.isCancelled()
-				|| !getAntiCheat().isEnabled()
-				|| p.getVehicle() != null
+		if (p.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| e.getFrom().getY() >= e.getTo().getY()
 				|| p.getAllowFlight()
+				|| p.getGameMode().equals(GameMode.CREATIVE)
+				|| PlayerUtil.isNearSlime(e.getFrom())
+				|| PlayerUtil.isNearSlime(e.getTo())
+				|| PlayerUtil.wasOnSlime(p)
+				|| PlayerUtil.isNearSlime(p)
+				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| !TimeUtil.elapsed(getAntiCheat().LastVelocity.getOrDefault(p.getUniqueId(), 0L), 4200L)
 				|| Latency.getLag(p) > 75
-				|| this.getAntiCheat().getLastVelocity().containsKey(p.getUniqueId())) {
+				|| getAntiCheat().getLastVelocity().containsKey(p.getUniqueId())) {
 			return;
 		}
 
 		Location to = e.getTo();
 		Location from = e.getFrom();
+		Block oldBlock = from.getWorld().getBlockAt(from.getBlockX(), from.getBlockY() - 1- PlayerUtil.getFallHeight(p), from.getBlockZ());
+		Block newBlock = to.getWorld().getBlockAt(to.getBlockX(), to.getBlockY() - 1- PlayerUtil.getFallHeight(p), to.getBlockZ());
+
+		if (oldBlock.getType().getId() == 165
+				|| newBlock.getType().getId() == 165) {
+			return;
+		}
 		int Count = 0;
 		long Time = TimeUtil.nowlong();
 		if (flyTicks.containsKey(p.getUniqueId())) {
@@ -95,8 +110,14 @@ public class AscensionC extends Check {
 		}
 		if (Count >= 4) {
 			Count = 0;
-			dumplog(p, "Logged for Ascension Type B");
-			AntiCheat.Instance.logCheat(this, p, flyTicks + "<-" + 0.002, "(Type B)");
+			dumplog(p, "Logged for Ascension Type C");
+			if (PlayerUtil.isNearSlime(p)
+					|| PlayerUtil.isNearSlime(e.getFrom())
+					|| PlayerUtil.isNearSlime(e.getTo())
+					||PlayerUtil.isNearSlime(p.getLocation())) {
+				return;
+			}
+			AntiCheat.Instance.logCheat(this, p, null, "(Type C)");
 
 		}
 		flyTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));

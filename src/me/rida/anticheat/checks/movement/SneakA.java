@@ -36,7 +36,8 @@ public class SneakA extends Check {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
+				|| !p.isSneaking()) {
 			return;
 		}
 		int Count = 0;
@@ -56,7 +57,6 @@ public class SneakA extends Check {
 		}
 		if (Count > 50) {
 			Count = 0;
-
 			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
 		sneakTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
