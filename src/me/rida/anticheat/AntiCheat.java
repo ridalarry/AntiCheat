@@ -47,7 +47,6 @@ import me.rida.anticheat.other.LagCore;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.packets.PacketCore;
-import me.rida.anticheat.pluginlogger.PluginLoggerHelper;
 import me.rida.anticheat.update.UpdateEvent;
 import me.rida.anticheat.update.UpdateType;
 import me.rida.anticheat.update.Updater;
@@ -300,13 +299,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
 
 		saveDefaultConfig();
-		if (getConfig().getBoolean("settings.EnableCustomLog")) {
-			try {
-				logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
-			} catch (Throwable ex) {
-				getLogger().log(Level.SEVERE, ex.getMessage());
-			}
-		}
 
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> {
@@ -797,7 +789,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		ProtocolLibrary.getProtocolManager().removePacketListeners(this);
 		if (logger != null){
 			logger.log(Level.INFO, "Plugin disabled");
-			PluginLoggerHelper.closeLogger(logger);
 		}
 		Bukkit.shutdown();
 	}
