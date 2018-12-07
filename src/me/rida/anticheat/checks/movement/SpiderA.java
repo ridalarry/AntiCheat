@@ -26,6 +26,7 @@ import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class SpiderA extends Check {
@@ -64,7 +65,6 @@ public class SpiderA extends Check {
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()
-				|| PlayerUtil.isNotSpider(p)
 				|| PlayerUtil.isOnFence(p.getLocation())
 				|| PlayerUtil.isOnPressure(p.getLocation())
 				|| BlockUtil.isNearFence(p)
@@ -76,6 +76,18 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isNearSlime(e.getFrom())
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
+		}
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+
+			if (PlayerUtil.isNotSpider(p)) {
+				return;
+			}
+		}
+		if (ServerUtil.isBukkitVerison("1_13")) {
+
+			if (!PlayerUtil.isFlying(e,p)) {
+				return;
+			}
 		}
 		if (BlockUtil.isNearLiquid(p) && PlayerUtil.isNearHalfBlock(p)) {
 			return;

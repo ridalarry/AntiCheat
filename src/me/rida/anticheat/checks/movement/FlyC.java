@@ -17,6 +17,7 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class FlyC extends Check {
@@ -26,7 +27,7 @@ public class FlyC extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		
+
 		Location from = e.getFrom();
 		Location to = e.getTo();
 		Player p = e.getPlayer();
@@ -39,7 +40,6 @@ public class FlyC extends Check {
 				|| PlayerUtil.wasOnSlime(p)
 				|| PlayerUtil.isNearSlime(p)
 				|| BlockUtil.isNearLiquid(p)
-				|| PlayerUtil.isInLiquid(p)
 				|| data == null
 				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
@@ -48,6 +48,12 @@ public class FlyC extends Check {
 				|| PlayerUtil.isNearSlime(e.getFrom())
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
+		}
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+
+			if (PlayerUtil.isInLiquid(p)) {
+				return;
+			}
 		}
 
 		Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
@@ -58,43 +64,88 @@ public class FlyC extends Check {
 						|| PlayerUtil.isNearSlime(to)) {
 					return;
 				}
-				if (Distance > 0.50 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
-					getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
-				} else if (Distance > 0.90 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
-				} else if (Distance > 1.0 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
-					getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+				if (!ServerUtil.isBukkitVerison("1_13")) {
+					if (Distance > 0.50 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
+						getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+					} else if (Distance > 0.90 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+						getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+					} else if (Distance > 1.0 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+						getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+					}
+				}
+				else {
+					if (Distance > 0.50 && !PlayerUtil.isOnGround(e,p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
+						getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+					} else if (Distance > 0.90 && !PlayerUtil.isOnGround(e,p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+						getAntiCheat().logCheat(this, p, "[2] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+					} else if (Distance > 1.0 && !PlayerUtil.isOnGround(e,p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
+						getAntiCheat().logCheat(this, p, "[3] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
+					}
 				}
 			}
 		}
-		if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
-			if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !VelocityUtil.didTakeVelocity(p)) {
-				if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnTheGround(p)) {
-					if (PlayerUtil.getDistanceToGround(p) > 2) {
-						if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
-							if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
-								if (PlayerUtil.isNearSlime(from)
-										|| PlayerUtil.isNearSlime(to)
-										|| Distance <= 3.5) {
-									return;
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+			if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
+				if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !VelocityUtil.didTakeVelocity(p)) {
+					if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnTheGround(p)) {
+						if (PlayerUtil.getDistanceToGround(p) > 2) {
+							if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
+								if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
+									if (PlayerUtil.isNearSlime(from)
+											|| PlayerUtil.isNearSlime(to)
+											|| Distance <= 3.5) {
+										return;
+									}
+									getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(), "(Type: C)");
+								} else {
+									data.setGoingUp_Blocks(data.getGoingUp_Blocks() + 1);
 								}
-								getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(), "(Type: C)");
 							} else {
-								data.setGoingUp_Blocks(data.getGoingUp_Blocks() + 1);
+								data.setGoingUp_Blocks(0);
 							}
 						} else {
 							data.setGoingUp_Blocks(0);
 						}
+					} else if (e.getTo().getY() < e.getFrom().getY()) {
+						data.setGoingUp_Blocks(0);
 					} else {
 						data.setGoingUp_Blocks(0);
 					}
-				} else if (e.getTo().getY() < e.getFrom().getY()) {
-					data.setGoingUp_Blocks(0);
 				} else {
 					data.setGoingUp_Blocks(0);
 				}
-			} else {
-				data.setGoingUp_Blocks(0);
+			}
+		}
+		else {
+			if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
+				if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !VelocityUtil.didTakeVelocity(p)) {
+					if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnGround(e, p)) {
+						if (PlayerUtil.getDistanceToGround(p) > 2) {
+							if (data.getGoingUp_Blocks() >= 3 && data.getAirTicks() >= 10) {
+								if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
+									if (PlayerUtil.isNearSlime(from)
+											|| PlayerUtil.isNearSlime(to)
+											|| Distance <= 3.5) {
+										return;
+									}
+									getAntiCheat().logCheat(this, p, "[4] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(), "(Type: C)");
+								} else {
+									data.setGoingUp_Blocks(data.getGoingUp_Blocks() + 1);
+								}
+							} else {
+								data.setGoingUp_Blocks(0);
+							}
+						} else {
+							data.setGoingUp_Blocks(0);
+						}
+					} else if (e.getTo().getY() < e.getFrom().getY()) {
+						data.setGoingUp_Blocks(0);
+					} else {
+						data.setGoingUp_Blocks(0);
+					}
+				} else {
+					data.setGoingUp_Blocks(0);
+				}
 			}
 		}
 	}

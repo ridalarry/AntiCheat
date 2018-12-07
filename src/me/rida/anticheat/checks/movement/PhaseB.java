@@ -30,6 +30,7 @@ import me.rida.anticheat.utils.BoundingBox;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ReflectionUtil;
+import me.rida.anticheat.utils.ServerUtil;
 
 
 public class PhaseB extends Check implements Listener {
@@ -171,21 +172,22 @@ public class PhaseB extends Check implements Listener {
 		if (PlayerUtil.isNearLog(player) && PlayerUtil.isNearGrass(player)) {
 			return;
 		}
-		if (e.getFrom().distance(e.getTo()) > AntiCheat.Instance.maxMove) {
-			e.setTo(e.getFrom());
-			return;
-		}
 
 		float minX = (float) Math.min(e.getFrom().getX(), e.getTo().getX()), minY = (float) Math.min(e.getFrom().getY(), e.getTo().getY()), minZ = (float) Math.min(e.getFrom().getZ(), e.getTo().getZ()),
 				maxX = (float) Math.max(e.getFrom().getX(), e.getTo().getX()), maxY = (float) Math.max(e.getFrom().getY(), e.getTo().getY()), maxZ = (float) Math.max(e.getFrom().getZ(), e.getTo().getZ());
 
 		Object box = new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ).add(0f, 0f, 0f, 0f, 1.8f, 0f).toAxisAlignedBB();
-
-		if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+			if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
+				getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
+			}
+		}
+		else {
+			if(!ReflectionUtil.getCollidingBlocks1(e.getPlayer(), box)) {
 			getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
+			}
 		}
 	}
-
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 

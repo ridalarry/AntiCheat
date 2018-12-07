@@ -50,27 +50,52 @@ public class ChangeA extends Check {
 		}
 		int n = 0;
 		int n2 = 5;
-		if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
-			if (e.getFrom().getY() > e.getTo().getY()) {
-				if (!this.falling.contains(u)) {
-					this.falling.add(u);
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+			if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
+				if (e.getFrom().getY() > e.getTo().getY()) {
+					if (!this.falling.contains(u)) {
+						this.falling.add(u);
+					}
+				} else {
+					n = e.getTo().getY() > e.getFrom().getY() ? (this.falling.contains(u) ? ++n : --n) : --n;
 				}
 			} else {
-				n = e.getTo().getY() > e.getFrom().getY() ? (this.falling.contains(u) ? ++n : --n) : --n;
+				this.falling.remove(u);
 			}
-		} else {
-			this.falling.remove(u);
-		}
-		if (n > n2) {
-			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-				return;
+			if (n > n2) {
+				if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					return;
+				}
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+				n = 0;
+				this.falling.remove(u);
 			}
-			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
-			n = 0;
-			this.falling.remove(u);
 		}
-	}
+		else {
+
+			if (!(PlayerUtil.isOnGround(e,p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
+				if (e.getFrom().getY() > e.getTo().getY()) {
+					if (!this.falling.contains(u)) {
+						this.falling.add(u);
+					}
+				} else {
+					n = e.getTo().getY() > e.getFrom().getY() ? (this.falling.contains(u) ? ++n : --n) : --n;
+				}
+			} else {
+				this.falling.remove(u);
+			}
+			if (n > n2) {
+				if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+					return;
+				}
+				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+				n = 0;
+				this.falling.remove(u);
+			}
+		}
+		}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onQuit(PlayerQuitEvent e) {

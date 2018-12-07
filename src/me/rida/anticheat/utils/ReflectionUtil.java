@@ -90,6 +90,12 @@ public class ReflectionUtil {
 				? getInvokedMethod(getBlocks1_12, world, null, axisAlignedBB)
 						: getInvokedMethod(getBlocks, world, axisAlignedBB));
 	}
+	public static Boolean getCollidingBlocks1(Player player, Object axisAlignedBB) {
+		Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
+		return (Boolean) (isNewVersion()
+				? getInvokedMethod(getBlocks1_12, world, null, axisAlignedBB)
+						: getInvokedMethod(getBlocks, world, axisAlignedBB));
+	}
 
 	public static Object getBoundingBox(Player player) {
 		return isBukkitVerison("1_7") ? getInvokedField(getField(Entity, "boundingBox"), getEntityPlayer(player)) : getInvokedMethod(getMethod(EntityPlayer, "getBoundingBox"), getEntityPlayer(player));

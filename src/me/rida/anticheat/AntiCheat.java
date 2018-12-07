@@ -77,6 +77,7 @@ import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.ReflectionUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimerUtil;
 import me.rida.anticheat.utils.TxtFile;
 import me.rida.anticheat.utils.VelocityUtil;
@@ -244,11 +245,15 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.lag = new LagCore(this);
 		this.updater = new Updater(this);
 		new AntiCheatAPI(this);
-		me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
-		this.getServer().getMessenger().registerIncomingPluginChannel((Plugin)this, "LOLIMAHCKER", (PluginMessageListener)vapeA);
-		this.getServer().getPluginManager().registerEvents((Listener)vapeA, (Plugin)this);
-		me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
-		this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapers);
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+			me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
+			this.getServer().getMessenger().registerIncomingPluginChannel((Plugin)this, "LOLIMAHCKER", (PluginMessageListener)vapeA);
+			this.getServer().getPluginManager().registerEvents((Listener)vapeA, (Plugin)this);
+			me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
+			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapers);
+			System.out.println("Server is not on 1.13!");
+			System.out.println("Regestered LOLIMAHCKER channel for vape checks!");
+		}
 		for (final Check check : this.Checks) {
 			if (check.isEnabled()) {
 				this.RegisterListener(check);
@@ -756,7 +761,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		this.addViolation(player, check);
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
-		Integer violations = this.getViolations(player, check);
+		Integer violations = this.getViolations(player, check);	
+		System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
@@ -787,8 +793,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 				msg.sendToPlayer(playerplayer);
 			}
-			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
-
 		}
 		if (check.isJudgmentDay()) {
 			return;

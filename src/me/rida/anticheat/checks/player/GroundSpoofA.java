@@ -13,6 +13,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
@@ -48,15 +49,30 @@ public class GroundSpoofA extends Check {
 				data.setGroundSpoofVL(0);
 				return;
 			}
-			if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnTheGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
-				if (data.getGroundSpoofVL() >= 4) {
-					if (data.getAirTicks() >= 10) {
-						getAntiCheat().logCheat(this, p, "[1] Spoofed On-Ground Packet.", "(Type: A)");
+			if (!ServerUtil.isBukkitVerison("1_13")) {
+				if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnTheGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
+					if (data.getGroundSpoofVL() >= 4) {
+						if (data.getAirTicks() >= 10) {
+							getAntiCheat().logCheat(this, p, "[1] Spoofed On-Ground Packet.", "(Type: A)");
+						} else {
+							getAntiCheat().logCheat(this, p, "[2] Spoofed On-Ground Packet.", "(Type: A)");
+						}
 					} else {
-						getAntiCheat().logCheat(this, p, "[2] Spoofed On-Ground Packet.", "(Type: A)");
+						data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
 					}
-				} else {
-					data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
+				}
+			}
+			if (ServerUtil.isBukkitVerison("1_13")) {
+				if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnGround(e,p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
+					if (data.getGroundSpoofVL() >= 4) {
+						if (data.getAirTicks() >= 10) {
+							getAntiCheat().logCheat(this, p, "[1] Spoofed On-Ground Packet.", "(Type: A)");
+						} else {
+							getAntiCheat().logCheat(this, p, "[2] Spoofed On-Ground Packet.", "(Type: A)");
+						}
+					} else {
+						data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
+					}
 				}
 			}
 		}

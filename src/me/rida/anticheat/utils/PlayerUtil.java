@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -46,6 +47,36 @@ public class PlayerUtil {
 				}
 		}
 		return 0;
+	}
+	public static boolean isOnGround(PlayerMoveEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY());
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (!block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public static boolean isFlying(PlayerMoveEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY() -2);
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	public static boolean isNearChest(Player p) {
 		boolean out = false;
