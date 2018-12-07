@@ -50,7 +50,7 @@ public class ChangeA extends Check {
 		}
 		int n = 0;
 		int n2 = 5;
-		if (!ServerUtil.isBukkitVerison("1_13")) {
+		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
 				if (e.getFrom().getY() > e.getTo().getY()) {
 					if (!this.falling.contains(u)) {

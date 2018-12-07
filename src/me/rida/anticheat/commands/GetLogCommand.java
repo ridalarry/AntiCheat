@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class GetLogCommand implements CommandExecutor {
 
@@ -22,10 +23,15 @@ public class GetLogCommand implements CommandExecutor {
 		this.AntiCheat = AntiCheat;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender s, Command cmd, String l, String[] g) {
 		if (!s.hasPermission("anticheat.log") && !s.hasPermission("anticheat.admin")) {
 			s.sendMessage(Color.Red + "No permission.");
+			return true;
+		}
+		if (ServerUtil.isBukkitVerison("1_7")) {
+			s.sendMessage(AntiCheat.PREFIX + Color.Red + "This command is not supported on this server version!");
 			return true;
 		}
 

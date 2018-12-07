@@ -49,7 +49,7 @@ public class GroundSpoofA extends Check {
 				data.setGroundSpoofVL(0);
 				return;
 			}
-			if (!ServerUtil.isBukkitVerison("1_13")) {
+			if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7") ) {
 				if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnTheGround(p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
 					if (data.getGroundSpoofVL() >= 4) {
 						if (data.getAirTicks() >= 10) {
@@ -62,7 +62,7 @@ public class GroundSpoofA extends Check {
 					}
 				}
 			}
-			if (ServerUtil.isBukkitVerison("1_13")) {
+			else {
 				if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnGround(e,p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
 					if (data.getGroundSpoofVL() >= 4) {
 						if (data.getAirTicks() >= 10) {

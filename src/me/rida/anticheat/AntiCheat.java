@@ -109,7 +109,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public List<Check> Checks;
 	public Map<UUID, Map<Check, Integer>> Violations;
 	public Map<UUID, Map<Check, Long>> ViolationReset;
-	public List<Player> AlertsOn;
+	public static List<Player> AlertsOn;
 	public Map<Player, Map.Entry<Check, Long>> AutoBan;
 	public Map<String, Check> NamesBanned;
 	Random rand;
@@ -124,7 +124,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks = new ArrayList<>();
 		this.Violations = new HashMap<>();
 		this.ViolationReset = new HashMap<>();
-		this.AlertsOn = new ArrayList<>();
+		AntiCheat.AlertsOn = new ArrayList<>();
 		this.AutoBan = new HashMap<>();
 		this.NamesBanned = new HashMap<>();
 		this.rand = new Random();
@@ -216,16 +216,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public void onEnable() {
 		excludedBlocks = new ArrayList<>();
 		service = Executors.newSingleThreadExecutor();
-
-		getConfig().getStringList("excluded_blocks").forEach(string -> {
-			try {
-				Material material = Material.getMaterial(string);
-
-				excludedBlocks.add(material);
-			} catch (NullPointerException e) {
-				throw new NullPointerException("The material '" + string + "' in the config does not exist!");
-			}
-		});
 		new ReflectionUtil();
 		new BlockUtil();
 		new Ping(this);
@@ -329,14 +319,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
 
 		saveDefaultConfig();
-		if (getConfig().getBoolean("settings.EnableCustomLog")) {
-			try {
-				logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
-			} catch (Throwable ex) {
-				getLogger().log(Level.SEVERE, ex.getMessage());
+		if (!ServerUtil.isBukkitVerison("1_7")) {
+			if (getConfig().getBoolean("settings.EnableCustomLog")) {
+				try {
+					logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
+				} catch (Throwable ex) {
+					getLogger().log(Level.SEVERE, ex.getMessage());
+				}
 			}
-		}
-
 
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
 			@Override
@@ -351,7 +341,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				if (!player.isOnline() || !player.isValid())
 					iterator.remove();
 			}
-		}, 20L, 20L);
+		}, 20L, 20L);}
 		getLogger().info("Reloading... will kick all online players to avoid crash.");
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
@@ -544,14 +534,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public boolean hasAlertsOn(Player player) {
-		return this.AlertsOn.contains(player);
+		return AntiCheat.AlertsOn.contains(player);
 	}
 
 	public void toggleAlerts(Player player) {
 		if (this.hasAlertsOn(player)) {
-			this.AlertsOn.remove(player);
+			AntiCheat.AlertsOn.remove(player);
 		} else {
-			this.AlertsOn.add(player);
+			AntiCheat.AlertsOn.add(player);
 		}
 	}
 
@@ -564,7 +554,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (!e.getPlayer().hasPermission("anticheat.staff")) {
 			return;
 		}
-		this.AlertsOn.add(e.getPlayer());
+		AntiCheat.AlertsOn.add(e.getPlayer());
 	}
 
 	@EventHandler
@@ -747,7 +737,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.saveConfig();
 	}
 	public void alert(String message) {
-		for (Player playerplayer : this.AlertsOn) {
+		for (Player playerplayer : AntiCheat.AlertsOn) {
 			playerplayer.sendMessage(String.valueOf(PREFIX) + message);
 		}
 	}
@@ -787,7 +777,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 				+ "x" + violations);
 		if (violations % check.getViolationsToNotify() == 0) {
-			for (Player playerplayer : this.AlertsOn) {
+			for (Player playerplayer : AntiCheat.AlertsOn) {
 				if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
 					continue;
 				}

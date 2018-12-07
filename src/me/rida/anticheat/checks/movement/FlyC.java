@@ -49,7 +49,7 @@ public class FlyC extends Check {
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
-		if (!ServerUtil.isBukkitVerison("1_13")) {
+		if (!ServerUtil.isBukkitVerison("1_13")&& !ServerUtil.isBukkitVerison("1_7")) {
 
 			if (PlayerUtil.isInLiquid(p)) {
 				return;
@@ -64,7 +64,7 @@ public class FlyC extends Check {
 						|| PlayerUtil.isNearSlime(to)) {
 					return;
 				}
-				if (!ServerUtil.isBukkitVerison("1_13")) {
+				if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 					if (Distance > 0.50 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ() && !VelocityUtil.didTakeVelocity(p)) {
 						getAntiCheat().logCheat(this, p, "[1] Distance: " + Distance + " To: " + e.getTo().getY() + " From: " + e.getFrom().getY(),  "(Type: C)");
 					} else if (Distance > 0.90 && !PlayerUtil.isOnTheGround(p) && e.getTo().getY() > e.getFrom().getY() && e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ()) {
@@ -84,7 +84,7 @@ public class FlyC extends Check {
 				}
 			}
 		}
-		if (!ServerUtil.isBukkitVerison("1_13")) {
+		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
 				if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !VelocityUtil.didTakeVelocity(p)) {
 					if (!PlayerUtil.isOnGround4(p) && !PlayerUtil.onGround2(p) && !PlayerUtil.isOnTheGround(p)) {

@@ -51,10 +51,6 @@ public class PhaseB extends Check implements Listener {
 		allowed.add(Material.FENCE);
 		allowed.add(Material.ANVIL);
 		allowed.add(Material.TRAP_DOOR);
-		allowed.add(Material.BANNER);
-		allowed.add(Material.IRON_TRAPDOOR);
-		allowed.add(Material.WALL_BANNER);
-		allowed.add(Material.STANDING_BANNER);
 		allowed.add(Material.SIGN_POST);
 		allowed.add(Material.WALL_SIGN);
 		allowed.add(Material.SUGAR_CANE_BLOCK);
@@ -140,6 +136,12 @@ public class PhaseB extends Check implements Listener {
 		semi.add(Material.THIN_GLASS);
 		semi.add(Material.STAINED_GLASS_PANE);
 		semi.add(Material.COBBLE_WALL);
+		if (!ServerUtil.isBukkitVerison("1_7")) {
+			allowed.add(Material.BANNER);
+			allowed.add(Material.IRON_TRAPDOOR);
+			allowed.add(Material.WALL_BANNER);
+			allowed.add(Material.STANDING_BANNER);
+		}
 	}
 	private Map<Player, Long> lastDoorSwing;
 

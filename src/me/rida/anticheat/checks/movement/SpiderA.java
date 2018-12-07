@@ -77,13 +77,13 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
-		if (!ServerUtil.isBukkitVerison("1_13")) {
+		if (!ServerUtil.isBukkitVerison("1_13")&& !ServerUtil.isBukkitVerison("1_7")) {
 
 			if (PlayerUtil.isNotSpider(p)) {
 				return;
 			}
 		}
-		if (ServerUtil.isBukkitVerison("1_13")) {
+		if (ServerUtil.isBukkitVerison("1_13") || ServerUtil.isBukkitVerison("1_7")) {
 
 			if (!PlayerUtil.isFlying(e,p)) {
 				return;

@@ -16,6 +16,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class BlockInteractC extends Check {
@@ -25,6 +26,9 @@ public class BlockInteractC extends Check {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlaceBlock(BlockPlaceEvent e) {
+		if (ServerUtil.isBukkitVerison("1_7")) {
+			return;
+		}
 		Player p = e.getPlayer();
 		Block t = p.getTargetBlock((Set)null, 5);
 		if (p.getAllowFlight()
@@ -34,7 +38,9 @@ public class BlockInteractC extends Check {
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| Ping.getPing(e.getPlayer()) > 100
 				|| p.getGameMode().equals(GameMode.CREATIVE)
-				|| VelocityUtil.didTakeVelocity(p)) return;
+				|| VelocityUtil.didTakeVelocity(p)) {
+			return;
+		}
 
 		double x = PlayerUtil.getEff(p);
 		if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
