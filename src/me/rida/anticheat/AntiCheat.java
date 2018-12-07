@@ -757,11 +757,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.addViolation(player, check);
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
 		Integer violations = this.getViolations(player, check);
-		
-		int x = (check.getViolationsToNotify() !=0) ? violations / check.getViolationsToNotify() : 1;
-		if (x > 0) {
-		System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + x);
-		}
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
@@ -784,7 +779,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		msg.addText(Color.translate(getConfig().getString("alerts.checkColor")) + a
 				+ Color.translate(getConfig().getString("alerts.primary")) + " ");
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
-				+ "x" + x);
+				+ "x" + violations);
 		if (violations % check.getViolationsToNotify() == 0) {
 			for (Player playerplayer : this.AlertsOn) {
 				if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
@@ -792,6 +787,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 				msg.sendToPlayer(playerplayer);
 			}
+			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
+
 		}
 		if (check.isJudgmentDay()) {
 			return;
