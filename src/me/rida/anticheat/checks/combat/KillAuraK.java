@@ -28,7 +28,7 @@ public class KillAuraK extends Check {
 		lastArmSwing = new HashMap<UUID, Long>();
 	}
 	
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onQuit(PlayerQuitEvent e) {
 		UUID uuid = e.getPlayer().getUniqueId();
 		
