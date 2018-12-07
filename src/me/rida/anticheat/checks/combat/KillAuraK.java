@@ -43,7 +43,8 @@ public class KillAuraK extends Check {
 	@EventHandler
 	public void onHit(PacketUseEntityEvent e) { 
 		
-		if(!getAntiCheat().isEnabled()) {
+		if(!getAntiCheat().isEnabled()
+				|| getAntiCheat().getLag().getTPS() < 19) {
 			return;
 		}
 		

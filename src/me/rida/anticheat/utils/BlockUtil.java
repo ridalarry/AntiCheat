@@ -415,8 +415,9 @@ public class BlockUtil {
 				|| block.getType().getId() == 205;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isAllowed(Block block) {
-		return block.getType().equals(Material.SLIME_BLOCK)
+		return block.getType().getId() == 165
 				|| block.getType().equals(Material.CAULDRON)
 				|| block.getType().equals(Material.BREWING_STAND)
 				|| block.getType().equals(Material.HOPPER)
