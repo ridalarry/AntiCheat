@@ -1,4 +1,6 @@
 package me.rida.anticheat.checks.movement;
+
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -36,7 +38,13 @@ public class GravityA extends Check {
             if (e.getTo().getY() < e.getFrom().getY()) {
                 return;
             }
-            if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) || PlayerUtil.isNearHalfBlock(p) || BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) || BlockUtil.isNearStair(p) || NewVelocityUtil.didTakeVel(p)
+            if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) 
+            		|| PlayerUtil.isNearHalfBlock(p) 
+            		|| BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) 
+            		|| BlockUtil.isNearStair(p) 
+            		|| p.getAllowFlight()
+            		|| p.getGameMode().equals(GameMode.CREATIVE)
+            		|| NewVelocityUtil.didTakeVel(p)
                     || PlayerUtil.wasOnSlime(p)) {
                 data.setGravity_VL(0);
                 return;
