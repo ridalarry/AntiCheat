@@ -12,6 +12,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimerUtil;
@@ -63,6 +64,10 @@ public class GroundSpoofA extends Check {
 				}
 			}
 			else {
+				if (BlockUtil.isSolid(p.getLocation().getBlock())
+						|| PlayerUtil.isNearSolid(p)) {
+					return;
+				}
 				if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnGround(e,p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
 					if (data.getGroundSpoofVL() >= 4) {
 						if (data.getAirTicks() >= 10) {
