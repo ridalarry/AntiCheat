@@ -180,6 +180,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachC(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachE(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.RegenA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.AscensionC(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.SneakA(this));

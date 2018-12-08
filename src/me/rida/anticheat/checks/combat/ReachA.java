@@ -63,8 +63,6 @@ public class ReachA extends Check {
 		if(KB > 0) {
 			maxReach += KB;
 		}
-
-
 		if(distance > maxReach) {
 			getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach) + " KB: " + KB, "(Type: A)");
 		}
