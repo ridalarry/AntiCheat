@@ -148,6 +148,15 @@ public class PlayerUtil {
 		}
 		return out;
 	}
+	public static boolean isNear1_13(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (BlockUtil.Block_1_13(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean isNearBar(Player p) {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {

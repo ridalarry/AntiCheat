@@ -20,11 +20,8 @@ public class BlockUtil {
 	public static List<Material> allowed;
 	public BlockUtil() {
 		collisionBoundingBoxes = new HashMap<>();
-
 		setupCollisionBB();
-
 		allowed = new ArrayList<>();
-
 		allowed.add(Material.AIR);
 		allowed.add(Material.SIGN);
 		allowed.add(Material.SIGN_POST);
@@ -371,7 +368,88 @@ public class BlockUtil {
 		}
 		return !blockPassSet.contains(block);
 	}
-
+	public static boolean Block_1_13 (Block b) {
+		return (b.getType().equals(Material.getMaterial("TUBE_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("FIRE_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("HORN_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("CORAL_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("CAVE_AIR"))
+				 || b.getType().equals(Material.getMaterial("VOID_AIR"))
+				 || b.getType().equals(Material.getMaterial("BLUE_ICE"))
+				 || b.getType().equals(Material.getMaterial("STONE_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("OAK_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("SPRUCE_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("BIRCH_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("JUNGLE_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("ACACIA_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("DARK_OAK_BUTTON"))
+				 || b.getType().equals(Material.getMaterial("STONE_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("HEAVY_WEIGHTED_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("LIGHT_WEIGHTED_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("OAK_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("SPRUCE_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("BIRCH_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("JUNGLE_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("ACACIA_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("DARK_OAK_PRESSURE_PLATE"))
+				 || b.getType().equals(Material.getMaterial("IRON_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("OAK_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("SPRUCE_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("BIRCH_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("JUNGLE_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("ACACIA_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("DARK_OAK_TRAPDOOR"))
+				 || b.getType().equals(Material.getMaterial("PUMPKIN"))
+				 || b.getType().equals(Material.getMaterial("CARVED_PUMPKIN"))
+				 || b.getType().equals(Material.getMaterial("TUBE_CORAL"))
+				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL"))
+				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL"))
+				 || b.getType().equals(Material.getMaterial("FIRE_CORAL"))
+				 || b.getType().equals(Material.getMaterial("HORN_CORAL"))
+				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL"))
+				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL"))
+				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL"))
+				 || b.getType().equals(Material.getMaterial("TUBE_CORAL_FAN	"))
+				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("FIRE_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("HORN_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("TUBE_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("FIRE_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("HORN_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_WALL_FAN"))
+				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL_FAN"))
+				 || b.getType().equals(Material.getMaterial("DRIED_KELP_BLOCK"))
+				 || b.getType().equals(Material.getMaterial("CONDUIT"))
+				 || b.getType().equals(Material.getMaterial("SEAGRASS"))
+				 || b.getType().equals(Material.getMaterial("TALL_SEAGRASS"))
+				 || b.getType().equals(Material.getMaterial("STRIPPED_OAK_LOG"))
+				 || b.getType().equals(Material.getMaterial("STRIPPED_SPRUCE_LOG"))
+				 || b.getType().equals(Material.getMaterial("STRIPPED_BIRCH_LOG"))
+				 || b.getType().equals(Material.getMaterial("STRIPPED_JUNGLE_LOG"))
+				 || b.getType().equals(Material.getMaterial("STRIPPED_ACACIA_LOG"))
+				 || b.getType().equals(Material.getMaterial("STRIPPED_DARK_OAK_LOG"))
+				 || b.getType().equals(Material.getMaterial("TURTLE_EGG")));
+	}
 
 	public static boolean isClimbableBlock(Block block) {
 		return block.getType() == Material.LADDER || block.getType() == Material.VINE;
