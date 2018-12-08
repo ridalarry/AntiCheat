@@ -276,6 +276,24 @@ public class PlayerUtil {
 		}
 		return out;
 	}
+	public static boolean isNotNearAir(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (!BlockUtil.isAir(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearB_1_13(Player p) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+			if (!BlockUtil.B_1_13(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 
 	public static boolean isNearHalfBlock(Player p) {
 		boolean out = false;

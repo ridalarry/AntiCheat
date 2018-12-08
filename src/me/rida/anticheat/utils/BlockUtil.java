@@ -368,87 +368,188 @@ public class BlockUtil {
 		}
 		return !blockPassSet.contains(block);
 	}
+	@SuppressWarnings("deprecation")
 	public static boolean Block_1_13 (Block b) {
 		return (b.getType().equals(Material.getMaterial("TUBE_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("FIRE_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("HORN_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("CORAL_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("CAVE_AIR"))
-				 || b.getType().equals(Material.getMaterial("VOID_AIR"))
-				 || b.getType().equals(Material.getMaterial("BLUE_ICE"))
-				 || b.getType().equals(Material.getMaterial("STONE_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("OAK_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("SPRUCE_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("BIRCH_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("JUNGLE_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("ACACIA_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("DARK_OAK_BUTTON"))
-				 || b.getType().equals(Material.getMaterial("STONE_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("HEAVY_WEIGHTED_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("LIGHT_WEIGHTED_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("OAK_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("SPRUCE_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("BIRCH_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("JUNGLE_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("ACACIA_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("DARK_OAK_PRESSURE_PLATE"))
-				 || b.getType().equals(Material.getMaterial("IRON_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("OAK_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("SPRUCE_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("BIRCH_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("JUNGLE_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("ACACIA_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("DARK_OAK_TRAPDOOR"))
-				 || b.getType().equals(Material.getMaterial("PUMPKIN"))
-				 || b.getType().equals(Material.getMaterial("CARVED_PUMPKIN"))
-				 || b.getType().equals(Material.getMaterial("TUBE_CORAL"))
-				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL"))
-				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL"))
-				 || b.getType().equals(Material.getMaterial("FIRE_CORAL"))
-				 || b.getType().equals(Material.getMaterial("HORN_CORAL"))
-				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL"))
-				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL"))
-				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL"))
-				 || b.getType().equals(Material.getMaterial("TUBE_CORAL_FAN	"))
-				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("FIRE_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("HORN_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("TUBE_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("BUBBLE_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("FIRE_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("HORN_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_WALL_FAN"))
-				 || b.getType().equals(Material.getMaterial("BRAIN_CORAL_FAN"))
-				 || b.getType().equals(Material.getMaterial("DRIED_KELP_BLOCK"))
-				 || b.getType().equals(Material.getMaterial("CONDUIT"))
-				 || b.getType().equals(Material.getMaterial("SEAGRASS"))
-				 || b.getType().equals(Material.getMaterial("TALL_SEAGRASS"))
-				 || b.getType().equals(Material.getMaterial("STRIPPED_OAK_LOG"))
-				 || b.getType().equals(Material.getMaterial("STRIPPED_SPRUCE_LOG"))
-				 || b.getType().equals(Material.getMaterial("STRIPPED_BIRCH_LOG"))
-				 || b.getType().equals(Material.getMaterial("STRIPPED_JUNGLE_LOG"))
-				 || b.getType().equals(Material.getMaterial("STRIPPED_ACACIA_LOG"))
-				 || b.getType().equals(Material.getMaterial("STRIPPED_DARK_OAK_LOG"))
-				 || b.getType().equals(Material.getMaterial("TURTLE_EGG")));
+				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("FIRE_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("HORN_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("CORAL_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("CAVE_AIR"))
+				|| b.getType().equals(Material.getMaterial("VOID_AIR"))
+				|| b.getType().equals(Material.getMaterial("BLUE_ICE"))
+				|| b.getType().equals(Material.getMaterial("STONE_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("OAK_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("SPRUCE_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("BIRCH_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("JUNGLE_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("ACACIA_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("DARK_OAK_BUTTON"))
+				|| b.getType().equals(Material.getMaterial("STONE_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("HEAVY_WEIGHTED_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("LIGHT_WEIGHTED_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("OAK_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("SPRUCE_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("BIRCH_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("JUNGLE_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("ACACIA_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("DARK_OAK_PRESSURE_PLATE"))
+				|| b.getType().equals(Material.getMaterial("IRON_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("OAK_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("SPRUCE_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("BIRCH_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("JUNGLE_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("ACACIA_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("DARK_OAK_TRAPDOOR"))
+				|| b.getType().equals(Material.getMaterial("PUMPKIN"))
+				|| b.getType().equals(Material.getMaterial("CARVED_PUMPKIN"))
+				|| b.getType().equals(Material.getMaterial("TUBE_CORAL"))
+				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL"))
+				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL"))
+				|| b.getType().equals(Material.getMaterial("FIRE_CORAL"))
+				|| b.getType().equals(Material.getMaterial("HORN_CORAL"))
+				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL"))
+				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL"))
+				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL"))
+				|| b.getType().equals(Material.getMaterial("TUBE_CORAL_FAN	"))
+				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("FIRE_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("HORN_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("TUBE_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("FIRE_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("HORN_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_WALL_FAN"))
+				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL_FAN"))
+				|| b.getType().equals(Material.getMaterial("DRIED_KELP_BLOCK"))
+				|| b.getType().equals(Material.getMaterial("CONDUIT"))
+				|| b.getType().equals(Material.getMaterial("SEAGRASS"))
+				|| b.getType().equals(Material.getMaterial("TALL_SEAGRASS"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_OAK_LOG"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_SPRUCE_LOG"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_BIRCH_LOG"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_JUNGLE_LOG"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_ACACIA_LOG"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_SLAB"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_SLAB"))
+				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_SLAB"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_STAIRS"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_STAIRS"))
+				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_STAIRS"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_DARK_OAK_LOG"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_SLAB"))
+				|| b.getType().equals(Material.getMaterial("TURTLE_EGG"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_SLAB"))
+				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_SLAB"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_STAIRS"))
+				|| b.getType().equals(Material.getMaterial("PRISMARINE_STAIRS"))
+				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_STAIRS"))
+				|| b.getType().equals(Material.getMaterial("STRIPPED_DARK_OAK_LOG"))
+				|| b.getType().getId() == 23723
+				|| b.getType().getId() == 30618
+				|| b.getType().getId() == 15437
+				|| b.getType().getId() == 12119
+				|| b.getType().getId() == 19958
+				|| b.getType().getId() == 28350
+				|| b.getType().getId() == 12979
+				|| b.getType().getId() == 28220
+				|| b.getType().getId() == 5307
+				|| b.getType().getId() == 15103
+				|| b.getType().getId() == 17422
+				|| b.getType().getId() == 13668
+				|| b.getType().getId() == 22449
+				|| b.getType().getId() == 12279
+				|| b.getType().getId() == 6214
+				|| b.getType().getId() == 23281
+				|| b.getType().getId() == 26934
+				|| b.getType().getId() == 25317
+				|| b.getType().getId() == 13993
+				|| b.getType().getId() == 6214
+				|| b.getType().getId() == 22591
+				|| b.getType().getId() == 16970
+				|| b.getType().getId() == 14875
+				|| b.getType().getId() == 20108
+				|| b.getType().getId() == 15932
+				|| b.getType().getId() == 9664
+				|| b.getType().getId() == 11376
+				|| b.getType().getId() == 17586
+				|| b.getType().getId() == 31375
+				|| b.getType().getId() == 17095
+				|| b.getType().getId() == 16927
+				|| b.getType().getId() == 10289
+				|| b.getType().getId() == 32585
+				|| b.getType().getId() == 8626
+				|| b.getType().getId() == 18343
+				|| b.getType().getId() == 10355
+				|| b.getType().getId() == 19170
+				|| b.getType().getId() == 25833
+				|| b.getType().getId() == 23048
+				|| b.getType().getId() == 31316
+				|| b.getType().getId() == 12464
+				|| b.getType().getId() == 29151
+				|| b.getType().getId() == 19511
+				|| b.getType().getId() == 18028
+				|| b.getType().getId() == 9116
+				|| b.getType().getId() == 30583
+				|| b.getType().getId() == 8365
+				|| b.getType().getId() == 5755
+				|| b.getType().getId() == 19929
+				|| b.getType().getId() == 10795
+				|| b.getType().getId() == 11112
+				|| b.getType().getId() == 13610
+				|| b.getType().getId() == 17628
+				|| b.getType().getId() == 26150
+				|| b.getType().getId() == 17322
+				|| b.getType().getId() == 27073
+				|| b.getType().getId() == 11387
+				|| b.getType().getId() == 25282
+				|| b.getType().getId() == 22685
+				|| b.getType().getId() == 20382
+				|| b.getType().getId() == 20100
+				|| b.getType().getId() == 28883
+				|| b.getType().getId() == 5128
+				|| b.getType().getId() == 23718
+				|| b.getType().getId() == 18453
+				|| b.getType().getId() == 23375
+				|| b.getType().getId() == 27550
+				|| b.getType().getId() == 13849
+				|| b.getType().getId() == 12966
+				|| b.getType().getId() == 5148
+				|| b.getType().getId() == 23942
+				|| b.getType().getId() == 27189
+				|| b.getType().getId() == 20523
+				|| b.getType().getId() == 6140
+				|| b.getType().getId() == 8838
+				|| b.getType().getId() == 15476
+				|| b.getType().getId() == 18167
+				|| b.getType().getId() == 26672
+				|| b.getType().getId() == 32101
+				|| b.getType().getId() == 31323
+				|| b.getType().getId() == 7577
+				|| b.getType().getId() == 15445
+				|| b.getType().getId() == 19217
+				|| b.getType().getId() == 26511
+				|| b.getType().getId() == 6492
+				
+				);
 	}
 
 	public static boolean isClimbableBlock(Block block) {
@@ -787,10 +888,39 @@ public class BlockUtil {
 			"comparator", "repeater", "diode", "water", "lava", "ladder", "vine", "carpet", "sign", "pressure", "plate",
 			"button", "mushroom", "torch", "frame", "armor", "banner", "lever", "hook", "redstone", "rail", "brewing",
 			"rose", "skull", "enchantment", "cake", "bed"};
+	
+	static String[] Blocks_1_13 = { "tube_coral_block", "brain_coral_block", "bubble_coral_block", "fire_coral_block", "horn_coral_block",
+			"dead_tube_coral_block", "dead_brain_coral_block", "dead_bubble_coral_block", "dead_fire_coral_block", "dead_horn_coral_block",
+			"coral_block", "cave_air", "void_air", "blue_ice", "stone_button", "oak_button", "spruce_button", "birch_button", 
+			"jungle_button", "acacia_button", "dark_oak_button", "stone_pressure_plate", "heavy_weighted_pressure_plate", 
+			"light_weighted_pressure_plate", "oak_pressure_plate", "spruce_pressure_plate", "birch_pressure_plate", 
+			"jungle_pressure_plate", "acacia_pressure_plate", "dark_oak_pressure_plate", "iron_trapdoor", "oak_trapdoor", 
+			"spruce_trapdoor", "birch_trapdoor", "jungle_trapdoor", "acacia_trapdoor", "dark_oak_trapdoor", "pumpkin", "carved_pumpkin", 
+			"tube_coral", "brain_coral", "bubble_coral", "fire_coral", "horn_coral", "dead_tube_coral", "dead_brain_coral", 
+			"dead_bubble_coral", "dead_fire_coral", "dead_horn_coral", "tube_coral_fan	", "bubble_coral_fan", "fire_coral_fan", 
+			"horn_coral_fan", "dead_tube_coral_fan", "dead_brain_coral_fan", "dead_bubble_coral_fan", "dead_fire_coral_fan", 
+			"dead_horn_coral_fan", "tube_coral_wall_fan", "brain_coral_wall_fan", "bubble_coral_wall_fan", "fire_coral_wall_fan", 
+			"horn_coral_wall_fan", "dead_tube_coral_wall_fan", "dead_brain_coral_wall_fan", "dead_bubble_coral_wall_fan", 
+			"dead_fire_coral_wall_fan", "dead_horn_coral_wall_fan", "brain_coral_fan", "dried_kelp_block", "conduit", "seagrass", 
+			"tall_seagrass", "stripped_oak_log", "stripped_spruce_log", "stripped_birch_log", "stripped_jungle_log", 
+			"stripped_acacia_log", "prismarine_brick_slab", "prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", 
+			"prismarine_stairs", "dark_prismarine_stairs", "stripped_dark_oak_log", "prismarine_brick_slab", "turtle_egg", 
+			"prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", "prismarine_stairs", "dark_prismarine_stairs", 
+			"stripped_dark_oak_log"};
+
 	public static boolean isHalfBlock(Block block) {
 		Material type = block.getType();
 		for (String types : HalfBlocksArray) {
 			if (type.toString().toLowerCase().contains(types)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	public static boolean B_1_13(Block block) {
+		Material type = block.getType();
+		for (String types : Blocks_1_13) {
+			if (type.toString().toLowerCase().equals(types)) {
 				return true;
 			}
 		}
