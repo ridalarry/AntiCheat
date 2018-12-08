@@ -94,7 +94,7 @@ public class GroundSpoofA extends Check {
 		Player p = e.getPlayer();
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (!ServerUtil.isBukkitVerison("1_8")
-				||!ServerUtil.isBukkitVerison("1_7")) {
+				&& !ServerUtil.isBukkitVerison("1_7")) {
 			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
 				return;
 			}

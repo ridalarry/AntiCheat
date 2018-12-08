@@ -323,14 +323,6 @@ public class PlayerUtil {
 		}
 		return out;
 	}
-	public static int getFallHeight(Player p) {
-		int y1 = (int) p.getLocation().getY();
-		int y2 = 0;
-		Block b = p.getLocation().getBlock();
-		while(!(b = b.getRelative(BlockFace.DOWN)).getType().isSolid())
-			y2 = b.getY();
-		return y1-y2;
-	}
 	public static boolean isNearSlime(Player p) {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {

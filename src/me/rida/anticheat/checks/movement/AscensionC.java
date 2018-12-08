@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,7 +25,7 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class AscensionC extends Check {
 	public AscensionC(AntiCheat AntiCheat) {
-		super("AscensionC", "Ascension",  CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
+		super("AscensionC", "Ascension",  CheckType.Movement, true, false, false, true, 5, 1, 600000L, AntiCheat);
 	}	
 	public static Map<UUID, Map.Entry<Integer, Long>> flyTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	public static Map<UUID, Double> velocity = new HashMap<UUID, Double>();
@@ -68,13 +67,6 @@ public class AscensionC extends Check {
 
 		Location to = e.getTo();
 		Location from = e.getFrom();
-		Block oldBlock = from.getWorld().getBlockAt(from.getBlockX(), from.getBlockY() - 1- PlayerUtil.getFallHeight(p), from.getBlockZ());
-		Block newBlock = to.getWorld().getBlockAt(to.getBlockX(), to.getBlockY() - 1- PlayerUtil.getFallHeight(p), to.getBlockZ());
-
-		if (oldBlock.getType().getId() == 165
-				|| newBlock.getType().getId() == 165) {
-			return;
-		}
 		int Count = 0;
 		long Time = TimeUtil.nowlong();
 		if (flyTicks.containsKey(p.getUniqueId())) {

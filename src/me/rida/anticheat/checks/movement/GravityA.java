@@ -1,9 +1,7 @@
 package me.rida.anticheat.checks.movement;
 
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,7 +25,6 @@ public class GravityA extends Check {
 		super("GravityA", "Gravity",  CheckType.Movement, true, false, false, false, 10, 1, 600000L, AntiCheat);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
     public void onMove(PlayerMoveEvent e) {
         Player p = e.getPlayer();
@@ -43,15 +40,6 @@ public class GravityA extends Check {
             if (e.getTo().getY() < e.getFrom().getY()) {
                 return;
             }
-    		Location to = e.getTo();
-    		Location from = e.getFrom();
-    		Block oldBlock = from.getWorld().getBlockAt(from.getBlockX(), from.getBlockY() - 1- PlayerUtil.getFallHeight(p), from.getBlockZ());
-    		Block newBlock = to.getWorld().getBlockAt(to.getBlockX(), to.getBlockY() - 1- PlayerUtil.getFallHeight(p), to.getBlockZ());
-
-    		if (oldBlock.getType().getId() == 165
-    				|| newBlock.getType().getId() == 165) {
-    			return;
-    		}
             if (BlockUtil.isHalfBlock(p.getLocation().add(0, -1.50, 0).getBlock()) 
             		|| BlockUtil.isStair(p.getLocation().add(0,1.50,0).getBlock()) 
             		|| PlayerUtil.isNearHalfBlock(p) 

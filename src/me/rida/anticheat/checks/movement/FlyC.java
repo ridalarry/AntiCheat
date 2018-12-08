@@ -3,7 +3,6 @@ package me.rida.anticheat.checks.movement;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -27,20 +26,12 @@ public class FlyC extends Check {
 		super("FlyC", "Fly", CheckType.Movement, true, false, false, false, 4, 1, 600000L, AntiCheat);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 
 		Location from = e.getFrom();
 		Location to = e.getTo();
 		Player p = e.getPlayer();
-		Block oldBlock = from.getWorld().getBlockAt(from.getBlockX(), from.getBlockY() - 1- PlayerUtil.getFallHeight(p), from.getBlockZ());
-		Block newBlock = to.getWorld().getBlockAt(to.getBlockX(), to.getBlockY() - 1- PlayerUtil.getFallHeight(p), to.getBlockZ());
-
-		if (oldBlock.getType().getId() == 165
-				|| newBlock.getType().getId() == 165) {
-			return;
-		}
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
