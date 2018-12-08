@@ -19,6 +19,7 @@ import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class StepA extends Check {
 	double stepHeight;
@@ -33,6 +34,12 @@ public class StepA extends Check {
 		}
 		if (p.getVehicle() != null) {
 			return false;
+		}
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&& !ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return true;
+			}
 		}
 		Material type = p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType();
 		if ((type != Material.AIR) && (type.isBlock()) && (type.isSolid()) && (type != Material.LADDER)
@@ -81,6 +88,12 @@ public class StepA extends Check {
 			return;
 		}
 
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		double yDist = e.getTo().getY() - e.getFrom().getY();
 		if (yDist < 0) {
 			return;

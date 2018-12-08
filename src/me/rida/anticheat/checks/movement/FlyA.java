@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
@@ -48,9 +49,20 @@ public class FlyA extends Check {
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 
 			if (PlayerUtil.isInLiquid(p)) {
+				return;
+			}
+		}
+		else {
+			if (BlockUtil.isNearStair(p)) {
 				return;
 			}
 		}

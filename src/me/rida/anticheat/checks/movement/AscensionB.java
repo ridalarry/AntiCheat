@@ -6,10 +6,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class AscensionB extends Check {
 	private Map<Player, Integer> verbose = new WeakHashMap<>();
@@ -26,7 +28,15 @@ public class AscensionB extends Check {
 				|| !lastYMovement.containsKey(p)
 				|| Math.abs(yDelta - lastYMovement.get(p)) > 0.002
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) return;
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			return;
+		}
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		if (verbose++ > 5) {
 			AntiCheat.Instance.logCheat(this, p, Math.abs(yDelta - lastYMovement.get(p)) + "<-" + 0.002, "(Type B)");
 		}

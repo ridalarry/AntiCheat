@@ -7,12 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class FastLadderA extends Check {
 
@@ -41,6 +43,12 @@ public class FastLadderA extends Check {
 			return;
 		}
 
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		int Count = count.getOrDefault(p, 0);
 		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));

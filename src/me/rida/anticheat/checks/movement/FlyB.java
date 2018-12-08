@@ -9,14 +9,17 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class FlyB extends Check {
 
@@ -56,7 +59,18 @@ public class FlyB extends Check {
 				|| Latency.getLag(p) > 92) {
 			return;
 		}
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 
+		if (ServerUtil.isBukkitVerison("1_13")) {
+			if (BlockUtil.isNearStair(p)) {
+				return;
+			}
+		}
 		if (CheatUtil.blocksNear(p.getLocation())) {
 			if (flyTicks.containsKey(p.getUniqueId())) {
 				flyTicks.remove(p.getUniqueId());

@@ -409,6 +409,9 @@ public class BlockUtil {
 	public static boolean isSlab(Block block) {
 		return block.getType().equals(Material.WOOD_STEP)
 				|| block.getType().equals(Material.STEP)
+				|| block.getType().equals(Material.getMaterial("PRISMARINE_BRICK_SLAB"))
+				|| block.getType().equals(Material.getMaterial("PRISMARINE_SLAB"))
+				|| block.getType().equals(Material.getMaterial("DARK_PRISMARINE_SLAB"))
 				|| block.getType().getId() == 182
 				|| block.getType().getId() == 44
 				|| block.getType().getId() == 126
@@ -439,6 +442,9 @@ public class BlockUtil {
 				|| block.getType().equals(Material.WOOD_STAIRS)
 				|| block.getType().equals(Material.SANDSTONE_STAIRS)
 				|| block.getType().equals(Material.SPRUCE_WOOD_STAIRS)
+				|| block.getType().equals(Material.getMaterial("PRISMARINE_BRICK_STAIRS"))
+				|| block.getType().equals(Material.getMaterial("PRISMARINE_STAIRS"))
+				|| block.getType().equals(Material.getMaterial("DARK_PRISMARINE_STAIRS"))
 				|| block.getType().getId()==180
 				|| block.getType().getId() == 203) {
 			return true;

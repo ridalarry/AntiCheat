@@ -18,6 +18,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 public class AscensionA extends Check {
 
@@ -43,6 +44,12 @@ public class AscensionA extends Check {
 			return;
 		}
 
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		long Time = System.currentTimeMillis();
 		double TotalBlocks = 0.0D;
 		if (AscensionTicks.containsKey(p.getUniqueId())) {

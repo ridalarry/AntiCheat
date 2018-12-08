@@ -8,6 +8,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -74,6 +75,12 @@ public class GravityA extends Check {
                 data.setGravity_VL(0);
                 return;
             }
+    		if (!ServerUtil.isBukkitVerison("1_8")
+    				&&!ServerUtil.isBukkitVerison("1_7")) {
+    			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+    				return;
+    			}
+    		}
             if (p.getLocation().getBlock().getType() != Material.CHEST &&
                     p.getLocation().getBlock().getType() != Material.TRAPPED_CHEST && p.getLocation().getBlock().getType() != Material.ENDER_CHEST && data.getAboveBlockTicks() == 0) {
                 if (!PlayerUtil.onGround2(p) && !PlayerUtil.isOnGround(e, p) && PlayerUtil.isFlying(e,p)) {

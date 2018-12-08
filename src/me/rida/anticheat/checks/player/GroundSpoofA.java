@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -37,6 +38,12 @@ public class GroundSpoofA extends Check {
 					data.setLastBlockPlaced_GroundSpoof(false);
 				}
 				return;
+			}
+			if (!ServerUtil.isBukkitVerison("1_8")
+					&&!ServerUtil.isBukkitVerison("1_7")) {
+				if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+					return;
+				}
 			}
 			Location to = e.getTo();
 			Location from = e.getFrom();
@@ -86,6 +93,12 @@ public class GroundSpoofA extends Check {
 	private void onBlockPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (!ServerUtil.isBukkitVerison("1_8")
+				||!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		if (data != null) {
 			if (!data.isLastBlockPlaced_GroundSpoof()) {
 				data.setLastBlockPlaced_GroundSpoof(true);

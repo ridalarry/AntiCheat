@@ -77,6 +77,12 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
+		}
 		if (!ServerUtil.isBukkitVerison("1_13")&& !ServerUtil.isBukkitVerison("1_7")) {
 
 			if (PlayerUtil.isNotSpider(p)) {

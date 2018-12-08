@@ -21,6 +21,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class AscensionC extends Check {
@@ -57,6 +58,12 @@ public class AscensionC extends Check {
 				|| Latency.getLag(p) > 75
 				|| getAntiCheat().getLastVelocity().containsKey(p.getUniqueId())) {
 			return;
+		}
+		if (!ServerUtil.isBukkitVerison("1_8")
+				&&!ServerUtil.isBukkitVerison("1_7")) {
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return;
+			}
 		}
 
 		Location to = e.getTo();
