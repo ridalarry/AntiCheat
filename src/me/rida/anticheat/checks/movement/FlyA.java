@@ -92,6 +92,7 @@ public class FlyA extends Check {
 				}
 			}
 		}
+
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
 				if (e.getTo().getY() > e.getFrom().getY() && data.getAirTicks() > 2 && !VelocityUtil.didTakeVelocity(p)) {
@@ -173,6 +174,7 @@ public class FlyA extends Check {
 						|| BlockUtil.isSolid(p.getLocation().getBlock())
 						|| PlayerUtil.isNearSolid(p)
 						|| !PlayerUtil.isFlying(e, p)
+						|| ServerUtil.isBukkitVerison("1_13")
 						|| !PlayerUtil.isFlying2(e, p)) {
 					return;
 				}

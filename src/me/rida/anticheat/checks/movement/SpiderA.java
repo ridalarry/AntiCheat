@@ -71,6 +71,7 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isNearPressure(p)
 				|| PlayerUtil.isNearChest(p)
 				|| PlayerUtil.isNearBar(p)
+				|| ServerUtil.isBukkitVerison("1_13")
 				|| VelocityUtil.didTakeVelocity(p)
 				|| PlayerUtil.isNearSlime(p)
 				|| PlayerUtil.isNearSlime(e.getFrom())

@@ -12,6 +12,13 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.potion.PotionEffectType;
+
+import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.data.DataPlayer;
 
 public class BlockUtil {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -105,7 +112,60 @@ public class BlockUtil {
 		allowed.add(Material.BED_BLOCK);
 		allowed.add(Material.PISTON_EXTENSION);
 		allowed.add(Material.PISTON_MOVING_PIECE);
-	}@SuppressWarnings("deprecation")
+	}
+
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	public static boolean on1_13Spoof(PlayerMoveEvent e) {
+		Player p = e.getPlayer();
+		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (data != null) {
+			if (e.getTo().getY() > e.getFrom().getY()) {
+				return true;
+			}
+			if (DataPlayer.lastNearSlime !=null) {
+				if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+					return true;
+				}
+			}
+			if (data.isLastBlockPlaced_GroundSpoof()) {
+				if (TimerUtil.elapsed(data.getLastBlockPlacedTicks(),500L)) {
+					data.setLastBlockPlaced_GroundSpoof(false);
+				}
+				return true;
+			}
+			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+				return true;
+			}
+			Location to = e.getTo();
+			Location from = e.getFrom();
+			double diff = to.toVector().distance(from.toVector());
+			int dist = PlayerUtil.getDistanceToGround(p);
+			if (p.getLocation().add(0,-1.50,0).getBlock().getType() != Material.AIR) {
+				data.setGroundSpoofVL(0);
+				return true;
+			}
+			if (e.getTo().getY() > e.getFrom().getY() || PlayerUtil.isOnGround4(p) || VelocityUtil.didTakeVelocity(p)) {
+				data.setGroundSpoofVL(0);
+				return true;
+			}
+
+			if (BlockUtil.isSolid(p.getLocation().getBlock())
+					|| PlayerUtil.isNearSolid(p)) {
+				return true;
+			}
+			if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnGround(e,p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
+				if (data.getGroundSpoofVL() >= 4) {
+					if (data.getAirTicks() >= 10) {
+						return true;
+					} 
+				} else {
+					data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
+				}
+			}
+		}
+		return false;
+	}
+	@SuppressWarnings("deprecation")
 	public static boolean isSolid2(Block block) {
 		int type = block.getType().getId();
 
@@ -548,7 +608,7 @@ public class BlockUtil {
 				|| b.getType().getId() == 19217
 				|| b.getType().getId() == 26511
 				|| b.getType().getId() == 6492
-				
+
 				);
 	}
 
@@ -888,7 +948,7 @@ public class BlockUtil {
 			"comparator", "repeater", "diode", "water", "lava", "ladder", "vine", "carpet", "sign", "pressure", "plate",
 			"button", "mushroom", "torch", "frame", "armor", "banner", "lever", "hook", "redstone", "rail", "brewing",
 			"rose", "skull", "enchantment", "cake", "bed"};
-	
+
 	static String[] Blocks_1_13 = { "tube_coral_block", "brain_coral_block", "bubble_coral_block", "fire_coral_block", "horn_coral_block",
 			"dead_tube_coral_block", "dead_brain_coral_block", "dead_bubble_coral_block", "dead_fire_coral_block", "dead_horn_coral_block",
 			"coral_block", "cave_air", "void_air", "blue_ice", "stone_button", "oak_button", "spruce_button", "birch_button", 
@@ -906,7 +966,7 @@ public class BlockUtil {
 			"stripped_acacia_log", "prismarine_brick_slab", "prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", 
 			"prismarine_stairs", "dark_prismarine_stairs", "stripped_dark_oak_log", "prismarine_brick_slab", "turtle_egg", 
 			"prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", "prismarine_stairs", "dark_prismarine_stairs", 
-			"stripped_dark_oak_log"};
+	"stripped_dark_oak_log"};
 
 	public static boolean isHalfBlock(Block block) {
 		Material type = block.getType();

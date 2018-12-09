@@ -17,7 +17,6 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
-import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
@@ -41,8 +40,9 @@ public class FlyB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void CheckFlyA(PlayerMoveEvent e) {
-		if (!getAntiCheat().isEnabled()) {
+	private void CheckFlyB(PlayerMoveEvent e) {
+		if (!getAntiCheat().isEnabled()
+				|| ServerUtil.isBukkitVerison("1_13")) {
 			return;
 		}
 		Player p = e.getPlayer();
@@ -91,7 +91,7 @@ public class FlyB extends Check {
 		long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(p, "Logged for Fly Type B;  MS: " + MS);
-			getAntiCheat().logCheat(this, p, "Hovering for " + MathUtil.trim(1, Double.valueOf((MS / 1000))) + " second(s)", "(Type: B)"
+			getAntiCheat().logCheat(this, p, "Hovering for " + MS + " MS", "(Type: B)"
 					);
 			flyTicks.remove(p.getUniqueId());
 			return;

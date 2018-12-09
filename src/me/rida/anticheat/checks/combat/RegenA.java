@@ -16,6 +16,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class RegenA extends Check {
@@ -59,6 +60,7 @@ public class RegenA extends Check {
 		if (!e.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.SATIATED)
 				|| !(p instanceof Player)
 				|| p.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)
+				|| ServerUtil.isBukkitVerison("1_13")
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

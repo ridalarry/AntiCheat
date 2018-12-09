@@ -2,7 +2,6 @@ package me.rida.anticheat.events;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -130,14 +129,14 @@ public class MoveEvent implements Listener {
 		if(PlayerUtil.isNearSlime(p.getLocation())) { 
 			if (!(DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString()))) {
 				DataPlayer.lastNearSlime.add(p.getPlayer().getName().toString());
-				Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now added to the list");
+				//Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now added to the list");
 			} 
 		}
 		if(!(PlayerUtil.isNearSlime(p.getLocation()))) {
 			if (e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ()) {
 				if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
 					DataPlayer.lastNearSlime.remove(p.getPlayer().getName().toString());
-				Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now removed from the list");
+				//Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now removed from the list");
 				}
 			}
 		}
