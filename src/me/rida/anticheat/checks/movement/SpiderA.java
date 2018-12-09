@@ -21,6 +21,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
@@ -52,7 +53,6 @@ public class SpiderA extends Check {
 	private void CheckSpider(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
-
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
 				|| e.getTo().getY() < e.getFrom().getY()
@@ -76,6 +76,11 @@ public class SpiderA extends Check {
 				|| PlayerUtil.isNearSlime(e.getFrom())
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
+		}
+		if (DataPlayer.lastNearSlime !=null) {
+			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+				return;
+			}
 		}
 		if (!ServerUtil.isBukkitVerison("1_8")
 				&&!ServerUtil.isBukkitVerison("1_7")) {

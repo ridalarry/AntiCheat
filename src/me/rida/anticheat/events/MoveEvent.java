@@ -2,6 +2,7 @@ package me.rida.anticheat.events;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,7 +23,7 @@ import me.rida.anticheat.utils.TimerUtil;
 public class MoveEvent implements Listener {
 
 
-	public static int defaultWait = 20; // This is in ticks
+	public static int defaultWait = 15; // This is in ticks
 
 	// We need to create hashmaps to store the amount of time left
 
@@ -126,15 +127,20 @@ public class MoveEvent implements Listener {
 		} else if(data.getIceTicks() > 0) {
 			data.setIceTicks(data.getIceTicks() - 1);
 		}
-
-		if(PlayerUtil.wasOnSlime(p)) {
-			if(data.getSlimeTicks() < 50) {
-				data.setSlimeTicks(data.getSlimeTicks() + 1);
-			} else if(data.getSlimeTicks() > 0) {
-				data.setSlimeTicks(data.getSlimeTicks() - 1);
+		if(PlayerUtil.isNearSlime(p.getLocation())) { 
+			if (!(DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString()))) {
+				DataPlayer.lastNearSlime.add(p.getPlayer().getName().toString());
+				Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now added to the list");
+			} 
+		}
+		if(!(PlayerUtil.isNearSlime(p.getLocation()))) {
+			if (e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ()) {
+				if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+					DataPlayer.lastNearSlime.remove(p.getPlayer().getName().toString());
+				Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now removed from the list");
+				}
 			}
 		}
-
 		if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock())|| BlockUtil.isLessThanBlock(p.getLocation().add(0,-0.50,0).getBlock()) || PlayerUtil.isNearHalfBlock(p)) {
 			if (!data.isHalfBlocks_MS_Set()) {
 				data.setHalfBlocks_MS_Set(true);

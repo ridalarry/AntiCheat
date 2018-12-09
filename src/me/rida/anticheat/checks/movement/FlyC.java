@@ -50,6 +50,11 @@ public class FlyC extends Check {
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;
 		}
+		if (DataPlayer.lastNearSlime !=null) {
+			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+				return;
+			}
+		}
 		if (!ServerUtil.isBukkitVerison("1_8")
 				&&!ServerUtil.isBukkitVerison("1_7")) {
 			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {

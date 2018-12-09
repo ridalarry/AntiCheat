@@ -1,5 +1,6 @@
 package me.rida.anticheat.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Location;
@@ -9,7 +10,7 @@ import org.bukkit.entity.Player;
 import com.google.common.collect.Lists;
 
 public class DataPlayer {
-
+	public static List<String> lastNearSlime;
 	private boolean alerts = false;
 	private double fallDistance = 0D;
 	private int aboveBlockTicks = 0;
@@ -64,7 +65,7 @@ public class DataPlayer {
 	private long Speed_YPort2_MS = 0;
 	private boolean Speed_YPort2_Set = false;
 	private long speedGroundReset = 0;
-	private int slimeTicks = 0;
+	private static int slimeTicks = 0;
 	public float lastDeltaXZ;
 	public Player player;
 	public boolean onGround;
@@ -85,8 +86,8 @@ public class DataPlayer {
 
 	public DataPlayer(Player player) {
 		this.player = player;
+		lastNearSlime = new ArrayList<String>();
 	}
-
 	private int criticalsVerbose = 0;
 	private int flyHoverVerbose = 0;
 	private int flyVelocityVerbose = 0;
@@ -181,12 +182,12 @@ public class DataPlayer {
 		this.speedAVerbose = speedAVerbose;
 	}
 
-	public int getSlimeTicks() {
+	public static int getSlimeTicks() {
 		return slimeTicks;
 	}
 
 	public void setSlimeTicks(int slimeTicks) {
-		this.slimeTicks = slimeTicks;
+		DataPlayer.slimeTicks = slimeTicks;
 	}
 
 	public long getSpeedGroundReset() {

@@ -33,6 +33,11 @@ public class GroundSpoofA extends Check {
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
+    		if (DataPlayer.lastNearSlime !=null) {
+    			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+    				return;
+    			}
+    		}
 			if (data.isLastBlockPlaced_GroundSpoof()) {
 				if (TimerUtil.elapsed(data.getLastBlockPlacedTicks(),500L)) {
 					data.setLastBlockPlaced_GroundSpoof(false);

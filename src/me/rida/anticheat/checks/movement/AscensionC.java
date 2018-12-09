@@ -17,6 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -25,7 +26,7 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class AscensionC extends Check {
 	public AscensionC(AntiCheat AntiCheat) {
-		super("AscensionC", "Ascension",  CheckType.Movement, true, false, false, true, 5, 1, 600000L, AntiCheat);
+		super("AscensionC", "Ascension",  CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
 	}	
 	public static Map<UUID, Map.Entry<Integer, Long>> flyTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	public static Map<UUID, Double> velocity = new HashMap<UUID, Double>();
@@ -39,7 +40,6 @@ public class AscensionC extends Check {
 			flyTicks.remove(uuid);
 		}
 	}
-	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void CheckAscension(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
@@ -57,6 +57,11 @@ public class AscensionC extends Check {
 				|| Latency.getLag(p) > 75
 				|| getAntiCheat().getLastVelocity().containsKey(p.getUniqueId())) {
 			return;
+		}
+		if (DataPlayer.lastNearSlime !=null) {
+			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+				return;
+			}
 		}
 		if (!ServerUtil.isBukkitVerison("1_8")
 				&&!ServerUtil.isBukkitVerison("1_7")) {

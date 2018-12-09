@@ -63,9 +63,16 @@ public class GravityA extends Check {
                 data.setGravity_VL(0);
                 return;
             }
+    		if (DataPlayer.lastNearSlime !=null) {
+    			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+                    data.setGravity_VL(0);
+    				return;
+    			}
+    		}
     		if (!ServerUtil.isBukkitVerison("1_8")
     				&&!ServerUtil.isBukkitVerison("1_7")) {
     			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
+                    data.setGravity_VL(0);
     				return;
     			}
     		}

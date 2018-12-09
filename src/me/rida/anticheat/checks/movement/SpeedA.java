@@ -64,10 +64,14 @@ public class SpeedA extends Check {
 								+ depth);
 				speedAThreshold = data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.25 : speedAThreshold;
 				speedAThreshold = data.getIceTicks() > 0 ? speedAThreshold + 0.14 : speedAThreshold;
-				speedAThreshold = data.getSlimeTicks() > 0 ? speedAThreshold + 0.1 : speedAThreshold;
 				speedAThreshold = data.getIceTicks() > 0 && data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.24 : speedAThreshold;
 				speedAThreshold += Math.abs((p.getWalkSpeed() - 0.2) * 0.45);
 
+	    		if (DataPlayer.lastNearSlime !=null) {
+	    			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+	    				speedAThreshold += 0.1;
+	    			}
+	    		}
 				if(PlayerUtil.isOnStair(p.getLocation())
 						|| PlayerUtil.isOnSlab(p.getLocation())) {
 					speedAThreshold+= 0.12;
