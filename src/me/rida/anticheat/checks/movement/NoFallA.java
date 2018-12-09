@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -67,6 +68,7 @@ public class NoFallA extends Check {
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getVehicle() != null
 				|| cancel.remove(p)
+				|| BlockUtil.isNearLiquid(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| PlayerUtil.isOnClimbable(p, 0)
