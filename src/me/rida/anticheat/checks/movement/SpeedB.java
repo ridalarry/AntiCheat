@@ -23,6 +23,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 
 public class SpeedB extends Check {
 
@@ -116,6 +117,13 @@ public class SpeedB extends Check {
 				&& !loc.getBlock().isLiquid() && blockLoc.getBlock().getType() != Material.PACKED_ICE
 				&& above.getBlock().getType() == Material.AIR && above3.getBlock().getType() == Material.AIR
 				&& blockLoc.getBlock().getType() != Material.AIR) {
+			if (ServerUtil.isBukkitVerison("1_13")) {
+				if (velx == 0
+						&& vely == 0
+						&& velz == 0) {
+					return;
+				}
+			}
 			getAntiCheat().logCheat(this, p, "Mid Air VelX; " + velx + " VelY; " + vely + " VelZ; " + velz, "(Type: B)");
 		}
 		if (speed >= newmaxspeed && isOnIce(p) && p.getFallDistance() < 0.6
@@ -139,7 +147,7 @@ public class SpeedB extends Check {
 		a.setY(a.getY() - 1.0);
 		if (a.getBlock().getType().equals((Object) Material.ICE)
 				|| a.getBlock().getType().equals((Object) Material.getMaterial("PACKED_ICE"))
-						|| a.getBlock().getType().equals((Object) Material.getMaterial("FROSTED_ICE"))) {
+				|| a.getBlock().getType().equals((Object) Material.getMaterial("FROSTED_ICE"))) {
 			return true;
 		}
 		a.setY(a.getY() - 1.0);

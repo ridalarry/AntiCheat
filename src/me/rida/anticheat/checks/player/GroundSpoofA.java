@@ -44,6 +44,9 @@ public class GroundSpoofA extends Check {
 				}
 				return;
 			}
+			if (ServerUtil.isBukkitVerison("1_13")) {
+				return;
+			}
 			if (!ServerUtil.isBukkitVerison("1_8")
 					&&!ServerUtil.isBukkitVerison("1_7")) {
 				if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {

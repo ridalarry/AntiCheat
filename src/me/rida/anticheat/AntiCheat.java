@@ -744,6 +744,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
 		Integer violations = this.getViolations(player, check);	
 		System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
+		if (hoverabletext != null) {
+			System.out.println(Color.strip(hoverabletext));
+		}
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))

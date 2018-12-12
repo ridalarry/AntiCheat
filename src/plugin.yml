@@ -1,0 +1,24 @@
+name: AntiCheat
+main: me.rida.anticheat.AntiCheat
+version: 1.0
+author: Rida
+depend: [ProtocolLib]
+commands:
+  anticheat:
+    description: Main command for the AntiCheat.
+  alerts:
+    description: Toggles off and on alerts.
+  autoban:
+    description: Stops autobanning (seems broken).
+  getlog:
+    description: Get a player's log!
+permissions:
+  anticheat.admin:
+    default: op
+    description: to use the main command.
+  anticheat.staff:
+    default: op
+    description: to receive allerts.
+  anticheat.log:
+    description: Gives access to /getlog.
+    default: op
