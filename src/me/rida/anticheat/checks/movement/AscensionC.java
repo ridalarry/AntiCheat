@@ -31,7 +31,7 @@ public class AscensionC extends Check {
 	public static Map<UUID, Double> velocity = new HashMap<UUID, Double>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void CheckAscension(PlayerMoveEvent e) {
+	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (p.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -116,5 +116,4 @@ public class AscensionC extends Check {
 		}
 		flyTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}
-
 }

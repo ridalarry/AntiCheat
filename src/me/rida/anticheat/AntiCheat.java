@@ -53,6 +53,7 @@ import com.comphenix.protocol.wrappers.nbt.NbtList;
 import com.google.common.base.Charsets;
 
 import io.netty.buffer.ByteBuf;
+import me.rida.anticheat.ExploitException.ExploitException;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.commands.AlertsCommand;
 import me.rida.anticheat.commands.AntiCheatCommand;

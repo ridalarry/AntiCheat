@@ -31,7 +31,7 @@ public class PhaseB extends Check implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onPhase(PlayerMoveEvent e) {
+	public void onMove(PlayerMoveEvent e) {
 
 
 		Player player = e.getPlayer();

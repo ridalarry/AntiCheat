@@ -33,7 +33,7 @@ public class NoFallA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void Move(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)

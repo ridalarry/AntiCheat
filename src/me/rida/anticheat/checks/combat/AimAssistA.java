@@ -34,7 +34,7 @@ public class AimAssistA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onPlayerMove(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Location location = e.getFrom().clone();
 		Location location2 = e.getTo().clone();
 		Player p = e.getPlayer();

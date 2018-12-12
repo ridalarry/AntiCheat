@@ -51,7 +51,7 @@ public class AimAssistB extends Check {
 	}
 
 	@EventHandler
-	public void onPlayerMove(PlayerMoveEvent event) {
+	public void onMove(PlayerMoveEvent event) {
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(event.getPlayer());
 		Player p = event.getPlayer();
 		if(data == null

@@ -30,7 +30,7 @@ public class JesusA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void CheckJesus(PlayerMoveEvent event) {
+	private void onMove(PlayerMoveEvent event) {
 		Player p = event.getPlayer();
 		if (event.isCancelled()
 				|| (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getZ() == event.getTo().getZ())

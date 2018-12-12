@@ -71,7 +71,7 @@ public class CriticalsB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void Move(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p2 = e.getPlayer();
 		double Falling = 0.0;
 		if (!p2.isOnGround() && e.getFrom().getY() > e.getTo().getY()) {

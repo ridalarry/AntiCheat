@@ -18,7 +18,7 @@ public class InvMoveA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void move(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		InventoryView view = p.getOpenInventory();
 		Inventory top = view.getTopInventory();

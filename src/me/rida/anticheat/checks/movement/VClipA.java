@@ -70,7 +70,7 @@ public class VClipA extends Check {
 					Player p = e.getPlayer();
 					@Override
 					public void run() {
-						p.kickPlayer("Too many packets");
+						p.kickPlayer("Flying is not enabled on this server");
 					}
 				});	
 

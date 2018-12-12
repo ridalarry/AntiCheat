@@ -59,7 +59,7 @@ public class SpeedC extends Check {
 	}
 
 	@EventHandler
-	private void CheckSpeed(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (((e.getFrom().getX() == e.getTo().getX()) && (e.getFrom().getY() == e.getTo().getY()) && (e.getFrom().getZ() == e.getFrom().getZ()))

@@ -23,7 +23,7 @@ public class GlideA extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void CheckGlide(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		if (!this.getAntiCheat().isEnabled()) {
 			return;
 		}

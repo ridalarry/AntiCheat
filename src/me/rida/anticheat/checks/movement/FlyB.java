@@ -29,7 +29,7 @@ public class FlyB extends Check {
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void CheckFlyB(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		if (!getAntiCheat().isEnabled()
 				|| ServerUtil.isBukkitVerison("1_13")) {
 			return;

@@ -30,7 +30,7 @@ public class AntiKBA extends Check {
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void Move(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
         double d;
         Player p = e.getPlayer();
         if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 

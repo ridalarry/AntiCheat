@@ -31,7 +31,7 @@ public class AscensionA extends Check {
 		velocity = new HashMap<UUID, Double>();
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void CheckAscension(PlayerMoveEvent e) {
+	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (e.getFrom().getY() >= e.getTo().getY()
 				|| !getAntiCheat().isEnabled()

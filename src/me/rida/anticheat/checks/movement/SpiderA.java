@@ -38,7 +38,7 @@ public class SpiderA extends Check {
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void CheckSpider(PlayerMoveEvent e) {
+	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		if (p.getGameMode().equals(GameMode.CREATIVE)
