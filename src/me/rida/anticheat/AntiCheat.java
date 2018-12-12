@@ -24,12 +24,10 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -61,8 +59,8 @@ import me.rida.anticheat.commands.AntiCheatCommand;
 import me.rida.anticheat.commands.AutobanCommand;
 import me.rida.anticheat.commands.GetLogCommand;
 import me.rida.anticheat.data.DataManager;
-import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.events.MoveEvent;
+import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.other.GUI;
 import me.rida.anticheat.other.LagCore;
 import me.rida.anticheat.other.Latency;
@@ -83,7 +81,6 @@ import me.rida.anticheat.utils.TxtFile;
 import me.rida.anticheat.utils.VelocityUtil;
 
 public class AntiCheat extends JavaPlugin implements Listener {
-	public List<Material> excludedBlocks;
 	public Set<UUID> hasAlertsOn;
 	public int maxMove = 10;
 	public ExecutorService service;
@@ -217,7 +214,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	@Override
 	public void onEnable() {
-		excludedBlocks = new ArrayList<>();
 		service = Executors.newSingleThreadExecutor();
 		new ReflectionUtil();
 		new BlockUtil();
@@ -550,14 +546,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	public LagCore getLag() {
 		return this.lag;
-	}
-
-	@EventHandler
-	public void Join(PlayerJoinEvent e) {
-		if (!e.getPlayer().hasPermission("anticheat.staff")) {
-			return;
-		}
-		AntiCheat.AlertsOn.add(e.getPlayer());
 	}
 
 	@EventHandler

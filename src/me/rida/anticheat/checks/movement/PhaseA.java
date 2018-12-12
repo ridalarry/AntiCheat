@@ -17,9 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.InventoryHolder;
@@ -159,16 +157,6 @@ public class PhaseA extends Check {
 		if (e.getCause() != TeleportCause.UNKNOWN) {
 			teleported.add(e.getPlayer().getUniqueId());
 		}
-	}
-
-	@EventHandler
-	private void death(PlayerDeathEvent e) {
-		teleported.add(e.getEntity().getUniqueId());
-	}
-
-	@EventHandler
-	private void respawn(PlayerRespawnEvent e) {
-		teleported.add(e.getPlayer().getUniqueId());
 	}
 
 	@SuppressWarnings("deprecation")

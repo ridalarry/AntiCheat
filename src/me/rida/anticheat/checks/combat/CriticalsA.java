@@ -24,14 +24,11 @@ public class CriticalsA extends Check {
         if(!(e.getDamager() instanceof Player)) {
             return;
         }
-
         Player p = (Player) e.getDamager();
-
         if(getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
             return;
         }
-
         @SuppressWarnings("unused")
 		Entity entity = e.getEntity();
         DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);

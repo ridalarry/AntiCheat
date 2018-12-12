@@ -49,7 +49,6 @@ public class KillAuraB extends Check {
 		} else {
 			verboseA = 0;
 		}
-
 		data.setKillauraAVerbose(verboseA);
 		data.setLastAimTime(time);
 	}

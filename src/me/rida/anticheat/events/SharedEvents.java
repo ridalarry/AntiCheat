@@ -45,13 +45,13 @@ import me.rida.anticheat.checks.movement.GlideA;
 import me.rida.anticheat.checks.movement.JesusA;
 import me.rida.anticheat.checks.movement.NoFallA;
 import me.rida.anticheat.checks.movement.NoSlowdownA;
+import me.rida.anticheat.checks.movement.PhaseA;
 import me.rida.anticheat.checks.movement.SneakA;
 import me.rida.anticheat.checks.movement.SpeedB;
 import me.rida.anticheat.checks.movement.SpeedC;
 import me.rida.anticheat.checks.other.ChangeA;
 import me.rida.anticheat.checks.other.TimerA;
 import me.rida.anticheat.checks.player.PacketsA;
-import me.rida.anticheat.utils.ServerUtil;
 
 @SuppressWarnings("static-access")
 public class SharedEvents implements Listener {
@@ -62,14 +62,12 @@ public class SharedEvents implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
-
+		AntiCheat.AlertsOn.add(e.getPlayer());
 		PacketsA.blacklist.add(u);
-			this.lastSprintStart.remove((Object)p);
-			this.lastSprintStop.remove((Object)p);
-		if (ServerUtil.isBukkitVerison("1_7")) {
-			if (e.getPlayer().hasPermission("anticheat.staff")) {
-				AntiCheat.AlertsOn.add(p);
-			}
+		this.lastSprintStart.remove((Object)p);
+		this.lastSprintStop.remove((Object)p);
+		if (e.getPlayer().hasPermission("anticheat.staff")) {
+			AntiCheat.AlertsOn.add(p);
 		}
 		if(AntiCheat.isInPhaseTimer(p)) {
 			AntiCheat.timerLeft.put(p.getName().toString(), 3);
@@ -82,11 +80,12 @@ public class SharedEvents implements Listener {
 	}
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onDeath(PlayerDeathEvent e) {
+		PhaseA.teleported.add(e.getEntity().getUniqueId());
 		Player p = e.getEntity();
-			JesusA.onWater.remove(p);
-			NoFallA.cancel.add(p);
-			JesusA.placedBlockOnWater.remove(p);
-			JesusA.count.remove(p);
+		JesusA.onWater.remove(p);
+		NoFallA.cancel.add(p);
+		JesusA.placedBlockOnWater.remove(p);
+		JesusA.count.remove(p);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -118,12 +117,12 @@ public class SharedEvents implements Listener {
 	private void PlayerRespawn(PlayerRespawnEvent e) {
 		UUID u = e.getPlayer().getUniqueId();
 		PacketsA.blacklist.add(u);
+		PhaseA.teleported.add(u);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
-
 		PacketsA.packetTicks.remove(uuid);
 		PacketsA.lastPacket.remove(uuid);
 		PacketsA.blacklist.remove(uuid);
