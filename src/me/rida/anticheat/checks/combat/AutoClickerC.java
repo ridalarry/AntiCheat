@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.combat;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.UUID;
@@ -10,21 +11,21 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
+
 public class AutoClickerC extends Check {
-	private static final Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
-	private static final Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
-	private static final Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
-	private static final Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
-	private static final Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
-	private static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
-	private static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+	public static final Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
+	public static final Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
+	public static final Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
+	public static final Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
+	public static final Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+	public static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
+	public static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
 	public AutoClickerC(AntiCheat AntiCheat) {
 		super("AutoClickerC", "AutoClicker",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
 	}
@@ -75,16 +76,5 @@ public class AutoClickerC extends Check {
 			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
 		}
 		cpsMS.put(uUID, System.currentTimeMillis());
-	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onDisconnect(PlayerQuitEvent playerQuitEvent) {
-		UUID uUID = playerQuitEvent.getPlayer().getUniqueId();
-		packetHitsSinceLastCheck.remove(uUID);
-		lastCheckedTick.remove(uUID);
-		lastPacketTick.remove(uUID);
-		lastTickWithPacketSent.remove(uUID);
-		hitsSinceLastCheck.remove(uUID);
-		cps.remove(uUID);
-		cpsMS.remove(uUID);
 	}
 }

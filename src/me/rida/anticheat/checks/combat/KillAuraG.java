@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.combat;
+
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +9,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
@@ -17,6 +17,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.packets.events.PacketUseEntityEvent;
 import me.rida.anticheat.utils.TimeUtil;
+
 public class KillAuraG extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AimbotTicks;
 	public static Map<UUID, Double> Differences;
@@ -26,20 +27,6 @@ public class KillAuraG extends Check {
 		AimbotTicks = new HashMap<>();
 		Differences = new HashMap<>();
 		LastLocation = new HashMap<>();
-	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onLogout(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
-		if (AimbotTicks.containsKey(u)) {
-			AimbotTicks.remove(u);
-		}
-		if (Differences.containsKey(u)) {
-			Differences.remove(u);
-		}
-		if (LastLocation.containsKey(u)) {
-			LastLocation.remove(u);
-		}
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void UseEntity(PacketUseEntityEvent e) {

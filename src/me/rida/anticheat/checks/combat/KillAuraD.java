@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -59,12 +58,5 @@ public class KillAuraD extends Check {
 			Other = 0;
 		}
 		packetTicks.put(e.getPlayer().getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Other));
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void logout(PlayerQuitEvent e) {
-		if(packetTicks.containsKey(e.getPlayer().getUniqueId())) {
-			packetTicks.remove(e.getPlayer().getUniqueId());
-		}
 	}
 }

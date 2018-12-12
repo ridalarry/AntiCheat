@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -89,13 +88,4 @@ public class AscensionA extends Check {
 		AscensionTicks.put(p.getUniqueId(),
 				new AbstractMap.SimpleEntry<Long, Double>(Time, TotalBlocks));
 	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onLog(PlayerQuitEvent e) {
-		if (AscensionTicks.containsKey(e.getPlayer().getUniqueId())) {
-			AscensionTicks.remove(e.getPlayer().getUniqueId());
-		}
-		if (velocity.containsKey(e.getPlayer().getUniqueId())) {
-			velocity.remove(e.getPlayer().getUniqueId());
-		}
-	}
-} 
+}

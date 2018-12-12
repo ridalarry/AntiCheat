@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.GameMode;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -34,17 +33,6 @@ public class SpiderA extends Check {
 
 	public SpiderA(AntiCheat AntiCheat) {
 		super("SpiderA", "Spider", CheckType.Movement, true, true, false, true, 10, 1, 10000L, AntiCheat);
-	}
-
-	@SuppressWarnings("unused")
-	private void onMove(PlayerMoveEvent e) {
-		Location from = e.getFrom();
-		Location to = e.getTo();
-		Player p = e.getPlayer();
-		double OffSet = e.getFrom().getY() - e.getTo().getY();
-		if (OffSet <= 0.0 || OffSet > 0.16) {
-
-		}
 	}
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 

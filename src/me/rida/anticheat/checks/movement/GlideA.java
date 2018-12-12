@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -21,16 +20,6 @@ public class GlideA extends Check {
 	public GlideA(AntiCheat AntiCheat) {
 		super("GlideA", "Glide", CheckType.Movement, true, false, false, false, 5, 1, 600000L, AntiCheat);
 		flyTicks = new HashMap<UUID, Long>();
-	}
-
-	@EventHandler
-	private void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-
-		if (flyTicks.containsKey(uuid)) {
-			flyTicks.remove(uuid);
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

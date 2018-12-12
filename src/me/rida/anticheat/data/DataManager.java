@@ -15,6 +15,8 @@ import org.bukkit.entity.Player;
 import me.rida.anticheat.checks.Check;
 
 public class DataManager {
+
+    private final List<DataPlayer> dataObjects;
 	private List<Check> checks;
 	private Map<Player, Map<Check, Integer>> violations;
 	private List<DataPlayer> players;
@@ -22,12 +24,29 @@ public class DataManager {
 	private Set<DataPlayer> dataSet = new HashSet<>();
 
 	public DataManager() {
+		this.dataObjects = new ArrayList<DataPlayer>();
 		Bukkit.getOnlinePlayers().forEach(this::add);
 		checks = new ArrayList<>();
 		violations = new WeakHashMap<>();
 		players = new ArrayList<>();
 	}
-
+	public void createDataObject(final Player player) {
+        this.dataObjects.add(new DataPlayer(player));
+    }
+	public List<DataPlayer> getDataObjects() {
+        return this.dataObjects;
+    }
+    public void removeDataObject(final DataPlayer playerData) {
+        this.dataObjects.remove(playerData);
+    }
+	public DataPlayer getPlayerData(final Player player) {
+        for (final DataPlayer playerData : this.dataObjects) {
+            if (playerData.player == player) {
+                return playerData;
+            }
+        }
+        return null;
+    }
 	public DataPlayer getDataPlayer(Player p) {
 		return dataSet.stream().filter(dataPlayer -> dataPlayer.player == p).findFirst().orElse(null);
 	}

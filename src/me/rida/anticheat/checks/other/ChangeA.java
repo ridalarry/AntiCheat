@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
@@ -23,7 +22,7 @@ import me.rida.anticheat.utils.ServerUtil;
 
 public class ChangeA extends Check {
 	private List<UUID> built = new ArrayList<UUID>();
-	private List<UUID> falling = new ArrayList<UUID>();
+	public static List<UUID> falling = new ArrayList<UUID>();
 
 	public ChangeA(AntiCheat AntiCheat) {
 		super("ChangeA", "Change", CheckType.Other, true, false, false, false, 10, 1, 600000L, AntiCheat);
@@ -53,14 +52,14 @@ public class ChangeA extends Check {
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
 				if (e.getFrom().getY() > e.getTo().getY()) {
-					if (!this.falling.contains(u)) {
-						this.falling.add(u);
+					if (!ChangeA.falling.contains(u)) {
+						ChangeA.falling.add(u);
 					}
 				} else {
-					n = e.getTo().getY() > e.getFrom().getY() ? (this.falling.contains(u) ? ++n : --n) : --n;
+					n = e.getTo().getY() > e.getFrom().getY() ? (ChangeA.falling.contains(u) ? ++n : --n) : --n;
 				}
 			} else {
-				this.falling.remove(u);
+				ChangeA.falling.remove(u);
 			}
 			if (n > n2) {
 				if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -69,21 +68,21 @@ public class ChangeA extends Check {
 				}
 				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
 				n = 0;
-				this.falling.remove(u);
+				ChangeA.falling.remove(u);
 			}
 		}
 		else {
 
 			if (!(PlayerUtil.isOnGround(e,p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
 				if (e.getFrom().getY() > e.getTo().getY()) {
-					if (!this.falling.contains(u)) {
-						this.falling.add(u);
+					if (!ChangeA.falling.contains(u)) {
+						ChangeA.falling.add(u);
 					}
 				} else {
-					n = e.getTo().getY() > e.getFrom().getY() ? (this.falling.contains(u) ? ++n : --n) : --n;
+					n = e.getTo().getY() > e.getFrom().getY() ? (ChangeA.falling.contains(u) ? ++n : --n) : --n;
 				}
 			} else {
-				this.falling.remove(u);
+				ChangeA.falling.remove(u);
 			}
 			if (n > n2) {
 				if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -92,17 +91,8 @@ public class ChangeA extends Check {
 				}
 				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
 				n = 0;
-				this.falling.remove(u);
+				ChangeA.falling.remove(u);
 			}
-		}
-		}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onQuit(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
-		if (this.falling.contains(u)) {
-			this.falling.remove(u);
 		}
 	}
 

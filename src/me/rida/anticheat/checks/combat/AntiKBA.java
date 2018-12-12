@@ -10,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.util.Vector;
 
@@ -28,20 +27,6 @@ public class AntiKBA extends Check {
 
     public AntiKBA(AntiCheat AntiCheat) {
         super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, 30, 3, 250000L, AntiCheat);
-    }
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onQuit(PlayerQuitEvent e) {
-        Player p = e.getPlayer();
-        if (AntiKBA.lastVelocity.containsKey((Object)p)) {
-            AntiKBA.lastVelocity.remove((Object)p);
-        }
-        if (AntiKBA.awaitingVelocity.containsKey((Object)p)) {
-            AntiKBA.awaitingVelocity.remove((Object)p);
-        }
-        if (AntiKBA.totalMoved.containsKey((Object)p)) {
-            AntiKBA.totalMoved.remove((Object)p);
-        }
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

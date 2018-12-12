@@ -6,11 +6,9 @@ import java.util.Map;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
@@ -24,9 +22,9 @@ import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class ReachD extends Check {
-	private Map<Player, Map.Entry<Double, Double>> offsets;
-	private Map<Player, Long> reachTicks;
-	private ArrayList<Player> projectileHit;
+	public static Map<Player, Map.Entry<Double, Double>> offsets;
+	public static Map<Player, Long> reachTicks;
+	public static ArrayList<Player> projectileHit;
 	public ReachD(AntiCheat AntiCheat) {
 		super("ReachD", "Reach",  CheckType.Combat, true, true, false, true, 5, 1, 30000L, AntiCheat);
 		offsets = new HashMap<>();
@@ -41,7 +39,7 @@ public class ReachD extends Check {
 				MathUtil.getHorizontalVector(event.getTo().toVector()));
 		double horizontal = Math.sqrt(Math.pow(event.getTo().getX() - event.getFrom().getX(), 2.0)
 				+ Math.pow(event.getTo().getZ() - event.getFrom().getZ(), 2.0));
-		this.offsets.put(event.getPlayer(),
+		ReachD.offsets.put(event.getPlayer(),
 				new AbstractMap.SimpleEntry<>(OffsetXZ, horizontal));
 	}
 	@EventHandler
@@ -50,12 +48,6 @@ public class ReachD extends Check {
 				|| e.getCause() != DamageCause.PROJECTILE) return;
 		Player player = (Player) e.getDamager();
 		projectileHit.add(player);
-	}
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onLogout(PlayerQuitEvent e) {
-		offsets.remove(e.getPlayer());
-		reachTicks.remove(e.getPlayer());
-		projectileHit.remove(e.getPlayer());
 	}
 	@EventHandler
 	public void onDamage(PacketUseEntityEvent e) {
@@ -71,7 +63,7 @@ public class ReachD extends Check {
 		int PingD = this.getAntiCheat().getLag().getPing(damager);
 		int PingP = this.getAntiCheat().getLag().getPing(player);
 		long attackTime = System.currentTimeMillis();
-		if (this.reachTicks.containsKey(damager)) {
+		if (ReachD.reachTicks.containsKey(damager)) {
 			attackTime = reachTicks.get(damager);
 		}
 		double yawdif = Math.abs(180 - Math.abs(damager.getLocation().getYaw() - player.getLocation().getYaw()));
@@ -79,13 +71,13 @@ public class ReachD extends Check {
 		double offsetsp = 0.0D;
 		double lastHorizontal = 0.0D;
 		double offsetsd = 0.0D;
-		if (this.offsets.containsKey(damager)) {
-			offsetsd = (this.offsets.get(damager)).getKey();
-			lastHorizontal = (this.offsets.get(damager)).getValue();
+		if (ReachD.offsets.containsKey(damager)) {
+			offsetsd = (ReachD.offsets.get(damager)).getKey();
+			lastHorizontal = (ReachD.offsets.get(damager)).getValue();
 		}
-		if (this.offsets.containsKey(player)) {
-			offsetsp = (this.offsets.get(player)).getKey();
-			lastHorizontal = (this.offsets.get(player)).getValue();
+		if (ReachD.offsets.containsKey(player)) {
+			offsetsp = (ReachD.offsets.get(player)).getKey();
+			lastHorizontal = (ReachD.offsets.get(player)).getValue();
 		}
 		Reach -= MathUtil.trim(2, offsetsd);
 		Reach -= MathUtil.trim(2, offsetsp);

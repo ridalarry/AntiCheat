@@ -9,7 +9,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -27,19 +26,6 @@ public class HitBoxC extends Check {
 	public static Map<UUID, Integer> count = new HashMap<>();
 	public static Map<UUID, Player> lastHit = new HashMap<>();
 	public static Map<UUID, Double> yawDif = new HashMap<>();
-
-	@EventHandler(priority = EventPriority.HIGH)
-	private void onQuit(PlayerQuitEvent e) {
-		if (count.containsKey(e.getPlayer().getUniqueId())) {
-			count.remove(e.getPlayer().getUniqueId());
-		}
-		if (yawDif.containsKey(e.getPlayer().getUniqueId())) {
-			yawDif.remove(e.getPlayer().getUniqueId());
-		}
-		if (lastHit.containsKey(e.getPlayer().getUniqueId())) {
-			lastHit.remove(e.getPlayer().getUniqueId());
-		}
-	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onUse(PacketUseEntityEvent e) {

@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.combat;
+
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,22 +9,16 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+
 public class KillAuraH extends Check {
 	public static Map<Player, Map.Entry<Integer, Long>> lastAttack;
 	public KillAuraH(AntiCheat AntiCheat) {
 		super("KillAuraH", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000L, AntiCheat);
 		lastAttack = new HashMap<>();
-	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onLog(PlayerQuitEvent e) {
-		if (lastAttack.containsKey(e.getPlayer())) {
-			lastAttack.remove(e.getPlayer());
-		}
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void Damage(EntityDamageByEntityEvent e) {

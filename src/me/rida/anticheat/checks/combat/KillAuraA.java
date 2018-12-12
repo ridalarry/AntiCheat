@@ -10,12 +10,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.checks.movement.PhaseB;
+import me.rida.anticheat.checks.movement.PhaseA;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class KillAuraA extends Check {
@@ -25,17 +24,7 @@ public class KillAuraA extends Check {
 	}
 
 	public static HashMap<Player, Integer> counts = new HashMap<>();
-	private ArrayList<Player> blockGlitched = new ArrayList<>();
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onPlayerLogout(PlayerQuitEvent e) {
-		if (counts.containsKey(e.getPlayer())) {
-			counts.remove(e.getPlayer());
-		}
-		if (blockGlitched.contains(e.getPlayer())) {
-			blockGlitched.remove(e.getPlayer());
-		}
-	}
+	public static ArrayList<Player> blockGlitched = new ArrayList<>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onBreak(BlockBreakEvent e) {
@@ -79,12 +68,12 @@ public class KillAuraA extends Check {
 
 		for (int y = 0; y < 1; y += 1) {
 			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
-			if (!PhaseB.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
+			if (!PhaseA.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
 			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
-			if (!PhaseB.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
+			if (!PhaseA.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(xBlock.getBlock())) {
 				Count++;
 			}

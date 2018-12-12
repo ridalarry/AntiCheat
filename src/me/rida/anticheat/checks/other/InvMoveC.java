@@ -24,8 +24,8 @@ public class InvMoveC extends Check {
 				|| p.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		if (p.isSneaking()) {
-			getAntiCheat().logCheat(this, p, "Sneaking while having a gui open!", "(Type: C)");
+		if (p.isSprinting()) {
+			getAntiCheat().logCheat(this, p, "Sprinting while having a gui open!", "(Type: C)");
 		}
 	}
 }

@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
@@ -21,14 +20,6 @@ public class KillAuraF extends Check {
 	public KillAuraF(AntiCheat AntiCheat) {
 		super("KillAuraF", "KillAura",  CheckType.Combat, true, false, false, false, 150, 1, 600000L, AntiCheat);
 		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	}
-	@EventHandler
-	public void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-		if (AuraTicks.containsKey(uuid)) {
-			AuraTicks.remove(uuid);
-		}
 	}
 	@EventHandler
 	public void UseEntity(PacketUseEntityEvent e) {

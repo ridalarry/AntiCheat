@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -31,15 +30,6 @@ public class AscensionC extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> flyTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	public static Map<UUID, Double> velocity = new HashMap<UUID, Double>();
 
-	@EventHandler
-	public void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-
-		if (flyTicks.containsKey(uuid)) {
-			flyTicks.remove(uuid);
-		}
-	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void CheckAscension(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

@@ -8,7 +8,6 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -22,13 +21,6 @@ public class SneakA extends Check {
 	public SneakA(AntiCheat AntiCheat) {
 		super("SneakA", "Sneak", CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
 		sneakTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onLog(PlayerQuitEvent e) {
-		if (sneakTicks.containsKey(e.getPlayer().getUniqueId())) {
-			sneakTicks.remove(e.getPlayer().getUniqueId());
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

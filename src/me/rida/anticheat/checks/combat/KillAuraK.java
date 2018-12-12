@@ -6,8 +6,6 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -20,25 +18,13 @@ import me.rida.anticheat.utils.ServerUtil;
 
 public class KillAuraK extends Check {
 	
-	private Map<UUID, Integer> verbose;
-	private Map<UUID, Long> lastArmSwing;
+	public static Map<UUID, Integer> verbose;
+	public static Map<UUID, Long> lastArmSwing;
 	
 	public KillAuraK(AntiCheat AntiCheat) {
 		super("KillauraK", "Killaura", CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
 		verbose = new HashMap<UUID, Integer>();
 		lastArmSwing = new HashMap<UUID, Long>();
-	}
-	
-	@EventHandler(priority = EventPriority.HIGHEST)
-	public void onQuit(PlayerQuitEvent e) {
-		UUID uuid = e.getPlayer().getUniqueId();
-		
-		if(verbose.containsKey(uuid)) {
-			verbose.remove(uuid);
-		}
-		if(lastArmSwing.containsKey(uuid)) {
-			lastArmSwing.containsKey(uuid);
-		}
 	}
 	
 	@EventHandler
@@ -51,12 +37,12 @@ public class KillAuraK extends Check {
 		
 		Player player = (Player) e.getAttacker();
 		
-		int verbose = this.verbose.getOrDefault(player.getUniqueId(), 0);
+		int verbose = KillAuraK.verbose.getOrDefault(player.getUniqueId(), 0);
 		
 		if(player.isDead()) {
 			verbose++;
-		} else if(this.verbose.containsKey(player.getUniqueId())) {
-			this.verbose.remove(player.getUniqueId());
+		} else if(KillAuraK.verbose.containsKey(player.getUniqueId())) {
+			KillAuraK.verbose.remove(player.getUniqueId());
 			return;
 		}
 		
@@ -65,7 +51,7 @@ public class KillAuraK extends Check {
 			getAntiCheat().logCheat(this, player, "Attacking while dead.", "(Type: K)");
 		}
 		
-		this.verbose.put(player.getUniqueId(), verbose);
+		KillAuraK.verbose.put(player.getUniqueId(), verbose);
 	}
 	
 	@EventHandler
@@ -82,7 +68,7 @@ public class KillAuraK extends Check {
 		}
 		
 		if(e.getType() == PacketPlayerType.USE) {
-			long lastArmSwing = this.lastArmSwing.getOrDefault(player.getUniqueId(), System.currentTimeMillis());
+			long lastArmSwing = KillAuraK.lastArmSwing.getOrDefault(player.getUniqueId(), System.currentTimeMillis());
 			
 			if((System.currentTimeMillis() - lastArmSwing) > 100 && Latency.getLag(player) < 50) {
 				getAntiCheat().logCheat(this, player, "Missed while looking at victim.", "(Type: K)");

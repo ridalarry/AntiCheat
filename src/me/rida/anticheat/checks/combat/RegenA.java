@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -26,19 +25,6 @@ public class RegenA extends Check {
 
 	public static Map<UUID, Long> LastHeal = new HashMap<UUID, Long>();
 	public static Map<UUID, Map.Entry<Integer, Long>> FastHealTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	private void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-
-		if (LastHeal.containsKey(uuid)) {
-			LastHeal.remove(uuid);
-		}
-		if (FastHealTicks.containsKey(uuid)) {
-			FastHealTicks.remove(uuid);
-		}
-	}
 
 	private boolean checkFastHeal(Player p) {
 		if (LastHeal.containsKey(p.getUniqueId())) {

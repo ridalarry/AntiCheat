@@ -11,7 +11,6 @@ import java.util.UUID;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
@@ -33,22 +32,6 @@ public class AutoClickerB extends Check {
 		LastMS = new HashMap<UUID, Long>();
 		Clicks = new HashMap<UUID, List<Long>>();
 		ClickTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-
-		if (LastMS.containsKey(uuid)) {
-			LastMS.remove(uuid);
-		}
-		if (Clicks.containsKey(uuid)) {
-			Clicks.remove(uuid);
-		}
-		if (ClickTicks.containsKey(uuid)) {
-			Clicks.remove(uuid);
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

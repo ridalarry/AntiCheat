@@ -11,10 +11,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerChangedWorldEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
@@ -28,41 +24,13 @@ import me.rida.anticheat.utils.TimeUtil;
 public class PacketsA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> packetTicks;
 	public static Map<UUID, Long> lastPacket;
-	private List<UUID> blacklist;
+	public static List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
 		super("PacketsA", "Packets", CheckType.Player, true, false, false, false, 10, 1, 600000L, AntiCheat);
 		blacklist = new ArrayList<UUID>();
 		lastPacket = new HashMap<UUID, Long>();
 		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	}
-
-	@EventHandler
-	private void PlayerJoin(PlayerJoinEvent event) {
-		this.blacklist.add(event.getPlayer().getUniqueId());
-	}
-
-	@EventHandler
-	private void onLogout(PlayerQuitEvent e) {
-		if (packetTicks.containsKey(e.getPlayer().getUniqueId())) {
-			packetTicks.remove(e.getPlayer().getUniqueId());
-		}
-		if (lastPacket.containsKey(e.getPlayer().getUniqueId())) {
-			lastPacket.remove(e.getPlayer().getUniqueId());
-		}
-		if (blacklist.contains(e.getPlayer().getUniqueId())) {
-			blacklist.remove(e.getPlayer().getUniqueId());
-		}
-	}
-
-	@EventHandler
-	public void PlayerChangedWorld(PlayerChangedWorldEvent event) {
-		blacklist.add(event.getPlayer().getUniqueId());
-	}
-
-	@EventHandler
-	private void PlayerRespawn(PlayerRespawnEvent event) {
-		blacklist.add(event.getPlayer().getUniqueId());
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -84,7 +52,7 @@ public class PacketsA extends Check {
 			long MS = System.currentTimeMillis() - lastPacket.get(player.getUniqueId()).longValue();
 			if (MS >= 100L) {
 				blacklist.add(player.getUniqueId());
-			} else if ((MS > 1L) && (this.blacklist.contains(player.getUniqueId()))) {
+			} else if ((MS > 1L) && (PacketsA.blacklist.contains(player.getUniqueId()))) {
 				blacklist.remove(player.getUniqueId());
 			}
 		}

@@ -19,7 +19,8 @@ extends Check {
      public AimAssistC(AntiCheat AntiCheat) {
         super("AimAssistC", "AimAssist",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
     }
- 	@SuppressWarnings("unused")
+     
+	@SuppressWarnings("unused")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
     public void onHit(EntityDamageByEntityEvent e) {
         if (!(e.getEntity() instanceof Player)) {

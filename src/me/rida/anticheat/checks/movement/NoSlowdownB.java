@@ -27,35 +27,31 @@ public class NoSlowdownB extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		{
-			Location from = e.getFrom();
-			Location to = e.getTo();
-			if (to.getX() == e.getFrom().getX() && from.getY() == to.getY()
-					&& from.getZ() == from.getZ()) {
-				return;
-			}
-			Player p = e.getPlayer();
-
-			double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(from.toVector()), MathUtil.getVerticalVector(to.toVector()));
-			double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
-
-			if (!BlockUtil.isNearLiquid(p)
-					|| p.getAllowFlight() 
-					|| p.getGameMode().equals(GameMode.CREATIVE)
-					|| PlayerUtil.isNearSlab(p)
-					|| BlockUtil.isNearFence(p)
-					|| BlockUtil.isNearStair(p)
-					|| PlayerUtil.isNearSign(p)
-					|| OffsetY > 0.55 
-					|| OffsetXZ > 0.3
-					|| to.getY() < from.getY()
-					|| PlayerUtil.isNearAir(p)
-					|| OffsetY < 0.13 ) {
-				return;
-			}
-			if (PlayerUtil.isInLiquid(p)) {
-				getAntiCheat().logCheat(this, p, "OffsetY: " + OffsetY + " OffsetXZ: " + OffsetXZ, "(Type: B)");
-			}
+		Location from = e.getFrom();
+		Location to = e.getTo();
+		if (to.getX() == e.getFrom().getX() && from.getY() == to.getY()
+				&& from.getZ() == from.getZ()) {
+			return;
+		}
+		Player p = e.getPlayer();
+		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(from.toVector()), MathUtil.getVerticalVector(to.toVector()));
+		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
+		if (!BlockUtil.isNearLiquid(p)
+				|| p.getAllowFlight() 
+				|| p.getGameMode().equals(GameMode.CREATIVE)
+				|| PlayerUtil.isNearSlab(p)
+				|| BlockUtil.isNearFence(p)
+				|| BlockUtil.isNearStair(p)
+				|| PlayerUtil.isNearSign(p)
+				|| OffsetY > 0.55 
+				|| OffsetXZ > 0.3
+				|| to.getY() < from.getY()
+				|| PlayerUtil.isNearAir(p)
+				|| OffsetY < 0.13 ) {
+			return;
+		}
+		if (PlayerUtil.isInLiquid(p)) {
+			getAntiCheat().logCheat(this, p, "OffsetY: " + OffsetY + " OffsetXZ: " + OffsetXZ, "(Type: B)");
 		}
 	}
 }

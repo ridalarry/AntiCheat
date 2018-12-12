@@ -12,7 +12,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -26,19 +25,6 @@ public class CriticalsB extends Check {
 
 	public CriticalsB(AntiCheat AntiCheat) {
 		super("CriticalsB", "Criticals",  CheckType.Combat, true, true, false, true, 4, 1, 600000L, AntiCheat);
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-
-		if (CritTicks.containsKey(uuid)) {
-			CritTicks.remove(uuid);
-		}
-		if (FallDistance.containsKey(uuid)) {
-			CritTicks.remove(uuid);
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

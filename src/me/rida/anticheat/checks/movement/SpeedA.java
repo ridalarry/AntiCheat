@@ -67,11 +67,11 @@ public class SpeedA extends Check {
 				speedAThreshold = data.getIceTicks() > 0 && data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.24 : speedAThreshold;
 				speedAThreshold += Math.abs((p.getWalkSpeed() - 0.2) * 0.45);
 
-	    		if (DataPlayer.lastNearSlime !=null) {
-	    			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
-	    				speedAThreshold += 0.1;
-	    			}
-	    		}
+				if (DataPlayer.lastNearSlime !=null) {
+					if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+						speedAThreshold += 0.1;
+					}
+				}
 				if(PlayerUtil.isOnStair(p.getLocation())
 						|| PlayerUtil.isOnSlab(p.getLocation())) {
 					speedAThreshold+= 0.12;
@@ -228,8 +228,6 @@ public class SpeedA extends Check {
 							getAntiCheat().logCheat(this, p, "[6] - Player Moved Too Fast.", "(Type: A)");
 
 						}
-
-
 					}
 				}
 			}

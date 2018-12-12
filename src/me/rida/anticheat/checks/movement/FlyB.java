@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import me.rida.anticheat.AntiCheat;
@@ -27,16 +26,6 @@ public class FlyB extends Check {
 	public FlyB(AntiCheat AntiCheat) {
 		super("FlyB", "Fly", CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
 		flyTicks = new HashMap<UUID, Long>();
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onLog(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
-
-		if (flyTicks.containsKey(uuid)) {
-			flyTicks.remove(uuid);
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

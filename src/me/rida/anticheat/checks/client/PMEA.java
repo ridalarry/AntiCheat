@@ -9,7 +9,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.json.simple.parser.JSONParser;
 
@@ -24,7 +23,7 @@ import me.rida.anticheat.utils.Color;
 public class PMEA extends Check implements PluginMessageListener, Listener {
 	private static String type;
 	private final JSONParser parser = new JSONParser();
-	private final static Map<UUID, Map<String, String>> forgeMods;
+	public final static Map<UUID, Map<String, String>> forgeMods;
 
 	static {
 		forgeMods = new HashMap<UUID, Map<String, String>>();
@@ -38,6 +37,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 		this.getClientType(e.getPlayer());
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
 		ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
@@ -59,10 +59,6 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onPlayerQuit(PlayerQuitEvent e) {
-		forgeMods.remove(e.getPlayer().getUniqueId());
-	}
 
 	public String getClientType(Player p) {
 		Map<String, String> map = forgeMods.get(p.getUniqueId());

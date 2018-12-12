@@ -14,7 +14,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -29,13 +28,6 @@ public class NoSlowdownA extends Check {
 	public NoSlowdownA(AntiCheat AntiCheat) {
 		super("NoSlowdownA", "NoSlowdown", CheckType.Movement, true, false, false, false, 5, 1, 600000L, AntiCheat);
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onPlayerQuit(PlayerQuitEvent e) {
-		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
-			speedTicks.remove(e.getPlayer().getUniqueId());
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

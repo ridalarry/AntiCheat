@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -57,22 +56,6 @@ public class SpeedC extends Check {
 		}
 		a.setY(a.getY() - 1.0);
 		return a.getBlock().getType().equals((Object) Material.ICE);
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onLog(PlayerQuitEvent e) {
-		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
-			speedTicks.remove(e.getPlayer().getUniqueId());
-		}
-		if (tooFastTicks.containsKey(e.getPlayer().getUniqueId())) {
-			tooFastTicks.remove(e.getPlayer().getUniqueId());
-		}
-		if (lastHit.containsKey(e.getPlayer().getUniqueId())) {
-			lastHit.remove(e.getPlayer().getUniqueId());
-		}
-		if (velocity.containsKey(e.getPlayer().getUniqueId())) {
-			velocity.remove(e.getPlayer().getUniqueId());
-		}
 	}
 
 	@EventHandler

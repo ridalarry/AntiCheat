@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
@@ -135,27 +134,18 @@ public class SpeedB extends Check {
 		}
 	}
 
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onPlayerQuit(PlayerQuitEvent e) {
-		if (speedTicks.containsKey(e.getPlayer().getUniqueId())) {
-			speedTicks.remove(e.getPlayer().getUniqueId());
-		}
-		if (tooFastTicks.containsKey(e.getPlayer().getUniqueId())) {
-			tooFastTicks.remove(e.getPlayer().getUniqueId());
-		}
-		if (lastHit.containsKey(e.getPlayer().getUniqueId())) {
-			lastHit.remove(e.getPlayer().getUniqueId());
-		}
-	}
-
 	private boolean isOnIce(final Player player) {
 		final Location a = player.getLocation();
 		a.setY(a.getY() - 1.0);
-		if (a.getBlock().getType().equals((Object) Material.ICE)) {
+		if (a.getBlock().getType().equals((Object) Material.ICE)
+				|| a.getBlock().getType().equals((Object) Material.getMaterial("PACKED_ICE"))
+						|| a.getBlock().getType().equals((Object) Material.getMaterial("FROSTED_ICE"))) {
 			return true;
 		}
 		a.setY(a.getY() - 1.0);
-		return a.getBlock().getType().equals((Object) Material.ICE);
+		return a.getBlock().getType().equals((Object) Material.ICE)
+				|| a.getBlock().getType().equals((Object) Material.getMaterial("PACKED_ICE"))
+				|| a.getBlock().getType().equals((Object) Material.getMaterial("FROSTED_ICE"));
 	}
 
 	private int getPotionEffectLevel(Player p, PotionEffectType pet) {

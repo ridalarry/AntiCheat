@@ -61,7 +61,7 @@ import me.rida.anticheat.commands.AntiCheatCommand;
 import me.rida.anticheat.commands.AutobanCommand;
 import me.rida.anticheat.commands.GetLogCommand;
 import me.rida.anticheat.data.DataManager;
-import me.rida.anticheat.events.JoinQuitEvent;
+import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.events.MoveEvent;
 import me.rida.anticheat.other.GUI;
 import me.rida.anticheat.other.LagCore;
@@ -851,7 +851,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	private void registerListeners() {
 		getServer().getPluginManager().registerEvents(new MoveEvent(), this);
-		getServer().getPluginManager().registerEvents(new JoinQuitEvent(), this);
+		getServer().getPluginManager().registerEvents(new SharedEvents(), this);
 		getServer().getPluginManager().registerEvents(new VelocityUtil(), this);
 		getServer().getPluginManager().registerEvents(new NewVelocityUtil(), this);
 	}

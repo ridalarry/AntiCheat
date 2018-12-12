@@ -1,34 +1,19 @@
 package me.rida.anticheat.checks.combat;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleSprintEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.utils.Color;
 
 public class AntiKBB extends Check {
-	private Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
-	private Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
 	public AntiKBB(AntiCheat AntiCheat) {
 		super("AntiKBB", "AntiKB",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
-	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public void onQuit(PlayerQuitEvent e) {
-		Player player = e.getPlayer();
-		if (this.lastSprintStart.containsKey((Object)player)) {
-			this.lastSprintStart.remove((Object)player);
-		}
-		if (this.lastSprintStop.containsKey((Object)player)) {
-			this.lastSprintStop.remove((Object)player);
-		}
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void Sprint(PlayerToggleSprintEvent e) {
@@ -38,10 +23,10 @@ public class AntiKBB extends Check {
 			return;
 		}
 
-		if (e.isSprinting() && this.lastSprintStop.containsKey((Object)p)) {
+		if (e.isSprinting() && SharedEvents.getLastSprintStop().containsKey((Object)p)) {
 			int n = 0;
 			int n2 = 1;
-			long l = System.currentTimeMillis() - this.lastSprintStop.get((Object)p);
+			long l = System.currentTimeMillis() - SharedEvents.getLastSprintStop().get((Object)p);
 			n = l < 5 ? ++n : (l > 1000 ? --n : (n -= 2));
 			if (n > n2) {
 				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
@@ -49,9 +34,9 @@ public class AntiKBB extends Check {
 			}
 		}
 		if (!e.isSprinting()) {
-			this.lastSprintStop.put(p, System.currentTimeMillis());
+			SharedEvents.getLastSprintStop().put(p, System.currentTimeMillis());
 		} else if (e.isSprinting()) {
-			this.lastSprintStart.put(p, System.currentTimeMillis());
+			SharedEvents.getLastSprintStart().put(p, System.currentTimeMillis());
 		}
 	}
 }

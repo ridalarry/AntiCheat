@@ -5,15 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerVelocityEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -32,38 +27,6 @@ public class JesusA extends Check {
 		placedBlockOnWater = new ArrayList<Player>();
 		onWater = new WeakHashMap<Player, Integer>();
 		velocity = new WeakHashMap<Player, Long>();
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	private void onLeave(PlayerQuitEvent e) {
-		if (placedBlockOnWater.contains(e.getPlayer())) {
-			placedBlockOnWater.remove(e.getPlayer());
-		}
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	private void onDeath(PlayerDeathEvent e) {
-		if (onWater.containsKey(e.getEntity())) {
-			onWater.remove(e.getEntity());
-		}
-		if (placedBlockOnWater.contains(e.getEntity())) {
-			placedBlockOnWater.remove(e.getEntity());
-		}
-		if (count.containsKey(e.getEntity())) {
-			count.remove(e.getEntity());
-		}
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onVelocity(PlayerVelocityEvent e) {
-		velocity.put(e.getPlayer(), System.currentTimeMillis());
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void OnPlace(BlockPlaceEvent e) {
-		if (e.getBlockReplacedState().getBlock().getType() == Material.WATER) {
-			placedBlockOnWater.add(e.getPlayer());
-		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

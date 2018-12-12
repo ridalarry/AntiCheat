@@ -9,8 +9,6 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -31,24 +29,6 @@ public class TimerA extends Check {
 		verbose = new HashMap<>();
 		toCancel = new ArrayList<>();
 		lastPacket = new HashMap<>();
-	}
-
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	private void onLogout(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
-		if(packets.containsKey(u)) {
-			packets.remove(u);
-		}
-		if(verbose.containsKey(u)) {
-			verbose.remove(u);
-		}
-		if(lastPacket.containsKey(u)) {
-			lastPacket.remove(u);
-		}
-		if(toCancel.contains(p)) {
-			toCancel.remove(p);
-		}
 	}
 
 	@EventHandler

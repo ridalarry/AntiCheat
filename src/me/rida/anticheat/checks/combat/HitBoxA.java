@@ -10,7 +10,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -26,19 +25,6 @@ public HitBoxA(AntiCheat AntiCheat) {
 	public static Map<UUID, Integer> count = new HashMap<UUID, Integer>();
 	public static Map<UUID, Player> lastHit = new HashMap<UUID, Player>();
 	public static Map<UUID, Double> yawDif = new HashMap<UUID, Double>();
-
-	@EventHandler(priority = EventPriority.MONITOR)
-	public void onQuit(PlayerQuitEvent e) {
-		if (count.containsKey(e.getPlayer().getUniqueId())) {
-			count.remove(e.getPlayer().getUniqueId());
-		}
-		if (yawDif.containsKey(e.getPlayer().getUniqueId())) {
-			yawDif.remove(e.getPlayer().getUniqueId());
-		}
-		if (lastHit.containsKey(e.getPlayer().getUniqueId())) {
-			lastHit.remove(e.getPlayer().getUniqueId());
-		}
-	}
 
 	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
