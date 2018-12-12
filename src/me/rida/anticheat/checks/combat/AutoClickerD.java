@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.combat;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.utils.TimeUtil;
+
 public class AutoClickerD extends Check {
 
 	public static Map<UUID, Integer> clicks;

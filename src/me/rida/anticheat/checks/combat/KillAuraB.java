@@ -26,21 +26,16 @@ public class KillAuraB extends Check {
 				|| (data == null)) {
 			return;
 		}
-
-
 		int verboseA = data.getKillauraAVerbose();
 		long time = data.getLastAimTime();
-
 		if(MathUtil.elapsed(time, 1100L)) {
 			time = System.currentTimeMillis();
 			verboseA = 0;
 		}
-
 		if ((Math.abs(data.getLastKillauraPitch() - e.getPlayer().getEyeLocation().getPitch()) > 1
 				|| angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) > 1
 				|| Double.compare(p.getEyeLocation().getYaw(), data.getLastKillauraYaw()) != 0)
 				&& !MathUtil.elapsed(data.getLastPacket(), 100L)) {
-
 			if(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()) != data.getLastKillauraYawDif()) {
 				if(++verboseA > 9) {
 					if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

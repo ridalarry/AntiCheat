@@ -24,8 +24,8 @@ public class KillAuraC extends Check {
 				||!(e.getDamager() instanceof Player)) {
 			return;
 		}
-		Player p = (Player)e.getDamager();
-		Player p2 = (Player)e.getEntity();
+		Player p = (Player) e.getDamager();
+		Player p2 = (Player) e.getEntity();
 		double d = Ping.getPing(p);
 		double d2 = Ping.getPing(p2);
 		double d3 = MathUtil.getOffsets2(p, (LivingEntity)p2)[0];

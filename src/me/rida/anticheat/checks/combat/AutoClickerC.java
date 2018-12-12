@@ -73,7 +73,7 @@ public class AutoClickerC extends Check {
 	public void analyzeDouble(Player p) {
 		UUID uUID = p.getUniqueId();
 		if (cpsMS.containsKey(uUID) && System.currentTimeMillis() - cpsMS.get(p.getUniqueId()) <= 1) {
-			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
 		}
 		cpsMS.put(uUID, System.currentTimeMillis());
 	}
