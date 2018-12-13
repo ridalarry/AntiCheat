@@ -27,6 +27,7 @@ public class ImpossibleMovementsA extends Check {
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
+				|| DataPlayer.getWasFlying() > 0
 				|| p.getAllowFlight()) {
 			return;
 		}

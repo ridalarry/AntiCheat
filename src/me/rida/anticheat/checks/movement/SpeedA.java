@@ -37,6 +37,8 @@ public class SpeedA extends Check {
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| e.getPlayer().getVehicle() != null
 				|| PlayerUtil.isNearIce(p)
+				|| DataPlayer.getWasFlying() > 0
+				|| PlayerUtil.isNearPiston(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| PlayerUtil.isNearSlime(p)

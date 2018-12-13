@@ -45,6 +45,7 @@ public class GravityA extends Check {
             		|| PlayerUtil.isNearHalfBlock(p) 
             		|| BlockUtil.isNearStair(p) 
             		|| p.getAllowFlight()
+            		|| DataPlayer.getWasFlying() > 0
     				|| e.getPlayer().getVehicle() != null
     				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
     				|| PlayerUtil.isOnClimbable(p, 0)

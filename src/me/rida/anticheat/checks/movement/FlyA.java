@@ -34,6 +34,7 @@ public class FlyA extends Check {
 		Player p = e.getPlayer();
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
+				|| DataPlayer.getWasFlying() > 0
 				|| e.getPlayer().getVehicle() != null
 				|| p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.SPONGE
 				|| PlayerUtil.isOnClimbable(p, 0)

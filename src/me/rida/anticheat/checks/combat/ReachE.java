@@ -67,7 +67,7 @@ public class ReachE extends Check {
 		}
 		float velocity = (float)((Ping*0.0025) + Math.abs(d.getVelocity().length()) * 0.8);
 		MaxReach += velocity;
-		MaxReach += Ping < 250 ? Ping * 0.00212 : Ping * 0.031;
+		MaxReach += Ping < 250 ? Ping * 0.01262 : Ping * 0.0415;
 		MaxReach += YawDifference * 0.008;
 		double ChanceVal = Math.round(Math.abs((Difference - MaxReach) * 100));
 		double x = Math.abs(Math.abs(p.getLocation().getX()) - Math.abs(d.getLocation().getX()));

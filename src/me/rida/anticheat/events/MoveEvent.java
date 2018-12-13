@@ -140,6 +140,16 @@ public class MoveEvent implements Listener {
 				}
 			}
 		}
+		if(p.getAllowFlight()) {
+			if (DataPlayer.getWasFlying() < 5) {
+				DataPlayer.setWasFlying(5);
+			}
+		}
+		if(!p.getAllowFlight()) {
+			if (DataPlayer.getWasFlying() > 0) {
+				DataPlayer.setWasFlying(DataPlayer.getWasFlying() - 1);
+			}
+		}
 		if (BlockUtil.isHalfBlock(p.getLocation().add(0,-0.50,0).getBlock())|| BlockUtil.isLessThanBlock(p.getLocation().add(0,-0.50,0).getBlock()) || PlayerUtil.isNearHalfBlock(p)) {
 			if (!data.isHalfBlocks_MS_Set()) {
 				data.setHalfBlocks_MS_Set(true);

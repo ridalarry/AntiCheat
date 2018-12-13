@@ -42,6 +42,7 @@ public class FlyC extends Check {
 				|| PlayerUtil.isNearSlime(p)
 				|| BlockUtil.isNearLiquid(p)
 				|| data == null
+				|| DataPlayer.getWasFlying() > 0
 				|| PlayerUtil.isOnSlime(p.getLocation())
 				|| PlayerUtil.isOnClimbable(p, 1) || VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class GlideA extends Check {
@@ -33,6 +34,7 @@ public class GlideA extends Check {
 				|| !(e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ())
 				|| p.getVehicle() != null
 				|| p.getAllowFlight()
+				|| DataPlayer.getWasFlying() > 0
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| CheatUtil.isInWeb(p)) {

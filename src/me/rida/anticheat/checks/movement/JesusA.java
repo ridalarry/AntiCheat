@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class JesusA extends Check {
@@ -35,6 +36,7 @@ public class JesusA extends Check {
 		if (event.isCancelled()
 				|| (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getZ() == event.getTo().getZ())
 				|| p.getAllowFlight()
+				|| DataPlayer.getWasFlying() > 0
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| CheatUtil.isOnLilyPad(p)

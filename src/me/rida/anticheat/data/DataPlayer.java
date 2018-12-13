@@ -11,6 +11,7 @@ import com.google.common.collect.Lists;
 
 public class DataPlayer {
 	public static List<String> lastNearSlime;
+	private static int wasFlying = 0;
 	private boolean alerts = false;
 	private double fallDistance = 0D;
 	private int aboveBlockTicks = 0;
@@ -768,5 +769,12 @@ public class DataPlayer {
 
 	public void setUnderBlock(boolean underBlock) {
 		this.underBlock = underBlock;
+	}
+
+	public static int getWasFlying() {
+		return wasFlying;
+	}
+	public static int setWasFlying(int flying) {
+		return wasFlying = flying;
 	}
 }

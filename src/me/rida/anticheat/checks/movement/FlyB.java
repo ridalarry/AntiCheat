@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
@@ -39,6 +40,7 @@ public class FlyB extends Check {
 		if (e.isCancelled()
 				|| (e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
 				|| p.getAllowFlight()
+				|| DataPlayer.getWasFlying() > 0
 				|| p.getVehicle() != null
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| PlayerUtil.isInWater(p)

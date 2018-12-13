@@ -20,6 +20,7 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
+import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
@@ -66,10 +67,12 @@ public class SpeedB extends Check {
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
+				|| DataPlayer.getWasFlying() > 0
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| PlayerUtil.isNearIce(p)
 				|| PlayerUtil.isNearSlime(p)
+				|| PlayerUtil.isNearPiston(p)
 				|| PlayerUtil.wasOnSlime(p)){
 			return;
 		}
