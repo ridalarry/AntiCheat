@@ -61,7 +61,7 @@ public class AimAssistB extends Check {
 			Collections.sort(data.patterns);
 			float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 			if(Math.abs(range - data.lastRange) < 4) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Range: " + range, "(Type: B)");
+				getAntiCheat().logCheat(this, p, Color.Red + "Range: " + range + "; Last Range: " + data.lastRange, "(Type: B)");
 			}
 			data.lastRange = range;
 			data.patterns.clear();

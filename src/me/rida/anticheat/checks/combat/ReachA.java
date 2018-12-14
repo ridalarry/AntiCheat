@@ -72,7 +72,7 @@ public class ReachA extends Check {
 		}
 		String en = p2.getName().toString();
 		if(distance > maxReach) {
-			getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach) + " KB: " + KB + "Attacked: " + en, "(Type: A)");
+			getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach) + "; KB: " + KB + "; Attacked: " + en, "(Type: A)");
 		}
 	}
 }
