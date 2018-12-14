@@ -72,9 +72,9 @@ public class DataPlayer {
 	public boolean onGround;
 	public boolean inLiquid;
 	public boolean onStairSlab;
-	private boolean onIce;
+	public boolean onIce;
 	public boolean onClimbable;
-	private boolean underBlock;
+	public boolean underBlock;
 	public int liquidTicks = 0;
 	public int blockTicks = 0;
 	public long lastVelocityTaken, lastAttack;

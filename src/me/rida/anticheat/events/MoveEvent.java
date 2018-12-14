@@ -55,15 +55,20 @@ public class MoveEvent implements Listener {
 				|| e.getFrom().getY() != e.getTo().getY()
 				|| e.getFrom().getZ() != e.getTo().getZ()) {
 			DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
-
 			if (data != null) {
 				data.setOnGround(PlayerUtil.isOnTheGround(p));
+				data.onGround = PlayerUtil.isOnGround4(p);
 				data.setOnStairSlab(PlayerUtil.isInStairs(p));
+                data.onStairSlab = PlayerUtil.isInStairs(p);
 				data.setInLiquid(PlayerUtil.isInLiquid(p));
+                data.inLiquid = PlayerUtil.isInLiquid(p);
 				data.setOnIce(PlayerUtil.isOnIce(p));
+                data.onIce = PlayerUtil.isOnIce(p);
 				data.setOnClimbable(PlayerUtil.isOnClimbable(p));
+                data.onClimbable = PlayerUtil.isOnClimbable(p);
 				data.setUnderBlock(PlayerUtil.inUnderBlock(p));
-
+                data.underBlock = PlayerUtil.inUnderBlock(p);
+                
 				if(data.isOnGround()) {
 					data.groundTicks++;
 					data.airTicks = 0;
@@ -77,9 +82,7 @@ public class MoveEvent implements Listener {
 				data.blockTicks = Math.max(0, data.isUnderBlock() ? data.blockTicks + 1  : data.blockTicks - 1);
 			}
 		}
-
 		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-
 		if (data.isNearIce()) {
 			if (TimerUtil.elapsed(data.getIsNearIceTicks(),500L)) {
 				if (!PlayerUtil.isNearIce(p)) {

@@ -3,6 +3,8 @@ package me.rida.anticheat.checks.combat;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.potion.PotionEffect;
@@ -45,6 +47,12 @@ public class ReachE extends Check {
 		if (p.isSprinting()) {
 			MaxReach += 0.2;
 		}
+		if (!(d instanceof Player)) {
+			MaxReach += 1.0;
+		}
+		if (d instanceof Slime || d instanceof Spider) {
+			MaxReach += 1.0;
+		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {
 			MaxReach += 1.0;
 		}
@@ -82,8 +90,9 @@ public class ReachE extends Check {
 		else {
 			Reach += 3;
 		}
+		String en = d.getName().toString();
 		if (MaxReach < Difference) {
-			getAntiCheat().logCheat(this, p, "Reach: " + Reach + "; Distance: " + distance + "; Chance: " + ChanceVal + "%", "(Type: E)");
+			getAntiCheat().logCheat(this, p, "Attacked: " + en + "; Reach: " + Reach + "; MaxReach: " + MaxReach + "; Distance: " + distance + "; Chance: " + ChanceVal + "%", "(Type: E)");
 		}
 	}
 }

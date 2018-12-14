@@ -62,7 +62,7 @@ public class SharedEvents implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
-		AntiCheat.AlertsOn.add(e.getPlayer());
+		AntiCheat.AlertsOn.add(p);
 		PacketsA.blacklist.add(u);
 		this.lastSprintStart.remove((Object)p);
 		this.lastSprintStop.remove((Object)p);
@@ -76,7 +76,8 @@ public class SharedEvents implements Listener {
 		}
 
 
-		AntiCheat.getInstance().getDataManager().addPlayerData(e.getPlayer());
+		AntiCheat.getInstance().getDataManager().addPlayerData(p);
+        AntiCheat.getInstance().getDataManager().add(p);
 	}
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onDeath(PlayerDeathEvent e) {
@@ -143,7 +144,7 @@ public class SharedEvents implements Listener {
 		PMEA.forgeMods.remove(uuid);
 		NoFallA.FallDistance.remove(uuid);
 		NoFallA.FallDistance.containsKey(uuid);
-		NoFallA.cancel.remove(e.getPlayer());
+		NoFallA.cancel.remove(p);
 		AntiCheat.getInstance().getDataManager().removePlayerData(p);
 		AscensionA.AscensionTicks.remove(uuid);
 		AscensionA.velocity.remove(uuid);
@@ -186,14 +187,16 @@ public class SharedEvents implements Listener {
 		KillAuraH.lastAttack.remove(p);
 		KillAuraK.verbose.remove(uuid);
 		KillAuraK.lastArmSwing.containsKey(uuid);
-		ReachD.offsets.remove(e.getPlayer());
-		ReachD.reachTicks.remove(e.getPlayer());
-		ReachD.projectileHit.remove(e.getPlayer());
+		ReachD.offsets.remove(p);
+		ReachD.reachTicks.remove(p);
+		ReachD.projectileHit.remove(p);
 		FastBowA.bowPull.remove(p);
 		FastBowA.count.remove(p);
 		RegenA.LastHeal.remove(uuid);
 		RegenA.FastHealTicks.remove(uuid);
 		AscensionC.flyTicks.remove(uuid);
+		AntiCheat.getInstance().getDataManager().remove(p);
+
 	}
 	public static Map<Player, Long> getLastSprintStart() {
 		return lastSprintStart;

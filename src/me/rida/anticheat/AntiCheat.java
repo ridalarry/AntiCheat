@@ -777,6 +777,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					continue;
 				}
 				msg.sendToPlayer(playerplayer);
+				return;
 			}
 		}
 		if (check.isJudgmentDay()) {

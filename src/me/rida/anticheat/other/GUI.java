@@ -24,11 +24,11 @@ import me.rida.anticheat.utils.Color;
 
 public class GUI implements Listener {
 	public static Inventory AntiCheatmain = Bukkit.createInventory(null, 36, Color.Gold + "Home");
-	public static Inventory AntiCheatchecks = Bukkit.createInventory(null, 81, Color.Gold + "Checks: Toggle");
-	public static Inventory AntiCheatJDay = Bukkit.createInventory(null, 81, Color.Gold + "Checks: JDay");
-	public static Inventory AntiCheatbannable = Bukkit.createInventory(null, 81, Color.Gold + "Checks: Bannable");
-	public static Inventory AntiCheatTimer = Bukkit.createInventory(null, 81, Color.Gold + "Checks: BanTimer");
-	public static Inventory AntiCheatbans = Bukkit.createInventory(null, 54, Color.Gold + "Recent Bans");
+	public static Inventory AntiCheatchecks = Bukkit.createInventory(null, 90, Color.Gold + "Checks: Toggle");
+	public static Inventory AntiCheatJDay = Bukkit.createInventory(null, 90, Color.Gold + "Checks: JDay");
+	public static Inventory AntiCheatbannable = Bukkit.createInventory(null, 90, Color.Gold + "Checks: Bannable");
+	public static Inventory AntiCheatTimer = Bukkit.createInventory(null, 90, Color.Gold + "Checks: BanTimer");
+	public static Inventory AntiCheatbans = Bukkit.createInventory(null, 90, Color.Gold + "Recent Bans");
 	public static Inventory AntiCheatstatus = Bukkit.createInventory(null, 27, Color.Gold + "Status");
 
 	private static ItemStack back = createItem(Material.REDSTONE, 1, "&6Back", new String[0]);
@@ -205,7 +205,7 @@ public class GUI implements Listener {
 
 			AntiCheatchecks.setItem(i, c);
 		}
-		AntiCheatchecks.setItem(44, back);
+		AntiCheatchecks.setItem(89, back);
 		player.openInventory(AntiCheatchecks);
 	}
 
@@ -226,7 +226,7 @@ public class GUI implements Listener {
 
 			AntiCheatbannable.setItem(i, c);
 		}
-		AntiCheatbannable.setItem(44, back);
+		AntiCheatbannable.setItem(89, back);
 		player.openInventory(AntiCheatbannable);
 	}
 
@@ -247,7 +247,7 @@ public class GUI implements Listener {
 
 			AntiCheatTimer.setItem(i, c);
 		}
-		AntiCheatTimer.setItem(44, back);
+		AntiCheatTimer.setItem(89, back);
 		player.openInventory(AntiCheatTimer);
 	}
 
@@ -268,7 +268,7 @@ public class GUI implements Listener {
 
 			AntiCheatJDay.setItem(i, c);
 		}
-		AntiCheatJDay.setItem(44, back);
+		AntiCheatJDay.setItem(89, back);
 		player.openInventory(AntiCheatJDay);
 	}
 

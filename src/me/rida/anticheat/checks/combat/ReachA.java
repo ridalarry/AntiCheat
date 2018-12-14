@@ -5,6 +5,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.ItemStack;
@@ -59,12 +61,18 @@ public class ReachA extends Check {
 		maxReach+= yawDifference * 0.01;
 		maxReach+= getAntiCheat().getLag().getPing(p) * 0.00097; 
 
-		if(maxReach < 4.2) maxReach = 4.2;
+		if(maxReach < 4.2) {
+			maxReach = 4.2;
+		}
 		if(KB > 0) {
 			maxReach += KB;
 		}
+		if (p2 instanceof Slime || p2 instanceof Spider) {
+			maxReach += 1.0;
+		}
+		String en = p2.getName().toString();
 		if(distance > maxReach) {
-			getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach) + " KB: " + KB, "(Type: A)");
+			getAntiCheat().logCheat(this, p, MathUtil.trim(3, distance) + " > " + MathUtil.trim(3, maxReach) + " KB: " + KB + "Attacked: " + en, "(Type: A)");
 		}
 	}
 }
