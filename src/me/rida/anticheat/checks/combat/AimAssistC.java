@@ -7,7 +7,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
  public class AimAssistC
 extends Check {
     private float lastYaw;
@@ -49,7 +48,7 @@ extends Check {
         }
         if (f2 > 1.0f && (float)Math.round(f2 * 10.0f) * 0.1f == f2 && (float)Math.round(f2) != f2) {
             if (f2 == this.lastBad) {
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [YAW 1]", "(Type: C)");
+            	getAntiCheat().logCheat(this, p, "[YAW 1]", "(Type: C)");
                 return true;
             }
         } else {
@@ -68,7 +67,7 @@ extends Check {
         this.lastYaw2 = f;
         this.lastPitch = f2;
         if (this.streak >= this.min) {
-        	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [YAW 2]", "(Type: C)");
+        	getAntiCheat().logCheat(this, p, "[YAW 2]", "(Type: C)");
             return this.streak;
         }
         return 0;
@@ -78,7 +77,7 @@ extends Check {
         this.lastYaw = f;
         if (f2 > 0.1f && (float)Math.round(f2) == f2) {
             if (f2 == this.lastBad) {
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [YAW 3]", "(Type: C)");
+            	getAntiCheat().logCheat(this, p, "[YAW 3]", "(Type: C)");
                 return f2;
             }
             this.lastBad = Math.round(f2);

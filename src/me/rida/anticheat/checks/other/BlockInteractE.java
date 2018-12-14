@@ -15,7 +15,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.Color;
 
 public class BlockInteractE extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
@@ -53,7 +52,7 @@ public class BlockInteractE extends Check {
 							: ++level;
 					int max = 50;
 					if (level > max * 0.9D && diff <= 100.0D) {
-						getAntiCheat().logCheat(this, p, Color.Red + "Experimental! " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: E)");
+						getAntiCheat().logCheat(this, p, "BlockInteract: " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: E)");
 						if (level > max) {
 							level = max / 4;
 						}

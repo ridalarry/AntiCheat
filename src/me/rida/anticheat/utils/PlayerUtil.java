@@ -314,6 +314,15 @@ public class PlayerUtil {
 		}
 		return out;
 	}
+	public static boolean isNearPiston(Location loc) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
+			if (BlockUtil.isPiston(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
 	public static boolean isNearSlime(Location loc) {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {

@@ -18,7 +18,6 @@ import com.google.common.io.ByteStreams;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 
 public class PMEA extends Check implements PluginMessageListener, Listener {
 	private static String type;
@@ -50,7 +49,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 				String string3 = this.getClientType(p);
 				if (string3 != null) {
 					type = string3;
-					getAntiCheat().logCheat(this, p, Color.Red + "[2] Experemental detection of a hack client!", "(Type: A)");
+					getAntiCheat().logCheat(this, p, "[2] detection of a hack client!", "(Type: A)");
 				}
 			}
 			catch (Exception exception) {
@@ -65,22 +64,22 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 		if (map != null) {
 			if (map.containsKey("gc")) {
 				type = "gc";
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+				getAntiCheat().logCheat(this, p, "Type: " + type, "(Type: A)");
 				return "gc";
 			}
 			if (map.containsKey("ethylene")) {
 				type = "ethylene";
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+				getAntiCheat().logCheat(this, p, "Type: " + type, "(Type: A)");
 				return "ethylene";
 			}
 			if ("1.0".equals(map.get("OpenComputers"))) {
 				type = "OpenComputers 1.0";
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type A)");
+				getAntiCheat().logCheat(this, p, "Type: " + type, "(Type A)");
 				return "C";
 			}
 			if ("1.7.6.git".equals(map.get("Schematica"))) {
 				type = "Schematica 1.7.6.git";
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental, " + type, "(Type: A)");
+				getAntiCheat().logCheat(this, p, "Type: " + type, "(Type: A)");
 				return "Schematica 1.7.6.git";
 			}
 		}

@@ -39,7 +39,7 @@ public class BlockInteractB extends Check {
 		y += x;
 		if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > y)
 				&& !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
-			getAntiCheat().logCheat(this, p,"[1] Broke a block without a line of sight too it.", "(Type: B)");
+			getAntiCheat().logCheat(this, p,"[1] BlockInteract: Broke a block without a line of sight too it.", "(Type: B)");
 			e.setCancelled(true);
 		}
 	}
@@ -53,7 +53,7 @@ public class BlockInteractB extends Check {
 		Player p = e.getPlayer();
 		if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
 				&& !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
-			getAntiCheat().logCheat(this, p,"[2] Placed a block without a line of sight too it.", "(Type: B)");
+			getAntiCheat().logCheat(this, p,"[2] BlockInteract: Placed a block without a line of sight too it.", "(Type: B)");
 			e.setCancelled(true);
 		}
 	}
@@ -69,7 +69,7 @@ public class BlockInteractB extends Check {
 				Player p = e.getPlayer();
 				if ((e.getClickedBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
 						&& !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getClickedBlock().getLocation()).contains(e.getClickedBlock()) && !e.isCancelled()) {
-					getAntiCheat().logCheat(this, p, "[3] Interacted without a line of sight too it.", "(Type: B)");
+					getAntiCheat().logCheat(this, p, "[3] BlockInteract: Interacted without a line of sight too it.", "(Type: B)");
 					e.setCancelled(true);
 				}
 			}

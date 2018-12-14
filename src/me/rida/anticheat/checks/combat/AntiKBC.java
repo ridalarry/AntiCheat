@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.VelocityUtil;
 public class AntiKBC extends Check {
 	public AntiKBC(AntiCheat AntiCheat) {
@@ -34,7 +33,7 @@ public class AntiKBC extends Check {
 							if (damager != p){
 
 
-								getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+								getAntiCheat().logCheat(this, p, null, "(Type: C)");
 							}
 							else {
 								return;

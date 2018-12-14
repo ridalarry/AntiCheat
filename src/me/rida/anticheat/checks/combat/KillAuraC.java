@@ -10,7 +10,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
 public class KillAuraC extends Check {
@@ -50,7 +49,7 @@ public class KillAuraC extends Check {
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
-			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+			getAntiCheat().logCheat(this, p, null, "(Type: C)");
 		}
 	}
 }

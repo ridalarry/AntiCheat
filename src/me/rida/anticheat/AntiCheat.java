@@ -135,6 +135,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBA(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBD(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractC(this));
@@ -370,6 +371,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				me.rida.anticheat.checks.combat.AntiKBA.awaitingVelocity.clear();
 			if (!me.rida.anticheat.checks.combat.AntiKBA.totalMoved.isEmpty())
 				me.rida.anticheat.checks.combat.AntiKBA.totalMoved.clear();
+			if (!me.rida.anticheat.checks.combat.AntiKBD.lastVelocity.isEmpty())
+				me.rida.anticheat.checks.combat.AntiKBD.lastVelocity.clear();
+			if (!me.rida.anticheat.checks.combat.AntiKBD.awaitingVelocity.isEmpty())
+				me.rida.anticheat.checks.combat.AntiKBD.awaitingVelocity.clear();
+			if (!me.rida.anticheat.checks.combat.AntiKBD.totalMoved.isEmpty())
+				me.rida.anticheat.checks.combat.AntiKBD.totalMoved.clear();
 			if (!me.rida.anticheat.checks.combat.AutoClickerB.Clicks.isEmpty())
 				me.rida.anticheat.checks.combat.AutoClickerB.Clicks.clear();
 			if (!me.rida.anticheat.checks.combat.AutoClickerB.LastMS.isEmpty())
@@ -632,7 +639,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (this.AutoBan.containsKey(player)) {
 				return;
 			}
-			this.AutoBan.put(player, new AbstractMap.SimpleEntry<>(check, System.currentTimeMillis() + 10000L));
+			this.AutoBan.put(player, new AbstractMap.SimpleEntry<>(check, System.currentTimeMillis() + 15000L));
 			System.out.println(Color.strip(PREFIX) + player.getName() + " will be banned in 15s for " + check.getType() + "." + check.getIdentifier() + ".");
 			final ActionMessageUtil msg = new ActionMessageUtil();
 			msg.addText(PREFIX);
@@ -660,6 +667,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				Player playerplayer = players.get(i);
 				if (playerplayer.hasPermission("anticheat.staff")) {
 					msg.sendToPlayer(playerplayer);
+					break;
 				}
 			}
 		} else {
@@ -773,11 +781,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				+ "x" + violations);
 		if (violations % check.getViolationsToNotify() == 0) {
 			for (Player playerplayer : AntiCheat.AlertsOn) {
-				if (check.isJudgmentDay() && !playerplayer.hasPermission("anticheat.staff")) {
-					continue;
+				if (playerplayer.hasPermission("anticheat.staff")) {
+					msg.sendToPlayer(playerplayer);
 				}
-				msg.sendToPlayer(playerplayer);
-				return;
 			}
 		}
 		if (check.isJudgmentDay()) {

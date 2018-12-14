@@ -47,7 +47,7 @@ public class NoSlowdownB extends Check {
 				|| OffsetXZ > 0.3
 				|| to.getY() < from.getY()
 				|| PlayerUtil.isNearAir(p)
-				|| OffsetY < 0.13 ) {
+				|| OffsetY < 0.131 ) {
 			return;
 		}
 		if (PlayerUtil.isInLiquid(p)) {

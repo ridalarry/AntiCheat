@@ -48,7 +48,7 @@ public class AimAssistA extends Check {
 							|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 						return;
 					}
-					getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+					getAntiCheat().logCheat(this, p, Color.Red + "(Aimbot)", "(Type: A)");
 					this.setAimAssest(0);
 				}
 			} else {

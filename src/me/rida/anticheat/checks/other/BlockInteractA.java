@@ -29,7 +29,8 @@ public class BlockInteractA extends Check {
 		if (e.getAction() != Action.RIGHT_CLICK_BLOCK && e.getAction() != Action.LEFT_CLICK_BLOCK
 				|| Ping.getPing(e.getPlayer()) > 400
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| PlayerUtil.isPartiallyStuck(e.getPlayer())) {
 			return;
 		}
 		boolean isValid = false;
@@ -59,7 +60,7 @@ public class BlockInteractA extends Check {
 			}
 		}
 		if ((!isValid) && (!p.getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, p, "BlockInteract: FreeCam/Nuker/Scaffold/FastBreak and other block related hacks!", "(Type: A)");
+			getAntiCheat().logCheat(this, p, "BlockInteract", "(Type: A)");
 		}
 	}
 

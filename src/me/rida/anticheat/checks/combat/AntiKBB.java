@@ -9,7 +9,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.events.SharedEvents;
-import me.rida.anticheat.utils.Color;
 
 public class AntiKBB extends Check {
 	public AntiKBB(AntiCheat AntiCheat) {
@@ -29,7 +28,7 @@ public class AntiKBB extends Check {
 			long l = System.currentTimeMillis() - SharedEvents.getLastSprintStop().get((Object)p);
 			n = l < 5 ? ++n : (l > 1000 ? --n : (n -= 2));
 			if (n > n2) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
+				getAntiCheat().logCheat(this, p, null, "(Type: B)");
 				n = 0;
 			}
 		}

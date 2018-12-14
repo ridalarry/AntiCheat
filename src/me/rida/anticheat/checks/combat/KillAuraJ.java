@@ -7,7 +7,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 public class KillAuraJ extends Check {
 	private float lastYaw;
 	private float lastBad;
@@ -39,7 +38,7 @@ public class KillAuraJ extends Check {
 						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 					return true;
 				}
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Huzuni [V5X01]", "(Type: J)");
+				getAntiCheat().logCheat(this, p, "Huzuni [V5X01]", "(Type: J)");
 				return true;
 			}
 		} else {

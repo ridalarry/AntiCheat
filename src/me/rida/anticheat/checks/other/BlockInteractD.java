@@ -12,7 +12,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
@@ -39,7 +38,7 @@ public class BlockInteractD extends Check {
 
 			if (!p.isSneaking() && !p.isFlying() && groundAround(p.getLocation()) && e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && p.getWorld().getBlockAt(p.getLocation().subtract(0.0, 1.0, 0.0)).equals(e.getBlock())) {
 				if (x != 0) {
-					getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: D)");
+					getAntiCheat().logCheat(this, p, null, "(Type: D)");
 				}
 			}
 		}

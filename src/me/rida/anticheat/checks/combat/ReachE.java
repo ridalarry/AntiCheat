@@ -50,6 +50,10 @@ public class ReachE extends Check {
 		if (!(d instanceof Player)) {
 			MaxReach += 1.0;
 		}
+		if (PlayerUtil.isNearSlime(p.getLocation())
+				|| PlayerUtil.isNearSlime(d.getLocation())) {
+			MaxReach += 1.0;
+		}
 		if (d instanceof Slime || d instanceof Spider) {
 			MaxReach += 1.0;
 		}

@@ -62,6 +62,7 @@ public class SpiderA extends Check {
 				|| ServerUtil.isBukkitVerison("1_13")
 				|| VelocityUtil.didTakeVelocity(p)
 				|| PlayerUtil.isNearSlime(p)
+				|| PlayerUtil.isNearPiston(p.getLocation())
 				|| PlayerUtil.isNearSlime(e.getFrom())
 				|| PlayerUtil.isNearSlime(e.getTo())) {
 			return;

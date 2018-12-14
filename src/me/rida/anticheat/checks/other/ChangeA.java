@@ -16,7 +16,6 @@ import org.bukkit.plugin.Plugin;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
@@ -66,7 +65,7 @@ public class ChangeA extends Check {
 						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 					return;
 				}
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+				getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
 				n = 0;
 				ChangeA.falling.remove(u);
 			}
@@ -89,7 +88,7 @@ public class ChangeA extends Check {
 						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 					return;
 				}
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+				getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
 				n = 0;
 				ChangeA.falling.remove(u);
 			}

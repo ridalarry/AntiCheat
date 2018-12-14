@@ -15,7 +15,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
 
 public class AutoClickerC extends Check {
@@ -49,10 +48,10 @@ public class AutoClickerC extends Check {
 			Double[] arrdouble2 = entry.getValue();
 			this.analyzeDouble(p);
 			if (Arrays.stream(arrdouble2).anyMatch(d -> d >= 10.0) && arrdouble2[4].equals(arrdouble2[0]) && arrdouble2[4].equals(arrdouble2[1]) && arrdouble2[4].equals(arrdouble2[2]) && arrdouble2[4].equals(arrdouble2[3])) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+				getAntiCheat().logCheat(this, p, "[1]", "(Type: C)");
 			}
 			if (Arrays.stream(arrdouble2).anyMatch(d -> d > 12.0) && MathUtil.close(arrdouble2, 2)) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+				getAntiCheat().logCheat(this, p, "[2]", "(Type: C)");
 			}
 			arrdouble2[0] = arrdouble2[1];
 			arrdouble2[1] = arrdouble2[2];
@@ -73,7 +72,7 @@ public class AutoClickerC extends Check {
 	public void analyzeDouble(Player p) {
 		UUID uUID = p.getUniqueId();
 		if (cpsMS.containsKey(uUID) && System.currentTimeMillis() - cpsMS.get(p.getUniqueId()) <= 1) {
-			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: C)");
+			getAntiCheat().logCheat(this, p, "[3]", "(Type: C)");
 		}
 		cpsMS.put(uUID, System.currentTimeMillis());
 	}

@@ -19,7 +19,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.ExtraUtil;
 import me.rida.anticheat.utils.MathUtil;
 
@@ -61,7 +60,7 @@ public class AimAssistB extends Check {
 			Collections.sort(data.patterns);
 			float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
 			if(Math.abs(range - data.lastRange) < 4) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Range: " + range + "; Last Range: " + data.lastRange, "(Type: B)");
+				getAntiCheat().logCheat(this, p, "(Aimbot) Range: " + range + "; Last Range: " + data.lastRange, "(Type: B)");
 			}
 			data.lastRange = range;
 			data.patterns.clear();

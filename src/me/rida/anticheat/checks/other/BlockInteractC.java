@@ -14,7 +14,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
@@ -47,12 +46,12 @@ public class BlockInteractC extends Check {
 			if (!e.getBlock().getLocation().equals((Object)t.getLocation()) && !e.isCancelled() && t.getType().isSolid() && !t.getType().name().toLowerCase().contains("sign") && !t.getType().toString().toLowerCase().contains("fence") && p.getLocation().getY() > e.getBlock().getLocation().getY()) {
 				if (x != 0) {
 
-					getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [1]", "(Type: C)");
+					getAntiCheat().logCheat(this, p, "[1] BlockInteract", "(Type: C)");
 				}
 			}
 
 			if (e.getBlockAgainst().isLiquid() && e.getBlock().getType() != Material.WATER_LILY) {
-				getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " [2]", "(Type: C)");
+				getAntiCheat().logCheat(this, p, "[2] BlockInteract", "(Type: C)");
 			}
 		}
 	}

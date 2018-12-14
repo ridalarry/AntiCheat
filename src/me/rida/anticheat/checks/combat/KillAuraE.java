@@ -14,7 +14,6 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.CheatUtil;
-import me.rida.anticheat.utils.Color;
 
 public class KillAuraE extends Check {
 	public static double allowedDistance = 3.9;
@@ -68,7 +67,7 @@ public class KillAuraE extends Check {
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
-			getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + " Heuristic Flows", "(Type: E)");
+			getAntiCheat().logCheat(this, p, "Heuristic Flows", "(Type: E)");
 		}
 	}
 }

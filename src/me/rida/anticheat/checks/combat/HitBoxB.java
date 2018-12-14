@@ -11,7 +11,6 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 
 public class HitBoxB extends Check {
 	private final double HITBOX_LENGTH = 1.05;
@@ -35,7 +34,7 @@ public class HitBoxB extends Check {
 			return;
 		}
 		if (!this.hasInHitBox((LivingEntity)p2)) {
-			getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: B)");
+			getAntiCheat().logCheat(this, p, null, "(Type: B)");
 		}
 	}
 

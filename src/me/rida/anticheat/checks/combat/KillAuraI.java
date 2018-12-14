@@ -11,7 +11,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
  public class KillAuraI extends Check {
     Map<UUID, Integer> hits = new HashMap<UUID, Integer>();
      public KillAuraI(AntiCheat AntiCheat) {
@@ -34,15 +33,15 @@ import me.rida.anticheat.utils.Color;
             }
             if (this.hits.get(e.getDamager().getUniqueId()) >= 5) {
                 n = 1;
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + "[1]", "(Type: I)");
+            	getAntiCheat().logCheat(this, p, "[1]", "(Type: I)");
             }
             if (this.hits.get(e.getDamager().getUniqueId()) >= 10) {
                 n = 2;
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + "[2]", "(Type: I)");
+            	getAntiCheat().logCheat(this, p, "[2]", "(Type: I)");
             }
             if (this.hits.get(e.getDamager().getUniqueId()) > 19) {
                 n = 3;
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental" + "[3]", "(Type: I)");
+            	getAntiCheat().logCheat(this, p, "[3]", "(Type: I)");
                 this.hits.remove(e.getDamager().getUniqueId());
                 n = 0;
             }

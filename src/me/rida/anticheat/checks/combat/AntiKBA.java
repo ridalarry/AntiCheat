@@ -26,7 +26,7 @@ public class AntiKBA extends Check {
     public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, 30, 3, 250000L, AntiCheat);
+        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, 30, 1, 250000L, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -35,11 +35,11 @@ public class AntiKBA extends Check {
         Player p = e.getPlayer();
         if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
         		|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
-        		|| (ServerUtil.isHoveringOverWater(p, 1) 
-        		|| ServerUtil.isHoveringOverWater(p, 0)) 
-        		|| (p.getAllowFlight()) 
-        		|| (p.isDead()) 
-        		|| (Ping.getPing(p) > 400)
+        		|| ServerUtil.isHoveringOverWater(p, 1) 
+        		|| ServerUtil.isHoveringOverWater(p, 0) 
+        		|| p.getAllowFlight()
+        		|| p.isDead()
+        		|| Ping.getPing(p) > 400
                 || p.getGameMode().equals(GameMode.CREATIVE)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -86,12 +86,12 @@ public class AntiKBA extends Check {
                     return;
                 
                 }
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");
+            	getAntiCheat().logCheat(this, p, Color.Red + "[1]", "(Type: A)");
             	} else {
                 if (Ping.getPing(p) > 220) {
                     return;
                 }
-            	getAntiCheat().logCheat(this, p, Color.Red + "Experemental", "(Type: A)");            }
+            	getAntiCheat().logCheat(this, p, Color.Red + "[2]", "(Type: A)");            }
             n2 = 0;
             d2 = 0.0;
             --n;

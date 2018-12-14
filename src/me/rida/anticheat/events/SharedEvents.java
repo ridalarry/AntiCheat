@@ -62,11 +62,10 @@ public class SharedEvents implements Listener {
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
-		AntiCheat.AlertsOn.add(p);
 		PacketsA.blacklist.add(u);
 		this.lastSprintStart.remove((Object)p);
 		this.lastSprintStop.remove((Object)p);
-		if (e.getPlayer().hasPermission("anticheat.staff")) {
+		if (p.hasPermission("anticheat.staff")) {
 			AntiCheat.AlertsOn.add(p);
 		}
 		if(AntiCheat.isInPhaseTimer(p)) {
@@ -124,6 +123,7 @@ public class SharedEvents implements Listener {
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
+		AntiCheat.AlertsOn.remove(p);
 		PacketsA.packetTicks.remove(uuid);
 		PacketsA.lastPacket.remove(uuid);
 		PacketsA.blacklist.remove(uuid);
