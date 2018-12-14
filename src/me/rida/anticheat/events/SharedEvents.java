@@ -1,7 +1,9 @@
 package me.rida.anticheat.events;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Material;
@@ -45,7 +47,6 @@ import me.rida.anticheat.checks.movement.GlideA;
 import me.rida.anticheat.checks.movement.JesusA;
 import me.rida.anticheat.checks.movement.NoFallA;
 import me.rida.anticheat.checks.movement.NoSlowdownA;
-import me.rida.anticheat.checks.movement.PhaseA;
 import me.rida.anticheat.checks.movement.SneakA;
 import me.rida.anticheat.checks.movement.SpeedB;
 import me.rida.anticheat.checks.movement.SpeedC;
@@ -57,12 +58,14 @@ import me.rida.anticheat.checks.player.PacketsA;
 public class SharedEvents implements Listener {
 	private static Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
 	private static Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
+	public static Set<UUID> teleported = new HashSet<>();
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
 		PacketsA.blacklist.add(u);
+		teleported.add(u);
 		this.lastSprintStart.remove((Object)p);
 		this.lastSprintStop.remove((Object)p);
 		if (p.hasPermission("anticheat.staff")) {
@@ -78,9 +81,16 @@ public class SharedEvents implements Listener {
 		AntiCheat.getInstance().getDataManager().addPlayerData(p);
         AntiCheat.getInstance().getDataManager().add(p);
 	}
+
+	@EventHandler(ignoreCancelled = true)
+	private void teleport(PlayerTeleportEvent e) {
+		if (e.getCause() != TeleportCause.UNKNOWN) {
+			teleported.add(e.getPlayer().getUniqueId());
+		}
+	}
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onDeath(PlayerDeathEvent e) {
-		PhaseA.teleported.add(e.getEntity().getUniqueId());
+		teleported.add(e.getEntity().getUniqueId());
 		Player p = e.getEntity();
 		JesusA.onWater.remove(p);
 		NoFallA.cancel.add(p);
@@ -117,12 +127,13 @@ public class SharedEvents implements Listener {
 	private void PlayerRespawn(PlayerRespawnEvent e) {
 		UUID u = e.getPlayer().getUniqueId();
 		PacketsA.blacklist.add(u);
-		PhaseA.teleported.add(u);
+		teleported.add(u);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
+		teleported.remove(uuid);
 		AntiCheat.AlertsOn.remove(p);
 		PacketsA.packetTicks.remove(uuid);
 		PacketsA.lastPacket.remove(uuid);

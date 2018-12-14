@@ -24,13 +24,19 @@ public class BlockUtil {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static HashSet<Byte> blockPassSet = new HashSet();
 	public static Map<Material, BoundingBox[]> collisionBoundingBoxes;
-	public static List<Material> allowed;
+	public static List<Material> allowed = new ArrayList<>();
+	public static List<Material> semi = new ArrayList<>();
+	public static List<Material> blockedPearlTypes = new ArrayList<>();
 	public BlockUtil() {
 		collisionBoundingBoxes = new HashMap<>();
 		setupCollisionBB();
-		allowed = new ArrayList<>();
-		allowed.add(Material.AIR);
+	}
+
+	static {
 		allowed.add(Material.SIGN);
+		allowed.add(Material.FENCE);
+		allowed.add(Material.ANVIL);
+		allowed.add(Material.TRAP_DOOR);
 		allowed.add(Material.SIGN_POST);
 		allowed.add(Material.WALL_SIGN);
 		allowed.add(Material.SUGAR_CANE_BLOCK);
@@ -38,6 +44,7 @@ public class BlockUtil {
 		allowed.add(Material.POTATO);
 		allowed.add(Material.CARROT);
 		allowed.add(Material.STEP);
+		allowed.add(Material.AIR);
 		allowed.add(Material.WOOD_STEP);
 		allowed.add(Material.SOUL_SAND);
 		allowed.add(Material.CARPET);
@@ -76,7 +83,6 @@ public class BlockUtil {
 		allowed.add(Material.DOUBLE_PLANT);
 		allowed.add(Material.LONG_GRASS);
 		allowed.add(Material.WEB);
-		allowed.add(Material.CAKE_BLOCK);
 		allowed.add(Material.SNOW);
 		allowed.add(Material.FLOWER_POT);
 		allowed.add(Material.BREWING_STAND);
@@ -112,8 +118,33 @@ public class BlockUtil {
 		allowed.add(Material.BED_BLOCK);
 		allowed.add(Material.PISTON_EXTENSION);
 		allowed.add(Material.PISTON_MOVING_PIECE);
+		semi.add(Material.IRON_FENCE);
+		semi.add(Material.THIN_GLASS);
+		semi.add(Material.STAINED_GLASS_PANE);
+		semi.add(Material.COBBLE_WALL);
+		blockedPearlTypes.add(Material.IRON_FENCE);
+		blockedPearlTypes.add(Material.FENCE);
+		blockedPearlTypes.add(Material.NETHER_FENCE);
+		blockedPearlTypes.add(Material.FENCE_GATE);
+		blockedPearlTypes.add(Material.ACACIA_STAIRS);
+		blockedPearlTypes.add(Material.BIRCH_WOOD_STAIRS);
+		blockedPearlTypes.add(Material.BRICK_STAIRS);
+		blockedPearlTypes.add(Material.COBBLESTONE_STAIRS);
+		blockedPearlTypes.add(Material.DARK_OAK_STAIRS);
+		blockedPearlTypes.add(Material.JUNGLE_WOOD_STAIRS);
+		blockedPearlTypes.add(Material.NETHER_BRICK_STAIRS);
+		blockedPearlTypes.add(Material.QUARTZ_STAIRS);
+		blockedPearlTypes.add(Material.SANDSTONE_STAIRS);
+		blockedPearlTypes.add(Material.SMOOTH_STAIRS);
+		blockedPearlTypes.add(Material.SPRUCE_WOOD_STAIRS);
+		blockedPearlTypes.add(Material.WOOD_STAIRS);
+		if (!ServerUtil.isBukkitVerison("1_7")) {
+			allowed.add(Material.BANNER);
+			allowed.add(Material.IRON_TRAPDOOR);
+			allowed.add(Material.WALL_BANNER);
+			allowed.add(Material.STANDING_BANNER);
+		}
 	}
-
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public static boolean on1_13Spoof(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
