@@ -50,7 +50,7 @@ public class PhaseA extends Check {
 					event.setCancelled(true);
 					p.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "Your pearl glitched, therefore your pearl was cancelled.");
-					getAntiCheat().logCheat(this, p, "[1] Unsafe pearl interaction!", "(Type: A");
+					getAntiCheat().logCheat(this, p, "[1] Unsafe pearl interaction!", "(Type: A)");
 					Player player = event.getPlayer();
 					player.setItemInHand(event.getItem());
 				}
@@ -79,7 +79,7 @@ public class PhaseA extends Check {
 					Player player = event.getPlayer();
 					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "You have been detected trying to pearl glitch, therefore your pearl was cancelled.");
-					getAntiCheat().logCheat(this, player, "[2] Detected trying to pearl glitch!", "(Type: A");
+					getAntiCheat().logCheat(this, player, "[2] Detected trying to pearl glitch!", "(Type: A)");
 					event.setCancelled(true);
 					player.getInventory().addItem(new ItemStack(Material.ENDER_PEARL, 1));
 				}
@@ -100,7 +100,7 @@ public class PhaseA extends Check {
 					event.setCancelled(true);
 					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "Could not find a safe location, therefore your pearl was cancelled.");
-					getAntiCheat().logCheat(this, player, "[3] Attempted to pearl to unsafe location!", "(Type: A");
+					getAntiCheat().logCheat(this, player, "[3] Attempted to pearl to unsafe location!", "(Type: A)");
 					player.getInventory().addItem(new ItemStack(Material.ENDER_PEARL, 1));
 				}
 				return;

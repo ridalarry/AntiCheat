@@ -329,20 +329,20 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 
-		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
-			@Override
-			public void onPacketReceiving(PacketEvent event) {
-				checkPacket(event);
-			}
-		});
+			ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
+				@Override
+				public void onPacketReceiving(PacketEvent event) {
+					checkPacket(event);
+				}
+			});
 
-		Bukkit.getScheduler().runTaskTimer(this, () -> {
-			for (Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
-				Player player = iterator.next().getKey();
-				if (!player.isOnline() || !player.isValid())
-					iterator.remove();
-			}
-		}, 20L, 20L);}
+			Bukkit.getScheduler().runTaskTimer(this, () -> {
+				for (Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
+					Player player = iterator.next().getKey();
+					if (!player.isOnline() || !player.isValid())
+						iterator.remove();
+				}
+			}, 20L, 20L);}
 		getLogger().info("Reloading... will kick all online players to avoid crash.");
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
@@ -751,10 +751,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		this.addViolation(player, check);
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
-		Integer violations = this.getViolations(player, check);	
-		System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
-		if (hoverabletext != null) {
-			System.out.println(Color.strip(hoverabletext));
+		Integer violations = this.getViolations(player, check);
+		if (hoverabletext == null) {
+
+			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
+		}		
+		else {
+			String newLine = System.getProperty("line.separator");
+			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations + newLine + Color.strip(hoverabletext));
 		}
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
