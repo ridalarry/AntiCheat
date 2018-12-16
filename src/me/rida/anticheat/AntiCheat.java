@@ -781,11 +781,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		Integer violations = this.getViolations(player, check);
 		if (hoverabletext == null) {
 
-			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations);
+			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + " x" + violations);
 		}		
 		else {
 			String newLine = System.getProperty("line.separator");
-			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JD check " : "") + check.getName() + a + " x" + violations + newLine + Color.strip(hoverabletext));
+			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + " x" + violations + newLine + Color.strip(hoverabletext));
 		}
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
@@ -799,7 +799,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				+ ")")
 		.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 		msg.addText(Color.translate(getConfig().getString("alerts.primary"))
-				+ " failed " + (check.isJudgmentDay() ? "JD check " : ""));
+				+ " failed " + (check.isJudgmentDay() ? "JDay check " : ""));
 		ActionMessageUtil.AMText CheckText = msg
 				.addText(Color.translate(getConfig().getString("alerts.checkColor"))
 						+ check.getName());

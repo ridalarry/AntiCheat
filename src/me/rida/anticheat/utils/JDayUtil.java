@@ -35,12 +35,12 @@ public class JDayUtil {
 			String date = pending.getConfigFile().getString("PendingUsers." + s + ".Date");
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands.replace("%player%", uuid));
 
-			banned.getConfigFile().set("PendingUsers." + s + ".Name", name);
-			banned.getConfigFile().set("PendingUsers." + s + ".UUID", uuid);
-			banned.getConfigFile().set("PendingUsers." + s + ".Date", date);
-			banned.getConfigFile().set("PendingUsers." + s + ".Reason", reason);
-			banned.getConfigFile().set("PendingUsers." + s + ".ExecutedBy", executedby);
-			banned.getConfigFile().set("PendingUsers." + s + ".wasOnline", wasonline);
+			banned.getConfigFile().set("BannedUsers." + s + ".Name", name);
+			banned.getConfigFile().set("BannedUsers." + s + ".UUID", uuid);
+			banned.getConfigFile().set("BannedUsers." + s + ".Date", date);
+			banned.getConfigFile().set("BannedUsers." + s + ".Reason", reason);
+			banned.getConfigFile().set("BannedUsers." + s + ".ExecutedBy", executedby);
+			banned.getConfigFile().set("BannedUsers." + s + ".wasOnline", wasonline);
 			banned.saveConfigFile();
 		}
 		pending.getConfigFile().set("PendingUsers", null);
