@@ -15,6 +15,7 @@ public class AutobanCommand implements CommandExecutor {
 	public AutobanCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
 	}
+	@Override
 	@SuppressWarnings("unused")
 	public boolean onCommand(final CommandSender sender, final Command command, final String alias,
 			final String[] args) {
@@ -37,7 +38,7 @@ public class AutobanCommand implements CommandExecutor {
 				String lowerCase;
 				switch (lowerCase = type.toLowerCase()) {
 				case "cancel": {
-					System.out.println("[" + player.getUniqueId().toString() + "] " + sender.getName()
+					System.out.println(Color.strip(AntiCheat.PREFIX) + sender.getName()
 					+ "'s auto-ban has been cancelled by " + sender.getName());
 					Bukkit.broadcast(
 							Color.translate(AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.secondary")
@@ -52,7 +53,7 @@ public class AutobanCommand implements CommandExecutor {
 					if (this.AntiCheat.getConfig().getBoolean("testmode") == true) {
 						sender.sendMessage(Color.Red + "Test mode is enabled therefore this is disabled!");
 					} else {
-						System.out.println("[" + player.getUniqueId().toString() + "] " + sender.getName()
+						System.out.println(Color.strip(AntiCheat.PREFIX) + sender.getName()
 						+ "'s auto-ban has been forced by " + sender.getName());
 						Bukkit.broadcast(Color.translate(AntiCheat.PREFIX + AntiCheat.getConfig().getString(
 								"alerts.secondary") + player.getName()

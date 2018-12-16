@@ -12,6 +12,8 @@ commands:
     description: Stops autobanning.
   getlog:
     description: Get a player's log.
+  jday:
+    description: judgementday commands (add|start).
 permissions:
   anticheat.admin:
     default: op

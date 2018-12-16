@@ -59,6 +59,7 @@ import me.rida.anticheat.commands.AlertsCommand;
 import me.rida.anticheat.commands.AntiCheatCommand;
 import me.rida.anticheat.commands.AutobanCommand;
 import me.rida.anticheat.commands.GetLogCommand;
+import me.rida.anticheat.commands.JDayCommand;
 import me.rida.anticheat.data.DataManager;
 import me.rida.anticheat.events.MoveEvent;
 import me.rida.anticheat.events.SharedEvents;
@@ -257,6 +258,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
 		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
 		this.getCommand("getLog").setExecutor(new GetLogCommand(this));
+		this.getCommand("jday").setExecutor(new JDayCommand(this));
 		Bukkit.getServer().getPluginManager().registerEvents(new GUI(this), this);
 		this.RegisterListener(this);
 		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
@@ -816,7 +818,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		}
 		if (violations > check.getMaxViolations() && check.isJudgmentDay()) {
-			//TO DO
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "jday add " + player.getPlayer().getName().toString());
+				}
+			}.runTaskLater(this, 10L);
 		}
 		if (violations > check.getMaxViolations() && check.isBannable() && !check.isJudgmentDay()) {
 			this.autoban(check, player);
