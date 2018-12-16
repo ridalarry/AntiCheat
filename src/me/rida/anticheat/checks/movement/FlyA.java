@@ -15,6 +15,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.NewVelocityUtil;
@@ -32,6 +33,11 @@ public class FlyA extends Check {
 		Location from = e.getFrom();
 		Location to = e.getTo();
 		Player p = e.getPlayer();
+		if (SharedEvents.placedBlock.containsKey(p)) {
+			if (System.currentTimeMillis() - SharedEvents.placedBlock.get(p).longValue() < 2000) {
+				return;
+			}
+		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
 				|| DataPlayer.getWasFlying() > 0

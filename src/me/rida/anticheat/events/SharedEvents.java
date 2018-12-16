@@ -11,9 +11,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -61,10 +63,20 @@ public class SharedEvents implements Listener {
 	public static Set<UUID> teleported = new HashSet<>();
 	public static Map<Player, Long> placedBlock = new HashMap<Player, Long>();
 
-	@EventHandler(priority = EventPriority.MONITOR)
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	public void onPlace(BlockPlaceEvent e) {
 		Player p = e.getPlayer();
 		placedBlock.put(p, System.currentTimeMillis());
+	}
+	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
+	public void onInteract(PlayerInteractEvent e) {
+		Player p = e.getPlayer();
+		if (e.isCancelled()) {
+			if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
+				return;
+			}
+			placedBlock.put(p, System.currentTimeMillis());
+		}
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
