@@ -27,7 +27,7 @@ public class PacketsA extends Check {
 	public static List<UUID> blacklist;
 
 	public PacketsA(AntiCheat AntiCheat) {
-		super("PacketsA", "Packets", CheckType.Player, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("PacketsA", "Packets", CheckType.Player, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 		blacklist = new ArrayList<UUID>();
 		lastPacket = new HashMap<UUID, Long>();
 		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
@@ -74,7 +74,7 @@ public class PacketsA extends Check {
 				}
 
 				if (Count > 800) {
-					getAntiCheat().logCheat(this, player, Color.White + "Sent over " + Count  + " packets! " , "(Type: A)");
+					getAntiCheat().logCheat(this, player, Color.White + "Kicked! sent over " + Count  + " packets! " , "(Type: A)");
 					AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
 						@SuppressWarnings("unused")
 						Player p = event.getPlayer();

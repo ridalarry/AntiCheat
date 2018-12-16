@@ -26,7 +26,7 @@ public class ReachD extends Check {
 	public static Map<Player, Long> reachTicks;
 	public static ArrayList<Player> projectileHit;
 	public ReachD(AntiCheat AntiCheat) {
-		super("ReachD", "Reach",  CheckType.Combat, true, true, false, true, 5, 1, 30000L, AntiCheat);
+		super("ReachD", "Reach",  CheckType.Combat, true, true, false, true, false, 5, 1, 30000L, AntiCheat);
 		offsets = new HashMap<>();
 		reachTicks = new HashMap<>();
 		projectileHit = new ArrayList<>();

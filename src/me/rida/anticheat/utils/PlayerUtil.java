@@ -34,7 +34,6 @@ public class PlayerUtil {
 			Material.SUGAR_CANE_BLOCK, Material.TORCH, Material.TRIPWIRE, Material.TRIPWIRE_HOOK, Material.WALL_SIGN,
 			Material.WATER, Material.WEB, Material.WOOD_BUTTON, Material.WOOD_PLATE, Material.YELLOW_FLOWER);
 
-
 	@SuppressWarnings("unused")
 	public static int getEff(Player p){
 		int enchantmentLevel = 0;

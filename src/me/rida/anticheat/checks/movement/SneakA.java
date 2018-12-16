@@ -19,7 +19,7 @@ public class SneakA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> sneakTicks;
 
 	public SneakA(AntiCheat AntiCheat) {
-		super("SneakA", "Sneak", CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
+		super("SneakA", "Sneak", CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
 		sneakTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

@@ -22,7 +22,7 @@ public class KillAuraK extends Check {
 	public static Map<UUID, Long> lastArmSwing;
 	
 	public KillAuraK(AntiCheat AntiCheat) {
-		super("KillauraK", "Killaura", CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("KillauraK", "Killaura", CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 		verbose = new HashMap<UUID, Integer>();
 		lastArmSwing = new HashMap<UUID, Long>();
 	}

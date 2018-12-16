@@ -20,7 +20,7 @@ import me.rida.anticheat.utils.MathUtil;
 public class HitBoxC extends Check {
 
 	public HitBoxC(AntiCheat AntiCheat) {
-		super("HitBoxC", "HitBox", CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("HitBoxC", "HitBox", CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
 	public static Map<UUID, Integer> count = new HashMap<>();

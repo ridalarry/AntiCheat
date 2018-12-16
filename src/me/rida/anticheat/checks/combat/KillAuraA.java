@@ -20,7 +20,7 @@ import me.rida.anticheat.utils.CheatUtil;
 public class KillAuraA extends Check {
 
 	public KillAuraA(AntiCheat AntiCheat) {
-		super("KillAuraA", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000L, AntiCheat);
+		super("KillAuraA", "KillAura",  CheckType.Combat, true, false, false, false, true, 7, 1, 600000L, AntiCheat);
 	}
 
 	public static HashMap<Player, Integer> counts = new HashMap<>();

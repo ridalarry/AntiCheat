@@ -23,7 +23,7 @@ public class JesusA extends Check {
 	public static Map<Player, Long> velocity;
 
 	public JesusA(AntiCheat AntiCheat) {
-		super("JesusA", "Jesus", CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
+		super("JesusA", "Jesus", CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
 		count = new WeakHashMap<Player, Integer>();
 		placedBlockOnWater = new ArrayList<Player>();
 		onWater = new WeakHashMap<Player, Integer>();

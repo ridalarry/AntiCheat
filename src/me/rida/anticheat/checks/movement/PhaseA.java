@@ -25,7 +25,7 @@ import me.rida.anticheat.utils.Color;
 
 public class PhaseA extends Check {
 	public PhaseA(AntiCheat AntiCheat) {
-		super("PhaseA", "Phase", CheckType.Movement, true, false, false, false, 40, 1, 600000L, AntiCheat);
+		super("PhaseA", "Phase", CheckType.Movement, true, false, false, false, true, 40, 1, 600000L, AntiCheat);
 	}
 
 	@SuppressWarnings("deprecation")

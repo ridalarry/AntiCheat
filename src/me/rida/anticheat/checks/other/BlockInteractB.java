@@ -20,7 +20,7 @@ import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
 
 public class BlockInteractB extends Check {
 	public BlockInteractB(AntiCheat AntiCheat) {
-		super("BlockInteractB", "BI", CheckType.Other, true, true, false, true, 10, 1, 600000L, AntiCheat);
+		super("BlockInteractB", "BI", CheckType.Other, true, true, false, true, false, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

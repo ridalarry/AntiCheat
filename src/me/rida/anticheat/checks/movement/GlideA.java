@@ -19,7 +19,7 @@ public class GlideA extends Check {
 	public static Map<UUID, Long> flyTicks;
 
 	public GlideA(AntiCheat AntiCheat) {
-		super("GlideA", "Glide", CheckType.Movement, true, false, false, false, 5, 1, 600000L, AntiCheat);
+		super("GlideA", "Glide", CheckType.Movement, true, false, false, false, true, 5, 1, 600000L, AntiCheat);
 		flyTicks = new HashMap<UUID, Long>();
 	}
 

@@ -13,7 +13,7 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.VelocityUtil;
 public class AntiKBC extends Check {
 	public AntiKBC(AntiCheat AntiCheat) {
-		super("AntiKBC", "AntiKB",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("AntiKBC", "AntiKB",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

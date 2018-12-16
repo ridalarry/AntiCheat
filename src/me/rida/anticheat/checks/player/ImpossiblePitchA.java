@@ -11,7 +11,7 @@ import me.rida.anticheat.checks.CheckType;
 
 public class ImpossiblePitchA extends Check {
 	public ImpossiblePitchA(AntiCheat AntiCheat) {
-		super("ImpossiblePitchA", "ImpossiblePitch", CheckType.Player, true, true, false, true, 10, 1, 600000L, AntiCheat);
+		super("ImpossiblePitchA", "ImpossiblePitch", CheckType.Player, true, true, false, true, false, 10, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {

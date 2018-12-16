@@ -22,7 +22,6 @@ public class AntiCheatCommand implements CommandExecutor {
 	public AntiCheatCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
 	}
-	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender s, Command c, String a, String[] g) {
 		if (!s.hasPermission("anticheat.staff")) {
@@ -32,9 +31,7 @@ public class AntiCheatCommand implements CommandExecutor {
 		if(g.length == 0) {
 			s.sendMessage(Color.Red + "Do '/anticheat help' for list of commands.");
 
-			if (s instanceof Player) {
-				Player p = (Player) s;
-			} else {
+			if (!(s instanceof Player)) {
 				s.sendMessage(
 						Color.Red + "This is for players only! Do /anticheat help to find a command you can do here.");
 			}
@@ -55,6 +52,16 @@ public class AntiCheatCommand implements CommandExecutor {
 
 		for(Check checkLoop : AntiCheat.getChecks()) {
 			checkNames.add((checkLoop.isBannable() ? Color.Green + checkLoop.getIdentifier() : Color.Red + checkLoop.getIdentifier()) + Color.Gray);
+		}
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
+		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+		return true;
+		}
+		if (g[0].equalsIgnoreCase("kchecks")) {List<String> checkNames = new ArrayList<>();
+
+		for(Check checkLoop : AntiCheat.getChecks()) {
+			checkNames.add((checkLoop.isKickable() ? Color.Green + checkLoop.getIdentifier() : Color.Red + checkLoop.getIdentifier()) + Color.Gray);
 		}
 		s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
 		s.sendMessage(Color.Gray + "Checks: " + checkNames.toString());
@@ -141,123 +148,123 @@ public class AntiCheatCommand implements CommandExecutor {
 			}
 			return true;
 		}
-			if (g[0].equalsIgnoreCase("ping")) {
-				if (s instanceof Player) {
-					Player p = (Player) s;
-					if (g.length == 1) {
-						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
-								+ AntiCheat.getLag().getPing(p));
-						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
-								+ AntiCheatAPI.getPing(p));
-						return true;
-					}
-					if (g.length == 2) {
-						Player target = Bukkit.getPlayer(g[1]);
-						if (target == null) {
-							s.sendMessage(AntiCheat.PREFIX + Color.Red + "That player is not online!");
-							return true;
-						}
-						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
-								+ Color.Red + AntiCheat.getLag().getPing(target));
-						s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
-								+ Color.Red + AntiCheatAPI.getPing(target));
-						return true;
-					}
-					s.sendMessage(AntiCheat.PREFIX + Color.Red + "Incorrect arguments. Usage: /anticheat ping [player]");
-				} 
-				else {
-					s.sendMessage(Color.Red + "This is for players only!");
-				}
-				return true;
-			}
-			if (g[0].equalsIgnoreCase("violations")) {
-				if (g.length != 2) {
-					s.sendMessage(Color.Red + "Invalid argument!");
+		if (g[0].equalsIgnoreCase("ping")) {
+			if (s instanceof Player) {
+				Player p = (Player) s;
+				if (g.length == 1) {
+					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
+							+ AntiCheat.getLag().getPing(p));
+					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
+							+ AntiCheatAPI.getPing(p));
 					return true;
 				}
-				if (s instanceof Player) {
-					String playerName2 = g[1];
-					Player player = this.AntiCheat.getServer().getPlayer(playerName2);
-					Player p = (Player) s;
-					if (player == null || !player.isOnline()) {
-						s.sendMessage(Color.Red + "This player is not online!");
+				if (g.length == 2) {
+					Player target = Bukkit.getPlayer(g[1]);
+					if (target == null) {
+						s.sendMessage(AntiCheat.PREFIX + Color.Red + "That player is not online!");
 						return true;
 					}
-					GUI.openStatus(p, player);
-				} else {
-					s.sendMessage(Color.Red + "This is for players only!");
-				}
-				return true;
-			}
-			if (g[0].equalsIgnoreCase("dump")) {
-				String playerName = g[1];
-				String checkName = g[2];
-				Check check = null;
-				for (Check checkcheck : this.AntiCheat.getChecks()) {
-					if (checkcheck.getIdentifier().equalsIgnoreCase(checkName)) {
-						check = checkcheck;
-					}
-				}
-				if (check == null) {
-					s.sendMessage(Color.Red + "This check does not exist!");
+					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
+							+ Color.Red + AntiCheat.getLag().getPing(target));
+					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
+							+ Color.Red + AntiCheatAPI.getPing(target));
 					return true;
 				}
-				String result = check.dump(playerName);
-				if (result == null) {
-					s.sendMessage(Color.Red + "Error creating dump file for player " + playerName + ".");
-				}
-				s.sendMessage(
-						AntiCheat.PREFIX + Color.Gray + "Dropped dump thread at " + Color.Yellow + "/dumps/" + result + ".txt");
-				return true;
-			}if (g[0].equalsIgnoreCase("clean") || g[0].equalsIgnoreCase("gc")) {
-				s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Forcing garbage collector..." + Color.Gray + "[" + Color.Aqua
-						+ AntiCheat.getLag().getFreeRam() + Color.Gray + "/" + Color.Red + AntiCheat.getLag().getMaxRam() + Color.Gray
-						+ "]");
-				System.gc();
-				s.sendMessage(AntiCheat.PREFIX + Color.Green + "Completed garbage collector! " + Color.Gray + "[" + Color.Aqua
-						+ MathUtil.trim(3, AntiCheat.getLag().getFreeRam()) + Color.Gray + "/" + Color.Red
-						+ MathUtil.trim(3, AntiCheat.getLag().getMaxRam()) + Color.Gray + "]");
-				return true;
-			}
-			if (g[0].equalsIgnoreCase("lag") || g[0].equalsIgnoreCase("performance")) {
-				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
-				s.sendMessage(Color.Red + Color.Bold + "Performance Usage:");
-				s.sendMessage("");
-				s.sendMessage(Color.Gray + "TPS: " + Color.White + MathUtil.trim(2, AntiCheat.getLag().getTPS()));
-				s.sendMessage(Color.Gray + "Free Ram: " + Color.White + AntiCheat.getLag().getFreeRam() + "MB");
-				s.sendMessage(Color.Gray + "Max Ram: " + Color.White + AntiCheat.getLag().getMaxRam() + "MB");
-				s.sendMessage(Color.Gray + "Used Ram: " + Color.White
-						+ Math.abs(AntiCheat.getLag().getMaxRam() - AntiCheat.getLag().getFreeRam()) + "MB");
-				if (Math.abs(
-						AntiCheat.getLag().getMaxRam() - AntiCheat.getLag().getFreeRam()) > AntiCheat.getLag().getMaxRam()
-								/ 2.1) {
-					s.sendMessage(
-							Color.Aqua + Color.Italics + "It is recommended you do /AntiCheat clean to clear up some RAM.");
-				}
-				s.sendMessage(
-						AntiCheat.getLag().getLag() > 20 ? Color.Red + "Server Usage: " + AntiCheat.getLag().getLag() + "%"
-								: Color.Green + "Server Usage: " + AntiCheat.getLag().getLag() + "%");
-
-				s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
-				return true;
-			}
-			if (g[0].equalsIgnoreCase("test")) {
-				s.sendMessage(String.valueOf(10 % 7));
-				return true;
-			}
-			if (g[0].equalsIgnoreCase("bans")) {
-				if (s instanceof Player) {
-					Player p = (Player) s;
-					GUI.openBans(p);
-				} else {
-					s.sendMessage(Color.Red + "This is for players only!");
-				}
-				return true;
-			}
+				s.sendMessage(AntiCheat.PREFIX + Color.Red + "Incorrect arguments. Usage: /anticheat ping [player]");
+			} 
 			else {
-				s.sendMessage(Color.Red + "Unknown argument '/" + a + " " + g[0] + "'! Do " + Color.Italics
-						+ "/anticheat help " + Color.Red + "for more info!");
+				s.sendMessage(Color.Red + "This is for players only!");
 			}
 			return true;
 		}
+		if (g[0].equalsIgnoreCase("violations")) {
+			if (g.length != 2) {
+				s.sendMessage(Color.Red + "Invalid argument!");
+				return true;
+			}
+			if (s instanceof Player) {
+				String playerName2 = g[1];
+				Player player = this.AntiCheat.getServer().getPlayer(playerName2);
+				Player p = (Player) s;
+				if (player == null || !player.isOnline()) {
+					s.sendMessage(Color.Red + "This player is not online!");
+					return true;
+				}
+				GUI.openStatus(p, player);
+			} else {
+				s.sendMessage(Color.Red + "This is for players only!");
+			}
+			return true;
+		}
+		if (g[0].equalsIgnoreCase("dump")) {
+			String playerName = g[1];
+			String checkName = g[2];
+			Check check = null;
+			for (Check checkcheck : this.AntiCheat.getChecks()) {
+				if (checkcheck.getIdentifier().equalsIgnoreCase(checkName)) {
+					check = checkcheck;
+				}
+			}
+			if (check == null) {
+				s.sendMessage(Color.Red + "This check does not exist!");
+				return true;
+			}
+			String result = check.dump(playerName);
+			if (result == null) {
+				s.sendMessage(Color.Red + "Error creating dump file for player " + playerName + ".");
+			}
+			s.sendMessage(
+					AntiCheat.PREFIX + Color.Gray + "Dropped dump thread at " + Color.Yellow + "/dumps/" + result + ".txt");
+			return true;
+		}if (g[0].equalsIgnoreCase("clean") || g[0].equalsIgnoreCase("gc")) {
+			s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Forcing garbage collector..." + Color.Gray + "[" + Color.Aqua
+					+ AntiCheat.getLag().getFreeRam() + Color.Gray + "/" + Color.Red + AntiCheat.getLag().getMaxRam() + Color.Gray
+					+ "]");
+			System.gc();
+			s.sendMessage(AntiCheat.PREFIX + Color.Green + "Completed garbage collector! " + Color.Gray + "[" + Color.Aqua
+					+ MathUtil.trim(3, AntiCheat.getLag().getFreeRam()) + Color.Gray + "/" + Color.Red
+					+ MathUtil.trim(3, AntiCheat.getLag().getMaxRam()) + Color.Gray + "]");
+			return true;
+		}
+		if (g[0].equalsIgnoreCase("lag") || g[0].equalsIgnoreCase("performance")) {
+			s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+			s.sendMessage(Color.Red + Color.Bold + "Performance Usage:");
+			s.sendMessage("");
+			s.sendMessage(Color.Gray + "TPS: " + Color.White + MathUtil.trim(2, AntiCheat.getLag().getTPS()));
+			s.sendMessage(Color.Gray + "Free Ram: " + Color.White + AntiCheat.getLag().getFreeRam() + "MB");
+			s.sendMessage(Color.Gray + "Max Ram: " + Color.White + AntiCheat.getLag().getMaxRam() + "MB");
+			s.sendMessage(Color.Gray + "Used Ram: " + Color.White
+					+ Math.abs(AntiCheat.getLag().getMaxRam() - AntiCheat.getLag().getFreeRam()) + "MB");
+			if (Math.abs(
+					AntiCheat.getLag().getMaxRam() - AntiCheat.getLag().getFreeRam()) > AntiCheat.getLag().getMaxRam()
+					/ 2.1) {
+				s.sendMessage(
+						Color.Aqua + Color.Italics + "It is recommended you do /AntiCheat clean to clear up some RAM.");
+			}
+			s.sendMessage(
+					AntiCheat.getLag().getLag() > 20 ? Color.Red + "Server Usage: " + AntiCheat.getLag().getLag() + "%"
+							: Color.Green + "Server Usage: " + AntiCheat.getLag().getLag() + "%");
+
+			s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
+			return true;
+		}
+		if (g[0].equalsIgnoreCase("test")) {
+			s.sendMessage(String.valueOf(10 % 7));
+			return true;
+		}
+		if (g[0].equalsIgnoreCase("bans")) {
+			if (s instanceof Player) {
+				Player p = (Player) s;
+				GUI.openBans(p);
+			} else {
+				s.sendMessage(Color.Red + "This is for players only!");
+			}
+			return true;
+		}
+		else {
+			s.sendMessage(Color.Red + "Unknown argument '/" + a + " " + g[0] + "'! Do " + Color.Italics
+					+ "/anticheat help " + Color.Red + "for more info!");
+		}
+		return true;
 	}
+}

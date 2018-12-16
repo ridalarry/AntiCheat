@@ -357,8 +357,6 @@ public class DataPlayer {
 	public void setLastDelayedPacket(long l) {
 		this.lastDelayedPacket = l;
 	}
-
-
 	public long getLastPlayerPacketDiff() {
 		return System.currentTimeMillis() - this.getLastPlayerPacket();
 	}

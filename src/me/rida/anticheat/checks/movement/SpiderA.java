@@ -32,7 +32,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 public class SpiderA extends Check {
 
 	public SpiderA(AntiCheat AntiCheat) {
-		super("SpiderA", "Spider", CheckType.Movement, true, true, false, true, 10, 1, 10000L, AntiCheat);
+		super("SpiderA", "Spider", CheckType.Movement, true, true, false, true, false, 10, 1, 10000L, AntiCheat);
 	}
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
 

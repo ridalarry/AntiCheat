@@ -164,6 +164,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.movement.ImpossibleMovementsA(this));
 		this.Checks.add(new me.rida.anticheat.checks.player.ImpossiblePitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.player.AntiBlindnessA(this));
+		this.Checks.add(new me.rida.anticheat.checks.player.PingSpoofA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.JesusA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.KillAuraD(this));
@@ -268,7 +269,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
 			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("settings.broadcastmsg",
+			this.getConfig().addDefault("settings.kickmsg", "[AntiCheat] Unfair Advantage!");this.getConfig().addDefault("settings.broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
 			this.getConfig().addDefault("settings.violationResetTime", 60);
@@ -279,11 +280,11 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations",
-						check.getMaxViolations());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable", check.isKickable());
 			}
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
@@ -297,6 +298,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable", check.isKickable());
 				this.saveConfig();
 			}
 		}
@@ -472,6 +474,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 		return Color.translate(PREFIX + Color.Green + "Successfully reset data!");
 	}
+
 
 	public Integer getPingCancel() {
 		return pingToCancel;
@@ -719,6 +722,18 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
+	public void PlayerKick(Player player) {
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				player.kickPlayer(getConfig().getString("settings.kickmsg"));
+			}
+		}.runTaskLater(this, 10L);
+		if (Violations.containsKey(player))
+			this.Violations.remove(player);
+		return;
+	}
+	@SuppressWarnings("unlikely-arg-type")
 	public void banPlayer(Player player) {
 		new BukkitRunnable() {
 			@Override
@@ -790,11 +805,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		if (check.isJudgmentDay()) {
-			return;
+		if (violations > check.getMaxViolations() && check.isJudgmentDay()) {
+			//TO DO
 		}
-		if (violations > check.getMaxViolations() && check.isBannable()) {
+		if (violations > check.getMaxViolations() && check.isBannable() && !check.isJudgmentDay()) {
 			this.autoban(check, player);
+		}
+		if (violations == check.getMaxViolations() && check.isKickable() && !check.isJudgmentDay()) {
+			this.PlayerKick(player);
 		}
 	}
 
@@ -808,17 +826,23 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void Kick(PlayerKickEvent event) {
-		if (event.getReason().contains("Too many packets")) {
-			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for sending too many packets!");
+		Player p = event.getPlayer();
+		if (event.getReason().equals(getConfig().getString("settings.kickmsg"))
+				|| event.getReason().contains("You failed to use an exploit that would crash the server!")
+				|| event.getReason().equals("Flying is not enabled on this server")
+				|| event.getReason().contains("Too many packets")) {
+			this.alert(String.valueOf(Color.Gray) + p.getName() + " was kicked for cheating!");
+			return;
 		}
-		if (event.getReason().equals("Flying is not enabled on this server")) {
-			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for flying!");
+		if (event.getReason().equals(getConfig().getString("settings.kickmsg")) && !p.isBanned() && !this.AutoBan.containsKey(p)) {
+			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for cheating!");
+			return;
 		}
+		return;
 	}
 	public static AntiCheat getInstance() {
 		return Instance;
 	}
-
 	public DataManager getDataManager() {
 		return dataManager;
 	}

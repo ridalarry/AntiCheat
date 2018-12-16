@@ -16,7 +16,7 @@ public class SpookA extends Check implements Listener{
 	private int lastBad;
 
 	public SpookA(AntiCheat AntiCheat) {
-		super("SpookA", "Spook", CheckType.Client, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("SpookA", "Spook", CheckType.Client, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

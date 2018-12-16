@@ -17,7 +17,7 @@ public class AscensionB extends Check {
 	private Map<Player, Integer> verbose = new WeakHashMap<>();
 	private Map<Player, Float> lastYMovement = new WeakHashMap<>();
 	public AscensionB(me.rida.anticheat.AntiCheat AntiCheat) {
-		super("AscensionB", "Ascension",  CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
+		super("AscensionB", "Ascension",  CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {

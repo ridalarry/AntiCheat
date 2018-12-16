@@ -19,14 +19,15 @@ public class Check implements Listener {
 	private AntiCheat AntiCheat;
 	private boolean Enabled = true;
 	private boolean BanTimer = false;
-	private boolean Bannable = true;
+	private boolean Bannable = false;
+	private boolean Kickable = true;
 	private boolean JudgementDay = false;
 	private Integer MaxViolations = Integer.valueOf(5);
 	private Integer ViolationsToNotify = Integer.valueOf(1);
 	private Long ViolationResetTime = Long.valueOf(600000L);
 	public Map<String, List<String>> DumpLogs = new HashMap<String, List<String>>();
 
-	public Check(String Identifier, String Name, CheckType Type, boolean Enabled, boolean Bannable, boolean JudgementDay, boolean BanTimer, Integer MaxViolations, Integer ViolationsToNotify, long ViolationResetTime, AntiCheat AntiCheat) {
+	public Check(String Identifier, String Name, CheckType Type, boolean Enabled, boolean Bannable, boolean JudgementDay, boolean BanTimer, boolean Kickable, Integer MaxViolations, Integer ViolationsToNotify, long ViolationResetTime, AntiCheat AntiCheat) {
 		this.Name = Name;
 		this.AntiCheat = AntiCheat;
 		this.Identifier = Identifier;
@@ -37,6 +38,9 @@ public class Check implements Listener {
 		
 		this.Bannable = Bannable;
 		this.setBannable(Bannable);
+		
+		this.Kickable = Kickable;
+		this.setKickable(Kickable);
 		
 		this.JudgementDay = JudgementDay;
 		this.setJudgementDay(JudgementDay);
@@ -77,6 +81,9 @@ public class Check implements Listener {
 
 	public boolean isBannable() {
 		return this.Bannable;
+	}
+	public boolean isKickable() {
+		return this.Kickable;
 	}
 
 	public boolean hasBanTimer() {
@@ -176,6 +183,14 @@ public class Check implements Listener {
 			return;
 		}
 		this.Bannable = Bannable;
+	}
+	public void setKickable(boolean Kickable) {
+		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".kickable") != Bannable
+				&& AntiCheat.getConfig().get("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".kannable") != null) {
+			this.Bannable = AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".kickable");
+			return;
+		}
+		this.Kickable = Kickable;
 	}
 
 	public void setAutobanTimer(boolean BanTimer) {

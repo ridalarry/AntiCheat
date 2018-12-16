@@ -14,7 +14,7 @@ import me.rida.anticheat.checks.CheckType;
  public class KillAuraI extends Check {
     Map<UUID, Integer> hits = new HashMap<UUID, Integer>();
      public KillAuraI(AntiCheat AntiCheat) {
- 		super("KillAuraI", "KillAura",  CheckType.Combat, true, false, false, false, 7, 1, 600000L, AntiCheat);
+ 		super("KillAuraI", "KillAura",  CheckType.Combat, true, false, false, false, true, 7, 1, 600000L, AntiCheat);
     }
 	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

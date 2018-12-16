@@ -20,7 +20,7 @@ public class AutoClickerD extends Check {
 	public static Map<UUID, Integer> clicks;
 	public static Map<UUID, Long> recording;
 	public AutoClickerD(AntiCheat AntiCheat) {
-		super("AutoClickerD", "AutoClicker",  CheckType.Combat, true, true, false, true, 5, 1, 600000L, AntiCheat);
+		super("AutoClickerD", "AutoClicker",  CheckType.Combat, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
 
 		clicks = new HashMap<UUID, Integer>();
 		recording = new HashMap<UUID, Long>();

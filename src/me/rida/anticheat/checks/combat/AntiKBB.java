@@ -12,7 +12,7 @@ import me.rida.anticheat.events.SharedEvents;
 
 public class AntiKBB extends Check {
 	public AntiKBB(AntiCheat AntiCheat) {
-		super("AntiKBB", "AntiKB",  CheckType.Combat, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("AntiKBB", "AntiKB",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void Sprint(PlayerToggleSprintEvent e) {

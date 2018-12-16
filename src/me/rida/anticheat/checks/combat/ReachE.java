@@ -21,7 +21,7 @@ public class ReachE extends Check {
 
 
 	public ReachE(AntiCheat AntiCheat) {
-		super("ReachE", "Reach",  CheckType.Combat, true, false, false, false, 9, 1, 600000L, AntiCheat);
+		super("ReachE", "Reach",  CheckType.Combat, true, false, false, false, true, 9, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(PacketAttackEvent e) {

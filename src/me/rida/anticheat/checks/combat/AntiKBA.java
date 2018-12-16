@@ -18,6 +18,7 @@ import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
 public class AntiKBA extends Check {
@@ -26,7 +27,7 @@ public class AntiKBA extends Check {
     public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
     public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, 30, 1, 250000L, AntiCheat);
+        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, true, 30, 1, 250000L, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -39,6 +40,7 @@ public class AntiKBA extends Check {
         		|| ServerUtil.isHoveringOverWater(p, 0) 
         		|| p.getAllowFlight()
         		|| p.isDead()
+        		|| PlayerUtil.isNearSlime(p)
         		|| Ping.getPing(p) > 400
                 || p.getGameMode().equals(GameMode.CREATIVE)
         		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

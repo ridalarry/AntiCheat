@@ -25,7 +25,7 @@ public class StepA extends Check {
 	double stepHeight;
 
 	public StepA(AntiCheat AntiCheat) {
-		super("StepA", "Step", CheckType.Movement, true, true, false, true, 7, 1, 90000L, AntiCheat);
+		super("StepA", "Step", CheckType.Movement, true, true, false, true, false, 7, 1, 90000L, AntiCheat);
 	}
 
 	private boolean isOnGround(Player p) {

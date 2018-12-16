@@ -18,7 +18,7 @@ public class FastBowA extends Check {
 	public static Map<Player, Long> bowPull;
 	public static Map<Player, Integer> count;
 	public FastBowA(AntiCheat AntiCheat) {
-		super("FastBowA", "FastBow", CheckType.Combat, true, true, false, true, 7, 1, 600000L, AntiCheat);
+		super("FastBowA", "FastBow", CheckType.Combat, true, true, false, true, false, 7, 1, 600000L, AntiCheat);
 		bowPull = new HashMap<>();
 		count = new HashMap<>();
 	}

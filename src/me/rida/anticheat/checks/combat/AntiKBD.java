@@ -26,7 +26,7 @@ public class AntiKBD extends Check {
 	public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
 	public AntiKBD(AntiCheat AntiCheat) {
-		super("AntiKBD", "AntiKB",  CheckType.Combat, true, false, false, false, 30, 1, 250000L, AntiCheat);
+		super("AntiKBD", "AntiKB",  CheckType.Combat, true, false, false, false, true, 30, 1, 250000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

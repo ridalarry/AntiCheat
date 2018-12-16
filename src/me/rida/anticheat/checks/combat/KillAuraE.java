@@ -20,7 +20,7 @@ public class KillAuraE extends Check {
 	public static int hitCount = 0;
 
 	public KillAuraE(AntiCheat AntiCheat) {
-		super("KillAuraE", "KillAura",  CheckType.Combat, true, false, false, false, 20, 3, 600000L, AntiCheat);
+		super("KillAuraE", "KillAura",  CheckType.Combat, true, false, false, false, true, 20, 3, 600000L, AntiCheat);
 	}
 
 	@SuppressWarnings({ "unused", "deprecation" })

@@ -23,7 +23,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 public class FlyC extends Check {
 	public FlyC(AntiCheat AntiCheat) {
-		super("FlyC", "Fly", CheckType.Movement, true, false, false, false, 4, 1, 600000L, AntiCheat);
+		super("FlyC", "Fly", CheckType.Movement, true, false, false, false, true, 4, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

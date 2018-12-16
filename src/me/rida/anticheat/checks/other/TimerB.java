@@ -22,7 +22,7 @@ public class TimerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> timerTicks;
 
 	public TimerB(AntiCheat AntiCheat) {
-		super("TimerB", "Timer", CheckType.Other, true, false, false, false, 9, 1, 6000L, AntiCheat);
+		super("TimerB", "Timer", CheckType.Other, true, false, false, false, true, 9, 1, 6000L, AntiCheat);
 		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

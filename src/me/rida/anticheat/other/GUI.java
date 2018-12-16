@@ -24,32 +24,50 @@ import me.rida.anticheat.utils.Color;
 
 public class GUI implements Listener {
 	public static Inventory AntiCheatmain = Bukkit.createInventory(null, 36, Color.Gold + "Home");
-	public static Inventory AntiCheatchecks = Bukkit.createInventory(null, 45, Color.Gold + "Checks: Toggle");
+	
+	public static Inventory AntiCheatchecks = Bukkit.createInventory(null, 36, Color.Gold + "Checks: Toggle");
+	
 	public static Inventory AntiCheatchecksClient = Bukkit.createInventory(null, 45, Color.Gold + "Client: Toggle");
 	public static Inventory AntiCheatchecksCombat = Bukkit.createInventory(null, 45, Color.Gold + "Combat: Toggle");
 	public static Inventory AntiCheatchecksMovement = Bukkit.createInventory(null, 45, Color.Gold + "Movement: Toggle");
 	public static Inventory AntiCheatchecksOther = Bukkit.createInventory(null, 45, Color.Gold + "Other: Toggle");
 	public static Inventory AntiCheatchecksPlayer = Bukkit.createInventory(null, 45, Color.Gold + "Player: Toggle");
-	public static Inventory AntiCheatJDay = Bukkit.createInventory(null, 45, Color.Gold + "Checks: JDay");
+	
+	public static Inventory AntiCheatJDay = Bukkit.createInventory(null, 36, Color.Gold + "Checks: JDay");
+	
 	public static Inventory AntiCheatJDayClient = Bukkit.createInventory(null, 45, Color.Gold + "Client: JDay");
 	public static Inventory AntiCheatJDayCombat = Bukkit.createInventory(null, 45, Color.Gold + "Combat: JDay");
 	public static Inventory AntiCheatJDayMovement = Bukkit.createInventory(null, 45, Color.Gold + "Movement: JDay");
 	public static Inventory AntiCheatJDayOther = Bukkit.createInventory(null, 45, Color.Gold + "Other: JDay");
 	public static Inventory AntiCheatJDayPlayer = Bukkit.createInventory(null, 45, Color.Gold + "Player: JDay");
-	public static Inventory AntiCheatbannable = Bukkit.createInventory(null, 45, Color.Gold + "Checks: Bannable");
+	
+	public static Inventory AntiCheatbannable = Bukkit.createInventory(null, 36, Color.Gold + "Checks: Bannable");
+	
 	public static Inventory AntiCheatbannableClient = Bukkit.createInventory(null, 45, Color.Gold + "Client: Bannable");
 	public static Inventory AntiCheatbannableCombat = Bukkit.createInventory(null, 45, Color.Gold + "Combat: Bannable");
 	public static Inventory AntiCheatbannableMovement = Bukkit.createInventory(null, 45, Color.Gold + "Movement: Bannable");
 	public static Inventory AntiCheatbannableOther = Bukkit.createInventory(null, 45, Color.Gold + "Other: Bannable");
 	public static Inventory AntiCheatbannablePlayer = Bukkit.createInventory(null, 45, Color.Gold + "Player: Bannable");
-	public static Inventory AntiCheatTimer = Bukkit.createInventory(null, 45, Color.Gold + "Checks: BanTimer");
+	
+	public static Inventory AntiCheatTimer = Bukkit.createInventory(null, 36, Color.Gold + "Checks: BanTimer");
+	
 	public static Inventory AntiCheatTimerClient = Bukkit.createInventory(null, 45, Color.Gold + "Client: BanTimer");
 	public static Inventory AntiCheatTimerCombat = Bukkit.createInventory(null, 45, Color.Gold + "Combat: BanTimer");
 	public static Inventory AntiCheatTimerMovement = Bukkit.createInventory(null, 45, Color.Gold + "Movement: BanTimer");
 	public static Inventory AntiCheatTimerPlayer = Bukkit.createInventory(null, 45, Color.Gold + "Player: BanTimer");
 	public static Inventory AntiCheatTimerOther = Bukkit.createInventory(null, 45, Color.Gold + "Other: BanTimer");
-	public static Inventory AntiCheatbans = Bukkit.createInventory(null, 45, Color.Gold + "Recent Bans");
-	public static Inventory AntiCheatstatus = Bukkit.createInventory(null, 45, Color.Gold + "Status");
+	
+	public static Inventory AntiCheatbans = Bukkit.createInventory(null, 54, Color.Gold + "Recent Bans");
+	
+	public static Inventory AntiCheatstatus = Bukkit.createInventory(null, 54, Color.Gold + "Status");
+	
+	public static Inventory AntiCheatKickable = Bukkit.createInventory(null, 36, Color.Gold + "Checks: Kickable");
+	
+	public static Inventory AntiCheatKickableClient = Bukkit.createInventory(null, 45, Color.Gold + "Client: Kickable");
+	public static Inventory AntiCheatKickableCombat = Bukkit.createInventory(null, 45, Color.Gold + "Combat: Kickable");
+	public static Inventory AntiCheatKickableMovement = Bukkit.createInventory(null, 45, Color.Gold + "Movement: Kickable");
+	public static Inventory AntiCheatKickableOther = Bukkit.createInventory(null, 45, Color.Gold + "Other: Kickable");
+	public static Inventory AntiCheatKickablePlayer = Bukkit.createInventory(null, 45, Color.Gold + "Player: Kickable");
 
 	private static ItemStack back = createItem(Material.REDSTONE, 1, "&6Back", new String[0]);
 
@@ -60,52 +78,207 @@ public class GUI implements Listener {
 		ItemStack enabled = createItem(Material.COMPASS, 1, "&cChecks", new String[0]);
 		ItemStack Jday = createItem(Material.BOOK, 1, "&cJDay", new String[0]);
 		ItemStack bannable = createItem(Material.REDSTONE, 1, "&cAuto Bans", new String[0]);
+		ItemStack kickable = createItem(Material.BONE, 1, "&cAuto Kicks", new String[0]);
 		ItemStack timers = createItem(Material.WATCH, 1, "&cTimers", new String[0]);
 		ItemStack resetVio = createItem(Material.PAPER, 1, "&cReset Violations", new String[0]);
 		ItemStack reload = createItem(Material.LAVA_BUCKET, 1, "&cReload", new String[0]);
 		ItemStack info = createItem(Material.SIGN, 1, "&aInfo", new String[0]);
-		ItemStack combat = createItem(Material.SIGN, 1, "&aCombat", new String[0]);
-		ItemStack client = createItem(Material.SIGN, 1, "&aClient", new String[0]);
-		ItemStack movement = createItem(Material.SIGN, 1, "&aMovement", new String[0]);
-		ItemStack player = createItem(Material.SIGN, 1, "&aPlayer", new String[0]);
-		ItemStack other = createItem(Material.SIGN, 1, "&aOther", new String[0]);
-		ItemStack checkered = createItem(Material.COAL_BLOCK, 1,
+		ItemStack combat = createItem(Material.REDSTONE_TORCH_ON, 1, "&aCombat", new String[0]);
+		ItemStack client = createItem(Material.REDSTONE_TORCH_ON, 1, "&aClient", new String[0]);
+		ItemStack movement = createItem(Material.REDSTONE_TORCH_ON, 1, "&aMovement", new String[0]);
+		ItemStack player = createItem(Material.REDSTONE_TORCH_ON, 1, "&aPlayer", new String[0]);
+		ItemStack other = createItem(Material.REDSTONE_TORCH_ON, 1, "&aOther", new String[0]);
+		ItemStack empty = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+		ItemStack checkered = createItem(Material.COAL, 1,
 				AntiCheat.getConfig().getBoolean("settings.gui.checkered") ? "&aCheckered" : "&cCheckered",
 						new String[0]);
 		ItemStack testmode = createItem(
-				AntiCheat.getConfig().getBoolean("settings.testmode") ? Material.EMERALD_BLOCK : Material.REDSTONE_BLOCK,
+				AntiCheat.getConfig().getBoolean("settings.testmode") ? Material.EMERALD_BLOCK : Material.TNT,
 						1, "&cTest Mode", new String[0]);
 
 		ItemMeta infom = info.getItemMeta();
 		infom.setLore(infoLore());
-
 		info.setItemMeta(infom);
-
 		AntiCheatchecks.setItem(9, combat);
 		AntiCheatchecks.setItem(11, movement);
 		AntiCheatchecks.setItem(13, player);
 		AntiCheatchecks.setItem(15, other);
 		AntiCheatchecks.setItem(17, client);
-
+		AntiCheatchecks.setItem(0, empty);
+		AntiCheatKickable.setItem(0, empty);
+		AntiCheatbannable.setItem(0, empty);
+		AntiCheatTimer.setItem(0, empty);
+		AntiCheatJDay.setItem(0, empty);
+		AntiCheatchecks.setItem(1, empty);
+		AntiCheatchecks.setItem(1, empty);
+		AntiCheatchecks.setItem(2, empty);
+		AntiCheatchecks.setItem(3, empty);
+		AntiCheatchecks.setItem(4, empty);
+		AntiCheatchecks.setItem(5, empty);
+		AntiCheatchecks.setItem(6, empty);
+		AntiCheatchecks.setItem(7, empty);
+		AntiCheatchecks.setItem(8, empty);
+		AntiCheatchecks.setItem(10, empty);
+		AntiCheatchecks.setItem(12, empty);
+		AntiCheatchecks.setItem(14, empty);
+		AntiCheatchecks.setItem(16, empty);
+		AntiCheatchecks.setItem(18, empty);
+		AntiCheatchecks.setItem(19, empty);
+		AntiCheatchecks.setItem(20, empty);
+		AntiCheatchecks.setItem(21, empty);
+		AntiCheatchecks.setItem(22, empty);
+		AntiCheatchecks.setItem(23, empty);
+		AntiCheatchecks.setItem(24, empty);
+		AntiCheatchecks.setItem(25, empty);
+		AntiCheatchecks.setItem(26, empty);
+		AntiCheatchecks.setItem(27, empty);
+		AntiCheatchecks.setItem(28, empty);
+		AntiCheatchecks.setItem(29, empty);
+		AntiCheatchecks.setItem(30, empty);
+		AntiCheatchecks.setItem(31, empty);
+		AntiCheatchecks.setItem(32, empty);
+		AntiCheatchecks.setItem(33, empty);
+		AntiCheatchecks.setItem(34, empty);
+		AntiCheatKickable.setItem(9, combat);
+		AntiCheatKickable.setItem(11, movement);
+		AntiCheatKickable.setItem(13, player);
+		AntiCheatKickable.setItem(15, other);
+		AntiCheatKickable.setItem(17, client);
+		AntiCheatKickable.setItem(1, empty);
+		AntiCheatKickable.setItem(1, empty);
+		AntiCheatKickable.setItem(2, empty);
+		AntiCheatKickable.setItem(3, empty);
+		AntiCheatKickable.setItem(4, empty);
+		AntiCheatKickable.setItem(5, empty);
+		AntiCheatKickable.setItem(6, empty);
+		AntiCheatKickable.setItem(7, empty);
+		AntiCheatKickable.setItem(8, empty);
+		AntiCheatKickable.setItem(10, empty);
+		AntiCheatKickable.setItem(12, empty);
+		AntiCheatKickable.setItem(14, empty);
+		AntiCheatKickable.setItem(16, empty);
+		AntiCheatKickable.setItem(18, empty);
+		AntiCheatKickable.setItem(19, empty);
+		AntiCheatKickable.setItem(20, empty);
+		AntiCheatKickable.setItem(21, empty);
+		AntiCheatKickable.setItem(22, empty);
+		AntiCheatKickable.setItem(23, empty);
+		AntiCheatKickable.setItem(24, empty);
+		AntiCheatKickable.setItem(25, empty);
+		AntiCheatKickable.setItem(26, empty);
+		AntiCheatKickable.setItem(27, empty);
+		AntiCheatKickable.setItem(28, empty);
+		AntiCheatKickable.setItem(29, empty);
+		AntiCheatKickable.setItem(30, empty);
+		AntiCheatKickable.setItem(31, empty);
+		AntiCheatKickable.setItem(32, empty);
+		AntiCheatKickable.setItem(33, empty);
+		AntiCheatKickable.setItem(34, empty);
 		AntiCheatJDay.setItem(9, combat);
 		AntiCheatJDay.setItem(11, movement);
 		AntiCheatJDay.setItem(13, player);
 		AntiCheatJDay.setItem(15, other);
 		AntiCheatJDay.setItem(17, client);
-
+		AntiCheatJDay.setItem(1, empty);
+		AntiCheatJDay.setItem(1, empty);
+		AntiCheatJDay.setItem(2, empty);
+		AntiCheatJDay.setItem(3, empty);
+		AntiCheatJDay.setItem(4, empty);
+		AntiCheatJDay.setItem(5, empty);
+		AntiCheatJDay.setItem(6, empty);
+		AntiCheatJDay.setItem(7, empty);
+		AntiCheatJDay.setItem(8, empty);
+		AntiCheatJDay.setItem(10, empty);
+		AntiCheatJDay.setItem(12, empty);
+		AntiCheatJDay.setItem(14, empty);
+		AntiCheatJDay.setItem(16, empty);
+		AntiCheatJDay.setItem(18, empty);
+		AntiCheatJDay.setItem(19, empty);
+		AntiCheatJDay.setItem(20, empty);
+		AntiCheatJDay.setItem(21, empty);
+		AntiCheatJDay.setItem(22, empty);
+		AntiCheatJDay.setItem(23, empty);
+		AntiCheatJDay.setItem(24, empty);
+		AntiCheatJDay.setItem(25, empty);
+		AntiCheatJDay.setItem(26, empty);
+		AntiCheatJDay.setItem(27, empty);
+		AntiCheatJDay.setItem(28, empty);
+		AntiCheatJDay.setItem(29, empty);
+		AntiCheatJDay.setItem(30, empty);
+		AntiCheatJDay.setItem(31, empty);
+		AntiCheatJDay.setItem(32, empty);
+		AntiCheatJDay.setItem(33, empty);
+		AntiCheatJDay.setItem(34, empty);
 		AntiCheatbannable.setItem(9, combat);
 		AntiCheatbannable.setItem(11, movement);
 		AntiCheatbannable.setItem(13, player);
 		AntiCheatbannable.setItem(15, other);
 		AntiCheatbannable.setItem(17, client);
-		
-
+		AntiCheatbannable.setItem(1, empty);
+		AntiCheatbannable.setItem(1, empty);
+		AntiCheatbannable.setItem(2, empty);
+		AntiCheatbannable.setItem(3, empty);
+		AntiCheatbannable.setItem(4, empty);
+		AntiCheatbannable.setItem(5, empty);
+		AntiCheatbannable.setItem(6, empty);
+		AntiCheatbannable.setItem(7, empty);
+		AntiCheatbannable.setItem(8, empty);
+		AntiCheatbannable.setItem(10, empty);
+		AntiCheatbannable.setItem(12, empty);
+		AntiCheatbannable.setItem(14, empty);
+		AntiCheatbannable.setItem(16, empty);
+		AntiCheatbannable.setItem(18, empty);
+		AntiCheatbannable.setItem(19, empty);
+		AntiCheatbannable.setItem(20, empty);
+		AntiCheatbannable.setItem(21, empty);
+		AntiCheatbannable.setItem(22, empty);
+		AntiCheatbannable.setItem(23, empty);
+		AntiCheatbannable.setItem(24, empty);
+		AntiCheatbannable.setItem(25, empty);
+		AntiCheatbannable.setItem(26, empty);
+		AntiCheatbannable.setItem(27, empty);
+		AntiCheatbannable.setItem(28, empty);
+		AntiCheatbannable.setItem(29, empty);
+		AntiCheatbannable.setItem(30, empty);
+		AntiCheatbannable.setItem(31, empty);
+		AntiCheatbannable.setItem(32, empty);
+		AntiCheatbannable.setItem(33, empty);
+		AntiCheatbannable.setItem(34, empty);
 		AntiCheatTimer.setItem(9, combat);
 		AntiCheatTimer.setItem(11, movement);
 		AntiCheatTimer.setItem(13, player);
 		AntiCheatTimer.setItem(15, other);
 		AntiCheatTimer.setItem(17, client);
-
+		AntiCheatTimer.setItem(1, empty);
+		AntiCheatTimer.setItem(1, empty);
+		AntiCheatTimer.setItem(2, empty);
+		AntiCheatTimer.setItem(3, empty);
+		AntiCheatTimer.setItem(4, empty);
+		AntiCheatTimer.setItem(5, empty);
+		AntiCheatTimer.setItem(6, empty);
+		AntiCheatTimer.setItem(7, empty);
+		AntiCheatTimer.setItem(8, empty);
+		AntiCheatTimer.setItem(10, empty);
+		AntiCheatTimer.setItem(12, empty);
+		AntiCheatTimer.setItem(14, empty);
+		AntiCheatTimer.setItem(16, empty);
+		AntiCheatTimer.setItem(18, empty);
+		AntiCheatTimer.setItem(19, empty);
+		AntiCheatTimer.setItem(20, empty);
+		AntiCheatTimer.setItem(21, empty);
+		AntiCheatTimer.setItem(22, empty);
+		AntiCheatTimer.setItem(23, empty);
+		AntiCheatTimer.setItem(24, empty);
+		AntiCheatTimer.setItem(25, empty);
+		AntiCheatTimer.setItem(26, empty);
+		AntiCheatTimer.setItem(27, empty);
+		AntiCheatTimer.setItem(28, empty);
+		AntiCheatTimer.setItem(29, empty);
+		AntiCheatTimer.setItem(30, empty);
+		AntiCheatTimer.setItem(31, empty);
+		AntiCheatTimer.setItem(32, empty);
+		AntiCheatTimer.setItem(33, empty);
+		AntiCheatTimer.setItem(34, empty);
 		AntiCheatmain.setItem(1, grayGlass());
 		AntiCheatmain.setItem(3, grayGlass());
 		AntiCheatmain.setItem(5, grayGlass());
@@ -121,7 +294,7 @@ public class GUI implements Listener {
 		AntiCheatmain.setItem(25, grayGlass());
 		AntiCheatmain.setItem(27, testmode);
 		AntiCheatmain.setItem(29, info);
-		AntiCheatmain.setItem(31, grayGlass());
+		AntiCheatmain.setItem(31, kickable);
 		AntiCheatmain.setItem(33, Jday);
 		AntiCheatmain.setItem(35, checkered);
 		if (AntiCheat.getConfig().contains("settings.gui.checkered")) {
@@ -189,12 +362,11 @@ public class GUI implements Listener {
 
 	private static ArrayList<String> infoLore() {
 		ArrayList<String> list = new ArrayList<String>();
-
 		list.add(" ");
 		list.add(Color.translate("&7You can do &f/AntiCheat help &7to see your"));
 		list.add(Color.translate("&7options for other &fcommands&7/&ffunctions&7!"));
 		list.add(" ");
-		list.add(Color.translate("&7Current Version: &fb" + AntiCheat.getDescription().getVersion()));
+		list.add(Color.translate("&7Current Version: &f" + AntiCheat.getDescription().getVersion()));
 
 		return list;
 	}
@@ -243,12 +415,12 @@ public class GUI implements Listener {
 			} 
 			slot++;
 		}
-		for (int i = slot; i < 44; i++) {
+		for (int i = slot; i < 35; i++) {
 			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecks.setItem(i, c);
 		}
-		AntiCheatchecks.setItem(44, back);
+		AntiCheatchecks.setItem(35, back);
 		player.openInventory(AntiCheatchecks);
 	}
 
@@ -369,12 +541,12 @@ public class GUI implements Listener {
 			} 
 			slot++;
 		}
-		for (int i = slot; i < 44; i++) {
+		for (int i = slot; i < 35; i++) {
 			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannable.setItem(i, c);
 		}
-		AntiCheatbannable.setItem(44, back);
+		AntiCheatbannable.setItem(35, back);
 		player.openInventory(AntiCheatbannable);
 	}
 
@@ -497,12 +669,12 @@ public class GUI implements Listener {
 			} 
 			slot++;
 		}
-		for (int i = slot; i < 44; i++) {
+		for (int i = slot; i < 35; i++) {
 			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimer.setItem(i, c);
 		}
-		AntiCheatTimer.setItem(44, back);
+		AntiCheatTimer.setItem(35, back);
 		player.openInventory(AntiCheatTimer);
 	}
 
@@ -624,12 +796,12 @@ public class GUI implements Listener {
 			} 
 			slot++;
 		}
-		for (int i = slot; i < 44; i++) {
+		for (int i = slot; i < 35; i++) {
 			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDay.setItem(i, c);
 		}
-		AntiCheatJDay.setItem(44, back);
+		AntiCheatJDay.setItem(35, back);
 		player.openInventory(AntiCheatJDay);
 	}
 
@@ -744,6 +916,133 @@ public class GUI implements Listener {
 		p.openInventory(AntiCheatJDayOther);
 	}
 
+
+	public void openKickable(Player player) {
+		int slot = 0;
+		for (Check check : AntiCheat.getChecks()) {
+			if (AntiCheat.getConfig().getBoolean("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+			} 
+			slot++;
+		}
+		for (int i = slot; i < 35; i++) {
+			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+
+			AntiCheatKickable.setItem(i, c);
+		}
+		AntiCheatKickable.setItem(35, back);
+		player.openInventory(AntiCheatKickable);
+	}
+
+	public void openKickableCombat(Player p) {
+		int slot = 0;
+		for (Check check : AntiCheat.getChecks()) {
+			if (check.getType().equals(CheckType.Combat)) {
+				if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					AntiCheatKickableCombat.setItem(slot, g);
+				} if (!(AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
+					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					AntiCheatKickableCombat.setItem(slot, c);
+				}
+				slot++;
+			}
+		}
+		for (int i = slot; i < 44; i++) {
+			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+
+			AntiCheatKickableCombat.setItem(i, c);
+		}
+		AntiCheatKickableCombat.setItem(44, back);
+		p.openInventory(AntiCheatKickableCombat);
+	}
+	public void openKickableClient(Player player) {
+		int slot = 0;
+		for (Check check : AntiCheat.getChecks()) {
+			if (check.getType().equals(CheckType.Client)) {
+				if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					AntiCheatKickableClient.setItem(slot, g);
+				} if (!(AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
+					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					AntiCheatKickableClient.setItem(slot, c);
+				}
+				slot++;
+			}
+		}
+		for (int i = slot; i < 44; i++) {
+			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+
+			AntiCheatKickableClient.setItem(i, c);
+		}
+		AntiCheatKickableClient.setItem(44, back);
+		player.openInventory(AntiCheatKickableClient);
+	}
+	public void openKickableMovement(Player player) {
+		int slot = 0;
+		for (Check check : AntiCheat.getChecks()) {
+			if (check.getType().equals(CheckType.Movement)) {
+				if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					AntiCheatKickableMovement.setItem(slot, g);
+				} if (!(AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
+					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					AntiCheatKickableMovement.setItem(slot, c);
+				}
+				slot++;
+			}
+		}
+		for (int i = slot; i < 44; i++) {
+			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+
+			AntiCheatKickableMovement.setItem(i, c);
+		}
+		AntiCheatKickableMovement.setItem(44, back);
+		player.openInventory(AntiCheatKickableMovement);
+	}
+	public void openKickablePlayer(Player player) {
+		int slot = 0;
+		for (Check check : AntiCheat.getChecks()) {
+			if (check.getType().equals(CheckType.Player)) {
+				if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					AntiCheatKickablePlayer.setItem(slot, g);
+				} if (!(AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
+					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					AntiCheatKickablePlayer.setItem(slot, c);
+				}
+				slot++;
+			}
+		}
+		for (int i = slot; i < 44; i++) {
+			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+
+			AntiCheatKickablePlayer.setItem(i, c);
+		}
+		AntiCheatKickablePlayer.setItem(44, back);
+		player.openInventory(AntiCheatKickablePlayer);
+	}
+	public void openKickableOther(Player p) {
+		int slot = 0;
+		for (Check check : AntiCheat.getChecks()) {
+			if (check.getType().equals(CheckType.Other)) {
+				if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					AntiCheatKickableOther.setItem(slot, g);
+				} if (!(AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
+					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					AntiCheatKickableOther.setItem(slot, c);
+				}
+				slot++;
+			}
+		}
+		for (int i = slot; i < 44; i++) {
+			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+
+			AntiCheatKickableOther.setItem(i, c);
+		}
+		AntiCheatKickableOther.setItem(44, back);
+		p.openInventory(AntiCheatKickableOther);
+	}
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
 		if (e.getInventory().getName().equals(Color.Gold + "Home")) {
@@ -774,6 +1073,10 @@ public class GUI implements Listener {
 					.equals(Color.translate("&cJDay"))) {
 				openJDay(player);
 			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName()
+					.equals(Color.translate("&cAuto Kicks"))) {
+				openKickable(player);
+			}
 
 			if (e.getCurrentItem().getItemMeta().getDisplayName()
 					.equals(Color.translate("&cTest Mode"))) {
@@ -782,7 +1085,7 @@ public class GUI implements Listener {
 					AntiCheat.saveConfig();
 					ItemStack testmode = createItem(
 							AntiCheat.getConfig().getBoolean("settings.testmode") ? Material.EMERALD_BLOCK
-									: Material.REDSTONE_BLOCK,
+									: Material.TNT,
 									1, "&cTest Mode", new String[0]);
 					AntiCheatmain.setItem(27, testmode);
 				} else {
@@ -790,7 +1093,7 @@ public class GUI implements Listener {
 					AntiCheat.saveConfig();
 					ItemStack testmode = createItem(
 							AntiCheat.getConfig().getBoolean("settings.testmode") ? Material.EMERALD_BLOCK
-									: Material.REDSTONE_BLOCK,
+									: Material.TNT,
 									1, "&cTest Mode", new String[0]);
 					AntiCheatmain.setItem(27, testmode);
 				}
@@ -803,7 +1106,7 @@ public class GUI implements Listener {
 				@SuppressWarnings("unused")
 				ItemStack testmode = createItem(
 						AntiCheat.getConfig().getBoolean("settings.testmode") ? Material.EMERALD_BLOCK
-								: Material.REDSTONE_BLOCK,
+								: Material.TNT,
 								1, "&cTest Mode", new String[0]);
 				if (AntiCheat.getConfig().contains("settings.gui.checkered")) {
 					if (AntiCheat.getConfig().getBoolean("settings.gui.checkered")) {
@@ -1121,6 +1424,40 @@ public class GUI implements Listener {
 			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Back")) {
 				openAntiCheatMain(player);
 			}
+		} else if (e.getInventory().getName().equals(Color.Gold + "Checks: Kickable")) {
+			Player player = (Player) e.getWhoClicked();
+
+			e.setCancelled(true);
+			e.setResult(Event.Result.DENY);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (!e.getCurrentItem().hasItemMeta()) {
+				return;
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName()
+					.contains(Color.translate("&aCombat"))) {
+				openKickableCombat(player);
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName()
+					.contains(Color.translate("&aClient"))) {
+				openKickableClient(player);
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName()
+					.contains(Color.translate("&aMovement"))) {
+				openKickableMovement(player);
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName()
+					.contains(Color.translate("&aOther"))) {
+				openKickableOther(player);
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName()
+					.contains(Color.translate("&aPlayer"))) {
+				openKickablePlayer(player);
+			}
+			if (e.getCurrentItem().getItemMeta().getDisplayName().contains("Back")) {
+				openAntiCheatMain(player);
+			}
 		} else if (e.getInventory().getName().equals(Color.Gold + "Client: JDay")) {
 			Player player = (Player) e.getWhoClicked();
 
@@ -1304,6 +1641,191 @@ public class GUI implements Listener {
 				}
 				if (Color.strip(check_name).equals("Back")) {
 					openJDay(player);
+				}
+			}
+		} else if (e.getInventory().getName().equals(Color.Gold + "Client: Kickable")) {
+			Player player = (Player) e.getWhoClicked();
+
+			e.setCancelled(true);
+			e.setResult(Event.Result.DENY);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (e.getCurrentItem().hasItemMeta()) {
+				String check_name = e.getCurrentItem().getItemMeta().getDisplayName();
+				for (Check check : AntiCheat.getChecks()) {
+					if (check.getType().equals(CheckType.Client)) {
+						if (check.getIdentifier().equals(Color.strip(check_name))) {
+							check.getType().equals(CheckType.Client);
+							if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+								check.getType().equals(CheckType.Client);
+								AntiCheat.getConfig().set("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", false);
+								AntiCheat.saveConfig();
+								AntiCheat.reloadConfig();
+								check.setKickable(false);
+								openKickableClient(player);
+								return;
+							}
+							check.getType().equals(CheckType.Client);
+							AntiCheat.getConfig().set("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", true);
+							AntiCheat.saveConfig();
+							AntiCheat.reloadConfig();
+							check.setKickable(true);
+							openKickableClient(player);
+							return;
+						}
+					}
+				}
+				if (Color.strip(check_name).equals("Back")) {
+					openKickable(player);
+				}
+			}
+		} else if (e.getInventory().getName().equals(Color.Gold + "Combat: Kickable")) {
+			Player player = (Player) e.getWhoClicked();
+
+			e.setCancelled(true);
+			e.setResult(Event.Result.DENY);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (e.getCurrentItem().hasItemMeta()) {
+				String check_name = e.getCurrentItem().getItemMeta().getDisplayName();
+				for (Check check : AntiCheat.getChecks()) {
+					if (check.getType().equals(CheckType.Combat)) {
+						if (check.getIdentifier().equals(Color.strip(check_name))) {
+							check.getType().equals(CheckType.Combat);
+							if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+								check.getType().equals(CheckType.Combat);
+								AntiCheat.getConfig().set("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", false);
+								AntiCheat.saveConfig();
+								AntiCheat.reloadConfig();
+								check.setKickable(false);
+								openKickableCombat(player);
+								return;
+							}
+							check.getType().equals(CheckType.Combat);
+							AntiCheat.getConfig().set("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", true);
+							AntiCheat.saveConfig();
+							AntiCheat.reloadConfig();
+							check.setKickable(true);
+							openKickableCombat(player);
+							return;
+						}
+					}
+				}
+				if (Color.strip(check_name).equals("Back")) {
+					openKickable(player);
+				}
+			}
+		} else if (e.getInventory().getName().equals(Color.Gold + "Movement: Kickable")) {
+			Player player = (Player) e.getWhoClicked();
+
+			e.setCancelled(true);
+			e.setResult(Event.Result.DENY);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (e.getCurrentItem().hasItemMeta()) {
+				String check_name = e.getCurrentItem().getItemMeta().getDisplayName();
+				for (Check check : AntiCheat.getChecks()) {
+					if (check.getType().equals(CheckType.Movement)) {
+						if (check.getIdentifier().equals(Color.strip(check_name))) {
+							check.getType().equals(CheckType.Movement);
+							if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+								check.getType().equals(CheckType.Movement);
+								AntiCheat.getConfig().set("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", false);
+								AntiCheat.saveConfig();
+								AntiCheat.reloadConfig();
+								check.setKickable(false);
+								openKickableMovement(player);
+								return;
+							}
+							check.getType().equals(CheckType.Movement);
+							AntiCheat.getConfig().set("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", true);
+							AntiCheat.saveConfig();
+							AntiCheat.reloadConfig();
+							check.setKickable(true);
+							openKickableMovement(player);
+							return;
+						}
+					}
+				}
+				if (Color.strip(check_name).equals("Back")) {
+					openKickable(player);
+				}
+			}
+		} else if (e.getInventory().getName().equals(Color.Gold + "Player: Kickable")) {
+			Player player = (Player) e.getWhoClicked();
+
+			e.setCancelled(true);
+			e.setResult(Event.Result.DENY);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (e.getCurrentItem().hasItemMeta()) {
+				String check_name = e.getCurrentItem().getItemMeta().getDisplayName();
+				for (Check check : AntiCheat.getChecks()) {
+					if (check.getType().equals(CheckType.Player)) {
+						if (check.getIdentifier().equals(Color.strip(check_name))) {
+							check.getType().equals(CheckType.Player);
+							if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+								check.getType().equals(CheckType.Player);
+								AntiCheat.getConfig().set("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", false);
+								AntiCheat.saveConfig();
+								AntiCheat.reloadConfig();
+								check.setKickable(false);
+								openKickablePlayer(player);
+								return;
+							}
+							check.getType().equals(CheckType.Player);
+							AntiCheat.getConfig().set("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", true);
+							AntiCheat.saveConfig();
+							AntiCheat.reloadConfig();
+							check.setKickable(true);
+							openKickablePlayer(player);
+							return;
+						}
+					}
+				}
+				if (Color.strip(check_name).equals("Back")) {
+					openKickable(player);
+				}
+			}
+		} else if (e.getInventory().getName().equals(Color.Gold + "Other: Kickable")) {
+			Player player = (Player) e.getWhoClicked();
+
+			e.setCancelled(true);
+			e.setResult(Event.Result.DENY);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (e.getCurrentItem().hasItemMeta()) {
+				String check_name = e.getCurrentItem().getItemMeta().getDisplayName();
+				for (Check check : AntiCheat.getChecks()) {
+					if (check.getType().equals(CheckType.Other)) {
+						if (check.getIdentifier().equals(Color.strip(check_name))) {
+							check.getType().equals(CheckType.Other);
+							if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
+								check.getType().equals(CheckType.Other);
+								AntiCheat.getConfig().set("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", false);
+								AntiCheat.saveConfig();
+								AntiCheat.reloadConfig();
+								check.setKickable(false);
+								openKickableOther(player);
+								return;
+							}
+							check.getType().equals(CheckType.Other);
+							AntiCheat.getConfig().set("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable", true);
+							AntiCheat.saveConfig();
+							AntiCheat.reloadConfig();
+							check.setKickable(true);
+							openKickableOther(player);
+							return;
+						}
+					}
+				}
+				if (Color.strip(check_name).equals("Back")) {
+					openKickable(player);
 				}
 			}
 		} else if (e.getInventory().getName().equals(Color.Gold + "Client: Toggle")) {

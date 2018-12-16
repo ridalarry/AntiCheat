@@ -18,7 +18,7 @@ import me.rida.anticheat.utils.TimeUtil;
 public class KillAuraF extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
 	public KillAuraF(AntiCheat AntiCheat) {
-		super("KillAuraF", "KillAura",  CheckType.Combat, true, false, false, false, 150, 1, 600000L, AntiCheat);
+		super("KillAuraF", "KillAura",  CheckType.Combat, true, false, false, false, true, 150, 1, 600000L, AntiCheat);
 		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 	@EventHandler

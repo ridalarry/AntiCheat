@@ -24,7 +24,7 @@ public class ChangeA extends Check {
 	public static List<UUID> falling = new ArrayList<UUID>();
 
 	public ChangeA(AntiCheat AntiCheat) {
-		super("ChangeA", "Change", CheckType.Other, true, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("ChangeA", "Change", CheckType.Other, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

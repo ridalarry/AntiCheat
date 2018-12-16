@@ -25,7 +25,7 @@ import me.rida.anticheat.utils.TimeUtil;
 
 public class AscensionC extends Check {
 	public AscensionC(AntiCheat AntiCheat) {
-		super("AscensionC", "Ascension",  CheckType.Movement, true, true, false, true, 5, 1, 600000L, AntiCheat);
+		super("AscensionC", "Ascension",  CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
 	}	
 	public static Map<UUID, Map.Entry<Integer, Long>> flyTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	public static Map<UUID, Double> velocity = new HashMap<UUID, Double>();

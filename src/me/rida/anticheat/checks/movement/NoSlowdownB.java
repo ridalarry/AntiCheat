@@ -22,7 +22,7 @@ public class NoSlowdownB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 
 	public NoSlowdownB(AntiCheat AntiCheat) {
-		super("NoSlowdownB", "NoSlowdown", CheckType.Movement, true, false, false, false, 5, 1, 600000L, AntiCheat);
+		super("NoSlowdownB", "NoSlowdown", CheckType.Movement, true, false, false, false, true, 5, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

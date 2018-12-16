@@ -32,7 +32,7 @@ public class SpeedC extends Check {
 	public static Map<UUID, Double> velocity;
 
 	public SpeedC(AntiCheat AntiCheat) {
-		super("SpeedC", "Speed", CheckType.Movement, true, true, false, true, 3, 1, 600000L, AntiCheat);
+		super("SpeedC", "Speed", CheckType.Movement, true, true, false, true, false, 3, 1, 600000L, AntiCheat);
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		tooFastTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 		lastHit = new HashMap<UUID, Long>();

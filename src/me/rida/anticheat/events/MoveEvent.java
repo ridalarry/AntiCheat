@@ -1,6 +1,9 @@
 package me.rida.anticheat.events;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.WeakHashMap;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,6 +26,7 @@ public class MoveEvent implements Listener {
 
 
 	public static int defaultWait = 15; // This is in ticks
+	public static Map<UUID, Long> lastMove = new WeakHashMap<UUID, Long>();
 
 	// We need to create hashmaps to store the amount of time left
 
@@ -46,6 +50,7 @@ public class MoveEvent implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
+		lastMove.put(p.getUniqueId(), System.currentTimeMillis());
 		if(inTimer(p) == true) {
 			return;
 		}else {
@@ -224,5 +229,13 @@ public class MoveEvent implements Listener {
 		if(e.getVelocity().getY() > -0.078 || e.getVelocity().getY() < -0.08) {
 			data.lastVelocityTaken = System.currentTimeMillis();
 		}
+	}
+
+	public static Map<UUID, Long> getLastMove() {
+		return lastMove;
+	}
+
+	public static void setLastMove(Map<UUID, Long> lastMove) {
+		MoveEvent.lastMove = lastMove;
 	}
 }

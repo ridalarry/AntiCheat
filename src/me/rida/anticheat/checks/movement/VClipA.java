@@ -20,7 +20,7 @@ import me.rida.anticheat.utils.CheatUtil;
 public class VClipA extends Check {
 
 	public VClipA(AntiCheat AntiCheat) {
-		super("VClipA", "VClip", CheckType.Movement, true, false, false, false, 19, 1, 10000L, AntiCheat);
+		super("VClipA", "VClip", CheckType.Movement, true, false, false, false, true, 19, 1, 10000L, AntiCheat);
 	}
 
 	private static List<Material> allowed = new ArrayList<Material>();

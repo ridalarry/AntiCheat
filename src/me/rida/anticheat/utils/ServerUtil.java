@@ -19,7 +19,6 @@ public class ServerUtil {
 	private static final Class<?> CraftWorld = getCBClass("CraftWorld");
 	private static final Class<?> World = getNMSClass("World");
 	private static final Method getCubes = getMethod(World, "a", getNMSClass("AxisAlignedBB"));
-
 	public static Object getEntityPlayer(Player player) {
 		return getMethodValue(getMethod(CraftPlayer, "getHandle"), player);
 	}
