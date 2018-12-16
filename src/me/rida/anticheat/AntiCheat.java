@@ -748,7 +748,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 
 
-		}.runTaskTimerAsynchronously(this, 0L, 10L);
+		}.runTaskLater(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
