@@ -748,7 +748,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 
 
-		}.runTaskLater(this, 10L);
+		}.runTaskTimerAsynchronously(this, 0L, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
@@ -847,12 +847,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (event.getReason().equals(getConfig().getString("settings.kickmsg"))
 				|| event.getReason().contains("You failed to use an exploit that would crash the server!")
 				|| event.getReason().equals("Flying is not enabled on this server")
-				|| event.getReason().contains("Too many packets")) {
+				|| event.getReason().contains("Too many packets")
+				|| event.getReason().equals(getConfig().getString("settings.kickmsg")) && !p.isBanned() && !this.AutoBan.containsKey(p)) {
 			this.alert(String.valueOf(Color.Gray) + p.getName() + " was kicked for cheating!");
-			return;
-		}
-		if (event.getReason().equals(getConfig().getString("settings.kickmsg")) && !p.isBanned() && !this.AutoBan.containsKey(p)) {
-			this.alert(String.valueOf(Color.Gray) + event.getPlayer().getName() + " was kicked for cheating!");
 			return;
 		}
 		return;

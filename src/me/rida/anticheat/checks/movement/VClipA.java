@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
@@ -38,7 +40,12 @@ public class VClipA extends Check {
 		allowed.add(Material.FENCE_GATE);
 		allowed.add(Material.CHEST);
 	}
-
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+	private void onTeleport(PlayerTeleportEvent e) {
+		if (e.getCause() != TeleportCause.UNKNOWN) {
+			return;
+		}
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();

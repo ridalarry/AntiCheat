@@ -151,6 +151,7 @@ public class SharedEvents implements Listener {
 	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
+		AntiCheat.getInstance().Violations.remove(uuid);
 		teleported.remove(uuid);
 		placedBlock.remove(p);
 		AntiCheat.AlertsOn.remove(p);
