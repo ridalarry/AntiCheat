@@ -74,6 +74,7 @@ import me.rida.anticheat.update.Updater;
 import me.rida.anticheat.utils.ActionMessageUtil;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
+import me.rida.anticheat.utils.Config;
 import me.rida.anticheat.utils.NewVelocityUtil;
 import me.rida.anticheat.utils.ReflectionUtil;
 import me.rida.anticheat.utils.ServerUtil;
@@ -757,6 +758,15 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		}
 	}
 
+
+    public void createBannedUsersConfig(){
+        Config banfile = new Config("bannedusers");
+        banfile.makeConfigFile();
+    }
+    public void createPendingUsers(){
+        Config pending = new Config("pendingusers");
+        pending.makeConfigFile();
+    }
 	public void logCheat(Check check, Player player, String hoverabletext, String... identefier) {
 		String a = "";
 		if (identefier != null) {
