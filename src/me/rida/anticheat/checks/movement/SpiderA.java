@@ -21,6 +21,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.data.DataPlayer;
+import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.Color;
@@ -41,6 +42,11 @@ public class SpiderA extends Check {
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		UUID u = p.getUniqueId();
+		if (SharedEvents.placedBlock.containsKey(p)) {
+			if (System.currentTimeMillis() - SharedEvents.placedBlock.get(p).longValue() < 2000) {
+				return;
+			}
+		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
 				|| e.getTo().getY() < e.getFrom().getY()
@@ -79,7 +85,6 @@ public class SpiderA extends Check {
 			}
 		}
 		if (!ServerUtil.isBukkitVerison("1_13")&& !ServerUtil.isBukkitVerison("1_7")) {
-
 			if (PlayerUtil.isNotSpider(p)) {
 				return;
 			}

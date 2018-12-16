@@ -59,7 +59,13 @@ public class SharedEvents implements Listener {
 	private static Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
 	private static Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
 	public static Set<UUID> teleported = new HashSet<>();
+	public static Map<Player, Long> placedBlock = new HashMap<Player, Long>();
 
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onPlace(BlockPlaceEvent e) {
+		Player p = e.getPlayer();
+		placedBlock.put(p, System.currentTimeMillis());
+	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
@@ -79,7 +85,7 @@ public class SharedEvents implements Listener {
 
 
 		AntiCheat.getInstance().getDataManager().addPlayerData(p);
-        AntiCheat.getInstance().getDataManager().add(p);
+		AntiCheat.getInstance().getDataManager().add(p);
 	}
 
 	@EventHandler(ignoreCancelled = true)
@@ -134,6 +140,7 @@ public class SharedEvents implements Listener {
 		Player p = e.getPlayer();
 		UUID uuid = p.getUniqueId();
 		teleported.remove(uuid);
+		placedBlock.remove(p);
 		AntiCheat.AlertsOn.remove(p);
 		PacketsA.packetTicks.remove(uuid);
 		PacketsA.lastPacket.remove(uuid);

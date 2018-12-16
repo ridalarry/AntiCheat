@@ -53,7 +53,9 @@ public class JDayUtil {
 	public static int getAmountToBan(){
 		Config pending = new Config("pendingusers");
 		int count = 0;
-		if ( pending.getConfigFile().getConfigurationSection("PendingUsers") == null ) { return 0; }
+		if ( pending.getConfigFile().getConfigurationSection("PendingUsers") == null ) { 
+			return 0; 
+			}
 		for ( String s : pending.getConfigFile().getConfigurationSection("PendingUsers").getKeys(false) ) {
 			count++;
 		}
