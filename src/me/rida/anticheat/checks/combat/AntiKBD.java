@@ -17,6 +17,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.ServerUtil;
 
@@ -31,13 +32,15 @@ public class AntiKBD extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		double d;
+		double zLoc;
+		double xLoc;
 		Player p = e.getPlayer();
 		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
 				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
-				|| (ServerUtil.isHoveringOverWater(p, 1) 
-						|| ServerUtil.isHoveringOverWater(p, 0)) 
+				|| ServerUtil.isHoveringOverWater(p, 1)
+				|| ServerUtil.isHoveringOverWater(p, 0)
 				|| p.getAllowFlight()
+				|| BlockUtil.isSolid(BlockUtil.getBlockBehindPlayer(p))
 				|| p.isDead()
 				|| Ping.getPing(p) > 400
 				|| p.getGameMode().equals(GameMode.CREATIVE)
@@ -45,67 +48,70 @@ public class AntiKBD extends Check {
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		int n = 0;
-		if (AntiKBD.awaitingVelocity.containsKey((Object)p)) {
-			n = AntiKBD.awaitingVelocity.get((Object)p);
+		int awaitingVelocity = 0;
+		if (AntiKBD.awaitingVelocity.containsKey(p)) {
+			awaitingVelocity = AntiKBD.awaitingVelocity.get(p);
 		}
-		long l = 0;
-		if (AntiKBD.lastVelocity.containsKey((Object)p)) {
-			l = AntiKBD.lastVelocity.get((Object)p);
+		long lastVelocity = 0;
+		if (AntiKBD.lastVelocity.containsKey(p)) {
+			lastVelocity = AntiKBD.lastVelocity.get(p);
 		}
 		if (p.getLastDamageCause() == null || p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
-			n = 0;
+			awaitingVelocity = 0;
 		}
-		if (System.currentTimeMillis() - l > 2000 && n > 0) {
-			--n;
+		if (System.currentTimeMillis() - lastVelocity > 2000 && awaitingVelocity > 0) {
+			--awaitingVelocity;
 		}
-		double d2 = 0.0;
-		if (AntiKBD.totalMoved.containsKey((Object)p)) {
-			d2 = AntiKBD.totalMoved.get((Object)p);
+		double totalMoved = 0.0;
+		if (AntiKBD.totalMoved.containsKey(p)) {
+			totalMoved = AntiKBD.totalMoved.get(p);
 		}
-		if ((d = e.getTo().getZ() - e.getFrom().getZ()) > 0.0 
-				||( d = e.getTo().getX() - e.getFrom().getX()) > 0.0) {
-			d2 += d;
+		zLoc = Math.abs(e.getTo().getZ() - e.getFrom().getZ());
+		xLoc = Math.abs(e.getTo().getX() - e.getFrom().getX());
+		if (xLoc > 0.0 
+				|| zLoc > 0.0) {
+			totalMoved += zLoc + xLoc;
 		}
-		int n2 = 0;
-		int n3 = 1;
-		if (n > 0) {
-			if (d2 < 0.3) {
-				n2 += 9;
+		int awaitingVelocity2 = 0;
+		int awaitingVelocity3 = 1;
+		if (awaitingVelocity > 0) {
+			if (totalMoved < 0.3) {
+				awaitingVelocity2 += 9;
 			} else {
-				n2 = 0;
-				d2 = 0.0;
-				--n;
+				awaitingVelocity2 = 0;
+				totalMoved = 0.0;
+				--awaitingVelocity;
 			}
 			if (ServerUtil.isOnGround(p, -1) || ServerUtil.isOnGround(p, -2) || ServerUtil.isOnGround(p, -3)) {
-				n2 -= 9;
+				awaitingVelocity2 -= 9;
 			}
 		}
-		if (n2 > n3) {
-			if (d2 == 0.0) {
+		if (awaitingVelocity2 > awaitingVelocity3) {
+			if (totalMoved == 0.0) {
 				if (Ping.getPing(p) > 500) {
 					return;
 
 				}
-				getAntiCheat().logCheat(this, p, Color.Red + "[1]", "(Type: D)");
+				getAntiCheat().logCheat(this, p, Color.Red + "[1] horizontal", "(Type: D)");
 			} else {
 				if (Ping.getPing(p) > 220) {
 					return;
 				}
-				getAntiCheat().logCheat(this, p, Color.Red + "[2]", "(Type: D)");            }
-			n2 = 0;
-			d2 = 0.0;
-			--n;
+				getAntiCheat().logCheat(this, p, Color.Red + "[2] horizontal", "(Type: D)");
+			}
+			awaitingVelocity2 = 0;
+			totalMoved = 0.0;
+			--awaitingVelocity;
 		}
-		AntiKBD.awaitingVelocity.put(p, n);
-		AntiKBD.totalMoved.put(p, d2);
+		AntiKBD.awaitingVelocity.put(p, awaitingVelocity);
+		AntiKBD.totalMoved.put(p, totalMoved);
 	}
 
 	@SuppressWarnings( "unused" )
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Velocity(PlayerVelocityEvent e) {
-		double d;
-		long l;
+		double vio;
+		long lastVelocity;
 		Player p = e.getPlayer();
 		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
 			return;
@@ -119,19 +125,19 @@ public class AntiKBD extends Check {
 		if (p.getAllowFlight()) {
 			return;
 		}
-		if (AntiKBD.lastVelocity.containsKey((Object)p) && (l = System.currentTimeMillis() - AntiKBD.lastVelocity.get((Object)p)) < 500) {
+		if (AntiKBD.lastVelocity.containsKey(p) && (lastVelocity = System.currentTimeMillis() - AntiKBD.lastVelocity.get(p)) < 500) {
 			return;
 		}
 		Vector vector = e.getVelocity();
-		double d2 = Math.abs(vector.getZ());
-		double d3 = Math.abs(vector.getX());
-		if (d2 > 0.0 && (d = (double)((int)(Math.pow(d2 + 2.0, 2.0) * 5.0))) > 20.0) {
-			if (d3 > 0.0 && (d = (double)((int)(Math.pow(d2 + 2.0, 2.0) * 5.0))) > 20.0) {
-				int n = 0;
-				if (AntiKBD.awaitingVelocity.containsKey((Object)p)) {
-					n = AntiKBD.awaitingVelocity.get((Object)p);
+		double zLoc = Math.abs(vector.getZ());
+		double xLoc = Math.abs(vector.getX());
+		if (zLoc > 0.0 && (vio = (double)((int)(Math.pow(zLoc + 2.0, 2.0) * 5.0))) > 20.0) {
+			if (xLoc > 0.0 && (vio = (double)((int)(Math.pow(xLoc + 2.0, 2.0) * 5.0))) > 20.0) {
+				int awaitingVelocity = 0;
+				if (AntiKBD.awaitingVelocity.containsKey(p)) {
+					awaitingVelocity = AntiKBD.awaitingVelocity.get(p);
 				}
-				AntiKBD.awaitingVelocity.put(p, ++n);
+				AntiKBD.awaitingVelocity.put(p, ++awaitingVelocity);
 				AntiKBD.lastVelocity.put(p, System.currentTimeMillis());
 			}
 		}

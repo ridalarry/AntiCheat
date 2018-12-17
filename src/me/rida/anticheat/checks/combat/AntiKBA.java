@@ -17,121 +17,124 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Ping;
+import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
 public class AntiKBA extends Check {
-    public static Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
-    public static Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
-    public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
+	public static Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
+	public static Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
+	public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
 
-    public AntiKBA(AntiCheat AntiCheat) {
-        super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, true, 30, 1, 250000L, AntiCheat);
-    }
+	public AntiKBA(AntiCheat AntiCheat) {
+		super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, true, 30, 1, 250000L, AntiCheat);
+	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-        double d;
-        Player p = e.getPlayer();
-        if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
-        		|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
-        		|| ServerUtil.isHoveringOverWater(p, 1) 
-        		|| ServerUtil.isHoveringOverWater(p, 0) 
-        		|| p.getAllowFlight()
-        		|| p.isDead()
-        		|| PlayerUtil.isNearSlime(p)
-        		|| Ping.getPing(p) > 400
-                || p.getGameMode().equals(GameMode.CREATIVE)
-        		|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-                || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
-            return;
-        }
-        int n = 0;
-        if (AntiKBA.awaitingVelocity.containsKey((Object)p)) {
-            n = AntiKBA.awaitingVelocity.get((Object)p);
-        }
-        long l = 0;
-        if (AntiKBA.lastVelocity.containsKey((Object)p)) {
-            l = AntiKBA.lastVelocity.get((Object)p);
-        }
-        if (p.getLastDamageCause() == null || p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
-            n = 0;
-        }
-        if (System.currentTimeMillis() - l > 2000 && n > 0) {
-            --n;
-        }
-        double d2 = 0.0;
-        if (AntiKBA.totalMoved.containsKey((Object)p)) {
-            d2 = AntiKBA.totalMoved.get((Object)p);
-        }
-        if ((d = e.getTo().getY() - e.getFrom().getY()) > 0.0) {
-            d2 += d;
-        }
-        int n2 = 0;
-        int n3 = 1;
-        if (n > 0) {
-            if (d2 < 0.3) {
-                n2 += 9;
-            } else {
-                n2 = 0;
-                d2 = 0.0;
-                --n;
-            }
-            if (ServerUtil.isOnGround(p, -1) || ServerUtil.isOnGround(p, -2) || ServerUtil.isOnGround(p, -3)) {
-                n2 -= 9;
-            }
-        }
-        if (n2 > n3) {
-            if (d2 == 0.0) {
-                if (Ping.getPing(p) > 500) {
-                    return;
-                
-                }
-            	getAntiCheat().logCheat(this, p, Color.Red + "[1]", "(Type: A)");
-            	} else {
-                if (Ping.getPing(p) > 220) {
-                    return;
-                }
-            	getAntiCheat().logCheat(this, p, Color.Red + "[2]", "(Type: A)");            }
-            n2 = 0;
-            d2 = 0.0;
-            --n;
-        }
-        AntiKBA.awaitingVelocity.put(p, n);
-        AntiKBA.totalMoved.put(p, d2);
-    }
+		double yLoc;
+		Player p = e.getPlayer();
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
+				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
+				|| ServerUtil.isHoveringOverWater(p, 1) 
+				|| ServerUtil.isHoveringOverWater(p, 0) 
+				|| p.getAllowFlight()
+				|| p.isDead()
+				|| PlayerUtil.isNearSlime(p)
+				|| Ping.getPing(p) > 400
+				|| BlockUtil.isSolid(BlockUtil.getBlockBehindPlayer(p))
+				|| p.getGameMode().equals(GameMode.CREATIVE)
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
+			return;
+		}
+		int awaitingVelocity = 0;
+		if (AntiKBA.awaitingVelocity.containsKey(p)) {
+			awaitingVelocity = AntiKBA.awaitingVelocity.get(p);
+		}
+		long lastVelocity = 0;
+		if (AntiKBA.lastVelocity.containsKey(p)) {
+			lastVelocity = AntiKBA.lastVelocity.get(p);
+		}
+		if (p.getLastDamageCause() == null || p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK && p.getLastDamageCause().getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
+			awaitingVelocity = 0;
+		}
+		if (System.currentTimeMillis() - lastVelocity > 2000 && awaitingVelocity > 0) {
+			--awaitingVelocity;
+		}
+		double totalMoved = 0.0;
+		if (AntiKBA.totalMoved.containsKey(p)) {
+			totalMoved = AntiKBA.totalMoved.get(p);
+		}
+		if ((yLoc = e.getTo().getY() - e.getFrom().getY()) > 0.0) {
+			totalMoved += yLoc;
+		}
+		int awaitingVelocity2 = 0;
+		int awaitingVelocity3 = 1;
+		if (awaitingVelocity > 0) {
+			if (totalMoved < 0.3) {
+				awaitingVelocity2 += 9;
+			} else {
+				awaitingVelocity2 = 0;
+				totalMoved = 0.0;
+				--awaitingVelocity;
+			}
+			if (ServerUtil.isOnGround(p, -1) || ServerUtil.isOnGround(p, -2) || ServerUtil.isOnGround(p, -3)) {
+				awaitingVelocity2 -= 9;
+			}
+		}
+		if (awaitingVelocity2 > awaitingVelocity3) {
+			if (totalMoved == 0.0) {
+				if (Ping.getPing(p) > 500) {
+					return;
+
+				}
+				getAntiCheat().logCheat(this, p, Color.Red + "[1] vertical", "(Type: A)");
+			} else {
+				if (Ping.getPing(p) > 220) {
+					return;
+				}
+				getAntiCheat().logCheat(this, p, Color.Red + "[2] vertical", "(Type: A)");
+			}
+			awaitingVelocity2 = 0;
+			totalMoved = 0.0;
+			--awaitingVelocity;
+		}
+		AntiKBA.awaitingVelocity.put(p, awaitingVelocity);
+		AntiKBA.totalMoved.put(p, totalMoved);
+	}
 
 	@SuppressWarnings( "unused" )
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Velocity(PlayerVelocityEvent e) {
-        double d;
-        long l;
-        Player p = e.getPlayer();
-        if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
-            return;
-        }
-        if (ServerUtil.isHoveringOverWater(p, 1) || ServerUtil.isHoveringOverWater(p, 0)) {
-            return;
-        }
-        if (ServerUtil.isOnGround(p, -1) || ServerUtil.isOnGround(p, -2) || ServerUtil.isOnGround(p, -3)) {
-            return;
-        }
-        if (p.getAllowFlight()) {
-            return;
-        }
-        if (AntiKBA.lastVelocity.containsKey((Object)p) && (l = System.currentTimeMillis() - AntiKBA.lastVelocity.get((Object)p)) < 500) {
-            return;
-        }
-        Vector vector = e.getVelocity();
-        double d2 = Math.abs(vector.getY());
-        if (d2 > 0.0 && (d = (double)((int)(Math.pow(d2 + 2.0, 2.0) * 5.0))) > 20.0) {
-            int n = 0;
-            if (AntiKBA.awaitingVelocity.containsKey((Object)p)) {
-                n = AntiKBA.awaitingVelocity.get((Object)p);
-            }
-            AntiKBA.awaitingVelocity.put(p, ++n);
-            AntiKBA.lastVelocity.put(p, System.currentTimeMillis());
-        }
-    }
+		double yVio;
+		long lastVelocity;
+		Player p = e.getPlayer();
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
+			return;
+		}
+		if (ServerUtil.isHoveringOverWater(p, 1) || ServerUtil.isHoveringOverWater(p, 0)) {
+			return;
+		}
+		if (ServerUtil.isOnGround(p, -1) || ServerUtil.isOnGround(p, -2) || ServerUtil.isOnGround(p, -3)) {
+			return;
+		}
+		if (p.getAllowFlight()) {
+			return;
+		}
+		if (AntiKBA.lastVelocity.containsKey(p) && (lastVelocity = System.currentTimeMillis() - AntiKBA.lastVelocity.get(p)) < 500) {
+			return;
+		}
+		Vector vector = e.getVelocity();
+		double yLoc = Math.abs(vector.getY());
+		if (yLoc > 0.0 && (yVio = (double)((int)(Math.pow(yLoc + 2.0, 2.0) * 5.0))) > 20.0) {
+			int awaitingVelocity = 0;
+			if (AntiKBA.awaitingVelocity.containsKey(p)) {
+				awaitingVelocity = AntiKBA.awaitingVelocity.get(p);
+			}
+			AntiKBA.awaitingVelocity.put(p, ++awaitingVelocity);
+			AntiKBA.lastVelocity.put(p, System.currentTimeMillis());
+		}
+	}
 }

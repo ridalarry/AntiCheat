@@ -16,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
@@ -31,7 +32,19 @@ public class BlockUtil {
 		collisionBoundingBoxes = new HashMap<>();
 		setupCollisionBB();
 	}
+	public static Block getBlockBehindPlayer(Player player) {
+        // Won't get NPEs from me.
+        if (player == null) {
+            return null;
+        }
+        // Get player's location, but at head height. Add 1 to y.
+        Location location = player.getLocation().add(0, 1, 0);
+       // Get the player's direction and invert it on the x and z axis to get the opposite direction.
+        Vector direction = location.getDirection().multiply(new Vector(-1, 0, -1));
 
+       // Return the block at the location opposite of the direction the player is looking, 1 block forward.
+        return player.getWorld().getBlockAt(location.add(direction));
+    }
 	static {
 		allowed.add(Material.SIGN);
 		allowed.add(Material.FENCE);
