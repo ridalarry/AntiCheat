@@ -2,6 +2,7 @@ package me.rida.anticheat.checks.combat;
 
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Giant;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -21,7 +22,7 @@ public class ReachE extends Check {
 
 
 	public ReachE(AntiCheat AntiCheat) {
-		super("ReachE", "Reach",  CheckType.Combat, true, false, false, false, true, 9, 1, 600000L, AntiCheat);
+		super("ReachE", "Reach",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(PacketAttackEvent e) {
@@ -54,7 +55,7 @@ public class ReachE extends Check {
 				|| PlayerUtil.isNearSlime(d.getLocation())) {
 			MaxReach += 1.0;
 		}
-		if (d instanceof Slime || d instanceof Spider) {
+		if (d instanceof Slime || d instanceof Spider || d instanceof Giant) {
 			MaxReach += 1.0;
 		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {

@@ -817,7 +817,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		}
-		if (violations > check.getMaxViolations() && check.isJudgmentDay()) {
+		if (violations == check.getMaxViolations() && check.isJudgmentDay()) {
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -825,10 +825,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}.runTaskLater(this, 10L);
 		}
-		if (violations > check.getMaxViolations() && check.isBannable() && !check.isJudgmentDay()) {
+		if (violations == check.getMaxViolations() && check.isBannable() && !check.isJudgmentDay()) {
 			this.autoban(check, player);
 		}
-		if (violations == check.getMaxViolations() && check.isKickable() && !check.isJudgmentDay()) {
+		if (violations == check.getMaxViolations() && check.isKickable() && !check.isBannable() && !check.isJudgmentDay()) {
 			this.PlayerKick(player);
 		}
 	}

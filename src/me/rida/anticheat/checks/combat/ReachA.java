@@ -4,6 +4,7 @@ import org.bukkit.GameMode;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Giant;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -69,6 +70,9 @@ public class ReachA extends Check {
 		}
 		if (p2 instanceof Slime || p2 instanceof Spider) {
 			maxReach += 1.0;
+		}
+		if (p2 instanceof Giant) {
+			maxReach += 2.0;
 		}
 		String en = p2.getName().toString();
 		if(distance > maxReach) {
