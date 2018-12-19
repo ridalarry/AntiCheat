@@ -16,7 +16,7 @@ public class HitBoxB extends Check {
 	private final double HITBOX_LENGTH = 1.05;
 
 	public HitBoxB(AntiCheat AntiCheat) {
-		super("HitBoxB", "HitBox", CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
+		super("HitBoxB", "HitBox", CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
