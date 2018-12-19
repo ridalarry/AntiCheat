@@ -1,4 +1,4 @@
-package me.rida.playerInformation;
+package me.rida.anticheat.playerInformation;
 
 import java.net.InetSocketAddress;
 

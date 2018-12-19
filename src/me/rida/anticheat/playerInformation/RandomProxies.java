@@ -1,4 +1,4 @@
-package me.rida.playerInformation;
+package me.rida.anticheat.playerInformation;
 
 import java.util.ArrayList;
 import java.util.List;
