@@ -13,7 +13,7 @@ public class ProxyCheckWeb1 {
 		
 		String APIKey = "";
 		Random rand = new Random();
-		int value = rand.nextInt(3);
+		int value = rand.nextInt(4);
 		
 		if(value == 0){
 			APIKey = "cx4jARbZXyrq34HAqWaUlPLMJCSy5RX3";
@@ -23,6 +23,9 @@ public class ProxyCheckWeb1 {
 		}
 		if(value == 2){
 			APIKey = "HnyRe68WOF0tu0UKpH2e6wyGlBmRa74i";
+		}
+		if(value == 3) {
+			APIKey = "7RWIERSmc03CJUbmY5g1AvOgDrmdLSpD";
 		}
 		
 		

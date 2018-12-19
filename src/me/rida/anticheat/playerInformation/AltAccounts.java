@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.bukkit.entity.Player;
 
-public class AltAccounts {
+public class AltAccounts{
 	
 	/* This part of the plugin will work as follows
 	 * Alts will be detected by using IP Address lookup and UUID lookup
@@ -25,9 +25,10 @@ public class AltAccounts {
 	
 	// Will return all alt accounts, checking UUID s
 	public static ArrayList<String> getAlts(Player player){
+		ArrayList<String> altAccounts = new ArrayList<String>();
 		
 		
-		return null;
+		return altAccounts;
 		
 	}
 	
