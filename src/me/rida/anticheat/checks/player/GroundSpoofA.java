@@ -21,7 +21,7 @@ import me.rida.anticheat.utils.VelocityUtil;
 
 public class GroundSpoofA extends Check {
 	public GroundSpoofA(AntiCheat AntiCheat) {
-		super("GroundsSpoofA", "GroundSpoof", CheckType.Player, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+		super("GroundsSpoofA", "GroundSpoof", CheckType.Player, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {

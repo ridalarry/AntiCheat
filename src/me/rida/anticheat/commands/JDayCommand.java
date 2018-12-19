@@ -46,9 +46,9 @@ public class JDayCommand implements CommandExecutor {
 		}
 		else if (args[0].equalsIgnoreCase("add")) {
 			final String type = args[0];
-			if (args.length != 2) {
+			if (args.length < 2) {
 				sender.sendMessage(AntiCheat.PREFIX + Color.translate("&7Invalid argument!"));
-				sender.sendMessage(AntiCheat.PREFIX + Color.translate("&7Usage '/jday start' to start and '/jday add PLAYER' to add a player to the list!"));
+				sender.sendMessage(AntiCheat.PREFIX + Color.translate("&7Usage '/jday start' to start and '/jday add PLAYER REASON' to add a player to the list!"));
 				return true;
 			}
 			final String playerName = args[1];
@@ -62,16 +62,17 @@ public class JDayCommand implements CommandExecutor {
 
 				StringBuilder str = new StringBuilder();
 				String reason;
-				for (int i = 1; i < args.length; i++) {
+				for (int i = 2; i < args.length; i++) {
 					str.append(args[i]).append(" ");
 				}
 				reason = str.toString();
 				if (reason.equalsIgnoreCase(null) || reason.isEmpty() || reason.equals(" ")) {
-					reason = "No Reason Specified";
+					reason = "No Reason Specified. ";
 				} else {
 					reason = str.toString();
 				}
-
+				int reasonLength = reason.length();
+				reason = reason.substring(0, reasonLength-1);
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Name", target.getName());
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".UUID", String.valueOf(target.getUniqueId()));
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Date", String.valueOf(Calendar.getInstance().getTime()));

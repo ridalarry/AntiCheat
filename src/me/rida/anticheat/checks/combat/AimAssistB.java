@@ -28,7 +28,7 @@ public class AimAssistB extends Check {
 	private double flag = 2;
 
 	public AimAssistB(AntiCheat AntiCheat) {
-		super("AimAssistB", "AimAssist",  CheckType.Combat, true, false, false, false, false, 10, 1, 600000L, AntiCheat);
+		super("AimAssistB", "AimAssist",  CheckType.Combat, true, false, false, false, false, 20, 2, 60000L, AntiCheat);
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
 			@Override
 			public void onPacketReceiving(PacketEvent e) {

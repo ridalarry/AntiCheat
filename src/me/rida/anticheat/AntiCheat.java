@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,6 +25,7 @@ import java.util.logging.Logger;
 
 import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -341,7 +343,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			});
 
-			Bukkit.getScheduler().runTaskTimer(this, () -> {
+			Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> {
 				for (Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
 					Player player = iterator.next().getKey();
 					if (!player.isOnline() || !player.isValid())
@@ -717,7 +719,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 				NamesBanned.put(player.getName(), check);
 			}
-		}.runTaskLater(this, 10L);
+		}.runTaskLaterAsynchronously(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
@@ -731,7 +733,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			public void run() {
 				player.kickPlayer(getConfig().getString("settings.kickmsg"));
 			}
-		}.runTaskLater(this, 10L);
+		}.runTaskLaterAsynchronously(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		return;
@@ -748,7 +750,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 
 
-		}.runTaskLater(this, 10L);
+		}.runTaskLaterAsynchronously(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
@@ -818,14 +820,29 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		}
 		if (violations == check.getMaxViolations() && check.isJudgmentDay()) {
-			new BukkitRunnable() {
-				@Override
-				public void run() {
-					Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "jday add " + player.getPlayer().getName().toString());
+			if (this.getConfig().getBoolean("testmode") == true) {
+				return;
+			} else {
+				OfflinePlayer target = player;
+				Config pending = new Config("pendingusers");
+				String reason = "[AntiCheat] Failed JDay check " + check.getIdentifier().substring(0, check.getIdentifier().length()-1) + " (Type: " + check.getIdentifier().charAt(check.getIdentifier().length()-1) + ")";
+				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Name", target.getName());
+				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".UUID", String.valueOf(target.getUniqueId()));
+				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Date", String.valueOf(Calendar.getInstance().getTime()));
+				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Reason", reason);
+				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".ExecutedBy", "CONSOLE");
+				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".wasOnline", "CONSOLE");
+				if (target.isOnline()) {
+					pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".wasOnline", true);
+				} else {
+					pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".wasOnline", false);
 				}
-			}.runTaskLater(this, 10L);
+
+				pending.saveConfigFile();
+				System.out.println(Color.Red + player.getPlayer().getName().toString() + Color.Red + " has been added to the list!");
+			}
 		}
-		if (violations == check.getMaxViolations() && check.isBannable() && !check.isJudgmentDay()) {
+		if (violations >= check.getMaxViolations() && check.isBannable() && !check.isJudgmentDay()) {
 			this.autoban(check, player);
 		}
 		if (violations == check.getMaxViolations() && check.isKickable() && !check.isBannable() && !check.isJudgmentDay()) {
@@ -940,7 +957,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		} catch (ExploitException ex) {
 			PACKET_USAGE.put(player, -2L);
 
-			Bukkit.getScheduler().runTask(this, () -> {
+			Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
 				player.kickPlayer("You failed to use an exploit that would crash the server!");
 
 				if (dispatchCommand != null)
@@ -1065,7 +1082,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
+		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimerAsynchronously(this, 0L, 20L);
 	}
 
 	public static boolean isInPhaseTimer(Player player) {
@@ -1093,6 +1110,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 1L);
+		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimerAsynchronously(this, 0L, 1L);
 	}
 }

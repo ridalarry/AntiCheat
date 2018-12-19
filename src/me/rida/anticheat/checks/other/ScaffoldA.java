@@ -16,7 +16,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 public class ScaffoldA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 	public ScaffoldA(AntiCheat AntiCheat) {
-		super("ScaffoldA", "Scaffold", CheckType.Other, true, true, false, true, false, 10, 1, 600000L, AntiCheat);
+		super("ScaffoldA", "Scaffold", CheckType.Other, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)

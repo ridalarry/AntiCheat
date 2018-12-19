@@ -18,7 +18,9 @@ public class PingSpoofA extends Check {
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
 		if (getAntiCheat().getLag().getPing(p) > 500) {
-			getAntiCheat().logCheat(this, p, "Ping: " + getAntiCheat().getLag().getPing(p), "(Type: A)");
+			if (e.getFrom() != e.getTo()) {
+				getAntiCheat().logCheat(this, p, "Ping: " + getAntiCheat().getLag().getPing(p), "(Type: A)");
+			}
 		}
 	}
 }

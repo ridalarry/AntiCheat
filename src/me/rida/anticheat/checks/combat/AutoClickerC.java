@@ -26,7 +26,7 @@ public class AutoClickerC extends Check {
 	public static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
 	public static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
 	public AutoClickerC(AntiCheat AntiCheat) {
-		super("AutoClickerC", "AutoClicker",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+		super("AutoClickerC", "AutoClicker",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onInt(PlayerInteractEvent e) {

@@ -19,7 +19,7 @@ import me.rida.anticheat.other.Ping;
 public class BlockInteractE extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 	public BlockInteractE(AntiCheat AntiCheat) {
-		super("BlockInteractE", "BI", CheckType.Other, true, false, false, false, true, 5, 1, 600000L, AntiCheat);
+		super("BlockInteractE", "BI", CheckType.Other, true, false, false, false, true, 15, 1, 600000L, AntiCheat);
 		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
 	}
 

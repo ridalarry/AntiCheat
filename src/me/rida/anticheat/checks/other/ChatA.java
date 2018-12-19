@@ -14,7 +14,7 @@ import me.rida.anticheat.checks.CheckType;
 public class ChatA extends Check{
 
 	public ChatA(AntiCheat AntiCheat) {
-		super("ChatA", "Chat", CheckType.Other, true, false, false, false, true, 1, 1, 600000L, AntiCheat);
+		super("ChatA", "Chat", CheckType.Other, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

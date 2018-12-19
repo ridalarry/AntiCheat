@@ -20,7 +20,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 public class BlockInteractA extends Check {
 
 	public BlockInteractA(AntiCheat AntiCheat) {
-		super("BlockInteractA", "BI", CheckType.Other, true, false, false, false, true, 29, 1, 600000L, AntiCheat);
+		super("BlockInteractA", "BI", CheckType.Other, true, false, false, false, true, 40, 1, 600000L, AntiCheat);
 	}
 
 	@SuppressWarnings("deprecation")

@@ -27,7 +27,7 @@ public class AutoClickerB extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> ClickTicks;
 
 	public AutoClickerB(AntiCheat AntiCheat) {
-		super("AutoClickerB", "AutoClicker",  CheckType.Combat, true, false, false, false, true, 5, 2, 600000L, AntiCheat);
+		super("AutoClickerB", "AutoClicker",  CheckType.Combat, true, false, false, false, true, 12, 2, 600000L, AntiCheat);
 
 		LastMS = new HashMap<UUID, Long>();
 		Clicks = new HashMap<UUID, List<Long>>();

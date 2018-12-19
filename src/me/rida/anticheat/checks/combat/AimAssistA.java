@@ -15,7 +15,7 @@ public class AimAssistA extends Check {
 	private int aimAssist = 0;
 
 	public AimAssistA(AntiCheat AntiCheat) {
-		super("AimAssistA", "AimAssist",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+		super("AimAssistA", "AimAssist",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
 	}
 
 	private static double getFrac(double d) {

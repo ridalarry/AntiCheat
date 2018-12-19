@@ -22,7 +22,7 @@ import me.rida.anticheat.utils.CheatUtil;
 public class VClipA extends Check {
 
 	public VClipA(AntiCheat AntiCheat) {
-		super("VClipA", "VClip", CheckType.Movement, true, false, false, false, true, 19, 1, 10000L, AntiCheat);
+		super("VClipA", "VClip", CheckType.Movement, true, false, false, false, true, 40, 1, 10000L, AntiCheat);
 	}
 
 	private static List<Material> allowed = new ArrayList<Material>();
@@ -73,7 +73,7 @@ public class VClipA extends Check {
 			if ((yDist > 20 || yDist < -20) && l.getBlock().getType() != Material.AIR
 					&& l.getBlock().getType().isSolid() && !allowed.contains(l.getBlock().getType())) {
 
-				AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+				AntiCheat.Instance.getServer().getScheduler().runTaskAsynchronously((Plugin)AntiCheat.Instance, new Runnable(){
 					Player p = e.getPlayer();
 					@Override
 					public void run() {

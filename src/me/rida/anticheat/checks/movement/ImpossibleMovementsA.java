@@ -16,7 +16,7 @@ import me.rida.anticheat.utils.TimerUtil;
 
 public class ImpossibleMovementsA extends Check {
 	public ImpossibleMovementsA(AntiCheat AntiCheat) {
-		super("ImpossibleMovementsA", "ImpMove", CheckType.Movement, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+		super("ImpossibleMovementsA", "ImpMove", CheckType.Movement, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

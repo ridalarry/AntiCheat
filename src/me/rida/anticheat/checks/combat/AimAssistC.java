@@ -16,7 +16,7 @@ extends Check {
     private int streak;
     private int min;
      public AimAssistC(AntiCheat AntiCheat) {
-        super("AimAssistC", "AimAssist",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+        super("AimAssistC", "AimAssist",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
     }
      
 	@SuppressWarnings("unused")

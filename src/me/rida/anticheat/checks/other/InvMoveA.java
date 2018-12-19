@@ -14,7 +14,7 @@ import me.rida.anticheat.checks.CheckType;
 
 public class InvMoveA extends Check {
 	public InvMoveA(AntiCheat AntiCheat) {
-		super("InvMoveA", "InvMove", CheckType.Other, true, false, false, false, true, 30, 20, 3000L, AntiCheat);
+		super("InvMoveA", "InvMove", CheckType.Other, true, false, false, false, true, 60, 20, 3000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

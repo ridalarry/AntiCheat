@@ -12,7 +12,7 @@ import me.rida.anticheat.checks.CheckType;
 
 public class AntiBlindnessA extends Check {
 	public AntiBlindnessA(AntiCheat AntiCheat) {
-		super("AntiBlindnessA", "AntiBlindness", CheckType.Player, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+		super("AntiBlindnessA", "AntiBlindness", CheckType.Player, true, false, false, false, true, 5, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)

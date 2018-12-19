@@ -16,7 +16,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 public class CriticalsA extends Check {
 
     public CriticalsA(AntiCheat AntiCheat) {
-        super("CriticalsA", "Criticals",  CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+        super("CriticalsA", "Criticals",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
     }
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
