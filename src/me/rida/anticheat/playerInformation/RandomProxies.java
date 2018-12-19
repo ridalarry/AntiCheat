@@ -28,6 +28,31 @@ public class RandomProxies {
 	public static List<String> proxiesList20 = new ArrayList<String>();
 	
 	
+	public static void createAllProxies() {
+		createProxies();
+		createProxies1();
+		createProxies2();
+		createProxies3();
+		createProxies4();
+		createProxies5();
+		createProxies6();
+		createProxies7();
+		createProxies8();
+		createProxies9();
+		createProxies10();
+		createProxies11();
+		createProxies12();
+		createProxies13();
+		createProxies14();
+		createProxies15();
+		createProxies16();
+		createProxies17();
+		createProxies18();
+		createProxies19();
+		createProxies20();
+		
+	}
+	
 	public static void createProxies(){
 		proxiesList.add("209.97.203.64");
 		proxiesList.add("127.0.0.7");

@@ -21,7 +21,7 @@ public class CityCheck {
 	        stream.close();
 	        if(entirePage.toString().contains("\"city\":\"")){
 	        	
-	        	return " ";
+	        	return "Unknown";
 	        }else{
 	        	
 	        }
@@ -31,6 +31,33 @@ public class CityCheck {
 		   
 		   
 	    }
+	   
+	   public static String getTimeZone(Player player) throws Exception{
+		   
+		   
+	        URL url = new URL("https://ip-api.io/json/" + player.getAddress().toString().replaceAll("/", ""));
+	        BufferedReader stream = new BufferedReader(new InputStreamReader(
+	                url.openStream()));
+	        StringBuilder entirePage = new StringBuilder();
+	        String inputLine;
+	        while ((inputLine = stream.readLine()) != null)
+	            entirePage.append(inputLine);
+	        stream.close();
+	        if(entirePage.toString().contains("\"time_zone\":\"")){
+	        	
+	        	return "Unknown";
+	        }else{
+	        	
+	        }
+			return entirePage.toString().split("\"time_zone\":\"")[1].split("\",")[0];
+	            
+	      
+		   
+		   
+	    }
+	   
+	   
+	   
 	   
 }
 

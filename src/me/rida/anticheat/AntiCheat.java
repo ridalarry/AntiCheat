@@ -70,6 +70,7 @@ import me.rida.anticheat.other.LagCore;
 import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.packets.PacketCore;
+import me.rida.anticheat.playerInformation.playerInformationMain;
 import me.rida.anticheat.pluginlogger.PluginLoggerHelper;
 import me.rida.anticheat.update.UpdateEvent;
 import me.rida.anticheat.update.UpdateType;
@@ -220,7 +221,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	@Override
-	public void onEnable() {
+	public void onEnable() {	
+		playerInformationMain.startDefaults();
 		service = Executors.newSingleThreadExecutor();
 		new ReflectionUtil();
 		new BlockUtil();
