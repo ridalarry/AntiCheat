@@ -148,7 +148,7 @@ public class BoundingBox {
 			for (int z = minZ; z < maxZ; z++) {
 				for (int y = minY - 1; y < maxY; y++) {
 					Block block = new Location(player.getWorld(), x, y, z).getBlock();
-					if (BlockUtil.isSolid(block)) {
+					if (BlockUtil.isSolid2(block)) {
 						if (BlockUtil.collisionBoundingBoxes.containsKey(block.getType())) {
 							for (BoundingBox box : BlockUtil.getBlockBoundingBox(block)) {
 								if (intersectsWithBox(box)) {

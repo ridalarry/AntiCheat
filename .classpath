@@ -3,6 +3,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path=".dependancies/ProtocolLib.jar"/>
+	<classpathentry kind="lib" path=".dependancies/spigot1_13.jar"/>
 	<classpathentry kind="lib" path=".dependancies/spigot1_12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

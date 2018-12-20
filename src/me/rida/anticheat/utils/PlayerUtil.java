@@ -22,17 +22,29 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.data.DataPlayer;
 
 public class PlayerUtil {
-	private static ImmutableSet<Material> ground = Sets.immutableEnumSet(Material.SUGAR_CANE, Material.SUGAR_CANE_BLOCK,
-			Material.TORCH, Material.ACTIVATOR_RAIL, Material.AIR, Material.CARROT, Material.CROPS, Material.DEAD_BUSH,
-			Material.DETECTOR_RAIL, Material.DIODE_BLOCK_OFF, Material.DIODE_BLOCK_ON, Material.DOUBLE_PLANT,
-			Material.FIRE, Material.GOLD_PLATE, Material.IRON_PLATE, Material.LAVA, Material.LEVER, Material.LONG_GRASS,
-			Material.MELON_STEM, Material.NETHER_WARTS, Material.PORTAL, Material.POTATO, Material.POWERED_RAIL,
-			Material.PUMPKIN_STEM, Material.RAILS, Material.RED_ROSE, Material.REDSTONE_COMPARATOR_OFF,
-			Material.REDSTONE_COMPARATOR_ON, Material.REDSTONE_TORCH_OFF, Material.REDSTONE_TORCH_ON,
-			Material.REDSTONE_WIRE, Material.SAPLING, Material.SEEDS, Material.SIGN, Material.SIGN_POST,
-			Material.STATIONARY_LAVA, Material.STATIONARY_WATER, Material.STONE_BUTTON, Material.STONE_PLATE,
-			Material.SUGAR_CANE_BLOCK, Material.TORCH, Material.TRIPWIRE, Material.TRIPWIRE_HOOK, Material.WALL_SIGN,
-			Material.WATER, Material.WEB, Material.WOOD_BUTTON, Material.WOOD_PLATE, Material.YELLOW_FLOWER);
+	@SuppressWarnings("deprecation")
+	private static ImmutableSet<Material> ground = Sets.immutableEnumSet(Material.SUGAR_CANE, Material.LEGACY_SUGAR_CANE_BLOCK,
+			Material.TORCH, Material.ACTIVATOR_RAIL, Material.AIR, Material.CARROT, Material.LEGACY_CROPS, Material.DEAD_BUSH,
+			Material.DETECTOR_RAIL, Material.LEGACY_DIODE_BLOCK_OFF, Material.LEGACY_DIODE_BLOCK_ON, Material.FIRE, Material.LAVA, 
+			Material.LEVER, Material.MELON_STEM, Material.NETHER_WART, Material.NETHER_PORTAL, Material.POTATO, Material.RAIL,
+			Material.POWERED_RAIL, Material.PUMPKIN_STEM, Material.REDSTONE_WIRE, Material.SIGN, Material.LEGACY_STATIONARY_LAVA, 
+			Material.LEGACY_STATIONARY_WATER, Material.STONE_BUTTON, Material.TRIPWIRE, Material.TRIPWIRE_HOOK, Material.WALL_SIGN,
+			Material.WATER, Material.COBWEB, Material.ACACIA_PRESSURE_PLATE, Material.BIRCH_PRESSURE_PLATE, Material.POTTED_POPPY,
+			Material.DARK_OAK_PRESSURE_PLATE, Material.JUNGLE_PRESSURE_PLATE, Material.LIGHT_WEIGHTED_PRESSURE_PLATE, Material.POPPY,
+			Material.OAK_PRESSURE_PLATE, Material.SPRUCE_PRESSURE_PLATE, Material.STONE_PRESSURE_PLATE, Material.OXEYE_DAISY,
+			Material.FLOWER_POT, Material.SUNFLOWER, Material.DANDELION, Material.BLUE_ORCHID, Material.ALLIUM, Material.PINK_TULIP,
+			Material.AZURE_BLUET, Material.RED_TULIP, Material.ORANGE_TULIP, Material.WHITE_TULIP, Material.POTTED_POPPY,
+			Material.POTTED_DANDELION, Material.POTTED_BLUE_ORCHID, Material.POTTED_ALLIUM, Material.POTTED_AZURE_BLUET, 
+			Material.POTTED_RED_TULIP, Material.POTTED_ORANGE_TULIP, Material.POTTED_WHITE_TULIP, Material.POTTED_PINK_TULIP,
+			Material.POTTED_OXEYE_DAISY, Material.LEGACY_RED_ROSE, Material.LEGACY_YELLOW_FLOWER, Material.LEGACY_LONG_GRASS,
+			Material.LEGACY_DOUBLE_PLANT, Material.BEETROOT_SEEDS, Material.MELON_SEEDS, Material.PUMPKIN_SEEDS, Material.WHEAT_SEEDS,
+			Material.LEGACY_SEEDS, Material.LEGACY_REDSTONE_COMPARATOR_OFF, Material.LEGACY_REDSTONE_COMPARATOR_ON, 
+			Material.LEGACY_REDSTONE_TORCH_OFF, Material.LEGACY_REDSTONE_TORCH_ON, Material.REDSTONE_TORCH, Material.REDSTONE_WALL_TORCH, 
+			Material.LEGACY_SAPLING, Material.ACACIA_SAPLING, Material.BIRCH_SAPLING, Material.DARK_OAK_SAPLING, Material.JUNGLE_SAPLING,
+			Material.SPRUCE_SAPLING, Material.POTTED_ACACIA_SAPLING, Material.POTTED_BIRCH_SAPLING, Material.POTTED_DARK_OAK_SAPLING,
+			Material.POTTED_JUNGLE_SAPLING, Material.POTTED_SPRUCE_SAPLING, Material.LEGACY_SIGN_POST);
+
+
 
 	@SuppressWarnings("unused")
 	public static int getEff(Player p){
@@ -48,6 +60,7 @@ public class PlayerUtil {
 		}
 		return 0;
 	}
+
 	public static boolean isFlying2(BlockPlaceEvent e, Player p)
 	{
 		Location loc = p.getLocation();
@@ -78,21 +91,6 @@ public class PlayerUtil {
 			return false;
 		}
 	}
-	public static boolean isOnGround(PlayerMoveEvent e, Player p)
-	{
-		Location loc = p.getLocation();
-		loc.setY(loc.getY());
-
-		Block block = loc.getWorld().getBlockAt(loc);
-		if (!block.getType().equals(Material.AIR))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
 	public static boolean isOnGround(BlockPlaceEvent e, Player p)
 	{
 		Location loc = p.getLocation();
@@ -100,21 +98,6 @@ public class PlayerUtil {
 
 		Block block = loc.getWorld().getBlockAt(loc);
 		if (!block.getType().equals(Material.AIR))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	public static boolean isFlying(PlayerMoveEvent e, Player p)
-	{
-		Location loc = p.getLocation();
-		loc.setY(loc.getY() -2);
-
-		Block block = loc.getWorld().getBlockAt(loc);
-		if (block.getType().equals(Material.AIR))
 		{
 			return true;
 		}
@@ -138,19 +121,28 @@ public class PlayerUtil {
 			return false;
 		}
 	}
-	public static boolean isNearChest(Player p) {
+	public static boolean isNearSolid(Player p) {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
-			if (BlockUtil.isChest(b)) {
+			if (BlockUtil.isSolid2(b)) {
 				out = true;
 			}
 		}
 		return out;
 	}
-	public static boolean isNear1_13(Player p) {
+	public static boolean isNearPiston(Location loc) {
+		boolean out = false;
+		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
+			if (BlockUtil.isPiston(b)) {
+				out = true;
+			}
+		}
+		return out;
+	}
+	public static boolean isNearChest(Player p) {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
-			if (BlockUtil.Block_1_13(b)) {
+			if (BlockUtil.isChest(b)) {
 				out = true;
 			}
 		}
@@ -180,15 +172,6 @@ public class PlayerUtil {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isWeb(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearSolid(Player p) {
-		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
-			if (BlockUtil.isSolid(b)) {
 				out = true;
 			}
 		}
@@ -275,24 +258,6 @@ public class PlayerUtil {
 		}
 		return out;
 	}
-	public static boolean isNotNearAir(Player p) {
-		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
-			if (!BlockUtil.isAir(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearB_1_13(Player p) {
-		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
-			if (!BlockUtil.B_1_13(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
 
 	public static boolean isNearHalfBlock(Player p) {
 		boolean out = false;
@@ -308,15 +273,6 @@ public class PlayerUtil {
 		boolean out = false;
 		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isIce(b)) {
-				out = true;
-			}
-		}
-		return out;
-	}
-	public static boolean isNearPiston(Location loc) {
-		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
-			if (BlockUtil.isPiston(b)) {
 				out = true;
 			}
 		}
@@ -356,6 +312,7 @@ public class PlayerUtil {
 			return true;
 		}
 	}
+	@SuppressWarnings("deprecation")
 	public static int hasDepthStrider(Player player) {
 		if(player.getInventory().getBoots() != null && player.getInventory().getBoots().containsEnchantment(Enchantment.getByName("DEPTH_STRIDER"))) {
 			return player.getInventory().getBoots().getEnchantments().get(Enchantment.getByName("DEPTH_STRIDER"));
@@ -375,7 +332,11 @@ public class PlayerUtil {
 		a = player.getLocation().clone();
 		a.setY(a.getY() + 0.5);
 		return a.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR || isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
-				new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER});
+				new Material[]{Material.ACACIA_FENCE, Material.BIRCH_FENCE, Material.DARK_OAK_FENCE, Material.JUNGLE_FENCE, 
+						Material.NETHER_BRICK_FENCE, Material.SPRUCE_FENCE, 
+
+						Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, 
+						Material.SPRUCE_FENCE_GATE, Material.COBBLESTONE_WALL, Material.LADDER});
 	}
 
 	public static int getDistanceToGround(Player p){
@@ -436,7 +397,6 @@ public class PlayerUtil {
 		return false;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static boolean wasOnSlime(Player player) {
 		DataPlayer user = AntiCheat.getInstance().getDataManager().getData(player);
 
@@ -444,7 +404,7 @@ public class PlayerUtil {
 				&&user.getSetbackLocation() != null) {
 			Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
 
-			if(location.getBlock().getType().getId() == 165){
+			if(location.getBlock().getType() == Material.SLIME_BLOCK){
 				return true;
 			}
 		}
@@ -452,6 +412,36 @@ public class PlayerUtil {
 	}
 
 
+	public static boolean isOnGround(PlayerMoveEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY());
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (!block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public static boolean isFlying(PlayerMoveEvent e, Player p)
+	{
+		Location loc = p.getLocation();
+		loc.setY(loc.getY() -2);
+
+		Block block = loc.getWorld().getBlockAt(loc);
+		if (block.getType().equals(Material.AIR))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 	public static boolean isInWater(Location loc) {
 		double diff = .3;
 		return BlockUtil.isLiquid(loc.clone().add(0, 0D, 0).getBlock())
@@ -567,7 +557,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean isInWeb(Player player) {
-		if (player.getLocation().getBlock().getType() != Material.WEB && player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.WEB && player.getLocation().getBlock().getRelative(BlockFace.UP).getType() != Material.WEB) {
+		if (player.getLocation().getBlock().getType() != Material.COBWEB && player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() != Material.COBWEB && player.getLocation().getBlock().getRelative(BlockFace.UP).getType() != Material.COBWEB) {
 			return false;
 		}
 		return true;
@@ -642,7 +632,7 @@ public class PlayerUtil {
 	public static boolean isOnTheGround(Player player, double yExpanded) {
 		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
 
-		return ReflectionUtil.getCollidingBlocks(player, box).size() > 0;
+		return ReflectionUtil.getCollidingBlocks(player, box);
 	}
 
 	public static boolean isNotSpider(Player player) {
@@ -696,6 +686,7 @@ public class PlayerUtil {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isInStairs(Player player) {
 		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
@@ -713,8 +704,23 @@ public class PlayerUtil {
 
 					if(BlockUtil.isStair(block)
 							|| BlockUtil.isSlab(block)
-							|| block.getType().equals(Material.SKULL)
-							|| block.getType().equals(Material.CAKE_BLOCK)) {
+							|| block.getType().equals(Material.SKELETON_SKULL)
+							|| block.getType().equals(Material.LEGACY_SKULL)
+							|| block.getType().equals(Material.LEGACY_SKULL_ITEM)
+							|| block.getType().equals(Material.SKELETON_WALL_SKULL)
+							|| block.getType().equals(Material.WITHER_SKELETON_SKULL)
+							|| block.getType().equals(Material.WITHER_SKELETON_WALL_SKULL)
+							|| block.getType().equals(Material.CREEPER_HEAD)
+							|| block.getType().equals(Material.CREEPER_WALL_HEAD)
+							|| block.getType().equals(Material.PLAYER_HEAD)
+							|| block.getType().equals(Material.PLAYER_WALL_HEAD)
+							|| block.getType().equals(Material.DRAGON_HEAD)
+							|| block.getType().equals(Material.DRAGON_WALL_HEAD)
+							|| block.getType().equals(Material.ZOMBIE_HEAD)
+							|| block.getType().equals(Material.ZOMBIE_WALL_HEAD)
+							|| block.getType().equals(Material.CAKE)
+							|| block.getType().equals(Material.LEGACY_CAKE)
+							|| block.getType().equals(Material.LEGACY_CAKE_BLOCK)) {
 						return true;
 					}
 				}
@@ -803,9 +809,10 @@ public class PlayerUtil {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public static boolean isInWater(Player player) {
 		final Material m = player.getLocation().getBlock().getType();
-		return m == Material.STATIONARY_WATER || m == Material.WATER;
+		return m == Material.LEGACY_STATIONARY_WATER || m == Material.WATER;
 	}
 
 
@@ -855,6 +862,10 @@ public class PlayerUtil {
 		a.setY(a.getY() + 0.5);
 		return a.getBlock().getRelative(BlockFace.DOWN).getType() != Material.AIR
 				|| CheatUtil.isBlock(player.getLocation().getBlock().getRelative(BlockFace.DOWN),
-						new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER});
+						new Material[]{Material.ACACIA_FENCE, Material.BIRCH_FENCE, Material.DARK_OAK_FENCE, Material.JUNGLE_FENCE, 
+								Material.NETHER_BRICK_FENCE, Material.SPRUCE_FENCE, 
+
+								Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, 
+								Material.SPRUCE_FENCE_GATE, Material.COBBLESTONE_WALL, Material.LADDER});
 	}
 }

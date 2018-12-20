@@ -48,7 +48,7 @@ public class BlockInteractD extends Check {
 			for (int y = -radius; y < radius; ++y) {
 				for (int z = -radius; z < radius; ++z) {
 					Material mat = loc.getWorld().getBlockAt(loc.add((double)x, (double)y, (double)z)).getType();
-					if (mat.isSolid() || mat == Material.WATER || mat == Material.STATIONARY_WATER || mat == Material.LAVA || mat == Material.STATIONARY_LAVA) {
+					if (mat.isSolid() || mat == Material.WATER || mat == Material.LAVA) {
 						loc.subtract((double)x, (double)y, (double)z);
 						return true;
 					}

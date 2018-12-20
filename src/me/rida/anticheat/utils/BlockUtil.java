@@ -12,14 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
-
-import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.data.DataPlayer;
 
 public class BlockUtil {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -31,185 +24,251 @@ public class BlockUtil {
 	public BlockUtil() {
 		collisionBoundingBoxes = new HashMap<>();
 		setupCollisionBB();
-	}
-	public static Block getBlockBehindPlayer(Player player) {
-        // Won't get NPEs from me.
-        if (player == null) {
-            return null;
-        }
-        // Get player's location, but at head height. Add 1 to y.
-        Location location = player.getLocation().add(0, 1, 0);
-       // Get the player's direction and invert it on the x and z axis to get the opposite direction.
-        Vector direction = location.getDirection().multiply(new Vector(-1, 0, -1));
-
-       // Return the block at the location opposite of the direction the player is looking, 1 block forward.
-        return player.getWorld().getBlockAt(location.add(direction));
-    }
-	static {
+		allowed = new ArrayList<>();allowed.add(Material.AIR);
 		allowed.add(Material.SIGN);
-		allowed.add(Material.FENCE);
-		allowed.add(Material.ANVIL);
-		allowed.add(Material.TRAP_DOOR);
-		allowed.add(Material.SIGN_POST);
 		allowed.add(Material.WALL_SIGN);
-		allowed.add(Material.SUGAR_CANE_BLOCK);
 		allowed.add(Material.WHEAT);
 		allowed.add(Material.POTATO);
 		allowed.add(Material.CARROT);
-		allowed.add(Material.STEP);
-		allowed.add(Material.AIR);
-		allowed.add(Material.WOOD_STEP);
 		allowed.add(Material.SOUL_SAND);
-		allowed.add(Material.CARPET);
-		allowed.add(Material.STONE_PLATE);
-		allowed.add(Material.WOOD_PLATE);
 		allowed.add(Material.LADDER);
 		allowed.add(Material.CHEST);
 		allowed.add(Material.WATER);
-		allowed.add(Material.STATIONARY_WATER);
 		allowed.add(Material.LAVA);
-		allowed.add(Material.STATIONARY_LAVA);
-		allowed.add(Material.REDSTONE_COMPARATOR);
-		allowed.add(Material.REDSTONE_COMPARATOR_OFF);
-		allowed.add(Material.REDSTONE_COMPARATOR_ON);
-		allowed.add(Material.IRON_PLATE);
-		allowed.add(Material.GOLD_PLATE);
 		allowed.add(Material.DAYLIGHT_DETECTOR);
 		allowed.add(Material.STONE_BUTTON);
-		allowed.add(Material.WOOD_BUTTON);
 		allowed.add(Material.HOPPER);
-		allowed.add(Material.RAILS);
 		allowed.add(Material.ACTIVATOR_RAIL);
 		allowed.add(Material.DETECTOR_RAIL);
 		allowed.add(Material.POWERED_RAIL);
 		allowed.add(Material.TRIPWIRE_HOOK);
 		allowed.add(Material.TRIPWIRE);
 		allowed.add(Material.SNOW_BLOCK);
-		allowed.add(Material.REDSTONE_TORCH_OFF);
-		allowed.add(Material.REDSTONE_TORCH_ON);
-		allowed.add(Material.DIODE_BLOCK_OFF);
-		allowed.add(Material.DIODE_BLOCK_ON);
-		allowed.add(Material.DIODE);
-		allowed.add(Material.SEEDS);
 		allowed.add(Material.MELON_SEEDS);
 		allowed.add(Material.PUMPKIN_SEEDS);
-		allowed.add(Material.DOUBLE_PLANT);
-		allowed.add(Material.LONG_GRASS);
-		allowed.add(Material.WEB);
 		allowed.add(Material.SNOW);
 		allowed.add(Material.FLOWER_POT);
 		allowed.add(Material.BREWING_STAND);
 		allowed.add(Material.CAULDRON);
 		allowed.add(Material.CACTUS);
-		allowed.add(Material.WATER_LILY);
-		allowed.add(Material.RED_ROSE);
-		allowed.add(Material.ENCHANTMENT_TABLE);
-		allowed.add(Material.ENDER_PORTAL_FRAME);
-		allowed.add(Material.PORTAL);
-		allowed.add(Material.ENDER_PORTAL);
 		allowed.add(Material.ENDER_CHEST);
-		allowed.add(Material.NETHER_FENCE);
-		allowed.add(Material.NETHER_WARTS);
 		allowed.add(Material.REDSTONE_WIRE);
 		allowed.add(Material.LEVER);
-		allowed.add(Material.YELLOW_FLOWER);
-		allowed.add(Material.CROPS);
-		allowed.add(Material.WATER);
-		allowed.add(Material.LAVA);
-		allowed.add(Material.SKULL);
 		allowed.add(Material.TRAPPED_CHEST);
 		allowed.add(Material.FIRE);
 		allowed.add(Material.BROWN_MUSHROOM);
 		allowed.add(Material.RED_MUSHROOM);
 		allowed.add(Material.DEAD_BUSH);
-		allowed.add(Material.SAPLING);
 		allowed.add(Material.TORCH);
 		allowed.add(Material.MELON_STEM);
 		allowed.add(Material.PUMPKIN_STEM);
 		allowed.add(Material.COCOA);
-		allowed.add(Material.BED);
-		allowed.add(Material.BED_BLOCK);
-		allowed.add(Material.PISTON_EXTENSION);
-		allowed.add(Material.PISTON_MOVING_PIECE);
-		semi.add(Material.IRON_FENCE);
-		semi.add(Material.THIN_GLASS);
-		semi.add(Material.STAINED_GLASS_PANE);
-		semi.add(Material.COBBLE_WALL);
-		blockedPearlTypes.add(Material.IRON_FENCE);
-		blockedPearlTypes.add(Material.FENCE);
-		blockedPearlTypes.add(Material.NETHER_FENCE);
-		blockedPearlTypes.add(Material.FENCE_GATE);
+		allowed.add(Material.ANVIL);
+		allowed.add(Material.ACACIA_TRAPDOOR);
+		allowed.add(Material.BIRCH_TRAPDOOR);
+		allowed.add(Material.DARK_OAK_TRAPDOOR);
+		allowed.add(Material.IRON_TRAPDOOR);
+		allowed.add(Material.JUNGLE_TRAPDOOR);
+		allowed.add(Material.OAK_TRAPDOOR);
+		allowed.add(Material.SPRUCE_TRAPDOOR);
+		allowed.add(Material.ACACIA_FENCE);
+		allowed.add(Material.BIRCH_FENCE);
+		allowed.add(Material.PLAYER_HEAD);
+		allowed.add(Material.PLAYER_WALL_HEAD);
+		allowed.add(Material.CREEPER_HEAD);
+		allowed.add(Material.CREEPER_WALL_HEAD);
+		allowed.add(Material.ZOMBIE_HEAD);
+		allowed.add(Material.ZOMBIE_WALL_HEAD);
+		allowed.add(Material.DRAGON_HEAD);
+		allowed.add(Material.DRAGON_WALL_HEAD);
+		allowed.add(Material.DARK_OAK_FENCE);
+		allowed.add(Material.JUNGLE_FENCE);
+		allowed.add(Material.NETHER_BRICK_FENCE);
+		allowed.add(Material.SPRUCE_FENCE);
+		allowed.add(Material.LEGACY_BANNER);
+		allowed.add(Material.LEGACY_WALL_BANNER);
+		allowed.add(Material.LEGACY_STANDING_BANNER);
+		allowed.add(Material.LEGACY_SIGN_POST);
+		allowed.add(Material.LEGACY_SUGAR_CANE_BLOCK);
+		allowed.add(Material.SUGAR_CANE);
+		allowed.add(Material.LEGACY_STEP);
+		allowed.add(Material.BIRCH_SLAB);
+		allowed.add(Material.ACACIA_SLAB);
+		allowed.add(Material.BRICK_SLAB);
+		allowed.add(Material.COBBLESTONE_SLAB);
+		allowed.add(Material.DARK_OAK_SLAB);
+		allowed.add(Material.DARK_PRISMARINE_SLAB);
+		allowed.add(Material.JUNGLE_SLAB);
+		allowed.add(Material.NETHER_BRICK_SLAB);
+		allowed.add(Material.OAK_SLAB);
+		allowed.add(Material.PETRIFIED_OAK_SLAB);
+		allowed.add(Material.PRISMARINE_BRICK_SLAB);
+		allowed.add(Material.PRISMARINE_SLAB);
+		allowed.add(Material.PURPUR_SLAB);
+		allowed.add(Material.QUARTZ_SLAB);
+		allowed.add(Material.RED_SANDSTONE_SLAB);
+		allowed.add(Material.SANDSTONE_SLAB);
+		allowed.add(Material.SPRUCE_SLAB);
+		allowed.add(Material.STONE_BRICK_SLAB);
+		allowed.add(Material.STONE_SLAB);
+		allowed.add(Material.WHITE_CARPET);
+		allowed.add(Material.ORANGE_CARPET);
+		allowed.add(Material.MAGENTA_CARPET);
+		allowed.add(Material.LIGHT_BLUE_CARPET);
+		allowed.add(Material.YELLOW_CARPET);
+		allowed.add(Material.LIME_CARPET);
+		allowed.add(Material.PINK_CARPET);
+		allowed.add(Material.GRAY_CARPET);
+		allowed.add(Material.LIGHT_GRAY_CARPET);
+		allowed.add(Material.CYAN_CARPET);
+		allowed.add(Material.PURPLE_CARPET);
+		allowed.add(Material.BLUE_CARPET);
+		allowed.add(Material.BROWN_CARPET);
+		allowed.add(Material.GREEN_CARPET);
+		allowed.add(Material.RED_CARPET);
+		allowed.add(Material.BLACK_CARPET);
+		allowed.add(Material.ACACIA_PRESSURE_PLATE);
+		allowed.add(Material.BIRCH_PRESSURE_PLATE);
+		allowed.add(Material.DARK_OAK_PRESSURE_PLATE);
+		allowed.add(Material.HEAVY_WEIGHTED_PRESSURE_PLATE);
+		allowed.add(Material.JUNGLE_PRESSURE_PLATE);
+		allowed.add(Material.LIGHT_WEIGHTED_PRESSURE_PLATE);
+		allowed.add(Material.OAK_PRESSURE_PLATE);
+		allowed.add(Material.SPRUCE_PRESSURE_PLATE);
+		allowed.add(Material.STONE_PRESSURE_PLATE);
+		allowed.add(Material.LEGACY_STATIONARY_WATER);
+		allowed.add(Material.LEGACY_STATIONARY_LAVA);
+		allowed.add(Material.LEGACY_REDSTONE_COMPARATOR);
+		allowed.add(Material.LEGACY_REDSTONE_COMPARATOR_OFF);
+		allowed.add(Material.LEGACY_REDSTONE_COMPARATOR_ON);
+		allowed.add(Material.ACACIA_BUTTON);
+		allowed.add(Material.BIRCH_BUTTON);
+		allowed.add(Material.DARK_OAK_BUTTON);
+		allowed.add(Material.JUNGLE_BUTTON);
+		allowed.add(Material.OAK_BUTTON);
+		allowed.add(Material.SPRUCE_BUTTON);
+		allowed.add(Material.RAIL);
+		allowed.add(Material.REDSTONE_TORCH);
+		allowed.add(Material.REDSTONE_WALL_TORCH);
+		allowed.add(Material.LEGACY_REDSTONE_TORCH_OFF);
+		allowed.add(Material.LEGACY_REDSTONE_TORCH_ON);
+		allowed.add(Material.LEGACY_DIODE_BLOCK_OFF);
+		allowed.add(Material.LEGACY_DIODE_BLOCK_ON);
+		allowed.add(Material.LEGACY_DIODE);
+		allowed.add(Material.WHEAT_SEEDS);
+		allowed.add(Material.LEGACY_DOUBLE_PLANT);
+		allowed.add(Material.LEGACY_LONG_GRASS);
+		allowed.add(Material.COBWEB);
+		allowed.add(Material.LILY_PAD);
+		allowed.add(Material.ENCHANTING_TABLE);
+		allowed.add(Material.END_PORTAL_FRAME);
+		allowed.add(Material.END_PORTAL);
+		allowed.add(Material.NETHER_PORTAL);
+		allowed.add(Material.POPPY);
+		allowed.add(Material.SUNFLOWER);
+		allowed.add(Material.DANDELION);
+		allowed.add(Material.BLUE_ORCHID);
+		allowed.add(Material.ALLIUM);
+		allowed.add(Material.AZURE_BLUET);
+		allowed.add(Material.RED_TULIP);
+		allowed.add(Material.ORANGE_TULIP);
+		allowed.add(Material.WHITE_TULIP);
+		allowed.add(Material.PINK_TULIP);
+		allowed.add(Material.OXEYE_DAISY);
+		allowed.add(Material.POTTED_POPPY);
+		allowed.add(Material.POTTED_DANDELION);
+		allowed.add(Material.POTTED_BLUE_ORCHID);
+		allowed.add(Material.POTTED_ALLIUM);
+		allowed.add(Material.POTTED_AZURE_BLUET);
+		allowed.add(Material.POTTED_RED_TULIP);
+		allowed.add(Material.POTTED_ORANGE_TULIP);
+		allowed.add(Material.POTTED_WHITE_TULIP);
+		allowed.add(Material.POTTED_PINK_TULIP);
+		allowed.add(Material.POTTED_OXEYE_DAISY);
+		allowed.add(Material.WHITE_BED);
+		allowed.add(Material.ORANGE_BED);
+		allowed.add(Material.MAGENTA_BED);
+		allowed.add(Material.LIGHT_BLUE_BED);
+		allowed.add(Material.YELLOW_BED);
+		allowed.add(Material.LIME_BED);
+		allowed.add(Material.PINK_BED);
+		allowed.add(Material.GRAY_BED);
+		allowed.add(Material.LIGHT_GRAY_BED);
+		allowed.add(Material.CYAN_BED);
+		allowed.add(Material.PURPLE_BED);
+		allowed.add(Material.BLUE_BED);
+		allowed.add(Material.BROWN_BED);
+		allowed.add(Material.GREEN_BED);
+		allowed.add(Material.RED_BED);
+		allowed.add(Material.BLACK_BED);
+		allowed.add(Material.LEGACY_SKULL);
+		allowed.add(Material.LEGACY_SKULL_ITEM);
+		allowed.add(Material.SKELETON_SKULL);
+		allowed.add(Material.SKELETON_WALL_SKULL);
+		allowed.add(Material.WITHER_SKELETON_SKULL);
+		allowed.add(Material.WITHER_SKELETON_WALL_SKULL);
+		allowed.add(Material.NETHER_WART);
+		allowed.add(Material.NETHER_WART_BLOCK);
+		allowed.add(Material.ACACIA_SAPLING);
+		allowed.add(Material.BIRCH_SAPLING);
+		allowed.add(Material.DARK_OAK_SAPLING);
+		allowed.add(Material.JUNGLE_SAPLING);
+		allowed.add(Material.SPRUCE_SAPLING);
+		allowed.add(Material.LEGACY_SAPLING);
+		allowed.add(Material.POTTED_ACACIA_SAPLING);
+		allowed.add(Material.POTTED_BIRCH_SAPLING);
+		allowed.add(Material.POTTED_DARK_OAK_SAPLING);
+		allowed.add(Material.POTTED_JUNGLE_SAPLING);
+		allowed.add(Material.POTTED_SPRUCE_SAPLING);
+		allowed.add(Material.LEGACY_BED_BLOCK);
+		allowed.add(Material.LEGACY_PISTON_EXTENSION);
+		allowed.add(Material.LEGACY_PISTON_MOVING_PIECE);
+		blockedPearlTypes.add(Material.GLASS_PANE);
+		blockedPearlTypes.add(Material.BLACK_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.BLUE_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.RED_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.YELLOW_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.LIME_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.CYAN_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.WHITE_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.ORANGE_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.MAGENTA_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.LIGHT_BLUE_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.PINK_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.GRAY_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.LIGHT_GRAY_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.PURPLE_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.BROWN_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.GREEN_STAINED_GLASS_PANE);
+		blockedPearlTypes.add(Material.IRON_BARS);
+		blockedPearlTypes.add(Material.ACACIA_FENCE);
+		blockedPearlTypes.add(Material.BIRCH_FENCE);
+		blockedPearlTypes.add(Material.DARK_OAK_FENCE);
+		blockedPearlTypes.add(Material.JUNGLE_FENCE);
+		blockedPearlTypes.add(Material.NETHER_BRICK_FENCE);
+		blockedPearlTypes.add(Material.SPRUCE_FENCE);
+		blockedPearlTypes.add(Material.ACACIA_FENCE_GATE);
+		blockedPearlTypes.add(Material.BIRCH_FENCE_GATE);
+		blockedPearlTypes.add(Material.DARK_OAK_FENCE_GATE);
+		blockedPearlTypes.add(Material.JUNGLE_FENCE_GATE);
+		blockedPearlTypes.add(Material.SPRUCE_FENCE_GATE);
 		blockedPearlTypes.add(Material.ACACIA_STAIRS);
-		blockedPearlTypes.add(Material.BIRCH_WOOD_STAIRS);
+		blockedPearlTypes.add(Material.BIRCH_STAIRS);
 		blockedPearlTypes.add(Material.BRICK_STAIRS);
 		blockedPearlTypes.add(Material.COBBLESTONE_STAIRS);
 		blockedPearlTypes.add(Material.DARK_OAK_STAIRS);
-		blockedPearlTypes.add(Material.JUNGLE_WOOD_STAIRS);
+		blockedPearlTypes.add(Material.JUNGLE_STAIRS);
 		blockedPearlTypes.add(Material.NETHER_BRICK_STAIRS);
 		blockedPearlTypes.add(Material.QUARTZ_STAIRS);
 		blockedPearlTypes.add(Material.SANDSTONE_STAIRS);
-		blockedPearlTypes.add(Material.SMOOTH_STAIRS);
-		blockedPearlTypes.add(Material.SPRUCE_WOOD_STAIRS);
-		blockedPearlTypes.add(Material.WOOD_STAIRS);
-		if (!ServerUtil.isBukkitVerison("1_7")) {
-			allowed.add(Material.BANNER);
-			allowed.add(Material.IRON_TRAPDOOR);
-			allowed.add(Material.WALL_BANNER);
-			allowed.add(Material.STANDING_BANNER);
-		}
-	}
-	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-	public static boolean on1_13Spoof(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-		if (data != null) {
-			if (e.getTo().getY() > e.getFrom().getY()) {
-				return true;
-			}
-			if (DataPlayer.lastNearSlime !=null) {
-				if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
-					return true;
-				}
-			}
-			if (data.isLastBlockPlaced_GroundSpoof()) {
-				if (TimerUtil.elapsed(data.getLastBlockPlacedTicks(),500L)) {
-					data.setLastBlockPlaced_GroundSpoof(false);
-				}
-				return true;
-			}
-			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
-				return true;
-			}
-			Location to = e.getTo();
-			Location from = e.getFrom();
-			double diff = to.toVector().distance(from.toVector());
-			int dist = PlayerUtil.getDistanceToGround(p);
-			if (p.getLocation().add(0,-1.50,0).getBlock().getType() != Material.AIR) {
-				data.setGroundSpoofVL(0);
-				return true;
-			}
-			if (e.getTo().getY() > e.getFrom().getY() || PlayerUtil.isOnGround4(p) || VelocityUtil.didTakeVelocity(p)) {
-				data.setGroundSpoofVL(0);
-				return true;
-			}
-
-			if (BlockUtil.isSolid(p.getLocation().getBlock())
-					|| PlayerUtil.isNearSolid(p)) {
-				return true;
-			}
-			if (p.isOnGround() && diff > 0.0 && !PlayerUtil.isOnGround(e,p) && dist >= 2 && e.getTo().getY() < e.getFrom().getY()) {
-				if (data.getGroundSpoofVL() >= 4) {
-					if (data.getAirTicks() >= 10) {
-						return true;
-					} 
-				} else {
-					data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
-				}
-			}
-		}
-		return false;
-	}
-	@SuppressWarnings("deprecation")
+		blockedPearlTypes.add(Material.LEGACY_SMOOTH_STAIRS);
+		blockedPearlTypes.add(Material.SPRUCE_STAIRS);
+		blockedPearlTypes.add(Material.OAK_STAIRS);
+		semi.add(Material.IRON_BARS);
+		semi.add(Material.LEGACY_THIN_GLASS);
+		semi.add(Material.LEGACY_STAINED_GLASS_PANE);
+		semi.add(Material.COBBLESTONE_WALL);
+	}@SuppressWarnings("deprecation")
 	public static boolean isSolid2(Block block) {
 		int type = block.getType().getId();
 
@@ -428,7 +487,7 @@ public class BlockUtil {
 		}
 		return false;
 	}
-	public static boolean isSolid(byte block) {
+	public static boolean isSolid2(byte block) {
 		if (blockPassSet.isEmpty()) {
 			blockPassSet.add((byte) 0);
 			blockPassSet.add((byte) 6);
@@ -472,188 +531,18 @@ public class BlockUtil {
 		}
 		return !blockPassSet.contains(block);
 	}
-	@SuppressWarnings("deprecation")
-	public static boolean Block_1_13 (Block b) {
-		return (b.getType().equals(Material.getMaterial("TUBE_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("FIRE_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("HORN_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("CORAL_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("CAVE_AIR"))
-				|| b.getType().equals(Material.getMaterial("VOID_AIR"))
-				|| b.getType().equals(Material.getMaterial("BLUE_ICE"))
-				|| b.getType().equals(Material.getMaterial("STONE_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("OAK_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("SPRUCE_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("BIRCH_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("JUNGLE_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("ACACIA_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("DARK_OAK_BUTTON"))
-				|| b.getType().equals(Material.getMaterial("STONE_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("HEAVY_WEIGHTED_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("LIGHT_WEIGHTED_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("OAK_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("SPRUCE_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("BIRCH_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("JUNGLE_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("ACACIA_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("DARK_OAK_PRESSURE_PLATE"))
-				|| b.getType().equals(Material.getMaterial("IRON_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("OAK_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("SPRUCE_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("BIRCH_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("JUNGLE_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("ACACIA_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("DARK_OAK_TRAPDOOR"))
-				|| b.getType().equals(Material.getMaterial("PUMPKIN"))
-				|| b.getType().equals(Material.getMaterial("CARVED_PUMPKIN"))
-				|| b.getType().equals(Material.getMaterial("TUBE_CORAL"))
-				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL"))
-				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL"))
-				|| b.getType().equals(Material.getMaterial("FIRE_CORAL"))
-				|| b.getType().equals(Material.getMaterial("HORN_CORAL"))
-				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL"))
-				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL"))
-				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL"))
-				|| b.getType().equals(Material.getMaterial("TUBE_CORAL_FAN	"))
-				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("FIRE_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("HORN_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("TUBE_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("BUBBLE_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("FIRE_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("HORN_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_TUBE_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BRAIN_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_BUBBLE_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_FIRE_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DEAD_HORN_CORAL_WALL_FAN"))
-				|| b.getType().equals(Material.getMaterial("BRAIN_CORAL_FAN"))
-				|| b.getType().equals(Material.getMaterial("DRIED_KELP_BLOCK"))
-				|| b.getType().equals(Material.getMaterial("CONDUIT"))
-				|| b.getType().equals(Material.getMaterial("SEAGRASS"))
-				|| b.getType().equals(Material.getMaterial("TALL_SEAGRASS"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_OAK_LOG"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_SPRUCE_LOG"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_BIRCH_LOG"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_JUNGLE_LOG"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_ACACIA_LOG"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_SLAB"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_SLAB"))
-				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_SLAB"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_STAIRS"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_STAIRS"))
-				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_STAIRS"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_DARK_OAK_LOG"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_SLAB"))
-				|| b.getType().equals(Material.getMaterial("TURTLE_EGG"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_SLAB"))
-				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_SLAB"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_BRICK_STAIRS"))
-				|| b.getType().equals(Material.getMaterial("PRISMARINE_STAIRS"))
-				|| b.getType().equals(Material.getMaterial("DARK_PRISMARINE_STAIRS"))
-				|| b.getType().equals(Material.getMaterial("STRIPPED_DARK_OAK_LOG"))
-				|| b.getType().getId() == 23723
-				|| b.getType().getId() == 30618
-				|| b.getType().getId() == 15437
-				|| b.getType().getId() == 12119
-				|| b.getType().getId() == 19958
-				|| b.getType().getId() == 28350
-				|| b.getType().getId() == 12979
-				|| b.getType().getId() == 28220
-				|| b.getType().getId() == 5307
-				|| b.getType().getId() == 15103
-				|| b.getType().getId() == 17422
-				|| b.getType().getId() == 13668
-				|| b.getType().getId() == 22449
-				|| b.getType().getId() == 12279
-				|| b.getType().getId() == 6214
-				|| b.getType().getId() == 23281
-				|| b.getType().getId() == 26934
-				|| b.getType().getId() == 25317
-				|| b.getType().getId() == 13993
-				|| b.getType().getId() == 6214
-				|| b.getType().getId() == 22591
-				|| b.getType().getId() == 16970
-				|| b.getType().getId() == 14875
-				|| b.getType().getId() == 20108
-				|| b.getType().getId() == 15932
-				|| b.getType().getId() == 9664
-				|| b.getType().getId() == 11376
-				|| b.getType().getId() == 17586
-				|| b.getType().getId() == 31375
-				|| b.getType().getId() == 17095
-				|| b.getType().getId() == 16927
-				|| b.getType().getId() == 10289
-				|| b.getType().getId() == 32585
-				|| b.getType().getId() == 8626
-				|| b.getType().getId() == 18343
-				|| b.getType().getId() == 10355
-				|| b.getType().getId() == 19170
-				|| b.getType().getId() == 25833
-				|| b.getType().getId() == 23048
-				|| b.getType().getId() == 31316
-				|| b.getType().getId() == 12464
-				|| b.getType().getId() == 29151
-				|| b.getType().getId() == 19511
-				|| b.getType().getId() == 18028
-				|| b.getType().getId() == 9116
-				|| b.getType().getId() == 30583
-				|| b.getType().getId() == 8365
-				|| b.getType().getId() == 5755
-				|| b.getType().getId() == 19929
-				|| b.getType().getId() == 10795
-				|| b.getType().getId() == 11112
-				|| b.getType().getId() == 13610
-				|| b.getType().getId() == 17628
-				|| b.getType().getId() == 26150
-				|| b.getType().getId() == 17322
-				|| b.getType().getId() == 27073
-				|| b.getType().getId() == 11387
-				|| b.getType().getId() == 25282
-				|| b.getType().getId() == 22685
-				|| b.getType().getId() == 20382
-				|| b.getType().getId() == 20100
-				|| b.getType().getId() == 28883
-				|| b.getType().getId() == 5128
-				|| b.getType().getId() == 23718
-				|| b.getType().getId() == 18453
-				|| b.getType().getId() == 23375
-				|| b.getType().getId() == 27550
-				|| b.getType().getId() == 13849
-				|| b.getType().getId() == 12966
-				|| b.getType().getId() == 5148
-				|| b.getType().getId() == 23942
-				|| b.getType().getId() == 27189
-				|| b.getType().getId() == 20523
-				|| b.getType().getId() == 6140
-				|| b.getType().getId() == 8838
-				|| b.getType().getId() == 15476
-				|| b.getType().getId() == 18167
-				|| b.getType().getId() == 26672
-				|| b.getType().getId() == 32101
-				|| b.getType().getId() == 31323
-				|| b.getType().getId() == 7577
-				|| b.getType().getId() == 15445
-				|| b.getType().getId() == 19217
-				|| b.getType().getId() == 26511
-				|| b.getType().getId() == 6492
+	public static Block getBlockBehindPlayer(Player player) {
+		// Won't get NPEs from me.
+		if (player == null) {
+			return null;
+		}
+		// Get player's location, but at head height. Add 1 to y.
+		Location location = player.getLocation().add(0, 1, 0);
+		// Get the player's direction and invert it on the x and z axis to get the opposite direction.
+		Vector direction = location.getDirection().multiply(new Vector(-1, 0, -1));
 
-				);
+		// Return the block at the location opposite of the direction the player is looking, 1 block forward.
+		return player.getWorld().getBlockAt(location.add(direction));
 	}
 
 	public static boolean isClimbableBlock(Block block) {
@@ -664,89 +553,144 @@ public class BlockUtil {
 	public static boolean isIce(Block block) {
 		return block.getType().equals(Material.ICE)
 				|| block.getType().equals(Material.PACKED_ICE)
-				|| block.getType().equals(Material.getMaterial("FROSTED_ICE"));
+				|| block.getType().equals(Material.BLUE_ICE)
+				|| block.getType().equals(Material.FROSTED_ICE);
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isLiquid(Block block) {
-		if (block != null && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER || block.getType() == Material.LAVA || block.getType() == Material.STATIONARY_LAVA)) {
+		if (block != null && (block.getType() == Material.WATER || block.getType() == Material.LEGACY_STATIONARY_WATER || block.getType() == Material.LAVA || block.getType() == Material.LEGACY_STATIONARY_LAVA)) {
 			return true;
 		}
 		return false;
 	}
 
 
+	@SuppressWarnings("deprecation")
 	public static boolean isLava(Block block) {
-		if (block != null && (block.getType() == Material.LAVA || block.getType() == Material.STATIONARY_LAVA)) {
+		if (block != null && (block.getType() == Material.LAVA || block.getType() == Material.LEGACY_STATIONARY_LAVA)) {
 			return true;
 		}
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isWater(Block block) {
-		if (block != null && (block.getType() == Material.WATER || block.getType() == Material.STATIONARY_WATER)) {
+		if (block != null && (block.getType() == Material.WATER || block.getType() == Material.LEGACY_STATIONARY_WATER)) {
 			return true;
 		}
 		return false;
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isSlab(Block block) {
-		return block.getType().equals(Material.WOOD_STEP)
-				|| block.getType().equals(Material.STEP)
-				|| block.getType().equals(Material.getMaterial("PRISMARINE_BRICK_SLAB"))
-				|| block.getType().equals(Material.getMaterial("PRISMARINE_SLAB"))
-				|| block.getType().equals(Material.getMaterial("DARK_PRISMARINE_SLAB"))
+		return block.getType().equals(Material.LEGACY_STEP)
+				|| block.getType().equals(Material.PRISMARINE_BRICK_SLAB)
+				|| block.getType().equals(Material.PRISMARINE_SLAB)
+				|| block.getType().equals(Material.DARK_PRISMARINE_SLAB)
+				|| block.getType().equals(Material.LEGACY_STEP)
+				|| block.getType().equals(Material.BIRCH_SLAB)
+				|| block.getType().equals(Material.ACACIA_SLAB)
+				|| block.getType().equals(Material.BRICK_SLAB)
+				|| block.getType().equals(Material.COBBLESTONE_SLAB)
+				|| block.getType().equals(Material.DARK_OAK_SLAB)
+				|| block.getType().equals(Material.JUNGLE_SLAB)
+				|| block.getType().equals(Material.NETHER_BRICK_SLAB)
+				|| block.getType().equals(Material.OAK_SLAB)
+				|| block.getType().equals(Material.PETRIFIED_OAK_SLAB)
+				|| block.getType().equals(Material.PURPUR_SLAB)
+				|| block.getType().equals(Material.QUARTZ_SLAB)
+				|| block.getType().equals(Material.RED_SANDSTONE_SLAB)
+				|| block.getType().equals(Material.SANDSTONE_SLAB)
+				|| block.getType().equals(Material.SPRUCE_SLAB)
 				|| block.getType().getId() == 182
 				|| block.getType().getId() == 44
 				|| block.getType().getId() == 126
-				|| block.getType().getId() == 205;
+				|| block.getType().getId() == 205
+				|| block.getType().equals(Material.STONE_BRICK_SLAB);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static boolean isAllowed(Block block) {
-		return block.getType().getId() == 165
+		return block.getType().equals(Material.SLIME_BLOCK)
 				|| block.getType().equals(Material.CAULDRON)
 				|| block.getType().equals(Material.BREWING_STAND)
 				|| block.getType().equals(Material.HOPPER)
-				|| block.getType().equals(Material.CARPET)
+				|| block.getType().equals(Material.WHITE_CARPET)
+				|| block.getType().equals(Material.ORANGE_CARPET)
+				|| block.getType().equals(Material.MAGENTA_CARPET)
+				|| block.getType().equals(Material.LIGHT_BLUE_CARPET)
+				|| block.getType().equals(Material.YELLOW_CARPET)
+				|| block.getType().equals(Material.LIME_CARPET)
+				|| block.getType().equals(Material.PINK_CARPET)
+				|| block.getType().equals(Material.GRAY_CARPET)
+				|| block.getType().equals(Material.LIGHT_GRAY_CARPET)
+				|| block.getType().equals(Material.CYAN_CARPET)
+				|| block.getType().equals(Material.PURPLE_CARPET)
+				|| block.getType().equals(Material.BLUE_CARPET)
+				|| block.getType().equals(Material.BROWN_CARPET)
+				|| block.getType().equals(Material.GREEN_CARPET)
+				|| block.getType().equals(Material.RED_CARPET)
+				|| block.getType().equals(Material.BLACK_CARPET)
 				|| isStair(block)
 				|| isPiston(block);
 	}
+
+
 	@SuppressWarnings("deprecation")
 	public static boolean isStair(Block block) {
 		if(block.getType().equals(Material.ACACIA_STAIRS)
-				|| block.getType().equals(Material.BIRCH_WOOD_STAIRS)
 				|| block.getType().equals(Material.BRICK_STAIRS)
 				|| block.getType().equals(Material.COBBLESTONE_STAIRS)
 				|| block.getType().equals(Material.DARK_OAK_STAIRS)
 				|| block.getType().equals(Material.NETHER_BRICK_STAIRS)
-				|| block.getType().equals(Material.JUNGLE_WOOD_STAIRS)
 				|| block.getType().equals(Material.QUARTZ_STAIRS)
-				|| block.getType().equals(Material.SMOOTH_STAIRS)
-				|| block.getType().equals(Material.WOOD_STAIRS)
 				|| block.getType().equals(Material.SANDSTONE_STAIRS)
-				|| block.getType().equals(Material.SPRUCE_WOOD_STAIRS)
-				|| block.getType().equals(Material.getMaterial("PRISMARINE_BRICK_STAIRS"))
-				|| block.getType().equals(Material.getMaterial("PRISMARINE_STAIRS"))
-				|| block.getType().equals(Material.getMaterial("DARK_PRISMARINE_STAIRS"))
+				|| block.getType().equals(Material.PRISMARINE_BRICK_STAIRS)
+				|| block.getType().equals(Material.PRISMARINE_STAIRS)
+				|| block.getType().equals(Material.DARK_PRISMARINE_STAIRS)
+				|| block.getType().equals(Material.BIRCH_STAIRS)
+				|| block.getType().equals(Material.JUNGLE_STAIRS)
+				|| block.getType().equals(Material.LEGACY_SMOOTH_STAIRS)
+				|| block.getType().equals(Material.OAK_STAIRS)
+				|| block.getType().equals(Material.SPRUCE_STAIRS)
+				|| block.getType() == Material.RED_SANDSTONE_STAIRS
+				|| block.getType().getId() == 203
 				|| block.getType().getId()==180
-				|| block.getType().getId() == 203) {
+				|| block.getType() == Material.PURPUR_STAIRS) {
 			return true;
 		}
 		return false;
 	}
+	@SuppressWarnings("deprecation")
 	public static boolean isPiston(Block block) {
-		return block.getType().equals(Material.PISTON_MOVING_PIECE)
-				|| block.getType().equals(Material.PISTON_EXTENSION)
-				|| block.getType().equals(Material.PISTON_BASE)
-				|| block.getType().equals(Material.PISTON_STICKY_BASE);
+		return block.getType().equals(Material.LEGACY_PISTON_MOVING_PIECE)
+				|| block.getType().equals(Material.LEGACY_PISTON_EXTENSION)
+				|| block.getType().equals(Material.LEGACY_PISTON_BASE)
+				|| block.getType().equals(Material.LEGACY_PISTON_STICKY_BASE);
 	}
 	public static boolean isChest(Block block) {
-		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST);
+		return block.getType().equals(Material.CHEST)|| block.getType().equals(Material.ENDER_CHEST)|| block.getType().equals(Material.TRAPPED_CHEST) || isShulker(block);
 
 	}
-	@SuppressWarnings("deprecation")
 	public static boolean isShulker(Block block) {
-		return (block.getType().getId() == 219
+		return (block.getType().equals(Material.SHULKER_BOX)
+				|| block.getType().equals(Material.WHITE_SHULKER_BOX)
+				|| block.getType().equals(Material.ORANGE_SHULKER_BOX)
+				|| block.getType().equals(Material.MAGENTA_SHULKER_BOX)
+				|| block.getType().equals(Material.LIGHT_BLUE_SHULKER_BOX)
+				|| block.getType().equals(Material.YELLOW_SHULKER_BOX)
+				|| block.getType().equals(Material.LIME_SHULKER_BOX)
+				|| block.getType().equals(Material.PINK_SHULKER_BOX)
+				|| block.getType().equals(Material.GRAY_SHULKER_BOX)
+				|| block.getType().equals(Material.LIGHT_GRAY_SHULKER_BOX)
+				|| block.getType().equals(Material.CYAN_SHULKER_BOX)
+				|| block.getType().equals(Material.PURPLE_SHULKER_BOX)
+				|| block.getType().equals(Material.BLUE_SHULKER_BOX)
+				|| block.getType().equals(Material.BROWN_SHULKER_BOX)
+				|| block.getType().equals(Material.GREEN_SHULKER_BOX)
+				|| block.getType().equals(Material.RED_SHULKER_BOX)
+				|| block.getType().equals(Material.BLACK_SHULKER_BOX)
+				|| block.getType().equals(Material.SHULKER_SHELL))
+				|| block.getType().getId() == 219
 				|| block.getType().getId() == 220
 				|| block.getType().getId() == 221
 				|| block.getType().getId() == 222
@@ -762,27 +706,22 @@ public class BlockUtil {
 				|| block.getType().getId() == 232
 				|| block.getType().getId() == 233
 				|| block.getType().getId() == 234
-				|| block.getType().getId() == 250);
+				|| block.getType().getId() == 250;
 	}
 	public static boolean isBar(Block block) {
-		return block.getType().equals(Material.IRON_FENCE);
+		return block.getType().equals(Material.IRON_BARS);
 
 	}
 	public static boolean isWeb(Block block) {
-		return block.getType().equals(Material.WEB);
+		return block.getType().equals(Material.COBWEB);
 	}
-	@SuppressWarnings("deprecation")
 	public static boolean isFence(Block block) {
-		return block.getType().equals(Material.FENCE)
-				|| block.getType().getId() == 85
-				|| block.getType().getId() == 139
-				|| block.getType().getId() == 113
-				|| block.getType().getId() == 188
-				|| block.getType().getId() == 189
-				|| block.getType().getId() == 190
-				|| block.getType().getId() == 191
-				|| block.getType().getId() == 192
-				|| block.getType().equals(Material.NETHER_FENCE);
+		return block.getType().equals(Material.ACACIA_FENCE)
+				|| block.getType().equals(Material.BIRCH_FENCE)
+				|| block.getType().equals(Material.DARK_OAK_FENCE)
+				|| block.getType().equals(Material.JUNGLE_FENCE)
+				|| block.getType().equals(Material.NETHER_BRICK_FENCE)
+				|| block.getType().equals(Material.SPRUCE_FENCE);
 
 	}
 
@@ -803,14 +742,14 @@ public class BlockUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isSolid(Block block) {
-		if (block != null && isSolid(block.getType().getId())) {
+		if (block != null && isSolid2(block.getType().getId())) {
 			return true;
 		}
 		return false;
 	}
 
-	public static boolean isSolid(int n) {
-		return isSolid((byte)n);
+	public static boolean isSolid2(int n) {
+		return isSolid2((int)n);
 	}
 
 	public static double getBlockHeight(Block block) {
@@ -825,12 +764,17 @@ public class BlockUtil {
 		}
 		return 0;
 	}
-	@SuppressWarnings("deprecation")
 	public static boolean isPressure(Block block) {
-		return block.getType().getId() == 70
-				|| block.getType().getId() == 72
-				|| block.getType().getId() == 147
-				|| block.getType().getId() == 148;
+		return 
+				block.getType().equals(Material.ACACIA_PRESSURE_PLATE)
+				|| block.getType().equals(Material.BIRCH_PRESSURE_PLATE)
+				|| block.getType().equals(Material.DARK_OAK_PRESSURE_PLATE)
+				|| block.getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
+				|| block.getType().equals(Material.JUNGLE_PRESSURE_PLATE)
+				|| block.getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
+				|| block.getType().equals(Material.OAK_PRESSURE_PLATE)
+				|| block.getType().equals(Material.SPRUCE_PRESSURE_PLATE)
+				|| block.getType().equals(Material.STONE_PRESSURE_PLATE);
 	}
 
 
@@ -932,10 +876,11 @@ public class BlockUtil {
 		}
 		return blocks;
 	}
+	@SuppressWarnings("deprecation")
 	public static boolean isNearPistion(Player p) {
 		boolean out = false;
 		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
-			if (b.getType() == Material.PISTON_BASE || b.getType() == Material.PISTON_MOVING_PIECE || b.getType() == Material.PISTON_STICKY_BASE || b.getType() == Material.PISTON_EXTENSION) {
+			if (b.getType() == Material.LEGACY_PISTON_BASE || b.getType() == Material.LEGACY_PISTON_MOVING_PIECE || b.getType() == Material.LEGACY_PISTON_STICKY_BASE || b.getType() == Material.LEGACY_PISTON_EXTENSION) {
 				out = true;
 			}
 		}
@@ -992,39 +937,10 @@ public class BlockUtil {
 			"comparator", "repeater", "diode", "water", "lava", "ladder", "vine", "carpet", "sign", "pressure", "plate",
 			"button", "mushroom", "torch", "frame", "armor", "banner", "lever", "hook", "redstone", "rail", "brewing",
 			"rose", "skull", "enchantment", "cake", "bed"};
-
-	static String[] Blocks_1_13 = { "tube_coral_block", "brain_coral_block", "bubble_coral_block", "fire_coral_block", "horn_coral_block",
-			"dead_tube_coral_block", "dead_brain_coral_block", "dead_bubble_coral_block", "dead_fire_coral_block", "dead_horn_coral_block",
-			"coral_block", "cave_air", "void_air", "blue_ice", "stone_button", "oak_button", "spruce_button", "birch_button", 
-			"jungle_button", "acacia_button", "dark_oak_button", "stone_pressure_plate", "heavy_weighted_pressure_plate", 
-			"light_weighted_pressure_plate", "oak_pressure_plate", "spruce_pressure_plate", "birch_pressure_plate", 
-			"jungle_pressure_plate", "acacia_pressure_plate", "dark_oak_pressure_plate", "iron_trapdoor", "oak_trapdoor", 
-			"spruce_trapdoor", "birch_trapdoor", "jungle_trapdoor", "acacia_trapdoor", "dark_oak_trapdoor", "pumpkin", "carved_pumpkin", 
-			"tube_coral", "brain_coral", "bubble_coral", "fire_coral", "horn_coral", "dead_tube_coral", "dead_brain_coral", 
-			"dead_bubble_coral", "dead_fire_coral", "dead_horn_coral", "tube_coral_fan	", "bubble_coral_fan", "fire_coral_fan", 
-			"horn_coral_fan", "dead_tube_coral_fan", "dead_brain_coral_fan", "dead_bubble_coral_fan", "dead_fire_coral_fan", 
-			"dead_horn_coral_fan", "tube_coral_wall_fan", "brain_coral_wall_fan", "bubble_coral_wall_fan", "fire_coral_wall_fan", 
-			"horn_coral_wall_fan", "dead_tube_coral_wall_fan", "dead_brain_coral_wall_fan", "dead_bubble_coral_wall_fan", 
-			"dead_fire_coral_wall_fan", "dead_horn_coral_wall_fan", "brain_coral_fan", "dried_kelp_block", "conduit", "seagrass", 
-			"tall_seagrass", "stripped_oak_log", "stripped_spruce_log", "stripped_birch_log", "stripped_jungle_log", 
-			"stripped_acacia_log", "prismarine_brick_slab", "prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", 
-			"prismarine_stairs", "dark_prismarine_stairs", "stripped_dark_oak_log", "prismarine_brick_slab", "turtle_egg", 
-			"prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", "prismarine_stairs", "dark_prismarine_stairs", 
-	"stripped_dark_oak_log"};
-
 	public static boolean isHalfBlock(Block block) {
 		Material type = block.getType();
 		for (String types : HalfBlocksArray) {
 			if (type.toString().toLowerCase().contains(types)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	public static boolean B_1_13(Block block) {
-		Material type = block.getType();
-		for (String types : Blocks_1_13) {
-			if (type.toString().toLowerCase().equals(types)) {
 				return true;
 			}
 		}
@@ -1044,121 +960,259 @@ public class BlockUtil {
 	@SuppressWarnings("deprecation")
 	public static boolean allowedPhase(Block block) {
 		return block.getType().equals(Material.SIGN)
-				|| block.getType().getId() == 425
-				|| block.getType().getId() == 167
-				|| block.getType().getId() == 177
-				|| block.getType().getId() == 176
-				|| block.getType().getId() == 165
-				|| block.getType().equals(Material.FENCE)
+				|| block.getType().equals(Material.SIGN)
 				|| block.getType().equals(Material.ANVIL)
-				|| block.getType().equals(Material.TRAP_DOOR)
-				|| block.getType().equals(Material.SIGN_POST)
+				|| block.getType().equals(Material.ACACIA_TRAPDOOR)
+				|| block.getType().equals(Material.BIRCH_TRAPDOOR)
+				|| block.getType().equals(Material.DARK_OAK_TRAPDOOR)
+				|| block.getType().equals(Material.IRON_TRAPDOOR)
+				|| block.getType().equals(Material.JUNGLE_TRAPDOOR)
+				|| block.getType().equals(Material.OAK_TRAPDOOR)
+				|| block.getType().equals(Material.SPRUCE_TRAPDOOR)
+				|| block.getType().equals(Material.ACACIA_FENCE)
+				|| block.getType().equals(Material.BIRCH_FENCE)
+				|| block.getType().equals(Material.PLAYER_HEAD)
+				|| block.getType().equals(Material.PLAYER_WALL_HEAD)
+				|| block.getType().equals(Material.CREEPER_HEAD)
+				|| block.getType().equals(Material.CREEPER_WALL_HEAD)
+				|| block.getType().equals(Material.ZOMBIE_HEAD)
+				|| block.getType().equals(Material.ZOMBIE_WALL_HEAD)
+				|| block.getType().equals(Material.DRAGON_HEAD)
+				|| block.getType().equals(Material.DRAGON_WALL_HEAD)
+				|| block.getType().equals(Material.DARK_OAK_FENCE)
+				|| block.getType().equals(Material.JUNGLE_FENCE)
+				|| block.getType().equals(Material.NETHER_BRICK_FENCE)
+				|| block.getType().equals(Material.SPRUCE_FENCE)
+				|| block.getType().equals(Material.LEGACY_BANNER)
+				|| block.getType().equals(Material.IRON_TRAPDOOR)
+				|| block.getType().equals(Material.LEGACY_WALL_BANNER)
+				|| block.getType().equals(Material.LEGACY_STANDING_BANNER)
+				|| block.getType().equals(Material.LEGACY_SIGN_POST)
 				|| block.getType().equals(Material.WALL_SIGN)
-				|| block.getType().equals(Material.SUGAR_CANE_BLOCK)
+				|| block.getType().equals(Material.LEGACY_SUGAR_CANE_BLOCK)
+				|| block.getType().equals(Material.SUGAR_CANE)
 				|| block.getType().equals(Material.WHEAT)
 				|| block.getType().equals(Material.POTATO)
 				|| block.getType().equals(Material.CARROT)
-				|| block.getType().equals(Material.STEP)
+				|| block.getType().equals(Material.LEGACY_STEP)
+				|| block.getType().equals(Material.BIRCH_SLAB)
+				|| block.getType().equals(Material.ACACIA_SLAB)
+				|| block.getType().equals(Material.BRICK_SLAB)
+				|| block.getType().equals(Material.COBBLESTONE_SLAB)
+				|| block.getType().equals(Material.DARK_OAK_SLAB)
+				|| block.getType().equals(Material.DARK_PRISMARINE_SLAB)
+				|| block.getType().equals(Material.JUNGLE_SLAB)
+				|| block.getType().equals(Material.NETHER_BRICK_SLAB)
+				|| block.getType().equals(Material.OAK_SLAB)
+				|| block.getType().equals(Material.PETRIFIED_OAK_SLAB)
+				|| block.getType().equals(Material.PRISMARINE_BRICK_SLAB)
+				|| block.getType().equals(Material.PRISMARINE_SLAB)
+				|| block.getType().equals(Material.PURPUR_SLAB)
+				|| block.getType().equals(Material.QUARTZ_SLAB)
+				|| block.getType().equals(Material.RED_SANDSTONE_SLAB)
+				|| block.getType().equals(Material.SANDSTONE_SLAB)
+				|| block.getType().equals(Material.SPRUCE_SLAB)
+				|| block.getType().equals(Material.STONE_BRICK_SLAB)
+				|| block.getType().equals(Material.STONE_SLAB)
 				|| block.getType().equals(Material.AIR)
-				|| block.getType().equals(Material.WOOD_STEP)
 				|| block.getType().equals(Material.SOUL_SAND)
-				|| block.getType().equals(Material.CARPET)
-				|| block.getType().equals(Material.STONE_PLATE)
-				|| block.getType().equals(Material.WOOD_PLATE)
+				|| block.getType().equals(Material.WHITE_CARPET)
+				|| block.getType().equals(Material.ORANGE_CARPET)
+				|| block.getType().equals(Material.MAGENTA_CARPET)
+				|| block.getType().equals(Material.LIGHT_BLUE_CARPET)
+				|| block.getType().equals(Material.YELLOW_CARPET)
+				|| block.getType().equals(Material.LIME_CARPET)
+				|| block.getType().equals(Material.PINK_CARPET)
+				|| block.getType().equals(Material.GRAY_CARPET)
+				|| block.getType().equals(Material.LIGHT_GRAY_CARPET)
+				|| block.getType().equals(Material.CYAN_CARPET)
+				|| block.getType().equals(Material.PURPLE_CARPET)
+				|| block.getType().equals(Material.BLUE_CARPET)
+				|| block.getType().equals(Material.BROWN_CARPET)
+				|| block.getType().equals(Material.GREEN_CARPET)
+				|| block.getType().equals(Material.RED_CARPET)
+				|| block.getType().equals(Material.BLACK_CARPET)
+				|| block.getType().equals(Material.ACACIA_PRESSURE_PLATE)
+				|| block.getType().equals(Material.BIRCH_PRESSURE_PLATE)
+				|| block.getType().equals(Material.DARK_OAK_PRESSURE_PLATE)
+				|| block.getType().equals(Material.HEAVY_WEIGHTED_PRESSURE_PLATE)
+				|| block.getType().equals(Material.JUNGLE_PRESSURE_PLATE)
+				|| block.getType().equals(Material.LIGHT_WEIGHTED_PRESSURE_PLATE)
+				|| block.getType().equals(Material.OAK_PRESSURE_PLATE)
+				|| block.getType().equals(Material.SPRUCE_PRESSURE_PLATE)
+				|| block.getType().equals(Material.STONE_PRESSURE_PLATE)
 				|| block.getType().equals(Material.LADDER)
 				|| block.getType().equals(Material.CHEST)
 				|| block.getType().equals(Material.WATER)
-				|| block.getType().equals(Material.STATIONARY_WATER)
+				|| block.getType().equals(Material.LEGACY_STATIONARY_WATER)
 				|| block.getType().equals(Material.LAVA)
-				|| block.getType().equals(Material.STATIONARY_LAVA)
-				|| block.getType().equals(Material.REDSTONE_COMPARATOR)
-				|| block.getType().equals(Material.REDSTONE_COMPARATOR_OFF)
-				|| block.getType().equals(Material.REDSTONE_COMPARATOR_ON)
-				|| block.getType().equals(Material.IRON_PLATE)
-				|| block.getType().equals(Material.GOLD_PLATE)
+				|| block.getType().equals(Material.LEGACY_STATIONARY_LAVA)
+				|| block.getType().equals(Material.LEGACY_REDSTONE_COMPARATOR)
+				|| block.getType().equals(Material.LEGACY_REDSTONE_COMPARATOR_OFF)
+				|| block.getType().equals(Material.LEGACY_REDSTONE_COMPARATOR_ON)
 				|| block.getType().equals(Material.DAYLIGHT_DETECTOR)
 				|| block.getType().equals(Material.STONE_BUTTON)
-				|| block.getType().equals(Material.WOOD_BUTTON)
+				|| block.getType().equals(Material.ACACIA_BUTTON)
+				|| block.getType().equals(Material.BIRCH_BUTTON)
+				|| block.getType().equals(Material.DARK_OAK_BUTTON)
+				|| block.getType().equals(Material.JUNGLE_BUTTON)
+				|| block.getType().equals(Material.OAK_BUTTON)
+				|| block.getType().equals(Material.SPRUCE_BUTTON)
 				|| block.getType().equals(Material.HOPPER)
-				|| block.getType().equals(Material.RAILS)
+				|| block.getType().equals(Material.RAIL)
 				|| block.getType().equals(Material.ACTIVATOR_RAIL)
 				|| block.getType().equals(Material.DETECTOR_RAIL)
 				|| block.getType().equals(Material.POWERED_RAIL)
 				|| block.getType().equals(Material.TRIPWIRE_HOOK)
 				|| block.getType().equals(Material.TRIPWIRE)
 				|| block.getType().equals(Material.SNOW_BLOCK)
-				|| block.getType().equals(Material.REDSTONE_TORCH_OFF)
-				|| block.getType().equals(Material.REDSTONE_TORCH_ON)
-				|| block.getType().equals(Material.DIODE_BLOCK_OFF)
-				|| block.getType().equals(Material.DIODE_BLOCK_ON)
-				|| block.getType().equals(Material.DIODE)
-				|| block.getType().equals(Material.SEEDS)
+				|| block.getType().equals(Material.REDSTONE_TORCH)
+				|| block.getType().equals(Material.REDSTONE_WALL_TORCH)
+				|| block.getType().equals(Material.LEGACY_REDSTONE_TORCH_OFF)
+				|| block.getType().equals(Material.LEGACY_REDSTONE_TORCH_ON)
+				|| block.getType().equals(Material.LEGACY_DIODE_BLOCK_OFF)
+				|| block.getType().equals(Material.LEGACY_DIODE_BLOCK_ON)
+				|| block.getType().equals(Material.LEGACY_DIODE)
+				|| block.getType().equals(Material.WHEAT_SEEDS)
 				|| block.getType().equals(Material.MELON_SEEDS)
 				|| block.getType().equals(Material.PUMPKIN_SEEDS)
-				|| block.getType().equals(Material.DOUBLE_PLANT)
-				|| block.getType().equals(Material.LONG_GRASS)
-				|| block.getType().equals(Material.WEB)
+				|| block.getType().equals(Material.LEGACY_DOUBLE_PLANT)
+				|| block.getType().equals(Material.LEGACY_LONG_GRASS)
+				|| block.getType().equals(Material.COBWEB)
 				|| block.getType().equals(Material.SNOW)
 				|| block.getType().equals(Material.FLOWER_POT)
 				|| block.getType().equals(Material.BREWING_STAND)
 				|| block.getType().equals(Material.CAULDRON)
 				|| block.getType().equals(Material.CACTUS)
-				|| block.getType().equals(Material.WATER_LILY)
-				|| block.getType().equals(Material.RED_ROSE)
-				|| block.getType().equals(Material.ENCHANTMENT_TABLE)
-				|| block.getType().equals(Material.ENDER_PORTAL_FRAME)
-				|| block.getType().equals(Material.PORTAL)
-				|| block.getType().equals(Material.ENDER_PORTAL)
+				|| block.getType().equals(Material.LILY_PAD)
+				|| block.getType().equals(Material.ENCHANTING_TABLE)
+				|| block.getType().equals(Material.END_PORTAL_FRAME)
+				|| block.getType().equals(Material.END_PORTAL)
+				|| block.getType().equals(Material.NETHER_PORTAL)
+				|| block.getType().equals(Material.POPPY)
+				|| block.getType().equals(Material.SUNFLOWER)
+				|| block.getType().equals(Material.DANDELION)
+				|| block.getType().equals(Material.BLUE_ORCHID)
+				|| block.getType().equals(Material.ALLIUM)
+				|| block.getType().equals(Material.AZURE_BLUET)
+				|| block.getType().equals(Material.RED_TULIP)
+				|| block.getType().equals(Material.ORANGE_TULIP)
+				|| block.getType().equals(Material.WHITE_TULIP)
+				|| block.getType().equals(Material.PINK_TULIP)
+				|| block.getType().equals(Material.OXEYE_DAISY)
+				|| block.getType().equals(Material.POTTED_POPPY)
+				|| block.getType().equals(Material.POTTED_DANDELION)
+				|| block.getType().equals(Material.POTTED_BLUE_ORCHID)
+				|| block.getType().equals(Material.POTTED_ALLIUM)
+				|| block.getType().equals(Material.POTTED_AZURE_BLUET)
+				|| block.getType().equals(Material.POTTED_RED_TULIP)
+				|| block.getType().equals(Material.POTTED_ORANGE_TULIP)
+				|| block.getType().equals(Material.POTTED_WHITE_TULIP)
+				|| block.getType().equals(Material.POTTED_PINK_TULIP)
+				|| block.getType().equals(Material.POTTED_OXEYE_DAISY)
+				|| block.getType().equals(Material.WHITE_BED)
+				|| block.getType().equals(Material.ORANGE_BED)
+				|| block.getType().equals(Material.MAGENTA_BED)
+				|| block.getType().equals(Material.LIGHT_BLUE_BED)
+				|| block.getType().equals(Material.YELLOW_BED)
+				|| block.getType().equals(Material.LIME_BED)
+				|| block.getType().equals(Material.PINK_BED)
+				|| block.getType().equals(Material.GRAY_BED)
+				|| block.getType().equals(Material.LIGHT_GRAY_BED)
+				|| block.getType().equals(Material.CYAN_BED)
+				|| block.getType().equals(Material.PURPLE_BED)
+				|| block.getType().equals(Material.BLUE_BED)
+				|| block.getType().equals(Material.BROWN_BED)
+				|| block.getType().equals(Material.GREEN_BED)
+				|| block.getType().equals(Material.RED_BED)
+				|| block.getType().equals(Material.BLACK_BED)
+				|| block.getType().equals(Material.LEGACY_SKULL)
+				|| block.getType().equals(Material.LEGACY_SKULL_ITEM)
+				|| block.getType().equals(Material.SKELETON_SKULL)
+				|| block.getType().equals(Material.SKELETON_WALL_SKULL)
+				|| block.getType().equals(Material.WITHER_SKELETON_SKULL)
+				|| block.getType().equals(Material.WITHER_SKELETON_WALL_SKULL)
 				|| block.getType().equals(Material.ENDER_CHEST)
-				|| block.getType().equals(Material.NETHER_FENCE)
-				|| block.getType().equals(Material.NETHER_WARTS)
+				|| block.getType().equals(Material.NETHER_BRICK_FENCE)
+				|| block.getType().equals(Material.NETHER_WART)
+				|| block.getType().equals(Material.NETHER_WART_BLOCK)
 				|| block.getType().equals(Material.REDSTONE_WIRE)
 				|| block.getType().equals(Material.LEVER)
-				|| block.getType().equals(Material.YELLOW_FLOWER)
-				|| block.getType().equals(Material.CROPS)
 				|| block.getType().equals(Material.WATER)
 				|| block.getType().equals(Material.LAVA)
-				|| block.getType().equals(Material.SKULL)
 				|| block.getType().equals(Material.TRAPPED_CHEST)
 				|| block.getType().equals(Material.FIRE)
 				|| block.getType().equals(Material.BROWN_MUSHROOM)
 				|| block.getType().equals(Material.RED_MUSHROOM)
 				|| block.getType().equals(Material.DEAD_BUSH)
-				|| block.getType().equals(Material.SAPLING)
+				|| block.getType().equals(Material.ACACIA_SAPLING)
+				|| block.getType().equals(Material.BIRCH_SAPLING)
+				|| block.getType().equals(Material.DARK_OAK_SAPLING)
+				|| block.getType().equals(Material.JUNGLE_SAPLING)
+				|| block.getType().equals(Material.SPRUCE_SAPLING)
+				|| block.getType().equals(Material.LEGACY_SAPLING)
+				|| block.getType().equals(Material.POTTED_ACACIA_SAPLING)
+				|| block.getType().equals(Material.POTTED_BIRCH_SAPLING)
+				|| block.getType().equals(Material.POTTED_DARK_OAK_SAPLING)
+				|| block.getType().equals(Material.POTTED_JUNGLE_SAPLING)
+				|| block.getType().equals(Material.POTTED_SPRUCE_SAPLING)
 				|| block.getType().equals(Material.TORCH)
 				|| block.getType().equals(Material.MELON_STEM)
 				|| block.getType().equals(Material.PUMPKIN_STEM)
 				|| block.getType().equals(Material.COCOA)
-				|| block.getType().equals(Material.BED)
-				|| block.getType().equals(Material.BED_BLOCK)
-				|| block.getType().equals(Material.PISTON_EXTENSION)
-				|| block.getType().equals(Material.PISTON_MOVING_PIECE)
-				|| block.getType().equals(Material.IRON_FENCE)
-				|| block.getType().equals(Material.THIN_GLASS)
-				|| block.getType().equals(Material.STAINED_GLASS_PANE)
-				|| block.getType().equals(Material.COBBLE_WALL);
+				|| block.getType().equals(Material.LEGACY_BED_BLOCK)
+				|| block.getType().equals(Material.LEGACY_PISTON_EXTENSION)
+				|| block.getType().equals(Material.LEGACY_PISTON_MOVING_PIECE)
+				|| block.getType().equals(Material.IRON_BARS)
+				|| block.getType().equals(Material.COBBLESTONE_WALL)
+				|| block.getType().equals(Material.GLASS_PANE)
+				|| block.getType().equals(Material.BLACK_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.BLUE_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.RED_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.YELLOW_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.LIME_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.CYAN_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.WHITE_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.ORANGE_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.MAGENTA_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.LIGHT_BLUE_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.PINK_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.GRAY_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.LIGHT_GRAY_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.PURPLE_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.BROWN_STAINED_GLASS_PANE)
+				|| block.getType().equals(Material.GREEN_STAINED_GLASS_PANE);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static boolean isSlime(Block block) {
-		return block.getType().getId() == 165;
+		return block.getType() == Material.SLIME_BLOCK;
 	}
-	@SuppressWarnings("deprecation")
 	public static boolean isGrass(Block block) {
-		return block.getType().getId() == 2
-				|| block.getType().getId() == 3;
+		return block.getType() == Material.GRASS
+				|| block.getType() == Material.DIRT
+				|| block.getType() == Material.COARSE_DIRT
+				|| block.getType() == Material.PODZOL;
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isSign(Block block) {
-		return block.getType().getId() == 63
-				|| block.getType().getId() == 68
-				|| block.getType().getId() == 323;
+		return block.getType() == Material.SIGN
+				|| block.getType() == Material.WALL_SIGN
+				|| block.getType() == Material.LEGACY_SIGN_POST;
 	}
 
-	@SuppressWarnings("deprecation")
 	public static boolean isLog(Block block) {
-		return block.getType().getId() == 17
-				|| block.getType().getId() == 162;
+		return block.getType() == Material.ACACIA_LOG
+				|| block.getType() == Material.OAK_LOG
+				|| block.getType() == Material.BIRCH_LOG
+				|| block.getType() == Material.SPRUCE_LOG
+				|| block.getType() == Material.DARK_OAK_LOG
+				|| block.getType() == Material.JUNGLE_LOG
+				|| block.getType() == Material.STRIPPED_ACACIA_LOG
+				|| block.getType() == Material.STRIPPED_OAK_LOG
+				|| block.getType() == Material.STRIPPED_BIRCH_LOG
+				|| block.getType() == Material.STRIPPED_SPRUCE_LOG
+				|| block.getType() == Material.STRIPPED_DARK_OAK_LOG
+				|| block.getType() == Material.STRIPPED_JUNGLE_LOG;
 	}
 	public static BoundingBox[] getBlockBoundingBox(Block block) {
 		if (collisionBoundingBoxes.containsKey(block.getType())) {
@@ -1176,32 +1230,166 @@ public class BlockUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isDoor(Block block) {
-		return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.IRON_DOOR_BLOCK) || block.getType().equals(Material.WOOD_DOOR) || block.getType().equals(Material.WOODEN_DOOR) || block.getType().getId() == 193 || block.getType().getId() == 194 || block.getType().getId() == 195 || block.getType().getId() == 196 || block.getType().getId() == 197 || block.getType().getId() == 324 || block.getType().getId() == 428 || block.getType().getId() == 429 || block.getType().getId() == 430 || block.getType().getId() == 431;
+		return block.getType().equals(Material.IRON_DOOR) 
+				|| block.getType().equals(Material.LEGACY_IRON_DOOR_BLOCK) 
+				|| block.getType().equals(Material.LEGACY_WOOD_DOOR) 
+				|| block.getType().equals(Material.IRON_DOOR) 
+				|| block.getType().equals(Material.OAK_DOOR)  
+				|| block.getType().equals(Material.DARK_OAK_DOOR)  
+				|| block.getType().equals(Material.SPRUCE_DOOR)  
+				|| block.getType().equals(Material.BIRCH_DOOR)  
+				|| block.getType().equals(Material.JUNGLE_DOOR)  
+				|| block.getType().equals(Material.ACACIA_DOOR) 
+				|| block.getType().equals(Material.LEGACY_ACACIA_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_DARK_OAK_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_SPRUCE_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_BIRCH_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_JUNGLE_DOOR_ITEM)
+				|| block.getType().getId() == 193 
+				|| block.getType().getId() == 194 
+				|| block.getType().getId() == 195 
+				|| block.getType().getId() == 196 
+				|| block.getType().getId() == 197 
+				|| block.getType().getId() == 324 
+				|| block.getType().getId() == 428 
+				|| block.getType().getId() == 429 
+				|| block.getType().getId() == 430 
+				|| block.getType().getId() == 431;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isBed(Block block) {
-		return block.getType().equals(Material.BED_BLOCK) || block.getType().equals(Material.BED);
+		return block.getType().equals(Material.LEGACY_BED_BLOCK) 
+				|| block.getType().equals(Material.LEGACY_BED)
+				|| block.getType().equals(Material.WHITE_BED)
+				|| block.getType().equals(Material.ORANGE_BED)
+				|| block.getType().equals(Material.MAGENTA_BED)
+				|| block.getType().equals(Material.LIGHT_BLUE_BED)
+				|| block.getType().equals(Material.YELLOW_BED)
+				|| block.getType().equals(Material.LIME_BED)
+				|| block.getType().equals(Material.PINK_BED)
+				|| block.getType().equals(Material.GRAY_BED)
+				|| block.getType().equals(Material.LIGHT_GRAY_BED)
+				|| block.getType().equals(Material.CYAN_BED)
+				|| block.getType().equals(Material.PURPLE_BED)
+				|| block.getType().equals(Material.BLUE_BED)
+				|| block.getType().equals(Material.BROWN_BED)
+				|| block.getType().equals(Material.GREEN_BED)
+				|| block.getType().equals(Material.RED_BED)
+				|| block.getType().equals(Material.BLACK_BED);
 	}
 
-	@SuppressWarnings("deprecation")
 	public static boolean isTrapDoor(Block block) {
-		return block.getType().equals(Material.TRAP_DOOR) || block.getType().getId() == 167;
+		return block.getType().equals(Material.ACACIA_TRAPDOOR)
+				|| block.getType().equals(Material.BIRCH_TRAPDOOR)
+				|| block.getType().equals(Material.DARK_OAK_TRAPDOOR)
+				|| block.getType().equals(Material.IRON_TRAPDOOR)
+				|| block.getType().equals(Material.JUNGLE_TRAPDOOR)
+				|| block.getType().equals(Material.OAK_TRAPDOOR)
+				|| block.getType().equals(Material.SPRUCE_TRAPDOOR)
+				|| block.getType().getId() == 167
+				|| block.getType().getId() == 183 
+				|| block.getType().getId() == 184 
+				|| block.getType().getId() == 185 
+				|| block.getType().getId() == 186 
+				|| block.getType().getId() == 187;
+	}
+
+
+
+
+	public static boolean isFenceGate(Block block) {
+		return (block.getType() == Material.ACACIA_FENCE_GATE
+				|| block.getType() == Material.BIRCH_FENCE_GATE
+				|| block.getType() == Material.DARK_OAK_FENCE_GATE
+				|| block.getType() == Material.JUNGLE_FENCE_GATE
+				|| block.getType() == Material.SPRUCE_FENCE_GATE);
 	}
 
 
 	@SuppressWarnings("deprecation")
-	public static boolean isFenceGate(Block block) {
-		return block.getType().equals(Material.FENCE_GATE) || block.getType().getId() == 183 || block.getType().getId() == 184 || block.getType().getId() == 185 || block.getType().getId() == 186 || block.getType().getId() == 187;
-	}
-
-
 	public static boolean isEdible(Material material) {
-		return material.equals(Material.COOKED_BEEF) || material.equals(Material.COOKED_CHICKEN) || material.equals(Material.COOKED_FISH) || material.equals(Material.getMaterial("COOKED_MUTTON")) || material.equals(Material.getMaterial("COOKED_RABBIT")) || material.equals(Material.ROTTEN_FLESH) || material.equals(Material.CARROT_ITEM) || material.equals(Material.CARROT) || material.equals(Material.GOLDEN_APPLE) || material.equals(Material.GOLDEN_CARROT) || material.equals(Material.GRILLED_PORK) || material.equals(Material.RAW_BEEF) || material.equals(Material.RAW_CHICKEN) || material.equals(Material.RAW_FISH) || material.equals(Material.SPIDER_EYE) || material.equals(Material.getMaterial("BEETROOT_SOUP")) || material.equals(Material.MUSHROOM_SOUP) || material.equals(Material.POTATO) || material.equals(Material.POTATO_ITEM) || material.equals(Material.BAKED_POTATO) || material.equals(Material.POISONOUS_POTATO) || material.equals(Material.PUMPKIN_PIE) || material.equals(Material.APPLE) || material.equals(Material.getMaterial("MUTTON")) || material.equals(Material.getMaterial("RABBIT")) || material.equals(Material.MELON) || material.equals(Material.getMaterial("CHORUS_FRUIT")) || material.equals(Material.COOKIE) || material.equals(Material.POTION);
+		return material.equals(Material.COOKED_BEEF)
+				|| material.equals(Material.COOKED_CHICKEN)
+				|| material.equals(Material.COOKED_MUTTON)
+				|| material.equals(Material.COOKED_RABBIT)
+				|| material.equals(Material.ROTTEN_FLESH)
+				|| material.equals(Material.CARROT)
+				|| material.equals(Material.GOLDEN_APPLE)
+				|| material.equals(Material.GOLDEN_CARROT)
+				|| material.equals(Material.SPIDER_EYE)
+				|| material.equals(Material.POTATO)
+				|| material.equals(Material.BAKED_POTATO)
+				|| material.equals(Material.POISONOUS_POTATO)
+				|| material.equals(Material.PUMPKIN_PIE)
+				|| material.equals(Material.APPLE)
+				|| material.equals(Material.MUTTON)
+				|| material.equals(Material.RABBIT)
+				|| material.equals(Material.MELON)
+				|| material.equals(Material.COOKIE)
+				|| material.equals(Material.COOKED_COD)
+				|| material.equals(Material.COOKED_SALMON)
+				|| material.equals(Material.LEGACY_CARROT_ITEM)
+				|| material.equals(Material.CARROTS)
+				|| material.equals(Material.ENCHANTED_GOLDEN_APPLE)
+				|| material.equals(Material.COOKED_PORKCHOP)
+				|| material.equals(Material.BEEF)
+				|| material.equals(Material.CHICKEN)
+				|| material.equals(Material.LEGACY_RAW_FISH)
+				|| material.equals(Material.COD)
+				|| material.equals(Material.SALMON)
+				|| material.equals(Material.PUFFERFISH)
+				|| material.equals(Material.MUSHROOM_STEM)
+				|| material.equals(Material.MUSHROOM_STEW)
+				|| material.equals(Material.LEGACY_MUSHROOM_SOUP)
+				|| material.equals(Material.POTATOES)
+				|| material.equals(Material.LEGACY_POTATO_ITEM)
+				|| material.equals(Material.BEETROOT_SOUP)
+				|| material.equals(Material.CHORUS_FRUIT)
+				|| material.equals(Material.COOKED_CHICKEN)
+				|| material.equals(Material.COOKED_COD)
+				|| material.equals(Material.COOKED_SALMON)
+				|| material.equals(Material.COOKED_MUTTON)
+				|| material.equals(Material.COOKED_RABBIT)
+				|| material.equals(Material.ROTTEN_FLESH)
+				|| material.equals(Material.LEGACY_CARROT_ITEM)
+				|| material.equals(Material.CARROTS)
+				|| material.equals(Material.CARROT)
+				|| material.equals(Material.GOLDEN_APPLE)
+				|| material.equals(Material.ENCHANTED_GOLDEN_APPLE)
+				|| material.equals(Material.GOLDEN_CARROT)
+				|| material.equals(Material.COOKED_PORKCHOP)
+				|| material.equals(Material.BEEF)
+				|| material.equals(Material.CHICKEN)
+				|| material.equals(Material.LEGACY_RAW_FISH)
+				|| material.equals(Material.COD)
+				|| material.equals(Material.SALMON)
+				|| material.equals(Material.PUFFERFISH)
+				|| material.equals(Material.SPIDER_EYE)
+				|| material.equals(Material.BEETROOT_SOUP)
+				|| material.equals(Material.MUSHROOM_STEM)
+				|| material.equals(Material.MUSHROOM_STEW)
+				|| material.equals(Material.LEGACY_MUSHROOM_SOUP)
+				|| material.equals(Material.POTATO)
+				|| material.equals(Material.POTATOES)
+				|| material.equals(Material.LEGACY_POTATO_ITEM)
+				|| material.equals(Material.BAKED_POTATO)
+				|| material.equals(Material.POISONOUS_POTATO)
+				|| material.equals(Material.PUMPKIN_PIE)
+				|| material.equals(Material.APPLE)
+				|| material.equals(Material.MUTTON)
+				|| material.equals(Material.RABBIT)
+				|| material.equals(Material.MELON)
+				|| material.equals(Material.CHORUS_FRUIT)
+				|| material.equals(Material.COOKIE)
+				|| material.equals(Material.POTION);
 	}
 
+	@SuppressWarnings("deprecation")
 	private void setupCollisionBB() {
 		collisionBoundingBoxes.put(Material.BREWING_STAND, new BoundingBox[]{new BoundingBox(0.4375f, 0, 0.4375f, 0.5625f, 0.875f, 0.5625f), new BoundingBox(0, 0, 0, 1f, 0.125f, 1f)});
 		Arrays.stream(Material.values()).filter(material -> material.name().contains("FENCE") && !material.name().contains("GATE")).forEach(material -> collisionBoundingBoxes.put(material, new BoundingBox[]{new BoundingBox(-69, 0, -69, -69, 1.5f, -69), new BoundingBox(0, 0, 0, 0, 0, 0)}));
-		collisionBoundingBoxes.put(Material.STATIONARY_LAVA, new BoundingBox[]{new BoundingBox(0, 0, 0, 1, 1, 1), new BoundingBox(0, 0, 0, 0, 0, 0)});
+		collisionBoundingBoxes.put(Material.LAVA, new BoundingBox[]{new BoundingBox(0, 0, 0, 1, 1, 1), new BoundingBox(0, 0, 0, 0, 0, 0)});
+		collisionBoundingBoxes.put(Material.LEGACY_STATIONARY_LAVA, new BoundingBox[]{new BoundingBox(0, 0, 0, 1, 1, 1), new BoundingBox(0, 0, 0, 0, 0, 0)});
 	}
 }

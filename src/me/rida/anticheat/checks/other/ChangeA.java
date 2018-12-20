@@ -49,7 +49,21 @@ public class ChangeA extends Check {
 		int n = 0;
 		int n2 = 5;
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
-			if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
+			if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.WHITE_CARPET, Material.ORANGE_CARPET,
+					Material.MAGENTA_CARPET,
+					Material.LIGHT_BLUE_CARPET,
+					Material.YELLOW_CARPET,
+					Material.LIME_CARPET,
+					Material.PINK_CARPET,
+					Material.GRAY_CARPET,
+					Material.LIGHT_GRAY_CARPET,
+					Material.CYAN_CARPET,
+					Material.PURPLE_CARPET,
+					Material.BLUE_CARPET,
+					Material.BROWN_CARPET,
+					Material.GREEN_CARPET,
+					Material.RED_CARPET,
+					Material.BLACK_CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
 				if (e.getFrom().getY() > e.getTo().getY()) {
 					if (!ChangeA.falling.contains(u)) {
 						ChangeA.falling.add(u);
@@ -72,7 +86,21 @@ public class ChangeA extends Check {
 		}
 		else {
 
-			if (!(PlayerUtil.isOnGround(e,p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
+			if (!(PlayerUtil.isOnGround(e,p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.WHITE_CARPET, Material.ORANGE_CARPET,
+					Material.MAGENTA_CARPET,
+					Material.LIGHT_BLUE_CARPET,
+					Material.YELLOW_CARPET,
+					Material.LIME_CARPET,
+					Material.PINK_CARPET,
+					Material.GRAY_CARPET,
+					Material.LIGHT_GRAY_CARPET,
+					Material.CYAN_CARPET,
+					Material.PURPLE_CARPET,
+					Material.BLUE_CARPET,
+					Material.BROWN_CARPET,
+					Material.GREEN_CARPET,
+					Material.RED_CARPET,
+					Material.BLACK_CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
 				if (e.getFrom().getY() > e.getTo().getY()) {
 					if (!ChangeA.falling.contains(u)) {
 						ChangeA.falling.add(u);

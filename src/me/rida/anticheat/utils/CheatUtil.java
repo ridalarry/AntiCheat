@@ -22,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.NumberConversions;
 import org.bukkit.util.Vector;
 
+@SuppressWarnings("deprecation")
 public final class CheatUtil {
     public static final String SPY_METADATA = "ac-spydata";
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -37,24 +38,58 @@ public final class CheatUtil {
 
     static {
         INSTANT_BREAK.add(Material.RED_MUSHROOM);
-        INSTANT_BREAK.add(Material.RED_ROSE);
+        INSTANT_BREAK.add(Material.LEGACY_RED_ROSE);
         INSTANT_BREAK.add(Material.BROWN_MUSHROOM);
-        INSTANT_BREAK.add(Material.YELLOW_FLOWER);
+        INSTANT_BREAK.add(Material.LEGACY_YELLOW_FLOWER);
+        INSTANT_BREAK.add(Material.POTTED_POPPY);
+        INSTANT_BREAK.add(Material.POTTED_DANDELION);
+        INSTANT_BREAK.add(Material.POTTED_BLUE_ORCHID);
+        INSTANT_BREAK.add(Material.POTTED_ALLIUM);
+        INSTANT_BREAK.add(Material.POTTED_AZURE_BLUET);
+        INSTANT_BREAK.add(Material.POTTED_RED_TULIP);
+        INSTANT_BREAK.add(Material.POTTED_ORANGE_TULIP);
+        INSTANT_BREAK.add(Material.POTTED_WHITE_TULIP);
+        INSTANT_BREAK.add(Material.POTTED_PINK_TULIP);
+        INSTANT_BREAK.add(Material.POTTED_OXEYE_DAISY);
+        INSTANT_BREAK.add(Material.FLOWER_POT);
+        INSTANT_BREAK.add(Material.POPPY);
+        INSTANT_BREAK.add(Material.SUNFLOWER);
+        INSTANT_BREAK.add(Material.DANDELION);
+        INSTANT_BREAK.add(Material.BLUE_ORCHID);
+        INSTANT_BREAK.add(Material.ALLIUM);
+        INSTANT_BREAK.add(Material.AZURE_BLUET);
+        INSTANT_BREAK.add(Material.RED_TULIP);
+        INSTANT_BREAK.add(Material.ORANGE_TULIP);
+        INSTANT_BREAK.add(Material.WHITE_TULIP);
+        INSTANT_BREAK.add(Material.PINK_TULIP);
+        INSTANT_BREAK.add(Material.OXEYE_DAISY);
         INSTANT_BREAK.add(Material.REDSTONE);
-        INSTANT_BREAK.add(Material.REDSTONE_TORCH_OFF);
-        INSTANT_BREAK.add(Material.REDSTONE_TORCH_ON);
+        INSTANT_BREAK.add(Material.REDSTONE_TORCH);
+        INSTANT_BREAK.add(Material.REDSTONE_WALL_TORCH);
+        INSTANT_BREAK.add(Material.LEGACY_REDSTONE_TORCH_OFF);
+        INSTANT_BREAK.add(Material.LEGACY_REDSTONE_TORCH_ON);
         INSTANT_BREAK.add(Material.REDSTONE_WIRE);
-        INSTANT_BREAK.add(Material.LONG_GRASS);
+        INSTANT_BREAK.add(Material.LEGACY_LONG_GRASS);
         INSTANT_BREAK.add(Material.PAINTING);
         INSTANT_BREAK.add(Material.WHEAT);
         INSTANT_BREAK.add(Material.SUGAR_CANE);
-        INSTANT_BREAK.add(Material.SUGAR_CANE_BLOCK);
-        INSTANT_BREAK.add(Material.DIODE);
-        INSTANT_BREAK.add(Material.DIODE_BLOCK_OFF);
-        INSTANT_BREAK.add(Material.DIODE_BLOCK_ON);
-        INSTANT_BREAK.add(Material.SAPLING);
+        INSTANT_BREAK.add(Material.LEGACY_SUGAR_CANE_BLOCK);
+        INSTANT_BREAK.add(Material.LEGACY_DIODE);
+        INSTANT_BREAK.add(Material.LEGACY_DIODE_BLOCK_OFF);
+        INSTANT_BREAK.add(Material.LEGACY_DIODE_BLOCK_ON);
+        INSTANT_BREAK.add(Material.ACACIA_SAPLING);
+        INSTANT_BREAK.add(Material.BIRCH_SAPLING);
+        INSTANT_BREAK.add(Material.DARK_OAK_SAPLING);
+        INSTANT_BREAK.add(Material.JUNGLE_SAPLING);
+        INSTANT_BREAK.add(Material.SPRUCE_SAPLING);
+		INSTANT_BREAK.add(Material.LEGACY_SAPLING);
+		INSTANT_BREAK.add(Material.POTTED_ACACIA_SAPLING);
+		INSTANT_BREAK.add(Material.POTTED_BIRCH_SAPLING);
+		INSTANT_BREAK.add(Material.POTTED_DARK_OAK_SAPLING);
+		INSTANT_BREAK.add(Material.POTTED_JUNGLE_SAPLING);
+		INSTANT_BREAK.add(Material.POTTED_SPRUCE_SAPLING);
         INSTANT_BREAK.add(Material.TORCH);
-        INSTANT_BREAK.add(Material.CROPS);
+        INSTANT_BREAK.add(Material.LEGACY_CROPS);
         INSTANT_BREAK.add(Material.SNOW);
         INSTANT_BREAK.add(Material.TNT);
         INSTANT_BREAK.add(Material.POTATO);
@@ -66,13 +101,18 @@ public final class CheatUtil {
 
         FOOD.add(Material.COOKED_BEEF);
         FOOD.add(Material.COOKED_CHICKEN);
-        FOOD.add(Material.COOKED_FISH);
-        FOOD.add(Material.GRILLED_PORK);
-        FOOD.add(Material.PORK);
-        FOOD.add(Material.MUSHROOM_SOUP);
-        FOOD.add(Material.RAW_BEEF);
-        FOOD.add(Material.RAW_CHICKEN);
-        FOOD.add(Material.RAW_FISH);
+        FOOD.add(Material.COOKED_COD);
+        FOOD.add(Material.COOKED_SALMON);
+        FOOD.add(Material.LEGACY_COOKED_FISH);
+        FOOD.add(Material.COOKED_PORKCHOP);
+        FOOD.add(Material.PORKCHOP);
+        FOOD.add(Material.MUSHROOM_STEW);
+        FOOD.add(Material.BEEF);
+        FOOD.add(Material.CHICKEN);
+        FOOD.add(Material.LEGACY_RAW_FISH);
+        FOOD.add(Material.COD);
+        FOOD.add(Material.SALMON);
+        FOOD.add(Material.PUFFERFISH);
         FOOD.add(Material.APPLE);
         FOOD.add(Material.GOLDEN_APPLE);
         FOOD.add(Material.MELON);
@@ -80,13 +120,31 @@ public final class CheatUtil {
         FOOD.add(Material.BREAD);
         FOOD.add(Material.SPIDER_EYE);
         FOOD.add(Material.ROTTEN_FLESH);
-        FOOD.add(Material.POTATO_ITEM);
+        FOOD.add(Material.LEGACY_POTATO_ITEM);
+        FOOD.add(Material.POTATO);
+        FOOD.add(Material.POTATOES);
 
-        COMBO.put(Material.SHEARS, Material.WOOL);
-        COMBO.put(Material.IRON_SWORD, Material.WEB);
-        COMBO.put(Material.DIAMOND_SWORD, Material.WEB);
-        COMBO.put(Material.STONE_SWORD, Material.WEB);
-        COMBO.put(Material.WOOD_SWORD, Material.WEB);
+        COMBO.put(Material.SHEARS, Material.LEGACY_WOOL);
+        COMBO.put(Material.SHEARS, Material.WHITE_WOOL);
+        COMBO.put(Material.SHEARS, Material.ORANGE_WOOL);
+        COMBO.put(Material.SHEARS, Material.MAGENTA_WOOL);
+        COMBO.put(Material.SHEARS, Material.LIGHT_BLUE_WOOL);
+        COMBO.put(Material.SHEARS, Material.YELLOW_WOOL);
+        COMBO.put(Material.SHEARS, Material.LIME_WOOL);
+        COMBO.put(Material.SHEARS, Material.PINK_WOOL);
+        COMBO.put(Material.SHEARS, Material.GRAY_WOOL);
+        COMBO.put(Material.SHEARS, Material.LIGHT_GRAY_WOOL);
+        COMBO.put(Material.SHEARS, Material.CYAN_WOOL);
+        COMBO.put(Material.SHEARS, Material.PURPLE_WOOL);
+        COMBO.put(Material.SHEARS, Material.BLUE_WOOL);
+        COMBO.put(Material.SHEARS, Material.GREEN_WOOL);
+        COMBO.put(Material.SHEARS, Material.BROWN_WOOL);
+        COMBO.put(Material.SHEARS, Material.RED_WOOL);
+        COMBO.put(Material.SHEARS, Material.BLACK_WOOL);
+        COMBO.put(Material.IRON_SWORD, Material.COBWEB);
+        COMBO.put(Material.DIAMOND_SWORD, Material.COBWEB);
+        COMBO.put(Material.STONE_SWORD, Material.COBWEB);
+        COMBO.put(Material.WOODEN_SWORD, Material.COBWEB);
     }
 
     public static double getXDelta(Location one, Location two) {
@@ -94,17 +152,23 @@ public final class CheatUtil {
     }
 
     public static boolean isDoor(Block block) {
-        return block.getType().equals(Material.IRON_DOOR) || block.getType().equals(Material.IRON_DOOR_BLOCK)
-                || block.getType().equals(Material.WOOD_DOOR) || block.getType().equals(Material.WOODEN_DOOR);
+		return block.getType().equals(Material.IRON_DOOR) 
+				|| block.getType().equals(Material.LEGACY_IRON_DOOR_BLOCK) 
+				|| block.getType().equals(Material.LEGACY_WOOD_DOOR) 
+				|| block.getType().equals(Material.OAK_DOOR)  
+				|| block.getType().equals(Material.DARK_OAK_DOOR)  
+				|| block.getType().equals(Material.SPRUCE_DOOR)  
+				|| block.getType().equals(Material.BIRCH_DOOR)  
+				|| block.getType().equals(Material.JUNGLE_DOOR)  
+				|| block.getType().equals(Material.ACACIA_DOOR) 
+				|| block.getType().equals(Material.LEGACY_ACACIA_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_DARK_OAK_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_SPRUCE_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_BIRCH_DOOR_ITEM)  
+				|| block.getType().equals(Material.LEGACY_JUNGLE_DOOR_ITEM);
     }
 
-    public static boolean isFenceGate(Block block) {
-        return block.getType().equals(Material.FENCE_GATE);
-    }
 
-    public static boolean isTrapDoor(Block block) {
-        return block.getType().equals(Material.TRAP_DOOR);
-    }
 
     public static double getZDelta(Location one, Location two) {
         return Math.abs(one.getZ() - two.getZ());
@@ -168,21 +232,21 @@ public final class CheatUtil {
 
         boolean isHover = block.getType() == Material.AIR;
         boolean n = (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean s = (otherBlock.getRelative(BlockFace.SOUTH).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.SOUTH).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.SOUTH).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean e = (otherBlock.getRelative(BlockFace.EAST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.EAST).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.EAST).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean w = (otherBlock.getRelative(BlockFace.WEST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.WEST).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.WEST).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean ne = (otherBlock.getRelative(BlockFace.NORTH_EAST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH_EAST).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.NORTH_EAST).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean nw = (otherBlock.getRelative(BlockFace.NORTH_WEST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH_WEST).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.NORTH_WEST).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean se = (otherBlock.getRelative(BlockFace.SOUTH_EAST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.NORTH).getType() == Material.LEGACY_STATIONARY_WATER);
         boolean sw = (otherBlock.getRelative(BlockFace.SOUTH_WEST).getType() == Material.WATER)
-                || (otherBlock.getRelative(BlockFace.SOUTH_WEST).getType() == Material.STATIONARY_WATER);
+                || (otherBlock.getRelative(BlockFace.SOUTH_WEST).getType() == Material.LEGACY_STATIONARY_WATER);
 
         return (n) && (s) && (e) && (w) && (ne) && (nw) && (se) && (sw) && (isHover);
     }
@@ -289,54 +353,54 @@ public final class CheatUtil {
     	final int blockY = location.getBlockY() - down;
     	final int blockZ = location.getBlockZ();
     	final World world = location.getWorld();
-        if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ))) {
+        if (BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ))) {
             return true;
         }
         if (fracX < 0.3) {
-            if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ))) {
+            if (BlockUtil.isSolid2(world.getBlockAt(blockX - 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return BlockUtil.isSolid2(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return BlockUtil.isSolid2(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracX > 0.7) {
-            if (BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ))) {
+            if (BlockUtil.isSolid2(world.getBlockAt(blockX + 1, blockY, blockZ))) {
                 return true;
             }
             if (fracZ < 0.3) {
-                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX - 1, blockY, blockZ - 1))) {
                     return true;
                 }
-                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ - 1))) {
                     return true;
                 }
-                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
+                return BlockUtil.isSolid2(world.getBlockAt(blockX + 1, blockY, blockZ - 1));
             } else if (fracZ > 0.7) {
-                if (BlockUtil.isSolid(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX - 1, blockY, blockZ + 1))) {
                     return true;
                 }
-                if (BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1))) {
+                if (BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ + 1))) {
                     return true;
                 }
-                return BlockUtil.isSolid(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
+                return BlockUtil.isSolid2(world.getBlockAt(blockX + 1, blockY, blockZ + 1));
             }
         } else if (fracZ < 0.3) {
-            return BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ - 1));
-        } else return fracZ > 0.7 && BlockUtil.isSolid(world.getBlockAt(blockX, blockY, blockZ + 1));
+            return BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ - 1));
+        } else return fracZ > 0.7 && BlockUtil.isSolid2(world.getBlockAt(blockX, blockY, blockZ + 1));
         return false;
     }
 
@@ -394,8 +458,31 @@ public final class CheatUtil {
 	public static boolean isSlab(Block block) {
         Material type = block.getType();
         switch (type) {
-            case STEP:
-            case WOOD_STEP:
+            case LEGACY_STEP:
+            case LEGACY_WOOD_STEP:
+			case BIRCH_SLAB:
+			case ACACIA_SLAB:
+			case BRICK_SLAB:
+			case COBBLESTONE_SLAB:
+			case DARK_OAK_SLAB:
+			case DARK_PRISMARINE_SLAB:
+			case JUNGLE_SLAB:
+			case NETHER_BRICK_SLAB:
+			case OAK_SLAB:
+			case PETRIFIED_OAK_SLAB:
+			case PRISMARINE_BRICK_SLAB:
+			case PRISMARINE_SLAB:
+			case PURPUR_SLAB:
+			case QUARTZ_SLAB:
+			case RED_SANDSTONE_SLAB:
+			case SANDSTONE_SLAB:
+			case SPRUCE_SLAB:
+			case STONE_BRICK_SLAB:
+			case STONE_SLAB:
+			case LEGACY_DOUBLE_STEP: 
+			case LEGACY_DOUBLE_STONE_SLAB2: 
+			case LEGACY_PURPUR_DOUBLE_SLAB: 
+			case LEGACY_WOOD_DOUBLE_STEP:
                 return true;
         }
         return false;
@@ -405,19 +492,19 @@ public final class CheatUtil {
 	public static boolean isStair(Block block) {
         Material type = block.getType();
         switch (type) {
-            case COMMAND:
+            case COMMAND_BLOCK:
             case COBBLESTONE_STAIRS:
             case BRICK_STAIRS:
             case ACACIA_STAIRS:
-            case BIRCH_WOOD_STAIRS:
+            case BIRCH_STAIRS:
             case DARK_OAK_STAIRS:
-            case JUNGLE_WOOD_STAIRS:
+            case JUNGLE_STAIRS:
             case NETHER_BRICK_STAIRS:
             case QUARTZ_STAIRS:
             case SANDSTONE_STAIRS:
-            case SMOOTH_STAIRS:
-            case SPRUCE_WOOD_STAIRS:
-            case WOOD_STAIRS:
+            case LEGACY_SMOOTH_STAIRS:
+            case SPRUCE_STAIRS:
+            case OAK_STAIRS:
                 return true;
         }
         return false;
@@ -433,7 +520,7 @@ public final class CheatUtil {
 
     public static boolean isOnLilyPad(Player player) {
         Block block = player.getLocation().getBlock();
-        Material lily = Material.WATER_LILY;
+        Material lily = Material.LILY_PAD;
 
         return (block.getType() == lily) || (block.getRelative(BlockFace.NORTH).getType() == lily)
                 || (block.getRelative(BlockFace.SOUTH).getType() == lily)
@@ -454,18 +541,18 @@ public final class CheatUtil {
 
     @SuppressWarnings("unlikely-arg-type")
 	public static boolean isInWeb(Player player) {
-        if (BlockUtil.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.WEB)) {
+        if (BlockUtil.getBlocksAroundCenter(player.getLocation(), 1).contains(Material.COBWEB)) {
             return true;
         }
-        return (player.getLocation().getBlock().getType() == Material.WEB)
-                || (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.WEB)
-                || (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.WEB)
-                || (player.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.WEB);
+        return (player.getLocation().getBlock().getType() == Material.COBWEB)
+                || (player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock().getType() == Material.COBWEB)
+                || (player.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.COBWEB)
+                || (player.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.COBWEB);
     }
 
     public static boolean isClimbableBlock(Block block) {
         return (block.getType() == Material.VINE) || (block.getType() == Material.LADDER)
-                || (block.getType() == Material.WATER) || (block.getType() == Material.STATIONARY_WATER);
+                || (block.getType() == Material.WATER) || (block.getType() == Material.LEGACY_STATIONARY_WATER);
     }
 
     public static boolean isOnVine(Player player) {
@@ -513,7 +600,11 @@ public final class CheatUtil {
             nearBlocks = true;
         }
         if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN),
-                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER})) {
+                new Material[]{Material.ACACIA_FENCE, Material.BIRCH_FENCE, Material.DARK_OAK_FENCE, Material.JUNGLE_FENCE, 
+            			Material.NETHER_BRICK_FENCE, Material.SPRUCE_FENCE, 
+
+            			Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, 
+            			Material.SPRUCE_FENCE_GATE, Material.COBBLESTONE_WALL, Material.LADDER})) {
             nearBlocks = true;
         }
         return nearBlocks;
@@ -532,7 +623,11 @@ public final class CheatUtil {
             nearBlocks = true;
         }
         if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN),
-                new Material[]{Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER})) {
+                new Material[]{Material.ACACIA_FENCE, Material.BIRCH_FENCE, Material.DARK_OAK_FENCE, Material.JUNGLE_FENCE, 
+            			Material.NETHER_BRICK_FENCE, Material.SPRUCE_FENCE, 
+
+            			Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, 
+            			Material.SPRUCE_FENCE_GATE, Material.COBBLESTONE_WALL, Material.LADDER})) {
             nearBlocks = true;
         }
         return nearBlocks;
@@ -541,21 +636,80 @@ public final class CheatUtil {
     public static boolean slabsNear(Location loc) {
         boolean nearBlocks = false;
         for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
-            if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
-                    || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
+            if ((
+					bl.getType().equals(Material.BIRCH_SLAB)
+					|| bl.getType().equals(Material.ACACIA_SLAB)
+					|| bl.getType().equals(Material.BRICK_SLAB)
+					|| bl.getType().equals(Material.COBBLESTONE_SLAB)
+					|| bl.getType().equals(Material.DARK_OAK_SLAB)
+					|| bl.getType().equals(Material.DARK_PRISMARINE_SLAB)
+					|| bl.getType().equals(Material.JUNGLE_SLAB)
+					|| bl.getType().equals(Material.NETHER_BRICK_SLAB)
+					|| bl.getType().equals(Material.OAK_SLAB)
+					|| bl.getType().equals(Material.PETRIFIED_OAK_SLAB)
+					|| bl.getType().equals(Material.PRISMARINE_BRICK_SLAB)
+					|| bl.getType().equals(Material.PRISMARINE_SLAB)
+					|| bl.getType().equals(Material.PURPUR_SLAB)
+					|| bl.getType().equals(Material.QUARTZ_SLAB)
+					|| bl.getType().equals(Material.RED_SANDSTONE_SLAB)
+					|| bl.getType().equals(Material.SANDSTONE_SLAB)
+					|| bl.getType().equals(Material.SPRUCE_SLAB)
+					|| bl.getType().equals(Material.STONE_BRICK_SLAB)
+					|| bl.getType().equals(Material.STONE_SLAB)) 
+            		|| (bl.getType().equals(Material.LEGACY_DOUBLE_STEP))
+                    || (bl.getType().equals(Material.LEGACY_WOOD_DOUBLE_STEP)) 
+                    || (bl.getType().equals(Material.LEGACY_WOOD_STEP))) {
                 nearBlocks = true;
                 break;
             }
         }
         for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
-            if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
-                    || (bl.getType().equals(Material.WOOD_DOUBLE_STEP)) || (bl.getType().equals(Material.WOOD_STEP))) {
+            if (bl.getType().equals(Material.LEGACY_STEP)
+					|| bl.getType().equals(Material.BIRCH_SLAB)
+					|| bl.getType().equals(Material.ACACIA_SLAB)
+					|| bl.getType().equals(Material.BRICK_SLAB)
+					|| bl.getType().equals(Material.COBBLESTONE_SLAB)
+					|| bl.getType().equals(Material.DARK_OAK_SLAB)
+					|| bl.getType().equals(Material.DARK_PRISMARINE_SLAB)
+					|| bl.getType().equals(Material.JUNGLE_SLAB)
+					|| bl.getType().equals(Material.NETHER_BRICK_SLAB)
+					|| bl.getType().equals(Material.OAK_SLAB)
+					|| bl.getType().equals(Material.PETRIFIED_OAK_SLAB)
+					|| bl.getType().equals(Material.PRISMARINE_BRICK_SLAB)
+					|| bl.getType().equals(Material.PRISMARINE_SLAB)
+					|| bl.getType().equals(Material.PURPUR_SLAB)
+					|| bl.getType().equals(Material.QUARTZ_SLAB)
+					|| bl.getType().equals(Material.RED_SANDSTONE_SLAB)
+					|| bl.getType().equals(Material.SANDSTONE_SLAB)
+					|| bl.getType().equals(Material.SPRUCE_SLAB)
+					|| bl.getType().equals(Material.STONE_BRICK_SLAB)
+					|| bl.getType().equals(Material.STONE_SLAB) 
+					|| bl.getType().equals(Material.LEGACY_DOUBLE_STEP)
+                    || bl.getType().equals(Material.LEGACY_WOOD_DOUBLE_STEP)) {
                 nearBlocks = true;
                 break;
             }
         }
-        if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN), new Material[]{Material.STEP, Material.DOUBLE_STEP,
-                Material.WOOD_DOUBLE_STEP, Material.WOOD_STEP})) {
+        if (isBlock(loc.getBlock().getRelative(BlockFace.DOWN), new Material[]{Material.BIRCH_SLAB,
+				Material.ACACIA_SLAB,
+				Material.BRICK_SLAB,
+				Material.COBBLESTONE_SLAB,
+				Material.DARK_OAK_SLAB,
+				Material.DARK_PRISMARINE_SLAB,
+				Material.JUNGLE_SLAB,
+				Material.NETHER_BRICK_SLAB,
+				Material.OAK_SLAB,
+				Material.PETRIFIED_OAK_SLAB,
+				Material.PRISMARINE_BRICK_SLAB,
+				Material.PRISMARINE_SLAB,
+				Material.PURPUR_SLAB,
+				Material.QUARTZ_SLAB,
+				Material.RED_SANDSTONE_SLAB,
+				Material.SANDSTONE_SLAB,
+				Material.SPRUCE_SLAB,
+				Material.STONE_BRICK_SLAB,
+				Material.STONE_SLAB,
+				Material.LEGACY_DOUBLE_STEP, Material.LEGACY_DOUBLE_STONE_SLAB2, Material.LEGACY_PURPUR_DOUBLE_SLAB, Material.LEGACY_WOOD_DOUBLE_STEP})) {
             nearBlocks = true;
         }
         return nearBlocks;

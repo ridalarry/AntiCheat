@@ -50,7 +50,7 @@ public class BlockInteractC extends Check {
 				}
 			}
 
-			if (e.getBlockAgainst().isLiquid() && e.getBlock().getType() != Material.WATER_LILY) {
+			if (e.getBlockAgainst().isLiquid() && e.getBlock().getType() != Material.LEGACY_WATER_LILY) {
 				getAntiCheat().logCheat(this, p, "[2] BlockInteract", "(Type: C)");
 			}
 		}

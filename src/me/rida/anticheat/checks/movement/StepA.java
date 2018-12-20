@@ -61,7 +61,12 @@ public class StepA extends Check {
 			return true;
 		}
 		if (CheatUtil.isBlock(p.getLocation().getBlock().getRelative(BlockFace.DOWN),
-				new Material[] { Material.FENCE, Material.FENCE_GATE, Material.COBBLE_WALL, Material.LADDER })) {
+				new Material[] { Material.ACACIA_FENCE, Material.BIRCH_FENCE, Material.DARK_OAK_FENCE, Material.JUNGLE_FENCE, 
+								Material.NETHER_BRICK_FENCE, Material.SPRUCE_FENCE, 
+								
+								Material.ACACIA_FENCE_GATE, Material.BIRCH_FENCE_GATE, Material.DARK_OAK_FENCE_GATE, Material.JUNGLE_FENCE_GATE, 
+								Material.SPRUCE_FENCE_GATE, Material.COBBLESTONE_WALL, 
+								Material.LADDER })) {
 			return true;
 		}
 		return false;
@@ -83,8 +88,7 @@ public class StepA extends Check {
 				|| PlayerUtil.isNearSlime(p.getLocation())
 				|| PlayerUtil.isNearSlime(e.getFrom())
 				|| PlayerUtil.isNearSlime(e.getTo())
-				|| p.getLocation().getBlock().getType().equals(Material.WATER)
-				|| p.getLocation().getBlock().getType().equals(Material.STATIONARY_WATER)) {
+				|| p.getLocation().getBlock().getType().equals(Material.WATER)) {
 			return;
 		}
 

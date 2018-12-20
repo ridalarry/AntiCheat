@@ -42,7 +42,7 @@ public class ImpossibleMovementsA extends Check {
 			} else {
 				data.setAntiCactus_VL(0);
 			}
-			if (!data.isWebFloatMS_Set() && p.getLocation().add(0,-0.50,0).getBlock().getType() == Material.WEB) {
+			if (!data.isWebFloatMS_Set() && p.getLocation().add(0,-0.50,0).getBlock().getType() == Material.COBWEB) {
 				data.setWebFloatMS_Set(true);
 				data.setWebFloatMS(TimerUtil.nowlong());
 			} else if (data.isWebFloatMS_Set()) {
@@ -51,7 +51,7 @@ public class ImpossibleMovementsA extends Check {
 					double z = Math.floor(from.getZ());
 					if(Math.floor(to.getX())!=x||Math.floor(to.getZ())!=z) {
 						if (data.getWebFloat_BlockCount() > 0) {
-							if (p.getLocation().add(0,-0.50,0).getBlock().getType() != Material.WEB) {
+							if (p.getLocation().add(0,-0.50,0).getBlock().getType() != Material.COBWEB) {
 								data.setWebFloatMS_Set(false);
 								data.setWebFloat_BlockCount(0);
 							}

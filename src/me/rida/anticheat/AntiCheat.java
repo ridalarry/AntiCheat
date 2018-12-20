@@ -323,7 +323,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 					resetAllViolations();
 				}
 			}
-		}.runTaskTimerAsynchronously(this, 0L,
+		}.runTaskTimer(this, 0L,
 				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
 
 		saveDefaultConfig();
@@ -719,7 +719,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 				NamesBanned.put(player.getName(), check);
 			}
-		}.runTaskLaterAsynchronously(this, 10L);
+		}.runTaskLater(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
@@ -733,7 +733,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			public void run() {
 				player.kickPlayer(getConfig().getString("settings.kickmsg"));
 			}
-		}.runTaskLaterAsynchronously(this, 10L);
+		}.runTaskLater(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		return;
@@ -750,7 +750,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 
 
-		}.runTaskLaterAsynchronously(this, 10L);
+		}.runTaskLater(this, 10L);
 		if (Violations.containsKey(player))
 			this.Violations.remove(player);
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
@@ -957,7 +957,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		} catch (ExploitException ex) {
 			PACKET_USAGE.put(player, -2L);
 
-			Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+			Bukkit.getScheduler().runTask(this, () -> {
 				player.kickPlayer("You failed to use an exploit that would crash the server!");
 
 				if (dispatchCommand != null)
@@ -1082,7 +1082,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimerAsynchronously(this, 0L, 20L);
+		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
 	}
 
 	public static boolean isInPhaseTimer(Player player) {
@@ -1110,6 +1110,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimerAsynchronously(this, 0L, 1L);
+		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 1L);
 	}
 }

@@ -28,7 +28,7 @@ public class BlockInteractE extends Check {
 	public void onInteract(PlayerInteractEvent e) {
 		if ((e.getAction() == Action.RIGHT_CLICK_BLOCK)
 				&& e.getItem() != null) {
-			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
+			if (e.getItem().equals(Material.EXPERIENCE_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
 					|| e.getItem().getType().equals(Material.POTION)
 					|| Ping.getPing(e.getPlayer()) > 400
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {

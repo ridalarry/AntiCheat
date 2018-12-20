@@ -31,8 +31,7 @@ public class FlyB extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		if (!getAntiCheat().isEnabled()
-				|| ServerUtil.isBukkitVerison("1_13")) {
+		if (!getAntiCheat().isEnabled()) {
 			return;
 		}
 		Player p = e.getPlayer();

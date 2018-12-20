@@ -20,6 +20,7 @@ import me.rida.anticheat.data.DataPlayer;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
+import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimerUtil;
 
 public class MoveEvent implements Listener {
@@ -61,18 +62,31 @@ public class MoveEvent implements Listener {
 				|| e.getFrom().getZ() != e.getTo().getZ()) {
 			DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
 			if (data != null) {
+				if (!ServerUtil.isBukkitVerison("1_13")) {
 				data.setOnGround(PlayerUtil.isOnTheGround(p));
-				data.onGround = PlayerUtil.isOnGround4(p);
 				data.setOnStairSlab(PlayerUtil.isInStairs(p));
                 data.onStairSlab = PlayerUtil.isInStairs(p);
 				data.setInLiquid(PlayerUtil.isInLiquid(p));
                 data.inLiquid = PlayerUtil.isInLiquid(p);
 				data.setOnIce(PlayerUtil.isOnIce(p));
                 data.onIce = PlayerUtil.isOnIce(p);
-				data.setOnClimbable(PlayerUtil.isOnClimbable(p));
-                data.onClimbable = PlayerUtil.isOnClimbable(p);
 				data.setUnderBlock(PlayerUtil.inUnderBlock(p));
                 data.underBlock = PlayerUtil.inUnderBlock(p);
+				}
+				else {
+					data.setOnGround(PlayerUtil.isOnGround4(p));
+					data.setOnStairSlab(PlayerUtil.isNearHalfBlock(p));
+	                data.onStairSlab = PlayerUtil.isNearSlab(p);
+					data.setInLiquid(BlockUtil.isNearLiquid(p));
+	                data.inLiquid = BlockUtil.isNearLiquid(p);
+					data.setOnIce(PlayerUtil.isNearIce(p));
+	                data.onIce = PlayerUtil.isNearIce(p);
+					data.setUnderBlock(true);
+	                data.underBlock = true;
+				}
+				data.onGround = PlayerUtil.isOnGround4(p);
+				data.setOnClimbable(PlayerUtil.isOnClimbable(p));
+                data.onClimbable = PlayerUtil.isOnClimbable(p);
                 
 				if(data.isOnGround()) {
 					data.groundTicks++;

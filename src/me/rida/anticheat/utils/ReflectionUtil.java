@@ -3,7 +3,6 @@ package me.rida.anticheat.utils;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -28,7 +27,7 @@ public class ReflectionUtil {
 	public static final Class<?> CraftWorld = getCBClass("CraftWorld");
 	public static final Class<?> World = getNMSClass("World");
 	private static final Method getBlocks = getMethod(World, "a", getNMSClass("AxisAlignedBB"));
-	private static final Method getBlocks1_12 = getMethod(World, "getCubes", getNMSClass("Entity"), getNMSClass("AxisAlignedBB"));
+	public static final Method getBlocks1_12 = getMethod(World, "getCubes", getNMSClass("Entity"), getNMSClass("AxisAlignedBB"));
 
 	public static float getFriction(Block block) {
 		Object blockNMS = getVanillaBlock(block);
@@ -84,13 +83,7 @@ public class ReflectionUtil {
 	}
 
 
-	public static Collection<?> getCollidingBlocks(Player player, Object axisAlignedBB) {
-		Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
-		return (Collection<?>) (isNewVersion()
-				? getInvokedMethod(getBlocks1_12, world, null, axisAlignedBB)
-						: getInvokedMethod(getBlocks, world, axisAlignedBB));
-	}
-	public static Boolean getCollidingBlocks1(Player player, Object axisAlignedBB) {
+	public static Boolean getCollidingBlocks(Player player, Object axisAlignedBB) {
 		Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
 		return (Boolean) (isNewVersion()
 				? getInvokedMethod(getBlocks1_12, world, null, axisAlignedBB)
@@ -112,7 +105,6 @@ public class ReflectionUtil {
 		double newmaxX = (double) getInvokedField(getField(box.getClass(), "d"), box) + maxX;
 		double newmaxY = (double) getInvokedField(getField(box.getClass(), "e"), box) + maxY;
 		double newmaxZ = (double) getInvokedField(getField(box.getClass(), "f"), box) + maxZ;
-
 		try {
 			return getNMSClass("AxisAlignedBB").getConstructor(double.class, double.class, double.class, double.class, double.class, double.class).newInstance(newminX, newminY, newminZ, newmaxX, newmaxY, newmaxZ);
 		} catch (Exception e) {
@@ -132,16 +124,12 @@ public class ReflectionUtil {
 				Object world = getWorldHandle(block.getWorld());
 				Object data = getMethodValue(getMethod(world.getClass(), "getType", blockPosition), world, bPos);
 				Object blockNMS = getMethodValue(getMethod(getNMSClass("IBlockData"), "getBlock"), data);
-
 				if (!isNewVersion()) {
-
 					if (getMethodValueNoST(getMethodNoST(blockNMS.getClass(), "a", World, blockPosition, iBlockData), blockNMS, world, bPos, data) != null
 							&& !BlockUtil.isSlab(block)) {
 						BoundingBox box = toBoundingBox(getMethodValue(getMethod(blockNMS.getClass(), "a", World, blockPosition, iBlockData), blockNMS, world, bPos, data));
-
-						if (block.getType().equals(Material.STEP)) {
+						if (block.getType().equals(Material.LEGACY_STEP)) {
 							Step slab = (Step) block.getType().getNewData(block.getData());
-
 							box.minY = block.getY();
 							box.maxY = block.getY();
 							if (slab.isInverted()) {
@@ -149,7 +137,7 @@ public class ReflectionUtil {
 							} else {
 								box = box.add(0, 0f, 0, 0, 0.5f, 0);
 							}
-						} else if (block.getType().equals(Material.WOOD_STEP)) {
+						} else if (block.getType().equals(Material.LEGACY_WOOD_STEP)) {
 							WoodenStep slab = (WoodenStep) block.getType().getNewData(block.getData());
 
 							box.minY = block.getY();

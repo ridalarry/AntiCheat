@@ -35,12 +35,12 @@ public class AntiKBD extends Check {
 		double zLoc;
 		double xLoc;
 		Player p = e.getPlayer();
-		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
-				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.COBWEB}) 
+				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.COBWEB}) 
 				|| ServerUtil.isHoveringOverWater(p, 1)
 				|| ServerUtil.isHoveringOverWater(p, 0)
 				|| p.getAllowFlight()
-				|| BlockUtil.isSolid(BlockUtil.getBlockBehindPlayer(p))
+				|| BlockUtil.isSolid2(BlockUtil.getBlockBehindPlayer(p))
 				|| p.isDead()
 				|| Ping.getPing(p) > 400
 				|| p.getGameMode().equals(GameMode.CREATIVE)
@@ -113,7 +113,7 @@ public class AntiKBD extends Check {
 		double vio;
 		long lastVelocity;
 		Player p = e.getPlayer();
-		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.COBWEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.COBWEB})) {
 			return;
 		}
 		if (ServerUtil.isHoveringOverWater(p, 1) || ServerUtil.isHoveringOverWater(p, 0)) {

@@ -315,7 +315,7 @@ public enum WrappedMaterial {
 		return this.liquid;
 	}
 
-	public boolean isSolid() {
+	public boolean isSolid2() {
 		return this.solid;
 	}
 

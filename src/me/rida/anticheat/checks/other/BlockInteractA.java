@@ -49,7 +49,7 @@ public class BlockInteractA extends Check {
 					List<Location> blocks = rayTrace(p.getLocation(), relative);
 					boolean valid = true;
 					for (Location l : blocks) {
-						if (!checkPhase(l.getBlock().getType())) {
+						if (!checkPhase(l.getBlock().getType().getId())) {
 							valid = false;
 						}
 					}
@@ -60,10 +60,11 @@ public class BlockInteractA extends Check {
 			}
 		}
 		if ((!isValid) && (!p.getItemInHand().getType().equals(Material.ENDER_PEARL))) {
-			getAntiCheat().logCheat(this, p, "BlockInteract", "(Type: A)");
+			getAntiCheat().logCheat(this, p, "BlockInteract" + "; Action: " + e.getAction(), "(Type: A)");
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private List<Location> rayTrace(Location from, Location to) {
 		List<Location> a = new ArrayList<Location>();
 		if ((from == null) || (to == null)) {
@@ -81,22 +82,14 @@ public class BlockInteractA extends Check {
 		double x2 = to.getX();
 		double y2 = to.getY();
 		double z2 = to.getZ();
-
 		boolean scanning = true;
-		while (scanning) {
-			a.add(new Location(from.getWorld(), x1, y1, z1));
-			x1 += (x2 - x1) / 10.0D;
-			y1 += (y2 - y1) / 10.0D;
-			z1 += (z2 - z1) / 10.0D;
-			if ((Math.abs(x1 - x2) < 0.01D) && (Math.abs(y1 - y2) < 0.01D) && (Math.abs(z1 - z2) < 0.01D)) {
-				scanning = false;
-			}
-		}
+			 if(to.getY() > from.getY()) {
+				scanning = true;
+			 }
 		return a;
 	}
 
-	@SuppressWarnings("deprecation")
-	private boolean checkPhase(Material m) {
+	private boolean checkPhase(int i) {
 		int[] whitelist = { 355, 196, 194, 197, 195, 193, 64, 96, 187, 184, 186, 107, 185, 183, 192, 189, 139, 191, 85,
 				101, 190, 113, 188, 160, 102, 163, 157, 0, 145, 49, 77, 135, 108, 67, 164, 136, 114, 156, 180, 128, 143,
 				109, 134, 53, 126, 44, 416, 8, 425, 138, 26, 397, 372, 13, 135, 117, 108, 39, 81, 92, 71, 171, 141, 118,
@@ -105,7 +98,7 @@ public class BlockInteractA extends Check {
 				330, 38, 180, 149, 150, 75, 76, 55, 128, 6, 295, 323, 63, 109, 78, 88, 134, 176, 11, 9, 44, 70, 182, 83,
 				50, 146, 132, 131, 106, 177, 68, 8, 111, 30, 72, 53, 126, 37 };
 		for (int ids : whitelist) {
-			if (m.getId() == ids) {
+			if (i == ids) {
 				return true;
 			}
 		}

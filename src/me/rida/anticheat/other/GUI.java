@@ -79,16 +79,16 @@ public class GUI implements Listener {
 		ItemStack Jday = createItem(Material.BOOK, 1, "&cJDay", new String[0]);
 		ItemStack bannable = createItem(Material.REDSTONE, 1, "&cAuto Bans", new String[0]);
 		ItemStack kickable = createItem(Material.BONE, 1, "&cAuto Kicks", new String[0]);
-		ItemStack timers = createItem(Material.WATCH, 1, "&cTimers", new String[0]);
+		ItemStack timers = createItem(Material.CLOCK, 1, "&cTimers", new String[0]);
 		ItemStack resetVio = createItem(Material.PAPER, 1, "&cReset Violations", new String[0]);
 		ItemStack reload = createItem(Material.LAVA_BUCKET, 1, "&cReload", new String[0]);
 		ItemStack info = createItem(Material.SIGN, 1, "&aInfo", new String[0]);
-		ItemStack combat = createItem(Material.REDSTONE_TORCH_ON, 1, "&aCombat", new String[0]);
-		ItemStack client = createItem(Material.REDSTONE_TORCH_ON, 1, "&aClient", new String[0]);
-		ItemStack movement = createItem(Material.REDSTONE_TORCH_ON, 1, "&aMovement", new String[0]);
-		ItemStack player = createItem(Material.REDSTONE_TORCH_ON, 1, "&aPlayer", new String[0]);
-		ItemStack other = createItem(Material.REDSTONE_TORCH_ON, 1, "&aOther", new String[0]);
-		ItemStack empty = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+		ItemStack combat = createItem(Material.REDSTONE_TORCH, 1, "&aCombat", new String[0]);
+		ItemStack client = createItem(Material.REDSTONE_TORCH, 1, "&aClient", new String[0]);
+		ItemStack movement = createItem(Material.REDSTONE_TORCH, 1, "&aMovement", new String[0]);
+		ItemStack player = createItem(Material.REDSTONE_TORCH, 1, "&aPlayer", new String[0]);
+		ItemStack other = createItem(Material.REDSTONE_TORCH, 1, "&aOther", new String[0]);
+		ItemStack empty = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 		ItemStack checkered = createItem(Material.COAL, 1,
 				AntiCheat.getConfig().getBoolean("settings.gui.checkered") ? "&aCheckered" : "&cCheckered",
 						new String[0]);
@@ -416,7 +416,7 @@ public class GUI implements Listener {
 			slot++;
 		}
 		for (int i = slot; i < 35; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecks.setItem(i, c);
 		}
@@ -429,17 +429,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Combat)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".enabled")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatchecksCombat.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".enabled"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatchecksCombat.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecksCombat.setItem(i, c);
 		}
@@ -451,17 +451,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Client)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".enabled")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatchecksClient.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".enabled"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatchecksClient.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecksClient.setItem(i, c);
 		}
@@ -473,17 +473,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Movement)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".enabled")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatchecksMovement.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".enabled"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatchecksMovement.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecksMovement.setItem(i, c);
 		}
@@ -495,17 +495,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Player)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".enabled")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatchecksPlayer.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".enabled"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatchecksPlayer.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecksPlayer.setItem(i, c);
 		}
@@ -517,17 +517,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Other)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".enabled")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatchecksOther.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".enabled"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatchecksOther.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatchecksOther.setItem(i, c);
 		}
@@ -542,7 +542,7 @@ public class GUI implements Listener {
 			slot++;
 		}
 		for (int i = slot; i < 35; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannable.setItem(i, c);
 		}
@@ -555,17 +555,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Combat)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".bannable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatbannableCombat.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".bannable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatbannableCombat.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannableCombat.setItem(i, c);
 		}
@@ -577,17 +577,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Client)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".bannable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatbannableClient.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".bannable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatbannableClient.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannableClient.setItem(i, c);
 		}
@@ -599,17 +599,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Movement)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".bannable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatbannableMovement.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".bannable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatbannableMovement.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannableMovement.setItem(i, c);
 		}
@@ -621,17 +621,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Player)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".bannable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatbannablePlayer.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".bannable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatbannablePlayer.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannablePlayer.setItem(i, c);
 		}
@@ -643,17 +643,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Other)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".bannable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatbannableOther.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".bannable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatbannableOther.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatbannableOther.setItem(i, c);
 		}
@@ -670,7 +670,7 @@ public class GUI implements Listener {
 			slot++;
 		}
 		for (int i = slot; i < 35; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimer.setItem(i, c);
 		}
@@ -683,17 +683,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Combat)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatTimerCombat.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatTimerCombat.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimerCombat.setItem(i, c);
 		}
@@ -705,17 +705,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Client)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatTimerClient.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatTimerClient.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimerClient.setItem(i, c);
 		}
@@ -727,17 +727,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Movement)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatTimerMovement.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatTimerMovement.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimerMovement.setItem(i, c);
 		}
@@ -749,17 +749,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Player)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatTimerPlayer.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatTimerPlayer.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimerPlayer.setItem(i, c);
 		}
@@ -771,17 +771,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Other)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatTimerOther.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".banTimer"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatTimerOther.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatTimerOther.setItem(i, c);
 		}
@@ -797,7 +797,7 @@ public class GUI implements Listener {
 			slot++;
 		}
 		for (int i = slot; i < 35; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDay.setItem(i, c);
 		}
@@ -810,17 +810,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Combat)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatJDayCombat.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatJDayCombat.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDayCombat.setItem(i, c);
 		}
@@ -832,17 +832,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Client)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatJDayClient.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatJDayClient.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDayClient.setItem(i, c);
 		}
@@ -854,17 +854,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Movement)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatJDayMovement.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatJDayMovement.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDayMovement.setItem(i, c);
 		}
@@ -876,17 +876,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Player)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatJDayPlayer.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatJDayPlayer.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDayPlayer.setItem(i, c);
 		}
@@ -898,17 +898,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Other)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatJDayOther.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatJDayOther.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatJDayOther.setItem(i, c);
 		}
@@ -925,7 +925,7 @@ public class GUI implements Listener {
 			slot++;
 		}
 		for (int i = slot; i < 35; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatKickable.setItem(i, c);
 		}
@@ -938,17 +938,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Combat)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatKickableCombat.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Combat" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatKickableCombat.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatKickableCombat.setItem(i, c);
 		}
@@ -960,17 +960,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Client)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatKickableClient.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Client" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatKickableClient.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatKickableClient.setItem(i, c);
 		}
@@ -982,17 +982,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Movement)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatKickableMovement.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Movement" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatKickableMovement.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatKickableMovement.setItem(i, c);
 		}
@@ -1004,17 +1004,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Player)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatKickablePlayer.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Player" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatKickablePlayer.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatKickablePlayer.setItem(i, c);
 		}
@@ -1026,17 +1026,17 @@ public class GUI implements Listener {
 		for (Check check : AntiCheat.getChecks()) {
 			if (check.getType().equals(CheckType.Other)) {
 				if (AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable")) {
-					ItemStack g = createGlass(Material.STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
+					ItemStack g = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 5, 1, Color.Green + check.getIdentifier(), new String[0]);
 					AntiCheatKickableOther.setItem(slot, g);
 				} if (!(AntiCheat.getConfig().getBoolean("checks.Other" + "." + check.getName() + "." + check.getIdentifier() + ".kickable"))) {
-					ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
+					ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 14, 1, Color.Red + check.getIdentifier(), new String[0]);
 					AntiCheatKickableOther.setItem(slot, c);
 				}
 				slot++;
 			}
 		}
 		for (int i = slot; i < 44; i++) {
-			ItemStack c = createGlass(Material.STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
+			ItemStack c = createGlass(Material.LEGACY_STAINED_GLASS_PANE, 15, 1, Color.Gray + "N/A");
 
 			AntiCheatKickableOther.setItem(i, c);
 		}
@@ -2335,7 +2335,7 @@ public class GUI implements Listener {
 	}
 
 	public static ItemStack grayGlass() {
-		ItemStack thing = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 15);
+		ItemStack thing = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE, 1, (short) 15);
 		ItemMeta thingm = thing.getItemMeta();
 		thingm.setDisplayName(Color.translate("&b"));
 		thing.setItemMeta(thingm);
@@ -2343,7 +2343,7 @@ public class GUI implements Listener {
 	}
 
 	public static ItemStack whiteGlass() {
-		ItemStack thing = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 0);
+		ItemStack thing = new ItemStack(Material.LEGACY_STAINED_GLASS_PANE, 1, (short) 0);
 		ItemMeta thingm = thing.getItemMeta();
 		thingm.setDisplayName(Color.translate("&b"));
 		thing.setItemMeta(thingm);

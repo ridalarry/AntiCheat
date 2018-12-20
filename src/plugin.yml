@@ -4,6 +4,7 @@ version: 1.1.1
 author: Rida
 depend: [ProtocolLib]
 load: STARTUP
+api-version: 1.13
 commands:
   anticheat:
     description: Main command for the AntiCheat.

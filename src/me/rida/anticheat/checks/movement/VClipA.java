@@ -30,15 +30,21 @@ public class VClipA extends Check {
 	public static HashMap<Player, Location> lastLocation = new HashMap<Player, Location>();
 
 	static {
-		allowed.add(Material.PISTON_EXTENSION);
-		allowed.add(Material.PISTON_STICKY_BASE);
-		allowed.add(Material.PISTON_BASE);
-		allowed.add(Material.SIGN_POST);
+		allowed.add(Material.LEGACY_PISTON_EXTENSION);
+		allowed.add(Material.LEGACY_PISTON_STICKY_BASE);
+		allowed.add(Material.LEGACY_PISTON_BASE);
+		allowed.add(Material.LEGACY_SIGN_POST);
 		allowed.add(Material.WALL_SIGN);
 		allowed.add(Material.STRING);
 		allowed.add(Material.AIR);
-		allowed.add(Material.FENCE_GATE);
+		allowed.add(Material.ACACIA_FENCE_GATE);
+		allowed.add(Material.BIRCH_FENCE_GATE);
+		allowed.add(Material.DARK_OAK_FENCE_GATE); 
+		allowed.add(Material.JUNGLE_FENCE_GATE);
+		allowed.add(Material.SPRUCE_FENCE_GATE);
 		allowed.add(Material.CHEST);
+		allowed.add(Material.TRAPPED_CHEST);
+		allowed.add(Material.ENDER_CHEST);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onTeleport(PlayerTeleportEvent e) {

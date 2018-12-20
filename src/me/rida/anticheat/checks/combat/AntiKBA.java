@@ -35,15 +35,15 @@ public class AntiKBA extends Check {
 	private void onMove(PlayerMoveEvent e) {
 		double yLoc;
 		Player p = e.getPlayer();
-		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
-				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.COBWEB}) 
+				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.COBWEB}) 
 				|| ServerUtil.isHoveringOverWater(p, 1) 
 				|| ServerUtil.isHoveringOverWater(p, 0) 
 				|| p.getAllowFlight()
 				|| p.isDead()
 				|| PlayerUtil.isNearSlime(p)
 				|| Ping.getPing(p) > 400
-				|| BlockUtil.isSolid(BlockUtil.getBlockBehindPlayer(p))
+				|| BlockUtil.isSolid2(BlockUtil.getBlockBehindPlayer(p))
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -111,7 +111,7 @@ public class AntiKBA extends Check {
 		double yVio;
 		long lastVelocity;
 		Player p = e.getPlayer();
-		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.COBWEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.COBWEB})) {
 			return;
 		}
 		if (ServerUtil.isHoveringOverWater(p, 1) || ServerUtil.isHoveringOverWater(p, 0)) {

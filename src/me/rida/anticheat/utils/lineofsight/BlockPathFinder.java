@@ -17,7 +17,7 @@ public class BlockPathFinder {
 			}
 		}
 		WrappedMaterial material = WrappedMaterial.get(check.getBlock(end.getWorld()).getType());
-		return (material.getY() < 1) || (material.getX() < 1) || (material.getZ() < 1) || material.name().contains("FENCE") || !material.isSolid() || check.equals(end);
+		return (material.getY() < 1) || (material.getX() < 1) || (material.getZ() < 1) || material.name().contains("FENCE") || !material.isSolid2() || check.equals(end);
 	}
 
 	private static Set<LineBlock> line(Block start, Block end) {

@@ -44,9 +44,6 @@ public class GroundSpoofA extends Check {
 				}
 				return;
 			}
-			if (ServerUtil.isBukkitVerison("1_13")) {
-				return;
-			}
 			if (!ServerUtil.isBukkitVerison("1_8")
 					&&!ServerUtil.isBukkitVerison("1_7")) {
 				if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
@@ -79,7 +76,7 @@ public class GroundSpoofA extends Check {
 				}
 			}
 			else {
-				if (BlockUtil.isSolid(p.getLocation().getBlock())
+				if (BlockUtil.isSolid2(p.getLocation().getBlock())
 						|| PlayerUtil.isNearSolid(p)) {
 					return;
 				}

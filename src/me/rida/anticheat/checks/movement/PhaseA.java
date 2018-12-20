@@ -70,8 +70,18 @@ public class PhaseA extends Check {
 		}
 		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
 			Location to = event.getTo();
-			if (BlockUtil.blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.FENCE_GATE
-					&& to.getBlock().getType() != Material.TRAP_DOOR) {
+			if (BlockUtil.blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.ACACIA_FENCE_GATE 
+					&& to.getBlock().getType() !=  Material.BIRCH_FENCE_GATE 
+					&& to.getBlock().getType() !=  Material.DARK_OAK_FENCE_GATE 
+					&& to.getBlock().getType() !=  Material.JUNGLE_FENCE_GATE 
+					&& to.getBlock().getType() != Material.SPRUCE_FENCE_GATE
+					&& to.getBlock().getType() !=Material.ACACIA_TRAPDOOR 
+					&& to.getBlock().getType() !=Material.BIRCH_TRAPDOOR
+					&& to.getBlock().getType() !=Material.DARK_OAK_TRAPDOOR 
+					&& to.getBlock().getType() !=Material.IRON_TRAPDOOR 
+					&& to.getBlock().getType() !=Material.JUNGLE_TRAPDOOR 
+					&& to.getBlock().getType() !=Material.OAK_TRAPDOOR 
+					&& to.getBlock().getType() !=Material.SPRUCE_TRAPDOOR) {
 				PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
 						event.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
 				Bukkit.getPluginManager().callEvent(event2);

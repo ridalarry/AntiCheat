@@ -110,60 +110,60 @@ public class ServerUtil {
 		int n3 = location.getBlockY() - n;
 		int n4 = location.getBlockZ();
 		World world = location.getWorld();
-		if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4))) {
+		if (BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4))) {
 			return true;
 		}
 		if (d3 < 0.3) {
-			if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4))) {
+			if (BlockUtil.isSolid2(world.getBlockAt(n2 - 1, n3, n4))) {
 				return true;
 			}
 			if (d4 < 0.3) {
-				if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4 - 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
 					return true;
 				}
 			} else if (d4 > 0.7) {
-				if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4 + 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
 					return true;
 				}
 			}
 		} else if (d3 > 0.7) {
-			if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4))) {
+			if (BlockUtil.isSolid2(world.getBlockAt(n2 + 1, n3, n4))) {
 				return true;
 			}
 			if (d4 < 0.3) {
-				if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 - 1, n3, n4 - 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 - 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4 - 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 + 1, n3, n4 - 1))) {
 					return true;
 				}
 			} else if (d4 > 0.7) {
-				if (BlockUtil.isSolid(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 - 1, n3, n4 + 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4 + 1))) {
 					return true;
 				}
-				if (BlockUtil.isSolid(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
+				if (BlockUtil.isSolid2(world.getBlockAt(n2 + 1, n3, n4 + 1))) {
 					return true;
 				}
 			}
-		} else if (d4 < 0.3 ? BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtil.isSolid(world.getBlockAt(n2, n3, n4 + 1))) {
+		} else if (d4 < 0.3 ? BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4 - 1)) : d4 > 0.7 && BlockUtil.isSolid2(world.getBlockAt(n2, n3, n4 + 1))) {
 			return true;
 		}
 		return false;

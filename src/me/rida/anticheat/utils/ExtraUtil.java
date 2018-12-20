@@ -14,7 +14,7 @@ public class ExtraUtil {
 	public static boolean isOnGround(Player player, double yExpanded) {
 		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
 
-		return ReflectionUtil.getCollidingBlocks(player, box).size() > 0;
+		return ReflectionUtil.getCollidingBlocks(player, box);
 	}
 
 	public static boolean isNotSpider(Player player) {
@@ -45,6 +45,7 @@ public class ExtraUtil {
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean isInStairs(Player player) {
 		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
@@ -61,9 +62,24 @@ public class ExtraUtil {
 					Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(isStair(block)
-							|| isSlab(block)
-							|| block.getType().equals(Material.SKULL)
-							|| block.getType().equals(Material.CAKE_BLOCK)) {
+							|| BlockUtil.isSlab(block)
+							|| block.getType().equals(Material.SKELETON_SKULL)
+							|| block.getType().equals(Material.LEGACY_SKULL)
+							|| block.getType().equals(Material.LEGACY_SKULL_ITEM)
+							|| block.getType().equals(Material.SKELETON_WALL_SKULL)
+							|| block.getType().equals(Material.WITHER_SKELETON_SKULL)
+							|| block.getType().equals(Material.WITHER_SKELETON_WALL_SKULL)
+							|| block.getType().equals(Material.CREEPER_HEAD)
+							|| block.getType().equals(Material.CREEPER_WALL_HEAD)
+							|| block.getType().equals(Material.PLAYER_HEAD)
+							|| block.getType().equals(Material.PLAYER_WALL_HEAD)
+							|| block.getType().equals(Material.DRAGON_HEAD)
+							|| block.getType().equals(Material.DRAGON_WALL_HEAD)
+							|| block.getType().equals(Material.ZOMBIE_HEAD)
+							|| block.getType().equals(Material.ZOMBIE_WALL_HEAD)
+							|| block.getType().equals(Material.CAKE)
+							|| block.getType().equals(Material.LEGACY_CAKE)
+							|| block.getType().equals(Material.LEGACY_CAKE_BLOCK)) {
 						return true;
 					}
 				}
@@ -155,11 +171,12 @@ public class ExtraUtil {
 		double pitchOffset = Math.abs(Math.abs(player.getEyeLocation().getPitch()) - Math.abs(getRotations(player.getLocation(), entity.getLocation())[1]));
 		return new double[]{yawOffset, pitchOffset};
 	}
+	@SuppressWarnings("deprecation")
 	public static boolean isLiquid(Block block) {
 		Material type = block.getType();
 
-		return type.equals(Material.WATER) || type.equals(Material.STATIONARY_LAVA)
-				|| type.equals(Material.LAVA) || type.equals(Material.STATIONARY_LAVA);
+		return type.equals(Material.WATER) || type.equals(Material.LEGACY_STATIONARY_LAVA)
+				|| type.equals(Material.LAVA) || type.equals(Material.LEGACY_STATIONARY_LAVA);
 	}
 
 	public static boolean isClimbableBlock(Block block) {
@@ -174,15 +191,16 @@ public class ExtraUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean isStair(Block block) {
-		return block.getType().equals(Material.ACACIA_STAIRS) || block.getType().equals(Material.BIRCH_WOOD_STAIRS) || block.getType().equals(Material.BRICK_STAIRS) || block.getType().equals(Material.COBBLESTONE_STAIRS) || block.getType().equals(Material.DARK_OAK_STAIRS) || block.getType().equals(Material.NETHER_BRICK_STAIRS) || block.getType().equals(Material.JUNGLE_WOOD_STAIRS) || block.getType().equals(Material.QUARTZ_STAIRS) || block.getType().equals(Material.SMOOTH_STAIRS) || block.getType().equals(Material.WOOD_STAIRS) || block.getType().equals(Material.SANDSTONE_STAIRS) || block.getType().equals(Material.SPRUCE_WOOD_STAIRS) || block.getType().getId() == 203 || block.getType().getId() == 180;
+		return block.getType().equals(Material.ACACIA_STAIRS) || block.getType().equals(Material.BIRCH_STAIRS) || block.getType().equals(Material.BRICK_STAIRS) || block.getType().equals(Material.COBBLESTONE_STAIRS) || block.getType().equals(Material.DARK_OAK_STAIRS) || block.getType().equals(Material.NETHER_BRICK_STAIRS) || block.getType().equals(Material.JUNGLE_STAIRS) || block.getType().equals(Material.QUARTZ_STAIRS) || block.getType().equals(Material.LEGACY_SMOOTH_STAIRS) || block.getType().equals(Material.OAK_STAIRS) || block.getType().equals(Material.SANDSTONE_STAIRS) || block.getType().equals(Material.SPRUCE_STAIRS) || block.getType().getId() == 203 || block.getType().getId() == 180;
 	}
 
+	@SuppressWarnings("deprecation")
 	public static boolean groundAround(Location loc) {
 		for (int radius = 2, x = -radius; x < radius; ++x) {
 			for (int y = -radius; y < radius; ++y) {
 				for (int z = -radius; z < radius; ++z) {
 					Material mat = loc.getWorld().getBlockAt(loc.add((double)x, (double)y, (double)z)).getType();
-					if (mat.isSolid() || mat == Material.WATER || mat == Material.STATIONARY_WATER || mat == Material.LAVA || mat == Material.STATIONARY_LAVA) {
+					if (mat.isSolid() || mat == Material.WATER || mat == Material.LEGACY_STATIONARY_WATER || mat == Material.LAVA || mat == Material.LEGACY_STATIONARY_LAVA) {
 						loc.subtract((double)x, (double)y, (double)z);
 						return true;
 					}
