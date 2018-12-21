@@ -133,6 +133,7 @@ public class AntiCheatCommand implements CommandExecutor {
 			s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " ping" + Color.Gray + "  - Get your ping.");
 			s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " reload" + Color.Gray + "   - Reload AntiCheat.");
 			s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " checks" + Color.Gray + "   - List the checks.");
+			s.sendMessage(Color.Gray + "/anticheat" + Color.Reset + " gui" + Color.Gray + "   - Admin GUI.");
 			s.sendMessage(Color.Gray + "/alerts" + Color.Gray + "  - Toggle alerts on and off.");
 			s.sendMessage(Color.Gray + "/getlog" + Color.Reset + " <player> <page>" + Color.Gray + " - Get player bans by AntiCheat.");
 			s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
