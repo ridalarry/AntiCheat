@@ -75,7 +75,7 @@ public class PacketsA extends Check {
 
 				if (Count > 800) {
 					getAntiCheat().logCheat(this, player, Color.White + "Kicked! sent over " + Count  + " packets! " , "(Type: A)");
-					AntiCheat.Instance.getServer().getScheduler().runTaskAsynchronously((Plugin)AntiCheat.Instance, new Runnable(){
+					AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
 						@SuppressWarnings("unused")
 						Player p = event.getPlayer();
 						@Override
