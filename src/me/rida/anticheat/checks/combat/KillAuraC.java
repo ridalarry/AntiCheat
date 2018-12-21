@@ -9,7 +9,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.MathUtil;
 
 public class KillAuraC extends Check {
@@ -25,8 +24,8 @@ public class KillAuraC extends Check {
 		}
 		Player p = (Player) e.getDamager();
 		Player p2 = (Player) e.getEntity();
-		double d = Ping.getPing(p);
-		double d2 = Ping.getPing(p2);
+		double d = getAntiCheat().getLag().getPing(p);
+		double d2 = getAntiCheat().getLag().getPing(p2);
 		double d3 = MathUtil.getOffsets2(p, (LivingEntity)p2)[0];
 		if (d2 > 450.0) {
 			return;

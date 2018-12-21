@@ -14,7 +14,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 
 public class BlockInteractE extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
@@ -30,7 +29,7 @@ public class BlockInteractE extends Check {
 				&& e.getItem() != null) {
 			if (e.getItem().equals(Material.EXP_BOTTLE) || e.getItem().getType().equals(Material.GLASS_BOTTLE)
 					|| e.getItem().getType().equals(Material.POTION)
-					|| Ping.getPing(e.getPlayer()) > 400
+					|| getAntiCheat().getLag().getPing(e.getPlayer()) > getAntiCheat().getPingCancel()
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 				return;
 			}

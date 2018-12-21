@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import me.rida.anticheat.AntiCheat;
-import me.rida.anticheat.AntiCheatAPI;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.other.GUI;
 import me.rida.anticheat.utils.Color;
@@ -153,10 +152,8 @@ public class AntiCheatCommand implements CommandExecutor {
 			if (s instanceof Player) {
 				Player p = (Player) s;
 				if (g.length == 1) {
-					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " + Color.Gray + "Your ping: " + Color.Red
+					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "Your ping: " + Color.Red
 							+ AntiCheat.getLag().getPing(p));
-					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " + Color.Gray + "Your ping: " + Color.Red
-							+ AntiCheatAPI.getPing(p));
 					return true;
 				}
 				if (g.length == 2) {
@@ -165,10 +162,8 @@ public class AntiCheatCommand implements CommandExecutor {
 						s.sendMessage(AntiCheat.PREFIX + Color.Red + "That player is not online!");
 						return true;
 					}
-					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[Vanilla] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
+					s.sendMessage(AntiCheat.PREFIX + Color.White + target.getName() + "'s " + Color.Gray + "ping: "
 							+ Color.Red + AntiCheat.getLag().getPing(target));
-					s.sendMessage(AntiCheat.PREFIX + Color.Gray + "[AntiCheat] " +Color.White + target.getName() + "'s " + Color.Gray + "ping: "
-							+ Color.Red + AntiCheatAPI.getPing(target));
 					return true;
 				}
 				s.sendMessage(AntiCheat.PREFIX + Color.Red + "Incorrect arguments. Usage: /anticheat ping [player]");

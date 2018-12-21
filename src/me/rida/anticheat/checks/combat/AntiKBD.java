@@ -16,7 +16,6 @@ import org.bukkit.util.Vector;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.BlockUtil;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.ServerUtil;
@@ -42,7 +41,6 @@ public class AntiKBD extends Check {
 				|| p.getAllowFlight()
 				|| BlockUtil.isSolid(BlockUtil.getBlockBehindPlayer(p))
 				|| p.isDead()
-				|| Ping.getPing(p) > 400
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -88,13 +86,13 @@ public class AntiKBD extends Check {
 		}
 		if (awaitingVelocity2 > awaitingVelocity3) {
 			if (totalMoved == 0.0) {
-				if (Ping.getPing(p) > 500) {
+				if (getAntiCheat().getLag().getPing(p) > 500) {
 					return;
 
 				}
 				getAntiCheat().logCheat(this, p, Color.Red + "[1] horizontal", "(Type: D)");
 			} else {
-				if (Ping.getPing(p) > 220) {
+				if (getAntiCheat().getLag().getPing(p) > 220) {
 					return;
 				}
 				getAntiCheat().logCheat(this, p, Color.Red + "[2] horizontal", "(Type: D)");

@@ -12,7 +12,6 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class KillAuraE extends Check {
@@ -42,8 +41,8 @@ public class KillAuraE extends Check {
 		, 300);
 		double d = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
 		double d2 = KillAuraE.allowedDistance;
-		int n2 = Ping.getPing(p);
-		int n3 = Ping.getPing(p2);
+		int n2 = getAntiCheat().getLag().getPing(p);
+		int n3 = getAntiCheat().getLag().getPing(p2);
 		int n4 = n2 + n3 / 2;
 		int n5 = (int)((double)n4 * 0.0017);
 		d2 += (double)n5;

@@ -11,7 +11,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
 
@@ -24,7 +23,7 @@ public class BlockInteractD extends Check {
 		Player p = e.getPlayer();
 		if (p.getAllowFlight()
 				|| p.getVehicle() != null
-				|| Ping.getPing(e.getPlayer()) > 100
+				|| getAntiCheat().getLag().getPing(e.getPlayer()) > 100
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()

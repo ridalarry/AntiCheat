@@ -68,7 +68,6 @@ import me.rida.anticheat.events.SharedEvents;
 import me.rida.anticheat.other.GUI;
 import me.rida.anticheat.other.LagCore;
 import me.rida.anticheat.other.Latency;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.packets.PacketCore;
 import me.rida.anticheat.playerInformation.playerInformationMain;
 import me.rida.anticheat.pluginlogger.PluginLoggerHelper;
@@ -226,7 +225,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		service = Executors.newSingleThreadExecutor();
 		new ReflectionUtil();
 		new BlockUtil();
-		new Ping(this);
 		Instance = this;
 		dataManager = new DataManager();
 		registerListeners();

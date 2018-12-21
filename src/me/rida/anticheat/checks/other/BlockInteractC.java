@@ -13,7 +13,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.VelocityUtil;
@@ -35,7 +34,7 @@ public class BlockInteractC extends Check {
 				|| !getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| Ping.getPing(e.getPlayer()) > 100
+				|| getAntiCheat().getLag().getPing(e.getPlayer()) > 100
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| VelocityUtil.didTakeVelocity(p)) {
 			return;

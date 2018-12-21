@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Ping;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.lineofsight.BlockPathFinder;
 
@@ -27,7 +26,8 @@ public class BlockInteractB extends Check {
 	private void onBlockBreak(BlockBreakEvent e) {
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
-				|| Ping.getPing(e.getPlayer()) > 400) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(e.getPlayer()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		Player p = e.getPlayer();
@@ -47,7 +47,8 @@ public class BlockInteractB extends Check {
 	private void onBlockPlace(BlockPlaceEvent e) {
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
-				|| Ping.getPing(e.getPlayer()) > 400) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(e.getPlayer()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		Player p = e.getPlayer();
@@ -61,7 +62,8 @@ public class BlockInteractB extends Check {
 	private void onInteract(PlayerInteractEvent e) {
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| e.getPlayer().getGameMode().equals(GameMode.CREATIVE)
-				|| Ping.getPing(e.getPlayer()) > 400) {
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+				|| getAntiCheat().getLag().getPing(e.getPlayer()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
