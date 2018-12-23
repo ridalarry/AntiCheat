@@ -60,7 +60,7 @@ public class ReachA extends Check {
 		double KB = getKB(p);
 		maxReach+= Math.abs(p.getVelocity().length() + p2.getVelocity().length()) * 0.4;
 		maxReach+= yawDifference * 0.01;
-		maxReach+= getAntiCheat().getLag().getPing(p) * 0.00097; 
+		maxReach+= getAntiCheat().getLag().getPing(p) * 0.01097; 
 
 		if(maxReach < 4.2) {
 			maxReach = 4.2;
