@@ -140,6 +140,15 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AntiKBD(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachF(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachG(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachH(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachI(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachJ(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachK(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachL(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachM(this));
+		this.Checks.add(new me.rida.anticheat.checks.combat.ReachN(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AutoClickerB(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractC(this));

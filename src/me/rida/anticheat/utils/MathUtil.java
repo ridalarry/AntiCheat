@@ -24,7 +24,15 @@ public class MathUtil {
 	public static boolean isInteger(String s) {
 		return isInteger(s,10);
 	}
+	private static double xDiff;
+    private static double yDiff;
+    private static double zDiff;
 
+    public static void Distance(final Location one, final Location two) {
+        xDiff = (Math.abs(one.getX() - two.getX()));
+        yDiff = (Math.abs(one.getY() - two.getY()));
+        zDiff = (Math.abs(one.getZ() - two.getZ()));
+    }
 	public static boolean isInteger(String s, int radix) {
 		if(s.isEmpty()) return false;
 		for(int i = 0; i < s.length(); i++) {
@@ -250,4 +258,17 @@ public class MathUtil {
 		v.setZ(0);
 		return v;
 	}
+
+	public static double getxDiff() {
+		return xDiff;
+	}
+
+	public static double getyDiff() {
+		return yDiff;
+	}
+
+	public static double getzDiff() {
+		return zDiff;
+	}
+
 }
