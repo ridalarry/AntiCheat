@@ -7,7 +7,6 @@ import java.net.URL;
 
 public class GeoCheck {
 
-	@SuppressWarnings("unused")
 	public static String getCountry(InetSocketAddress ip) throws Exception {
 		String name;
 		String country;
