@@ -795,7 +795,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + " x" + violations);
 		}		
 		else {
-			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + Color.strip(hoverabletext) + " x" + violations);
+			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + " " + Color.strip(hoverabletext) + " x" + violations);
 		}
 		ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
