@@ -29,19 +29,11 @@ public class ScaffoldA extends Check {
 				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| y < 2.6
+				|| !p.isSprinting()
+				|| PlayerUtil.isFlying2(e,p)
+				|| !PlayerUtil.isFlying(e,p)
 				|| PlayerUtil.isOnGround(e, p)) {
 			return;
-		}
-		if (PlayerUtil.isFlying2(e,p)) {
-			return;
-		}
-		if (!PlayerUtil.isFlying(e,p)) {
-			return;
-
-		}
-		if (PlayerUtil.isOnGround(e,p)) {
-			return;
-
 		}
 		if (x > 0.8) {
 			getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
