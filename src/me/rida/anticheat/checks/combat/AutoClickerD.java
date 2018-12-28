@@ -16,7 +16,6 @@ import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class AutoClickerD extends Check {
-
 	public static Map<UUID, Integer> clicks;
 	public static Map<UUID, Long> recording;
 	public AutoClickerD(AntiCheat AntiCheat) {
@@ -25,6 +24,7 @@ public class AutoClickerD extends Check {
 		clicks = new HashMap<UUID, Integer>();
 		recording = new HashMap<UUID, Long>();
 	}
+
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onSwing(PacketSwingArmEvent e) {
 		Player p = e.getPlayer();
@@ -34,7 +34,6 @@ public class AutoClickerD extends Check {
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-
 		int clicks = AutoClickerD.clicks.getOrDefault(this, 0);
 		long time = recording.getOrDefault(p.getUniqueId(), System.currentTimeMillis());
 		if(TimeUtil.elapsed(time, 1000L)) {
@@ -46,7 +45,6 @@ public class AutoClickerD extends Check {
 		} else {
 			clicks++;
 		}
-
 		AutoClickerD.clicks.put(p.getUniqueId(), clicks);
 		recording.put(p.getUniqueId(), time);
 	}

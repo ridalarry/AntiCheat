@@ -31,9 +31,7 @@ public class AntiKBC extends Check {
 					if (!(VelocityUtil.didTakeVelocity(p))) {
 						if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
 							if (damager != p){
-
-
-								getAntiCheat().logCheat(this, p, null, "(Type: C)");
+								getAntiCheat().logCheat(this, p, "Did not take velocity", "(Type: C)");
 							}
 							else {
 								return;

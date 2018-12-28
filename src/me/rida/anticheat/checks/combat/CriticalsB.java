@@ -65,7 +65,7 @@ public class CriticalsB extends Check {
 		}
 		if (Count >= 2) {
 			Count = 0;
-			this.getAntiCheat().logCheat(this, p, null, "(Type: B)");
+			this.getAntiCheat().logCheat(this, p, "Count: " + Count, "(Type: B)");
 		}
 		CritTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
 	}

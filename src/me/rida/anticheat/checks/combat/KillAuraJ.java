@@ -16,29 +16,29 @@ public class KillAuraJ extends Check {
 	@SuppressWarnings("unused")
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onHit(EntityDamageByEntityEvent e) {
-		float f;
+		float yaw;
 		if (!(e.getDamager() instanceof Player)
 				|| !(e.getEntity() instanceof Player)) {
 			return;
 		}
 		Player p = (Player)e.getDamager();
-		this.lastYaw = f = p.getLocation().getYaw();
-		float f2 = Math.abs(f - this.lastYaw) % 180.0f;
+		this.lastYaw = yaw = p.getLocation().getYaw();
+		float f2 = Math.abs(yaw - this.lastYaw) % 180.0f;
 	}
-	public boolean onAim(Player p, float f) {
-		float f2 = Math.abs(f - this.lastYaw) % 180.0f;
-		this.lastYaw = f;
-		this.lastBad = (float)Math.round(f2 * 10.0f) * 0.1f;
-		if ((double)f < 0.1) {
+	public boolean onAim(Player p, float yaw) {
+		float badYaw = Math.abs(yaw - this.lastYaw) % 180.0f;
+		this.lastYaw = yaw;
+		this.lastBad = (float)Math.round(badYaw * 10.0f) * 0.1f;
+		if ((double)yaw < 0.1) {
 			return true;
 		}
-		if (f2 > 1.0f && (float)Math.round(f2 * 10.0f) * 0.1f == f2 && (float)Math.round(f2) != f2) {
-			if (f2 == this.lastBad) {
+		if (badYaw > 1.0f && (float)Math.round(badYaw * 10.0f) * 0.1f == badYaw && (float)Math.round(badYaw) != badYaw) {
+			if (badYaw == this.lastBad) {
 				if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 					return true;
 				}
-				getAntiCheat().logCheat(this, p, "Huzuni [V5X01]", "(Type: J)");
+				getAntiCheat().logCheat(this, p, "Huzuni Aura", "(Type: J)");
 				return true;
 			}
 		} else {

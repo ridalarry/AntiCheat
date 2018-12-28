@@ -17,9 +17,12 @@ public class PingSpoofA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		Player p = e.getPlayer();
-		if (getAntiCheat().getLag().getPing(p) > 500) {
+		int ping1 = getAntiCheat().getLag().getPing(p);
+		int ping2 = getAntiCheat().getLag().getPing2(p);
+		int ping3 = getAntiCheat().getLag().getPing3(p);
+		if (ping1 > 500 && ping2 > 500 && ping3 > 500) {
 			if (e.getFrom() != e.getTo()) {
-				getAntiCheat().logCheat(this, p, "Ping: " + getAntiCheat().getLag().getPing(p), "(Type: A)");
+				getAntiCheat().logCheat(this, p, "Ping1: " + ping1 + "; Ping2: " + ping2 + "; Ping3: " + ping3, "(Type: A)");
 			}
 		}
 	}

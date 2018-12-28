@@ -43,7 +43,7 @@ public class HitBoxC extends Check {
 
 		if(offset > 30) {
 			if((verbose+= 2) > 25) {
-				getAntiCheat().logCheat(this, p, MathUtil.round(offset, 4) + ">-30", "(Type: A)");
+				getAntiCheat().logCheat(this, p, "Offset: " + MathUtil.round(offset, 4) + "> 30", "(Type: A)");
 			}
 		} else if(verbose > 0) {
 			verbose--;

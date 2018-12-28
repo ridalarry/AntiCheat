@@ -39,29 +39,29 @@ public class KillAuraE extends Check {
 			int hitCount = 0;
 		}
 		, 300);
-		double d = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
-		double d2 = KillAuraE.allowedDistance;
-		int n2 = getAntiCheat().getLag().getPing(p);
-		int n3 = getAntiCheat().getLag().getPing(p2);
-		int n4 = n2 + n3 / 2;
-		int n5 = (int)((double)n4 * 0.0017);
-		d2 += (double)n5;
+		double dst = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
+		double allowedDistance = KillAuraE.allowedDistance;
+		int atckrPing = getAntiCheat().getLag().getPing(p);
+		int dmgdPing = getAntiCheat().getLag().getPing(p2);
+		int ping = atckrPing + dmgdPing / 2;
+		int finalPing = (int)((double)ping * 0.0017);
+		allowedDistance += (double)finalPing;
 		if (!p2.isSprinting()) {
-			d2 += 0.2;
+			allowedDistance += 0.2;
 		}
 		for (PotionEffect potionEffect : p2.getActivePotionEffects()) {
 			if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) continue;
 			n = potionEffect.getAmplifier() + 1;
-			d2 += 0.15 * (double)n;
+			allowedDistance += 0.15 * (double)n;
 			break;
 		}
 		for (PotionEffect potionEffect : p.getActivePotionEffects()) {
 			if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) continue;
 			n = potionEffect.getAmplifier() + 1;
-			d2 += 0.15 * (double)n;
+			allowedDistance += 0.15 * (double)n;
 			break;
 		}
-		if (d > d2) {
+		if (dst > allowedDistance) {
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;

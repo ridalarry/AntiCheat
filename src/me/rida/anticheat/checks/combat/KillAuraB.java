@@ -42,7 +42,7 @@ public class KillAuraB extends Check {
 							|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 						return;
 					}
-					getAntiCheat().logCheat(this, p, null, "(Type: B)");
+					getAntiCheat().logCheat(this, p, "Verbose: " + verboseA, "(Type: B)");
 				}
 			}
 			data.setLastKillauraYawDif(angleDistance((float) data.getLastKillauraYaw(), p.getEyeLocation().getYaw()));

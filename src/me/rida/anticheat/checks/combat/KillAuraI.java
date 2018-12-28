@@ -24,7 +24,7 @@ import me.rida.anticheat.checks.CheckType;
             return;
         }
         if (!((Player)e.getDamager()).hasLineOfSight(e.getEntity()) && !this.isPlayerInCorner((Player)e.getDamager())) {
-            int n = 0;
+            int violation = 0;
             Player p = (Player)e.getDamager();
             this.hits.putIfAbsent(e.getDamager().getUniqueId(), 1);
             if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -32,28 +32,28 @@ import me.rida.anticheat.checks.CheckType;
             	return;
             }
             if (this.hits.get(e.getDamager().getUniqueId()) >= 5) {
-                n = 1;
-            	getAntiCheat().logCheat(this, p, "[1]", "(Type: I)");
+            	violation = 1;
+            	getAntiCheat().logCheat(this, p, "5 or more illegal hits", "(Type: I)");
             }
             if (this.hits.get(e.getDamager().getUniqueId()) >= 10) {
-                n = 2;
-            	getAntiCheat().logCheat(this, p, "[2]", "(Type: I)");
+            	violation = 2;
+            	getAntiCheat().logCheat(this, p, "10 or more illegal hits", "(Type: I)");
             }
-            if (this.hits.get(e.getDamager().getUniqueId()) > 19) {
-                n = 3;
-            	getAntiCheat().logCheat(this, p, "[3]", "(Type: I)");
+            if (this.hits.get(e.getDamager().getUniqueId()) >= 20) {
+            	violation = 3;
+            	getAntiCheat().logCheat(this, p, "20 or more illegal hits", "(Type: I)");
                 this.hits.remove(e.getDamager().getUniqueId());
-                n = 0;
+                violation = 0;
             }
         }
     }
      public boolean isPlayerInCorner(Player p) {
-        int n;
-        float f = p.getLocation().getYaw();
-        if (f < 0.0f) {
-            f += 360.0f;
+        int violation;
+        float yaw = p.getLocation().getYaw();
+        if (yaw < 0.0f) {
+        	yaw += 360.0f;
         }
-        if ((n = (int)((double)((f %= 360.0f) + 8.0f) / 22.5)) != 0 && n != 4 && n != 8 && n != 12) {
+        if ((violation = (int)((double)((yaw %= 360.0f) + 8.0f) / 22.5)) != 0 && violation != 4 && violation != 8 && violation != 12) {
             return true;
         }
         return false;

@@ -37,7 +37,7 @@ public class SpookA extends Check implements Listener{
 		this.lastYaw = f;
 		if (f2 > 1.0f && (float)Math.round(f2) == f2) {
 			if (f2 == (float)this.lastBad) {
-				getAntiCheat().logCheat(this, p, "Detection of a hack client!", "(Type: A)");
+				getAntiCheat().logCheat(this, p, "Detection of spook hack client!", "(Type: A)");
 				return f2;
 			}
 			this.lastBad = Math.round(f2);

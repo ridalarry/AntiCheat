@@ -195,7 +195,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachB(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachC(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.ReachE(this));
-		this.Checks.add(new me.rida.anticheat.checks.combat.RegenA(this));
+		this.Checks.add(new me.rida.anticheat.checks.other.RegenA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.AscensionC(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.SneakA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.SneakB(this));
@@ -207,7 +207,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.movement.StepA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.TimerA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.TimerB(this));
-		this.Checks.add(new me.rida.anticheat.checks.combat.TwitchA(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.TwitchA(this));
 		this.Checks.add(new me.rida.anticheat.checks.client.VapeA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.VClipA(this));
 		this.Checks.add(new me.rida.anticheat.checks.combat.AimAssistC(this));
@@ -419,10 +419,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				me.rida.anticheat.checks.combat.ReachB.offsets.clear();
 			if (!me.rida.anticheat.checks.combat.ReachC.toBan.isEmpty())
 				me.rida.anticheat.checks.combat.ReachC.toBan.clear();
-			if (!me.rida.anticheat.checks.combat.RegenA.FastHealTicks.isEmpty())
-				me.rida.anticheat.checks.combat.RegenA.FastHealTicks.clear();
-			if (!me.rida.anticheat.checks.combat.RegenA.LastHeal.isEmpty())
-				me.rida.anticheat.checks.combat.RegenA.LastHeal.clear();
+			if (!me.rida.anticheat.checks.other.RegenA.FastHealTicks.isEmpty())
+				me.rida.anticheat.checks.other.RegenA.FastHealTicks.clear();
+			if (!me.rida.anticheat.checks.other.RegenA.LastHeal.isEmpty())
+				me.rida.anticheat.checks.other.RegenA.LastHeal.clear();
 			if (!me.rida.anticheat.checks.movement.FlyB.flyTicks.isEmpty())
 				me.rida.anticheat.checks.movement.FlyB.flyTicks.clear();
 			if (!me.rida.anticheat.checks.movement.GlideA.flyTicks.isEmpty())

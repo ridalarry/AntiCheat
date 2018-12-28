@@ -41,7 +41,6 @@ import me.rida.anticheat.checks.combat.KillAuraG;
 import me.rida.anticheat.checks.combat.KillAuraH;
 import me.rida.anticheat.checks.combat.KillAuraK;
 import me.rida.anticheat.checks.combat.ReachD;
-import me.rida.anticheat.checks.combat.RegenA;
 import me.rida.anticheat.checks.movement.AscensionA;
 import me.rida.anticheat.checks.movement.AscensionC;
 import me.rida.anticheat.checks.movement.FlyB;
@@ -53,6 +52,7 @@ import me.rida.anticheat.checks.movement.SneakA;
 import me.rida.anticheat.checks.movement.SpeedB;
 import me.rida.anticheat.checks.movement.SpeedC;
 import me.rida.anticheat.checks.other.ChangeA;
+import me.rida.anticheat.checks.other.RegenA;
 import me.rida.anticheat.checks.other.TimerA;
 import me.rida.anticheat.checks.player.PacketsA;
 

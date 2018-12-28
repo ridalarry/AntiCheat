@@ -30,25 +30,25 @@ extends Check {
         }
         Player player = (Player)e.getDamager();
         Player player2 = (Player)e.getEntity();
-        float f = player.getLocation().getYaw();
-        float f2 = player.getLocation().getPitch();
-        this.onAim(player, f);
-        this.onAim3(player, f);
+        float yaw = player.getLocation().getYaw();
+        float pitch = player.getLocation().getPitch();
+        this.onAim(player, yaw);
+        this.onAim3(player, yaw);
     }
-     public boolean onAim(Player p, float f) {
+     public boolean onAim(Player p, float yaw) {
     	if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
                 || getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
     		return true;
     	}
-        float f2 = Math.abs(f - this.lastYaw) % 180.0f;
-        this.lastYaw = f;
-        this.lastBad = (float)Math.round(f2 * 10.0f) * 0.1f;
-        if ((double)f < 0.1) {
+        float pitch = Math.abs(yaw - this.lastYaw) % 180.0f;
+        this.lastYaw = yaw;
+        this.lastBad = (float)Math.round(pitch * 10.0f) * 0.1f;
+        if ((double)yaw < 0.1) {
             return true;
         }
-        if (f2 > 1.0f && (float)Math.round(f2 * 10.0f) * 0.1f == f2 && (float)Math.round(f2) != f2) {
-            if (f2 == this.lastBad) {
-            	getAntiCheat().logCheat(this, p, "[YAW 1]", "(Type: C)");
+        if (pitch > 1.0f && (float)Math.round(pitch * 10.0f) * 0.1f == pitch && (float)Math.round(pitch) != pitch) {
+            if (pitch == this.lastBad) {
+            	getAntiCheat().logCheat(this, p, "[1] Yaw: " + yaw + "; pitch: " + pitch, "(Type: C)");
                 return true;
             }
         } else {
@@ -56,31 +56,31 @@ extends Check {
         }
         return false;
     }
-     public int onAim2(Player p, float f, float f2) {
-        float f3 = f - this.lastYaw2;
-        float f4 = f2 - this.lastPitch;
-        if (Math.abs(f4) >= 2.0f && f3 == 0.0f) {
+     public int onAim2(Player p, float yaw, float pitch) {
+        float lastYaw = yaw - this.lastYaw2;
+        float lastPitch = pitch - this.lastPitch;
+        if (Math.abs(lastPitch) >= 2.0f && lastYaw == 0.0f) {
             ++this.streak;
         } else {
             return 0;
         }
-        this.lastYaw2 = f;
-        this.lastPitch = f2;
+        this.lastYaw2 = yaw;
+        this.lastPitch = pitch;
         if (this.streak >= this.min) {
-        	getAntiCheat().logCheat(this, p, "[YAW 2]", "(Type: C)");
+        	getAntiCheat().logCheat(this, p, "[2] Yaw: " + yaw + "; pitch: " + pitch, "(Type: C)");
             return this.streak;
         }
         return 0;
     }
-     public float onAim3(Player p, float f) {
-        float f2 = Math.abs(f - this.lastYaw) % 180.0f;
-        this.lastYaw = f;
-        if (f2 > 0.1f && (float)Math.round(f2) == f2) {
-            if (f2 == this.lastBad) {
-            	getAntiCheat().logCheat(this, p, "[YAW 3]", "(Type: C)");
-                return f2;
+     public float onAim3(Player p, float yaw) {
+        float pitch = Math.abs(yaw - this.lastYaw) % 180.0f;
+        this.lastYaw = yaw;
+        if (pitch > 0.1f && (float)Math.round(pitch) == pitch) {
+            if (pitch == this.lastBad) {
+            	getAntiCheat().logCheat(this, p, "[3] Yaw: " + yaw + "; pitch: " + pitch, "(Type: C)");
+                return pitch;
             }
-            this.lastBad = Math.round(f2);
+            this.lastBad = Math.round(pitch);
         } else {
             this.lastBad = 0.0f;
         }

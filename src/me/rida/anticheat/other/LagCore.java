@@ -2,6 +2,7 @@ package me.rida.anticheat.other;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,6 +23,7 @@ public class LagCore implements Listener {
 			long currentSec;
 			int ticks;
 
+			@Override
 			public void run() {
 				this.sec = (System.currentTimeMillis() / 1000L);
 				if (this.currentSec == this.sec) {
@@ -63,7 +65,54 @@ public class LagCore implements Listener {
 		field.setAccessible(true);
 		return field.get(instance);
 	}
+	private static Method getHandleMethod;
+    private static Field pingField;
 
+    public int getPing2(Player player) {
+        try {
+            if (getHandleMethod == null) {
+                getHandleMethod = player.getClass().getDeclaredMethod("getHandle");
+                getHandleMethod.setAccessible(true);
+            }
+            Object entityPlayer = getHandleMethod.invoke(player);
+            if (pingField == null) {
+                pingField = entityPlayer.getClass().getDeclaredField("ping");
+                pingField.setAccessible(true);
+            }
+            int ping = pingField.getInt(entityPlayer);
+
+            return ping > 0 ? ping : 0;
+        } catch (Exception e) {
+            return 1;
+        }
+    }
+    public int getPing3(Player player) {
+        try {
+            int ping = 0;
+            Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + getServerVersion() + ".entity.CraftPlayer");
+            Object converted = craftPlayer.cast(player);
+            Method handle = converted.getClass().getMethod("getHandle", new Class[0]);
+            Object entityPlayer = handle.invoke(converted, new Object[0]);
+            Field pingField = entityPlayer.getClass().getField("ping");
+            ping = pingField.getInt(entityPlayer);
+            return ping;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+  
+    private String getServerVersion() {
+        Pattern brand = Pattern.compile("(v|)[0-9][_.][0-9][_.][R0-9]*");
+      
+        String pkg = Bukkit.getServer().getClass().getPackage().getName();
+        String version = pkg.substring(pkg.lastIndexOf('.') + 1);
+        if (!brand.matcher(version).matches()) {
+            version = "";
+        }
+      
+        return version;
+    }
 	public int getPing(Player p) {
 		try {
 			String bukkitversion = Bukkit.getServer().getClass().getPackage().getName().substring(23);

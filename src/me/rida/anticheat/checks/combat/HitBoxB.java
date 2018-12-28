@@ -34,7 +34,7 @@ public class HitBoxB extends Check {
 			return;
 		}
 		if (!this.hasInHitBox((LivingEntity)p2)) {
-			getAntiCheat().logCheat(this, p, null, "(Type: B)");
+			getAntiCheat().logCheat(this, p, "Hitbox was larger than 1.05", "(Type: B)");
 		}
 	}
 

@@ -23,32 +23,32 @@ public class KillAuraC extends Check {
 			return;
 		}
 		Player p = (Player) e.getDamager();
-		Player p2 = (Player) e.getEntity();
-		double d = getAntiCheat().getLag().getPing(p);
-		double d2 = getAntiCheat().getLag().getPing(p2);
-		double d3 = MathUtil.getOffsets2(p, (LivingEntity)p2)[0];
-		if (d2 > 450.0) {
+		Player damaged = (Player) e.getEntity();
+		double ping = getAntiCheat().getLag().getPing(p);
+		double dmgdPing = getAntiCheat().getLag().getPing(damaged);
+		double offset = MathUtil.getOffsets2(p, (LivingEntity)damaged)[0];
+		if (dmgdPing > 450.0) {
 			return;
 		}
-		if (d >= 100.0 && d < 200.0) {
-			d3 -= 50.0;
-		} else if (d >= 200.0 && d < 250.0) {
-			d3 -= 75.0;
-		} else if (d >= 250.0 && d < 300.0) {
-			d3 -= 150.0;
-		} else if (d >= 300.0 && d < 350.0) {
-			d3 -= 300.0;
-		} else if (d >= 350.0 && d < 400.0) {
-			d3 -= 350.0;
-		} else if (d > 400.0) {
+		if (ping >= 100.0 && ping < 200.0) {
+			offset -= 50.0;
+		} else if (ping >= 200.0 && ping < 250.0) {
+			offset -= 75.0;
+		} else if (ping >= 250.0 && ping < 300.0) {
+			offset -= 150.0;
+		} else if (ping >= 300.0 && ping < 350.0) {
+			offset -= 300.0;
+		} else if (ping >= 350.0 && ping < 400.0) {
+			offset -= 350.0;
+		} else if (ping > 400.0) {
 			return;
 		}
-		if (d3 >= 300.0) {
+		if (offset >= 300.0) {
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
-			getAntiCheat().logCheat(this, p, null, "(Type: C)");
+			getAntiCheat().logCheat(this, p, "Offset: " + offset + "; ping: " + ping + "; Attacked Ping: " + dmgdPing, "(Type: C)");
 		}
 	}
 }

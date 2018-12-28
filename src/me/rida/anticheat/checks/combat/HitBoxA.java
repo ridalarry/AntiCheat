@@ -88,8 +88,7 @@ public HitBoxA(AntiCheat AntiCheat) {
 		}
 
 		if (Count > 8) {
-			getAntiCheat().logCheat(this, player, offset + " > " + Limit,
-					"(Type: A)");
+			getAntiCheat().logCheat(this, player, "Offset: " + offset + " > " + "Limit: " + Limit, "(Type: A)");
 			Count = 0;
 		}
 

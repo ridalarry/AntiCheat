@@ -40,54 +40,54 @@ public class ReachE extends Check {
 		double Difference = PlayerUtil.getEyeLocation(p).distance(d.getLocation()) - 0.35;
 		int Ping = getAntiCheat().getLag().getPing(p);
 		double TPS = getAntiCheat().getLag().getTPS();
-		double MaxReach = 3.0 + d.getVelocity().length();
+		double maxReach = 3.0 + d.getVelocity().length();
 		if (p.getAllowFlight()) {
-			MaxReach += p.getFlySpeed();
+			maxReach += p.getFlySpeed();
 		}
 
 		if (p.isSprinting()) {
-			MaxReach += 0.2;
+			maxReach += 0.2;
 		}
 		if (!(d instanceof Player)) {
-			MaxReach += 1.0;
+			maxReach += 1.0;
 		}
 		if (PlayerUtil.isNearSlime(p.getLocation())
 				|| PlayerUtil.isNearSlime(d.getLocation())) {
-			MaxReach += 1.0;
+			maxReach += 1.0;
 		}
 		if (d instanceof Slime || d instanceof Spider || d instanceof Giant) {
-			MaxReach += 1.0;
+			maxReach += 1.0;
 		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {
-			MaxReach += 1.0;
+			maxReach += 1.0;
 		}
 		if (p.getLocation().getY() > d.getLocation().getY()) {
 			Difference = p.getLocation().getY() - p.getLocation().getY();
-			MaxReach += Difference / 2.5;
+			maxReach += Difference / 2.5;
 		} else if (p.getLocation().getY() > p.getLocation().getY()) {
 			Difference = p.getLocation().getY() - p.getLocation().getY();
-			MaxReach += Difference / 2.5;
+			maxReach += Difference / 2.5;
 		}
 		for (PotionEffect effect : p.getActivePotionEffects()) {
 			if (effect.getType().equals(PotionEffectType.SPEED)) {
-				MaxReach += 0.2D * (effect.getAmplifier() + 1);
+				maxReach += 0.2D * (effect.getAmplifier() + 1);
 			}
 		}
 		if (TPS <20) {
 			double TPSMultiplier = TPS / 20;
-			double tmp = MaxReach / TPSMultiplier;
-			MaxReach = tmp;
+			double tmp = maxReach / TPSMultiplier;
+			maxReach = tmp;
 		}
 		float velocity = (float)((Ping*0.0025) + Math.abs(d.getVelocity().length()) * 0.8);
-		MaxReach += velocity;
-		MaxReach += Ping < 250 ? Ping * 0.01262 : Ping * 0.0415;
-		MaxReach += YawDifference * 0.008;
-		double ChanceVal = Math.round(Math.abs((Difference - MaxReach) * 100));
+		maxReach += velocity;
+		maxReach += Ping < 250 ? Ping * 0.01262 : Ping * 0.0415;
+		maxReach += YawDifference * 0.008;
+		double ChanceVal = Math.round(Math.abs((Difference - maxReach) * 100));
 		double x = Math.abs(Math.abs(p.getLocation().getX()) - Math.abs(d.getLocation().getX()));
 		double y = Math.abs(Math.abs(p.getLocation().getY()) - Math.abs(d.getLocation().getY()));
 		double z = Math.abs(Math.abs(p.getLocation().getZ()) - Math.abs(d.getLocation().getZ()));
 		double distance = x+y+z;
-		double Reach1 = Difference - MaxReach;
+		double Reach1 = Difference - maxReach;
 		double Reach = Reach1;
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {
 			Reach += 4;
@@ -96,8 +96,8 @@ public class ReachE extends Check {
 			Reach += 3;
 		}
 		String en = d.getName().toString();
-		if (MaxReach < Difference) {
-			getAntiCheat().logCheat(this, p, "Attacked: " + en + "; Reach: " + Reach + "; MaxReach: " + MaxReach + "; Distance: " + distance + "; Chance: " + ChanceVal + "%", "(Type: E)");
+		if (maxReach < Difference) {
+			getAntiCheat().logCheat(this, p, "Attacked: " + en + "; Reach: " + Reach + "; Max Reach: " + maxReach + "; Distance: " + distance + "; Chance: " + ChanceVal + "%", "(Type: E)");
 		}
 	}
 }

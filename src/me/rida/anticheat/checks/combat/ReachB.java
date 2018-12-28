@@ -69,7 +69,7 @@ public class ReachB extends Check {
 
 		int Count = count.get(d);
 		long Time = System.currentTimeMillis();
-		double MaxReach = 3.1;
+		double maxReach = 3.1;
 		double YawDifference = Math.abs(d.getEyeLocation().getYaw() - p.getEyeLocation().getYaw());
 		double speedToVelocityDif = 0;
 		double offsets = 0.0D;
@@ -83,31 +83,31 @@ public class ReachB extends Check {
 			return;
 		}
 		speedToVelocityDif = Math.abs(offsets - p.getVelocity().length());
-		MaxReach += (YawDifference * 0.001);
-		MaxReach += lastHorizontal * 1.5;
-		MaxReach += speedToVelocityDif * 0.08;
+		maxReach += (YawDifference * 0.001);
+		maxReach += lastHorizontal * 1.5;
+		maxReach += speedToVelocityDif * 0.08;
 		if (d.getLocation().getY() > p.getLocation().getY()) {
 			Difference = d.getLocation().getY() - p.getLocation().getY();
-			MaxReach += Difference / 2.5;
+			maxReach += Difference / 2.5;
 		} else if (p.getLocation().getY() > d.getLocation().getY()) {
 			Difference = p.getLocation().getY() - d.getLocation().getY();
-			MaxReach += Difference / 2.5;
+			maxReach += Difference / 2.5;
 		}
-		MaxReach += d.getWalkSpeed() <= 0.2 ? 0 : d.getWalkSpeed() - 0.2;
+		maxReach += d.getWalkSpeed() <= 0.2 ? 0 : d.getWalkSpeed() - 0.2;
 
 		int PingD = this.getAntiCheat().getLag().getPing(d);
 		int PingP = this.getAntiCheat().getLag().getPing(p);
-		MaxReach += ((PingD + PingP) / 2) * 0.0024;
+		maxReach += ((PingD + PingP) / 2) * 0.0024;
 		if(PingD > 400) {
-			MaxReach += 1.0D;
+			maxReach += 1.0D;
 		}
 		if (TimeUtil.elapsed(Time, 10000)) {
 			count.remove(d);
 			Time = System.currentTimeMillis();
 		}
-		if (Reach > MaxReach) {
+		if (Reach > maxReach) {
 			this.dumplog(d,
-					"Logged for Reach Type B; Count Increase (+1); Reach: " + Reach2 + ", MaxReach: " + MaxReach + ", Damager Velocity: "
+					"Logged for Reach Type B; Count Increase (+1); Reach: " + Reach2 + ", maxReach: " + maxReach + ", Damager Velocity: "
 							+ d.getVelocity().length() + ", " + "Player Velocity: "
 							+ p.getVelocity().length() + "; New Count: " + Count);
 			count.put(d, Count + 1);
@@ -119,13 +119,13 @@ public class ReachB extends Check {
 		if (Reach2 > 6) {
 			e.setCancelled(true);
 		}
-		if (Count >= 2 && Reach > MaxReach && Reach < 20.0) {
+		if (Count >= 2 && Reach > maxReach && Reach < 20.0) {
 			count.remove(d);
 			if (Latency.getLag(p) < 115) {
-				getAntiCheat().logCheat(this, d, Reach + " > " + MaxReach + " MS: " + PingD + " Velocity Difference: " + speedToVelocityDif, "(Type: B)");
+				getAntiCheat().logCheat(this, d, Reach + " > " + maxReach + " MS: " + PingD + " Velocity Difference: " + speedToVelocityDif, "(Type: B)");
 
 			}
-			dumplog(d, "Logged for Reach Type B; Reach: " + Reach2 + " > " + "Max reach:" + MaxReach);
+			dumplog(d, "Logged for Reach Type B; Reach: " + Reach2 + " > " + "Max reach:" + maxReach);
 			return;
 		}
 	}

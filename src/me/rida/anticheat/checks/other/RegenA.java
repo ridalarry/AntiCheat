@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.combat;
+package me.rida.anticheat.checks.other;
 
 import java.util.AbstractMap;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package me.rida.anticheat.checks.combat;
+package me.rida.anticheat.checks.movement;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

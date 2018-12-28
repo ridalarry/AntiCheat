@@ -15,7 +15,6 @@ import org.bukkit.potion.PotionEffectType;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.PlayerUtil;
 
 public class ReachC extends Check {
@@ -86,7 +85,7 @@ public class ReachC extends Check {
 			this.dumplog(p, "Logged for Reach Type C; Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS);
 
-			getAntiCheat().logCheat(this, p, Color.Red + "Experimental" + "; Reach: " + Difference
+			getAntiCheat().logCheat(this, p, "Reach: " + Difference
 					+ "; MaxReach; " + MaxReach + "; Chance: " + ChanceVal + "%" + "; Ping: " + Ping + "; TPS: " + TPS, "(Type: C)");
 		}
 	}

@@ -22,13 +22,13 @@ public class AntiKBB extends Check {
 			return;
 		}
 
-		if (e.isSprinting() && SharedEvents.getLastSprintStop().containsKey((Object)p)) {
+		if (e.isSprinting() && SharedEvents.getLastSprintStop().containsKey(p)) {
 			int n = 0;
 			int n2 = 1;
-			long l = System.currentTimeMillis() - SharedEvents.getLastSprintStop().get((Object)p);
-			n = l < 5 ? ++n : (l > 1000 ? --n : (n -= 2));
+			long lastSprintStop = System.currentTimeMillis() - SharedEvents.getLastSprintStop().get(p);
+			n = lastSprintStop < 5 ? ++n : (lastSprintStop > 1000 ? --n : (n -= 2));
 			if (n > n2) {
-				getAntiCheat().logCheat(this, p, null, "(Type: B)");
+				getAntiCheat().logCheat(this, p, "Took less knockback without sprinting", "(Type: B)");
 				n = 0;
 			}
 		}

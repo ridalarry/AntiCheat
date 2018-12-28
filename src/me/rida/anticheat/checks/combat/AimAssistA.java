@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.utils.Color;
 
 public class AimAssistA extends Check {
 	private int aimAssist = 0;
@@ -48,7 +47,7 @@ public class AimAssistA extends Check {
 							|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 						return;
 					}
-					getAntiCheat().logCheat(this, p, Color.Red + "(Aimbot)", "(Type: A)");
+					getAntiCheat().logCheat(this, p, "(Aimbot)", "(Type: A)");
 					this.setAimAssest(0);
 				}
 			} else {
