@@ -1,6 +1,5 @@
 package me.rida.anticheat.checks.combat;
 
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,15 +17,15 @@ public class KillAuraC extends Check {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAngleHit(EntityDamageByEntityEvent e) {
-		if (!(e.getEntity() instanceof Player) 
+		if (!(e.getEntity() instanceof Player)
 				||!(e.getDamager() instanceof Player)) {
 			return;
 		}
-		Player p = (Player) e.getDamager();
-		Player damaged = (Player) e.getEntity();
-		double ping = getAntiCheat().getLag().getPing(p);
-		double dmgdPing = getAntiCheat().getLag().getPing(damaged);
-		double offset = MathUtil.getOffsets2(p, (LivingEntity)damaged)[0];
+		final Player p = (Player) e.getDamager();
+		final Player damaged = (Player) e.getEntity();
+		final double ping = getAntiCheat().getLag().getPing(p);
+		final double dmgdPing = getAntiCheat().getLag().getPing(damaged);
+		double offset = MathUtil.getOffsets2(p, damaged)[0];
 		if (dmgdPing > 450.0) {
 			return;
 		}

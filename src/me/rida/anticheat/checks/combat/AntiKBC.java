@@ -19,9 +19,9 @@ public class AntiKBC extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onPlayerDamage(EntityDamageEvent e) {
 		if (e.getEntity() instanceof  Player) {
-			Player p = (Player) e.getEntity();
+			final Player p = (Player) e.getEntity();
 			if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
-				Entity damager = (Player) p.getLastDamageCause().getEntity();
+				final Entity damager = p.getLastDamageCause().getEntity();
 				if (VelocityUtil.didTakeVelocity(p)
 						|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 						|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -35,7 +35,7 @@ public class AntiKBC extends Check {
 							}
 							else {
 								return;
-							}	
+							}
 						}
 
 					}
@@ -44,4 +44,4 @@ public class AntiKBC extends Check {
 
 		}
 	}
-} 
+}

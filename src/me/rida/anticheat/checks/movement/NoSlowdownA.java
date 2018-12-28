@@ -27,7 +27,7 @@ public class NoSlowdownA extends Check {
 
 	public NoSlowdownA(AntiCheat AntiCheat) {
 		super("NoSlowdownA", "NoSlowdown", CheckType.Movement, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
-		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		speedTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -38,7 +38,7 @@ public class NoSlowdownA extends Check {
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
-		Player p = (Player) e.getEntity();
+		final Player p = (Player) e.getEntity();
 		if (p.isInsideVehicle()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -55,13 +55,13 @@ public class NoSlowdownA extends Check {
 				&& e.getTo().getZ() == e.getFrom().getZ()) {
 			return;
 		}
-		Player p = e.getPlayer();
-		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+		final Player p = e.getPlayer();
+		final double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
 				MathUtil.getHorizontalVector(e.getTo().toVector()));
 
-		if (!p.getLocation().getBlock().getType().equals(Material.WEB) 
-				|| (OffsetXZ < 0.2) 
-				|| p.getAllowFlight() 
+		if (!p.getLocation().getBlock().getType().equals(Material.WEB)
+				|| (OffsetXZ < 0.2)
+				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
@@ -77,7 +77,7 @@ public class NoSlowdownA extends Check {
 					|| e.getItem().getType().equals(Material.POTION)) {
 				return;
 			}
-			Player p = e.getPlayer();
+			final Player p = e.getPlayer();
 
 			long Time = System.currentTimeMillis();
 			int level = 0;
@@ -85,12 +85,12 @@ public class NoSlowdownA extends Check {
 				level = speedTicks.get(p.getUniqueId()).getKey().intValue();
 				Time = speedTicks.get(p.getUniqueId()).getValue().longValue();
 			}
-			double diff = System.currentTimeMillis() - Time;
+			final double diff = System.currentTimeMillis() - Time;
 			level = diff >= 2.0
 					? (diff <= 51.0 ? (level += 2)
 							: (diff <= 100.0 ? (level += 0) : (diff <= 500.0 ? (level -= 6) : (level -= 12))))
 							: ++level;
-					int max = 50;
+					final int max = 50;
 					if (level > max * 0.9D && diff <= 100.0D) {
 						if (e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 							return;
@@ -103,7 +103,7 @@ public class NoSlowdownA extends Check {
 						level = 0;
 					}
 					speedTicks.put(p.getUniqueId(),
-							new AbstractMap.SimpleEntry<Integer, Long>(level, System.currentTimeMillis()));
+							new AbstractMap.SimpleEntry<>(level, System.currentTimeMillis()));
 		}
 	}
 }

@@ -37,23 +37,24 @@ public class PlayerUtil {
 	@SuppressWarnings("unused")
 	public static int getEff(Player p){
 		int enchantmentLevel = 0;
-		ItemStack[] inv = p.getInventory().getContents();
-		for(ItemStack item:inv){
-			if (item != null)
+		final ItemStack[] inv = p.getInventory().getContents();
+		for(final ItemStack item:inv){
+			if (item != null) {
 				if(item.getType() != null){
 					if(item.getEnchantments().containsKey(Enchantment.DIG_SPEED)){
 						return enchantmentLevel = item.getEnchantmentLevel(Enchantment.DIG_SPEED);
 					}
 				}
+			}
 		}
 		return 0;
 	}
 	public static boolean isFlying2(BlockPlaceEvent e, Player p)
 	{
-		Location loc = p.getLocation();
+		final Location loc = p.getLocation();
 		loc.setY(loc.getY() -1);
 
-		Block block = loc.getWorld().getBlockAt(loc);
+		final Block block = loc.getWorld().getBlockAt(loc);
 		if (block.getType().equals(Material.AIR))
 		{
 			return true;
@@ -65,10 +66,10 @@ public class PlayerUtil {
 	}
 	public static boolean isFlying2(PlayerMoveEvent e, Player p)
 	{
-		Location loc = p.getLocation();
+		final Location loc = p.getLocation();
 		loc.setY(loc.getY() -1);
 
-		Block block = loc.getWorld().getBlockAt(loc);
+		final Block block = loc.getWorld().getBlockAt(loc);
 		if (block.getType().equals(Material.AIR))
 		{
 			return true;
@@ -80,10 +81,10 @@ public class PlayerUtil {
 	}
 	public static boolean isOnGround(PlayerMoveEvent e, Player p)
 	{
-		Location loc = p.getLocation();
+		final Location loc = p.getLocation();
 		loc.setY(loc.getY());
 
-		Block block = loc.getWorld().getBlockAt(loc);
+		final Block block = loc.getWorld().getBlockAt(loc);
 		if (!block.getType().equals(Material.AIR))
 		{
 			return true;
@@ -95,10 +96,10 @@ public class PlayerUtil {
 	}
 	public static boolean isOnGround(BlockPlaceEvent e, Player p)
 	{
-		Location loc = p.getLocation();
+		final Location loc = p.getLocation();
 		loc.setY(loc.getY());
 
-		Block block = loc.getWorld().getBlockAt(loc);
+		final Block block = loc.getWorld().getBlockAt(loc);
 		if (!block.getType().equals(Material.AIR))
 		{
 			return true;
@@ -110,10 +111,10 @@ public class PlayerUtil {
 	}
 	public static boolean isFlying(PlayerMoveEvent e, Player p)
 	{
-		Location loc = p.getLocation();
+		final Location loc = p.getLocation();
 		loc.setY(loc.getY() -2);
 
-		Block block = loc.getWorld().getBlockAt(loc);
+		final Block block = loc.getWorld().getBlockAt(loc);
 		if (block.getType().equals(Material.AIR))
 		{
 			return true;
@@ -125,10 +126,10 @@ public class PlayerUtil {
 	}
 	public static boolean isFlying(BlockPlaceEvent e, Player p)
 	{
-		Location loc = p.getLocation();
+		final Location loc = p.getLocation();
 		loc.setY(loc.getY() -2);
 
-		Block block = loc.getWorld().getBlockAt(loc);
+		final Block block = loc.getWorld().getBlockAt(loc);
 		if (block.getType().equals(Material.AIR))
 		{
 			return true;
@@ -140,7 +141,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearChest(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isChest(b)) {
 				out = true;
 			}
@@ -149,7 +150,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNear1_13(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.Block_1_13(b)) {
 				out = true;
 			}
@@ -158,7 +159,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearBar(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isBar(b)) {
 				out = true;
 			}
@@ -168,7 +169,7 @@ public class PlayerUtil {
 
 	public static boolean isNearSign(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isSign(b)) {
 				out = true;
 			}
@@ -178,7 +179,7 @@ public class PlayerUtil {
 
 	public static boolean isNearWeb(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isWeb(b)) {
 				out = true;
 			}
@@ -187,7 +188,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearSolid(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isSolid(b)) {
 				out = true;
 			}
@@ -196,7 +197,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearAllowedPhase(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.allowedPhase(b)) {
 				out = true;
 			}
@@ -205,7 +206,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearGrass(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isGrass(b)) {
 				out = true;
 			}
@@ -214,7 +215,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearLog(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isLog(b)) {
 				out = true;
 			}
@@ -223,7 +224,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearAllowed(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isAllowed(b)) {
 				out = true;
 			}
@@ -232,7 +233,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearLessThanABlock(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isLessThanBlock(b)) {
 				out = true;
 			}
@@ -241,7 +242,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearPiston(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isPiston(b)) {
 				out = true;
 			}
@@ -250,7 +251,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearPressure(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isPressure(b)) {
 				out = true;
 			}
@@ -259,7 +260,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearSlab(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isSlab(b)) {
 				out = true;
 			}
@@ -268,7 +269,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearAir(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isAir(b)) {
 				out = true;
 			}
@@ -277,7 +278,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNotNearAir(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (!BlockUtil.isAir(b)) {
 				out = true;
 			}
@@ -286,7 +287,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearB_1_13(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (!BlockUtil.B_1_13(b)) {
 				out = true;
 			}
@@ -296,7 +297,7 @@ public class PlayerUtil {
 
 	public static boolean isNearHalfBlock(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isHalfBlock(b)) {
 				out = true;
 			}
@@ -306,7 +307,7 @@ public class PlayerUtil {
 
 	public static boolean isNearIce(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isIce(b)) {
 				out = true;
 			}
@@ -315,7 +316,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearPiston(Location loc) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
 			if (BlockUtil.isPiston(b)) {
 				out = true;
 			}
@@ -324,7 +325,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearSlime(Location loc) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(loc, 3)) {
 			if (BlockUtil.isSlime(b)) {
 				out = true;
 			}
@@ -333,7 +334,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearSlime(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isSlime(b)) {
 				out = true;
 			}
@@ -342,7 +343,7 @@ public class PlayerUtil {
 	}
 	public static boolean isNearClimable(Player p) {
 		boolean out = false;
-		for (Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : BlockUtil.getNearbyBlocks(p.getLocation(), 1)) {
 			if (BlockUtil.isClimbableBlock(b)) {
 				out = true;
 			}
@@ -379,12 +380,14 @@ public class PlayerUtil {
 	}
 
 	public static int getDistanceToGround(Player p){
-		Location loc = p.getLocation().clone();
-		double y = loc.getBlockY();
+		final Location loc = p.getLocation().clone();
+		final double y = loc.getBlockY();
 		int distance = 0;
 		for (double i = y; i >= 0; i--){
 			loc.setY(i);
-			if(loc.getBlock().getType().isSolid())break;
+			if(loc.getBlock().getType().isSolid()) {
+				break;
+			}
 			distance++;
 		}
 		return distance;
@@ -395,7 +398,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnGround(Location loc) {
-		double diff = .3;
+		final double diff = .3;
 
 		return !isGround(loc.clone().add(0, -.1, 0).getBlock().getType())
 				|| !isGround(loc.clone().add(diff, -.1, 0).getBlock().getType())
@@ -419,16 +422,16 @@ public class PlayerUtil {
 
 
 	public static boolean hasPistonNear(Player player) {
-		Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 2D, 3D, 2D);
+		final Object box = ServerUtil.getMethodValue(ServerUtil.getMethod(ServerUtil.getBoundingBox(player).getClass(), "grow", double.class, double.class, double.class), ServerUtil.getBoundingBox(player), 2D, 3D, 2D);
 
-		Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
+		final Collection<?> collidingBlocks = ServerUtil.getCollidingBlocks(player, box);
 
-		for(Object object : collidingBlocks) {
-			double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
-			double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
-			double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
+		for(final Object object : collidingBlocks) {
+			final double x = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "a"), object);
+			final double y = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "b"), object);
+			final double z = (double) ServerUtil.getFieldValue(ServerUtil.getFieldByName(object.getClass(), "c"), object);
 
-			Block block = new Location(player.getWorld(), x, y, z).getBlock();
+			final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 			if(BlockUtil.isPiston(block)) {
 				return true;
 			}
@@ -438,11 +441,11 @@ public class PlayerUtil {
 
 	@SuppressWarnings("deprecation")
 	public static boolean wasOnSlime(Player player) {
-		DataPlayer user = AntiCheat.getInstance().getDataManager().getData(player);
+		final DataPlayer user = AntiCheat.getInstance().getDataManager().getData(player);
 
 		if(user != null
 				&&user.getSetbackLocation() != null) {
-			Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
+			final Location location = user.getSetbackLocation().clone().subtract(0.0D, 1.0D, 0.0D);
 
 			if(location.getBlock().getType().getId() == 165){
 				return true;
@@ -453,7 +456,7 @@ public class PlayerUtil {
 
 
 	public static boolean isInWater(Location loc) {
-		double diff = .3;
+		final double diff = .3;
 		return BlockUtil.isLiquid(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isLiquid(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isLiquid(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -474,7 +477,7 @@ public class PlayerUtil {
 						|| BlockUtil.isLiquid(loc.clone().add(-diff,  0D, -diff).getBlock())));
 	}
 	public static boolean isOnSlime(Location loc) {
-		double diff = .3;
+		final double diff = .3;
 		return BlockUtil.isSlime(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isSlime(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isSlime(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -488,7 +491,7 @@ public class PlayerUtil {
 
 
 	public static boolean isOnSlab(Location loc) {
-		double diff = .3;
+		final double diff = .3;
 		return BlockUtil.isSlab(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isSlab(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isSlab(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -501,7 +504,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnStair(Location loc) {
-		double diff = 0.3;
+		final double diff = 0.3;
 		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -513,7 +516,7 @@ public class PlayerUtil {
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
 	public static boolean isOnFence(Location loc) {
-		double diff = 0.3;
+		final double diff = 0.3;
 		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isFence(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -525,7 +528,7 @@ public class PlayerUtil {
 				|| BlockUtil.isFence(loc.clone().add(-diff, 0D, -diff).getBlock());
 	}
 	public static boolean isOnPressure(Location loc) {
-		double diff = 0.3;
+		final double diff = 0.3;
 		return 	BlockUtil.isStair(loc.clone().add(0, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(diff, 0D, 0).getBlock())
 				|| BlockUtil.isStair(loc.clone().add(-diff, 0D, 0).getBlock())
@@ -538,7 +541,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean hasSlabsNear(Location location) {
-		for(Block block : BlockUtil.getSurroundingXZ(location.getBlock(), true)) {
+		for(final Block block : BlockUtil.getSurroundingXZ(location.getBlock(), true)) {
 			if(BlockUtil.isSlab(block)) {
 				return true;
 			}
@@ -549,13 +552,13 @@ public class PlayerUtil {
 
 	public static boolean isOnClimbable(Player player, int blocks) {
 		if (blocks == 0) {
-			for (Block block : getSurrounding(player.getLocation().getBlock(), false)) {
+			for (final Block block : getSurrounding(player.getLocation().getBlock(), false)) {
 				if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
 					return true;
 				}
 			}
 		} else {
-			for (Block block : getSurrounding(player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock(),
+			for (final Block block : getSurrounding(player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock(),
 					false)) {
 				if (block.getType() == Material.LADDER || block.getType() == Material.VINE) {
 					return true;
@@ -574,7 +577,7 @@ public class PlayerUtil {
 	}
 
 	public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
-		ArrayList<Block> blocks = new ArrayList<>();
+		final ArrayList<Block> blocks = new ArrayList<>();
 		if (diagonals) {
 			for (int x = -1; x <= 1; x++) {
 				for (int y = -1; y <= 1; y++) {
@@ -604,11 +607,11 @@ public class PlayerUtil {
 	}
 
 	public static boolean isBlock(Block block, Material[] materials) {
-		Material type = block.getType();
+		final Material type = block.getType();
 		Material[] arrayOfMaterial;
-		int j = (arrayOfMaterial = materials).length;
+		final int j = (arrayOfMaterial = materials).length;
 		for (int i = 0; i < j; i++) {
-			Material m = arrayOfMaterial[i];
+			final Material m = arrayOfMaterial[i];
 			if (m == type) {
 				return true;
 			}
@@ -617,7 +620,7 @@ public class PlayerUtil {
 	}
 
 	public static boolean isAir(Player player) {
-		Block b = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
+		final Block b = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
 		return b.getType().equals(Material.AIR)
 				&& b.getRelative(BlockFace.WEST).getType().equals(Material.AIR)
 				&& b.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)
@@ -627,7 +630,7 @@ public class PlayerUtil {
 
 
 	public static int getPotionEffectLevel(Player player, PotionEffectType pet) {
-		for (PotionEffect pe : player.getActivePotionEffects()) {
+		for (final PotionEffect pe : player.getActivePotionEffects()) {
 			if (pe.getType().getName().equals(pet.getName())) {
 				return pe.getAmplifier() + 1;
 			}
@@ -640,7 +643,7 @@ public class PlayerUtil {
 		return isOnTheGround(player, 0.25);
 	}
 	public static boolean isOnTheGround(Player player, double yExpanded) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
 
 		return ReflectionUtil.getCollidingBlocks(player, box).size() > 0;
 	}
@@ -649,19 +652,19 @@ public class PlayerUtil {
 		return isOnTheGround(player, 1.25);
 	}
 	public static boolean isInSlime(Player player) {
-		Object box = ReflectionUtil.getBoundingBox(player);
+		final Object box = ReflectionUtil.getBoundingBox(player);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.isSlime(block)) {
 						return true;
@@ -673,19 +676,19 @@ public class PlayerUtil {
 	}
 
 	public static boolean isInLiquid(Player player) {
-		Object box = ReflectionUtil.getBoundingBox(player);
+		final Object box = ReflectionUtil.getBoundingBox(player);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.isLiquid(block)) {
 						return true;
@@ -697,19 +700,19 @@ public class PlayerUtil {
 	}
 
 	public static boolean isInStairs(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.isStair(block)
 							|| BlockUtil.isSlab(block)
@@ -731,19 +734,19 @@ public class PlayerUtil {
 
 
 	public static boolean inUnderBlock(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(block.getType().isSolid()) {
 						return true;
@@ -754,19 +757,19 @@ public class PlayerUtil {
 		return false;
 	}
 	public static boolean isOnAllowedPhase(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(BlockUtil.allowedPhase(block)) {
 						return true;
@@ -778,19 +781,19 @@ public class PlayerUtil {
 	}
 
 	public static boolean isOnIce(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(block.getType().equals(Material.ICE)
 							|| block.getType().equals(Material.PACKED_ICE)) {
@@ -813,7 +816,7 @@ public class PlayerUtil {
 		if (player.getLocation().clone().getBlock() == null) {
 			return false;
 		}
-		Block block = player.getLocation().clone().getBlock();
+		final Block block = player.getLocation().clone().getBlock();
 		if (CheatUtil.isSlab(block) || CheatUtil.isStair(block)) {
 			return false;
 		}
@@ -831,8 +834,8 @@ public class PlayerUtil {
 	}
 
 	public static boolean isFullyStuck(Player player) {
-		Block block1 = player.getLocation().clone().getBlock();
-		Block block2 = player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock();
+		final Block block1 = player.getLocation().clone().getBlock();
+		final Block block2 = player.getLocation().clone().add(0.0D, 1.0D, 0.0D).getBlock();
 		if (block1.getType().isSolid() && block2.getType().isSolid()) {
 			return true;
 		}

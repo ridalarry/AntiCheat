@@ -30,11 +30,11 @@ public class BlockInteractB extends Check {
 				|| getAntiCheat().getLag().getPing(e.getPlayer()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		double x = PlayerUtil.getEff(p);
+		final double x = PlayerUtil.getEff(p);
 		double y = 2;
 		y += x;
 		if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > y)
@@ -51,7 +51,7 @@ public class BlockInteractB extends Check {
 				|| getAntiCheat().getLag().getPing(e.getPlayer()) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if ((e.getBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
 				&& !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getBlock().getLocation()).contains(e.getBlock()) && !e.isCancelled()) {
 			getAntiCheat().logCheat(this, p,"[2] BlockInteract: Placed a block without a line of sight too it.", "(Type: B)");
@@ -68,7 +68,7 @@ public class BlockInteractB extends Check {
 		}
 		if (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.LEFT_CLICK_BLOCK) {
 			if (e.getClickedBlock().getType() == Material.CHEST || e.getClickedBlock().getType() == Material.TRAPPED_CHEST || e.getClickedBlock().getType() == Material.ENDER_CHEST) {
-				Player p = e.getPlayer();
+				final Player p = e.getPlayer();
 				if ((e.getClickedBlock().getLocation().distance(p.getPlayer().getEyeLocation()) > 2)
 						&& !BlockPathFinder.line(p.getPlayer().getEyeLocation(), e.getClickedBlock().getLocation()).contains(e.getClickedBlock()) && !e.isCancelled()) {
 					getAntiCheat().logCheat(this, p, "[3] BlockInteract: Interacted without a line of sight too it.", "(Type: B)");

@@ -23,18 +23,18 @@ public class ReachL extends Check {
 
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
-				Player player = (Player) event.getDamager();
+				final Player player = (Player) event.getDamager();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
+					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
 					final int ping = getAntiCheat().getLag().getPing(player);
-					double tps = getAntiCheat().getLag().getTPS();
-					String dst = Double.toString(distance).substring(0, 3);
-					double maxReach = 4.25;
-					double dist = event.getEntity().getLocation().distance(player.getLocation());
+					final double tps = getAntiCheat().getLag().getTPS();
+					final String dst = Double.toString(distance).substring(0, 3);
+					final double maxReach = 4.25;
+					final double dist = event.getEntity().getLocation().distance(player.getLocation());
 					if (dist > maxReach && event.getEntity().getLocation().getBlockY() == player.getLocation().getBlockY()) {
 						if (player != null) {
 							getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
-						} 
+						}
 					} else if ((dist > maxReach + 0.3
 							|| dist > maxReach + 0.4
 							|| dist > maxReach + 0.5
@@ -62,7 +62,7 @@ public class ReachL extends Check {
 									&& event.getEntity().getLocation().getBlockY() > player.getLocation().getBlockY()) {
 								if (player != null) {
 									getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
-								} 
+								}
 							}
 						} else {
 							if (player != null) {

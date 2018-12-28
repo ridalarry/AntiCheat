@@ -22,13 +22,13 @@ public class ReachO extends Check {
 	public void onAttack(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
-				Player player = (Player) event.getDamager();
+				final Player player = (Player) event.getDamager();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
-					int ping = getAntiCheat().getLag().getPing(player);
-					double tps = getAntiCheat().getLag().getTPS();
-					String dist = Double.toString(distance).substring(0, 3);
-					double maxReach = 4.2;
+					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
+					final int ping = getAntiCheat().getLag().getPing(player);
+					final double tps = getAntiCheat().getLag().getTPS();
+					final String dist = Double.toString(distance).substring(0, 3);
+					final double maxReach = 4.2;
 					if (distance > maxReach) {
 						if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 							if (distance > 4.2 + 1) {

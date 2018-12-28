@@ -9,16 +9,17 @@ public class GeoCheck {
 
 	@SuppressWarnings("unused")
 	public static String getCountry(InetSocketAddress ip) throws Exception {
-		String name;
-		String country;
-		String ISP;
-		URL url = new URL("http://ip-api.com/json/" + ip.getHostName());
-		BufferedReader stream = new BufferedReader(new InputStreamReader(
+		final String name;
+		final String country;
+		final String ISP;
+		final URL url = new URL("http://ip-api.com/json/" + ip.getHostName());
+		final BufferedReader stream = new BufferedReader(new InputStreamReader(
 				url.openStream()));
-		StringBuilder entirePage = new StringBuilder();
+		final StringBuilder entirePage = new StringBuilder();
 		String inputLine;
-		while ((inputLine = stream.readLine()) != null)
+		while ((inputLine = stream.readLine()) != null) {
 			entirePage.append(inputLine);
+		}
 		stream.close();
 		if(!(entirePage.toString().contains("\"country_name\":\""))){
 

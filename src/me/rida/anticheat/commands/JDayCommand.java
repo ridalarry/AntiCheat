@@ -15,7 +15,7 @@ import me.rida.anticheat.utils.Config;
 import me.rida.anticheat.utils.JDayUtil;
 
 public class JDayCommand implements CommandExecutor {
-	private AntiCheat AntiCheat;
+	private final AntiCheat AntiCheat;
 
 	public JDayCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
@@ -36,10 +36,10 @@ public class JDayCommand implements CommandExecutor {
 		}
 		if (args[0].equalsIgnoreCase("start")) {
 			final String type = args[0];
-	        if ( JDayUtil.getAmountToBan() == 0 ) {
+			if ( JDayUtil.getAmountToBan() == 0 ) {
 				sender.sendMessage(AntiCheat.PREFIX + Color.translate("&7There are no pending bans!"));
 				return true;
-	        }
+			}
 			sender.sendMessage(AntiCheat.PREFIX + Color.translate("&7Judgement day starting!"));
 			JDayUtil.executeBanWave();
 			return true;
@@ -53,14 +53,14 @@ public class JDayCommand implements CommandExecutor {
 			}
 			final String playerName = args[1];
 			final Player player = Bukkit.getServer().getPlayer(playerName);
-			String lowerCase;
+			final String lowerCase;
 			if (this.AntiCheat.getConfig().getBoolean("testmode") == true) {
 				sender.sendMessage(Color.Red + "Test mode is enabled therefore this is disabled!");
 			} else {
-				OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
-				Config pending = new Config("pendingusers");
+				final OfflinePlayer target = Bukkit.getOfflinePlayer(args[1]);
+				final Config pending = new Config("pendingusers");
 
-				StringBuilder str = new StringBuilder();
+				final StringBuilder str = new StringBuilder();
 				String reason;
 				for (int i = 2; i < args.length; i++) {
 					str.append(args[i]).append(" ");
@@ -71,7 +71,7 @@ public class JDayCommand implements CommandExecutor {
 				} else {
 					reason = str.toString();
 				}
-				int reasonLength = reason.length();
+				final int reasonLength = reason.length();
 				reason = reason.substring(0, reasonLength-1);
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Name", target.getName());
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".UUID", String.valueOf(target.getUniqueId()));

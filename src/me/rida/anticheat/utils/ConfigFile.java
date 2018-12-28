@@ -32,7 +32,7 @@ public class ConfigFile {
 
 		try {
 			this.configuration.save(this.file);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			e.printStackTrace();
 		}
 	}

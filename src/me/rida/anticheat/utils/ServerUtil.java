@@ -28,7 +28,7 @@ public class ServerUtil {
 	}
 
 	public static boolean isBukkitVerison(String version) {
-		String bukkit = Bukkit.getServer().getClass().getPackage().getName().substring(23);
+		final String bukkit = Bukkit.getServer().getClass().getPackage().getName().substring(23);
 
 		return bukkit.contains(version);
 	}
@@ -40,7 +40,7 @@ public class ServerUtil {
 	public static Class<?> getClass(String string) {
 		try {
 			return Class.forName(string);
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -49,10 +49,10 @@ public class ServerUtil {
 
 	public static Field getFieldByName(Class<?> clazz, String fieldName) {
 		try {
-			Field field = clazz.getDeclaredField(fieldName);
+			final Field field = clazz.getDeclaredField(fieldName);
 			field.setAccessible(true);
 			return field;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -60,17 +60,17 @@ public class ServerUtil {
 
 
 	public static Collection<?> getCollidingBlocks(Player player, Object axisAlignedBB) {
-		Object world = getMethodValue(getMethod(CraftWorld, "getHandle"), player.getWorld());
+		final Object world = getMethodValue(getMethod(CraftWorld, "getHandle"), player.getWorld());
 		return ((Collection<?>)getMethodValue(getCubes, world, axisAlignedBB));
 	}
 
 
 	public static Method getMethod(Class<?> clazz, String methodName, Class<?>... args) {
 		try {
-			Method method = clazz.getMethod(methodName, args);
+			final Method method = clazz.getMethod(methodName, args);
 			method.setAccessible(true);
 			return method;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -79,7 +79,7 @@ public class ServerUtil {
 	public static Object getMethodValue(Method method, Object object, Object... args) {
 		try {
 			return method.invoke(object, args);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -89,7 +89,7 @@ public class ServerUtil {
 		try {
 			field.setAccessible(true);
 			return field.get(object);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -102,14 +102,14 @@ public class ServerUtil {
 
 
 	public static boolean isOnGround(Location location, int n) {
-		double d = location.getX();
-		double d2 = location.getZ();
-		double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
-		double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
-		int n2 = location.getBlockX();
-		int n3 = location.getBlockY() - n;
-		int n4 = location.getBlockZ();
-		World world = location.getWorld();
+		final double d = location.getX();
+		final double d2 = location.getZ();
+		final double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
+		final double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
+		final int n2 = location.getBlockX();
+		final int n3 = location.getBlockY() - n;
+		final int n4 = location.getBlockZ();
+		final World world = location.getWorld();
 		if (BlockUtil.isSolid(world.getBlockAt(n2, n3, n4))) {
 			return true;
 		}
@@ -174,14 +174,14 @@ public class ServerUtil {
 	}
 
 	public static boolean isOnBlock(Location location, int n, Material[] arrmaterial) {
-		double d = location.getX();
-		double d2 = location.getZ();
-		double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
-		double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
-		int n2 = location.getBlockX();
-		int n3 = location.getBlockY() - n;
-		int n4 = location.getBlockZ();
-		World world = location.getWorld();
+		final double d = location.getX();
+		final double d2 = location.getZ();
+		final double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
+		final double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
+		final int n2 = location.getBlockX();
+		final int n3 = location.getBlockY() - n;
+		final int n4 = location.getBlockZ();
+		final World world = location.getWorld();
 		if (BlockUtil.containsBlockType(arrmaterial, world.getBlockAt(n2, n3, n4))) {
 			return true;
 		}
@@ -246,14 +246,14 @@ public class ServerUtil {
 	}
 
 	public static boolean isHoveringOverWater(Location location, int n) {
-		double d = location.getX();
-		double d2 = location.getZ();
-		double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
-		double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
-		int n2 = location.getBlockX();
-		int n3 = location.getBlockY() - n;
-		int n4 = location.getBlockZ();
-		World world = location.getWorld();
+		final double d = location.getX();
+		final double d2 = location.getZ();
+		final double d3 = MathUtil.getFraction(d) > 0.0 ? Math.abs(MathUtil.getFraction(d)) : 1.0 - Math.abs(MathUtil.getFraction(d));
+		final double d4 = MathUtil.getFraction(d2) > 0.0 ? Math.abs(MathUtil.getFraction(d2)) : 1.0 - Math.abs(MathUtil.getFraction(d2));
+		final int n2 = location.getBlockX();
+		final int n3 = location.getBlockY() - n;
+		final int n4 = location.getBlockZ();
+		final World world = location.getWorld();
 		if (BlockUtil.isLiquid(world.getBlockAt(n2, n3, n4))) {
 			return true;
 		}

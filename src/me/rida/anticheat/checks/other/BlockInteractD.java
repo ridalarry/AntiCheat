@@ -20,7 +20,7 @@ public class BlockInteractD extends Check {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onPlaceBlock(BlockPlaceEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (p.getAllowFlight()
 				|| p.getVehicle() != null
 				|| getAntiCheat().getLag().getPing(e.getPlayer()) > 100
@@ -32,7 +32,7 @@ public class BlockInteractD extends Check {
 			return;
 		}
 
-		double x = PlayerUtil.getEff(p);
+		final double x = PlayerUtil.getEff(p);
 		if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
 
 			if (!p.isSneaking() && !p.isFlying() && groundAround(p.getLocation()) && e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR && p.getWorld().getBlockAt(p.getLocation().subtract(0.0, 1.0, 0.0)).equals(e.getBlock())) {
@@ -46,12 +46,12 @@ public class BlockInteractD extends Check {
 		for (int radius = 2, x = -radius; x < radius; ++x) {
 			for (int y = -radius; y < radius; ++y) {
 				for (int z = -radius; z < radius; ++z) {
-					Material mat = loc.getWorld().getBlockAt(loc.add((double)x, (double)y, (double)z)).getType();
+					final Material mat = loc.getWorld().getBlockAt(loc.add(x, y, z)).getType();
 					if (mat.isSolid() || mat == Material.WATER || mat == Material.STATIONARY_WATER || mat == Material.LAVA || mat == Material.STATIONARY_LAVA) {
-						loc.subtract((double)x, (double)y, (double)z);
+						loc.subtract(x, y, z);
 						return true;
 					}
-					loc.subtract((double)x, (double)y, (double)z);
+					loc.subtract(x, y, z);
 				}
 			}
 		}

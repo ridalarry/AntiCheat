@@ -39,8 +39,8 @@ public class AutoClickerA extends Check {
 			return;
 		}
 
-		Player p = e.getAttacker();
-		UUID u = p.getUniqueId();
+		final Player p = e.getAttacker();
+		final UUID u = p.getUniqueId();
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (ClickTicks.containsKey(u)) {
@@ -48,13 +48,13 @@ public class AutoClickerA extends Check {
 			Time = ClickTicks.get(u).getValue();
 		}
 		if (LastMS.containsKey(u)) {
-			long MS = TimeUtil.nowlong() - LastMS.get(u);
+			final long MS = TimeUtil.nowlong() - LastMS.get(u);
 			if (MS > 500L || MS < 5L) {
 				LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
 				return;
 			}
 			if (Clicks.containsKey(u)) {
-				List<Long> Clicks = AutoClickerA.Clicks.get(u);
+				final List<Long> Clicks = AutoClickerA.Clicks.get(u);
 				if (Clicks.size() == 10) {
 					AutoClickerA.Clicks.remove(u);
 					Collections.sort(Clicks);
@@ -69,7 +69,7 @@ public class AutoClickerA extends Check {
 					AutoClickerA.Clicks.put(u, Clicks);
 				}
 			} else {
-				final List<Long> Clicks = new ArrayList<Long>();
+				final List<Long> Clicks = new ArrayList<>();
 				Clicks.add(MS);
 				AutoClickerA.Clicks.put(p.getUniqueId(), Clicks);
 			}
@@ -92,6 +92,6 @@ public class AutoClickerA extends Check {
 			dumplog(p, "Would set off AutoClicker (Click Pattern) but latency is too high!");
 		}
 		LastMS.put(p.getUniqueId(), TimeUtil.nowlong());
-		ClickTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		ClickTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

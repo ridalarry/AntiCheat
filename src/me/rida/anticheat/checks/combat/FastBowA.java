@@ -26,7 +26,7 @@ public class FastBowA extends Check {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	private void Interact(final PlayerInteractEvent e) {
-		Player Player = e.getPlayer();
+		final Player Player = e.getPlayer();
 		if (Player.getItemInHand() != null && Player.getItemInHand().getType().equals(Material.BOW)) {
 			bowPull.put(Player, System.currentTimeMillis());
 		}
@@ -34,15 +34,17 @@ public class FastBowA extends Check {
 
 	@EventHandler
 	private void onShoot(final ProjectileLaunchEvent e) {
-		if (!this.isEnabled()) return;
+		if (!this.isEnabled()) {
+			return;
+		}
 		if (e.getEntity() instanceof Arrow) {
-			Arrow arrow = (Arrow) e.getEntity();
+			final Arrow arrow = (Arrow) e.getEntity();
 			if (arrow.getShooter() != null && arrow.getShooter() instanceof Player) {
-				Player player = (Player) arrow.getShooter();
+				final Player player = (Player) arrow.getShooter();
 				if (bowPull.containsKey(player)) {
-					Long time = System.currentTimeMillis() - bowPull.get(player);
-					double power = arrow.getVelocity().length();
-					Long timeLimit = 300L;
+					final Long time = System.currentTimeMillis() - bowPull.get(player);
+					final double power = arrow.getVelocity().length();
+					final Long timeLimit = 300L;
 					int Count = 0;
 					if (count.containsKey(player)) {
 						Count = count.get(player);

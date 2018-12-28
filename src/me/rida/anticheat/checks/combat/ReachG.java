@@ -22,27 +22,27 @@ public class ReachG extends Check {
 	public void onAttack(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
-				Player player = (Player) event.getDamager();
+				final Player player = (Player) event.getDamager();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
+					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
 					final int ping = getAntiCheat().getLag().getPing(player);
-					double tps = getAntiCheat().getLag().getTPS();
-					String dist = Double.toString(distance).substring(0, 3);
-					double maxReach = 3.9;
+					final double tps = getAntiCheat().getLag().getTPS();
+					final String dist = Double.toString(distance).substring(0, 3);
+					final double maxReach = 3.9;
 					MathUtil.Distance(player.getLocation(), event.getEntity().getLocation());
 
 					if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 						if (MathUtil.getxDiff() > maxReach + 1 || MathUtil.getzDiff() > maxReach + 1) {
 							if (player != null) {
 								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: G)");
-							} 
+							}
 						}
 					} else {
 						if (MathUtil.getxDiff() > maxReach || MathUtil.getzDiff() > maxReach) {
 							if (player != null) {
 								event.setCancelled(true);
 								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: G)");
-							} 
+							}
 						}
 					}
 				}

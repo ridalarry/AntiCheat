@@ -8,9 +8,9 @@ import org.bukkit.event.HandlerList;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 
 public class PacketUseEntityEvent extends Event {
-	private EnumWrappers.EntityUseAction Action;
-	private Player Attacker;
-	private Entity Attacked;
+	private final EnumWrappers.EntityUseAction Action;
+	private final Player Attacker;
+	private final Entity Attacked;
 	private static final HandlerList handlers = new HandlerList();
 
 	public PacketUseEntityEvent(EnumWrappers.EntityUseAction Action, Player Attacker, Player Attacked) {
@@ -31,6 +31,7 @@ public class PacketUseEntityEvent extends Event {
 		return this.Attacked;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

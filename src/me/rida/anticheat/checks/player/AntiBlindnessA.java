@@ -17,7 +17,7 @@ public class AntiBlindnessA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (p.isSprinting() && p.hasPotionEffect(PotionEffectType.BLINDNESS)) {
 			getAntiCheat().logCheat(this, p, "Sprnting while having blindness potion effect!", "(Type: A)");
 		}

@@ -25,7 +25,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 	public final static Map<UUID, Map<String, String>> forgeMods;
 
 	static {
-		forgeMods = new HashMap<UUID, Map<String, String>>();
+		forgeMods = new HashMap<>();
 	}
 	public PMEA(AntiCheat AntiCheat) {
 		super("PMEA", "PME", CheckType.Client, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
@@ -39,20 +39,21 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void onPluginMessageReceived(String string, Player p, byte[] arrby) {
-		ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput((byte[])arrby);
+		final ByteArrayDataInput byteArrayDataInput = ByteStreams.newDataInput(arrby);
 		if ("ForgeMods".equals(byteArrayDataInput.readUTF())) {
-			String string2 = byteArrayDataInput.readUTF();
+			final String string2 = byteArrayDataInput.readUTF();
 			try {
 				@SuppressWarnings("rawtypes")
+				final
 				Map map = (Map)this.parser.parse(string2);
 				forgeMods.put(p.getUniqueId(), map);
-				String string3 = this.getClientType(p);
+				final String string3 = this.getClientType(p);
 				if (string3 != null) {
 					type = string3;
 					getAntiCheat().logCheat(this, p, "[2] detection of a hack client!", "(Type: A)");
 				}
 			}
-			catch (Exception exception) {
+			catch (final Exception exception) {
 				exception.printStackTrace();
 			}
 		}
@@ -60,7 +61,7 @@ public class PMEA extends Check implements PluginMessageListener, Listener {
 
 
 	public String getClientType(Player p) {
-		Map<String, String> map = forgeMods.get(p.getUniqueId());
+		final Map<String, String> map = forgeMods.get(p.getUniqueId());
 		if (map != null) {
 			if (map.containsKey("gc")) {
 				type = "gc";

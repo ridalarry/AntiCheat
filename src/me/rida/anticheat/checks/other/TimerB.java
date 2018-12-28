@@ -23,14 +23,14 @@ public class TimerB extends Check {
 
 	public TimerB(AntiCheat AntiCheat) {
 		super("TimerB", "Timer", CheckType.Other, true, false, false, false, true, 14, 1, 6000L, AntiCheat);
-		timerTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		timerTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
-		if (!getAntiCheat().isEnabled() 
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
+		if (!getAntiCheat().isEnabled()
 				|| (Latency.getLag(p) > 500)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
@@ -55,6 +55,6 @@ public class TimerB extends Check {
 			Count = 0;
 			Time = TimeUtil.nowlong();
 		}
-		timerTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		timerTicks.put(u, new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

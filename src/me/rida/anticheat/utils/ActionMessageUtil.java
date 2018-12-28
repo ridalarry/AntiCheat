@@ -12,17 +12,17 @@ import org.bukkit.entity.Player;
 
 public class ActionMessageUtil {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private List<AMText> Text = new ArrayList();
+	private final List<AMText> Text = new ArrayList();
 
 	public AMText addText(String Message) {
-		AMText Text = new AMText(Message);
+		final AMText Text = new AMText(Message);
 		this.Text.add(Text);
 		return Text;
 	}
 
 	public String getFormattedMessage() {
 		String Chat = "[\"\",";
-		for (AMText Text : this.Text) {
+		for (final AMText Text : this.Text) {
 			Chat = Chat + Text.getFormattedMessage() + ",";
 		}
 		Chat = Chat.substring(0, Chat.length() - 1);
@@ -32,10 +32,10 @@ public class ActionMessageUtil {
 
 	public void sendToPlayer(Player Player) {
 		try {
-			String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+			final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 			Object base = null;
 
-			Constructor<?> titleConstructor = getNMSClass("PacketPlayOutChat")
+			final Constructor<?> titleConstructor = getNMSClass("PacketPlayOutChat")
 					.getConstructor(getNMSClass("IChatBaseComponent"));
 			if (version.contains("1_7") || version.contains("1_8_R1")) {
 				base = getNMSClass("ChatSerializer").getMethod("a", String.class).invoke(null, getFormattedMessage());
@@ -44,39 +44,39 @@ public class ActionMessageUtil {
 						.invoke(null, getFormattedMessage());
 			}
 
-			Object packet = titleConstructor.newInstance(base);
+			final Object packet = titleConstructor.newInstance(base);
 
 			sendPacket(Player, packet);
-		} catch (Exception e1) {
+		} catch (final Exception e1) {
 			e1.printStackTrace();
 		}
 	}
 
 	public void sendPacket(Player player, Object packet) {
 		try {
-			Object handle = player.getClass().getMethod("getHandle").invoke(player);
-			Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
+			final Object handle = player.getClass().getMethod("getHandle").invoke(player);
+			final Object playerConnection = handle.getClass().getField("playerConnection").get(handle);
 			playerConnection.getClass().getMethod("sendPacket", getNMSClass("Packet")).invoke(playerConnection, packet);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	public Class<?> getNMSClass(String name) {
-		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 		try {
 			return Class.forName("net.minecraft.server." + version + "." + name);
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 
 	public Class<?> getCBClass(String name) {
-		String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+		final String version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
 		try {
 			return Class.forName("org.bukkit.craftbukkit." + version + "." + name);
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -95,7 +95,7 @@ public class ActionMessageUtil {
 	public class AMText {
 		private String Message = "";
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		private Map<String, Map.Entry<String, String>> Modifiers = new HashMap();
+		private final Map<String, Map.Entry<String, String>> Modifiers = new HashMap();
 
 		public AMText(String Text) {
 			this.Message = Text;
@@ -107,8 +107,8 @@ public class ActionMessageUtil {
 
 		public String getFormattedMessage() {
 			String Chat = "{\"text\":\"" + this.Message + "\"";
-			for (String Event : this.Modifiers.keySet()) {
-				Map.Entry<String, String> Modifier = this.Modifiers.get(Event);
+			for (final String Event : this.Modifiers.keySet()) {
+				final Map.Entry<String, String> Modifier = this.Modifiers.get(Event);
 				Chat = Chat + ",\"" + Event + "\":{\"action\":\"" + Modifier.getKey() + "\",\"value\":"
 						+ Modifier.getValue() + "}";
 			}
@@ -118,23 +118,23 @@ public class ActionMessageUtil {
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public AMText addHoverText(String... Text) {
-			String Event = "hoverEvent";
-			String Key = "show_text";
+			final String Event = "hoverEvent";
+			final String Key = "show_text";
 			String Value = "";
 			if (Text.length == 1) {
 				Value = "{\"text\":\"" + Text[0] + "\"}";
 			} else {
 				Value = "{\"text\":\"\",\"extra\":[";
 				String[] arrayOfString;
-				int j = (arrayOfString = Text).length;
+				final int j = (arrayOfString = Text).length;
 				for (int i = 0; i < j; i++) {
-					String Message = arrayOfString[i];
+					final String Message = arrayOfString[i];
 					Value = Value + "{\"text\":\"" + Message + "\"},";
 				}
 				Value = Value.substring(0, Value.length() - 1);
 				Value = Value + "]}";
 			}
-			Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, Value);
+			final Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, Value);
 			this.Modifiers.put(Event, Values);
 			return this;
 		}
@@ -142,16 +142,16 @@ public class ActionMessageUtil {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public AMText addHoverItem(org.bukkit.inventory.ItemStack Item) {
 			try {
-				String Event = "hoverEvent";
-				String Key = "show_item";
-				Object craftItemStack = getCBClass("CraftItemStack");
-				Class<?> items = Class.forName("org.bukkit.inventory.ItemStack");
-				Object NMS = craftItemStack.getClass().getMethod("asNMSCopy", items).invoke(Item);
-				String Value = NMS.getClass().getMethod("getTag").toString();
-				Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, Value);
+				final String Event = "hoverEvent";
+				final String Key = "show_item";
+				final Object craftItemStack = getCBClass("CraftItemStack");
+				final Class<?> items = Class.forName("org.bukkit.inventory.ItemStack");
+				final Object NMS = craftItemStack.getClass().getMethod("asNMSCopy", items).invoke(Item);
+				final String Value = NMS.getClass().getMethod("getTag").toString();
+				final Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, Value);
 				this.Modifiers.put(Event, Values);
 				return this;
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				e.printStackTrace();
 			}
 			return null;
@@ -159,9 +159,9 @@ public class ActionMessageUtil {
 
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		public AMText setClickEvent(ActionMessageUtil.ClickableType Type, String Value) {
-			String Event = "clickEvent";
-			String Key = Type.Action;
-			Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, "\"" + Value + "\"");
+			final String Event = "clickEvent";
+			final String Key = Type.Action;
+			final Map.Entry<String, String> Values = new AbstractMap.SimpleEntry(Key, "\"" + Value + "\"");
 			this.Modifiers.put(Event, Values);
 			return this;
 		}

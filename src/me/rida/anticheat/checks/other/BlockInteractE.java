@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.other;
+
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class BlockInteractE extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> speedTicks;
 	public BlockInteractE(AntiCheat AntiCheat) {
 		super("BlockInteractE", "BI", CheckType.Other, true, false, false, false, true, 15, 1, 600000L, AntiCheat);
-		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		speedTicks = new HashMap<>();
 	}
 
 	@SuppressWarnings("unlikely-arg-type")
@@ -33,8 +34,8 @@ public class BlockInteractE extends Check {
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 				return;
 			}
-			Player p = e.getPlayer();
-			UUID u = p.getUniqueId();
+			final Player p = e.getPlayer();
+			final UUID u = p.getUniqueId();
 			if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
@@ -44,12 +45,12 @@ public class BlockInteractE extends Check {
 				level = speedTicks.get(p.getUniqueId()).getKey().intValue();
 				Time = speedTicks.get(p.getUniqueId()).getValue().longValue();
 			}
-			double diff = System.currentTimeMillis() - Time;
+			final double diff = System.currentTimeMillis() - Time;
 			level = diff >= 2.0
 					? (diff <= 51.0 ? (level += 2)
 							: (diff <= 100.0 ? (level += 0) : (diff <= 500.0 ? (level -= 6) : (level -= 12))))
 							: ++level;
-					int max = 50;
+					final int max = 50;
 					if (level > max * 0.9D && diff <= 100.0D) {
 						getAntiCheat().logCheat(this, p, "BlockInteract: " + "Level: " + level + " Ping: " + getAntiCheat().lag.getPing(p), "(Type: E)");
 						if (level > max) {
@@ -59,7 +60,7 @@ public class BlockInteractE extends Check {
 						level = 0;
 					}
 					speedTicks.put(u,
-							new AbstractMap.SimpleEntry<Integer, Long>(level, System.currentTimeMillis()));
+							new AbstractMap.SimpleEntry<>(level, System.currentTimeMillis()));
 		}
 	}
 }

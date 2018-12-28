@@ -20,8 +20,8 @@ import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class CriticalsB extends Check {
-	public static Map<UUID, Map.Entry<Integer, Long>> CritTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-	public static Map<UUID, Double> FallDistance = new HashMap<UUID, Double>();
+	public static Map<UUID, Map.Entry<Integer, Long>> CritTicks = new HashMap<>();
+	public static Map<UUID, Double> FallDistance = new HashMap<>();
 
 	public CriticalsB(AntiCheat AntiCheat) {
 		super("CriticalsB", "Criticals",  CheckType.Combat, true, true, false, true, false, 4, 1, 600000L, AntiCheat);
@@ -34,7 +34,7 @@ public class CriticalsB extends Check {
 			return;
 		}
 
-		Player p = (Player) e.getDamager();
+		final Player p = (Player) e.getDamager();
 		if (p.getAllowFlight()
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
 				|| CheatUtil.slabsNear(p.getLocation())
@@ -43,7 +43,7 @@ public class CriticalsB extends Check {
 			return;
 		}
 
-		Location pL = p.getLocation().clone();
+		final Location pL = p.getLocation().clone();
 		pL.add(0.0, p.getEyeHeight() + 1.0, 0.0);
 		if (CheatUtil.blocksNear(pL)) {
 			return;
@@ -57,7 +57,7 @@ public class CriticalsB extends Check {
 		if (!FallDistance.containsKey(p.getUniqueId())) {
 			return;
 		}
-		double realFallDistance = FallDistance.get(p.getUniqueId());
+		final double realFallDistance = FallDistance.get(p.getUniqueId());
 		Count = p.getFallDistance() > 0.0 && !p.isOnGround() && realFallDistance == 0.0 ? ++Count : 0;
 		if (CritTicks.containsKey(p.getUniqueId()) && TimeUtil.elapsed(Time, 10000)) {
 			Count = 0;
@@ -67,12 +67,12 @@ public class CriticalsB extends Check {
 			Count = 0;
 			this.getAntiCheat().logCheat(this, p, "Count: " + Count, "(Type: B)");
 		}
-		CritTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		CritTicks.put(p.getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p2 = e.getPlayer();
+		final Player p2 = e.getPlayer();
 		double Falling = 0.0;
 		if (!p2.isOnGround() && e.getFrom().getY() > e.getTo().getY()) {
 			if (FallDistance.containsKey(p2.getUniqueId())) {

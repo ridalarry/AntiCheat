@@ -7,12 +7,12 @@ import org.bukkit.event.HandlerList;
 import me.rida.anticheat.packets.PacketPlayerType;
 
 public class PacketPlayerEvent extends Event {
-	private Player Player;
-	private double x;
-	private double y;
-	private double z;
-	private float pitch;
-	private float yaw;
+	private final Player Player;
+	private final double x;
+	private final double y;
+	private final double z;
+	private final float pitch;
+	private final float yaw;
 	private static final HandlerList handlers;
 	private PacketPlayerType type;
 	static { handlers = new HandlerList();}

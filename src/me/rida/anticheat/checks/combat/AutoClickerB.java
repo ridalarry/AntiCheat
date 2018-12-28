@@ -29,9 +29,9 @@ public class AutoClickerB extends Check {
 	public AutoClickerB(AntiCheat AntiCheat) {
 		super("AutoClickerB", "AutoClicker",  CheckType.Combat, true, false, false, false, true, 12, 2, 600000L, AntiCheat);
 
-		LastMS = new HashMap<UUID, Long>();
-		Clicks = new HashMap<UUID, List<Long>>();
-		ClickTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		LastMS = new HashMap<>();
+		Clicks = new HashMap<>();
+		ClickTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -43,7 +43,7 @@ public class AutoClickerB extends Check {
 			return;
 		}
 
-		Player damager = e.getAttacker();
+		final Player damager = e.getAttacker();
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (ClickTicks.containsKey(damager.getUniqueId())) {
@@ -51,17 +51,17 @@ public class AutoClickerB extends Check {
 			Time = ClickTicks.get(damager.getUniqueId()).getValue();
 		}
 		if (LastMS.containsKey(damager.getUniqueId())) {
-			long MS = TimeUtil.nowlong() - LastMS.get(damager.getUniqueId());
+			final long MS = TimeUtil.nowlong() - LastMS.get(damager.getUniqueId());
 			if (MS > 500L || MS < 5L) {
 				LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
 				return;
 			}
 			if (Clicks.containsKey(damager.getUniqueId())) {
-				List<Long> Clicks = AutoClickerB.Clicks.get(damager.getUniqueId());
+				final List<Long> Clicks = AutoClickerB.Clicks.get(damager.getUniqueId());
 				if (Clicks.size() == 3) {
 					AutoClickerB.Clicks.remove(damager.getUniqueId());
 					Collections.sort(Clicks);
-					long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
+					final long Range = Clicks.get(Clicks.size() - 1) - Clicks.get(0);
 
 					if (Range >= 0 && Range <= 2) {
 						++Count;
@@ -75,7 +75,7 @@ public class AutoClickerB extends Check {
 					AutoClickerB.Clicks.put(damager.getUniqueId(), Clicks);
 				}
 			} else {
-				List<Long> Clicks = new ArrayList<Long>();
+				final List<Long> Clicks = new ArrayList<>();
 				Clicks.add(MS);
 				AutoClickerB.Clicks.put(damager.getUniqueId(), Clicks);
 			}
@@ -94,6 +94,6 @@ public class AutoClickerB extends Check {
 			this.dumplog(damager, "Logged for AutoClicker Type B; Would set off Autoclicker (Constant) but latency is too high!");
 		}
 		LastMS.put(damager.getUniqueId(), TimeUtil.nowlong());
-		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		ClickTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

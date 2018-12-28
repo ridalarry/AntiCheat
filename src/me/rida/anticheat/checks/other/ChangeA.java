@@ -11,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -20,8 +19,8 @@ import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
 public class ChangeA extends Check {
-	private List<UUID> built = new ArrayList<UUID>();
-	public static List<UUID> falling = new ArrayList<UUID>();
+	private final List<UUID> built = new ArrayList<>();
+	public static List<UUID> falling = new ArrayList<>();
 
 	public ChangeA(AntiCheat AntiCheat) {
 		super("ChangeA", "Change", CheckType.Other, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
@@ -32,8 +31,8 @@ public class ChangeA extends Check {
 		if (!this.isEnabled()) {
 			return;
 		}
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (p.getAllowFlight()) {
 			return;
 		}
@@ -47,7 +46,7 @@ public class ChangeA extends Check {
 			return;
 		}
 		int n = 0;
-		int n2 = 5;
+		final int n2 = 5;
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if (!(PlayerUtil.isOnTheGround(p) || ServerUtil.isOnBlock(p, 0, new Material[]{Material.CARPET}) || ServerUtil.isHoveringOverWater(p, 0) || p.getLocation().getBlock().getType() != Material.AIR)) {
 				if (e.getFrom().getY() > e.getTo().getY()) {
@@ -99,11 +98,11 @@ public class ChangeA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onAttack(BlockPlaceEvent e) {
 		if (e.getPlayer() instanceof Player) {
-			Player p = e.getPlayer();
-			UUID u = p.getUniqueId();
+			final Player p = e.getPlayer();
+			final UUID u = p.getUniqueId();
 			this.built.add(u);
-			Bukkit.getScheduler().runTaskLater((Plugin)AntiCheat.Instance, () -> {
-				boolean bl = this.built.remove(u);
+			Bukkit.getScheduler().runTaskLater(AntiCheat.Instance, () -> {
+				final boolean bl = this.built.remove(u);
 			}
 			, 60);
 		}

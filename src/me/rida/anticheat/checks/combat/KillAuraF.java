@@ -19,7 +19,7 @@ public class KillAuraF extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> AuraTicks;
 	public KillAuraF(AntiCheat AntiCheat) {
 		super("KillAuraF", "KillAura",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
-		AuraTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		AuraTicks = new HashMap<>();
 	}
 	@EventHandler
 	public void UseEntity(PacketUseEntityEvent e) {
@@ -27,8 +27,8 @@ public class KillAuraF extends Check {
 				|| !((e.getAttacked()) instanceof Player)) {
 			return;
 		}
-		Player damager = e.getAttacker();
-		Player player = (Player) e.getAttacked();
+		final Player damager = e.getAttacker();
+		final Player player = (Player) e.getAttacked();
 
 		if (damager.getAllowFlight()
 				|| player.getAllowFlight()) {
@@ -41,14 +41,14 @@ public class KillAuraF extends Check {
 			Count = AuraTicks.get(damager.getUniqueId()).getKey();
 			Time = AuraTicks.get(damager.getUniqueId()).getValue();
 		}
-		double OffsetXZ = CheatUtil.getAimbotoffset(damager.getLocation(), damager.getEyeHeight(),
+		final double OffsetXZ = CheatUtil.getAimbotoffset(damager.getLocation(), damager.getEyeHeight(),
 				player);
 		double LimitOffset = 200.0;
 		if (damager.getVelocity().length() > 0.08
 				|| this.getAntiCheat().LastVelocity.containsKey(damager.getUniqueId())) {
 			LimitOffset += 200.0;
 		}
-		int Ping = this.getAntiCheat().getLag().getPing(damager);
+		final int Ping = this.getAntiCheat().getLag().getPing(damager);
 		if (Ping >= 100 && Ping < 200) {
 			LimitOffset += 50.0;
 		} else if (Ping >= 200 && Ping < 250) {
@@ -81,6 +81,6 @@ public class KillAuraF extends Check {
 			Count = 0;
 			getAntiCheat().logCheat(this, damager, "Hit Miss Ratio", "(Type: F)");
 		}
-		AuraTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		AuraTicks.put(damager.getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

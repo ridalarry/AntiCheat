@@ -22,9 +22,9 @@ public class ReachM extends Check {
 	public void onAttack(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
-				Player player = (Player) event.getDamager();
+				final Player player = (Player) event.getDamager();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					double distance = MathUtil.getHorizontalDistance(player.getLocation(), event.getEntity().getLocation()) - 0.3;
+					final double distance = MathUtil.getHorizontalDistance(player.getLocation(), event.getEntity().getLocation()) - 0.3;
 					double Reach = 3.4;
 					final double yawDifference = 0.01 - Math.abs(Math.abs(player.getEyeLocation().getYaw()) - Math.abs(event.getEntity().getLocation().getYaw()));
 					Reach += Math.abs(player.getVelocity().length() + event.getEntity().getVelocity().length()) * 2.5;
@@ -32,22 +32,22 @@ public class ReachM extends Check {
 					if (Reach < 3.4) {
 						Reach = 3.4;
 					}
-					double maxReach = 4.25;
+					final double maxReach = 4.25;
 					if (distance > Reach) {
-						int ping = getAntiCheat().getLag().getPing(player);
-						double tps = getAntiCheat().getLag().getTPS();
-						String dist = Double.toString(distance).substring(0, 3);
+						final int ping = getAntiCheat().getLag().getPing(player);
+						final double tps = getAntiCheat().getLag().getTPS();
+						final String dist = Double.toString(distance).substring(0, 3);
 						if (distance > maxReach) {
 							if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 								if (distance > maxReach + 1.0) {
 									if (player != null) {
 										getAntiCheat().logCheat(this, player, "Over max reach; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: M)");
-									} 
+									}
 								}
 							} else {
 								if (player != null) {
 									getAntiCheat().logCheat(this, player, "Over max reach; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: M)");
-								} 
+								}
 							}
 						}
 					}

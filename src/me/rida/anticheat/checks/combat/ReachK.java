@@ -23,14 +23,14 @@ public class ReachK extends Check {
 	public void onHit(EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
-				Player player = (Player) event.getDamager();
-				Player target = (Player) event.getEntity();
+				final Player player = (Player) event.getDamager();
+				final Player target = (Player) event.getEntity();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					Location entityLoc = target.getLocation().add(0.0D, target.getEyeHeight(), 0.0D);
-					Location playerLoc = player.getLocation().add(0.0D, player.getEyeHeight(), 0.0D);
+					final Location entityLoc = target.getLocation().add(0.0D, target.getEyeHeight(), 0.0D);
+					final Location playerLoc = player.getLocation().add(0.0D, player.getEyeHeight(), 0.0D);
 					double distance = MathUtil.getDistance3D(entityLoc, playerLoc);
-					int ping = getAntiCheat().getLag().getPing(player);
-					double maxReach = 4.3;
+					final int ping = getAntiCheat().getLag().getPing(player);
+					final double maxReach = 4.3;
 					if(ping > 100) {
 						distance+=0.2;
 					} else if(ping > 200) {
@@ -42,8 +42,8 @@ public class ReachK extends Check {
 					} else if(ping > 500) {
 						distance+=0.6;
 					}
-					double tps = getAntiCheat().getLag().getTPS();
-					String dist = Double.toString(distance).substring(0, 3);
+					final double tps = getAntiCheat().getLag().getTPS();
+					final String dist = Double.toString(distance).substring(0, 3);
 					if (distance > maxReach) {
 						if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 							if (distance > maxReach + 1.0) {

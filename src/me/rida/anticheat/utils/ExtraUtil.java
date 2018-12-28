@@ -12,29 +12,29 @@ public class ExtraUtil {
 		return isOnGround(player, 0.25);
 	}
 	public static boolean isOnGround(Player player, double yExpanded) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -yExpanded, 0,0,0,0);
 
 		return ReflectionUtil.getCollidingBlocks(player, box).size() > 0;
 	}
 
 	public static boolean isNotSpider(Player player) {
 		return isOnGround(player, 1.25);
-	} 
+	}
 
 	public static boolean isInLiquid(Player player) {
-		Object box = ReflectionUtil.getBoundingBox(player);
+		final Object box = ReflectionUtil.getBoundingBox(player);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(isLiquid(block)) {
 						return true;
@@ -46,19 +46,19 @@ public class ExtraUtil {
 	}
 
 	public static boolean isInStairs(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(isStair(block)
 							|| isSlab(block)
@@ -80,19 +80,19 @@ public class ExtraUtil {
 
 
 	public static boolean inUnderBlock(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, 0,0,0,1,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(block.getType().isSolid()) {
 						return true;
@@ -105,19 +105,19 @@ public class ExtraUtil {
 
 
 	public static boolean isOnIce(Player player) {
-		Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
+		final Object box = ReflectionUtil.modifyBoundingBox(ReflectionUtil.getBoundingBox(player), 0, -0.5,0,0,0,0);
 
-		double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
-		double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
-		double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
-		double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
-		double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
-		double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
+		final double minX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "a"), box);
+		final double minY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "b"), box);
+		final double minZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "c"), box);
+		final double maxX = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "d"), box);
+		final double maxY = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "e"), box);
+		final double maxZ = (double) ReflectionUtil.getInvokedField(ReflectionUtil.getField(box.getClass(), "f"), box);
 
 		for(double x = minX ; x < maxX ; x++) {
 			for(double y = minY ; y < maxY ; y++) {
 				for(double z = minZ ; z < maxZ ; z++) {
-					Block block = new Location(player.getWorld(), x, y, z).getBlock();
+					final Block block = new Location(player.getWorld(), x, y, z).getBlock();
 
 					if(block.getType().equals(Material.ICE)
 							|| block.getType().equals(Material.PACKED_ICE)) {
@@ -141,22 +141,22 @@ public class ExtraUtil {
 	}
 
 	public static float[] getRotations(Location one, Location two) {
-		double diffX = two.getX() - one.getX();
-		double diffZ = two.getZ() - one.getZ();
-		double diffY = two.getY() + 2.0 - 0.4 - (one.getY() + 2.0);
-		double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
-		float yaw = (float) (Math.atan2(diffZ, diffX) * 180.0 / 3.141592653589793) - 90.0f;
-		float pitch = (float) (-Math.atan2(diffY, dist) * 180.0 / 3.141592653589793);
+		final double diffX = two.getX() - one.getX();
+		final double diffZ = two.getZ() - one.getZ();
+		final double diffY = two.getY() + 2.0 - 0.4 - (one.getY() + 2.0);
+		final double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
+		final float yaw = (float) (Math.atan2(diffZ, diffX) * 180.0 / 3.141592653589793) - 90.0f;
+		final float pitch = (float) (-Math.atan2(diffY, dist) * 180.0 / 3.141592653589793);
 		return new float[]{yaw, pitch};
 	}
 
 	public static double[] getOffsetFromEntity(Player player, LivingEntity entity) {
-		double yawOffset = Math.abs(yawTo180F(player.getEyeLocation().getYaw()) - yawTo180F(getRotations(player.getLocation(), entity.getLocation())[0]));
-		double pitchOffset = Math.abs(Math.abs(player.getEyeLocation().getPitch()) - Math.abs(getRotations(player.getLocation(), entity.getLocation())[1]));
+		final double yawOffset = Math.abs(yawTo180F(player.getEyeLocation().getYaw()) - yawTo180F(getRotations(player.getLocation(), entity.getLocation())[0]));
+		final double pitchOffset = Math.abs(Math.abs(player.getEyeLocation().getPitch()) - Math.abs(getRotations(player.getLocation(), entity.getLocation())[1]));
 		return new double[]{yawOffset, pitchOffset};
 	}
 	public static boolean isLiquid(Block block) {
-		Material type = block.getType();
+		final Material type = block.getType();
 
 		return type.equals(Material.WATER) || type.equals(Material.STATIONARY_LAVA)
 				|| type.equals(Material.LAVA) || type.equals(Material.STATIONARY_LAVA);
@@ -181,12 +181,12 @@ public class ExtraUtil {
 		for (int radius = 2, x = -radius; x < radius; ++x) {
 			for (int y = -radius; y < radius; ++y) {
 				for (int z = -radius; z < radius; ++z) {
-					Material mat = loc.getWorld().getBlockAt(loc.add((double)x, (double)y, (double)z)).getType();
+					final Material mat = loc.getWorld().getBlockAt(loc.add(x, y, z)).getType();
 					if (mat.isSolid() || mat == Material.WATER || mat == Material.STATIONARY_WATER || mat == Material.LAVA || mat == Material.STATIONARY_LAVA) {
-						loc.subtract((double)x, (double)y, (double)z);
+						loc.subtract(x, y, z);
 						return true;
 					}
-					loc.subtract((double)x, (double)y, (double)z);
+					loc.subtract(x, y, z);
 				}
 			}
 		}

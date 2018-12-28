@@ -19,9 +19,9 @@ public class InvMoveA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		InventoryView view = p.getOpenInventory();
-		Inventory top = view.getTopInventory();
+		final Player p = e.getPlayer();
+		final InventoryView view = p.getOpenInventory();
+		final Inventory top = view.getTopInventory();
 		if (view !=null) {
 			if (top.toString().contains("CraftInventoryCrafting")
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

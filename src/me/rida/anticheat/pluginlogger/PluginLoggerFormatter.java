@@ -21,12 +21,13 @@ public class PluginLoggerFormatter extends Formatter {
 		}
 		try {
 			String.format(format, new Date(), "", "", "", "", "");
-		} catch (IllegalArgumentException var3) {
+		} catch (final IllegalArgumentException var3) {
 			format = DEFAULT_FORMAT;
 		}
 		this.format = format;
 	}
 
+	@Override
 	public synchronized String format(LogRecord record) {
 		dat.setTime(record.getMillis());
 		String source;
@@ -38,11 +39,11 @@ public class PluginLoggerFormatter extends Formatter {
 		} else {
 			source = record.getLoggerName();
 		}
-		String message = formatMessage(record);
+		final String message = formatMessage(record);
 		String throwable = "";
 		if (record.getThrown() != null) {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
+			final StringWriter sw = new StringWriter();
+			final PrintWriter pw = new PrintWriter(sw);
 			pw.println();
 			record.getThrown().printStackTrace(pw);
 			pw.close();

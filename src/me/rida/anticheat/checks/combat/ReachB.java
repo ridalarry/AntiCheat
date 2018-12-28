@@ -27,8 +27,8 @@ public class ReachB extends Check {
 	public ReachB(AntiCheat AntiCheat) {
 		super("ReachB", "Reach",  CheckType.Combat, true, true, false, true, false, 7, 1, 30000L, AntiCheat);
 
-		offsets = new WeakHashMap<Player, Map.Entry<Double, Double>>();
-		count = new WeakHashMap<Player, Integer>();
+		offsets = new WeakHashMap<>();
+		count = new WeakHashMap<>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -36,22 +36,23 @@ public class ReachB extends Check {
 		if (e.getFrom().getX() == e.getTo().getX() && e.getFrom().getZ() == e.getTo().getZ()) {
 			return;
 		}
-		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+		final double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
 				MathUtil.getHorizontalVector(e.getTo().toVector()));
-		double horizontal = Math.sqrt(Math.pow(e.getTo().getX() - e.getFrom().getX(), 2.0)
+		final double horizontal = Math.sqrt(Math.pow(e.getTo().getX() - e.getFrom().getX(), 2.0)
 				+ Math.pow(e.getTo().getZ() - e.getFrom().getZ(), 2.0));
 		offsets.put(e.getPlayer(),
-				new AbstractMap.SimpleEntry<Double, Double>(Double.valueOf(OffsetXZ), Double.valueOf(horizontal)));
+				new AbstractMap.SimpleEntry<>(Double.valueOf(OffsetXZ), Double.valueOf(horizontal)));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onDamage(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
 				|| !(e.getEntity() instanceof Player)
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel())
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 			return;
-		Player d = (Player) e.getDamager();
-		Player p = (Player) e.getEntity();
+		}
+		final Player d = (Player) e.getDamager();
+		final Player p = (Player) e.getEntity();
 		if (d.getAllowFlight()
 				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
@@ -59,18 +60,18 @@ public class ReachB extends Check {
 				|| getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		double Reach = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
-		double Reach2 = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
+		final double Reach = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
+		final double Reach2 = MathUtil.trim(2, PlayerUtil.getEyeLocation(d).distance(p.getEyeLocation()) - 0.32);
 		double Difference;
 
 		if (!count.containsKey(d)) {
 			count.put(d, 0);
 		}
 
-		int Count = count.get(d);
+		final int Count = count.get(d);
 		long Time = System.currentTimeMillis();
 		double maxReach = 3.1;
-		double YawDifference = Math.abs(d.getEyeLocation().getYaw() - p.getEyeLocation().getYaw());
+		final double YawDifference = Math.abs(d.getEyeLocation().getYaw() - p.getEyeLocation().getYaw());
 		double speedToVelocityDif = 0;
 		double offsets = 0.0D;
 
@@ -95,8 +96,8 @@ public class ReachB extends Check {
 		}
 		maxReach += d.getWalkSpeed() <= 0.2 ? 0 : d.getWalkSpeed() - 0.2;
 
-		int PingD = this.getAntiCheat().getLag().getPing(d);
-		int PingP = this.getAntiCheat().getLag().getPing(p);
+		final int PingD = this.getAntiCheat().getLag().getPing(d);
+		final int PingP = this.getAntiCheat().getLag().getPing(p);
 		maxReach += ((PingD + PingP) / 2) * 0.0024;
 		if(PingD > 400) {
 			maxReach += 1.0D;

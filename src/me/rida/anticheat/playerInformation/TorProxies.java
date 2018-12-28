@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TorProxies {
-
-	public static List<String> proxiesList = new ArrayList<String>();
-	
-	public static List<String> proxiesList2 = new ArrayList<String>();
-	
-	
+	public static List<String> proxiesList = new ArrayList<>();
+	public static List<String> proxiesList2 = new ArrayList<>();
 	public static void createTorProxiesList2(){
 		proxiesList2.add("91.121.230.208");
 		proxiesList2.add("91.121.230.212");
@@ -3510,12 +3506,12 @@ public class TorProxies {
 		proxiesList2.add("223.16.90.167");
 		proxiesList2.add("223.26.48.248");
 		proxiesList2.add("223.197.177.165");
-		
-		
+
+
 	}
-	
+
 	public static void createTorProxiesList1(){
-		
+
 		proxiesList.add("1.33.65.204");
 		proxiesList.add("1.160.199.169");
 		proxiesList.add("1.168.78.118");

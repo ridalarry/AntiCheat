@@ -27,23 +27,23 @@ public class NoSlowdownB extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Location from = e.getFrom();
-		Location to = e.getTo();
+		final Location from = e.getFrom();
+		final Location to = e.getTo();
 		if (to.getX() == e.getFrom().getX() && from.getY() == to.getY()
 				&& from.getZ() == from.getZ()) {
 			return;
 		}
-		Player p = e.getPlayer();
-		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(from.toVector()), MathUtil.getVerticalVector(to.toVector()));
-		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
+		final Player p = e.getPlayer();
+		final double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(from.toVector()), MathUtil.getVerticalVector(to.toVector()));
+		final double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(from.toVector()), MathUtil.getHorizontalVector(to.toVector()));
 		if (!BlockUtil.isNearLiquid(p)
-				|| p.getAllowFlight() 
+				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| PlayerUtil.isNearSlab(p)
 				|| BlockUtil.isNearFence(p)
 				|| BlockUtil.isNearStair(p)
 				|| PlayerUtil.isNearSign(p)
-				|| OffsetY > 0.55 
+				|| OffsetY > 0.55
 				|| OffsetXZ > 0.3
 				|| to.getY() < from.getY()
 				|| PlayerUtil.isNearAir(p)

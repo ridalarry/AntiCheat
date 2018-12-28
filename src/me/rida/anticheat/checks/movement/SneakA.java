@@ -20,13 +20,13 @@ public class SneakA extends Check {
 
 	public SneakA(AntiCheat AntiCheat) {
 		super("SneakA", "Sneak", CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
-		sneakTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		sneakTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void EntityAction(PacketEntityActionEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !p.isSneaking()) {
@@ -51,6 +51,6 @@ public class SneakA extends Check {
 			Count = 0;
 			getAntiCheat().logCheat(this, p, null, "(Type: A)");
 		}
-		sneakTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		sneakTicks.put(u, new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

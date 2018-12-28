@@ -9,11 +9,11 @@ import org.bukkit.inventory.ItemStack;
 
 public class PearlGlitchEvent extends Event implements Cancellable {
 
-	private Player player;
-	private Location from;
-	private Location to;
-	private ItemStack pearls;
-	private PearlGlitchType type;
+	private final Player player;
+	private final Location from;
+	private final Location to;
+	private final ItemStack pearls;
+	private final PearlGlitchType type;
 	private static HandlerList handlers = new HandlerList();
 	private boolean cancelled = false;
 
@@ -52,10 +52,12 @@ public class PearlGlitchEvent extends Event implements Cancellable {
 		return false;
 	}
 
+	@Override
 	public boolean isCancelled() {
 		return this.cancelled;
 	}
 
+	@Override
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
 	}
@@ -64,6 +66,7 @@ public class PearlGlitchEvent extends Event implements Cancellable {
 		return handlers;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

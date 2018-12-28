@@ -21,9 +21,9 @@ public class ImpossibleMovementsA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		Location from  =e.getFrom();
-		Location to = e.getTo();
+		final Player p = e.getPlayer();
+		final Location from  =e.getFrom();
+		final Location to = e.getTo();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
@@ -31,7 +31,7 @@ public class ImpossibleMovementsA extends Check {
 				|| p.getAllowFlight()) {
 			return;
 		}
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (p.getLocation().add(0,-0.30,0).getBlock().getType() == Material.CACTUS && p.getLocation().getBlock().getType() == Material.AIR) {
 				if (data.getAntiCactus_VL() >= 3) {
@@ -47,8 +47,8 @@ public class ImpossibleMovementsA extends Check {
 				data.setWebFloatMS(TimerUtil.nowlong());
 			} else if (data.isWebFloatMS_Set()) {
 				if (e.getTo().getY() == e.getFrom().getY()) {
-					double x = Math.floor(from.getX());
-					double z = Math.floor(from.getZ());
+					final double x = Math.floor(from.getX());
+					final double z = Math.floor(from.getZ());
 					if(Math.floor(to.getX())!=x||Math.floor(to.getZ())!=z) {
 						if (data.getWebFloat_BlockCount() > 0) {
 							if (p.getLocation().add(0,-0.50,0).getBlock().getType() != Material.WEB) {

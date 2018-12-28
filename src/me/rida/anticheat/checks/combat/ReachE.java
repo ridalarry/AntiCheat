@@ -30,16 +30,16 @@ public class ReachE extends Check {
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
 			return;
 		}
-		Player p = (Player) e.getPlayer();
-		Entity d = e.getEntity();
+		final Player p = e.getPlayer();
+		final Entity d = e.getEntity();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));
+		final double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));
 		double Difference = PlayerUtil.getEyeLocation(p).distance(d.getLocation()) - 0.35;
-		int Ping = getAntiCheat().getLag().getPing(p);
-		double TPS = getAntiCheat().getLag().getTPS();
+		final int Ping = getAntiCheat().getLag().getPing(p);
+		final double TPS = getAntiCheat().getLag().getTPS();
 		double maxReach = 3.0 + d.getVelocity().length();
 		if (p.getAllowFlight()) {
 			maxReach += p.getFlySpeed();
@@ -68,26 +68,26 @@ public class ReachE extends Check {
 			Difference = p.getLocation().getY() - p.getLocation().getY();
 			maxReach += Difference / 2.5;
 		}
-		for (PotionEffect effect : p.getActivePotionEffects()) {
+		for (final PotionEffect effect : p.getActivePotionEffects()) {
 			if (effect.getType().equals(PotionEffectType.SPEED)) {
 				maxReach += 0.2D * (effect.getAmplifier() + 1);
 			}
 		}
 		if (TPS <20) {
-			double TPSMultiplier = TPS / 20;
-			double tmp = maxReach / TPSMultiplier;
+			final double TPSMultiplier = TPS / 20;
+			final double tmp = maxReach / TPSMultiplier;
 			maxReach = tmp;
 		}
-		float velocity = (float)((Ping*0.0025) + Math.abs(d.getVelocity().length()) * 0.8);
+		final float velocity = (float)((Ping*0.0025) + Math.abs(d.getVelocity().length()) * 0.8);
 		maxReach += velocity;
 		maxReach += Ping < 250 ? Ping * 0.01262 : Ping * 0.0415;
 		maxReach += YawDifference * 0.008;
-		double ChanceVal = Math.round(Math.abs((Difference - maxReach) * 100));
-		double x = Math.abs(Math.abs(p.getLocation().getX()) - Math.abs(d.getLocation().getX()));
-		double y = Math.abs(Math.abs(p.getLocation().getY()) - Math.abs(d.getLocation().getY()));
-		double z = Math.abs(Math.abs(p.getLocation().getZ()) - Math.abs(d.getLocation().getZ()));
-		double distance = x+y+z;
-		double Reach1 = Difference - maxReach;
+		final double ChanceVal = Math.round(Math.abs((Difference - maxReach) * 100));
+		final double x = Math.abs(Math.abs(p.getLocation().getX()) - Math.abs(d.getLocation().getX()));
+		final double y = Math.abs(Math.abs(p.getLocation().getY()) - Math.abs(d.getLocation().getY()));
+		final double z = Math.abs(Math.abs(p.getLocation().getZ()) - Math.abs(d.getLocation().getZ()));
+		final double distance = x+y+z;
+		final double Reach1 = Difference - maxReach;
 		double Reach = Reach1;
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {
 			Reach += 4;
@@ -95,7 +95,7 @@ public class ReachE extends Check {
 		else {
 			Reach += 3;
 		}
-		String en = d.getName().toString();
+		final String en = d.getName().toString();
 		if (maxReach < Difference) {
 			getAntiCheat().logCheat(this, p, "Attacked: " + en + "; Reach: " + Reach + "; Max Reach: " + maxReach + "; Distance: " + distance + "; Chance: " + ChanceVal + "%", "(Type: E)");
 		}

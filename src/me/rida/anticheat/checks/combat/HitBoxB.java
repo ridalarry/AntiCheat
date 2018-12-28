@@ -24,8 +24,8 @@ public class HitBoxB extends Check {
 		if (!(e.getDamager() instanceof Player) || !(e.getEntity() instanceof Player)) {
 			return;
 		}
-		Player p = (Player)e.getDamager();
-		Player p2 = (Player)e.getEntity();
+		final Player p = (Player)e.getDamager();
+		final Player p2 = (Player)e.getEntity();
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p2.getGameMode().equals(GameMode.CREATIVE)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -33,15 +33,15 @@ public class HitBoxB extends Check {
 				|| getAntiCheat().getLag().getPing(p2) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		if (!this.hasInHitBox((LivingEntity)p2)) {
+		if (!this.hasInHitBox(p2)) {
 			getAntiCheat().logCheat(this, p, "Hitbox was larger than 1.05", "(Type: B)");
 		}
 	}
 
 	private boolean hasInHitBox(LivingEntity e) {
 		boolean bl = false;
-		Vector vector = e.getLocation().toVector().subtract(e.getLocation().toVector());
-		Vector vector2 = e.getLocation().toVector().subtract(e.getLocation().toVector());
+		final Vector vector = e.getLocation().toVector().subtract(e.getLocation().toVector());
+		final Vector vector2 = e.getLocation().toVector().subtract(e.getLocation().toVector());
 		if (!(e.getLocation().getDirection().normalize().crossProduct(vector).lengthSquared() >= this.HITBOX_LENGTH && e.getLocation().getDirection().normalize().crossProduct(vector2).lengthSquared() >= this.HITBOX_LENGTH || vector.normalize().dot(e.getLocation().getDirection().normalize()) < 0.0 && vector2.normalize().dot(e.getLocation().getDirection().normalize()) < 0.0)) {
 			bl = true;
 		}

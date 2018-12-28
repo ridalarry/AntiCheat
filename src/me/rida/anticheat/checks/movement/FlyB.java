@@ -26,7 +26,7 @@ public class FlyB extends Check {
 
 	public FlyB(AntiCheat AntiCheat) {
 		super("FlyB", "Fly", CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
-		flyTicks = new HashMap<UUID, Long>();
+		flyTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -35,7 +35,7 @@ public class FlyB extends Check {
 				|| ServerUtil.isBukkitVerison("1_13")) {
 			return;
 		}
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 
 		if (e.isCancelled()
 				|| (e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
@@ -67,7 +67,7 @@ public class FlyB extends Check {
 				flyTicks.remove(p.getUniqueId());
 			}
 			return;
-		} 
+		}
 		if (Math.abs(e.getTo().getY() - e.getFrom().getY()) > 0.06) {
 			if (flyTicks.containsKey(p.getUniqueId())) {
 				flyTicks.remove(p.getUniqueId());
@@ -79,7 +79,7 @@ public class FlyB extends Check {
 		if (flyTicks.containsKey(p.getUniqueId())) {
 			Time = flyTicks.get(p.getUniqueId()).longValue();
 		}
-		long MS = System.currentTimeMillis() - Time;
+		final long MS = System.currentTimeMillis() - Time;
 		if (MS > 200L) {
 			dumplog(p, "Logged for Fly Type B;  MS: " + MS);
 			getAntiCheat().logCheat(this, p, "Hovering for " + MS + " MS", "(Type: B)"

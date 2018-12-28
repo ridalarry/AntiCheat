@@ -5,12 +5,12 @@ import java.util.List;
 
 public class DeathBotProxies {
 
-	
-	public static List<String> proxiesList = new ArrayList<String>();
-	
-	
+
+	public static List<String> proxiesList = new ArrayList<>();
+
+
 	public static void createDeathBotProxies(){
-	
+
 		proxiesList.add("1.34.179.144");
 		proxiesList.add("103.206.254.170");
 		proxiesList.add("103.238.200.213");
@@ -533,6 +533,6 @@ public class DeathBotProxies {
 		proxiesList.add("104.160.251.155");
 
 
-		
+
 	}
 }

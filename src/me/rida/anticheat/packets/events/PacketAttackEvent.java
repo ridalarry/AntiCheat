@@ -8,9 +8,9 @@ import org.bukkit.event.HandlerList;
 import me.rida.anticheat.packets.PacketPlayerType;
 
 public class PacketAttackEvent extends Event {
-	private Player player;
-	private Entity entity;
-	private PacketPlayerType type;
+	private final Player player;
+	private final Entity entity;
+	private final PacketPlayerType type;
 	private static final HandlerList handlers = new HandlerList();
 
 	public PacketAttackEvent(Player player, Entity entity, PacketPlayerType type) {
@@ -31,6 +31,7 @@ public class PacketAttackEvent extends Event {
 		return type;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

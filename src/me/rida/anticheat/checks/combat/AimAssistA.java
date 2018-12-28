@@ -34,10 +34,10 @@ public class AimAssistA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Location location = e.getFrom().clone();
-		Location location2 = e.getTo().clone();
-		Player p = e.getPlayer();
-		double d = Math.abs(location.getYaw() - location2.getYaw());
+		final Location location = e.getFrom().clone();
+		final Location location2 = e.getTo().clone();
+		final Player p = e.getPlayer();
+		final double d = Math.abs(location.getYaw() - location2.getYaw());
 		if (d > 0.0 && d < 360.0) {
 			if (AimAssistA.getFrac(d) == 0.0) {
 				this.setAimAssest(this.getAimAssist() + 100);

@@ -11,14 +11,14 @@ import me.rida.anticheat.packets.events.PacketPlayerEvent;
 
 public class PacketListener implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onPacketPlayerEvent(PacketPlayerEvent e) {
-        Player p = e.getPlayer();
-        DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-        if (data != null) {
-        if (data.getLastPlayerPacketDiff() > 200) {
-            data.setLastDelayedPacket(System.currentTimeMillis());
-        }
-        data.setLastPlayerPacket(System.currentTimeMillis());
-        }
-    }
+	public void onPacketPlayerEvent(PacketPlayerEvent e) {
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		if (data != null) {
+			if (data.getLastPlayerPacketDiff() > 200) {
+				data.setLastDelayedPacket(System.currentTimeMillis());
+			}
+			data.setLastPlayerPacket(System.currentTimeMillis());
+		}
+	}
 }

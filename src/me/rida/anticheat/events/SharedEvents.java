@@ -58,19 +58,20 @@ import me.rida.anticheat.checks.player.PacketsA;
 
 @SuppressWarnings("static-access")
 public class SharedEvents implements Listener {
-	private static Map<Player, Long> lastSprintStart = new HashMap<Player, Long>();
-	private static Map<Player, Long> lastSprintStop = new HashMap<Player, Long>();
+	private static Map<Player, Long> lastSprintStart = new HashMap<>();
+	private static Map<Player, Long> lastJoin = new HashMap<>();
+	private static Map<Player, Long> lastSprintStop = new HashMap<>();
 	public static Set<UUID> teleported = new HashSet<>();
-	public static Map<Player, Long> placedBlock = new HashMap<Player, Long>();
+	public static Map<Player, Long> placedBlock = new HashMap<>();
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	public void onPlace(BlockPlaceEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		placedBlock.put(p, System.currentTimeMillis());
 	}
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = false)
 	public void onInteract(PlayerInteractEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (e.isCancelled()) {
 			if (e.getAction() != Action.RIGHT_CLICK_BLOCK) {
 				return;
@@ -80,12 +81,13 @@ public class SharedEvents implements Listener {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		PacketsA.blacklist.add(u);
+		this.lastJoin.put(e.getPlayer(), System.currentTimeMillis());
 		teleported.add(u);
-		this.lastSprintStart.remove((Object)p);
-		this.lastSprintStop.remove((Object)p);
+		this.lastSprintStart.remove(p);
+		this.lastSprintStop.remove(p);
 		if (p.hasPermission("anticheat.staff")) {
 			AntiCheat.AlertsOn.add(p);
 		}
@@ -109,7 +111,7 @@ public class SharedEvents implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onDeath(PlayerDeathEvent e) {
 		teleported.add(e.getEntity().getUniqueId());
-		Player p = e.getEntity();
+		final Player p = e.getEntity();
 		JesusA.onWater.remove(p);
 		NoFallA.cancel.add(p);
 		JesusA.placedBlockOnWater.remove(p);
@@ -118,7 +120,7 @@ public class SharedEvents implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onTeleport(PlayerTeleportEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (e.getCause() == TeleportCause.ENDER_PEARL) {
 			NoFallA.cancel.add(p);
 		}
@@ -137,20 +139,20 @@ public class SharedEvents implements Listener {
 	}
 	@EventHandler
 	public void PlayerChangedWorld(PlayerChangedWorldEvent e) {
-		UUID u = e.getPlayer().getUniqueId();
+		final UUID u = e.getPlayer().getUniqueId();
 		PacketsA.blacklist.add(u);
 	}
 
 	@EventHandler
 	private void PlayerRespawn(PlayerRespawnEvent e) {
-		UUID u = e.getPlayer().getUniqueId();
+		final UUID u = e.getPlayer().getUniqueId();
 		PacketsA.blacklist.add(u);
 		teleported.add(u);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onQuit(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID uuid = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID uuid = p.getUniqueId();
 		AntiCheat.getInstance().Violations.remove(uuid);
 		teleported.remove(uuid);
 		placedBlock.remove(p);
@@ -182,9 +184,9 @@ public class SharedEvents implements Listener {
 		FlyB.flyTicks.remove(uuid);
 		GlideA.flyTicks.remove(uuid);
 		JesusA.placedBlockOnWater.remove(p);
-		AntiKBA.lastVelocity.remove((Object)p);
-		AntiKBA.awaitingVelocity.remove((Object)p);
-		AntiKBA.totalMoved.remove((Object)p);
+		AntiKBA.lastVelocity.remove(p);
+		AntiKBA.awaitingVelocity.remove(p);
+		AntiKBA.totalMoved.remove(p);
 		AutoClickerA.LastMS.remove(uuid);
 		AutoClickerA.Clicks.remove(uuid);
 		AutoClickerA.ClickTicks.remove(uuid);
@@ -228,6 +230,12 @@ public class SharedEvents implements Listener {
 		AscensionC.flyTicks.remove(uuid);
 		AntiCheat.getInstance().getDataManager().remove(p);
 
+	}
+	public static Map<Player, Long> getLastJoin() {
+		return lastJoin;
+	}
+	public void setLastJoin(Map<Player, Long> lastJoin) {
+		this.lastJoin = lastJoin;
 	}
 	public static Map<Player, Long> getLastSprintStart() {
 		return lastSprintStart;

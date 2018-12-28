@@ -7,9 +7,9 @@ import org.bukkit.event.HandlerList;
 import me.rida.anticheat.packets.PacketPlayerType;
 
 public class PacketKillauraEvent extends Event {
-	private Player Player;
+	private final Player Player;
 	private static final HandlerList handlers;
-	private PacketPlayerType type;
+	private final PacketPlayerType type;
 
 	static {
 		handlers = new HandlerList();
@@ -29,6 +29,7 @@ public class PacketKillauraEvent extends Event {
 		return this.type;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return PacketKillauraEvent.handlers;
 	}

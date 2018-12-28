@@ -33,13 +33,13 @@ public class HitBoxC extends Check {
 		if (!(e.getAttacker() instanceof Player) || !(e.getAttacked() instanceof Player) || e.getAttacker().getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
-		Player p = e.getAttacker();
+		final Player p = e.getAttacker();
 
-		LivingEntity attacked = (Player) e.getAttacked();
+		final LivingEntity attacked = (Player) e.getAttacked();
 
 		int verbose = count.getOrDefault(p.getUniqueId(), 0);
 
-		double offset = CheatUtil.getOffsetOffCursor(p, attacked);
+		final double offset = CheatUtil.getOffsetOffCursor(p, attacked);
 
 		if(offset > 30) {
 			if((verbose+= 2) > 25) {

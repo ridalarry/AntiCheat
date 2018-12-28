@@ -22,9 +22,9 @@ import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
 public class AntiKBA extends Check {
-	public static Map<Player, Long> lastVelocity = new HashMap<Player, Long>();
-	public static Map<Player, Integer> awaitingVelocity = new HashMap<Player, Integer>();
-	public static Map<Player, Double> totalMoved = new HashMap<Player, Double>();
+	public static Map<Player, Long> lastVelocity = new HashMap<>();
+	public static Map<Player, Integer> awaitingVelocity = new HashMap<>();
+	public static Map<Player, Double> totalMoved = new HashMap<>();
 
 	public AntiKBA(AntiCheat AntiCheat) {
 		super("AntiKBA", "AntiKB",  CheckType.Combat, true, false, false, false, true, 30, 3, 250000L, AntiCheat);
@@ -33,11 +33,11 @@ public class AntiKBA extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 		double yLoc;
-		Player p = e.getPlayer();
-		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) 
-				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB}) 
-				|| ServerUtil.isHoveringOverWater(p, 1) 
-				|| ServerUtil.isHoveringOverWater(p, 0) 
+		final Player p = e.getPlayer();
+		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB})
+				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})
+				|| ServerUtil.isHoveringOverWater(p, 1)
+				|| ServerUtil.isHoveringOverWater(p, 0)
 				|| p.getAllowFlight()
 				|| p.isDead()
 				|| PlayerUtil.isNearSlime(p)
@@ -69,7 +69,7 @@ public class AntiKBA extends Check {
 			totalMoved += yLoc;
 		}
 		int awaitingVelocity2 = 0;
-		int awaitingVelocity3 = 1;
+		final int awaitingVelocity3 = 1;
 		if (awaitingVelocity > 0) {
 			if (totalMoved < 0.3) {
 				awaitingVelocity2 += 9;
@@ -108,7 +108,7 @@ public class AntiKBA extends Check {
 	private void Velocity(PlayerVelocityEvent e) {
 		double yVio;
 		long lastVelocity;
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB}) || ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})) {
 			return;
 		}
@@ -124,9 +124,9 @@ public class AntiKBA extends Check {
 		if (AntiKBA.lastVelocity.containsKey(p) && (lastVelocity = System.currentTimeMillis() - AntiKBA.lastVelocity.get(p)) < 500) {
 			return;
 		}
-		Vector vector = e.getVelocity();
-		double yLoc = Math.abs(vector.getY());
-		if (yLoc > 0.0 && (yVio = (double)((int)(Math.pow(yLoc + 2.0, 2.0) * 5.0))) > 20.0) {
+		final Vector vector = e.getVelocity();
+		final double yLoc = Math.abs(vector.getY());
+		if (yLoc > 0.0 && (yVio = ((int)(Math.pow(yLoc + 2.0, 2.0) * 5.0))) > 20.0) {
 			int awaitingVelocity = 0;
 			if (AntiKBA.awaitingVelocity.containsKey(p)) {
 				awaitingVelocity = AntiKBA.awaitingVelocity.get(p);

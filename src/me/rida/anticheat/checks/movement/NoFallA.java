@@ -28,14 +28,14 @@ public class NoFallA extends Check {
 
 	public NoFallA(AntiCheat AntiCheat) {
 		super("NoFallA", "NoFall", CheckType.Movement, true, true, false, true, false, 9, 1, 120000L, AntiCheat);
-		NoFallTicks = new HashMap<UUID, Map.Entry<Long, Integer>>();
-		FallDistance = new HashMap<UUID, Double>();
-		cancel = new ArrayList<Player>();
+		NoFallTicks = new HashMap<>();
+		FallDistance = new HashMap<>();
+		cancel = new ArrayList<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getVehicle() != null
@@ -49,7 +49,7 @@ public class NoFallA extends Check {
 				|| PlayerUtil.isInWater(p)) {
 			return;
 		}
-		Damageable dp = (Damageable) e.getPlayer();
+		final Damageable dp = e.getPlayer();
 
 		if (dp.getHealth() <= 0.0D) {
 			return;
@@ -91,7 +91,7 @@ public class NoFallA extends Check {
 			getAntiCheat().logCheat(this, p, "(Packet)", "(Type: A)");
 		}
 		NoFallTicks.put(p.getUniqueId(),
-				new AbstractMap.SimpleEntry<Long, Integer>(Time, Count));
+				new AbstractMap.SimpleEntry<>(Time, Count));
 		return;
 	}
 }

@@ -16,7 +16,7 @@ public class AntiKBB extends Check {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void Sprint(PlayerToggleSprintEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
@@ -24,8 +24,8 @@ public class AntiKBB extends Check {
 
 		if (e.isSprinting() && SharedEvents.getLastSprintStop().containsKey(p)) {
 			int n = 0;
-			int n2 = 1;
-			long lastSprintStop = System.currentTimeMillis() - SharedEvents.getLastSprintStop().get(p);
+			final int n2 = 1;
+			final long lastSprintStop = System.currentTimeMillis() - SharedEvents.getLastSprintStop().get(p);
 			n = lastSprintStop < 5 ? ++n : (lastSprintStop > 1000 ? --n : (n -= 2));
 			if (n > n2) {
 				getAntiCheat().logCheat(this, p, "Took less knockback without sprinting", "(Type: B)");

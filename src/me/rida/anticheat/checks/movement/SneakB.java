@@ -15,7 +15,7 @@ public class SneakB extends Check {
 
 	@SuppressWarnings("unused")
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (p.isSneaking()) {
 			if (p.isSprinting()) {
 				if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

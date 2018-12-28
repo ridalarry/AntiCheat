@@ -25,10 +25,10 @@ public class ReachI extends Check {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					int ping = getAntiCheat().getLag().getPing(player);
-					double tps = getAntiCheat().getLag().getTPS();
+					final int ping = getAntiCheat().getLag().getPing(player);
+					final double tps = getAntiCheat().getLag().getTPS();
 					double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
-					double maxReach = 4.0;
+					final double maxReach = 4.0;
 					if (player.isSprinting()) {
 						distance += 0.2;
 					}
@@ -37,7 +37,7 @@ public class ReachI extends Check {
 							distance += 0.2 * (effect.getAmplifier() + 1);
 						}
 					}
-					String dist = Double.toString(distance).substring(0, 3);
+					final String dist = Double.toString(distance).substring(0, 3);
 					if (maxReach < distance) {
 						getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: I)");
 					}

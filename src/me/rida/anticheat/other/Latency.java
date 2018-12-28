@@ -29,16 +29,16 @@ public class Latency implements Listener {
 	public List<UUID> blacklist;
 	private static Map<UUID, Integer> packets;
 
-	private AntiCheat Ping;
+	private final AntiCheat Ping;
 	private double tps;
 
 	public Latency(AntiCheat AntiCheat) {
 		this.Ping = AntiCheat;
 
-		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		lastPacket = new HashMap<UUID, Long>();
-		blacklist = new ArrayList<UUID>();
-		packets = new HashMap<UUID, Integer>();
+		packetTicks = new HashMap<>();
+		lastPacket = new HashMap<>();
+		blacklist = new ArrayList<>();
+		packets = new HashMap<>();
 	}
 
 	public static Integer getLag(Player p) {
@@ -50,15 +50,15 @@ public class Latency implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void PlayerJoin(PlayerJoinEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		this.blacklist.add(u);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onLogout(PlayerQuitEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (packetTicks.containsKey(u)) {
 			packetTicks.remove(u);
 		}
@@ -75,27 +75,27 @@ public class Latency implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void PlayerChangedWorld(PlayerChangedWorldEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		this.blacklist.add(u);
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void PlayerRespawn(PlayerRespawnEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		this.blacklist.add(u);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void PacketPlayer(PacketPlayerEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (!Ping.isEnabled()) {
 			return;
 		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)
-				|| Ping.lag.getTPS() > 21.0D 
+				|| Ping.lag.getTPS() > 21.0D
 				|| Ping.lag.getTPS() < Ping.getTPSCancel()
 				|| e.getType() != PacketPlayerType.FLYING) {
 			return;
@@ -107,7 +107,7 @@ public class Latency implements Listener {
 			Time = Latency.packetTicks.get(u).getValue().longValue();
 		}
 		if (Latency.lastPacket.containsKey(u)) {
-			long MS = System.currentTimeMillis() - Latency.lastPacket.get(u).longValue();
+			final long MS = System.currentTimeMillis() - Latency.lastPacket.get(u).longValue();
 			if (MS >= 100L) {
 				this.blacklist.add(u);
 			} else if ((MS > 1L) && (this.blacklist.contains(u))) {
@@ -122,7 +122,7 @@ public class Latency implements Listener {
 				Time = TimeUtil.nowlong();
 			}
 		}
-		Latency.packetTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		Latency.packetTicks.put(u, new AbstractMap.SimpleEntry<>(Count, Time));
 		Latency.lastPacket.put(u, System.currentTimeMillis());
 	}
 

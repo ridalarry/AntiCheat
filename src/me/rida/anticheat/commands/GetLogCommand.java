@@ -17,7 +17,7 @@ import me.rida.anticheat.utils.ServerUtil;
 
 public class GetLogCommand implements CommandExecutor {
 
-	private AntiCheat AntiCheat;
+	private final AntiCheat AntiCheat;
 
 	public GetLogCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
@@ -40,10 +40,10 @@ public class GetLogCommand implements CommandExecutor {
 			return true;
 		}
 
-		String player = g[0];
-		String a = g[1];
-		Pattern pattern = Pattern.compile("^[0-9]");
-		Matcher matcher = pattern.matcher(a);
+		final String player = g[0];
+		final String a = g[1];
+		final Pattern pattern = Pattern.compile("^[0-9]");
+		final Matcher matcher = pattern.matcher(a);
 		if (!(matcher.find())) {
 			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
 			return true;
@@ -53,20 +53,20 @@ public class GetLogCommand implements CommandExecutor {
 			return true;
 
 		}
-		int page = Math.round(Integer.parseInt(g[1]));
+		final int page = Math.round(Integer.parseInt(g[1]));
 		if (page < 1) {
 			s.sendMessage(AntiCheat.PREFIX + Color.Red + "Usage: /getlog <name> <page>");
 			return true;
 		}
-		String path = AntiCheat.getDataFolder() + File.separator + "logs" + File.separator + g[0] + ".txt";
-		File file = new File(path);
+		final String path = AntiCheat.getDataFolder() + File.separator + "logs" + File.separator + g[0] + ".txt";
+		final File file = new File(path);
 		if (!file.exists()) {
 			s.sendMessage(AntiCheat.PREFIX + Color.Red + "The player '" + Color.Bold + player + Color.Red
 					+ "' does not have a ban log! This is CASE SENSITIVE!");
 			return true;
 		}
 		try {
-			List<String> lines = FileUtils.readLines(file);
+			final List<String> lines = FileUtils.readLines(file);
 			if ((lines.size() / (page * 10)) < 1) {
 				s.sendMessage(AntiCheat.PREFIX + Color.Red + "There is no page " + page + " for this log!");
 				return true;
@@ -80,7 +80,7 @@ public class GetLogCommand implements CommandExecutor {
 				}
 			}
 			s.sendMessage(Color.DGray + Color.Strike + "----------------------------------------------------");
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			s.sendMessage(
 					AntiCheat.PREFIX + Color.Red + "Unknown error occured when tryin to read file and upload to pastebin!");
 			e.printStackTrace();

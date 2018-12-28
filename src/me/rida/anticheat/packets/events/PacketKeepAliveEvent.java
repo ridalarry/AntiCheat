@@ -1,11 +1,11 @@
 package me.rida.anticheat.packets.events;
 
-import org.bukkit.event.HandlerList;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
 
 public class PacketKeepAliveEvent extends Event {
-	private Player Player;
+	private final Player Player;
 	private static final HandlerList handlers;
 
 	static {
@@ -21,6 +21,7 @@ public class PacketKeepAliveEvent extends Event {
 		return this.Player;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return PacketKeepAliveEvent.handlers;
 	}

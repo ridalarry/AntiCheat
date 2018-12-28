@@ -14,7 +14,7 @@ import org.bukkit.util.Vector;
 public class MathUtil {
 
 	public static int floor(double var0) {
-		int var2 = (int) var0;
+		final int var2 = (int) var0;
 		return var0 < var2 ? var2 - 1 : var2;
 	}
 
@@ -25,22 +25,29 @@ public class MathUtil {
 		return isInteger(s,10);
 	}
 	private static double xDiff;
-    private static double yDiff;
-    private static double zDiff;
+	private static double yDiff;
+	private static double zDiff;
 
-    public static void Distance(final Location one, final Location two) {
-        xDiff = (Math.abs(one.getX() - two.getX()));
-        yDiff = (Math.abs(one.getY() - two.getY()));
-        zDiff = (Math.abs(one.getZ() - two.getZ()));
-    }
+	public static void Distance(final Location one, final Location two) {
+		xDiff = (Math.abs(one.getX() - two.getX()));
+		yDiff = (Math.abs(one.getY() - two.getY()));
+		zDiff = (Math.abs(one.getZ() - two.getZ()));
+	}
 	public static boolean isInteger(String s, int radix) {
-		if(s.isEmpty()) return false;
+		if(s.isEmpty()) {
+			return false;
+		}
 		for(int i = 0; i < s.length(); i++) {
 			if(i == 0 && s.charAt(i) == '-') {
-				if(s.length() == 1) return false;
-				else continue;
+				if(s.length() == 1) {
+					return false;
+				} else {
+					continue;
+				}
 			}
-			if(Character.digit(s.charAt(i),radix) < 0) return false;
+			if(Character.digit(s.charAt(i),radix) < 0) {
+				return false;
+			}
 		}
 		return true;
 	}
@@ -60,33 +67,33 @@ public class MathUtil {
 	}
 
 	public static float[] getRotations(Location one, Location two) {
-		double diffX = two.getX() - one.getX();
-		double diffZ = two.getZ() - one.getZ();
-		double diffY = two.getY() + 2.0 - 0.4 - (one.getY() + 2.0);
-		double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
-		float yaw = (float) (Math.atan2(diffZ, diffX) * 180.0 / 3.141592653589793) - 90.0f;
-		float pitch = (float) (-Math.atan2(diffY, dist) * 180.0 / 3.141592653589793);
+		final double diffX = two.getX() - one.getX();
+		final double diffZ = two.getZ() - one.getZ();
+		final double diffY = two.getY() + 2.0 - 0.4 - (one.getY() + 2.0);
+		final double dist = Math.sqrt(diffX * diffX + diffZ * diffZ);
+		final float yaw = (float) (Math.atan2(diffZ, diffX) * 180.0 / 3.141592653589793) - 90.0f;
+		final float pitch = (float) (-Math.atan2(diffY, dist) * 180.0 / 3.141592653589793);
 		return new float[]{yaw, pitch};
 	}
 
 	public static double[] getOffsetFromEntity(Player player, LivingEntity entity) {
-		double yawOffset = Math.abs(yawTo180F(player.getEyeLocation().getYaw()) - yawTo180F(getRotations(player.getLocation(), entity.getLocation())[0]));
-		double pitchOffset = Math.abs(Math.abs(player.getEyeLocation().getPitch()) - Math.abs(getRotations(player.getLocation(), entity.getLocation())[1]));
+		final double yawOffset = Math.abs(yawTo180F(player.getEyeLocation().getYaw()) - yawTo180F(getRotations(player.getLocation(), entity.getLocation())[0]));
+		final double pitchOffset = Math.abs(Math.abs(player.getEyeLocation().getPitch()) - Math.abs(getRotations(player.getLocation(), entity.getLocation())[1]));
 		return new double[]{yawOffset, pitchOffset};
 	}
 
 	@SuppressWarnings("unused")
 	public static boolean close(Double[] arrdouble, int n) {
 		boolean bl;
-		double d = arrdouble[4];
-		double d2 = arrdouble[3];
-		double d3 = arrdouble[2];
-		double d4 = arrdouble[1];
-		double d5 = arrdouble[0];
-		boolean bl2 = (d >= d2 ? d - d2 : d2 - d) <= n;
-		boolean bl3 = (d >= d3 ? d - d3 : d3 - d) <= n;
-		boolean bl4 = (d >= d4 ? d - d4 : d4 - d) <= n;
-		boolean bl5 = bl = (d >= d5 ? d - d5 : d5 - d) <= n;
+		final double d = arrdouble[4];
+		final double d2 = arrdouble[3];
+		final double d3 = arrdouble[2];
+		final double d4 = arrdouble[1];
+		final double d5 = arrdouble[0];
+		final boolean bl2 = (d >= d2 ? d - d2 : d2 - d) <= n;
+		final boolean bl3 = (d >= d3 ? d - d3 : d3 - d) <= n;
+		final boolean bl4 = (d >= d4 ? d - d4 : d4 - d) <= n;
+		final boolean bl5 = bl = (d >= d5 ? d - d5 : d5 - d) <= n;
 		if (bl2 && bl3 && bl4 && bl) {
 			return true;
 		}
@@ -94,12 +101,12 @@ public class MathUtil {
 	}
 
 	public static Vector getRotation(Location location, Location location2) {
-		double d = location2.getX() - location.getX();
-		double d2 = location2.getY() - location.getY();
-		double d3 = location2.getZ() - location.getZ();
-		double d4 = Math.sqrt(d * d + d3 * d3);
-		float f = (float)(Math.atan2(d3, d) * 180.0 / 3.141592653589793) - 90.0f;
-		float f2 = (float)(- Math.atan2(d2, d4) * 180.0 / 3.141592653589793);
+		final double d = location2.getX() - location.getX();
+		final double d2 = location2.getY() - location.getY();
+		final double d3 = location2.getZ() - location.getZ();
+		final double d4 = Math.sqrt(d * d + d3 * d3);
+		final float f = (float)(Math.atan2(d3, d) * 180.0 / 3.141592653589793) - 90.0f;
+		final float f2 = (float)(- Math.atan2(d2, d4) * 180.0 / 3.141592653589793);
 		return new Vector(f, f2, 0.0f);
 	}
 
@@ -114,29 +121,29 @@ public class MathUtil {
 	}
 
 	public static double getHorizontalDistance(Location to, Location from) {
-		double x = Math.abs(Math.abs(to.getX()) - Math.abs(from.getX()));
-		double z = Math.abs(Math.abs(to.getZ()) - Math.abs(from.getZ()));
+		final double x = Math.abs(Math.abs(to.getX()) - Math.abs(from.getX()));
+		final double z = Math.abs(Math.abs(to.getZ()) - Math.abs(from.getZ()));
 
 		return Math.sqrt(x * x + z * z);
 	}
 
 	public static double getVerticalDistance(Location to, Location from) {
-		double y = Math.abs(Math.abs(to.getY()) - Math.abs(from.getY()));
+		final double y = Math.abs(Math.abs(to.getY()) - Math.abs(from.getY()));
 
 		return Math.sqrt(y * y);
 	}
 	public static double getVerticalDistance3(Location location, Location location2) {
-		double d = (location2.getY() - location.getY()) * (location2.getY() - location.getY());
-		double d2 = Math.sqrt(d);
-		double d3 = Math.abs(d2);
+		final double d = (location2.getY() - location.getY()) * (location2.getY() - location.getY());
+		final double d2 = Math.sqrt(d);
+		final double d3 = Math.abs(d2);
 		return d3;
 	}
 
 	public static double getHorizontalDistance3(Location location, Location location2) {
 		double d = 0.0;
-		double d2 = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
-		double d3 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
-		double d4 = Math.sqrt(d2 + d3);
+		final double d2 = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
+		final double d3 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
+		final double d4 = Math.sqrt(d2 + d3);
 		d = Math.abs(d4);
 		return d;
 	}
@@ -152,60 +159,60 @@ public class MathUtil {
 	}
 
 	public static double getDistance3D(Location location, Location location2) {
-		double d = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
-		double d2 = (location2.getY() - location.getY()) * (location2.getY() - location.getY());
-		double d3 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
-		double d4 = Math.sqrt(d + d2 + d3);
-		double d5 = Math.abs(d4);
+		final double d = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
+		final double d2 = (location2.getY() - location.getY()) * (location2.getY() - location.getY());
+		final double d3 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
+		final double d4 = Math.sqrt(d + d2 + d3);
+		final double d5 = Math.abs(d4);
 		return d5;
 	}
 
 	@SuppressWarnings("unused")
 	public static float getOffset(Player player, LivingEntity livingEntity) {
 		double d = 0.0;
-		Location location = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);
-		Location location2 = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);
-		Vector vector = new Vector(location2.getYaw(), location2.getPitch(), 0.0f);
-		Vector vector2 = getRotation(location2, location);
-		double d2 = clamp180(vector.getX() - vector2.getX());
-		double d3 = clamp180(vector.getY() - vector2.getY());
-		double d4 = getHorizontalDistance3(location2, location);
-		double d5 = getDistance3D(location2, location);
-		double d6 = d2 * d4 * d5;
-		double d7 = d3 * Math.abs(location.getY() - location2.getY()) * d5;
+		final Location location = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);
+		final Location location2 = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);
+		final Vector vector = new Vector(location2.getYaw(), location2.getPitch(), 0.0f);
+		final Vector vector2 = getRotation(location2, location);
+		final double d2 = clamp180(vector.getX() - vector2.getX());
+		final double d3 = clamp180(vector.getY() - vector2.getY());
+		final double d4 = getHorizontalDistance3(location2, location);
+		final double d5 = getDistance3D(location2, location);
+		final double d6 = d2 * d4 * d5;
+		final double d7 = d3 * Math.abs(location.getY() - location2.getY()) * d5;
 		d += Math.abs(d6);
 		d += Math.abs(d7);
 		return 0.0f;
 	}
 	public static double getHorizontalDistance2(Location location, Location location2) {
-		double d = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
-		double d2 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
-		double d3 = Math.sqrt(d + d2);
-		double d4 = Math.abs(d3);
+		final double d = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
+		final double d2 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
+		final double d3 = Math.sqrt(d + d2);
+		final double d4 = Math.abs(d3);
 		return d4;
 	}
 
 
 	public static double getDistance3D2(Location location, Location location2) {
-		double d = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
-		double d2 = (location2.getY() - location.getY()) * (location2.getY() - location.getY());
-		double d3 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
-		double d4 = Math.sqrt(d + d2 + d3);
-		double d5 = Math.abs(d4);
+		final double d = (location2.getX() - location.getX()) * (location2.getX() - location.getX());
+		final double d2 = (location2.getY() - location.getY()) * (location2.getY() - location.getY());
+		final double d3 = (location2.getZ() - location.getZ()) * (location2.getZ() - location.getZ());
+		final double d4 = Math.sqrt(d + d2 + d3);
+		final double d5 = Math.abs(d4);
 		return d5;
 	}
 
 	public static double[] getOffsets2(Player player, LivingEntity livingEntity) {
-		Location location = livingEntity.getLocation().add(0.0, livingEntity.getEyeHeight(), 0.0);
-		Location location2 = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);
-		Vector vector = new Vector(location2.getYaw(), location2.getPitch(), 0.0f);
-		Vector vector2 = getRotation(location2, location);
-		double d = fix180(vector.getX() - vector2.getX());
-		double d2 = fix180(vector.getY() - vector2.getY());
-		double d3 = getHorizontalDistance2(location2, location);
-		double d4 = getDistance3D2(location2, location);
-		double d5 = d * d3 * d4;
-		double d6 = d2 * Math.abs(Math.sqrt(location.getY() - location2.getY())) * d4;
+		final Location location = livingEntity.getLocation().add(0.0, livingEntity.getEyeHeight(), 0.0);
+		final Location location2 = player.getLocation().add(0.0, player.getEyeHeight(), 0.0);
+		final Vector vector = new Vector(location2.getYaw(), location2.getPitch(), 0.0f);
+		final Vector vector2 = getRotation(location2, location);
+		final double d = fix180(vector.getX() - vector2.getX());
+		final double d2 = fix180(vector.getY() - vector2.getY());
+		final double d3 = getHorizontalDistance2(location2, location);
+		final double d4 = getDistance3D2(location2, location);
+		final double d5 = d * d3 * d4;
+		final double d6 = d2 * Math.abs(Math.sqrt(location.getY() - location2.getY())) * d4;
 		return new double[]{Math.abs(d5), Math.abs(d6)};
 	}
 
@@ -227,7 +234,7 @@ public class MathUtil {
 		for (int i = 1; i < degree; ++i) {
 			format = String.valueOf(format) + "#";
 		}
-		DecimalFormat twoDForm = new DecimalFormat(format);
+		final DecimalFormat twoDForm = new DecimalFormat(format);
 		return Double.valueOf(twoDForm.format(d).replaceAll(",", "."));
 	}
 
@@ -235,10 +242,10 @@ public class MathUtil {
 		String strData = "";
 
 		try {
-			byte[] decoded = Base64.getDecoder().decode(strEncrypted);
+			final byte[] decoded = Base64.getDecoder().decode(strEncrypted);
 			strData = (new String(decoded, StandardCharsets.UTF_8) + "\n");
 
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return strData;

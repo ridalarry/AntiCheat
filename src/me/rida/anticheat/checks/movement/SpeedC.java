@@ -33,35 +33,35 @@ public class SpeedC extends Check {
 
 	public SpeedC(AntiCheat AntiCheat) {
 		super("SpeedC", "Speed", CheckType.Movement, true, true, false, true, false, 3, 1, 600000L, AntiCheat);
-		speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		tooFastTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		lastHit = new HashMap<UUID, Long>();
-		velocity = new HashMap<UUID, Double>();
+		speedTicks = new HashMap<>();
+		tooFastTicks = new HashMap<>();
+		lastHit = new HashMap<>();
+		velocity = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onHit(EntityDamageByEntityEvent e) {
 		if (e.getEntity() instanceof Player) {
-			Player p = (Player) e.getEntity();
+			final Player p = (Player) e.getEntity();
 
 			lastHit.put(p.getUniqueId(), System.currentTimeMillis());
 		}
 	}
 
 	private boolean isOnIce(Player p) {
-		Location a = p.getLocation();
+		final Location a = p.getLocation();
 		a.setY(a.getY() - 1.0);
-		if (a.getBlock().getType().equals((Object) Material.ICE)) {
+		if (a.getBlock().getType().equals(Material.ICE)) {
 			return true;
 		}
 		a.setY(a.getY() - 1.0);
-		return a.getBlock().getType().equals((Object) Material.ICE);
+		return a.getBlock().getType().equals(Material.ICE);
 	}
 
 	@EventHandler
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (((e.getFrom().getX() == e.getTo().getX()) && (e.getFrom().getY() == e.getTo().getY()) && (e.getFrom().getZ() == e.getFrom().getZ()))
 				|| !getAntiCheat().isEnabled()
 				|| p.getAllowFlight()
@@ -79,7 +79,7 @@ public class SpeedC extends Check {
 			return;
 		}
 
-		long lastHitDiff = lastHit.containsKey(p.getUniqueId())
+		final long lastHitDiff = lastHit.containsKey(p.getUniqueId())
 				? lastHit.get(p.getUniqueId()) - System.currentTimeMillis()
 						: 2001L;
 
@@ -92,7 +92,7 @@ public class SpeedC extends Check {
 				int TooFastCount = 0;
 				double percent = 0D;
 				if (tooFastTicks.containsKey(u)) {
-					double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
+					final double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(e.getFrom().toVector()),
 							MathUtil.getHorizontalVector(e.getTo().toVector()));
 					double LimitXZ = 0.0D;
 					if ((PlayerUtil.isInGround(p)) && (p.getVehicle() == null)) {
@@ -110,12 +110,12 @@ public class SpeedC extends Check {
 					if (CheatUtil.slabsNear(p.getLocation())) {
 						LimitXZ += 0.05D;
 					}
-					Location b = PlayerUtil.getEyeLocation(p);
+					final Location b = PlayerUtil.getEyeLocation(p);
 					b.add(0.0D, 1.0D, 0.0D);
 					if ((b.getBlock().getType() != Material.AIR) && (!CheatUtil.canStandWithin(b.getBlock()))) {
 						LimitXZ = 0.69D;
 					}
-					Location below = p.getLocation().clone().add(0.0D, -1.0D, 0.0D);
+					final Location below = p.getLocation().clone().add(0.0D, -1.0D, 0.0D);
 
 					if (CheatUtil.isStair(below.getBlock())) {
 						LimitXZ += 0.6;
@@ -128,9 +128,9 @@ public class SpeedC extends Check {
 							LimitXZ = 0.75D;
 						}
 					}
-					float speed = p.getWalkSpeed();
+					final float speed = p.getWalkSpeed();
 					LimitXZ += (speed > 0.2F ? speed * 10.0F * 0.33F : 0.0F);
-					for (PotionEffect effect : p.getActivePotionEffects()) {
+					for (final PotionEffect effect : p.getActivePotionEffects()) {
 						if (effect.getType().equals(PotionEffectType.SPEED)) {
 							if (p.isOnGround()) {
 								LimitXZ += 0.061D * (effect.getAmplifier() + 1);
@@ -167,8 +167,8 @@ public class SpeedC extends Check {
 					velocity.put(u, -1.0D);
 				}
 				tooFastTicks.put(p.getUniqueId(),
-						new AbstractMap.SimpleEntry<Integer, Long>(TooFastCount, System.currentTimeMillis()));
+						new AbstractMap.SimpleEntry<>(TooFastCount, System.currentTimeMillis()));
 				speedTicks.put(p.getUniqueId(),
-						new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+						new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

@@ -23,20 +23,20 @@ public class CrashA extends Check {
 	public static Map<UUID, Map.Entry<Integer, Long>> crashTicks;
 	public static Map<UUID, Map.Entry<Integer, Long>> crash2Ticks;
 	public static Map<UUID, Map.Entry<Integer, Long>> crash3Ticks;
-	private List<UUID> crashs;
+	private final List<UUID> crashs;
 
 	public CrashA(AntiCheat AntiCheat) {
 		super("CrashA", "Crash", CheckType.Other, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
-		crashTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		crash2Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		crash3Ticks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		crashs = new ArrayList<UUID>();
+		crashTicks = new HashMap<>();
+		crash2Ticks = new HashMap<>();
+		crash3Ticks = new HashMap<>();
+		crashs = new ArrayList<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Swing(final PacketSwingArmEvent e) {
 		final Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final UUID u = p.getUniqueId();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
@@ -60,13 +60,13 @@ public class CrashA extends Check {
 			this.getAntiCheat().logCheat(this, p, "[1]", "(Type: A)");
 			this.crashs.add(u);
 		}
-		crashTicks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		crashTicks.put(u, new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void Switch(final PacketHeldItemChangeEvent e) {
 		final Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
@@ -90,13 +90,13 @@ public class CrashA extends Check {
 			this.getAntiCheat().logCheat(this, p, "[2]", "(Type: A)");
 			this.crashs.add(u);
 		}
-		crash2Ticks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		crash2Ticks.put(u, new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void BlockPlace(final PacketBlockPlacementEvent e) {
 		final Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final UUID u = p.getUniqueId();
 		if (this.crashs.contains(u)) {
 			e.getPacketEvent().setCancelled(true);
 			return;
@@ -120,6 +120,6 @@ public class CrashA extends Check {
 			this.getAntiCheat().logCheat(this, p, "[3]", "(Type: A)");
 			this.crashs.add(u);
 		}
-		crash3Ticks.put(u, new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		crash3Ticks.put(u, new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

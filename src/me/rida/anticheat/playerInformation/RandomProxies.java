@@ -5,29 +5,29 @@ import java.util.List;
 
 public class RandomProxies {
 
-	public static List<String> proxiesList = new ArrayList<String>();
-	public static List<String> proxiesList1 = new ArrayList<String>();
-	public static List<String> proxiesList2 = new ArrayList<String>();
-	public static List<String> proxiesList3 = new ArrayList<String>();
-	public static List<String> proxiesList4 = new ArrayList<String>();
-	public static List<String> proxiesList5 = new ArrayList<String>();
-	public static List<String> proxiesList6 = new ArrayList<String>();
-	public static List<String> proxiesList7 = new ArrayList<String>();
-	public static List<String> proxiesList8 = new ArrayList<String>();
-	public static List<String> proxiesList9 = new ArrayList<String>();
-	public static List<String> proxiesList10 = new ArrayList<String>();
-	public static List<String> proxiesList11 = new ArrayList<String>();
-	public static List<String> proxiesList12 = new ArrayList<String>();
-	public static List<String> proxiesList13 = new ArrayList<String>();
-	public static List<String> proxiesList14 = new ArrayList<String>();
-	public static List<String> proxiesList15 = new ArrayList<String>();
-	public static List<String> proxiesList16 = new ArrayList<String>();
-	public static List<String> proxiesList17 = new ArrayList<String>();
-	public static List<String> proxiesList18 = new ArrayList<String>();
-	public static List<String> proxiesList19 = new ArrayList<String>();
-	public static List<String> proxiesList20 = new ArrayList<String>();
-	
-	
+	public static List<String> proxiesList = new ArrayList<>();
+	public static List<String> proxiesList1 = new ArrayList<>();
+	public static List<String> proxiesList2 = new ArrayList<>();
+	public static List<String> proxiesList3 = new ArrayList<>();
+	public static List<String> proxiesList4 = new ArrayList<>();
+	public static List<String> proxiesList5 = new ArrayList<>();
+	public static List<String> proxiesList6 = new ArrayList<>();
+	public static List<String> proxiesList7 = new ArrayList<>();
+	public static List<String> proxiesList8 = new ArrayList<>();
+	public static List<String> proxiesList9 = new ArrayList<>();
+	public static List<String> proxiesList10 = new ArrayList<>();
+	public static List<String> proxiesList11 = new ArrayList<>();
+	public static List<String> proxiesList12 = new ArrayList<>();
+	public static List<String> proxiesList13 = new ArrayList<>();
+	public static List<String> proxiesList14 = new ArrayList<>();
+	public static List<String> proxiesList15 = new ArrayList<>();
+	public static List<String> proxiesList16 = new ArrayList<>();
+	public static List<String> proxiesList17 = new ArrayList<>();
+	public static List<String> proxiesList18 = new ArrayList<>();
+	public static List<String> proxiesList19 = new ArrayList<>();
+	public static List<String> proxiesList20 = new ArrayList<>();
+
+
 	public static void createAllProxies() {
 		createProxies();
 		createProxies1();
@@ -50,9 +50,9 @@ public class RandomProxies {
 		createProxies18();
 		createProxies19();
 		createProxies20();
-		
+
 	}
-	
+
 	public static void createProxies(){
 		proxiesList.add("209.97.203.64");
 		proxiesList.add("127.0.0.7");
@@ -775,9 +775,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies1(){
+	public static void createProxies1(){
 		proxiesList1.add("183.222.255.182");
 		proxiesList1.add("183.223.21.205");
 		proxiesList1.add("183.61.240.126");
@@ -1499,9 +1499,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies2(){
+	public static void createProxies2(){
 		proxiesList2.add("117.59.217.236");
 		proxiesList2.add("117.59.217.245");
 		proxiesList2.add("122.96.59.102");
@@ -2223,9 +2223,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies3(){
+	public static void createProxies3(){
 		proxiesList3.add("183.61.240.126");
 		proxiesList3.add("115.236.59.194");
 		proxiesList3.add("183.221.220.34");
@@ -2947,9 +2947,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies4(){
+	public static void createProxies4(){
 		proxiesList4.add("222.92.141.250");
 		proxiesList4.add("221.7.11.11");
 		proxiesList4.add("117.163.132.107");
@@ -3671,9 +3671,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies5(){
+	public static void createProxies5(){
 		proxiesList5.add("37.239.46.2");
 		proxiesList5.add("111.206.125.75");
 		proxiesList5.add("112.112.11.82");
@@ -4395,9 +4395,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies6(){
+	public static void createProxies6(){
 		proxiesList6.add("202.103.150.70");
 		proxiesList6.add("202.203.17.82");
 		proxiesList6.add("210.14.138.102");
@@ -5119,9 +5119,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies7(){
+	public static void createProxies7(){
 		proxiesList7.add("223.83.63.14");
 		proxiesList7.add("202.108.50.75");
 		proxiesList7.add("198.52.217.44");
@@ -5843,9 +5843,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies8(){
+	public static void createProxies8(){
 		proxiesList8.add("117.166.87.103");
 		proxiesList8.add("117.167.165.155");
 		proxiesList8.add("117.170.159.5");
@@ -6567,9 +6567,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies9(){
+	public static void createProxies9(){
 		proxiesList9.add("210.14.138.102");
 		proxiesList9.add("210.14.138.94");
 		proxiesList9.add("218.108.168.67");
@@ -7291,9 +7291,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies10(){
+	public static void createProxies10(){
 		proxiesList10.add("189.1.9.69");
 		proxiesList10.add("218.207.13.226");
 		proxiesList10.add("222.87.129.30");
@@ -8015,9 +8015,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies11(){
+	public static void createProxies11(){
 		proxiesList11.add("183.219.233.157");
 		proxiesList11.add("183.220.246.231");
 		proxiesList11.add("183.221.224.223");
@@ -8739,9 +8739,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies12(){
+	public static void createProxies12(){
 		proxiesList12.add("187.61.117.121");
 		proxiesList12.add("199.167.228.36");
 		proxiesList12.add("222.165.220.233");
@@ -9463,9 +9463,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies13(){
+	public static void createProxies13(){
 		proxiesList13.add("218.108.168.68");
 		proxiesList13.add("218.108.168.68");
 		proxiesList13.add("221.7.11.11");
@@ -10187,7 +10187,7 @@ public class RandomProxies {
 
 
 
-		}public static void createProxies14(){
+	}public static void createProxies14(){
 		proxiesList14.add("201.151.86.35");
 		proxiesList14.add("209.170.151.142");
 		proxiesList14.add("211.152.50.70");
@@ -10909,9 +10909,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies15(){
+	public static void createProxies15(){
 		proxiesList15.add("86.51.26.21");
 		proxiesList15.add("86.51.26.21");
 		proxiesList15.add("86.51.26.22");
@@ -11633,9 +11633,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies16(){
+	public static void createProxies16(){
 		proxiesList16.add("221.7.11.75");
 		proxiesList16.add("60.190.138.151");
 		proxiesList16.add("61.135.153.22");
@@ -12357,9 +12357,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies17(){
+	public static void createProxies17(){
 		proxiesList17.add("60.190.138.151");
 		proxiesList17.add("119.188.46.42");
 		proxiesList17.add("202.107.222.50");
@@ -13081,9 +13081,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies18(){
+	public static void createProxies18(){
 		proxiesList18.add("86.51.26.16");
 		proxiesList18.add("86.51.26.19");
 		proxiesList18.add("86.51.26.21");
@@ -13805,9 +13805,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies19(){
+	public static void createProxies19(){
 		proxiesList19.add("86.51.26.20");
 		proxiesList19.add("86.51.26.20");
 		proxiesList19.add("86.51.26.21");
@@ -14529,9 +14529,9 @@ public class RandomProxies {
 
 
 
-		}
+	}
 
-		public static void createProxies20(){
+	public static void createProxies20(){
 		proxiesList20.add("86.51.26.21");
 		proxiesList20.add("86.51.26.23");
 		proxiesList20.add("218.108.168.67");
@@ -15808,5 +15808,5 @@ public class RandomProxies {
 		proxiesList20.add("94.231.117.44");
 		proxiesList20.add("37.239.46.42");
 		proxiesList20.add("201.151.86.35");
-		}
+	}
 }

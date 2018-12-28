@@ -21,7 +21,7 @@ public class ReachH extends Check {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onAttack(EntityDamageByEntityEvent event) {
-		double tps = getAntiCheat().getLag().getTPS();
+		final double tps = getAntiCheat().getLag().getTPS();
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
@@ -51,7 +51,7 @@ public class ReachH extends Check {
 					maxReach += velocity * 1.5;
 					maxReach += ((ping < 250) ? (ping * 0.00212) : (ping * 0.031));
 					maxReach += YawDifference * 0.008;
-					String dist = Double.toString(Difference).substring(0, 3);
+					final String dist = Double.toString(Difference).substring(0, 3);
 					if (maxReach < Difference) {
 						event.setCancelled(true);
 						getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: H)");

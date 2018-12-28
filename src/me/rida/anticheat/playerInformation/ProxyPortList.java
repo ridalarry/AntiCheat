@@ -5,10 +5,10 @@ import java.util.List;
 
 public class ProxyPortList {
 
-	public static List<Integer> list = new ArrayList<Integer>();
-	
+	public static List<Integer> list = new ArrayList<>();
+
 	public static void setupProxyPortList(){
-		
+
 		list.add(8080);
 		list.add(53281);
 		list.add(8118);
@@ -24,7 +24,7 @@ public class ProxyPortList {
 		list.add(10200);
 		list.add(32321);
 		list.add(443);
-		list.add(62238);		
+		list.add(62238);
 		list.add(38067);
 		list.add(28658);
 		list.add(12537);

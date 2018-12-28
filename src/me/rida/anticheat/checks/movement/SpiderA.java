@@ -35,13 +35,13 @@ public class SpiderA extends Check {
 	public SpiderA(AntiCheat AntiCheat) {
 		super("SpiderA", "Spider", CheckType.Movement, true, true, false, true, false, 10, 1, 10000L, AntiCheat);
 	}
-	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
+	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks = new HashMap<>();
 
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (SharedEvents.placedBlock.containsKey(p)) {
 			if (System.currentTimeMillis() - SharedEvents.placedBlock.get(p).longValue() < 2000) {
 				return;
@@ -105,16 +105,16 @@ public class SpiderA extends Check {
 			Time = AscensionTicks.get(u).getKey().longValue();
 			TotalBlocks = AscensionTicks.get(u).getValue().doubleValue();
 		}
-		long MS = System.currentTimeMillis() - Time;
-		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()), MathUtil.getVerticalVector(e.getTo().toVector()));
+		final long MS = System.currentTimeMillis() - Time;
+		final double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()), MathUtil.getVerticalVector(e.getTo().toVector()));
 
 		boolean ya = false;
-		List<Material> Types = new ArrayList<Material>();
+		final List<Material> Types = new ArrayList<>();
 		Types.add(p.getLocation().getBlock().getRelative(BlockFace.SOUTH).getType());
 		Types.add(p.getLocation().getBlock().getRelative(BlockFace.NORTH).getType());
 		Types.add(p.getLocation().getBlock().getRelative(BlockFace.WEST).getType());
 		Types.add(p.getLocation().getBlock().getRelative(BlockFace.EAST).getType());
-		for (Material Type : Types) {
+		for (final Material Type : Types) {
 			if ((Type.isSolid()) && (Type != Material.LADDER) && (Type != Material.VINE) && (Type != Material.AIR)) {
 				ya = true;
 				break;
@@ -129,9 +129,9 @@ public class SpiderA extends Check {
 		}
 		double Limit = 0.5D;
 		if (p.hasPotionEffect(PotionEffectType.JUMP)) {
-			for (PotionEffect effect : p.getActivePotionEffects()) {
+			for (final PotionEffect effect : p.getActivePotionEffects()) {
 				if (effect.getType().equals(PotionEffectType.JUMP)) {
-					int level = effect.getAmplifier() + 1;
+					final int level = effect.getAmplifier() + 1;
 					Limit += Math.pow(level + 4.2D, 2.0D) / 16.0D;
 					break;
 				}

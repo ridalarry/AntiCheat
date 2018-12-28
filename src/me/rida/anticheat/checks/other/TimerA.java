@@ -33,8 +33,8 @@ public class TimerA extends Check {
 
 	@EventHandler
 	private void PacketPlayer(PacketPlayerEvent e) {
-		Player p = e.getPlayer();
-		UUID u = p.getUniqueId();
+		final Player p = e.getPlayer();
+		final UUID u = p.getUniqueId();
 		if (!this.getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -45,7 +45,7 @@ public class TimerA extends Check {
 			return;
 		}
 
-		long lastPacket = TimerA.lastPacket.getOrDefault(p.getUniqueId(), 0L);
+		final long lastPacket = TimerA.lastPacket.getOrDefault(p.getUniqueId(), 0L);
 		int packets = 0;
 		long Time = System.currentTimeMillis();
 		int verbose = TimerA.verbose.getOrDefault(p.getUniqueId(), 0);
@@ -59,7 +59,7 @@ public class TimerA extends Check {
 			TimerA.lastPacket.put(u, System.currentTimeMillis());
 			return;
 		}
-		double threshold = 21;
+		final double threshold = 21;
 		if(TimeUtil.elapsed(Time, 1000L)) {
 			if(toCancel.remove(p) && packets <= 13) {
 				return;
@@ -80,7 +80,7 @@ public class TimerA extends Check {
 		packets++;
 
 		TimerA.lastPacket.put(u, System.currentTimeMillis());
-		TimerA.packets.put(u, new SimpleEntry<Integer, Long>(packets, Time));
+		TimerA.packets.put(u, new SimpleEntry<>(packets, Time));
 		TimerA.verbose.put(u, verbose);
 	}
 }

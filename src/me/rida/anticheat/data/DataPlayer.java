@@ -36,7 +36,7 @@ public class DataPlayer {
 	private double lastKillauraYaw = 0;
 	private long lastPacket = 0;
 	private long lastAimTime = System.currentTimeMillis();
-	private long Speed_Ticks = 0;
+	private final long Speed_Ticks = 0;
 	private boolean Speed_TicksSet = false;
 	private boolean isNearIce = false;
 	private long isNearIceTicks = 0;
@@ -87,7 +87,7 @@ public class DataPlayer {
 
 	public DataPlayer(Player player) {
 		this.player = player;
-		lastNearSlime = new ArrayList<String>();
+		lastNearSlime = new ArrayList<>();
 	}
 	private int criticalsVerbose = 0;
 	private int flyHoverVerbose = 0;

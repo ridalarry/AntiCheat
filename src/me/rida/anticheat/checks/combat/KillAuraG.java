@@ -34,14 +34,14 @@ public class KillAuraG extends Check {
 				|| !((e.getAttacked()) instanceof Player)) {
 			return;
 		}
-		Player damager = e.getAttacker();
+		final Player damager = e.getAttacker();
 		if (damager.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(damager) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		Location from = null;
-		Location to = damager.getLocation();
+		final Location to = damager.getLocation();
 		if (LastLocation.containsKey(damager.getUniqueId())) {
 			from = LastLocation.get(damager.getUniqueId());
 		}
@@ -59,13 +59,13 @@ public class KillAuraG extends Check {
 		if (from == null || (to.getX() == from.getX() && to.getZ() == from.getZ())) {
 			return;
 		}
-		double Difference = Math.abs(to.getYaw() - from.getYaw());
+		final double Difference = Math.abs(to.getYaw() - from.getYaw());
 		if (Difference == 0.0) {
 			return;
 		}
 		if (Difference > 2.4) {
 			this.dumplog(damager, "Logged for KillAura Type G; Difference: " + Difference);
-			double diff = Math.abs(LastDifference - Difference);
+			final double diff = Math.abs(LastDifference - Difference);
 			if (e.getAttacked().getVelocity().length() < 0.1) {
 				if (diff < 1.4) {
 					Count += 1;
@@ -93,6 +93,6 @@ public class KillAuraG extends Check {
 			getAntiCheat().logCheat(this, damager, "Aimbot", "(Type: G)");
 		}
 		AimbotTicks.put(damager.getUniqueId(),
-				new AbstractMap.SimpleEntry<Integer, Long>((int) Math.round(Count), Time));
+				new AbstractMap.SimpleEntry<>((int) Math.round(Count), Time));
 	}
 }

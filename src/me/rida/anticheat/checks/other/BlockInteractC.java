@@ -27,8 +27,8 @@ public class BlockInteractC extends Check {
 		if (ServerUtil.isBukkitVerison("1_7")) {
 			return;
 		}
-		Player p = e.getPlayer();
-		Block t = p.getTargetBlock((Set)null, 5);
+		final Player p = e.getPlayer();
+		final Block t = p.getTargetBlock((Set)null, 5);
 		if (p.getAllowFlight()
 				|| e.getPlayer().getVehicle() != null
 				|| !getAntiCheat().isEnabled()
@@ -40,9 +40,9 @@ public class BlockInteractC extends Check {
 			return;
 		}
 
-		double x = PlayerUtil.getEff(p);
+		final double x = PlayerUtil.getEff(p);
 		if (e.getBlock().getWorld().getBlockAt(e.getBlock().getLocation().subtract(0.0, 1.0, 0.0)).getType() == Material.AIR) {
-			if (!e.getBlock().getLocation().equals((Object)t.getLocation()) && !e.isCancelled() && t.getType().isSolid() && !t.getType().name().toLowerCase().contains("sign") && !t.getType().toString().toLowerCase().contains("fence") && p.getLocation().getY() > e.getBlock().getLocation().getY()) {
+			if (!e.getBlock().getLocation().equals(t.getLocation()) && !e.isCancelled() && t.getType().isSolid() && !t.getType().name().toLowerCase().contains("sign") && !t.getType().toString().toLowerCase().contains("fence") && p.getLocation().getY() > e.getBlock().getLocation().getY()) {
 				if (x != 0) {
 
 					getAntiCheat().logCheat(this, p, "[1] BlockInteract", "(Type: C)");

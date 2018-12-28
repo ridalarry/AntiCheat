@@ -18,18 +18,18 @@ import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.utils.CheatUtil;
 
 public class HitBoxA extends Check {
-public HitBoxA(AntiCheat AntiCheat) {
-	super("HitBoxA", "HitBox", CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
+	public HitBoxA(AntiCheat AntiCheat) {
+		super("HitBoxA", "HitBox", CheckType.Combat, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
 	}
 
-	public static Map<UUID, Integer> count = new HashMap<UUID, Integer>();
-	public static Map<UUID, Player> lastHit = new HashMap<UUID, Player>();
-	public static Map<UUID, Double> yawDif = new HashMap<UUID, Double>();
+	public static Map<UUID, Integer> count = new HashMap<>();
+	public static Map<UUID, Player> lastHit = new HashMap<>();
+	public static Map<UUID, Double> yawDif = new HashMap<>();
 
 	@SuppressWarnings("static-access")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
 	public void onMove(PlayerMoveEvent e) {
-		double yawDif = Math.abs(e.getFrom().getYaw() - e.getTo().getYaw());
+		final double yawDif = Math.abs(e.getFrom().getYaw() - e.getTo().getYaw());
 		this.yawDif.put(e.getPlayer().getUniqueId(), yawDif);
 	}
 
@@ -39,13 +39,13 @@ public HitBoxA(AntiCheat AntiCheat) {
 		if (e.getCause() != DamageCause.ENTITY_ATTACK) {
 			return;
 		}
-		if (!(e.getEntity() instanceof Player) 
+		if (!(e.getEntity() instanceof Player)
 				|| !(e.getDamager() instanceof Player)) {
 			return;
 		}
 
-		Player player = (Player) e.getDamager();
-		Player attacked = (Player) e.getEntity();
+		final Player player = (Player) e.getDamager();
+		final Player attacked = (Player) e.getEntity();
 		if (player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;
 		}
@@ -70,9 +70,9 @@ public HitBoxA(AntiCheat AntiCheat) {
 			return;
 		}
 
-		double offset = CheatUtil.getOffsetOffCursor(player, attacked);
+		final double offset = CheatUtil.getOffsetOffCursor(player, attacked);
 		double Limit = 108D;
-		double distance = CheatUtil.getHorizontalDistance(player.getLocation(), attacked.getLocation());
+		final double distance = CheatUtil.getHorizontalDistance(player.getLocation(), attacked.getLocation());
 		Limit += distance * 57;
 		Limit += (attacked.getVelocity().length() + player.getVelocity().length()) * 64;
 		Limit += yawDif * 6;

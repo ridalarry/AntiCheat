@@ -32,21 +32,21 @@ public class BlockInteractA extends Check {
 			return;
 		}
 		boolean isValid = false;
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (PlayerUtil.isNearLog(p) && PlayerUtil.isNearGrass(p)) {
 			return;
 		}
-		Location scanLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation();
-		double x = scanLocation.getX();
-		double y = scanLocation.getY();
-		double z = scanLocation.getZ();
+		final Location scanLocation = e.getClickedBlock().getRelative(e.getBlockFace()).getLocation();
+		final double x = scanLocation.getX();
+		final double y = scanLocation.getY();
+		final double z = scanLocation.getZ();
 		for (double sX = x; sX < x + 2.0D; sX += 1.0D) {
 			for (double sY = y; sY < y + 2.0D; sY += 1.0D) {
 				for (double sZ = z; sZ < z + 2.0D; sZ += 1.0D) {
-					Location relative = new Location(scanLocation.getWorld(), sX, sY, sZ);
-					List<Location> blocks = rayTrace(p.getLocation(), relative);
+					final Location relative = new Location(scanLocation.getWorld(), sX, sY, sZ);
+					final List<Location> blocks = rayTrace(p.getLocation(), relative);
 					boolean valid = true;
-					for (Location l : blocks) {
+					for (final Location l : blocks) {
 						if (!checkPhase(l.getBlock().getType())) {
 							valid = false;
 						}
@@ -63,7 +63,7 @@ public class BlockInteractA extends Check {
 	}
 
 	private List<Location> rayTrace(Location from, Location to) {
-		List<Location> a = new ArrayList<Location>();
+		final List<Location> a = new ArrayList<>();
 		if ((from == null) || (to == null)) {
 			return a;
 		}
@@ -76,9 +76,9 @@ public class BlockInteractA extends Check {
 		double x1 = from.getX();
 		double y1 = from.getY() + 1.62D;
 		double z1 = from.getZ();
-		double x2 = to.getX();
-		double y2 = to.getY();
-		double z2 = to.getZ();
+		final double x2 = to.getX();
+		final double y2 = to.getY();
+		final double z2 = to.getZ();
 
 		boolean scanning = true;
 		while (scanning) {
@@ -95,14 +95,14 @@ public class BlockInteractA extends Check {
 
 	@SuppressWarnings("deprecation")
 	private boolean checkPhase(Material m) {
-		int[] whitelist = { 355, 196, 194, 197, 195, 193, 64, 96, 187, 184, 186, 107, 185, 183, 192, 189, 139, 191, 85,
+		final int[] whitelist = { 355, 196, 194, 197, 195, 193, 64, 96, 187, 184, 186, 107, 185, 183, 192, 189, 139, 191, 85,
 				101, 190, 113, 188, 160, 102, 163, 157, 0, 145, 49, 77, 135, 108, 67, 164, 136, 114, 156, 180, 128, 143,
 				109, 134, 53, 126, 44, 416, 8, 425, 138, 26, 397, 372, 13, 135, 117, 108, 39, 81, 92, 71, 171, 141, 118,
 				144, 54, 139, 67, 127, 59, 115, 330, 164, 151, 178, 32, 28, 93, 94, 175, 122, 116, 130, 119, 120, 51,
 				140, 147, 154, 148, 136, 65, 10, 69, 31, 105, 114, 372, 33, 34, 36, 29, 90, 142, 27, 104, 156, 66, 40,
 				330, 38, 180, 149, 150, 75, 76, 55, 128, 6, 295, 323, 63, 109, 78, 88, 134, 176, 11, 9, 44, 70, 182, 83,
 				50, 146, 132, 131, 106, 177, 68, 8, 111, 30, 72, 53, 126, 37 };
-		for (int ids : whitelist) {
+		for (final int ids : whitelist) {
 			if (m.getId() == ids) {
 				return true;
 			}

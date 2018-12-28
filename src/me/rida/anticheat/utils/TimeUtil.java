@@ -8,8 +8,8 @@ public class TimeUtil {
 	public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 	public static final String DATE_FORMAT_DAY = "yyyy-MM-dd";
 	public static String now() {
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		final Calendar cal = Calendar.getInstance();
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return sdf.format(cal.getTime());
 	}
 
@@ -18,7 +18,7 @@ public class TimeUtil {
 	}
 
 	public static String when(long time) {
-		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+		final SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
 		return sdf.format(time);
 	}
 
@@ -45,15 +45,15 @@ public class TimeUtil {
 	}
 
 	public static String date() {
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		final Calendar cal = Calendar.getInstance();
+		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		return sdf.format(cal.getTime());
 	}
 
 	public static String getTime(int time) {
-		Date timeDiff = new Date();
+		final Date timeDiff = new Date();
 		timeDiff.setTime(time * 1000);
-		SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
+		final SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss");
 		return timeFormat.format(timeDiff);
 	}
 

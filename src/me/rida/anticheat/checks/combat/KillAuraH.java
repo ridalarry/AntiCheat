@@ -27,21 +27,21 @@ public class KillAuraH extends Check {
 				|| !(e.getDamager() instanceof Player)) {
 			return;
 		}
-		Player p = (Player) e.getDamager();
+		final Player p = (Player) e.getDamager();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 		if (lastAttack.containsKey(p)) {
-			Integer entityid = lastAttack.get(p).getKey();
-			Long time = lastAttack.get(p).getValue();
+			final Integer entityid = lastAttack.get(p).getKey();
+			final Long time = lastAttack.get(p).getValue();
 			if (entityid != e.getEntity().getEntityId() && System.currentTimeMillis() - time < 6L) {
 				this.getAntiCheat().logCheat(this, p, "MultiAura", "(Type: H)");
 			}
 			lastAttack.remove(p);
 		} else {
-			lastAttack.put(p, new AbstractMap.SimpleEntry<Integer, Long>(e.getEntity().getEntityId(),
+			lastAttack.put(p, new AbstractMap.SimpleEntry<>(e.getEntity().getEntityId(),
 					System.currentTimeMillis()));
 		}
 	}
-} 
+}

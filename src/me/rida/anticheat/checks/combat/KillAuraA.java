@@ -42,7 +42,7 @@ public class KillAuraA extends Check {
 			return;
 		}
 
-		Player p = (Player) e.getDamager();
+		final Player p = (Player) e.getDamager();
 		if (CheatUtil.slabsNear(p.getEyeLocation())
 				|| CheatUtil.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -55,11 +55,11 @@ public class KillAuraA extends Check {
 			Count = counts.get(p);
 		}
 
-		Player a = (Player) e.getEntity();
-		Location dloc = p.getLocation();
-		Location aloc = a.getLocation();
-		double zdif = Math.abs(dloc.getZ() - aloc.getZ());
-		double xdif = Math.abs(dloc.getX() - aloc.getX());
+		final Player a = (Player) e.getEntity();
+		final Location dloc = p.getLocation();
+		final Location aloc = a.getLocation();
+		final double zdif = Math.abs(dloc.getZ() - aloc.getZ());
+		final double xdif = Math.abs(dloc.getX() - aloc.getX());
 
 		if (xdif == 0 || zdif == 0
 				|| CheatUtil.getOffsetOffCursor(p, a) > 20) {
@@ -67,12 +67,12 @@ public class KillAuraA extends Check {
 		}
 
 		for (int y = 0; y < 1; y += 1) {
-			Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
+			final Location zBlock = zdif < -0.2 ? dloc.clone().add(0.0D, y, zdif) : aloc.clone().add(0.0D, y, zdif);
 			if (!BlockUtil.allowed.contains(zBlock.getBlock().getType()) && zBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(zBlock.getBlock())) {
 				Count++;
 			}
-			Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
+			final Location xBlock = xdif < -0.2 ? dloc.clone().add(xdif, y, 0.0D) : aloc.clone().add(xdif, y, 0.0D);
 			if (!BlockUtil.allowed.contains(xBlock.getBlock().getType()) && xBlock.getBlock().getType().isSolid()
 					&& !p.hasLineOfSight(a) && !CheatUtil.isSlab(xBlock.getBlock())) {
 				Count++;

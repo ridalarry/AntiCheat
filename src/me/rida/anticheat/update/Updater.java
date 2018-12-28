@@ -1,18 +1,16 @@
 package me.rida.anticheat.update;
 
 import org.bukkit.Bukkit;
-import org.bukkit.event.Event;
-import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 
 public class Updater implements Runnable {
-	private AntiCheat AntiCheat;
-	private int updater;
+	private final AntiCheat AntiCheat;
+	private final int updater;
 
 	public Updater(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
-		this.updater = Bukkit.getScheduler().scheduleSyncRepeatingTask((Plugin) this.AntiCheat, (Runnable) this, 0, 1);
+		this.updater = Bukkit.getScheduler().scheduleSyncRepeatingTask(this.AntiCheat, this, 0, 1);
 	}
 
 	public void Disable() {
@@ -20,16 +18,16 @@ public class Updater implements Runnable {
 	}
 	@Override
 	public void run() {
-		UpdateType[] arrupdateType = UpdateType.values();
-		int n = arrupdateType.length;
+		final UpdateType[] arrupdateType = UpdateType.values();
+		final int n = arrupdateType.length;
 		int n2 = 0;
 		while (n2 < n) {
-			UpdateType updateType = arrupdateType[n2];
+			final UpdateType updateType = arrupdateType[n2];
 			if (updateType != null && updateType.Elapsed()) {
 				try {
-					UpdateEvent event = new UpdateEvent(updateType);
-					Bukkit.getPluginManager().callEvent((Event) event);
-				} catch (Exception ex) {
+					final UpdateEvent event = new UpdateEvent(updateType);
+					Bukkit.getPluginManager().callEvent(event);
+				} catch (final Exception ex) {
 					ex.printStackTrace();
 				}
 			}

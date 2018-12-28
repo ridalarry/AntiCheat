@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.combat;
+
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,11 +34,13 @@ public class ReachD extends Check {
 	}
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
-		if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ()) return;
+		if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ()) {
+			return;
+		}
 
-		double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(event.getFrom().toVector()),
+		final double OffsetXZ = MathUtil.offset(MathUtil.getHorizontalVector(event.getFrom().toVector()),
 				MathUtil.getHorizontalVector(event.getTo().toVector()));
-		double horizontal = Math.sqrt(Math.pow(event.getTo().getX() - event.getFrom().getX(), 2.0)
+		final double horizontal = Math.sqrt(Math.pow(event.getTo().getX() - event.getFrom().getX(), 2.0)
 				+ Math.pow(event.getTo().getZ() - event.getFrom().getZ(), 2.0));
 		ReachD.offsets.put(event.getPlayer(),
 				new AbstractMap.SimpleEntry<>(OffsetXZ, horizontal));
@@ -45,8 +48,10 @@ public class ReachD extends Check {
 	@EventHandler
 	public void onDmg(EntityDamageByEntityEvent e) {
 		if (!(e.getDamager() instanceof Player)
-				|| e.getCause() != DamageCause.PROJECTILE) return;
-		Player player = (Player) e.getDamager();
+				|| e.getCause() != DamageCause.PROJECTILE) {
+			return;
+		}
+		final Player player = (Player) e.getDamager();
 		projectileHit.add(player);
 	}
 	@EventHandler
@@ -54,20 +59,24 @@ public class ReachD extends Check {
 		if (e.getAction() != EnumWrappers.EntityUseAction.ATTACK
 				|| !(e.getAttacked() instanceof Player)
 				|| e.getAttacker().getAllowFlight()
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) return;
-		Player damager = e.getAttacker();
-		Player player = (Player) e.getAttacked();
-		double ydist = Math.abs(damager.getEyeLocation().getY() - player.getEyeLocation().getY());
+				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()) {
+			return;
+		}
+		final Player damager = e.getAttacker();
+		final Player player = (Player) e.getAttacked();
+		final double ydist = Math.abs(damager.getEyeLocation().getY() - player.getEyeLocation().getY());
 		double Reach = MathUtil.trim(2,
 				(PlayerUtil.getEyeLocation(damager).distance(player.getEyeLocation()) - ydist) - 0.32);
-		int PingD = this.getAntiCheat().getLag().getPing(damager);
-		int PingP = this.getAntiCheat().getLag().getPing(player);
+		final int PingD = this.getAntiCheat().getLag().getPing(damager);
+		final int PingP = this.getAntiCheat().getLag().getPing(player);
 		long attackTime = System.currentTimeMillis();
 		if (ReachD.reachTicks.containsKey(damager)) {
 			attackTime = reachTicks.get(damager);
 		}
-		double yawdif = Math.abs(180 - Math.abs(damager.getLocation().getYaw() - player.getLocation().getYaw()));
-		if (Latency.getLag(damager) > 92 || Latency.getLag(player) > 92) return;
+		final double yawdif = Math.abs(180 - Math.abs(damager.getLocation().getYaw() - player.getLocation().getYaw()));
+		if (Latency.getLag(damager) > 92 || Latency.getLag(player) > 92) {
+			return;
+		}
 		double offsetsp = 0.0D;
 		double lastHorizontal = 0.0D;
 		double offsetsd = 0.0D;

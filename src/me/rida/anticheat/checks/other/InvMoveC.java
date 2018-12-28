@@ -17,7 +17,7 @@ public class InvMoveC extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void InventoryClickEvent(InventoryClickEvent e) {
-		Player p = (Player) e.getWhoClicked();
+		final Player p = (Player) e.getWhoClicked();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| p.getAllowFlight()

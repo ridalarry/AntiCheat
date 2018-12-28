@@ -21,13 +21,13 @@ public class AutoClickerD extends Check {
 	public AutoClickerD(AntiCheat AntiCheat) {
 		super("AutoClickerD", "AutoClicker",  CheckType.Combat, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
 
-		clicks = new HashMap<UUID, Integer>();
-		recording = new HashMap<UUID, Long>();
+		clicks = new HashMap<>();
+		recording = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onSwing(PacketSwingArmEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (getAntiCheat().getLag().getTPS() < 17
 				|| Latency.getLag(p) > 100
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -35,7 +35,7 @@ public class AutoClickerD extends Check {
 			return;
 		}
 		int clicks = AutoClickerD.clicks.getOrDefault(this, 0);
-		long time = recording.getOrDefault(p.getUniqueId(), System.currentTimeMillis());
+		final long time = recording.getOrDefault(p.getUniqueId(), System.currentTimeMillis());
 		if(TimeUtil.elapsed(time, 1000L)) {
 			if(clicks > 18) {
 				getAntiCheat().logCheat(this, p, clicks + " Clicks/Second", "(Type: D)");

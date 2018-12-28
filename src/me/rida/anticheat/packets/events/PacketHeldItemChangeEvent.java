@@ -1,13 +1,14 @@
 package me.rida.anticheat.packets.events;
 
-import org.bukkit.event.HandlerList;
-import com.comphenix.protocol.events.PacketEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+
+import com.comphenix.protocol.events.PacketEvent;
 
 public class PacketHeldItemChangeEvent extends Event {
-	private Player Player;
-	private PacketEvent Event;
+	private final Player Player;
+	private final PacketEvent Event;
 	private static final HandlerList handlers;
 
 	static {
@@ -28,6 +29,7 @@ public class PacketHeldItemChangeEvent extends Event {
 		return this.Player;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return PacketHeldItemChangeEvent.handlers;
 	}

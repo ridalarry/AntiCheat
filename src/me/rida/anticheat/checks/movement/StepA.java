@@ -69,9 +69,9 @@ public class StepA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 
-		if (!getAntiCheat().isEnabled() 
+		if (!getAntiCheat().isEnabled()
 				|| !isOnGround(p)
 				|| p.getAllowFlight()
 				|| p.hasPotionEffect(PotionEffectType.JUMP)
@@ -94,11 +94,11 @@ public class StepA extends Check {
 				return;
 			}
 		}
-		double yDist = e.getTo().getY() - e.getFrom().getY();
+		final double yDist = e.getTo().getY() - e.getFrom().getY();
 		if (yDist < 0) {
 			return;
 		}
-		double YSpeed = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
+		final double YSpeed = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));
 		if (yDist > 0.95) {
 			this.dumplog(p, "Logged for Step Type A; Height (Logged): " + yDist);
@@ -111,8 +111,8 @@ public class StepA extends Check {
 			this.getAntiCheat().logCheat(this, p, "[2] Speed: " + YSpeed + " Block: " + p.getLocation().clone().subtract(0.0D, 0.1D, 0.0D).getBlock().getType().toString(), "(Type: A)");
 			return;
 		}
-		ArrayList<Block> blocks = BlockUtil.getBlocksAroundCenter(p.getLocation(), 1);
-		for (Block block : blocks) {
+		final ArrayList<Block> blocks = BlockUtil.getBlocksAroundCenter(p.getLocation(), 1);
+		for (final Block block : blocks) {
 			if (block.getType().isSolid()) {
 				if ((YSpeed >= 0.321 && YSpeed < 0.322)) {
 					this.getAntiCheat().logCheat(this, p, "[3] Speed: " + YSpeed, "(Type: A)");

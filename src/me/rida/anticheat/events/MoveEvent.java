@@ -26,7 +26,7 @@ public class MoveEvent implements Listener {
 
 
 	public static int defaultWait = 15; // This is in ticks
-	public static Map<UUID, Long> lastMove = new WeakHashMap<UUID, Long>();
+	public static Map<UUID, Long> lastMove = new WeakHashMap<>();
 
 	// We need to create hashmaps to store the amount of time left
 
@@ -49,7 +49,7 @@ public class MoveEvent implements Listener {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		lastMove.put(p.getUniqueId(), System.currentTimeMillis());
 		if(inTimer(p) == true) {
 			return;
@@ -59,21 +59,21 @@ public class MoveEvent implements Listener {
 		if (e.getFrom().getX() != e.getTo().getX()
 				|| e.getFrom().getY() != e.getTo().getY()
 				|| e.getFrom().getZ() != e.getTo().getZ()) {
-			DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
+			final DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
 			if (data != null) {
 				data.setOnGround(PlayerUtil.isOnTheGround(p));
 				data.onGround = PlayerUtil.isOnGround4(p);
 				data.setOnStairSlab(PlayerUtil.isInStairs(p));
-                data.onStairSlab = PlayerUtil.isInStairs(p);
+				data.onStairSlab = PlayerUtil.isInStairs(p);
 				data.setInLiquid(PlayerUtil.isInLiquid(p));
-                data.inLiquid = PlayerUtil.isInLiquid(p);
+				data.inLiquid = PlayerUtil.isInLiquid(p);
 				data.setOnIce(PlayerUtil.isOnIce(p));
-                data.onIce = PlayerUtil.isOnIce(p);
+				data.onIce = PlayerUtil.isOnIce(p);
 				data.setOnClimbable(PlayerUtil.isOnClimbable(p));
-                data.onClimbable = PlayerUtil.isOnClimbable(p);
+				data.onClimbable = PlayerUtil.isOnClimbable(p);
 				data.setUnderBlock(PlayerUtil.inUnderBlock(p));
-                data.underBlock = PlayerUtil.inUnderBlock(p);
-                
+				data.underBlock = PlayerUtil.inUnderBlock(p);
+
 				if(data.isOnGround()) {
 					data.groundTicks++;
 					data.airTicks = 0;
@@ -87,7 +87,7 @@ public class MoveEvent implements Listener {
 				data.blockTicks = Math.max(0, data.isUnderBlock() ? data.blockTicks + 1  : data.blockTicks - 1);
 			}
 		}
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data.isNearIce()) {
 			if (TimerUtil.elapsed(data.getIsNearIceTicks(),500L)) {
 				if (!PlayerUtil.isNearIce(p)) {
@@ -97,11 +97,11 @@ public class MoveEvent implements Listener {
 				}
 			}
 		}
-		Location l = p.getLocation();
-		int x = l.getBlockX();
-		int y = l.getBlockY();
-		int z = l.getBlockZ();
-		Location loc1 = new Location(p.getWorld(), x, y + 1, z);
+		final Location l = p.getLocation();
+		final int x = l.getBlockX();
+		final int y = l.getBlockY();
+		final int z = l.getBlockZ();
+		final Location loc1 = new Location(p.getWorld(), x, y + 1, z);
 		if (loc1.getBlock().getType() != Material.AIR) {
 			if (!data.isBlockAbove_Set()) {
 				data.setBlockAbove_Set(true);
@@ -130,21 +130,23 @@ public class MoveEvent implements Listener {
 		}
 
 		if (PlayerUtil.isNearIce(p)) {
-			if(data.getIceTicks() < 60) data.setIceTicks(data.getIceTicks() + 1);
+			if(data.getIceTicks() < 60) {
+				data.setIceTicks(data.getIceTicks() + 1);
+			}
 		} else if(data.getIceTicks() > 0) {
 			data.setIceTicks(data.getIceTicks() - 1);
 		}
-		if(PlayerUtil.isNearSlime(p.getLocation())) { 
+		if(PlayerUtil.isNearSlime(p.getLocation())) {
 			if (!(DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString()))) {
 				DataPlayer.lastNearSlime.add(p.getPlayer().getName().toString());
 				//Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now added to the list");
-			} 
+			}
 		}
 		if(!(PlayerUtil.isNearSlime(p.getLocation()))) {
 			if (e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ()) {
 				if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
 					DataPlayer.lastNearSlime.remove(p.getPlayer().getName().toString());
-				//Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now removed from the list");
+					//Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now removed from the list");
 				}
 			}
 		}
@@ -189,9 +191,9 @@ public class MoveEvent implements Listener {
 			data.setIsNearIceTicks(TimerUtil.nowlong());
 		}
 
-		double distance = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
+		final double distance = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 
-		boolean onGround = PlayerUtil.isOnGround4(p);
+		final boolean onGround = PlayerUtil.isOnGround4(p);
 		if(!onGround
 				&& e.getFrom().getY() > e.getTo().getY()) {
 			data.setFallDistance(data.getFallDistance() + distance);
@@ -221,7 +223,7 @@ public class MoveEvent implements Listener {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onVelocity(PlayerVelocityEvent e) {
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(e.getPlayer());
 
 		if(data == null) {
 			return;

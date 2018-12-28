@@ -34,35 +34,35 @@ public class SpeedB extends Check {
 
 	public SpeedB(AntiCheat AntiCheat) {
 		super("SpeedB", "Speed", CheckType.Movement, true, true, false, true, false, 15, 4, 120000L, AntiCheat);
-		SpeedB.lastHit = new HashMap<UUID, Long>();
-		SpeedB.tooFastTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
-		SpeedB.speedTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		SpeedB.lastHit = new HashMap<>();
+		SpeedB.tooFastTicks = new HashMap<>();
+		SpeedB.speedTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 
-		Location from = e.getFrom().clone();
-		Location to = e.getTo().clone();
-		Player p = e.getPlayer();
-		double velx = Math.abs(p.getVelocity().getX());
-		double vely = Math.abs(p.getVelocity().getX());
-		double velz = Math.abs(p.getVelocity().getX());
+		final Location from = e.getFrom().clone();
+		final Location to = e.getTo().clone();
+		final Player p = e.getPlayer();
+		final double velx = Math.abs(p.getVelocity().getX());
+		final double vely = Math.abs(p.getVelocity().getX());
+		final double velz = Math.abs(p.getVelocity().getX());
 
-		Location l = p.getLocation();
-		int x = l.getBlockX();
-		int y = l.getBlockY();
-		int z = l.getBlockZ();
-		Location blockLoc = new Location(p.getWorld(), x, y - 1, z);
-		Location loc = new Location(p.getWorld(), x, y, z);
-		Location loc2 = new Location(p.getWorld(), x, y + 1, z);
-		Location above = new Location(p.getWorld(), x, y + 2, z);
-		Location above3 = new Location(p.getWorld(), x - 1, y + 2, z - 1);
-		long lastHitDiff = Math.abs(System.currentTimeMillis() - SpeedC.lastHit.getOrDefault(p.getUniqueId(), 0L));
+		final Location l = p.getLocation();
+		final int x = l.getBlockX();
+		final int y = l.getBlockY();
+		final int z = l.getBlockZ();
+		final Location blockLoc = new Location(p.getWorld(), x, y - 1, z);
+		final Location loc = new Location(p.getWorld(), x, y, z);
+		final Location loc2 = new Location(p.getWorld(), x, y + 1, z);
+		final Location above = new Location(p.getWorld(), x, y + 2, z);
+		final Location above3 = new Location(p.getWorld(), x - 1, y + 2, z - 1);
+		final long lastHitDiff = Math.abs(System.currentTimeMillis() - SpeedC.lastHit.getOrDefault(p.getUniqueId(), 0L));
 
 		if ((e.getTo().getX() == e.getFrom().getX()) && (e.getTo().getZ() == e.getFrom().getZ())
 				&& (e.getTo().getY() == e.getFrom().getY())
-				|| lastHitDiff < 1500L 
+				|| lastHitDiff < 1500L
 				|| p.getNoDamageTicks() != 0
 				|| p.getVehicle() != null
 				|| p.getGameMode().equals(GameMode.CREATIVE)
@@ -85,11 +85,11 @@ public class SpeedB extends Check {
 		}
 
 		double ig = 0.28;
-		double speed = MathUtil.offset(getHV(to.toVector()), getHV(from.toVector()));
-		double onGroundDiff = (to.getY() - from.getY());
+		final double speed = MathUtil.offset(getHV(to.toVector()), getHV(from.toVector()));
+		final double onGroundDiff = (to.getY() - from.getY());
 
 		if (p.hasPotionEffect(PotionEffectType.SPEED)) {
-			int level = getPotionEffectLevel(p, PotionEffectType.SPEED);
+			final int level = getPotionEffectLevel(p, PotionEffectType.SPEED);
 			if (level > 0) {
 				newmaxspeed = (newmaxspeed * (((level * 20) * 0.011) + 1));
 				Airmaxspeed = (Airmaxspeed * (((level * 20) * 0.011) + 1));
@@ -148,19 +148,19 @@ public class SpeedB extends Check {
 	private boolean isOnIce(final Player player) {
 		final Location a = player.getLocation();
 		a.setY(a.getY() - 1.0);
-		if (a.getBlock().getType().equals((Object) Material.ICE)
-				|| a.getBlock().getType().equals((Object) Material.getMaterial("PACKED_ICE"))
-				|| a.getBlock().getType().equals((Object) Material.getMaterial("FROSTED_ICE"))) {
+		if (a.getBlock().getType().equals(Material.ICE)
+				|| a.getBlock().getType().equals(Material.getMaterial("PACKED_ICE"))
+				|| a.getBlock().getType().equals(Material.getMaterial("FROSTED_ICE"))) {
 			return true;
 		}
 		a.setY(a.getY() - 1.0);
-		return a.getBlock().getType().equals((Object) Material.ICE)
-				|| a.getBlock().getType().equals((Object) Material.getMaterial("PACKED_ICE"))
-				|| a.getBlock().getType().equals((Object) Material.getMaterial("FROSTED_ICE"));
+		return a.getBlock().getType().equals(Material.ICE)
+				|| a.getBlock().getType().equals(Material.getMaterial("PACKED_ICE"))
+				|| a.getBlock().getType().equals(Material.getMaterial("FROSTED_ICE"));
 	}
 
 	private int getPotionEffectLevel(Player p, PotionEffectType pet) {
-		for (PotionEffect pe : p.getActivePotionEffects()) {
+		for (final PotionEffect pe : p.getActivePotionEffects()) {
 			if (pe.getType().getName().equals(pet.getName())) {
 				return pe.getAmplifier() + 1;
 			}
@@ -173,11 +173,11 @@ public class SpeedB extends Check {
 		return V;
 	}
 	private static boolean isReallyOnGround(Player p) {
-		Location l = p.getLocation();
-		int x = l.getBlockX();
-		int y = l.getBlockY();
-		int z = l.getBlockZ();
-		Location b = new Location(p.getWorld(), x, y - 1, z);
+		final Location l = p.getLocation();
+		final int x = l.getBlockX();
+		final int y = l.getBlockY();
+		final int z = l.getBlockZ();
+		final Location b = new Location(p.getWorld(), x, y - 1, z);
 
 		if (p.isOnGround() && b.getBlock().getType() != Material.AIR && b.getBlock().getType() != Material.WEB
 				&& !b.getBlock().isLiquid()) {
@@ -189,7 +189,7 @@ public class SpeedB extends Check {
 
 	private static boolean flaggyStuffNear(Location loc) {
 		boolean nearBlocks = false;
-		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
+		for (final Block bl : BlockUtil.getSurrounding(loc.getBlock(), true)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {
@@ -197,7 +197,7 @@ public class SpeedB extends Check {
 				break;
 			}
 		}
-		for (Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
+		for (final Block bl : BlockUtil.getSurrounding(loc.getBlock(), false)) {
 			if ((bl.getType().equals(Material.STEP)) || (bl.getType().equals(Material.DOUBLE_STEP))
 					|| (bl.getType().equals(Material.BED)) || (bl.getType().equals(Material.WOOD_DOUBLE_STEP))
 					|| (bl.getType().equals(Material.WOOD_STEP))) {
@@ -214,11 +214,11 @@ public class SpeedB extends Check {
 
 
 	private static boolean isBlock(Block block, Material[] materials) {
-		Material type = block.getType();
+		final Material type = block.getType();
 		Material[] arrayOfMaterial;
-		int j = (arrayOfMaterial = materials).length;
+		final int j = (arrayOfMaterial = materials).length;
 		for (int i = 0; i < j; i++) {
-			Material m = arrayOfMaterial[i];
+			final Material m = arrayOfMaterial[i];
 			if (m == type) {
 				return true;
 			}
@@ -228,10 +228,10 @@ public class SpeedB extends Check {
 
 	private static boolean isAir(final Player player) {
 		final Block b = player.getLocation().getBlock().getRelative(BlockFace.DOWN);
-		return b.getType().equals((Object) Material.AIR)
-				&& b.getRelative(BlockFace.WEST).getType().equals((Object) Material.AIR)
-				&& b.getRelative(BlockFace.NORTH).getType().equals((Object) Material.AIR)
-				&& b.getRelative(BlockFace.EAST).getType().equals((Object) Material.AIR)
-				&& b.getRelative(BlockFace.SOUTH).getType().equals((Object) Material.AIR);
+		return b.getType().equals(Material.AIR)
+				&& b.getRelative(BlockFace.WEST).getType().equals(Material.AIR)
+				&& b.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)
+				&& b.getRelative(BlockFace.EAST).getType().equals(Material.AIR)
+				&& b.getRelative(BlockFace.SOUTH).getType().equals(Material.AIR);
 	}
 }

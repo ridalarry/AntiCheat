@@ -31,18 +31,18 @@ public class ReflectionUtil {
 	private static final Method getBlocks1_12 = getMethod(World, "getCubes", getNMSClass("Entity"), getNMSClass("AxisAlignedBB"));
 
 	public static float getFriction(Block block) {
-		Object blockNMS = getVanillaBlock(block);
+		final Object blockNMS = getVanillaBlock(block);
 		return (float) getFieldValue(getFieldByName(vanillaBlock, "frictionFactor"), blockNMS);
 	}
 	public static Method getMethod(Class<?> object, String method, Class<?>... args) {
 		try {
-			Method methodObject = object.getMethod(method, args);
+			final Method methodObject = object.getMethod(method, args);
 
 			methodObject.setAccessible(true);
 
 			return methodObject;
 
-		} catch (NoSuchMethodException e) {
+		} catch (final NoSuchMethodException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -52,7 +52,7 @@ public class ReflectionUtil {
 		try {
 			method.setAccessible(true);
 			return method.invoke(object, args);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -60,10 +60,10 @@ public class ReflectionUtil {
 
 	public static Field getField(Class<?> object, String field) {
 		try {
-			Field fieldObject = object.getField(field);
+			final Field fieldObject = object.getField(field);
 			fieldObject.setAccessible(true);
 			return fieldObject;
-		} catch (NoSuchFieldException e) {
+		} catch (final NoSuchFieldException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -73,7 +73,7 @@ public class ReflectionUtil {
 		try {
 			field.setAccessible(true);
 			return field.get(object);
-		} catch (IllegalAccessException e) {
+		} catch (final IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -85,13 +85,13 @@ public class ReflectionUtil {
 
 
 	public static Collection<?> getCollidingBlocks(Player player, Object axisAlignedBB) {
-		Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
+		final Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
 		return (Collection<?>) (isNewVersion()
 				? getInvokedMethod(getBlocks1_12, world, null, axisAlignedBB)
 						: getInvokedMethod(getBlocks, world, axisAlignedBB));
 	}
 	public static Boolean getCollidingBlocks1(Player player, Object axisAlignedBB) {
-		Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
+		final Object world = getInvokedMethod(getMethod(CraftWorld, "getHandle"), player.getWorld());
 		return (Boolean) (isNewVersion()
 				? getInvokedMethod(getBlocks1_12, world, null, axisAlignedBB)
 						: getInvokedMethod(getBlocks, world, axisAlignedBB));
@@ -106,16 +106,16 @@ public class ReflectionUtil {
 	}
 
 	public static Object modifyBoundingBox(Object box, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
-		double newminX = (double) getInvokedField(getField(box.getClass(), "a"), box) + minX;
-		double newminY = (double) getInvokedField(getField(box.getClass(), "b"), box) + minY;
-		double newminZ = (double) getInvokedField(getField(box.getClass(), "c"), box) + minZ;
-		double newmaxX = (double) getInvokedField(getField(box.getClass(), "d"), box) + maxX;
-		double newmaxY = (double) getInvokedField(getField(box.getClass(), "e"), box) + maxY;
-		double newmaxZ = (double) getInvokedField(getField(box.getClass(), "f"), box) + maxZ;
+		final double newminX = (double) getInvokedField(getField(box.getClass(), "a"), box) + minX;
+		final double newminY = (double) getInvokedField(getField(box.getClass(), "b"), box) + minY;
+		final double newminZ = (double) getInvokedField(getField(box.getClass(), "c"), box) + minZ;
+		final double newmaxX = (double) getInvokedField(getField(box.getClass(), "d"), box) + maxX;
+		final double newmaxY = (double) getInvokedField(getField(box.getClass(), "e"), box) + maxY;
+		final double newmaxZ = (double) getInvokedField(getField(box.getClass(), "f"), box) + maxZ;
 
 		try {
 			return getNMSClass("AxisAlignedBB").getConstructor(double.class, double.class, double.class, double.class, double.class, double.class).newInstance(newminX, newminY, newminZ, newmaxX, newmaxY, newmaxZ);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -128,10 +128,10 @@ public class ReflectionUtil {
 	public static BoundingBox getBlockBoundingBox(Block block) {
 		try {
 			if (!isBukkitVerison("1_7") && blockPosition != null) {
-				Object bPos = blockPosition.getConstructor(int.class, int.class, int.class).newInstance(block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
-				Object world = getWorldHandle(block.getWorld());
-				Object data = getMethodValue(getMethod(world.getClass(), "getType", blockPosition), world, bPos);
-				Object blockNMS = getMethodValue(getMethod(getNMSClass("IBlockData"), "getBlock"), data);
+				final Object bPos = blockPosition.getConstructor(int.class, int.class, int.class).newInstance(block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
+				final Object world = getWorldHandle(block.getWorld());
+				final Object data = getMethodValue(getMethod(world.getClass(), "getType", blockPosition), world, bPos);
+				final Object blockNMS = getMethodValue(getMethod(getNMSClass("IBlockData"), "getBlock"), data);
 
 				if (!isNewVersion()) {
 
@@ -140,7 +140,7 @@ public class ReflectionUtil {
 						BoundingBox box = toBoundingBox(getMethodValue(getMethod(blockNMS.getClass(), "a", World, blockPosition, iBlockData), blockNMS, world, bPos, data));
 
 						if (block.getType().equals(Material.STEP)) {
-							Step slab = (Step) block.getType().getNewData(block.getData());
+							final Step slab = (Step) block.getType().getNewData(block.getData());
 
 							box.minY = block.getY();
 							box.maxY = block.getY();
@@ -150,7 +150,7 @@ public class ReflectionUtil {
 								box = box.add(0, 0f, 0, 0, 0.5f, 0);
 							}
 						} else if (block.getType().equals(Material.WOOD_STEP)) {
-							WoodenStep slab = (WoodenStep) block.getType().getNewData(block.getData());
+							final WoodenStep slab = (WoodenStep) block.getType().getNewData(block.getData());
 
 							box.minY = block.getY();
 							box.maxY = block.getY();
@@ -172,8 +172,8 @@ public class ReflectionUtil {
 					}
 				}
 			} else {
-				Object blockNMS = getVanillaBlock(block);
-				Object world = getWorldHandle(block.getWorld());
+				final Object blockNMS = getVanillaBlock(block);
+				final Object world = getWorldHandle(block.getWorld());
 				if (getMethodValueNoST(getMethodNoST(vanillaBlock, "a", getNMSClass("World"), int.class, int.class, int.class), blockNMS, world, block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ()) != null) {
 					return toBoundingBox(getMethodValue(getMethod(vanillaBlock, "a", getNMSClass("World"), int.class, int.class, int.class), blockNMS, world, block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ()));
 				} else {
@@ -181,7 +181,7 @@ public class ReflectionUtil {
 					return new BoundingBox(block.getX(), block.getY(), block.getZ(), block.getX(), block.getY(), block.getZ());
 				}
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			Bukkit.getLogger().log(Level.SEVERE, "Error occured with block: " + block.getType().toString());
 			e.printStackTrace();
 		}
@@ -191,10 +191,10 @@ public class ReflectionUtil {
 	private static Object getVanillaBlock(Block block) {
 
 		if (!isBukkitVerison("1_7") && iBlockData != null) {
-			Object getType = getBlockData(block);
+			final Object getType = getBlockData(block);
 			return getMethodValue(getMethod(iBlockData, "getBlock"), getType);
 		} else {
-			Object world = getWorldHandle(block.getWorld());
+			final Object world = getWorldHandle(block.getWorld());
 			return getMethodValue(getMethod(worldServer, "getType", int.class, int.class, int.class), world, block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
 		}
 	}
@@ -206,14 +206,14 @@ public class ReflectionUtil {
 
 	@SuppressWarnings("unused")
 	private static Object getBlockData(Block block) {
-		Location loc = block.getLocation();
+		final Location loc = block.getLocation();
 		try {
 			if (!isBukkitVerison("1_7")) {
-				Object bPos = blockPosition.getConstructor(int.class, int.class, int.class).newInstance(block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
-				Object world = getWorldHandle(block.getWorld());
+				final Object bPos = blockPosition.getConstructor(int.class, int.class, int.class).newInstance(block.getLocation().getBlockX(), block.getLocation().getBlockY(), block.getLocation().getBlockZ());
+				final Object world = getWorldHandle(block.getWorld());
 				return getMethodValue(getMethod(worldServer, "getType", blockPosition), world, bPos);
 			}
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -221,7 +221,7 @@ public class ReflectionUtil {
 
 
 	private static boolean isBukkitVerison(String version) {
-		String bukkit = Bukkit.getServer().getClass().getPackage().getName().substring(23);
+		final String bukkit = Bukkit.getServer().getClass().getPackage().getName().substring(23);
 
 		return bukkit.contains(version);
 	}
@@ -237,7 +237,7 @@ public class ReflectionUtil {
 	public static Class<?> getClass(String string) {
 		try {
 			return Class.forName(string);
-		} catch (ClassNotFoundException e) {
+		} catch (final ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -245,11 +245,11 @@ public class ReflectionUtil {
 
 	public static Field getFieldByName(Class<?> clazz, String fieldName) {
 		try {
-			Field field = clazz.getDeclaredField(fieldName);
+			final Field field = clazz.getDeclaredField(fieldName);
 			field.setAccessible(true);
 
 			return field;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -269,7 +269,7 @@ public class ReflectionUtil {
 	private static Object getMethodValue(Method method, Object object, Object... args) {
 		try {
 			return method.invoke(object, args);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -279,7 +279,7 @@ public class ReflectionUtil {
 		try {
 			field.setAccessible(true);
 			return field.get(object);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			e.printStackTrace();
 			return null;
 		}
@@ -288,38 +288,38 @@ public class ReflectionUtil {
 	private static Object getMethodValueNoST(Method method, Object object, Object... args) {
 		try {
 			return method.invoke(object, args);
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return null;
 		}
 	}
 
 	private static Vector getBoxMin(Object box) {
-		double x = (double) getFieldValue(getFieldByName(box.getClass(), "a"), box);
-		double y = (double) getFieldValue(getFieldByName(box.getClass(), "b"), box);
-		double z = (double) getFieldValue(getFieldByName(box.getClass(), "c"), box);
+		final double x = (double) getFieldValue(getFieldByName(box.getClass(), "a"), box);
+		final double y = (double) getFieldValue(getFieldByName(box.getClass(), "b"), box);
+		final double z = (double) getFieldValue(getFieldByName(box.getClass(), "c"), box);
 		return new Vector(x, y, z);
 	}
 
 	private static Vector getBoxMax(Object box) {
-		double x = (double) getFieldValue(getFieldByName(box.getClass(), "d"), box);
-		double y = (double) getFieldValue(getFieldByName(box.getClass(), "e"), box);
-		double z = (double) getFieldValue(getFieldByName(box.getClass(), "f"), box);
+		final double x = (double) getFieldValue(getFieldByName(box.getClass(), "d"), box);
+		final double y = (double) getFieldValue(getFieldByName(box.getClass(), "e"), box);
+		final double z = (double) getFieldValue(getFieldByName(box.getClass(), "f"), box);
 		return new Vector(x, y, z);
 	}
 
 	public static BoundingBox toBoundingBox(Object aaBB) {
-		Vector min = getBoxMin(aaBB);
-		Vector max = getBoxMax(aaBB);
+		final Vector min = getBoxMin(aaBB);
+		final Vector max = getBoxMax(aaBB);
 
 		return new BoundingBox((float) min.getX(), (float) min.getY(), (float) min.getZ(), (float) max.getX(), (float) max.getY(), (float) max.getZ());
 	}
 
 	private static Method getMethodNoST(Class<?> clazz, String methodName, Class<?>... args) {
 		try {
-			Method method = clazz.getMethod(methodName, args);
+			final Method method = clazz.getMethod(methodName, args);
 			method.setAccessible(true);
 			return method;
-		} catch (Exception e) {
+		} catch (final Exception e) {
 		}
 		return null;
 	}

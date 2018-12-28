@@ -32,11 +32,11 @@ public class AimAssistB extends Check {
 		ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(me.rida.anticheat.AntiCheat.getInstance(), PacketType.Play.Client.USE_ENTITY) {
 			@Override
 			public void onPacketReceiving(PacketEvent e) {
-				Player p = e.getPlayer();
-				Optional<Entity> entityOp = p.getWorld().getEntities().stream().filter(entity -> entity.getEntityId() == e.getPacket().getIntegers().read(0)).findFirst();
+				final Player p = e.getPlayer();
+				final Optional<Entity> entityOp = p.getWorld().getEntities().stream().filter(entity -> entity.getEntityId() == e.getPacket().getIntegers().read(0)).findFirst();
 				if(entityOp.isPresent()) {
-					Entity entity = entityOp.get();
-					EnumWrappers.EntityUseAction action = e.getPacket().getEntityUseActions().read(0);
+					final Entity entity = entityOp.get();
+					final EnumWrappers.EntityUseAction action = e.getPacket().getEntityUseActions().read(0);
 					if(action.equals(EnumWrappers.EntityUseAction.ATTACK) && entity instanceof LivingEntity) {
 						if (entity instanceof Player) {
 							if (MoveEvent.lastMove.containsKey(entity.getUniqueId())) {
@@ -53,7 +53,7 @@ public class AimAssistB extends Check {
 						} else {
 							flag = 1;
 						}
-						DataPlayer data = AntiCheat.getDataManager().getDataPlayer(p);
+						final DataPlayer data = AntiCheat.getDataManager().getDataPlayer(p);
 						if(data != null) {
 							data.lastAttack = System.currentTimeMillis();
 							data.lastHitEntity = (LivingEntity) entity;
@@ -62,27 +62,27 @@ public class AimAssistB extends Check {
 				}
 			}
 		});
-	}	
+	}
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getDataPlayer(p);
 		if(data == null
 				|| data.lastHitEntity == null
 				|| (System.currentTimeMillis() - data.lastAttack) > 350L
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
-				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) { 
+				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		float offset = ExtraUtil.yawTo180F((float) MathUtil.getOffsetFromEntity(p, data.lastHitEntity)[0]);
+		final float offset = ExtraUtil.yawTo180F((float) MathUtil.getOffsetFromEntity(p, data.lastHitEntity)[0]);
 		if(data.patterns.size() >= 10) {
 			Collections.sort(data.patterns);
-			float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
-			float check = Math.abs(range - data.lastRange);
+			final float range = Math.abs(data.patterns.get(data.patterns.size() - 1) -  data.patterns.get(0));
+			final float check = Math.abs(range - data.lastRange);
 			if(check < flag && check > 0.6) {
 				if (AutoClickerA.Clicks.containsKey(p.getUniqueId())) {
-					List<Long> x = AutoClickerA.Clicks.get(p.getUniqueId());
-					long w = Collections.min(x);
+					final List<Long> x = AutoClickerA.Clicks.get(p.getUniqueId());
+					final long w = Collections.min(x);
 					if (w < 142) {
 						getAntiCheat().logCheat(this, p, "(Aimbot) Range: " + range + "; Last Range: " + data.lastRange + "; Flag: " + flag + "; Last Hit: " + data.lastHitEntity + "; Check: " + check, "(Type: B)");
 					}

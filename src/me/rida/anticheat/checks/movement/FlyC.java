@@ -29,10 +29,10 @@ public class FlyC extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
 
-		Location from = e.getFrom();
-		Location to = e.getTo();
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Location from = e.getFrom();
+		final Location to = e.getTo();
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p.getAllowFlight()
 				|| e.getPlayer().getVehicle() != null
@@ -69,8 +69,8 @@ public class FlyC extends Check {
 			}
 		}
 
-		Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
-		double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
+		final Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
+		final double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
 		if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
 			if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
 				if (PlayerUtil.isNearSlime(from)

@@ -52,8 +52,8 @@ public class ReachJ extends Check {
 					maxReach += YawDifference * 0.008;
 					if (maxReach < Difference) {
 						if (AimUtil.instance.lookingTo(player, damaged)) {
-							String dist = Double.toString(Difference).substring(0, 3);
-							double tps = getAntiCheat().getLag().getTPS();
+							final String dist = Double.toString(Difference).substring(0, 3);
+							final double tps = getAntiCheat().getLag().getTPS();
 							getAntiCheat().logCheat(this, player, "Wrong heuristics; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: J)");
 						}
 					}

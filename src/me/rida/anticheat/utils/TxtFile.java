@@ -13,9 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TxtFile {
 	private File File;
-	private String Name;
+	private final String Name;
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private List<String> Lines = new ArrayList();
+	private final List<String> Lines = new ArrayList();
 
 	public TxtFile(JavaPlugin Plugin, String Path, String Name) {
 		this.File = new File(Plugin.getDataFolder() + Path);
@@ -23,7 +23,7 @@ public class TxtFile {
 		this.File = new File(Plugin.getDataFolder() + Path, Name + ".txt");
 		try {
 			this.File.createNewFile();
-		} catch (IOException localIOException) {
+		} catch (final IOException localIOException) {
 		}
 		this.Name = Name;
 
@@ -40,30 +40,30 @@ public class TxtFile {
 
 	public void write() {
 		try {
-			FileWriter fw = new FileWriter(this.File, false);
-			BufferedWriter bw = new BufferedWriter(fw);
-			for (String Line : this.Lines) {
+			final FileWriter fw = new FileWriter(this.File, false);
+			final BufferedWriter bw = new BufferedWriter(fw);
+			for (final String Line : this.Lines) {
 				bw.write(Line);
 				bw.newLine();
 			}
 			bw.close();
 			fw.close();
-		} catch (Exception localException) {
+		} catch (final Exception localException) {
 		}
 	}
 
 	public void readTxtFile() {
 		this.Lines.clear();
 		try {
-			FileReader fr = new FileReader(this.File);
-			BufferedReader br = new BufferedReader(fr);
+			final FileReader fr = new FileReader(this.File);
+			final BufferedReader br = new BufferedReader(fr);
 			String Line;
 			while ((Line = br.readLine()) != null) {
 				this.Lines.add(Line);
 			}
 			br.close();
 			fr.close();
-		} catch (Exception exx) {
+		} catch (final Exception exx) {
 			exx.printStackTrace();
 		}
 	}
@@ -75,7 +75,7 @@ public class TxtFile {
 	public String getText() {
 		String text = "";
 		for (int i = 0; i < this.Lines.size(); i++) {
-			String line = this.Lines.get(i);
+			final String line = this.Lines.get(i);
 
 			text = text + line + (this.Lines.size() - 1 == i ? "" : "\n");
 		}

@@ -28,7 +28,7 @@ public class VapeA extends Check implements Listener, PluginMessageListener {
 		String str;
 		try {
 			str = new String(data);
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			str = "";
 		}
 		getAntiCheat().logCheat(this, p, "Banned for using Cracked Vape!", "(Type: A)");

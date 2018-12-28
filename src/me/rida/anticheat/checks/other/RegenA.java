@@ -23,12 +23,12 @@ public class RegenA extends Check {
 		super("RegenA", "Regen",  CheckType.Combat, true, true, false, true, false, 12, 1, 600000L, AntiCheat);
 	}
 
-	public static Map<UUID, Long> LastHeal = new HashMap<UUID, Long>();
-	public static Map<UUID, Map.Entry<Integer, Long>> FastHealTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+	public static Map<UUID, Long> LastHeal = new HashMap<>();
+	public static Map<UUID, Map.Entry<Integer, Long>> FastHealTicks = new HashMap<>();
 
 	private boolean checkFastHeal(Player p) {
 		if (LastHeal.containsKey(p.getUniqueId())) {
-			long l = LastHeal.get(p.getUniqueId()).longValue();
+			final long l = LastHeal.get(p.getUniqueId()).longValue();
 			LastHeal.remove(p.getUniqueId());
 			if (System.currentTimeMillis() - l < 3000L) {
 				return true;
@@ -42,7 +42,7 @@ public class RegenA extends Check {
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
-		Player p = (Player) e.getEntity();
+		final Player p = (Player) e.getEntity();
 		if (!e.getRegainReason().equals(EntityRegainHealthEvent.RegainReason.SATIATED)
 				|| !(p instanceof Player)
 				|| p.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)
@@ -73,6 +73,6 @@ public class RegenA extends Check {
 		}
 		LastHeal.put(p.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
 		FastHealTicks.put(p.getUniqueId(),
-				new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+				new AbstractMap.SimpleEntry<>(Count, Time));
 	}
 }

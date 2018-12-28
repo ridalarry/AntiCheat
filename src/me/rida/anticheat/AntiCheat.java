@@ -35,7 +35,6 @@ import org.bukkit.event.player.PlayerVelocityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.comphenix.protocol.PacketType;
@@ -90,8 +89,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public int maxMove = 10;
 	public ExecutorService service;
 	public static ArrayList<Player> getOnlinePlayers() {
-		ArrayList<Player> list = new ArrayList<>();
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		final ArrayList<Player> list = new ArrayList<>();
+		for (final Player player : Bukkit.getOnlinePlayers()) {
 			list.add(player);
 		}
 		return list;
@@ -164,6 +163,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.movement.FastLadderA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FlyA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FlyB(this));
+		this.Checks.add(new me.rida.anticheat.checks.movement.TeleportA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.FlyC(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.InvMoveB(this));
@@ -229,7 +229,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	@Override
-	public void onEnable() {	
+	public void onEnable() {
 		playerInformationMain.startDefaults();
 		service = Executors.newSingleThreadExecutor();
 		new ReflectionUtil();
@@ -251,10 +251,10 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.updater = new Updater(this);
 		new AntiCheatAPI(this);
 		if (!ServerUtil.isBukkitVerison("1_13")) {
-			me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
-			this.getServer().getMessenger().registerIncomingPluginChannel((Plugin)this, "LOLIMAHCKER", (PluginMessageListener)vapeA);
-			this.getServer().getPluginManager().registerEvents((Listener)vapeA, (Plugin)this);
-			me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
+			final me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
+			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapeA);
+			this.getServer().getPluginManager().registerEvents(vapeA, this);
+			final me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
 			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapers);
 			System.out.println("Server is not on 1.13!");
 			System.out.println("Regestered LOLIMAHCKER channel for vape checks!");
@@ -264,7 +264,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				this.RegisterListener(check);
 			}
 		}
-		File file = new File(getDataFolder(), "config.yml");
+		final File file = new File(getDataFolder(), "config.yml");
 		this.getCommand("alerts").setExecutor(new AlertsCommand(this));
 		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
 		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
@@ -290,7 +290,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("settings.resetViolationsAutomatically", true);
 			this.getConfig().addDefault("settings.latency.ping", 300);
 			this.getConfig().addDefault("settings.latency.tps", 17);
-			for (Check check : Checks) {
+			for (final Check check : Checks) {
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
 				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
@@ -303,7 +303,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().options().copyDefaults(true);
 			saveConfig();
 		}
-		for (Check check : Checks) {
+		for (final Check check : Checks) {
 			if (!getConfig().isConfigurationSection("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier())) {
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
 				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
@@ -323,7 +323,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				getLogger().log(Level.INFO, "Reset Violations!");
 				if (getConfig().getBoolean("resetViolationsAutomatically")) {
 					if (getConfig().getBoolean("settings.broadcastResetViolationsMsg")) {
-						for (Player online : Bukkit.getServer().getOnlinePlayers()) {
+						for (final Player online : Bukkit.getServer().getOnlinePlayers()) {
 							if (online.hasPermission("anticheat.admin") && hasAlertsOn(online)) {
 								online.sendMessage(PREFIX + Color.translate("&7Reset violations for all players!"));
 							}
@@ -340,7 +340,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (getConfig().getBoolean("settings.EnableCustomLog")) {
 				try {
 					logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
-				} catch (Throwable ex) {
+				} catch (final Throwable ex) {
 					getLogger().log(Level.SEVERE, ex.getMessage());
 				}
 			}
@@ -353,20 +353,21 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			});
 
 			Bukkit.getScheduler().runTaskTimer(this, () -> {
-				for (Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
-					Player player = iterator.next().getKey();
-					if (!player.isOnline() || !player.isValid())
+				for (final Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
+					final Player player = iterator.next().getKey();
+					if (!player.isOnline() || !player.isValid()) {
 						iterator.remove();
+					}
 				}
 			}, 20L, 20L);}
 		getLogger().info("Reloading... will kick all online players to avoid crash.");
-		for (Player player : Bukkit.getOnlinePlayers()) {
+		for (final Player player : Bukkit.getOnlinePlayers()) {
 			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
 		}
 	}
 
 	public void resetDumps(Player player) {
-		for (Check check : Checks) {
+		for (final Check check : Checks) {
 			if (check.hasDump(player)) {
 				check.clearDump(player);
 			}
@@ -381,109 +382,160 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	public String resetData() {
 		try {
 			resetAllViolations();
-			if (!me.rida.anticheat.checks.combat.AntiKBA.lastVelocity.isEmpty())
+			if (!me.rida.anticheat.checks.combat.AntiKBA.lastVelocity.isEmpty()) {
 				me.rida.anticheat.checks.combat.AntiKBA.lastVelocity.clear();
-			if (!me.rida.anticheat.checks.combat.AntiKBA.awaitingVelocity.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AntiKBA.awaitingVelocity.isEmpty()) {
 				me.rida.anticheat.checks.combat.AntiKBA.awaitingVelocity.clear();
-			if (!me.rida.anticheat.checks.combat.AntiKBA.totalMoved.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AntiKBA.totalMoved.isEmpty()) {
 				me.rida.anticheat.checks.combat.AntiKBA.totalMoved.clear();
-			if (!me.rida.anticheat.checks.combat.AntiKBD.lastVelocity.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AntiKBD.lastVelocity.isEmpty()) {
 				me.rida.anticheat.checks.combat.AntiKBD.lastVelocity.clear();
-			if (!me.rida.anticheat.checks.combat.AntiKBD.awaitingVelocity.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AntiKBD.awaitingVelocity.isEmpty()) {
 				me.rida.anticheat.checks.combat.AntiKBD.awaitingVelocity.clear();
-			if (!me.rida.anticheat.checks.combat.AntiKBD.totalMoved.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AntiKBD.totalMoved.isEmpty()) {
 				me.rida.anticheat.checks.combat.AntiKBD.totalMoved.clear();
-			if (!me.rida.anticheat.checks.combat.AutoClickerB.Clicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AutoClickerB.Clicks.isEmpty()) {
 				me.rida.anticheat.checks.combat.AutoClickerB.Clicks.clear();
-			if (!me.rida.anticheat.checks.combat.AutoClickerB.LastMS.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AutoClickerB.LastMS.isEmpty()) {
 				me.rida.anticheat.checks.combat.AutoClickerB.LastMS.clear();
-			if (!me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.isEmpty()) {
 				me.rida.anticheat.checks.combat.AutoClickerB.ClickTicks.clear();
-			if (!me.rida.anticheat.checks.movement.AscensionC.flyTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.AscensionC.flyTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.AscensionC.flyTicks.clear();
-			if (!me.rida.anticheat.checks.combat.CriticalsB.CritTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.CriticalsB.CritTicks.isEmpty()) {
 				me.rida.anticheat.checks.combat.CriticalsB.CritTicks.clear();
-			if (!me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.isEmpty()) {
 				me.rida.anticheat.checks.combat.AutoClickerA.ClickTicks.clear();
-			if (!me.rida.anticheat.checks.combat.AutoClickerA.Clicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AutoClickerA.Clicks.isEmpty()) {
 				me.rida.anticheat.checks.combat.AutoClickerA.Clicks.clear();
-			if (!me.rida.anticheat.checks.combat.AutoClickerA.LastMS.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.AutoClickerA.LastMS.isEmpty()) {
 				me.rida.anticheat.checks.combat.AutoClickerA.LastMS.clear();
-			if (!me.rida.anticheat.checks.combat.KillAuraD.packetTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.KillAuraD.packetTicks.isEmpty()) {
 				me.rida.anticheat.checks.combat.KillAuraD.packetTicks.clear();
-			if (!me.rida.anticheat.checks.combat.KillAuraA.counts.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.KillAuraA.counts.isEmpty()) {
 				me.rida.anticheat.checks.combat.KillAuraA.counts.clear();
-			if (!me.rida.anticheat.checks.combat.ReachB.count.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.ReachB.count.isEmpty()) {
 				me.rida.anticheat.checks.combat.ReachB.count.clear();
-			if (!me.rida.anticheat.checks.combat.ReachB.offsets.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.ReachB.offsets.isEmpty()) {
 				me.rida.anticheat.checks.combat.ReachB.offsets.clear();
-			if (!me.rida.anticheat.checks.combat.ReachC.toBan.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.ReachC.toBan.isEmpty()) {
 				me.rida.anticheat.checks.combat.ReachC.toBan.clear();
-			if (!me.rida.anticheat.checks.other.RegenA.FastHealTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.RegenA.FastHealTicks.isEmpty()) {
 				me.rida.anticheat.checks.other.RegenA.FastHealTicks.clear();
-			if (!me.rida.anticheat.checks.other.RegenA.LastHeal.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.RegenA.LastHeal.isEmpty()) {
 				me.rida.anticheat.checks.other.RegenA.LastHeal.clear();
-			if (!me.rida.anticheat.checks.movement.FlyB.flyTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.FlyB.flyTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.FlyB.flyTicks.clear();
-			if (!me.rida.anticheat.checks.movement.GlideA.flyTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.GlideA.flyTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.GlideA.flyTicks.clear();
-			if (!me.rida.anticheat.checks.movement.NoFallA.FallDistance.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.NoFallA.FallDistance.isEmpty()) {
 				me.rida.anticheat.checks.movement.NoFallA.FallDistance.clear();
-			if (!me.rida.anticheat.checks.movement.NoFallA.NoFallTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.NoFallA.NoFallTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.NoFallA.NoFallTicks.clear();
-			if (!me.rida.anticheat.checks.movement.NoSlowdownA.speedTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.NoSlowdownA.speedTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.NoSlowdownA.speedTicks.clear();
-			if (!me.rida.anticheat.checks.movement.SpeedB.speedTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedB.speedTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedB.speedTicks.clear();
-			if (!me.rida.anticheat.checks.movement.SpeedB.tooFastTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedB.tooFastTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedB.tooFastTicks.clear();
-			if (!me.rida.anticheat.checks.movement.SpeedB.lastHit.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedB.lastHit.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedB.lastHit.isEmpty();
-			if (!me.rida.anticheat.checks.movement.SpeedC.speedTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedC.speedTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedC.speedTicks.clear();
-			if (!me.rida.anticheat.checks.movement.SpeedC.tooFastTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedC.tooFastTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedC.tooFastTicks.clear();
-			if (!me.rida.anticheat.checks.movement.SpeedC.lastHit.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedC.lastHit.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedC.lastHit.isEmpty();
-			if (!me.rida.anticheat.checks.movement.SpeedC.velocity.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpeedC.velocity.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpeedC.velocity.isEmpty();
-			if (!me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.SpiderA.AscensionTicks.clear();
-			if (!me.rida.anticheat.checks.other.TimerA.packets.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.TimerA.packets.isEmpty()) {
 				me.rida.anticheat.checks.other.TimerA.packets.clear();
-			if (!me.rida.anticheat.checks.other.TimerA.verbose.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.TimerA.verbose.isEmpty()) {
 				me.rida.anticheat.checks.other.TimerA.verbose.clear();
-			if (!me.rida.anticheat.checks.other.TimerA.lastPacket.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.TimerA.lastPacket.isEmpty()) {
 				me.rida.anticheat.checks.other.TimerA.lastPacket.clear();
-			if (!me.rida.anticheat.checks.other.TimerA.toCancel.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.TimerA.toCancel.isEmpty()) {
 				me.rida.anticheat.checks.other.TimerA.toCancel.clear();
-			if (!me.rida.anticheat.checks.other.TimerB.timerTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.TimerB.timerTicks.isEmpty()) {
 				me.rida.anticheat.checks.other.TimerB.timerTicks.clear();
-			if (!me.rida.anticheat.checks.movement.VClipA.teleported.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.VClipA.teleported.isEmpty()) {
 				me.rida.anticheat.checks.movement.VClipA.teleported.clear();
-			if (!me.rida.anticheat.checks.movement.VClipA.lastLocation.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.VClipA.lastLocation.isEmpty()) {
 				me.rida.anticheat.checks.movement.VClipA.lastLocation.clear();
-			if (!me.rida.anticheat.checks.other.CrashA.crashTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.CrashA.crashTicks.isEmpty()) {
 				me.rida.anticheat.checks.other.CrashA.crashTicks.clear();
-			if (!me.rida.anticheat.checks.other.CrashA.crash2Ticks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.CrashA.crash2Ticks.isEmpty()) {
 				me.rida.anticheat.checks.other.CrashA.crash2Ticks.clear();
-			if (!me.rida.anticheat.checks.other.CrashA.crash3Ticks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.other.CrashA.crash3Ticks.isEmpty()) {
 				me.rida.anticheat.checks.other.CrashA.crash3Ticks.clear();
-			if (!me.rida.anticheat.checks.player.PacketsA.lastPacket.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.player.PacketsA.lastPacket.isEmpty()) {
 				me.rida.anticheat.checks.player.PacketsA.lastPacket.clear();
-			if (!me.rida.anticheat.checks.player.PacketsA.packetTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.player.PacketsA.packetTicks.isEmpty()) {
 				me.rida.anticheat.checks.player.PacketsA.packetTicks.clear();
-			if (!me.rida.anticheat.checks.movement.SneakA.sneakTicks.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.movement.SneakA.sneakTicks.isEmpty()) {
 				me.rida.anticheat.checks.movement.SneakA.sneakTicks.clear();
-			if (!me.rida.anticheat.checks.combat.HitBoxA.count.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.HitBoxA.count.isEmpty()) {
 				me.rida.anticheat.checks.combat.HitBoxA.count.clear();
-			if (!me.rida.anticheat.checks.combat.HitBoxA.lastHit.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.HitBoxA.lastHit.isEmpty()) {
 				me.rida.anticheat.checks.combat.HitBoxA.lastHit.clear();
-			if (!me.rida.anticheat.checks.combat.HitBoxA.yawDif.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.HitBoxA.yawDif.isEmpty()) {
 				me.rida.anticheat.checks.combat.HitBoxA.yawDif.clear();
-			if (!me.rida.anticheat.checks.combat.FastBowA.count.isEmpty())
+			}
+			if (!me.rida.anticheat.checks.combat.FastBowA.count.isEmpty()) {
 				me.rida.anticheat.checks.combat.FastBowA.count.clear();
-		} catch (Exception e) {
+			}
+		} catch (final Exception e) {
 			return Color.translate(PREFIX + Color.Red + "Unknown error occured!");
 		}
 		return Color.translate(PREFIX + Color.Green + "Successfully reset data!");
@@ -524,21 +576,21 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public void createLog(Player player, Check checkBanned) {
-		TxtFile logFile = new TxtFile(this, File.separator + "logs", player.getName());
-		Map<Check, Integer> Checks = getViolations(player);
+		final TxtFile logFile = new TxtFile(this, File.separator + "logs", player.getName());
+		final Map<Check, Integer> Checks = getViolations(player);
 		logFile.addLine("---- Player was banned for: " + checkBanned.getName() + " ----");
 		logFile.addLine("Set off checks:");
-		for (Check check : Checks.keySet()) {
-			Integer Violations = Checks.get(check);
+		for (final Check check : Checks.keySet()) {
+			final Integer Violations = Checks.get(check);
 			logFile.addLine("- " + check.getType() + "." + check.getIdentifier() + " x" + Violations);
 		}
 		logFile.addLine(" ");
 		logFile.addLine("Dump-Log for all checks set off:");
-		for (Check check : Checks.keySet()) {
+		for (final Check check : Checks.keySet()) {
 			logFile.addLine(" ");
 			logFile.addLine(check.getName() + ":");
 			if (check.getDump(player) != null) {
-				for (String line : check.getDump(player)) {
+				for (final String line : check.getDump(player)) {
 					logFile.addLine(line);
 				}
 			} else {
@@ -578,12 +630,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		if (!event.getType().equals(UpdateType.SEC)) {
 			return;
 		}
-		Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<>(this.AutoBan);
-		for (Player player : AutoBan.keySet()) {
+		final Map<Player, Map.Entry<Check, Long>> AutoBan = new HashMap<>(this.AutoBan);
+		for (final Player player : AutoBan.keySet()) {
 			if (player == null || !player.isOnline()) {
 				this.AutoBan.remove(player);
 			} else {
-				Long time = AutoBan.get(player).getValue();
+				final Long time = AutoBan.get(player).getValue();
 				if (System.currentTimeMillis() < time) {
 					continue;
 				}
@@ -591,13 +643,13 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			}
 		}
 		final Map<UUID, Map<Check, Long>> ViolationResets = new HashMap<>(this.ViolationReset);
-		for (UUID uid : ViolationResets.keySet()) {
+		for (final UUID uid : ViolationResets.keySet()) {
 			if (!this.Violations.containsKey(uid)) {
 				continue;
 			}
-			Map<Check, Long> Checks = new HashMap<>(ViolationResets.get(uid));
-			for (Check check : Checks.keySet()) {
-				Long time2 = Checks.get(check);
+			final Map<Check, Long> Checks = new HashMap<>(ViolationResets.get(uid));
+			for (final Check check : Checks.keySet()) {
+				final Long time2 = Checks.get(check);
 				if (System.currentTimeMillis() >= time2) {
 					this.ViolationReset.get(uid).remove(check);
 					this.Violations.get(uid).remove(check);
@@ -681,7 +733,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			ArrayList<Player> players;
 			this.banPlayer(player, check);
 			for (int length = (players = getOnlinePlayers()).size(), i = 0; i < length; ++i) {
-				Player playerplayer = players.get(i);
+				final Player playerplayer = players.get(i);
 				if (playerplayer.hasPermission("anticheat.staff")) {
 					msg.sendToPlayer(playerplayer);
 					break;
@@ -729,8 +781,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				NamesBanned.put(player.getName(), check);
 			}
 		}.runTaskLater(this, 10L);
-		if (Violations.containsKey(player))
+		if (Violations.containsKey(player)) {
 			this.Violations.remove(player);
+		}
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
 		this.saveConfig();
 	}
@@ -743,8 +796,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				player.kickPlayer(getConfig().getString("settings.kickmsg"));
 			}
 		}.runTask(this);
-		if (Violations.containsKey(player))
+		if (Violations.containsKey(player)) {
 			this.Violations.remove(player);
+		}
 		return;
 	}
 	@SuppressWarnings("unlikely-arg-type")
@@ -760,44 +814,45 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 
 		}.runTaskLater(this, 10L);
-		if (Violations.containsKey(player))
+		if (Violations.containsKey(player)) {
 			this.Violations.remove(player);
+		}
 		this.getConfig().set("settings.bans", this.getConfig().getInt("settings.bans") + 1);
 		this.saveConfig();
 	}
 	public void alert(String message) {
-		for (Player playerplayer : AntiCheat.AlertsOn) {
+		for (final Player playerplayer : AntiCheat.AlertsOn) {
 			playerplayer.sendMessage(String.valueOf(PREFIX) + message);
 		}
 	}
 
 
-    public void createBannedUsersConfig(){
-        Config banfile = new Config("bannedusers");
-        banfile.makeConfigFile();
-    }
-    public void createPendingUsers(){
-        Config pending = new Config("pendingusers");
-        pending.makeConfigFile();
-    }
+	public void createBannedUsersConfig(){
+		final Config banfile = new Config("bannedusers");
+		banfile.makeConfigFile();
+	}
+	public void createPendingUsers(){
+		final Config pending = new Config("pendingusers");
+		pending.makeConfigFile();
+	}
 	public void logCheat(Check check, Player player, String hoverabletext, String... identefier) {
 		String a = "";
 		if (identefier != null) {
-			for (String b : identefier) {
+			for (final String b : identefier) {
 				a = a + " " + b;
 			}
 		}
 		this.addViolation(player, check);
 		this.setViolationResetTime(player, check, System.currentTimeMillis() + check.getViolationResetTime());
-		Integer violations = this.getViolations(player, check);
+		final Integer violations = this.getViolations(player, check);
 		if (hoverabletext == null) {
 
 			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + " x" + violations);
-		}		
+		}
 		else {
 			System.out.println(Color.strip(PREFIX) + player.getName() + " failed " + (check.isJudgmentDay() ? "JDay check " : "") + check.getName() + a + " " + Color.strip(hoverabletext) + " x" + violations);
 		}
-		ActionMessageUtil msg = new ActionMessageUtil();
+		final ActionMessageUtil msg = new ActionMessageUtil();
 		msg.addText(PREFIX);
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 				+ player.getName())
@@ -810,7 +865,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		.setClickEvent(ActionMessageUtil.ClickableType.RunCommand, "/tp " + player.getName());
 		msg.addText(Color.translate(getConfig().getString("alerts.primary"))
 				+ " failed " + (check.isJudgmentDay() ? "JDay check " : ""));
-		ActionMessageUtil.AMText CheckText = msg
+		final ActionMessageUtil.AMText CheckText = msg
 				.addText(Color.translate(getConfig().getString("alerts.checkColor"))
 						+ check.getName());
 		if (hoverabletext != null) {
@@ -821,7 +876,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		msg.addText(Color.translate(getConfig().getString("alerts.secondary"))
 				+ "x" + violations);
 		if (violations % check.getViolationsToNotify() == 0) {
-			for (Player playerplayer : AntiCheat.AlertsOn) {
+			for (final Player playerplayer : AntiCheat.AlertsOn) {
 				if (playerplayer.hasPermission("anticheat.staff")) {
 					msg.sendToPlayer(playerplayer);
 				}
@@ -831,9 +886,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			if (this.getConfig().getBoolean("testmode") == true) {
 				return;
 			} else {
-				OfflinePlayer target = player;
-				Config pending = new Config("pendingusers");
-				String reason = "[AntiCheat] Failed JDay check " + check.getIdentifier().substring(0, check.getIdentifier().length()-1) + " (Type: " + check.getIdentifier().charAt(check.getIdentifier().length()-1) + ")";
+				final OfflinePlayer target = player;
+				final Config pending = new Config("pendingusers");
+				final String reason = "[AntiCheat] Failed JDay check " + check.getIdentifier().substring(0, check.getIdentifier().length()-1) + " (Type: " + check.getIdentifier().charAt(check.getIdentifier().length()-1) + ")";
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Name", target.getName());
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".UUID", String.valueOf(target.getUniqueId()));
 				pending.getConfigFile().set("PendingUsers." + String.valueOf(target.getUniqueId()) + ".Date", String.valueOf(Calendar.getInstance().getTime()));
@@ -868,7 +923,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void Kick(PlayerKickEvent event) {
-		Player p = event.getPlayer();
+		final Player p = event.getPlayer();
 		if (event.getReason().equals(getConfig().getString("settings.kickmsg"))
 				|| event.getReason().contains("You failed to use an exploit that would crash the server!")
 				|| event.getReason().equals("Flying is not enabled on this server")
@@ -898,7 +953,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	private void loadChecks() {
-		for(Check check : getDataManager().getChecks()) {
+		for(final Check check : getDataManager().getChecks()) {
 			if(getConfig().get("checks." + check.getType() + "." + check.getName() + ".enabled") != null) {
 				check.setEnabled(getConfig().getBoolean("checks." + check.getType() + "." + check.getName() + ".enabled"));
 			} else {
@@ -909,7 +964,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	private void saveChecks() {
-		for(Check check : getDataManager().getChecks()) {
+		for(final Check check : getDataManager().getChecks()) {
 			getConfig().set("checks." + check.getType() + "." + check.getName() + ".enabled", check.isEnabled());
 			saveConfig();
 		}
@@ -923,7 +978,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	private void addDataPlayers() {
-		for (Player playerLoop : Bukkit.getOnlinePlayers()) {
+		for (final Player playerLoop : Bukkit.getOnlinePlayers()) {
 			getInstance().getDataManager().addPlayerData(playerLoop);
 		}
 	}
@@ -931,24 +986,27 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	private void checkPacket(PacketEvent event) {
 
 		dispatchCommand = getConfig().getString("settings.bancmd");
-		Player player = event.getPlayer();
+		final Player player = event.getPlayer();
 		if (player == null) {
-			String name = event.getPacket().getStrings().readSafely(0);
+			final String name = event.getPacket().getStrings().readSafely(0);
 			getLogger().log(Level.SEVERE, "packet ''{0}'' without player ", name);
-			if (logger != null) logger.log(Level.SEVERE, "packet ''{0}'' without player ", name);
+			if (logger != null) {
+				logger.log(Level.SEVERE, "packet ''{0}'' without player ", name);
+			}
 			event.setCancelled(true);
 			return;
 		}
-		long lastPacket = PACKET_USAGE.getOrDefault(player, -1L);
+		final long lastPacket = PACKET_USAGE.getOrDefault(player, -1L);
 
 		if (lastPacket == -2L) {
 			event.setCancelled(true);
 			return;
 		}
 
-		String packetName = event.getPacket().getStrings().readSafely(0);
-		if (packetName == null || !PACKET_NAMES.contains(packetName))
+		final String packetName = event.getPacket().getStrings().readSafely(0);
+		if (packetName == null || !PACKET_NAMES.contains(packetName)) {
 			return;
+		}
 
 		try {
 			if ("REGISTER".equals(packetName)) {
@@ -962,54 +1020,64 @@ public class AntiCheat extends JavaPlugin implements Listener {
 
 				checkNbtTags(event);
 			}
-		} catch (ExploitException ex) {
+		} catch (final ExploitException ex) {
 			PACKET_USAGE.put(player, -2L);
 
 			Bukkit.getScheduler().runTask(this, () -> {
 				player.kickPlayer("You failed to use an exploit that would crash the server!");
 
-				if (dispatchCommand != null)
+				if (dispatchCommand != null) {
 					getServer().dispatchCommand(Bukkit.getConsoleSender(),
 							dispatchCommand.replace("%player%", player.getName()));
+				}
 			});
 
 			getLogger().warning(player.getName() + " tried to exploit CustomPayload: " + ex.getMessage());
-			if (logger != null) logger.log(Level.WARNING, "{0} tried exploit CustomPayload: {1}{2}", new Object[]{player.getName(), ex.getMessage(), ex.itemstackToLogString(" ")});
+			if (logger != null) {
+				logger.log(Level.WARNING, "{0} tried exploit CustomPayload: {1}{2}", new Object[]{player.getName(), ex.getMessage(), ex.itemstackToLogString(" ")});
+			}
 			event.setCancelled(true);
-		} catch (Throwable ex) {
+		} catch (final Throwable ex) {
 			getLogger().severe(String.format("Failed to check packet '%s' for %s: %s", packetName, player.getName(), ex.getMessage()));
-			if (logger != null) logger.log(Level.SEVERE, String.format("Failed to check packet '%s': ", packetName, player.getName()), ex);
+			if (logger != null) {
+				logger.log(Level.SEVERE, String.format("Failed to check packet '%s': ", packetName, player.getName()), ex);
+			}
 			event.setCancelled(true);
 		}
 	}
 
 	private void checkNbtTags(PacketEvent event) throws ExploitException {
-		PacketContainer container = event.getPacket();
-		ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
+		final PacketContainer container = event.getPacket();
+		final ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
 
 		try {
 			ItemStack itemStack = null;
 			try {
 				itemStack = deserializeItemStack(buffer);
-			} catch (Throwable ex) {
+			} catch (final Throwable ex) {
 				throw new ExploitException("Unable to deserialize ItemStack", ex);
 			}
-			if (itemStack == null)
+			if (itemStack == null) {
 				throw new ExploitException("Unable to deserialize ItemStack");
+			}
 
-			NbtCompound root = (NbtCompound) NbtFactory.fromItemTag(itemStack);
-			if (root == null)
+			final NbtCompound root = (NbtCompound) NbtFactory.fromItemTag(itemStack);
+			if (root == null) {
 				throw new ExploitException("No NBT tag?!", itemStack);
+			}
 
-			if (!root.containsKey("pages"))
+			if (!root.containsKey("pages")) {
 				throw new ExploitException("No 'pages' NBT compound was found", itemStack);
+			}
 
-			NbtList<String> pages = root.getList("pages");
-			if (pages.size() > 50)
+			final NbtList<String> pages = root.getList("pages");
+			if (pages.size() > 50) {
 				throw new ExploitException("Too much pages", itemStack);
+			}
 
-			if (pages.size() > 0 && "CustomPayloadFixer".equalsIgnoreCase(pages.getValue(0)))
+			if (pages.size() > 0 && "CustomPayloadFixer".equalsIgnoreCase(pages.getValue(0))) {
 				throw new ExploitException("Testing exploit", itemStack);
+			}
 
 		} finally {
 			buffer.release();
@@ -1019,13 +1087,15 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	private void checkChannels(PacketEvent event) throws ExploitException {
 		int channelsSize = event.getPlayer().getListeningPluginChannels().size();
 
-		PacketContainer container = event.getPacket();
-		ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
+		final PacketContainer container = event.getPacket();
+		final ByteBuf buffer = container.getSpecificModifier(ByteBuf.class).read(0).copy();
 
 		try {
-			for (int i = 0; i < buffer.toString(Charsets.UTF_8).split("\0").length; i++)
-				if (++channelsSize > 124)
+			for (int i = 0; i < buffer.toString(Charsets.UTF_8).split("\0").length; i++) {
+				if (++channelsSize > 124) {
 					throw new ExploitException("Too much channels");
+				}
+			}
 		} finally {
 			buffer.release();
 		}
@@ -1044,14 +1114,14 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				READ_ITEM_METHOD = Accessors.getMethodAccessor(FuzzyReflection.fromClass(MinecraftReflection.getPacketDataSerializerClass(), true).getMethodByParameters("readItemStack", MinecraftReflection.getItemStackClass(), new Class[0]));
 			}
 
-			Object serializer = MinecraftReflection.getPacketDataSerializer(buf);
+			final Object serializer = MinecraftReflection.getPacketDataSerializer(buf);
 			nmsItem = READ_ITEM_METHOD.invoke(serializer);
 		} else {
 			if (READ_ITEM_METHOD == null) {
 				READ_ITEM_METHOD = Accessors.getMethodAccessor(FuzzyReflection.fromClass(MinecraftReflection.getPacketClass()).getMethod(FuzzyMethodContract.newBuilder().parameterCount(1).parameterDerivedOf(DataInput.class).returnDerivedOf(MinecraftReflection.getItemStackClass()).build()));
 			}
 
-			DataInputStream input = new DataInputStream(new ByteBufferInputStream(buf.nioBuffer()));
+			final DataInputStream input = new DataInputStream(new ByteBufferInputStream(buf.nioBuffer()));
 			nmsItem = READ_ITEM_METHOD.invoke((Object)null, new Object[]{input});
 		}
 
@@ -1059,9 +1129,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	public String formatArrayToString(List<String> array) {
-		StringBuilder toReturn = new StringBuilder();
+		final StringBuilder toReturn = new StringBuilder();
 		for (int i = 0; i < array.size(); i++) {
-			String string = array.get(i);
+			final String string = array.get(i);
 
 			toReturn.append(string).append(array.size() - i > 1 ? ", " : "");
 		}
@@ -1069,7 +1139,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static HashMap<String, Integer> timerLeft = new HashMap(); 
+	public static HashMap<String, Integer> timerLeft = new HashMap();
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static HashMap<String, BukkitRunnable> cooldownTask = new HashMap();
 
@@ -1080,8 +1150,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			@Override
 			public void run()
 			{
-				timerLeft.put(player.getName(), Integer.valueOf(((Integer)timerLeft.get(player.getName())).intValue() - 1));
-				if (((Integer)timerLeft.get(player.getName())).intValue() == 0){
+				timerLeft.put(player.getName(), Integer.valueOf(timerLeft.get(player.getName()).intValue() - 1));
+				if (timerLeft.get(player.getName()).intValue() == 0){
 					timerLeft.remove(player.getName());
 					cooldownTask.remove(player.getName());
 					Bukkit.getServer().getScheduler().cancelTask(getTaskId());
@@ -1090,7 +1160,7 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		((BukkitRunnable)cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 20L);
+		cooldownTask.get(player.getName()).runTaskTimer(this, 0L, 20L);
 	}
 
 	public static boolean isInPhaseTimer(Player player) {
@@ -1108,8 +1178,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			@Override
 			public void run()
 			{
-				MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() - 1));
-				if (((Integer)MoveEvent.ticksLeft.get(player.getName())).intValue() == 0){
+				MoveEvent.ticksLeft.put(player.getName(), Integer.valueOf(MoveEvent.ticksLeft.get(player.getName()).intValue() - 1));
+				if (MoveEvent.ticksLeft.get(player.getName()).intValue() == 0){
 					MoveEvent.ticksLeft.remove(player.getName());
 					MoveEvent.cooldownTask.remove(player.getName());
 					Bukkit.getServer().getScheduler().cancelTask(getTaskId());
@@ -1118,6 +1188,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 				}
 			}
 		});
-		((BukkitRunnable)MoveEvent.cooldownTask.get(player.getName())).runTaskTimer(this, 0L, 1L);
+		MoveEvent.cooldownTask.get(player.getName()).runTaskTimer(this, 0L, 1L);
 	}
 }

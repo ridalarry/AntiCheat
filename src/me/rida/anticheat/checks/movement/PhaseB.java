@@ -21,9 +21,8 @@ import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.ReflectionUtil;
 import me.rida.anticheat.utils.ServerUtil;
 
-
 public class PhaseB extends Check implements Listener {
-	private Map<Player, Long> lastDoorSwing;
+	private final Map<Player, Long> lastDoorSwing;
 
 	public PhaseB(AntiCheat AntiCheat) {
 		super("PhaseB", "Phase", CheckType.Movement, true, false, false, false, true, 40, 10, 600000L, AntiCheat);
@@ -34,7 +33,7 @@ public class PhaseB extends Check implements Listener {
 	public void onMove(PlayerMoveEvent e) {
 
 
-		Player player = e.getPlayer();
+		final Player player = e.getPlayer();
 
 		if(AntiCheat.isInPhaseTimer(player)) {
 			return;
@@ -54,10 +53,10 @@ public class PhaseB extends Check implements Listener {
 			return;
 		}
 
-		float minX = (float) Math.min(e.getFrom().getX(), e.getTo().getX()), minY = (float) Math.min(e.getFrom().getY(), e.getTo().getY()), minZ = (float) Math.min(e.getFrom().getZ(), e.getTo().getZ()),
+		final float minX = (float) Math.min(e.getFrom().getX(), e.getTo().getX()), minY = (float) Math.min(e.getFrom().getY(), e.getTo().getY()), minZ = (float) Math.min(e.getFrom().getZ(), e.getTo().getZ()),
 				maxX = (float) Math.max(e.getFrom().getX(), e.getTo().getX()), maxY = (float) Math.max(e.getFrom().getY(), e.getTo().getY()), maxZ = (float) Math.max(e.getFrom().getZ(), e.getTo().getZ());
 
-		Object box = new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ).add(0f, 0f, 0f, 0f, 1.8f, 0f).toAxisAlignedBB();
+		final Object box = new BoundingBox(minX, minY, minZ, maxX, maxY, maxZ).add(0f, 0f, 0f, 0f, 1.8f, 0f).toAxisAlignedBB();
 		if (!ServerUtil.isBukkitVerison("1_13")) {
 			if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
 				getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
@@ -65,7 +64,7 @@ public class PhaseB extends Check implements Listener {
 		}
 		else {
 			if(!ReflectionUtil.getCollidingBlocks1(e.getPlayer(), box)) {
-			getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
+				getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
 			}
 		}
 	}

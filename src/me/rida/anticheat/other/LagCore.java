@@ -12,7 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import me.rida.anticheat.AntiCheat;
 
 public class LagCore implements Listener {
-	private AntiCheat AntiCheat;
+	private final AntiCheat AntiCheat;
 	private double tps;
 
 	public LagCore(AntiCheat AntiCheat) {
@@ -56,71 +56,71 @@ public class LagCore implements Listener {
 	}
 
 	public static Object getNmsPlayer(Player p) throws Exception {
-		Method getHandle = p.getClass().getMethod("getHandle");
+		final Method getHandle = p.getClass().getMethod("getHandle");
 		return getHandle.invoke(p);
 	}
 
 	public static Object getFieldValue(Object instance, String fieldName) throws Exception {
-		Field field = instance.getClass().getDeclaredField(fieldName);
+		final Field field = instance.getClass().getDeclaredField(fieldName);
 		field.setAccessible(true);
 		return field.get(instance);
 	}
 	private static Method getHandleMethod;
-    private static Field pingField;
+	private static Field pingField;
 
-    public int getPing2(Player player) {
-        try {
-            if (getHandleMethod == null) {
-                getHandleMethod = player.getClass().getDeclaredMethod("getHandle");
-                getHandleMethod.setAccessible(true);
-            }
-            Object entityPlayer = getHandleMethod.invoke(player);
-            if (pingField == null) {
-                pingField = entityPlayer.getClass().getDeclaredField("ping");
-                pingField.setAccessible(true);
-            }
-            int ping = pingField.getInt(entityPlayer);
+	public int getPing2(Player player) {
+		try {
+			if (getHandleMethod == null) {
+				getHandleMethod = player.getClass().getDeclaredMethod("getHandle");
+				getHandleMethod.setAccessible(true);
+			}
+			final Object entityPlayer = getHandleMethod.invoke(player);
+			if (pingField == null) {
+				pingField = entityPlayer.getClass().getDeclaredField("ping");
+				pingField.setAccessible(true);
+			}
+			final int ping = pingField.getInt(entityPlayer);
 
-            return ping > 0 ? ping : 0;
-        } catch (Exception e) {
-            return 1;
-        }
-    }
-    public int getPing3(Player player) {
-        try {
-            int ping = 0;
-            Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + getServerVersion() + ".entity.CraftPlayer");
-            Object converted = craftPlayer.cast(player);
-            Method handle = converted.getClass().getMethod("getHandle", new Class[0]);
-            Object entityPlayer = handle.invoke(converted, new Object[0]);
-            Field pingField = entityPlayer.getClass().getField("ping");
-            ping = pingField.getInt(entityPlayer);
-            return ping;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-  
-    private String getServerVersion() {
-        Pattern brand = Pattern.compile("(v|)[0-9][_.][0-9][_.][R0-9]*");
-      
-        String pkg = Bukkit.getServer().getClass().getPackage().getName();
-        String version = pkg.substring(pkg.lastIndexOf('.') + 1);
-        if (!brand.matcher(version).matches()) {
-            version = "";
-        }
-      
-        return version;
-    }
+			return ping > 0 ? ping : 0;
+		} catch (final Exception e) {
+			return 1;
+		}
+	}
+	public int getPing3(Player player) {
+		try {
+			int ping = 0;
+			final Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + getServerVersion() + ".entity.CraftPlayer");
+			final Object converted = craftPlayer.cast(player);
+			final Method handle = converted.getClass().getMethod("getHandle", new Class[0]);
+			final Object entityPlayer = handle.invoke(converted, new Object[0]);
+			final Field pingField = entityPlayer.getClass().getField("ping");
+			ping = pingField.getInt(entityPlayer);
+			return ping;
+		} catch (final Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+	}
+
+	private String getServerVersion() {
+		final Pattern brand = Pattern.compile("(v|)[0-9][_.][0-9][_.][R0-9]*");
+
+		final String pkg = Bukkit.getServer().getClass().getPackage().getName();
+		String version = pkg.substring(pkg.lastIndexOf('.') + 1);
+		if (!brand.matcher(version).matches()) {
+			version = "";
+		}
+
+		return version;
+	}
 	public int getPing(Player p) {
 		try {
-			String bukkitversion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
-			Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + bukkitversion + ".entity.CraftPlayer");
-			Object handle = craftPlayer.getMethod("getHandle").invoke(p);
-			Integer ping = (Integer) handle.getClass().getDeclaredField("ping").get(handle);
+			final String bukkitversion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
+			final Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + bukkitversion + ".entity.CraftPlayer");
+			final Object handle = craftPlayer.getMethod("getHandle").invoke(p);
+			final Integer ping = (Integer) handle.getClass().getDeclaredField("ping").get(handle);
 			return ping.intValue();
-		} catch (Exception e) {
+		} catch (final Exception e) {
 			return 404;
 		}
 	}

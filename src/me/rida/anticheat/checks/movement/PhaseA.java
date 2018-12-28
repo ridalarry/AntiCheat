@@ -31,7 +31,7 @@ public class PhaseA extends Check {
 	@SuppressWarnings("deprecation")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onPlayerInteract(PlayerInteractEvent event) {
-		Player p = (Player) event.getPlayer();
+		final Player p = event.getPlayer();
 
 		if(AntiCheat.isInPhaseTimer(event.getPlayer())) {
 			return;
@@ -39,10 +39,10 @@ public class PhaseA extends Check {
 
 		if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.hasItem()
 				&& event.getItem().getType() == Material.ENDER_PEARL) {
-			Block block = event.getClickedBlock();
+			final Block block = event.getClickedBlock();
 			if (block.getType().isSolid() && BlockUtil.blockedPearlTypes.contains(block.getType())
 					&& !(block.getState() instanceof InventoryHolder)) {
-				PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getPlayer().getLocation(),
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getPlayer().getLocation(),
 						event.getPlayer().getLocation(), event.getPlayer().getItemInHand(), PearlGlitchType.INTERACT);
 				Bukkit.getPluginManager().callEvent(event2);
 
@@ -51,7 +51,7 @@ public class PhaseA extends Check {
 					p.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "Your pearl glitched, therefore your pearl was cancelled.");
 					getAntiCheat().logCheat(this, p, "[1] Unsafe pearl interaction!", "(Type: A)");
-					Player player = event.getPlayer();
+					final Player player = event.getPlayer();
 					player.setItemInHand(event.getItem());
 				}
 			}
@@ -69,14 +69,14 @@ public class PhaseA extends Check {
 			return;
 		}
 		if (event.getCause() == PlayerTeleportEvent.TeleportCause.ENDER_PEARL) {
-			Location to = event.getTo();
+			final Location to = event.getTo();
 			if (BlockUtil.blockedPearlTypes.contains(to.getBlock().getType()) && to.getBlock().getType() != Material.FENCE_GATE
 					&& to.getBlock().getType() != Material.TRAP_DOOR) {
-				PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(event.getPlayer(), event.getFrom(), event.getTo(),
 						event.getPlayer().getItemInHand(), PearlGlitchType.TELEPORT);
 				Bukkit.getPluginManager().callEvent(event2);
 				if (!event2.isCancelled()) {
-					Player player = event.getPlayer();
+					final Player player = event.getPlayer();
 					player.sendMessage(getAntiCheat().PREFIX + Color.Red
 							+ "You have been detected trying to pearl glitch, therefore your pearl was cancelled.");
 					getAntiCheat().logCheat(this, player, "[2] Detected trying to pearl glitch!", "(Type: A)");
@@ -92,8 +92,8 @@ public class PhaseA extends Check {
 							|| to.clone().add(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid())
 					&& to.clone().subtract(0.0D, 1.0D, 0.0D).getBlock().getType().isSolid()
 					& !CheatUtil.isSlab(to.getBlock())) {
-				Player player = event.getPlayer();
-				PearlGlitchEvent event2 = new PearlGlitchEvent(player, event.getFrom(), event.getTo(),
+				final Player player = event.getPlayer();
+				final PearlGlitchEvent event2 = new PearlGlitchEvent(player, event.getFrom(), event.getTo(),
 						event.getPlayer().getItemInHand(), PearlGlitchType.SAFE_LOCATION);
 				Bukkit.getPluginManager().callEvent(event2);
 				if (!event2.isCancelled()) {

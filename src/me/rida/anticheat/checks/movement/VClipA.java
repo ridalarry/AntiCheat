@@ -12,7 +12,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
-import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -25,9 +24,9 @@ public class VClipA extends Check {
 		super("VClipA", "VClip", CheckType.Movement, true, false, false, false, true, 40, 1, 10000L, AntiCheat);
 	}
 
-	private static List<Material> allowed = new ArrayList<Material>();
-	public static ArrayList<Player> teleported = new ArrayList<Player>();
-	public static HashMap<Player, Location> lastLocation = new HashMap<Player, Location>();
+	private static List<Material> allowed = new ArrayList<>();
+	public static ArrayList<Player> teleported = new ArrayList<>();
+	public static HashMap<Player, Location> lastLocation = new HashMap<>();
 
 	static {
 		allowed.add(Material.PISTON_EXTENSION);
@@ -48,10 +47,10 @@ public class VClipA extends Check {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 
-		Location to = e.getTo().clone();
-		Location from = e.getFrom().clone();
+		final Location to = e.getTo().clone();
+		final Location from = e.getFrom().clone();
 
 		if (!getAntiCheat().isEnabled()
 				|| from.getY() == to.getY()
@@ -62,24 +61,24 @@ public class VClipA extends Check {
 				|| teleported.remove(e.getPlayer())
 				|| e.getTo().getY() <= 0 || e.getTo().getY() >= p.getWorld().getMaxHeight()
 				|| !CheatUtil.blocksNear(p)
-				|| (p.getLocation().getY() < 0.0D) 
+				|| (p.getLocation().getY() < 0.0D)
 				|| (p.getLocation().getY() > p.getWorld().getMaxHeight())) {
 			return;
 		}
 
-		double yDist = from.getBlockY() - to.getBlockY();
+		final double yDist = from.getBlockY() - to.getBlockY();
 		for (double y = 0; y < Math.abs(yDist); y++) {
-			Location l = yDist < -0.2 ? from.getBlock().getLocation().clone().add(0.0D, y, 0.0D) : to.getBlock().getLocation().clone().add(0.0D, y, 0.0D);
+			final Location l = yDist < -0.2 ? from.getBlock().getLocation().clone().add(0.0D, y, 0.0D) : to.getBlock().getLocation().clone().add(0.0D, y, 0.0D);
 			if ((yDist > 20 || yDist < -20) && l.getBlock().getType() != Material.AIR
 					&& l.getBlock().getType().isSolid() && !allowed.contains(l.getBlock().getType())) {
 
-				AntiCheat.Instance.getServer().getScheduler().runTaskAsynchronously((Plugin)AntiCheat.Instance, new Runnable(){
+				AntiCheat.Instance.getServer().getScheduler().runTaskAsynchronously(AntiCheat.Instance, new Runnable(){
 					Player p = e.getPlayer();
 					@Override
 					public void run() {
 						p.kickPlayer("Flying is not enabled on this server");
 					}
-				});	
+				});
 
 				getAntiCheat().logCheat(this, p, "[1] More than 20 blocks.", "(Type: A)");
 				p.teleport(from);
@@ -88,7 +87,9 @@ public class VClipA extends Check {
 			if (l.getBlock().getType() != Material.AIR && Math.abs(yDist) > 1.0 && l.getBlock().getType().isSolid()
 					&& !allowed.contains(l.getBlock().getType())) {
 				getAntiCheat().logCheat(this, p, "[2] " + y + " blocks", "(Type: A)");
-				p.teleport(lastLocation.get(p));
+				if (lastLocation.containsKey(p)) {
+					p.teleport(lastLocation.get(p));
+				}
 			} else {
 				lastLocation.put(p, p.getLocation());
 			}

@@ -13,8 +13,8 @@ import me.rida.anticheat.data.DataPlayer;
 public class NewVelocityUtil implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (data.isLastVelUpdateBoolean()) {
 				if (TimerUtil.elapsed(data.getLastVelUpdate(),Values.VelTimeReset_1_FORCE_RESET)) {
@@ -32,8 +32,8 @@ public class NewVelocityUtil implements Listener {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onVelChange(PlayerVelocityEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (p.getNoDamageTicks() > 0 == false) {
 				if (!data.isLastVelUpdateBoolean()) {
@@ -44,7 +44,7 @@ public class NewVelocityUtil implements Listener {
 		}
 	}
 	public static boolean didTakeVel(Player p) {
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			return data.isLastVelUpdateBoolean();
 		} else {

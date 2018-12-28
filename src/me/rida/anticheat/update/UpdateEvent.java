@@ -5,7 +5,7 @@ import org.bukkit.event.HandlerList;
 
 public class UpdateEvent extends Event {
 	private static final HandlerList handlers = new HandlerList();
-	private UpdateType Type;
+	private final UpdateType Type;
 
 	public UpdateEvent(UpdateType Type) {
 		this.Type = Type;
@@ -15,6 +15,7 @@ public class UpdateEvent extends Event {
 		return this.Type;
 	}
 
+	@Override
 	public HandlerList getHandlers() {
 		return handlers;
 	}

@@ -9,33 +9,33 @@ import me.rida.anticheat.AntiCheat;
 
 public class Config {
 
-    File userFile;
-    FileConfiguration userConfig;
+	File userFile;
+	FileConfiguration userConfig;
 
-    public Config(String name){
-        userFile = new File(AntiCheat.getInstance().getDataFolder() + File.separator, name + ".yml");
-        userConfig = YamlConfiguration.loadConfiguration(userFile);
-    }
+	public Config(String name){
+		userFile = new File(AntiCheat.getInstance().getDataFolder() + File.separator, name + ".yml");
+		userConfig = YamlConfiguration.loadConfiguration(userFile);
+	}
 
-    public void makeConfigFile(){
-        if ( !userFile.exists() ) {
-            try {
-                userConfig.save(userFile);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	public void makeConfigFile(){
+		if ( !userFile.exists() ) {
+			try {
+				userConfig.save(userFile);
+			} catch (final Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-    public FileConfiguration getConfigFile(){
-        return userConfig;
-    }
+	public FileConfiguration getConfigFile(){
+		return userConfig;
+	}
 
-    public void saveConfigFile(){
-        try {
-            getConfigFile().save(userFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	public void saveConfigFile(){
+		try {
+			getConfigFile().save(userFile);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.movement;
+
 import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ import me.rida.anticheat.utils.CheatUtil;
 import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.ServerUtil;
 import me.rida.anticheat.utils.TimeUtil;
+
 public class AscensionA extends Check {
 
 	public static Map<UUID, Map.Entry<Long, Double>> AscensionTicks;
@@ -27,12 +29,12 @@ public class AscensionA extends Check {
 	public AscensionA(AntiCheat AntiCheat) {
 		super("AscensionA", "Ascension",  CheckType.Movement, true, true, false, true, false, 4, 1, 600000L, AntiCheat);
 
-		AscensionTicks = new HashMap<UUID, Map.Entry<Long, Double>>();
-		velocity = new HashMap<UUID, Double>();
+		AscensionTicks = new HashMap<>();
+		velocity = new HashMap<>();
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (e.getFrom().getY() >= e.getTo().getY()
 				|| !getAntiCheat().isEnabled()
 				|| p.getAllowFlight()
@@ -55,21 +57,21 @@ public class AscensionA extends Check {
 			Time = AscensionTicks.get(p.getUniqueId()).getKey().longValue();
 			TotalBlocks = AscensionTicks.get(p.getUniqueId()).getValue().doubleValue();
 		}
-		long MS = System.currentTimeMillis() - Time;
-		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
+		final long MS = System.currentTimeMillis() - Time;
+		final double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));
 		if (OffsetY > 0.0D) {
 			TotalBlocks += OffsetY;
 		}
-		Location a = p.getLocation().subtract(0.0D, 1.0D, 0.0D);
+		final Location a = p.getLocation().subtract(0.0D, 1.0D, 0.0D);
 		if (CheatUtil.blocksNear(a)) {
 			TotalBlocks = 0.0D;
 		}
 		double Limit = 1.05D;
 		if (p.hasPotionEffect(PotionEffectType.JUMP)) {
-			for (PotionEffect effect : p.getActivePotionEffects()) {
+			for (final PotionEffect effect : p.getActivePotionEffects()) {
 				if (effect.getType().equals(PotionEffectType.JUMP)) {
-					int level = effect.getAmplifier() + 1;
+					final int level = effect.getAmplifier() + 1;
 					Limit += (Math.pow(level + 4.2D, 2.0D) / 16.0D) + 0.3;
 					break;
 				}
@@ -86,6 +88,6 @@ public class AscensionA extends Check {
 			Time = System.currentTimeMillis();
 		}
 		AscensionTicks.put(p.getUniqueId(),
-				new AbstractMap.SimpleEntry<Long, Double>(Time, TotalBlocks));
+				new AbstractMap.SimpleEntry<>(Time, TotalBlocks));
 	}
 }

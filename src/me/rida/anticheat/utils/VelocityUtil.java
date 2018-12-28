@@ -13,8 +13,8 @@ import me.rida.anticheat.data.DataPlayer;
 public class VelocityUtil implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (data.isDidTakeVelocity()) {
 				if (TimerUtil.elapsed(data.getLastVelMS(),2000L)) {
@@ -25,8 +25,8 @@ public class VelocityUtil implements Listener {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onVelEvent(PlayerVelocityEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			data.setDidTakeVelocity(true);
 			data.setLastVelMS(TimerUtil.nowlong());
@@ -34,7 +34,7 @@ public class VelocityUtil implements Listener {
 	}
 	public static boolean didTakeVelocity(Player p) {
 		boolean out = false;
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null && data.isDidTakeVelocity()) {
 			out = true;
 		}

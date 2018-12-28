@@ -21,10 +21,10 @@ public class ScaffoldA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onInteract(BlockPlaceEvent e) {
-		Player p = e.getPlayer();
-		double x = p.getEyeLocation().getX() - e.getBlockPlaced().getX();
-		double y = p.getEyeLocation().getY() - e.getBlockPlaced().getY();
-		double z = p.getEyeLocation().getZ() - e.getBlockPlaced().getZ();
+		final Player p = e.getPlayer();
+		final double x = p.getEyeLocation().getX() - e.getBlockPlaced().getX();
+		final double y = p.getEyeLocation().getY() - e.getBlockPlaced().getY();
+		final double z = p.getEyeLocation().getZ() - e.getBlockPlaced().getZ();
 		if (getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)

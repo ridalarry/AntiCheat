@@ -33,18 +33,18 @@ public class BlockUtil {
 		setupCollisionBB();
 	}
 	public static Block getBlockBehindPlayer(Player player) {
-        // Won't get NPEs from me.
-        if (player == null) {
-            return null;
-        }
-        // Get player's location, but at head height. Add 1 to y.
-        Location location = player.getLocation().add(0, 1, 0);
-       // Get the player's direction and invert it on the x and z axis to get the opposite direction.
-        Vector direction = location.getDirection().multiply(new Vector(-1, 0, -1));
+		// Won't get NPEs from me.
+		if (player == null) {
+			return null;
+		}
+		// Get player's location, but at head height. Add 1 to y.
+		final Location location = player.getLocation().add(0, 1, 0);
+		// Get the player's direction and invert it on the x and z axis to get the opposite direction.
+		final Vector direction = location.getDirection().multiply(new Vector(-1, 0, -1));
 
-       // Return the block at the location opposite of the direction the player is looking, 1 block forward.
-        return player.getWorld().getBlockAt(location.add(direction));
-    }
+		// Return the block at the location opposite of the direction the player is looking, 1 block forward.
+		return player.getWorld().getBlockAt(location.add(direction));
+	}
 	static {
 		allowed.add(Material.SIGN);
 		allowed.add(Material.FENCE);
@@ -160,8 +160,8 @@ public class BlockUtil {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public static boolean on1_13Spoof(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (e.getTo().getY() > e.getFrom().getY()) {
 				return true;
@@ -180,10 +180,10 @@ public class BlockUtil {
 			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
 				return true;
 			}
-			Location to = e.getTo();
-			Location from = e.getFrom();
-			double diff = to.toVector().distance(from.toVector());
-			int dist = PlayerUtil.getDistanceToGround(p);
+			final Location to = e.getTo();
+			final Location from = e.getFrom();
+			final double diff = to.toVector().distance(from.toVector());
+			final int dist = PlayerUtil.getDistanceToGround(p);
 			if (p.getLocation().add(0,-1.50,0).getBlock().getType() != Material.AIR) {
 				data.setGroundSpoofVL(0);
 				return true;
@@ -201,7 +201,7 @@ public class BlockUtil {
 				if (data.getGroundSpoofVL() >= 4) {
 					if (data.getAirTicks() >= 10) {
 						return true;
-					} 
+					}
 				} else {
 					data.setGroundSpoofVL(data.getGroundSpoofVL()+1);
 				}
@@ -211,7 +211,7 @@ public class BlockUtil {
 	}
 	@SuppressWarnings("deprecation")
 	public static boolean isSolid2(Block block) {
-		int type = block.getType().getId();
+		final int type = block.getType().getId();
 
 		switch (type) {
 		case 1:
@@ -787,11 +787,11 @@ public class BlockUtil {
 	}
 
 	public static boolean containsBlockType(Material[] arrmaterial, Block block) {
-		Material[] arrmaterial2 = arrmaterial;
-		int n = arrmaterial2.length;
+		final Material[] arrmaterial2 = arrmaterial;
+		final int n = arrmaterial2.length;
 		int n2 = 0;
 		while (n2 < n) {
-			Material material = arrmaterial2[n2];
+			final Material material = arrmaterial2[n2];
 			if (material == block.getType()) {
 				return true;
 			}
@@ -844,7 +844,7 @@ public class BlockUtil {
 
 
 	public static ArrayList<Block> getSurroundingXZ(Block block, boolean diagonals) {
-		ArrayList<Block> blocks = new ArrayList<>();
+		final ArrayList<Block> blocks = new ArrayList<>();
 		if (diagonals) {
 			blocks.add(block.getRelative(BlockFace.NORTH));
 			blocks.add(block.getRelative(BlockFace.NORTH_EAST));
@@ -864,7 +864,7 @@ public class BlockUtil {
 		return blocks;
 	}
 	public static List<Block> getNearbyBlocks(Location location, int radius) {
-		List<Block> blocks = new ArrayList<>();
+		final List<Block> blocks = new ArrayList<>();
 		for(int x = location.getBlockX() - radius; x <= location.getBlockX() + radius; x++) {
 			for(int y = location.getBlockY() - radius; y <= location.getBlockY() + radius; y++) {
 				for(int z = location.getBlockZ() - radius; z <= location.getBlockZ() + radius; z++) {
@@ -880,11 +880,11 @@ public class BlockUtil {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<Block> getBlocksAroundCenter(Location loc, int radius) {
-		ArrayList<Block> blocks = new ArrayList();
+		final ArrayList<Block> blocks = new ArrayList();
 		for (int x = loc.getBlockX() - radius; x <= loc.getBlockX() + radius; x++) {
 			for (int y = loc.getBlockY() - radius; y <= loc.getBlockY() + radius; y++) {
 				for (int z = loc.getBlockZ() - radius; z <= loc.getBlockZ() + radius; z++) {
-					Location l = new Location(loc.getWorld(), x, y, z);
+					final Location l = new Location(loc.getWorld(), x, y, z);
 					if (l.distance(loc) <= radius) {
 						blocks.add(l.getBlock());
 					}
@@ -896,7 +896,7 @@ public class BlockUtil {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<Block> getSurrounding(Block block, boolean diagonals) {
-		ArrayList<Block> blocks = new ArrayList();
+		final ArrayList<Block> blocks = new ArrayList();
 		if (diagonals) {
 			for (int x = -1; x <= 1; x++) {
 				for (int y = -1; y <= 1; y++) {
@@ -920,7 +920,7 @@ public class BlockUtil {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static ArrayList<Block> getSurroundingB(Block block) {
-		ArrayList<Block> blocks = new ArrayList();
+		final ArrayList<Block> blocks = new ArrayList();
 		for (double x = -0.5; x <= 0.5; x += 0.5) {
 			for (double y = -0.5; y <= 0.5; y += 0.5) {
 				for (double z = -0.5; z <= 0.5; z += 0.5) {
@@ -934,7 +934,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearPistion(Player p) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (b.getType() == Material.PISTON_BASE || b.getType() == Material.PISTON_MOVING_PIECE || b.getType() == Material.PISTON_STICKY_BASE || b.getType() == Material.PISTON_EXTENSION) {
 				out = true;
 			}
@@ -943,7 +943,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearFence(Player p) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isFence(b)) {
 				out = true;
 			}
@@ -952,7 +952,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearStair(Player p) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isStair(b)) {
 				out = true;
 			}
@@ -961,7 +961,7 @@ public class BlockUtil {
 	}
 	public static boolean isNearLiquid(Player p) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 1)) {
+		for (final Block b : getNearbyBlocks(p.getLocation(), 1)) {
 			if (isLiquid(b)) {
 				out = true;
 			}
@@ -971,7 +971,7 @@ public class BlockUtil {
 
 	public static boolean isNearLava(Player p) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 2)) {
+		for (final Block b : getNearbyBlocks(p.getLocation(), 2)) {
 			if (isLava(b)) {
 				out = true;
 			}
@@ -981,7 +981,7 @@ public class BlockUtil {
 
 	public static boolean isNearWater(Player p) {
 		boolean out = false;
-		for (Block b : getNearbyBlocks(p.getLocation(), 2)) {
+		for (final Block b : getNearbyBlocks(p.getLocation(), 2)) {
 			if (isWater(b)) {
 				out = true;
 			}
@@ -995,26 +995,26 @@ public class BlockUtil {
 
 	static String[] Blocks_1_13 = { "tube_coral_block", "brain_coral_block", "bubble_coral_block", "fire_coral_block", "horn_coral_block",
 			"dead_tube_coral_block", "dead_brain_coral_block", "dead_bubble_coral_block", "dead_fire_coral_block", "dead_horn_coral_block",
-			"coral_block", "cave_air", "void_air", "blue_ice", "stone_button", "oak_button", "spruce_button", "birch_button", 
-			"jungle_button", "acacia_button", "dark_oak_button", "stone_pressure_plate", "heavy_weighted_pressure_plate", 
-			"light_weighted_pressure_plate", "oak_pressure_plate", "spruce_pressure_plate", "birch_pressure_plate", 
-			"jungle_pressure_plate", "acacia_pressure_plate", "dark_oak_pressure_plate", "iron_trapdoor", "oak_trapdoor", 
-			"spruce_trapdoor", "birch_trapdoor", "jungle_trapdoor", "acacia_trapdoor", "dark_oak_trapdoor", "pumpkin", "carved_pumpkin", 
-			"tube_coral", "brain_coral", "bubble_coral", "fire_coral", "horn_coral", "dead_tube_coral", "dead_brain_coral", 
-			"dead_bubble_coral", "dead_fire_coral", "dead_horn_coral", "tube_coral_fan	", "bubble_coral_fan", "fire_coral_fan", 
-			"horn_coral_fan", "dead_tube_coral_fan", "dead_brain_coral_fan", "dead_bubble_coral_fan", "dead_fire_coral_fan", 
-			"dead_horn_coral_fan", "tube_coral_wall_fan", "brain_coral_wall_fan", "bubble_coral_wall_fan", "fire_coral_wall_fan", 
-			"horn_coral_wall_fan", "dead_tube_coral_wall_fan", "dead_brain_coral_wall_fan", "dead_bubble_coral_wall_fan", 
-			"dead_fire_coral_wall_fan", "dead_horn_coral_wall_fan", "brain_coral_fan", "dried_kelp_block", "conduit", "seagrass", 
-			"tall_seagrass", "stripped_oak_log", "stripped_spruce_log", "stripped_birch_log", "stripped_jungle_log", 
-			"stripped_acacia_log", "prismarine_brick_slab", "prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", 
-			"prismarine_stairs", "dark_prismarine_stairs", "stripped_dark_oak_log", "prismarine_brick_slab", "turtle_egg", 
-			"prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", "prismarine_stairs", "dark_prismarine_stairs", 
+			"coral_block", "cave_air", "void_air", "blue_ice", "stone_button", "oak_button", "spruce_button", "birch_button",
+			"jungle_button", "acacia_button", "dark_oak_button", "stone_pressure_plate", "heavy_weighted_pressure_plate",
+			"light_weighted_pressure_plate", "oak_pressure_plate", "spruce_pressure_plate", "birch_pressure_plate",
+			"jungle_pressure_plate", "acacia_pressure_plate", "dark_oak_pressure_plate", "iron_trapdoor", "oak_trapdoor",
+			"spruce_trapdoor", "birch_trapdoor", "jungle_trapdoor", "acacia_trapdoor", "dark_oak_trapdoor", "pumpkin", "carved_pumpkin",
+			"tube_coral", "brain_coral", "bubble_coral", "fire_coral", "horn_coral", "dead_tube_coral", "dead_brain_coral",
+			"dead_bubble_coral", "dead_fire_coral", "dead_horn_coral", "tube_coral_fan	", "bubble_coral_fan", "fire_coral_fan",
+			"horn_coral_fan", "dead_tube_coral_fan", "dead_brain_coral_fan", "dead_bubble_coral_fan", "dead_fire_coral_fan",
+			"dead_horn_coral_fan", "tube_coral_wall_fan", "brain_coral_wall_fan", "bubble_coral_wall_fan", "fire_coral_wall_fan",
+			"horn_coral_wall_fan", "dead_tube_coral_wall_fan", "dead_brain_coral_wall_fan", "dead_bubble_coral_wall_fan",
+			"dead_fire_coral_wall_fan", "dead_horn_coral_wall_fan", "brain_coral_fan", "dried_kelp_block", "conduit", "seagrass",
+			"tall_seagrass", "stripped_oak_log", "stripped_spruce_log", "stripped_birch_log", "stripped_jungle_log",
+			"stripped_acacia_log", "prismarine_brick_slab", "prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs",
+			"prismarine_stairs", "dark_prismarine_stairs", "stripped_dark_oak_log", "prismarine_brick_slab", "turtle_egg",
+			"prismarine_slab", "dark_prismarine_slab", "prismarine_brick_stairs", "prismarine_stairs", "dark_prismarine_stairs",
 	"stripped_dark_oak_log"};
 
 	public static boolean isHalfBlock(Block block) {
-		Material type = block.getType();
-		for (String types : HalfBlocksArray) {
+		final Material type = block.getType();
+		for (final String types : HalfBlocksArray) {
 			if (type.toString().toLowerCase().contains(types)) {
 				return true;
 			}
@@ -1022,8 +1022,8 @@ public class BlockUtil {
 		return false;
 	}
 	public static boolean B_1_13(Block block) {
-		Material type = block.getType();
-		for (String types : Blocks_1_13) {
+		final Material type = block.getType();
+		for (final String types : Blocks_1_13) {
 			if (type.toString().toLowerCase().equals(types)) {
 				return true;
 			}
@@ -1032,8 +1032,8 @@ public class BlockUtil {
 	}
 	@SuppressWarnings("unused")
 	public static boolean isLessThanBlock(Block block) {
-		Material type = block.getType();
-		for (String types : HalfBlocksArray) {
+		final Material type = block.getType();
+		for (final String types : HalfBlocksArray) {
 			if (type.toString().toLowerCase().contains("chest")||type.toString().toLowerCase().contains("anvil")) {
 				return true;
 			}
@@ -1162,11 +1162,11 @@ public class BlockUtil {
 	}
 	public static BoundingBox[] getBlockBoundingBox(Block block) {
 		if (collisionBoundingBoxes.containsKey(block.getType())) {
-			BoundingBox[] newBox = collisionBoundingBoxes.get(block.getType());
+			final BoundingBox[] newBox = collisionBoundingBoxes.get(block.getType());
 
 			return new BoundingBox[]{newBox[0].add((float) (newBox[0].minX != -69 ? block.getLocation().getX() : 0), (float) (newBox[0].minY != -69 ? block.getLocation().getY() : 0), (float) (newBox[0].minZ != -69 ? block.getLocation().getZ() : 0), (float) (newBox[0].maxX != -69 ? block.getLocation().getX() : 0), (float) (newBox[0].maxY != -69 ? block.getLocation().getY() : 0), (float) (newBox[0].maxZ != -69 ? block.getLocation().getZ() : 0)), newBox[1].add((float) (newBox[1].minX != -69 ? block.getLocation().getX() : 0), (float) (newBox[1].minY != -69 ? block.getLocation().getY() : 0), (float) (newBox[1].minZ != -69 ? block.getLocation().getZ() : 0), (float) (newBox[1].maxX != -69 ? block.getLocation().getX() : 0), (float) (newBox[1].maxY != -69 ? block.getLocation().getY() : 0), (float) (newBox[1].maxZ != -69 ? block.getLocation().getZ() : 0))};
 		}
-		BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
+		final BoundingBox box = ReflectionUtil.getBlockBoundingBox(block);
 
 		if (box != null) {
 			return new BoundingBox[]{ReflectionUtil.getBlockBoundingBox(block), new BoundingBox(0, 0, 0, 0, 0, 0)};

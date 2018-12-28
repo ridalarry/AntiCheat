@@ -24,15 +24,16 @@ public class CriticalsA extends Check {
 		if(!(e.getDamager() instanceof Player)) {
 			return;
 		}
-		Player p = (Player) e.getDamager();
+		final Player p = (Player) e.getDamager();
 		if(getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}
 
 		@SuppressWarnings("unused")
+		final
 		Entity entity = e.getEntity();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 
 		if(data.getAboveBlockTicks() > 0
 				|| PlayerUtil.isInWeb(p)

@@ -1,4 +1,5 @@
 package me.rida.anticheat.checks.combat;
+
 import org.bukkit.GameMode;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -21,30 +22,30 @@ public class ReachN extends Check {
 	public void onDamage(final EntityDamageByEntityEvent event) {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
-				Player player = (Player) event.getDamager();
+				final Player player = (Player) event.getDamager();
 				if (player.getGameMode() != GameMode.CREATIVE) {
-					double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
-					int ping = getAntiCheat().getLag().getPing(player);
-					double tps = getAntiCheat().getLag().getTPS();
-					double maxReach = 4.3;
-					String dist = Double.toString(distance).substring(0, 3);
+					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
+					final int ping = getAntiCheat().getLag().getPing(player);
+					final double tps = getAntiCheat().getLag().getTPS();
+					final double maxReach = 4.3;
+					final String dist = Double.toString(distance).substring(0, 3);
 					if (event.getEntity().getLocation().distance(player.getLocation()) > maxReach && player.getLocation().getY() < event.getEntity().getLocation().getY() + 0.1) {
 						if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 							if (event.getEntity().getLocation().distance(player.getLocation()) > maxReach + 1 && player.getLocation().getY() < event.getEntity().getLocation().getY() + 0.1) {
 								if (player != null) {
 									getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: N)");
-								} 
+								}
 							}
 						} else {
 							if (player != null) {
 								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: N)");
-							} 
+							}
 						}
 					}
 					if (event.getEntity().getLocation().distance(player.getLocation()) > maxReach && player.getLocation().getY() > event.getEntity().getLocation().getY()) {
 						if (player != null) {
 							getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: N)");
-						} 
+						}
 					}
 				}
 			}

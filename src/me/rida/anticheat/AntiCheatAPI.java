@@ -11,7 +11,7 @@ public class AntiCheatAPI {
 	private static AntiCheat AntiCheat;
 
 	@SuppressWarnings("unused")
-	private Plugin plugin;
+	private final Plugin plugin;
 
 	public AntiCheatAPI(Plugin plugin) {
 		this.plugin = plugin;

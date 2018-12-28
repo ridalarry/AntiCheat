@@ -27,20 +27,20 @@ public class SpookA extends Check implements Listener{
 		if (!(e.getEntity() instanceof Player)) {
 			return;
 		}
-			Player p = (Player) e.getDamager();
-			Player p2 = (Player) e.getEntity();
-			float f = MathUtil.getOffset(p, p2);
-			onAim(p, f);
+		final Player p = (Player) e.getDamager();
+		final Player p2 = (Player) e.getEntity();
+		final float yaw = MathUtil.getOffset(p, p2);
+		onAim(p, yaw);
 	}
-	public float onAim(Player p, float f) {
-		float f2 = Math.abs(f - this.lastYaw) % 180.0f;
-		this.lastYaw = f;
-		if (f2 > 1.0f && (float)Math.round(f2) == f2) {
-			if (f2 == (float)this.lastBad) {
+	public float onAim(Player p, float yaw) {
+		final float badYaw = Math.abs(yaw - this.lastYaw) % 180.0f;
+		this.lastYaw = yaw;
+		if (badYaw > 1.0f && Math.round(badYaw) == badYaw) {
+			if (badYaw == this.lastBad) {
 				getAntiCheat().logCheat(this, p, "Detection of spook hack client!", "(Type: A)");
-				return f2;
+				return badYaw;
 			}
-			this.lastBad = Math.round(f2);
+			this.lastBad = Math.round(badYaw);
 		} else {
 			this.lastBad = 0;
 		}

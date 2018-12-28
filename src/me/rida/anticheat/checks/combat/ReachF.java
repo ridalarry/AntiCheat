@@ -20,16 +20,16 @@ public class ReachF extends Check {
 		final Player p = e.getPlayer();
 		if (e.getClickedBlock() != null) {
 			int ping = getAntiCheat().getLag().getPing(p);
-			double tps = getAntiCheat().getLag().getTPS();
+			final double tps = getAntiCheat().getLag().getTPS();
 			if (ping > 200) {
 				ping = 200;
 			}
 			if (ping < 10) {
 				ping = 10;
 			}
-			double maxReach = 5.4;
+			final double maxReach = 5.4;
 			final double diff = e.getClickedBlock().getLocation().add(0.5, 0.5, 0.5).distance(p.getLocation().add(0.0, 1.6, 0.0));
-			String dist = Double.toString(diff).substring(0, 3);
+			final String dist = Double.toString(diff).substring(0, 3);
 			if (p.getGameMode() != GameMode.CREATIVE) {
 				if (diff > maxReach + 0.1 + ping / 40) {
 					getAntiCheat().logCheat(this, p, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: F)");

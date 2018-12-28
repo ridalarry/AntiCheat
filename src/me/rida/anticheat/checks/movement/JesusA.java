@@ -24,15 +24,15 @@ public class JesusA extends Check {
 
 	public JesusA(AntiCheat AntiCheat) {
 		super("JesusA", "Jesus", CheckType.Movement, true, true, false, true, false, 5, 1, 600000L, AntiCheat);
-		count = new WeakHashMap<Player, Integer>();
-		placedBlockOnWater = new ArrayList<Player>();
-		onWater = new WeakHashMap<Player, Integer>();
-		velocity = new WeakHashMap<Player, Long>();
+		count = new WeakHashMap<>();
+		placedBlockOnWater = new ArrayList<>();
+		onWater = new WeakHashMap<>();
+		velocity = new WeakHashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent event) {
-		Player p = event.getPlayer();
+		final Player p = event.getPlayer();
 		if (event.isCancelled()
 				|| (event.getFrom().getX() == event.getTo().getX()) && (event.getFrom().getZ() == event.getTo().getZ())
 				|| p.getAllowFlight()

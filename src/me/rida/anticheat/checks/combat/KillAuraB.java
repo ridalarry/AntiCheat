@@ -20,8 +20,8 @@ public class KillAuraB extends Check {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(PacketAttackEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if(e.getType() != PacketPlayerType.USE
 				|| (data == null)) {
 			return;
@@ -54,7 +54,7 @@ public class KillAuraB extends Check {
 	}
 
 	private static float angleDistance(float alpha, float beta) {
-		float phi = Math.abs(beta - alpha) % 360;
+		final float phi = Math.abs(beta - alpha) % 360;
 		return phi > 180 ? 360 - phi : phi;
 	}
 }

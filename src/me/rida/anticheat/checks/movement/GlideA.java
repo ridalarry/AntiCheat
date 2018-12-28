@@ -20,7 +20,7 @@ public class GlideA extends Check {
 
 	public GlideA(AntiCheat AntiCheat) {
 		super("GlideA", "Glide", CheckType.Movement, true, false, false, false, true, 12, 1, 600000L, AntiCheat);
-		flyTicks = new HashMap<UUID, Long>();
+		flyTicks = new HashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
@@ -28,7 +28,7 @@ public class GlideA extends Check {
 		if (!this.getAntiCheat().isEnabled()) {
 			return;
 		}
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 
 		if (e.isCancelled()
 				|| !(e.getTo().getX() == e.getFrom().getX() && e.getTo().getZ() == e.getFrom().getZ())
@@ -48,7 +48,7 @@ public class GlideA extends Check {
 			return;
 		}
 
-		double OffsetY = e.getFrom().getY() - e.getTo().getY();
+		final double OffsetY = e.getFrom().getY() - e.getTo().getY();
 		if (OffsetY <= 0.0 || OffsetY > 0.16) {
 			if (flyTicks.containsKey(p.getUniqueId())) {
 				flyTicks.remove(p.getUniqueId());
@@ -59,7 +59,7 @@ public class GlideA extends Check {
 		if (flyTicks.containsKey(p.getUniqueId())) {
 			Time = flyTicks.get(p.getUniqueId());
 		}
-		long MS = System.currentTimeMillis() - Time;
+		final long MS = System.currentTimeMillis() - Time;
 		if (MS > 1000L) {
 			this.dumplog(p, "Logged for Glide Type A;. MS: " + MS);
 			flyTicks.remove(p.getUniqueId());

@@ -5,10 +5,10 @@ import java.util.List;
 
 public class VPNPortList {
 
-	public static List<Integer> list = new ArrayList<Integer>();
-	
+	public static List<Integer> list = new ArrayList<>();
+
 	public static void setupVPNPortList(){
-		
+
 		list.add(443);
 		list.add(80);
 		list.add(1194);
@@ -34,8 +34,7 @@ public class VPNPortList {
 		list.add(433);
 		list.add(1723);
 		list.add(22);
-		
-		
+
+
 	}
 }
-

@@ -29,10 +29,10 @@ public class SpeedA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
-		Location to = e.getTo();
-		Location from = e.getFrom();
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Location to = e.getTo();
+		final Location from = e.getFrom();
 		if (((to.getX() == from.getX() && to.getY() == from.getY() && to.getZ() == from.getZ()))
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| e.getPlayer().getVehicle() != null
@@ -53,12 +53,12 @@ public class SpeedA extends Check {
 					data.setSpeed_PistonExpand_Set(false);
 				}
 			}
-			double speed = MathUtil.getHorizontalDistance(from, to);
+			final double speed = MathUtil.getHorizontalDistance(from, to);
 			if(MathUtil.elapsed(data.getLastVelMS(), 3000)) {
 				int verbose = data.getSpeedAVerbose();
-				double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
-				double x = 0;
-				double depth = BlockUtil.isNearLiquid(p) ? 0.34 + (PlayerUtil.hasDepthStrider(p) * 0.02) : x;
+				final double speedEffect = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
+				final double x = 0;
+				final double depth = BlockUtil.isNearLiquid(p) ? 0.34 + (PlayerUtil.hasDepthStrider(p) * 0.02) : x;
 				double speedAThreshold = (data.getAirTicks() > 0 ? data.getAirTicks() >= 6
 						? data.getAirTicks() == 13 ? 0.466 : 0.35 : (0.345 * Math.pow(0.986938064, data.getAirTicks()))
 								: data.getGroundTicks() > 5 ? 0.362 : data.getGroundTicks() == 3 ? 0.62 : 0.4)
@@ -112,24 +112,24 @@ public class SpeedA extends Check {
 				data.setSpeedAVerbose(0);
 			}
 
-			Location l = p.getLocation();
-			int x = l.getBlockX();
-			int y = l.getBlockY();
-			int z = l.getBlockZ();
-			Location blockLoc = new Location(p.getWorld(), x, y - 1, z);
-			Location loc = new Location(p.getWorld(), x, y, z);
-			Location loc2 = new Location(p.getWorld(), x, y + 1, z);
-			Location above = new Location(p.getWorld(), x, y + 2, z);
-			Location above3 = new Location(p.getWorld(), x - 1, y + 2, z - 1);
+			final Location l = p.getLocation();
+			final int x = l.getBlockX();
+			final int y = l.getBlockY();
+			final int z = l.getBlockZ();
+			final Location blockLoc = new Location(p.getWorld(), x, y - 1, z);
+			final Location loc = new Location(p.getWorld(), x, y, z);
+			final Location loc2 = new Location(p.getWorld(), x, y + 1, z);
+			final Location above = new Location(p.getWorld(), x, y + 2, z);
+			final Location above3 = new Location(p.getWorld(), x - 1, y + 2, z - 1);
 			double MaxAirSpeed = 0.4;
 			double maxSpeed = 0.42;
 			double MaxSpeedNEW = 0.75;
 			if (data.isNearIce()) {
 				MaxSpeedNEW = 1.0;
 			}
-			double Max = 0.28;
+			final double Max = 0.28;
 			if (p.hasPotionEffect(PotionEffectType.SPEED)) {
-				int level = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
+				final int level = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
 				if (level > 0) {
 					maxSpeed = (maxSpeed * (((level * 20) * 0.011) + 1));
 					MaxAirSpeed = (MaxAirSpeed * (((level * 20) * 0.011) + 1));
@@ -156,7 +156,7 @@ public class SpeedA extends Check {
 				}
 			}
 
-			double onGroundDiff = (to.getY() - from.getY());
+			final double onGroundDiff = (to.getY() - from.getY());
 			if (speed > Max && !PlayerUtil.isAir(p) && onGroundDiff <= -0.4 && p.getFallDistance() <= 0.4 && blockLoc.getBlock().getType() != Material.ICE
 					&& e.getTo().getY() != e.getFrom().getY() && blockLoc.getBlock().getType() != Material.PACKED_ICE
 					&& loc2.getBlock().getType() != Material.TRAP_DOOR && above.getBlock().getType() == Material.AIR
@@ -179,7 +179,7 @@ public class SpeedA extends Check {
 
 				}
 				if (p.hasPotionEffect(PotionEffectType.SPEED)) {
-					int level = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
+					final int level = PlayerUtil.getPotionEffectLevel(p, PotionEffectType.SPEED);
 					if (level > 0) {
 						maxSpeed = (maxSpeed * (((level * 20) * 0.011) + 1));
 						MaxAirSpeed = (MaxAirSpeed * (((level * 20) * 0.011) + 1));
@@ -205,7 +205,7 @@ public class SpeedA extends Check {
 						data.setSpeed2Verbose(0);
 					}
 					boolean speedPot = false;
-					for (PotionEffect effect : p.getActivePotionEffects()) {
+					for (final PotionEffect effect : p.getActivePotionEffects()) {
 						if (effect.getType().equals(PotionEffectType.SPEED)) {
 							speedPot = true;
 						}

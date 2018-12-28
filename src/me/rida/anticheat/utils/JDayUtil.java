@@ -9,7 +9,7 @@ public class JDayUtil {
 
 	@SuppressWarnings("unused")
 	public static void signalTimer(){
-		Config pending = new Config("pendingusers");
+		final Config pending = new Config("pendingusers");
 		new BukkitRunnable(){
 			@Override
 			public void run(){
@@ -20,19 +20,19 @@ public class JDayUtil {
 	}
 
 	public static void executeBanWave() {
-		Config pending = new Config("pendingusers");
-		Config banned = new Config("bannedusers");
-		String commands = AntiCheat.getInstance().getConfig().getString("settings.bancmd");
+		final Config pending = new Config("pendingusers");
+		final Config banned = new Config("bannedusers");
+		final String commands = AntiCheat.getInstance().getConfig().getString("settings.bancmd");
 		int count = 0;
 
-		for (String s : pending.getConfigFile().getConfigurationSection("PendingUsers").getKeys(false)) {
+		for (final String s : pending.getConfigFile().getConfigurationSection("PendingUsers").getKeys(false)) {
 			count++;
-			String name = pending.getConfigFile().getString("PendingUsers." + s + ".Name");
-			String uuid = pending.getConfigFile().getString("PendingUsers." + s + ".UUID");
-			String reason = pending.getConfigFile().getString("PendingUsers." + s + ".Reason");
-			String executedby = pending.getConfigFile().getString("PendingUsers." + s + ".ExecutedBy");
-			String wasonline = pending.getConfigFile().getString("PendingUsers." + s + ".wasOnline");
-			String date = pending.getConfigFile().getString("PendingUsers." + s + ".Date");
+			final String name = pending.getConfigFile().getString("PendingUsers." + s + ".Name");
+			final String uuid = pending.getConfigFile().getString("PendingUsers." + s + ".UUID");
+			final String reason = pending.getConfigFile().getString("PendingUsers." + s + ".Reason");
+			final String executedby = pending.getConfigFile().getString("PendingUsers." + s + ".ExecutedBy");
+			final String wasonline = pending.getConfigFile().getString("PendingUsers." + s + ".wasOnline");
+			final String date = pending.getConfigFile().getString("PendingUsers." + s + ".Date");
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands.replace("%player%", uuid));
 
 			banned.getConfigFile().set("BannedUsers." + s + ".Name", name);
@@ -51,12 +51,12 @@ public class JDayUtil {
 
 	@SuppressWarnings("unused")
 	public static int getAmountToBan(){
-		Config pending = new Config("pendingusers");
+		final Config pending = new Config("pendingusers");
 		int count = 0;
-		if ( pending.getConfigFile().getConfigurationSection("PendingUsers") == null ) { 
-			return 0; 
-			}
-		for ( String s : pending.getConfigFile().getConfigurationSection("PendingUsers").getKeys(false) ) {
+		if ( pending.getConfigFile().getConfigurationSection("PendingUsers") == null ) {
+			return 0;
+		}
+		for ( final String s : pending.getConfigFile().getConfigurationSection("PendingUsers").getKeys(false) ) {
 			count++;
 		}
 		return count;

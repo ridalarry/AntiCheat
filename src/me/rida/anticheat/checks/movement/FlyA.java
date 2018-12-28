@@ -30,9 +30,9 @@ public class FlyA extends Check {
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Location from = e.getFrom();
-		Location to = e.getTo();
-		Player p = e.getPlayer();
+		final Location from = e.getFrom();
+		final Location to = e.getTo();
+		final Player p = e.getPlayer();
 		if (SharedEvents.placedBlock.containsKey(p)) {
 			if (System.currentTimeMillis() - SharedEvents.placedBlock.get(p).longValue() < 2000) {
 				return;
@@ -50,7 +50,7 @@ public class FlyA extends Check {
 				|| PlayerUtil.isNearSlime(e.getFrom())
 				|| PlayerUtil.isNearSlime(e.getTo())
 				|| PlayerUtil.isOnSlime(p.getLocation())
-				|| PlayerUtil.isOnClimbable(p, 1) 
+				|| PlayerUtil.isOnClimbable(p, 1)
 				|| VelocityUtil.didTakeVelocity(p)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -74,14 +74,14 @@ public class FlyA extends Check {
 			}
 		}
 
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 
 		if (data == null) {
 			return;
 		}
 		if (!NewVelocityUtil.didTakeVel(p) && !PlayerUtil.wasOnSlime(p)) {
-			Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
-			double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
+			final Vector vec = new Vector(to.getX(), to.getY(), to.getZ());
+			final double Distance = vec.distance(new Vector(from.getX(), from.getY(), from.getZ()));
 			if (p.getFallDistance() == 0.0f && p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.AIR && p.getLocation().getBlock().getRelative(BlockFace.UP).getType() == Material.AIR) {
 				if (PlayerUtil.isNearSlime(from)
 						|| PlayerUtil.isNearSlime(to)) {
@@ -150,8 +150,8 @@ public class FlyA extends Check {
 		}
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if(!PlayerUtil.isOnTheGround(p)) {
-				double distanceToGround = getDistanceToGround(p);
-				double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
+				final double distanceToGround = getDistanceToGround(p);
+				final double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 				int verbose = data.getFlyHoverVerbose();
 				if (PlayerUtil.isNearWeb(p)) {
 					return;
@@ -173,8 +173,8 @@ public class FlyA extends Check {
 			}
 		}else {
 			if(!PlayerUtil.isOnGround(e, p)) {
-				double distanceToGround = getDistanceToGround(p);
-				double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
+				final double distanceToGround = getDistanceToGround(p);
+				final double yDiff = MathUtil.getVerticalDistance(e.getFrom(), e.getTo());
 				int verbose = data.getFlyHoverVerbose();
 				if (PlayerUtil.isNearWeb(p)
 						|| p.isSneaking()
@@ -203,7 +203,7 @@ public class FlyA extends Check {
 		}
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if (PlayerUtil.getDistanceToGround(p) >  3) {
-				double OffSet = e.getFrom().getY() - e.getTo().getY();
+				final double OffSet = e.getFrom().getY() - e.getTo().getY();
 				long Time = System.currentTimeMillis();
 				if (OffSet <= 0.0 || OffSet > 0.16) {
 					data.setGlideTicks(0);
@@ -212,7 +212,7 @@ public class FlyA extends Check {
 				if (data.getGlideTicks() != 0) {
 					Time = data.getGlideTicks();
 				}
-				long Millis = System.currentTimeMillis() - Time;
+				final long Millis = System.currentTimeMillis() - Time;
 				if (Millis > 200L) {
 					if (PlayerUtil.isInLiquid(p)
 							|| PlayerUtil.isNearWeb(p)) {
@@ -231,7 +231,7 @@ public class FlyA extends Check {
 		}
 		else {
 			if (PlayerUtil.getDistanceToGround(p) >  3) {
-				double OffSet = e.getFrom().getY() - e.getTo().getY();
+				final double OffSet = e.getFrom().getY() - e.getTo().getY();
 				long Time = System.currentTimeMillis();
 				if (OffSet <= 0.0 || OffSet > 0.16) {
 					data.setGlideTicks(0);
@@ -240,7 +240,7 @@ public class FlyA extends Check {
 				if (data.getGlideTicks() != 0) {
 					Time = data.getGlideTicks();
 				}
-				long Millis = System.currentTimeMillis() - Time;
+				final long Millis = System.currentTimeMillis() - Time;
 				if (Millis > 200L) {
 					if (BlockUtil.isNearLiquid(p)
 							|| PlayerUtil.isNearWeb(p)) {
@@ -257,10 +257,10 @@ public class FlyA extends Check {
 				data.setGlideTicks(0);
 			}
 		}
-		double diffY = Math.abs(from.getY() - to.getY());
-		double lastDiffY = data.getLastVelocityFlyY();
+		final double diffY = Math.abs(from.getY() - to.getY());
+		final double lastDiffY = data.getLastVelocityFlyY();
 		int verboseC = data.getFlyVelocityVerbose();
-		double finalDifference = Math.abs(diffY - lastDiffY);
+		final double finalDifference = Math.abs(diffY - lastDiffY);
 		if (!ServerUtil.isBukkitVerison("1_13") && !ServerUtil.isBukkitVerison("1_7")) {
 			if(finalDifference < 0.08
 					&& e.getFrom().getY() < e.getTo().getY()
@@ -304,13 +304,14 @@ public class FlyA extends Check {
 	}
 
 	private int getDistanceToGround(Player p){
-		Location loc = p.getLocation().clone();
-		double y = loc.getBlockY();
+		final Location loc = p.getLocation().clone();
+		final double y = loc.getBlockY();
 		int distance = 0;
 		for (double i = y; i >= 0; i--){
 			loc.setY(i);
-			if(loc.getBlock().getType().isSolid() || loc.getBlock().isLiquid())
+			if(loc.getBlock().getType().isSolid() || loc.getBlock().isLiquid()) {
 				break;
+			}
 			distance++;
 		}
 		return distance;

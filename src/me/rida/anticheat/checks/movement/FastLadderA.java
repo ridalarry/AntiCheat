@@ -22,18 +22,18 @@ public class FastLadderA extends Check {
 
 	public FastLadderA(AntiCheat AntiCheat) {
 		super("FastLadderA", "FastLadder", CheckType.Movement, true, true, false, true, false, 7, 1, 600000L, AntiCheat);
-		count = new WeakHashMap<Player, Integer>();
+		count = new WeakHashMap<>();
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 
 		if(e.isCancelled()
 				|| (e.getFrom().getY() == e.getTo().getY())
 				|| p.getAllowFlight()
 				|| getAntiCheat().getLastVelocity().containsKey(p.getUniqueId())
-				|| !PlayerUtil.isOnClimbable(p, 1) 
+				|| !PlayerUtil.isOnClimbable(p, 1)
 				|| !PlayerUtil.isOnClimbable(p, 0)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
@@ -50,11 +50,11 @@ public class FastLadderA extends Check {
 			}
 		}
 		int Count = count.getOrDefault(p, 0);
-		double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
+		final double OffsetY = MathUtil.offset(MathUtil.getVerticalVector(e.getFrom().toVector()),
 				MathUtil.getVerticalVector(e.getTo().toVector()));
-		double Limit = 0.13;
+		final double Limit = 0.13;
 
-		double updown = e.getTo().getY() - e.getFrom().getY();
+		final double updown = e.getTo().getY() - e.getFrom().getY();
 		if (updown <= 0) {
 			return;
 		}
@@ -66,7 +66,7 @@ public class FastLadderA extends Check {
 			Count = Count > -2 ? Count - 1 : 0;
 		}
 
-		long percent = Math.round((OffsetY - Limit) * 120);
+		final long percent = Math.round((OffsetY - Limit) * 120);
 
 		if (Count > 11) {
 			Count = 0;

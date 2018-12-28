@@ -18,20 +18,20 @@ import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.utils.MathUtil;
 
 public class AutoClickerC extends Check {
-	public static final Map<UUID, Long> cpsMS = new WeakHashMap<UUID, Long>();
-	public static final Map<UUID, Double[]> cps = new WeakHashMap<UUID, Double[]>();
-	public static final Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<UUID, Long>();
-	public static final Map<UUID, Boolean> lastPacketTick = new WeakHashMap<UUID, Boolean>();
-	public static final Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<UUID, Long>();
-	public static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<UUID, Long>();
-	public static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<UUID, Long>();
+	public static final Map<UUID, Long> cpsMS = new WeakHashMap<>();
+	public static final Map<UUID, Double[]> cps = new WeakHashMap<>();
+	public static final Map<UUID, Long> lastTickWithPacketSent = new WeakHashMap<>();
+	public static final Map<UUID, Boolean> lastPacketTick = new WeakHashMap<>();
+	public static final Map<UUID, Long> packetHitsSinceLastCheck = new WeakHashMap<>();
+	public static final Map<UUID, Long> lastCheckedTick = new WeakHashMap<>();
+	public static final Map<UUID, Long> hitsSinceLastCheck = new WeakHashMap<>();
 	public AutoClickerC(AntiCheat AntiCheat) {
 		super("AutoClickerC", "AutoClicker",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onInt(PlayerInteractEvent e) {
 		Double[] arrdouble;
-		Player p = e.getPlayer();
+		final Player p = e.getPlayer();
 		if (e.getAction() != Action.LEFT_CLICK_AIR
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
@@ -44,8 +44,8 @@ public class AutoClickerC extends Check {
 			arrdouble = new Double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		}
 		cps.put(p.getUniqueId(), arrdouble);
-		for (Map.Entry<UUID, Double[]> entry : cps.entrySet()) {
-			Double[] arrdouble2 = entry.getValue();
+		for (final Map.Entry<UUID, Double[]> entry : cps.entrySet()) {
+			final Double[] arrdouble2 = entry.getValue();
 			this.analyzeDouble(p);
 			if (Arrays.stream(arrdouble2).anyMatch(d -> d >= 10.0) && arrdouble2[4].equals(arrdouble2[0]) && arrdouble2[4].equals(arrdouble2[1]) && arrdouble2[4].equals(arrdouble2[2]) && arrdouble2[4].equals(arrdouble2[3])) {
 				getAntiCheat().logCheat(this, p, "[1]", "(Type: C)");
@@ -67,10 +67,10 @@ public class AutoClickerC extends Check {
 		if (!(e.getDamager() instanceof Player)) {
 			return;
 		}
-		Player p = (Player)e.getDamager();
+		final Player p = (Player)e.getDamager();
 	}
 	public void analyzeDouble(Player p) {
-		UUID uUID = p.getUniqueId();
+		final UUID uUID = p.getUniqueId();
 		if (cpsMS.containsKey(uUID) && System.currentTimeMillis() - cpsMS.get(p.getUniqueId()) <= 1) {
 			getAntiCheat().logCheat(this, p, "[3]", "(Type: C)");
 		}

@@ -9,7 +9,7 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 
 public class AlertsCommand implements CommandExecutor {
-	private AntiCheat AntiCheat;
+	private final AntiCheat AntiCheat;
 
 	public AlertsCommand(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
@@ -21,7 +21,7 @@ public class AlertsCommand implements CommandExecutor {
 			s.sendMessage("You have to be a player to run this command!");
 			return true;
 		}
-		Player p = (Player) s;
+		final Player p = (Player) s;
 		if (!p.hasPermission("anticheat.staff")) {
 			s.sendMessage(Color.Red + "No permission.");
 			return true;
@@ -59,7 +59,7 @@ public class AlertsCommand implements CommandExecutor {
 			}
 			else {
 				p.sendMessage(Color.translate(
-				AntiCheat.PREFIX + "Unknown argument!"));
+						AntiCheat.PREFIX + "Unknown argument!"));
 				return true;
 			}
 		}

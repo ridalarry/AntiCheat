@@ -23,7 +23,7 @@ public class ReachC extends Check {
 
 	public ReachC(AntiCheat AntiCheat) {
 		super("ReachC", "Reach",  CheckType.Combat, true, false, false, false, true, 20, 1, 600000L, AntiCheat);
-		toBan = new HashMap<UUID, Integer>();
+		toBan = new HashMap<>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -35,8 +35,8 @@ public class ReachC extends Check {
 			return;
 		}
 
-		Player p = (Player) e.getDamager();
-		Player d = (Player) e.getEntity();
+		final Player p = (Player) e.getDamager();
+		final Player d = (Player) e.getEntity();
 		if (d.getAllowFlight()
 				|| p.getAllowFlight()
 				|| p.getGameMode().equals(GameMode.CREATIVE)
@@ -45,11 +45,11 @@ public class ReachC extends Check {
 				|| getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {
 			return;
 		}
-		double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));
+		final double YawDifference = Math.abs(180 - Math.abs(d.getLocation().getYaw() - p.getLocation().getYaw()));
 		double Difference = PlayerUtil.getEyeLocation(p).distance(d.getEyeLocation()) - 0.35;
 
-		int Ping = getAntiCheat().getLag().getPing(p);
-		double TPS = getAntiCheat().getLag().getTPS();
+		final int Ping = getAntiCheat().getLag().getPing(p);
+		final double TPS = getAntiCheat().getLag().getTPS();
 		double MaxReach = 4.0 + d.getVelocity().length();
 
 		if (p.isSprinting()) {
@@ -63,13 +63,13 @@ public class ReachC extends Check {
 			Difference = p.getLocation().getY() - p.getLocation().getY();
 			MaxReach += Difference / 2.5;
 		}
-		for (PotionEffect effect : p.getActivePotionEffects()) {
+		for (final PotionEffect effect : p.getActivePotionEffects()) {
 			if (effect.getType().equals(PotionEffectType.SPEED)) {
 				MaxReach += 0.2D * (effect.getAmplifier() + 1);
 			}
 		}
 
-		double velocity = p.getVelocity().length() + d.getVelocity().length();
+		final double velocity = p.getVelocity().length() + d.getVelocity().length();
 
 		MaxReach += velocity * 1.5;
 		MaxReach += Ping < 250 ? Ping * 0.00212 : Ping * 0.031;

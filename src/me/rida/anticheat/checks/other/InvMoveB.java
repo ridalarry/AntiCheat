@@ -22,9 +22,9 @@ public class InvMoveB extends Check {
 		if (!(e.getDamager() instanceof Player)) {
 			return;
 		}
-		Player p = (Player) e.getDamager();
-		InventoryView view = p.getOpenInventory();
-		Inventory top = view.getTopInventory();
+		final Player p = (Player) e.getDamager();
+		final InventoryView view = p.getOpenInventory();
+		final Inventory top = view.getTopInventory();
 		if (view !=null) {
 			if (top.toString().contains("CraftInventoryCrafting")
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
@@ -32,7 +32,7 @@ public class InvMoveB extends Check {
 					|| p.getAllowFlight()
 					|| p.getGameMode().equals(GameMode.CREATIVE)) {
 				return;
-			} 
+			}
 			getAntiCheat().logCheat(this, p, "Attacking while having a gui open!", "(Type: B)");
 		}
 	}

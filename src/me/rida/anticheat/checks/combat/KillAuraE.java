@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -26,39 +25,43 @@ public class KillAuraE extends Check {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onDamage(EntityDamageByEntityEvent e) {
 		int n;
-		if (!(e.getEntity() instanceof Player) 
+		if (!(e.getEntity() instanceof Player)
 				|| !(e.getDamager() instanceof Player)
 				|| !e.getEntity().isOnGround()) {
 			return;
 		}
 
-		Player p = (Player)e.getDamager();
-		Player p2 = (Player)e.getEntity();
+		final Player p = (Player)e.getDamager();
+		final Player p2 = (Player)e.getEntity();
 		++KillAuraE.hitCount;
-		Bukkit.getScheduler().runTaskLater((Plugin)AntiCheat.Instance, () -> {
-			int hitCount = 0;
+		Bukkit.getScheduler().runTaskLater(AntiCheat.Instance, () -> {
+			final int hitCount = 0;
 		}
 		, 300);
-		double dst = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
+		final double dst = CheatUtil.getHorizontalDistance(p.getLocation(), p2.getLocation());
 		double allowedDistance = KillAuraE.allowedDistance;
-		int atckrPing = getAntiCheat().getLag().getPing(p);
-		int dmgdPing = getAntiCheat().getLag().getPing(p2);
-		int ping = atckrPing + dmgdPing / 2;
-		int finalPing = (int)((double)ping * 0.0017);
-		allowedDistance += (double)finalPing;
+		final int atckrPing = getAntiCheat().getLag().getPing(p);
+		final int dmgdPing = getAntiCheat().getLag().getPing(p2);
+		final int ping = atckrPing + dmgdPing / 2;
+		final int finalPing = (int)(ping * 0.0017);
+		allowedDistance += finalPing;
 		if (!p2.isSprinting()) {
 			allowedDistance += 0.2;
 		}
-		for (PotionEffect potionEffect : p2.getActivePotionEffects()) {
-			if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) continue;
+		for (final PotionEffect potionEffect : p2.getActivePotionEffects()) {
+			if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) {
+				continue;
+			}
 			n = potionEffect.getAmplifier() + 1;
-			allowedDistance += 0.15 * (double)n;
+			allowedDistance += 0.15 * n;
 			break;
 		}
-		for (PotionEffect potionEffect : p.getActivePotionEffects()) {
-			if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) continue;
+		for (final PotionEffect potionEffect : p.getActivePotionEffects()) {
+			if (potionEffect.getType().getId() != PotionEffectType.SPEED.getId()) {
+				continue;
+			}
 			n = potionEffect.getAmplifier() + 1;
-			allowedDistance += 0.15 * (double)n;
+			allowedDistance += 0.15 * n;
 			break;
 		}
 		if (dst > allowedDistance) {

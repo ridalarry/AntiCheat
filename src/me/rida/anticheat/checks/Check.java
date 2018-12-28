@@ -13,10 +13,10 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.TxtFile;
 
 public class Check implements Listener {
-	private String Identifier;
-	private String Name;
+	private final String Identifier;
+	private final String Name;
 	protected CheckType Type;
-	private AntiCheat AntiCheat;
+	private final AntiCheat AntiCheat;
 	private boolean Enabled = true;
 	private boolean BanTimer = false;
 	private boolean Bannable = false;
@@ -25,35 +25,35 @@ public class Check implements Listener {
 	private Integer MaxViolations = Integer.valueOf(5);
 	private Integer ViolationsToNotify = Integer.valueOf(1);
 	private Long ViolationResetTime = Long.valueOf(600000L);
-	public Map<String, List<String>> DumpLogs = new HashMap<String, List<String>>();
+	public Map<String, List<String>> DumpLogs = new HashMap<>();
 
 	public Check(String Identifier, String Name, CheckType Type, boolean Enabled, boolean Bannable, boolean JudgementDay, boolean BanTimer, boolean Kickable, Integer MaxViolations, Integer ViolationsToNotify, long ViolationResetTime, AntiCheat AntiCheat) {
 		this.Name = Name;
 		this.AntiCheat = AntiCheat;
 		this.Identifier = Identifier;
 		this.Type = Type;
-		
+
 		this.Enabled = Enabled;
 		this.setEnabled(Enabled);
-		
+
 		this.Bannable = Bannable;
 		this.setBannable(Bannable);
-		
+
 		this.Kickable = Kickable;
 		this.setKickable(Kickable);
-		
+
 		this.JudgementDay = JudgementDay;
 		this.setJudgementDay(JudgementDay);
-		
+
 		this.BanTimer = BanTimer;
 		this.setAutobanTimer(BanTimer);
-		
+
 		this.MaxViolations = MaxViolations;
 		this.setMaxViolations(MaxViolations);
-		
+
 		this.ViolationsToNotify = ViolationsToNotify;
 		this.setViolationsToNotify(ViolationsToNotify);
-		
+
 		this.ViolationResetTime = ViolationResetTime;
 		this.setViolationResetTime(ViolationResetTime);
 	}
@@ -61,7 +61,7 @@ public class Check implements Listener {
 
 	public void dumplog(Player player, String log) {
 		if (!this.DumpLogs.containsKey(player.getName())) {
-			List<String> logs = new ArrayList<String>();
+			final List<String> logs = new ArrayList<>();
 			logs.add(log);
 			this.DumpLogs.put(player.getName(), logs);
 		} else {
@@ -257,9 +257,9 @@ public class Check implements Listener {
 		if (!this.DumpLogs.containsKey(player)) {
 			return null;
 		}
-		TxtFile file = new TxtFile(this.getAntiCheat(), "/Dumps", player + "_" + this.getType() + "." + this.getName() + "." + this.getIdentifier());
+		final TxtFile file = new TxtFile(this.getAntiCheat(), "/Dumps", player + "_" + this.getType() + "." + this.getName() + "." + this.getIdentifier());
 		file.clear();
-		for (String Line : this.DumpLogs.get(player)) {
+		for (final String Line : this.DumpLogs.get(player)) {
 			file.addLine(Line);
 		}
 		file.write();

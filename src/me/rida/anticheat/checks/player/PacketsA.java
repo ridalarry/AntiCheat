@@ -11,7 +11,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
@@ -28,14 +27,14 @@ public class PacketsA extends Check {
 
 	public PacketsA(AntiCheat AntiCheat) {
 		super("PacketsA", "Packets", CheckType.Player, true, false, false, false, true, 10, 1, 600000L, AntiCheat);
-		blacklist = new ArrayList<UUID>();
-		lastPacket = new HashMap<UUID, Long>();
-		packetTicks = new HashMap<UUID, Map.Entry<Integer, Long>>();
+		blacklist = new ArrayList<>();
+		lastPacket = new HashMap<>();
+		packetTicks = new HashMap<>();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void PacketPlayer(PacketPlayerEvent event) {
-		Player player = event.getPlayer();
+		final Player player = event.getPlayer();
 		if (!getAntiCheat().isEnabled()
 				|| player.getGameMode().equals(GameMode.CREATIVE)
 				|| getAntiCheat().lag.getTPS() > 21.0D || getAntiCheat().lag.getTPS() < getAntiCheat().getTPSCancel()
@@ -49,7 +48,7 @@ public class PacketsA extends Check {
 			Time = packetTicks.get(player.getUniqueId()).getValue().longValue();
 		}
 		if (lastPacket.containsKey(player.getUniqueId())) {
-			long MS = System.currentTimeMillis() - lastPacket.get(player.getUniqueId()).longValue();
+			final long MS = System.currentTimeMillis() - lastPacket.get(player.getUniqueId()).longValue();
 			if (MS >= 100L) {
 				blacklist.add(player.getUniqueId());
 			} else if ((MS > 1L) && (PacketsA.blacklist.contains(player.getUniqueId()))) {
@@ -59,7 +58,7 @@ public class PacketsA extends Check {
 		if (!blacklist.contains(player.getUniqueId())) {
 			Count++;
 			if ((packetTicks.containsKey(player.getUniqueId())) && (TimeUtil.elapsed(Time, 1000L))) {
-				int maxPackets = 85;
+				final int maxPackets = 85;
 				if (Count > maxPackets) {
 					if (!PlayerUtil.isFullyStuck(player) && !PlayerUtil.isPartiallyStuck(player)) {
 						if (player.getAllowFlight() || player.isFlying()) {
@@ -75,7 +74,7 @@ public class PacketsA extends Check {
 
 				if (Count > 800) {
 					getAntiCheat().logCheat(this, player, Color.White + "Kicked! sent over " + Count  + " packets! " , "(Type: A)");
-					AntiCheat.Instance.getServer().getScheduler().runTask((Plugin)AntiCheat.Instance, new Runnable(){
+					AntiCheat.Instance.getServer().getScheduler().runTask(AntiCheat.Instance, new Runnable(){
 						@SuppressWarnings("unused")
 						Player p = event.getPlayer();
 						@Override
@@ -88,7 +87,7 @@ public class PacketsA extends Check {
 				Time = TimeUtil.nowlong();
 			}
 		}
-		packetTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<Integer, Long>(Count, Time));
+		packetTicks.put(player.getUniqueId(), new AbstractMap.SimpleEntry<>(Count, Time));
 		lastPacket.put(player.getUniqueId(), System.currentTimeMillis());
 	}
 }

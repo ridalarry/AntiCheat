@@ -25,19 +25,19 @@ public class GroundSpoofA extends Check {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onMove(PlayerMoveEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (data != null) {
 			if (e.getTo().getY() > e.getFrom().getY()
 					|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 				return;
 			}
-    		if (DataPlayer.lastNearSlime !=null) {
-    			if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
-    				return;
-    			}
-    		}
+			if (DataPlayer.lastNearSlime !=null) {
+				if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
+					return;
+				}
+			}
 			if (data.isLastBlockPlaced_GroundSpoof()) {
 				if (TimerUtil.elapsed(data.getLastBlockPlacedTicks(),500L)) {
 					data.setLastBlockPlaced_GroundSpoof(false);
@@ -53,10 +53,10 @@ public class GroundSpoofA extends Check {
 					return;
 				}
 			}
-			Location to = e.getTo();
-			Location from = e.getFrom();
-			double diff = to.toVector().distance(from.toVector());
-			int dist = PlayerUtil.getDistanceToGround(p);
+			final Location to = e.getTo();
+			final Location from = e.getFrom();
+			final double diff = to.toVector().distance(from.toVector());
+			final int dist = PlayerUtil.getDistanceToGround(p);
 			if (p.getLocation().add(0,-1.50,0).getBlock().getType() != Material.AIR) {
 				data.setGroundSpoofVL(0);
 				return;
@@ -99,8 +99,8 @@ public class GroundSpoofA extends Check {
 	}
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void onBlockPlace(BlockPlaceEvent e) {
-		Player p = e.getPlayer();
-		DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
+		final Player p = e.getPlayer();
+		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if (!ServerUtil.isBukkitVerison("1_8")
 				&& !ServerUtil.isBukkitVerison("1_7")) {
 			if (p.hasPotionEffect(PotionEffectType.LEVITATION)) {
