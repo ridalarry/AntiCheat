@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path=".dependancies/ProtocolLib.jar"/>
 	<classpathentry kind="lib" path=".dependancies/spigot1_12.jar"/>
+	<classpathentry kind="lib" path=".dependancies/spigot1_7.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

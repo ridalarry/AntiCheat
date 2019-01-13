@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.io.FileUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,16 +12,16 @@ import org.bukkit.command.CommandSender;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.MathUtil;
+import net.minecraft.util.org.apache.commons.io.FileUtils;
 
-public class GetLogCommand implements CommandExecutor {
+public class GetLogCommand1_7 implements CommandExecutor {
 
 	private final AntiCheat AntiCheat;
 
-	public GetLogCommand(AntiCheat AntiCheat) {
+	public GetLogCommand1_7(AntiCheat AntiCheat) {
 		this.AntiCheat = AntiCheat;
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender s, Command cmd, String l, String[] g) {
 		if (!s.hasPermission("anticheat.log") && !s.hasPermission("anticheat.admin")) {

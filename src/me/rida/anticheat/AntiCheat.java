@@ -60,6 +60,7 @@ import me.rida.anticheat.commands.AlertsCommand;
 import me.rida.anticheat.commands.AntiCheatCommand;
 import me.rida.anticheat.commands.AutobanCommand;
 import me.rida.anticheat.commands.GetLogCommand;
+import me.rida.anticheat.commands.GetLogCommand1_7;
 import me.rida.anticheat.commands.JDayCommand;
 import me.rida.anticheat.data.DataManager;
 import me.rida.anticheat.events.MoveEvent;
@@ -268,7 +269,12 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.getCommand("alerts").setExecutor(new AlertsCommand(this));
 		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
 		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
-		this.getCommand("getLog").setExecutor(new GetLogCommand(this));
+		if (ServerUtil.isBukkitVerison("1_7")) {
+			this.getCommand("getLog").setExecutor(new GetLogCommand1_7(this));
+		}
+		else {
+			this.getCommand("getLog").setExecutor(new GetLogCommand(this));
+		}
 		this.getCommand("jday").setExecutor(new JDayCommand(this));
 		Bukkit.getServer().getPluginManager().registerEvents(new GUI(this), this);
 		this.RegisterListener(this);
