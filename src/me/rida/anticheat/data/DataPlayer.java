@@ -11,7 +11,9 @@ import com.google.common.collect.Lists;
 
 public class DataPlayer {
 	public static List<String> lastNearSlime;
+	public static List<String> lastAir;
 	private static int wasFlying = 0;
+	private static int wasSpider = 0;
 	private boolean alerts = false;
 	private double fallDistance = 0D;
 	private int aboveBlockTicks = 0;
@@ -88,6 +90,7 @@ public class DataPlayer {
 	public DataPlayer(Player player) {
 		this.player = player;
 		lastNearSlime = new ArrayList<>();
+		lastAir = new ArrayList<>();
 	}
 	private int criticalsVerbose = 0;
 	private int flyHoverVerbose = 0;
@@ -774,5 +777,13 @@ public class DataPlayer {
 	}
 	public static int setWasFlying(int flying) {
 		return wasFlying = flying;
+	}
+
+	public static int getWasSpider() {
+		return wasSpider;
+	}
+
+	public static void setWasSpider(int wasSpider) {
+		DataPlayer.wasSpider = wasSpider;
 	}
 }

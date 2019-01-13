@@ -7,6 +7,7 @@ import java.util.WeakHashMap;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -47,6 +48,7 @@ public class MoveEvent implements Listener {
 		return false;
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
@@ -97,6 +99,7 @@ public class MoveEvent implements Listener {
 				}
 			}
 		}
+
 		final Location l = p.getLocation();
 		final int x = l.getBlockX();
 		final int y = l.getBlockY();
@@ -136,6 +139,22 @@ public class MoveEvent implements Listener {
 		} else if(data.getIceTicks() > 0) {
 			data.setIceTicks(data.getIceTicks() - 1);
 		}
+		final Location loc = p.getPlayer().getLocation();
+		loc.setY(loc.getY() -1);
+
+		final Block block = loc.getWorld().getBlockAt(loc);
+		if(block.getType().equals(Material.AIR)) {
+			if (!(DataPlayer.lastAir.contains(p.getPlayer().getName().toString()))) {
+				DataPlayer.lastAir.add(p.getPlayer().getName().toString());
+			}
+		}
+		if(!(block.getType().equals(Material.AIR))) {
+			if (e.getFrom().getX() != e.getTo().getX() || e.getFrom().getZ() != e.getTo().getZ()) {
+				if (DataPlayer.lastAir.contains(p.getPlayer().getName().toString())) {
+					DataPlayer.lastAir.remove(p.getPlayer().getName().toString());
+				}
+			}
+		}
 		if(PlayerUtil.isNearSlime(p.getLocation())) {
 			if (!(DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString()))) {
 				DataPlayer.lastNearSlime.add(p.getPlayer().getName().toString());
@@ -148,6 +167,16 @@ public class MoveEvent implements Listener {
 					DataPlayer.lastNearSlime.remove(p.getPlayer().getName().toString());
 					//Bukkit.broadcastMessage(p.getPlayer().getName().toString() + " is now removed from the list");
 				}
+			}
+		}
+		if(DataPlayer.lastAir.contains(p.getPlayer().getName().toString())) {
+			if (DataPlayer.getWasSpider() < 2) {
+				DataPlayer.setWasSpider(2);
+			}
+		}
+		if(!DataPlayer.lastAir.contains(p.getPlayer().getName().toString())) {
+			if (DataPlayer.getWasSpider() > 0) {
+				DataPlayer.setWasSpider(DataPlayer.getWasSpider() - 1);
 			}
 		}
 		if(p.getAllowFlight()) {
