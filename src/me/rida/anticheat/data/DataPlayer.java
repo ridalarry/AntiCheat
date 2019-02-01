@@ -20,6 +20,7 @@ public class DataPlayer {
 	private int waterTicks = 0;
 	private long LastBlockPlacedTicks = 0;
 	private boolean LastBlockPlaced_GroundSpoof = false;
+	public int velXTicks, velYTicks, velZTicks;
 	public int airTicks = 0;
 	public int groundTicks = 0;
 	private boolean ShouldSetBack = false;
@@ -68,7 +69,7 @@ public class DataPlayer {
 	private long Speed_YPort2_MS = 0;
 	private boolean Speed_YPort2_Set = false;
 	private long speedGroundReset = 0;
-	private static int slimeTicks = 0;
+	public static int slimeTicks = 0;
 	public float lastDeltaXZ;
 	public Player player;
 	public boolean onGround;
@@ -120,6 +121,15 @@ public class DataPlayer {
 
 	public int getSpeed_C3_Verbose() {
 		return Speed_C3_Verbose;
+	}
+	public boolean isVelocityTaken() {
+		return velXTicks > 0 || velYTicks > 0 || velZTicks > 0;
+	}
+
+	public void reduceVelocity() {
+		velXTicks = Math.max(0, velXTicks - 1);
+		velYTicks = Math.max(0,velYTicks - 1);
+		velZTicks = Math.max(0, velZTicks - 1);
 	}
 
 	public void setSpeed_C3_Verbose(int speed_C3_Verbose) {
