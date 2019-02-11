@@ -48,7 +48,6 @@ public class MoveEvent implements Listener {
 		return false;
 	}
 
-	@SuppressWarnings("unlikely-arg-type")
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
