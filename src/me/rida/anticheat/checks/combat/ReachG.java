@@ -28,9 +28,14 @@ public class ReachG extends Check {
 					final int ping = getAntiCheat().getLag().getPing(player);
 					final double tps = getAntiCheat().getLag().getTPS();
 					final String dist = Double.toString(distance).substring(0, 3);
-					final double maxReach = 3.9;
+					double maxReach = 3.9;
 					MathUtil.Distance(player.getLocation(), event.getEntity().getLocation());
-
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 1.1;
+						}
+					}
 					if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 						if (MathUtil.getxDiff() > maxReach + 1 || MathUtil.getzDiff() > maxReach + 1) {
 							if (player != null) {

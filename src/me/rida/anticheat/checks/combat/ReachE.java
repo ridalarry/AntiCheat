@@ -50,6 +50,10 @@ public class ReachE extends Check {
 		}
 		if (!(d instanceof Player)) {
 			maxReach += 1.0;
+			final Player player = (Player) d;
+			if (player.getAllowFlight()) {
+				maxReach += 2.0;
+			}
 		}
 		if (PlayerUtil.isNearSlime(p.getLocation())
 				|| PlayerUtil.isNearSlime(d.getLocation())) {

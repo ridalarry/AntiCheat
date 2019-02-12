@@ -29,7 +29,13 @@ public class ReachL extends Check {
 					final int ping = getAntiCheat().getLag().getPing(player);
 					final double tps = getAntiCheat().getLag().getTPS();
 					final String dst = Double.toString(distance).substring(0, 3);
-					final double maxReach = 4.25;
+					double maxReach = 4.25;
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 0.75;
+						}
+					}
 					final double dist = event.getEntity().getLocation().distance(player.getLocation());
 					if (dist > maxReach && event.getEntity().getLocation().getBlockY() == player.getLocation().getBlockY()) {
 						if (player != null) {

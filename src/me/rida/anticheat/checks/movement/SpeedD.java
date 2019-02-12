@@ -13,7 +13,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 
 public class SpeedD extends Check {
 	public SpeedD(AntiCheat AntiCheat) {
-		super("SpeedC", "Speed", CheckType.Movement, true, true, false, true, false, 3, 1, 600000L, AntiCheat);
+		super("SpeedD", "Speed", CheckType.Movement, true, true, false, true, false, 3, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler
@@ -31,7 +31,7 @@ public class SpeedD extends Check {
 		final float deltaXZ = (float) Math.sqrt(Math.pow(event.getTo().getX() - event.getFrom().getX(), 2) + Math.pow(event.getTo().getZ() - event.getFrom().getZ(), 2)), deltaY = (float) (event.getTo().getY() - event.getFrom().getY());
 		final float speedLevel = PlayerUtil.getPotionEffectLevel(event.getPlayer(), PotionEffectType.SPEED);
 		final Player p = event.getPlayer();
-		threshold+= data.slimeTicks > 0 ? 0.07f : 0;
+		threshold+= DataPlayer.slimeTicks > 0 ? 0.07f : 0;
 		threshold+= data.groundTicks < 5 ? speedLevel * 0.06f : speedLevel * 0.04f;
 		threshold*= data.onStairSlab ? 1.8f : 1.0;
 		threshold*= data.iceTicks > 0 && data.groundTicks < 5 ? 1.7f : 1.0;

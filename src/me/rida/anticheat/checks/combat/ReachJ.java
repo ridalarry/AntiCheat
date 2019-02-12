@@ -46,6 +46,12 @@ public class ReachJ extends Check {
 							maxReach += 0.2 * (effect.getAmplifier() + 1);
 						}
 					}
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 1.1;
+						}
+					}
 					final double velocity = player.getVelocity().length() + damaged.getVelocity().length();
 					maxReach += velocity * 1.5;
 					maxReach += ((ping < 250) ? (ping * 0.00212) : (ping * 0.031));

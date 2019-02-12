@@ -34,6 +34,12 @@ public class ReachH extends Check {
 					if (player.isSprinting()) {
 						maxReach += 0.2;
 					}
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 0.6;
+						}
+					}
 					if (player.getLocation().getY() > damaged.getLocation().getY()) {
 						Difference = player.getLocation().getY() - player.getLocation().getY();
 						maxReach += Difference / 2.5;

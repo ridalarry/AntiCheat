@@ -32,7 +32,13 @@ public class ReachM extends Check {
 					if (Reach < 3.4) {
 						Reach = 3.4;
 					}
-					final double maxReach = 4.25;
+					double maxReach = 4.25;
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 0.35;
+						}
+					}
 					if (distance > Reach) {
 						final int ping = getAntiCheat().getLag().getPing(player);
 						final double tps = getAntiCheat().getLag().getTPS();

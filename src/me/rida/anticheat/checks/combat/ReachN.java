@@ -27,7 +27,13 @@ public class ReachN extends Check {
 					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
 					final int ping = getAntiCheat().getLag().getPing(player);
 					final double tps = getAntiCheat().getLag().getTPS();
-					final double maxReach = 4.3;
+					double maxReach = 4.3;
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 0.7;
+						}
+					}
 					final String dist = Double.toString(distance).substring(0, 3);
 					if (event.getEntity().getLocation().distance(player.getLocation()) > maxReach && player.getLocation().getY() < event.getEntity().getLocation().getY() + 0.1) {
 						if (player.hasPotionEffect(PotionEffectType.SPEED)) {
