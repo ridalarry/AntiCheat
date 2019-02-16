@@ -3,6 +3,7 @@ package me.rida.anticheat.checks.combat;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Giant;
+import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -50,6 +51,8 @@ public class ReachE extends Check {
 		}
 		if (!(d instanceof Player)) {
 			maxReach += 1.0;
+		}
+		if (d instanceof Player) {
 			final Player player = (Player) d;
 			if (player.getAllowFlight()) {
 				maxReach += 2.0;
@@ -59,8 +62,16 @@ public class ReachE extends Check {
 				|| PlayerUtil.isNearSlime(d.getLocation())) {
 			maxReach += 1.0;
 		}
-		if (d instanceof Slime || d instanceof Spider || d instanceof Giant) {
+		if (d instanceof Spider || d instanceof Giant) {
 			maxReach += 1.0;
+		}
+		if (d instanceof Slime) {
+			final Slime slime = (Slime) d;
+			maxReach += slime.getSize()/4;
+		}
+		if (d instanceof MagmaCube) {
+			final MagmaCube MagmaCube = (MagmaCube) d;
+			maxReach += MagmaCube.getSize()/4;
 		}
 		if (p.getGameMode().equals(GameMode.CREATIVE)) {
 			maxReach += 1.0;
