@@ -30,7 +30,7 @@ public class ReachK extends Check {
 					final Location playerLoc = player.getLocation().add(0.0D, player.getEyeHeight(), 0.0D);
 					double distance = MathUtil.getDistance3D(entityLoc, playerLoc);
 					final int ping = getAntiCheat().getLag().getPing(player);
-					final double maxReach = 4.3;
+					double maxReach = 4.3;
 					if(ping > 100) {
 						distance+=0.2;
 					} else if(ping > 200) {
@@ -41,6 +41,12 @@ public class ReachK extends Check {
 						distance+=0.5;
 					} else if(ping > 500) {
 						distance+=0.6;
+					}
+					if (event.getEntity() instanceof Player) {
+						final Player p = (Player) event.getEntity();
+						if (p.getAllowFlight()) {
+							maxReach += 0.7;
+						}
 					}
 					final double tps = getAntiCheat().getLag().getTPS();
 					final String dist = Double.toString(distance).substring(0, 3);

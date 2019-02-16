@@ -97,14 +97,15 @@ public class SpeedB extends Check {
 				ig = (ig * (((level * 20) * 0.011) + 1));
 			}
 		}
-		Airmaxspeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
-		maxSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 0.8 : 0;
+		Airmaxspeed += p.getFlySpeed() > 0.2 ? p.getFlySpeed() * 1 : 0;
+		maxSpeed += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 1 : 0;
 		maxSpeed += velx;
 		Airmaxspeed += velx;
 		maxSpeed += vely;
 		Airmaxspeed += vely;
 		maxSpeed += velz;
 		Airmaxspeed += velz;
+		maxSpeed += Math.abs((p.getWalkSpeed() - 0.2));
 
 		if (isReallyOnGround(p) && to.getY() == from.getY()) {
 			if (speed >= maxSpeed && p.isOnGround() && p.getFallDistance() < 0.15

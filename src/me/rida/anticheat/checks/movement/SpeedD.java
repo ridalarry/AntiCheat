@@ -36,6 +36,8 @@ public class SpeedD extends Check {
 		threshold*= data.onStairSlab ? 1.8f : 1.0;
 		threshold*= data.iceTicks > 0 && data.groundTicks < 5 ? 1.7f : 1.0;
 		threshold*= data.blockTicks > 0 && deltaY != 0 ? 2.0f : 1.0;
+		threshold += p.getWalkSpeed() > 0.2 ? p.getWalkSpeed() * 1 : 0;
+		threshold += p.getFlySpeed() > 0.2 ? p.getFlySpeed() * 1 : 0;
 
 		if(deltaXZ > threshold) {
 			if((data.speedThreshold+= 2) > 25) {
