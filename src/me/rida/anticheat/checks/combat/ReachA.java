@@ -5,6 +5,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Enderman;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Giant;
+import org.bukkit.entity.MagmaCube;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
@@ -69,7 +70,15 @@ public class ReachA extends Check {
 		if(KB > 0) {
 			maxReach += KB;
 		}
-		if (p2 instanceof Slime || p2 instanceof Spider) {
+		if (p2 instanceof Slime) {
+			final Slime slime = (Slime) p2;
+			maxReach += slime.getSize()/4;
+		}
+		if (p2 instanceof MagmaCube) {
+			final MagmaCube MagmaCube = (MagmaCube) p2;
+			maxReach += MagmaCube.getSize()/4;
+		}
+		if (p2 instanceof Spider) {
 			maxReach += 1.0;
 		}
 		if (p2 instanceof Giant) {
