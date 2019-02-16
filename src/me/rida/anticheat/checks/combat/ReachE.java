@@ -97,7 +97,6 @@ public class ReachE extends Check {
 		maxReach += velocity;
 		maxReach += Ping < 250 ? Ping * 0.01262 : Ping * 0.0415;
 		maxReach += YawDifference * 0.008;
-		final double ChanceVal = Math.round(Math.abs((Difference - maxReach) * 100));
 		final double x = Math.abs(Math.abs(p.getLocation().getX()) - Math.abs(d.getLocation().getX()));
 		final double y = Math.abs(Math.abs(p.getLocation().getY()) - Math.abs(d.getLocation().getY()));
 		final double z = Math.abs(Math.abs(p.getLocation().getZ()) - Math.abs(d.getLocation().getZ()));
@@ -112,6 +111,7 @@ public class ReachE extends Check {
 		}
 		final String en = d.getName().toString();
 		if (maxReach < Difference) {
+			final double ChanceVal = Math.round(Math.abs((Difference - maxReach) * 100));
 			getAntiCheat().logCheat(this, p, "Attacked: " + en + "; Reach: " + Reach + "; Max Reach: " + maxReach + "; Distance: " + distance + "; Chance: " + ChanceVal + "%", "(Type: E)");
 		}
 	}

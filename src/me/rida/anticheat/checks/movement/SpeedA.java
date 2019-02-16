@@ -67,7 +67,7 @@ public class SpeedA extends Check {
 				speedAThreshold = data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.25 : speedAThreshold;
 				speedAThreshold = data.getIceTicks() > 0 ? speedAThreshold + 0.14 : speedAThreshold;
 				speedAThreshold = data.getIceTicks() > 0 && data.getAboveBlockTicks() > 0 ? speedAThreshold + 0.24 : speedAThreshold;
-				speedAThreshold += Math.abs((p.getWalkSpeed() - 0.2));
+				speedAThreshold += Math.abs((p.getWalkSpeed()));
 
 				if (DataPlayer.lastNearSlime !=null) {
 					if (DataPlayer.lastNearSlime.contains(p.getPlayer().getName().toString())) {
@@ -82,7 +82,7 @@ public class SpeedA extends Check {
 					speedAThreshold += p.getFlySpeed();
 				}
 
-				if (speed > speedAThreshold) {
+				if (speed > speedAThreshold + 0.0631) {
 					verbose += 8;
 				} else {
 					verbose = verbose > 0 ? verbose - 1 : 0;
@@ -102,7 +102,7 @@ public class SpeedA extends Check {
 						return;
 					} else {
 						if (!p.getAllowFlight()) {
-							getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast.", "(Type: A)");
+							getAntiCheat().logCheat(this, p, "[0] - Player Moved Too Fast. Speed: " + speed + "; Threshold: " + speedAThreshold, "(Type: A)");
 							verbose = 0;
 						}
 					}
