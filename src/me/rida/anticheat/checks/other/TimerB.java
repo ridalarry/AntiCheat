@@ -14,7 +14,6 @@ import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
 import me.rida.anticheat.other.Latency;
-import me.rida.anticheat.utils.Color;
 import me.rida.anticheat.utils.TimeUtil;
 
 public class TimerB extends Check {
@@ -50,7 +49,7 @@ public class TimerB extends Check {
 
 		if ((timerTicks.containsKey(p.getUniqueId())) && (TimeUtil.elapsed(Time, 1000L))) {
 			if (Count > 40) {
-				this.getAntiCheat().logCheat(this, p, Color.Red + "Experimental; Count: " + Count + ", Time: " + Time, "(Type: B)");
+				this.getAntiCheat().logCheat(this, p, "Count: " + Count + ", Time: " + Time, "(Type: B)");
 			}
 			Count = 0;
 			Time = TimeUtil.nowlong();
