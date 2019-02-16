@@ -3,6 +3,7 @@ main: me.rida.anticheat.AntiCheat
 version: 1.1.2
 author: Rida
 depend: [ProtocolLib]
+softdepend: [ViaVersion]
 load: STARTUP
 commands:
   anticheat:

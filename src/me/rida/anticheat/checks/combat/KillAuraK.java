@@ -56,6 +56,10 @@ public class KillAuraK extends Check {
 
 	@EventHandler
 	public void onSwing(PacketKillauraEvent e) {
+		if (getAntiCheat().getServer().getPluginManager().isPluginEnabled("ViaVersion")) {
+			return;
+		}
+
 		if(!getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < 19
 				|| ServerUtil.isBukkitVerison("1_13")) {
