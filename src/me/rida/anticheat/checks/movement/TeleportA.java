@@ -20,7 +20,7 @@ public class TeleportA extends Check{
 	private void onTeleport(PlayerTeleportEvent e) {
 		final Player p = e.getPlayer();
 		if (SharedEvents.getLastJoin().containsKey(p)) {
-			if (System.currentTimeMillis() - SharedEvents.getLastJoin().get(p) < 1000) {
+			if (System.currentTimeMillis() - SharedEvents.getLastJoin().get(p) < 3000) {
 				return;
 			}
 		}
