@@ -290,7 +290,8 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			this.getConfig().addDefault("alerts.secondary", "&c");
 			this.getConfig().addDefault("alerts.checkColor", "&b");
 			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("settings.kickmsg", "[AntiCheat] Unfair Advantage!");this.getConfig().addDefault("settings.broadcastmsg",
+			this.getConfig().addDefault("settings.kickmsg", "[AntiCheat] Unfair Advantage!");
+			this.getConfig().addDefault("settings.broadcastmsg",
 					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
 			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
 			this.getConfig().addDefault("settings.violationResetTime", 60);

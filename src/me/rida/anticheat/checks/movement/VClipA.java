@@ -76,17 +76,20 @@ public class VClipA extends Check {
 					Player p = e.getPlayer();
 					@Override
 					public void run() {
+						e.setCancelled(true);
 						p.kickPlayer("Flying is not enabled on this server");
 					}
 				});
 
 				getAntiCheat().logCheat(this, p, "[1] More than 20 blocks.", "(Type: A)");
+				e.setCancelled(true);
 				p.teleport(from);
 				return;
 			}
 			if (l.getBlock().getType() != Material.AIR && Math.abs(yDist) > 1.0 && l.getBlock().getType().isSolid()
 					&& !allowed.contains(l.getBlock().getType())) {
 				getAntiCheat().logCheat(this, p, "[2] " + y + " blocks", "(Type: A)");
+				e.setCancelled(true);
 				if (lastLocation.containsKey(p)) {
 					p.teleport(lastLocation.get(p));
 				}

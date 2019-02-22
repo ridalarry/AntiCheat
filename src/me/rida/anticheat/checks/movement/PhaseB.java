@@ -60,11 +60,13 @@ public class PhaseB extends Check implements Listener {
 		if (!ServerUtil.isBukkitVerison("1_13")) {
 			if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
 				getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
+				e.setCancelled(true);
 			}
 		}
 		else {
 			if(!ReflectionUtil.getCollidingBlocks1(e.getPlayer(), box)) {
 				getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
+				e.setCancelled(true);
 			}
 		}
 	}
