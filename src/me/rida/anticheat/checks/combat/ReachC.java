@@ -37,9 +37,17 @@ public class ReachC extends Check {
 
 		final Player p = (Player) e.getDamager();
 		final Player d = (Player) e.getEntity();
-		if (d.getAllowFlight()
-				|| p.getAllowFlight()
-				|| p.getGameMode().equals(GameMode.CREATIVE)
+		if (p == null) {
+			return;
+		}
+		if (d.getAllowFlight() && d.isFlying()) {
+			return;
+		}
+		if (p.getAllowFlight() && p.isFlying()) {
+			return;
+		}
+
+		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| getAntiCheat().getLag().getPing(d) > getAntiCheat().getPingCancel()) {

@@ -26,7 +26,6 @@ public class ReachA extends Check {
 		super("ReachA", "Reach",  CheckType.Combat, true, true, false, true, false, 7, 1, 30000L, AntiCheat);
 	}
 
-	@SuppressWarnings("unused")
 	private int getKB(Player p){
 		int enchantmentLevel = 0;
 		final ItemStack[] inv = p.getInventory().getContents();
@@ -39,13 +38,16 @@ public class ReachA extends Check {
 				}
 			}
 		}
-		return 0;
+		return enchantmentLevel;
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(PacketAttackEvent e) {
 		final Entity p2 = e.getEntity();
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if(e.getType() != PacketPlayerType.USE
 				|| e.getEntity() == null
 				|| p2 instanceof Enderman

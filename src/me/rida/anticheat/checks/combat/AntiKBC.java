@@ -20,6 +20,9 @@ public class AntiKBC extends Check {
 	public void onPlayerDamage(EntityDamageEvent e) {
 		if (e.getEntity() instanceof  Player) {
 			final Player p = (Player) e.getEntity();
+			if (p == null) {
+				return;
+			}
 			if(p.getLastDamageCause() instanceof EntityDamageByEntityEvent) {
 				final Entity damager = p.getLastDamageCause().getEntity();
 				if (VelocityUtil.didTakeVelocity(p)

@@ -25,6 +25,9 @@ public class ReachH extends Check {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
+				if (player == null) {
+					return;
+				}
 				final Player damaged = (Player) event.getEntity();
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					final int ping = getAntiCheat().getLag().getPing(player);

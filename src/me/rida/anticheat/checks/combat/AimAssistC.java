@@ -30,6 +30,9 @@ public class AimAssistC extends Check {
 		}
 		final Player player = (Player)e.getDamager();
 		final Player player2 = (Player)e.getEntity();
+		if (player == null) {
+			return;
+		}
 		final float yaw = player.getLocation().getYaw();
 		final float pitch = player.getLocation().getPitch();
 		this.onAim(player, yaw);

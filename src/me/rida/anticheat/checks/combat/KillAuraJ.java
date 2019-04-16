@@ -24,6 +24,9 @@ public class KillAuraJ extends Check {
 			return;
 		}
 		final Player p = (Player)e.getDamager();
+		if (p == null) {
+			return;
+		}
 		this.lastYaw = yaw = p.getLocation().getYaw();
 		final float f2 = Math.abs(yaw - this.lastYaw) % 180.0f;
 	}

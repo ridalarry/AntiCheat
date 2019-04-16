@@ -63,9 +63,7 @@ public class GlideA extends Check {
 		if (MS > 1000L) {
 			this.dumplog(p, "Logged for Glide Type A;. MS: " + MS);
 			flyTicks.remove(p.getUniqueId());
-			if (getAntiCheat().getLag().getPing(p) < 275) {
-				this.getAntiCheat().logCheat(this, p, null, "(Type: A)");
-			}
+			this.getAntiCheat().logCheat(this, p, null, "(Type: A)");
 			return;
 		}
 		flyTicks.put(p.getUniqueId(), Time);

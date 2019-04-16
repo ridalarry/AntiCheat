@@ -24,6 +24,9 @@ public class ReachI extends Check {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
+				if (player == null) {
+					return;
+				}
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					final int ping = getAntiCheat().getLag().getPing(player);
 					final double tps = getAntiCheat().getLag().getTPS();
@@ -37,6 +40,9 @@ public class ReachI extends Check {
 						if (p.getAllowFlight()) {
 							maxReach += 1.0;
 						}
+						if (getAntiCheat().getLag().getPing(p) > 0) {
+							maxReach += 0.00354082535 * getAntiCheat().getLag().getPing(p);
+						}
 					}
 					for (final PotionEffect effect : player.getActivePotionEffects()) {
 						if (effect.getType() == PotionEffectType.SPEED) {
@@ -45,7 +51,7 @@ public class ReachI extends Check {
 					}
 					final String dist = Double.toString(distance).substring(0, 3);
 					if (maxReach < distance) {
-						getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: I)");
+						getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dist + "; MaxReach: " + maxReach + "; Ping: " + ping + "; TPS: " + tps, "(Type: I)");
 					}
 				}
 			}

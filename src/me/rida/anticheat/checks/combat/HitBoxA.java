@@ -45,6 +45,9 @@ public class HitBoxA extends Check {
 		}
 
 		final Player player = (Player) e.getDamager();
+		if (player == null) {
+			return;
+		}
 		final Player attacked = (Player) e.getEntity();
 		if (player.getGameMode().equals(GameMode.CREATIVE)) {
 			return;

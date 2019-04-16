@@ -34,6 +34,9 @@ public class AntiKBD extends Check {
 		double zLoc;
 		double xLoc;
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB})
 				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})
 				|| ServerUtil.isHoveringOverWater(p, 1)
@@ -86,10 +89,6 @@ public class AntiKBD extends Check {
 		}
 		if (awaitingVelocity2 > awaitingVelocity3) {
 			if (totalMoved == 0.0) {
-				if (getAntiCheat().getLag().getPing(p) > 500) {
-					return;
-
-				}
 				getAntiCheat().logCheat(this, p, Color.Red + "[1] horizontal", "(Type: D)");
 			} else {
 				if (getAntiCheat().getLag().getPing(p) > 220) {

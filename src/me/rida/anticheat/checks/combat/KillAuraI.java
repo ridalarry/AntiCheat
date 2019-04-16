@@ -28,6 +28,9 @@ public class KillAuraI extends Check {
 		if (!((Player)e.getDamager()).hasLineOfSight(e.getEntity()) && !this.isPlayerInCorner((Player)e.getDamager())) {
 			int violation = 0;
 			final Player p = (Player)e.getDamager();
+			if (p == null) {
+				return;
+			}
 			this.hits.putIfAbsent(e.getDamager().getUniqueId(), 1);
 			if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 					|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

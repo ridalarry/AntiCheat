@@ -29,6 +29,9 @@ public class KillAuraF extends Check {
 		}
 		final Player damager = e.getAttacker();
 		final Player player = (Player) e.getAttacked();
+		if (damager == null) {
+			return;
+		}
 
 		if (damager.getAllowFlight()
 				|| player.getAllowFlight()) {

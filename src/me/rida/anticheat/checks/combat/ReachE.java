@@ -32,6 +32,9 @@ public class ReachE extends Check {
 			return;
 		}
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		final Entity d = e.getEntity();
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

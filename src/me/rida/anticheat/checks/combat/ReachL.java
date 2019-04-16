@@ -24,6 +24,9 @@ public class ReachL extends Check {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
+				if (player == null) {
+					return;
+				}
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
 					final int ping = getAntiCheat().getLag().getPing(player);
@@ -35,11 +38,14 @@ public class ReachL extends Check {
 						if (p.getAllowFlight()) {
 							maxReach += 0.75;
 						}
+						if (getAntiCheat().getLag().getPing(p) > 0) {
+							maxReach += 0.00369600546 * getAntiCheat().getLag().getPing(p);
+						}
 					}
 					final double dist = event.getEntity().getLocation().distance(player.getLocation());
 					if (dist > maxReach && event.getEntity().getLocation().getBlockY() == player.getLocation().getBlockY()) {
 						if (player != null) {
-							getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
+							getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; MaxReach: " + maxReach +"; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
 						}
 					} else if ((dist > maxReach + 0.3
 							|| dist > maxReach + 0.4
@@ -67,12 +73,12 @@ public class ReachL extends Check {
 									|| dist > maxReach + 1 + 1.3)
 									&& event.getEntity().getLocation().getBlockY() > player.getLocation().getBlockY()) {
 								if (player != null) {
-									getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
+									getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; MaxReach: " + maxReach + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
 								}
 							}
 						} else {
 							if (player != null) {
-								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
+								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst +  "; MaxReach: " + maxReach +"; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
 							}
 						}
 
@@ -80,12 +86,12 @@ public class ReachL extends Check {
 						if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 							if (dist > maxReach + 1 + 0.2 && event.getEntity().getLocation().getBlockY() < player.getLocation().getBlockY()) {
 								if (player != null) {
-									getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
+									getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst +  "; MaxReach: " + maxReach +"; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
 								}
 							}
 						} else {
 							if (player != null) {
-								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst + "; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
+								getAntiCheat().logCheat(this, player, "Interact too far away; distance: " + dst +  "; MaxReach: " + maxReach +"; Ping: " + ping + "; TPS: " + tps, "(Type: L)");
 							}
 						}
 					}

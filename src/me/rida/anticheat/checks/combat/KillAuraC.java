@@ -22,6 +22,9 @@ public class KillAuraC extends Check {
 			return;
 		}
 		final Player p = (Player) e.getDamager();
+		if (p == null) {
+			return;
+		}
 		final Player damaged = (Player) e.getEntity();
 		final double ping = getAntiCheat().getLag().getPing(p);
 		final double dmgdPing = getAntiCheat().getLag().getPing(damaged);

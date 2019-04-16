@@ -23,7 +23,6 @@ public class BlockInteractD extends Check {
 		final Player p = e.getPlayer();
 		if (p.getAllowFlight()
 				|| p.getVehicle() != null
-				|| getAntiCheat().getLag().getPing(e.getPlayer()) > 100
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
 				|| !getAntiCheat().isEnabled()

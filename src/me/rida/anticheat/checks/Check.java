@@ -1,15 +1,29 @@
 package me.rida.anticheat.checks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 
 import me.rida.anticheat.AntiCheat;
+import me.rida.anticheat.data.DataManager;
+import me.rida.anticheat.other.LagCore;
+import me.rida.anticheat.packets.PacketCore;
+import me.rida.anticheat.update.Updater;
 import me.rida.anticheat.utils.TxtFile;
 
 public class Check implements Listener {
@@ -17,6 +31,38 @@ public class Check implements Listener {
 	private final String Name;
 	protected CheckType Type;
 	private final AntiCheat AntiCheat;
+	public Set<UUID> hasAlertsOn;
+	public int maxMove = 10;
+	public ExecutorService service;
+	public static ArrayList<Player> getOnlinePlayers() {
+		final ArrayList<Player> list = new ArrayList<>();
+		for (final Player player : Bukkit.getOnlinePlayers()) {
+			list.add(player);
+		}
+		return list;
+	}
+	public static Map<Player, Long> PACKET_USAGE = new ConcurrentHashMap<>();
+	public static Set<String> PACKET_NAMES = new HashSet<>(Arrays.asList("MC|BSign", "MC|BEdit", "REGISTER"));
+	private final Logger logger = null;
+	private DataManager dataManager;
+	public static long MS_PluginLoad;
+	public static String coreVersion;
+	public static AntiCheat Instance;
+	public static Plugin plugin = Instance;
+	public String PREFIX;
+	public Updater updater;
+	public PacketCore packet;
+	public LagCore lag;
+	public static List<Check> Checks;
+	public static Map<UUID, Map<Check, Integer>> Violations;
+	public static Map<UUID, Map<Check, Long>> ViolationReset;
+	public static List<Player> AlertsOn;
+	public static Map<Player, Map.Entry<Check, Long>> AutoBan;
+	public static Map<String, Check> NamesBanned;
+	static Random rand;
+	public TxtFile autobanMessages;
+	public static Map<UUID, Long> LastVelocity;
+	public ArrayList<UUID> hasInvOpen = new ArrayList<>();
 	private boolean Enabled = true;
 	private boolean BanTimer = false;
 	private boolean Bannable = false;
@@ -26,7 +72,6 @@ public class Check implements Listener {
 	private Integer ViolationsToNotify = Integer.valueOf(1);
 	private Long ViolationResetTime = Long.valueOf(600000L);
 	public Map<String, List<String>> DumpLogs = new HashMap<>();
-
 	public Check(String Identifier, String Name, CheckType Type, boolean Enabled, boolean Bannable, boolean JudgementDay, boolean BanTimer, boolean Kickable, Integer MaxViolations, Integer ViolationsToNotify, long ViolationResetTime, AntiCheat AntiCheat) {
 		this.Name = Name;
 		this.AntiCheat = AntiCheat;
@@ -137,6 +182,8 @@ public class Check implements Listener {
 		}
 		this.Enabled = Enabled;
 	}
+
+
 
 	public void checkValues() {
 		if (AntiCheat.getConfig().getBoolean("checks." + this.getType() + "." + this.getName() + "." + this.getIdentifier() + ".enabled") == true) {

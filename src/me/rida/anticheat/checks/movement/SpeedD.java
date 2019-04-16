@@ -13,7 +13,7 @@ import me.rida.anticheat.utils.PlayerUtil;
 
 public class SpeedD extends Check {
 	public SpeedD(AntiCheat AntiCheat) {
-		super("SpeedD", "Speed", CheckType.Movement, true, true, false, true, false, 3, 1, 600000L, AntiCheat);
+		super("SpeedD", "Speed", CheckType.Movement, true, false, false, true, false, 3, 1, 600000L, AntiCheat);
 	}
 
 	@EventHandler

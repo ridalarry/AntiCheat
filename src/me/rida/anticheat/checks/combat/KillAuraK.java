@@ -36,6 +36,9 @@ public class KillAuraK extends Check {
 		}
 
 		final Player player = e.getAttacker();
+		if (player == null) {
+			return;
+		}
 
 		int verbose = KillAuraK.verbose.getOrDefault(player.getUniqueId(), 0);
 

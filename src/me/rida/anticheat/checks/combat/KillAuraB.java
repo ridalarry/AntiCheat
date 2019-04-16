@@ -21,6 +21,9 @@ public class KillAuraB extends Check {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	private void onAttack(PacketAttackEvent e) {
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		final DataPlayer data = AntiCheat.getInstance().getDataManager().getData(p);
 		if(e.getType() != PacketPlayerType.USE
 				|| (data == null)) {

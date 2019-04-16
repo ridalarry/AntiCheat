@@ -52,6 +52,9 @@ public class ReachD extends Check {
 			return;
 		}
 		final Player player = (Player) e.getDamager();
+		if (player == null) {
+			return;
+		}
 		projectileHit.add(player);
 	}
 	@EventHandler
@@ -63,6 +66,9 @@ public class ReachD extends Check {
 			return;
 		}
 		final Player damager = e.getAttacker();
+		if (damager == null) {
+			return;
+		}
 		final Player player = (Player) e.getAttacked();
 		final double ydist = Math.abs(damager.getEyeLocation().getY() - player.getEyeLocation().getY());
 		double Reach = MathUtil.trim(2,

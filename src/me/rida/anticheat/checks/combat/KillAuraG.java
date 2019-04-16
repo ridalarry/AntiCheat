@@ -35,6 +35,9 @@ public class KillAuraG extends Check {
 			return;
 		}
 		final Player damager = e.getAttacker();
+		if (damager == null) {
+			return;
+		}
 		if (damager.getAllowFlight()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(damager) > getAntiCheat().getPingCancel()) {

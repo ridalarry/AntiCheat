@@ -32,6 +32,9 @@ public class AutoClickerC extends Check {
 	public void onInt(PlayerInteractEvent e) {
 		Double[] arrdouble;
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if (e.getAction() != Action.LEFT_CLICK_AIR
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

@@ -1,6 +1,8 @@
 package me.rida.anticheat.checks.movement;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.WeakHashMap;
 
 import org.bukkit.entity.Player;
@@ -29,7 +31,8 @@ public class PhaseB extends Check implements Listener {
 		lastDoorSwing = new WeakHashMap<>();
 	}
 
-	@EventHandler(priority = EventPriority.HIGHEST)
+	public static Map<UUID, Long> lastPhase = new HashMap<>();
+	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
 	public void onMove(PlayerMoveEvent e) {
 
 
@@ -60,6 +63,7 @@ public class PhaseB extends Check implements Listener {
 		if (!ServerUtil.isBukkitVerison("1_13")) {
 			if(ReflectionUtil.getCollidingBlocks(e.getPlayer(), box).size() > 0) {
 				getAntiCheat().logCheat(this, player, "[1]", "(Type: B)");
+				lastPhase.put(player.getUniqueId(), Long.valueOf(System.currentTimeMillis()));
 				e.setCancelled(true);
 			}
 		}

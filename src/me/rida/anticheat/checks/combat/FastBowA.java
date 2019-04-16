@@ -27,6 +27,9 @@ public class FastBowA extends Check {
 	@EventHandler
 	private void Interact(final PlayerInteractEvent e) {
 		final Player Player = e.getPlayer();
+		if (Player == null) {
+			return;
+		}
 		if (Player.getItemInHand() != null && Player.getItemInHand().getType().equals(Material.BOW)) {
 			bowPull.put(Player, System.currentTimeMillis());
 		}

@@ -25,6 +25,9 @@ public class ReachJ extends Check {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
+				if (player == null) {
+					return;
+				}
 				final Player damaged = (Player) event.getEntity();
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					final double YawDifference = Math.abs(180.0f - Math.abs(damaged.getLocation().getYaw() - player.getLocation().getYaw()));

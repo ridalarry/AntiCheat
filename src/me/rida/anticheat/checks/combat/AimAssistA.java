@@ -37,6 +37,9 @@ public class AimAssistA extends Check {
 		final Location location = e.getFrom().clone();
 		final Location location2 = e.getTo().clone();
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		final double d = Math.abs(location.getYaw() - location2.getYaw());
 		if (d > 0.0 && d < 360.0) {
 			if (AimAssistA.getFrac(d) == 0.0) {

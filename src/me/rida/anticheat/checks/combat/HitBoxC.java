@@ -34,6 +34,9 @@ public class HitBoxC extends Check {
 			return;
 		}
 		final Player p = e.getAttacker();
+		if (p == null) {
+			return;
+		}
 
 		final LivingEntity attacked = (Player) e.getAttacked();
 

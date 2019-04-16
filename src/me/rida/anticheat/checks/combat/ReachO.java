@@ -15,7 +15,7 @@ import me.rida.anticheat.utils.MathUtil;
 
 public class ReachO extends Check {
 	public ReachO(AntiCheat AntiCheat) {
-		super("ReachO", "Reach",  CheckType.Combat, true, false, false, false, false, 7, 1, 30000L, AntiCheat);
+		super("ReachO", "Reach",  CheckType.Combat, true, true, false, false, false, 7, 1, 30000L, AntiCheat);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
@@ -23,6 +23,9 @@ public class ReachO extends Check {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
+				if (player == null) {
+					return;
+				}
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					final double distance = MathUtil.getDistance3D(player.getLocation(), event.getEntity().getLocation());
 					final int ping = getAntiCheat().getLag().getPing(player);

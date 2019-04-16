@@ -44,6 +44,9 @@ public class AutoClickerB extends Check {
 		}
 
 		final Player damager = e.getAttacker();
+		if (damager == null) {
+			return;
+		}
 		int Count = 0;
 		long Time = System.currentTimeMillis();
 		if (ClickTicks.containsKey(damager.getUniqueId())) {

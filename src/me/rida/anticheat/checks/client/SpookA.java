@@ -28,6 +28,9 @@ public class SpookA extends Check implements Listener{
 			return;
 		}
 		final Player p = (Player) e.getDamager();
+		if (p == null) {
+			return;
+		}
 		final Player p2 = (Player) e.getEntity();
 		final float yaw = MathUtil.getOffset(p, p2);
 		onAim(p, yaw);

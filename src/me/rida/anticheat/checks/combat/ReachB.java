@@ -52,6 +52,9 @@ public class ReachB extends Check {
 			return;
 		}
 		final Player d = (Player) e.getDamager();
+		if (d == null) {
+			return;
+		}
 		final Player p = (Player) e.getEntity();
 		if (d.getAllowFlight()
 				|| p.getAllowFlight()

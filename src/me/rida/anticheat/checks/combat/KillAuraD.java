@@ -27,6 +27,9 @@ public class KillAuraD extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	private void packet(PacketKillauraEvent e) {
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if (!getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {

@@ -35,6 +35,9 @@ public class CriticalsB extends Check {
 		}
 
 		final Player p = (Player) e.getDamager();
+		if (p == null) {
+			return;
+		}
 		if (p.getAllowFlight()
 				|| getAntiCheat().LastVelocity.containsKey(p.getUniqueId())
 				|| CheatUtil.slabsNear(p.getLocation())

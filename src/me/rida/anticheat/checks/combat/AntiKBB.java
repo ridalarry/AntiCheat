@@ -17,6 +17,9 @@ public class AntiKBB extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void Sprint(PlayerToggleSprintEvent e) {
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;

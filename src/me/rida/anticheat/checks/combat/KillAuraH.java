@@ -28,6 +28,9 @@ public class KillAuraH extends Check {
 			return;
 		}
 		final Player p = (Player) e.getDamager();
+		if (p == null) {
+			return;
+		}
 		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;

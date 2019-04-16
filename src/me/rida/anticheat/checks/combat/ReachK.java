@@ -24,6 +24,9 @@ public class ReachK extends Check {
 		if (event.getDamager() instanceof Player) {
 			if (event.getEntity().getType() == EntityType.PLAYER) {
 				final Player player = (Player) event.getDamager();
+				if (player == null) {
+					return;
+				}
 				final Player target = (Player) event.getEntity();
 				if (player.getGameMode() != GameMode.CREATIVE) {
 					final Location entityLoc = target.getLocation().add(0.0D, target.getEyeHeight(), 0.0D);
@@ -47,6 +50,9 @@ public class ReachK extends Check {
 						if (p.getAllowFlight()) {
 							maxReach += 0.7;
 						}
+						if (getAntiCheat().getLag().getPing(p) > 0) {
+							maxReach += 0.00528169 * getAntiCheat().getLag().getPing(p);
+						}
 					}
 					final double tps = getAntiCheat().getLag().getTPS();
 					final String dist = Double.toString(distance).substring(0, 3);
@@ -54,11 +60,11 @@ public class ReachK extends Check {
 						if (player.hasPotionEffect(PotionEffectType.SPEED)) {
 							if (distance > maxReach + 1.0) {
 								if (player != null) {
-									getAntiCheat().logCheat(this, player, "Too high hit range; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: K)");
+									getAntiCheat().logCheat(this, player, "Too high hit range; distance: " + dist + "; MaxReach: " + maxReach + "; Ping: " + ping + "; TPS: " + tps, "(Type: K)");
 								}
 							}
 						} else {
-							getAntiCheat().logCheat(this, player, "Too high hit range; distance: " + dist + "; Ping: " + ping + "; TPS: " + tps, "(Type: K)");
+							getAntiCheat().logCheat(this, player, "Too high hit range; distance: " + dist + "; MaxReach: " + maxReach + "; Ping: " + ping + "; TPS: " + tps, "(Type: K)");
 							event.setCancelled(true);
 						}
 					}

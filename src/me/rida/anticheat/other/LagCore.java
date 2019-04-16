@@ -68,40 +68,7 @@ public class LagCore implements Listener {
 	private static Method getHandleMethod;
 	private static Field pingField;
 
-	public int getPing2(Player player) {
-		try {
-			if (getHandleMethod == null) {
-				getHandleMethod = player.getClass().getDeclaredMethod("getHandle");
-				getHandleMethod.setAccessible(true);
-			}
-			final Object entityPlayer = getHandleMethod.invoke(player);
-			if (pingField == null) {
-				pingField = entityPlayer.getClass().getDeclaredField("ping");
-				pingField.setAccessible(true);
-			}
-			final int ping = pingField.getInt(entityPlayer);
-
-			return ping > 0 ? ping : 0;
-		} catch (final Exception e) {
-			return 1;
-		}
-	}
-	public int getPing3(Player player) {
-		try {
-			int ping = 0;
-			final Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + getServerVersion() + ".entity.CraftPlayer");
-			final Object converted = craftPlayer.cast(player);
-			final Method handle = converted.getClass().getMethod("getHandle", new Class[0]);
-			final Object entityPlayer = handle.invoke(converted, new Object[0]);
-			final Field pingField = entityPlayer.getClass().getField("ping");
-			ping = pingField.getInt(entityPlayer);
-			return ping;
-		} catch (final Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
+	@SuppressWarnings("unused")
 	private String getServerVersion() {
 		final Pattern brand = Pattern.compile("(v|)[0-9][_.][0-9][_.][R0-9]*");
 

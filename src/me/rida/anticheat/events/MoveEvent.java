@@ -23,6 +23,7 @@ import me.rida.anticheat.utils.MathUtil;
 import me.rida.anticheat.utils.PlayerUtil;
 import me.rida.anticheat.utils.TimerUtil;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 public class MoveEvent implements Listener {
 
 
@@ -31,9 +32,7 @@ public class MoveEvent implements Listener {
 
 	// We need to create hashmaps to store the amount of time left
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static HashMap<String, Integer> ticksLeft = new HashMap(); // This is the amount of ticks left to wait
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static HashMap<String, BukkitRunnable> cooldownTask = new HashMap(); // This is the task event
 
 	// Checks to see if the person is in the timer
@@ -51,6 +50,9 @@ public class MoveEvent implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onMove(PlayerMoveEvent e) {
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		lastMove.put(p.getUniqueId(), System.currentTimeMillis());
 		if(inTimer(p) == true) {
 			return;

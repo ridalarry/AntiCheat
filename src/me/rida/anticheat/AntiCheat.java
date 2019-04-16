@@ -133,6 +133,157 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.LastVelocity = new HashMap<>();
 	}
 
+
+	@Override
+	public void onEnable() {
+		playerInformationMain.startDefaults();
+		service = Executors.newSingleThreadExecutor();
+		new ReflectionUtil();
+		new BlockUtil();
+		Instance = this;
+		dataManager = new DataManager();
+		registerListeners();
+		loadChecks();
+		addDataPlayers();
+		PacketCore.init();
+		MS_PluginLoad = TimerUtil.nowlong();
+		coreVersion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
+		dataManager = new DataManager();
+		saveChecks();
+		AntiCheat.Instance = this;
+		addChecks();
+		this.packet = new PacketCore(this);
+		this.lag = new LagCore(this);
+		this.updater = new Updater(this);
+		new AntiCheatAPI(this);
+		if (!ServerUtil.isBukkitVerison("1_13")) {
+			final me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
+			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapeA);
+			this.getServer().getPluginManager().registerEvents(vapeA, this);
+			final me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
+			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapers);
+		}
+		for (final Check check : this.Checks) {
+			if (check.isEnabled()) {
+				this.RegisterListener(check);
+			}
+		}
+		final File file = new File(getDataFolder(), "config.yml");
+		this.getCommand("alerts").setExecutor(new AlertsCommand(this));
+		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
+		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
+		if (ServerUtil.isBukkitVerison("1_7")) {
+			this.getCommand("getLog").setExecutor(new GetLogCommand1_7(this));
+		}
+		else {
+			this.getCommand("getLog").setExecutor(new GetLogCommand(this));
+		}
+		this.getCommand("jday").setExecutor(new JDayCommand(this));
+		Bukkit.getServer().getPluginManager().registerEvents(new GUI(this), this);
+		this.RegisterListener(this);
+		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
+		if (!file.exists()) {
+			this.getConfig().addDefault("settings.EnableCustomLog", true);
+			this.getConfig().addDefault("settings.CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
+			this.getConfig().addDefault("settings.bans", 0);
+			this.getConfig().addDefault("settings.testmode", false);
+			this.getConfig().addDefault("settings.prefix", "&8[&c&lAntiCheat&8] ");
+			this.getConfig().addDefault("alerts.primary", "&7");
+			this.getConfig().addDefault("alerts.secondary", "&c");
+			this.getConfig().addDefault("alerts.checkColor", "&b");
+			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
+			this.getConfig().addDefault("settings.kickmsg", "[AntiCheat] Unfair Advantage!");
+			this.getConfig().addDefault("settings.broadcastmsg",
+					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
+			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
+			this.getConfig().addDefault("settings.violationResetTime", 60);
+			this.getConfig().addDefault("settings.resetViolationsAutomatically", true);
+			this.getConfig().addDefault("settings.latency.ping", 1000);
+			this.getConfig().addDefault("settings.latency.tps", 17);
+			for (final Check check : Checks) {
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
+				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable", check.isKickable());
+			}
+			this.getConfig().options().copyDefaults(true);
+			saveConfig();
+		}
+		for (final Check check : Checks) {
+			if (!getConfig().isConfigurationSection("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier())) {
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
+				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable", check.isKickable());
+				this.saveConfig();
+			}
+		}
+		this.PREFIX = Color.translate(getConfig().getString("settings.prefix"));
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				getLogger().log(Level.INFO, "Reset Violations!");
+				if (getConfig().getBoolean("resetViolationsAutomatically")) {
+					if (getConfig().getBoolean("settings.broadcastResetViolationsMsg")) {
+						for (final Player online : Bukkit.getServer().getOnlinePlayers()) {
+							if (online.hasPermission("anticheat.admin") && hasAlertsOn(online)) {
+								online.sendMessage(PREFIX + Color.translate("&7Reset violations for all players!"));
+							}
+						}
+					}
+					resetAllViolations();
+				}
+			}
+		}.runTaskTimer(this, 0L,
+				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
+
+		saveDefaultConfig();
+		if (!ServerUtil.isBukkitVerison("1_7")) {
+			if (getConfig().getBoolean("settings.EnableCustomLog")) {
+				try {
+					logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
+				} catch (final Throwable ex) {
+					getLogger().log(Level.SEVERE, ex.getMessage());
+				}
+			}
+
+			ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
+				@Override
+				public void onPacketReceiving(PacketEvent event) {
+					checkPacket(event);
+				}
+			});
+
+			Bukkit.getScheduler().runTaskTimer(this, () -> {
+				for (final Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
+					final Player player = iterator.next().getKey();
+					if (!player.isOnline() || !player.isValid()) {
+						iterator.remove();
+					}
+				}
+			}, 20L, 20L);}
+		getLogger().info("Reloading... will kick all online players to avoid crash.");
+		for (final Player player : Bukkit.getOnlinePlayers()) {
+			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
+		}
+	}
+
+	public void resetDumps(Player player) {
+		for (final Check check : Checks) {
+			if (check.hasDump(player)) {
+				check.clearDump(player);
+			}
+		}
+	}
+
 	public void addChecks() {
 		this.Checks.add(new me.rida.anticheat.checks.other.ChatA(this));
 		this.Checks.add(new me.rida.anticheat.checks.movement.PhaseB(this));
@@ -229,159 +380,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		this.Checks.add(new me.rida.anticheat.checks.movement.GravityA(this));
 		this.Checks.add(new me.rida.anticheat.checks.other.BlockInteractE(this));
 	}
-
-	@Override
-	public void onEnable() {
-		playerInformationMain.startDefaults();
-		service = Executors.newSingleThreadExecutor();
-		new ReflectionUtil();
-		new BlockUtil();
-		Instance = this;
-		dataManager = new DataManager();
-		registerListeners();
-		loadChecks();
-		addDataPlayers();
-		PacketCore.init();
-		MS_PluginLoad = TimerUtil.nowlong();
-		coreVersion = Bukkit.getServer().getClass().getPackage().getName().substring(23);
-		dataManager = new DataManager();
-		saveChecks();
-		AntiCheat.Instance = this;
-		this.addChecks();
-		this.packet = new PacketCore(this);
-		this.lag = new LagCore(this);
-		this.updater = new Updater(this);
-		new AntiCheatAPI(this);
-		if (!ServerUtil.isBukkitVerison("1_13")) {
-			final me.rida.anticheat.checks.client.VapeA vapeA = new me.rida.anticheat.checks.client.VapeA(this);
-			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapeA);
-			this.getServer().getPluginManager().registerEvents(vapeA, this);
-			final me.rida.anticheat.checks.client.VapeA vapers = new me.rida.anticheat.checks.client.VapeA(this);
-			this.getServer().getMessenger().registerIncomingPluginChannel(this, "LOLIMAHCKER", vapers);
-			System.out.println("Server is not on 1.13!");
-			System.out.println("Regestered LOLIMAHCKER channel for vape checks!");
-		}
-		for (final Check check : this.Checks) {
-			if (check.isEnabled()) {
-				this.RegisterListener(check);
-			}
-		}
-		final File file = new File(getDataFolder(), "config.yml");
-		this.getCommand("alerts").setExecutor(new AlertsCommand(this));
-		this.getCommand("autoban").setExecutor(new AutobanCommand(this));
-		this.getCommand("anticheat").setExecutor(new AntiCheatCommand(this));
-		if (ServerUtil.isBukkitVerison("1_7")) {
-			this.getCommand("getLog").setExecutor(new GetLogCommand1_7(this));
-		}
-		else {
-			this.getCommand("getLog").setExecutor(new GetLogCommand(this));
-		}
-		this.getCommand("jday").setExecutor(new JDayCommand(this));
-		Bukkit.getServer().getPluginManager().registerEvents(new GUI(this), this);
-		this.RegisterListener(this);
-		Bukkit.getServer().getPluginManager().registerEvents(new Latency(this), this);
-		if (!file.exists()) {
-			this.getConfig().addDefault("settings.EnableCustomLog", true);
-			this.getConfig().addDefault("settings.CustomLogFormat", "[%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS %4$s]: %5$s%6$s%n");
-			this.getConfig().addDefault("settings.bans", 0);
-			this.getConfig().addDefault("settings.testmode", false);
-			this.getConfig().addDefault("settings.prefix", "&8[&c&lAntiCheat&8] ");
-			this.getConfig().addDefault("alerts.primary", "&7");
-			this.getConfig().addDefault("alerts.secondary", "&c");
-			this.getConfig().addDefault("alerts.checkColor", "&b");
-			this.getConfig().addDefault("settings.bancmd", "ban %player% [AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("settings.kickmsg", "[AntiCheat] Unfair Advantage!");
-			this.getConfig().addDefault("settings.broadcastmsg",
-					"&c&lAntiCheat &7has detected &c%player% &7to be cheating and has been removed from the network.");
-			this.getConfig().addDefault("settings.broadcastResetViolationsMsg", true);
-			this.getConfig().addDefault("settings.violationResetTime", 60);
-			this.getConfig().addDefault("settings.resetViolationsAutomatically", true);
-			this.getConfig().addDefault("settings.latency.ping", 300);
-			this.getConfig().addDefault("settings.latency.tps", 17);
-			for (final Check check : Checks) {
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
-				this.getConfig().addDefault("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable", check.isKickable());
-			}
-			this.getConfig().options().copyDefaults(true);
-			saveConfig();
-		}
-		for (final Check check : Checks) {
-			if (!getConfig().isConfigurationSection("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier())) {
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".enabled", check.isEnabled());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".bannable", check.isBannable());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".banTimer", check.hasBanTimer());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".maxViolations", check.getMaxViolations());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationsToNotify", check.getViolationsToNotify());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".violationResetTime", check.getViolationResetTime());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".judgementDay", check.isJudgmentDay());
-				this.getConfig().set("checks." + check.getType() + "." + check.getName() + "." + check.getIdentifier() + ".kickable", check.isKickable());
-				this.saveConfig();
-			}
-		}
-		this.PREFIX = Color.translate(getConfig().getString("settings.prefix"));
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				getLogger().log(Level.INFO, "Reset Violations!");
-				if (getConfig().getBoolean("resetViolationsAutomatically")) {
-					if (getConfig().getBoolean("settings.broadcastResetViolationsMsg")) {
-						for (final Player online : Bukkit.getServer().getOnlinePlayers()) {
-							if (online.hasPermission("anticheat.admin") && hasAlertsOn(online)) {
-								online.sendMessage(PREFIX + Color.translate("&7Reset violations for all players!"));
-							}
-						}
-					}
-					resetAllViolations();
-				}
-			}
-		}.runTaskTimer(this, 0L,
-				TimeUnit.SECONDS.toMillis(getConfig().getLong("settings.violationResetTime")));
-
-		saveDefaultConfig();
-		if (!ServerUtil.isBukkitVerison("1_7")) {
-			if (getConfig().getBoolean("settings.EnableCustomLog")) {
-				try {
-					logger = PluginLoggerHelper.openLogger(new File(getDataFolder(), "exploits.log"), getConfig().getString("settings.CustomLogFormat"));
-				} catch (final Throwable ex) {
-					getLogger().log(Level.SEVERE, ex.getMessage());
-				}
-			}
-
-			ProtocolLibrary.getProtocolManager().addPacketListener(new PacketAdapter(this, PacketType.Play.Client.CUSTOM_PAYLOAD) {
-				@Override
-				public void onPacketReceiving(PacketEvent event) {
-					checkPacket(event);
-				}
-			});
-
-			Bukkit.getScheduler().runTaskTimer(this, () -> {
-				for (final Iterator<Map.Entry<Player, Long>> iterator = PACKET_USAGE.entrySet().iterator(); iterator.hasNext(); ) {
-					final Player player = iterator.next().getKey();
-					if (!player.isOnline() || !player.isValid()) {
-						iterator.remove();
-					}
-				}
-			}, 20L, 20L);}
-		getLogger().info("Reloading... will kick all online players to avoid crash.");
-		for (final Player player : Bukkit.getOnlinePlayers()) {
-			player.kickPlayer(Color.translate(PREFIX + "&7Reloading..."));
-		}
-	}
-
-	public void resetDumps(Player player) {
-		for (final Check check : Checks) {
-			if (check.hasDump(player)) {
-				check.clearDump(player);
-			}
-		}
-	}
-
 	public void resetAllViolations() {
 		this.Violations.clear();
 		this.ViolationReset.clear();
@@ -844,6 +842,9 @@ public class AntiCheat extends JavaPlugin implements Listener {
 		pending.makeConfigFile();
 	}
 	public void logCheat(Check check, Player player, String hoverabletext, String... identefier) {
+		if (player == null) {
+			return;
+		}
 		String a = "";
 		if (identefier != null) {
 			for (final String b : identefier) {
@@ -957,7 +958,6 @@ public class AntiCheat extends JavaPlugin implements Listener {
 			logger.log(Level.INFO, "Plugin disabled");
 			PluginLoggerHelper.closeLogger(logger);
 		}
-		Bukkit.shutdown();
 	}
 
 	private void loadChecks() {

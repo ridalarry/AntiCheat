@@ -43,6 +43,9 @@ public class KillAuraA extends Check {
 		}
 
 		final Player p = (Player) e.getDamager();
+		if (p == null) {
+			return;
+		}
 		if (CheatUtil.slabsNear(p.getEyeLocation())
 				|| CheatUtil.slabsNear(p.getEyeLocation().clone().add(0.0D, 0.5D, 0.0D))
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()

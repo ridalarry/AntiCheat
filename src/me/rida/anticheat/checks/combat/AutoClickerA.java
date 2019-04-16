@@ -40,6 +40,9 @@ public class AutoClickerA extends Check {
 		}
 
 		final Player p = e.getAttacker();
+		if (p == null) {
+			return;
+		}
 		final UUID u = p.getUniqueId();
 		int Count = 0;
 		long Time = System.currentTimeMillis();

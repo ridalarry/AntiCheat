@@ -25,6 +25,9 @@ public class HitBoxB extends Check {
 			return;
 		}
 		final Player p = (Player)e.getDamager();
+		if (p == null) {
+			return;
+		}
 		final Player p2 = (Player)e.getEntity();
 		if (p.getGameMode().equals(GameMode.CREATIVE)
 				|| p2.getGameMode().equals(GameMode.CREATIVE)

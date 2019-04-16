@@ -11,7 +11,6 @@ import org.bukkit.event.EventPriority;
 import me.rida.anticheat.AntiCheat;
 import me.rida.anticheat.checks.Check;
 import me.rida.anticheat.checks.CheckType;
-import me.rida.anticheat.other.Latency;
 import me.rida.anticheat.packets.events.PacketSwingArmEvent;
 import me.rida.anticheat.utils.TimeUtil;
 
@@ -28,9 +27,10 @@ public class AutoClickerD extends Check {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
 	public void onSwing(PacketSwingArmEvent e) {
 		final Player p = e.getPlayer();
-		if (getAntiCheat().getLag().getTPS() < 17
-				|| Latency.getLag(p) > 100
-				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
+		if (p == null) {
+			return;
+		}
+		if (getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()) {
 			return;
 		}

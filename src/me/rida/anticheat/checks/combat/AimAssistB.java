@@ -33,6 +33,9 @@ public class AimAssistB extends Check {
 			@Override
 			public void onPacketReceiving(PacketEvent e) {
 				final Player p = e.getPlayer();
+				if (p == null) {
+					return;
+				}
 				final Optional<Entity> entityOp = p.getWorld().getEntities().stream().filter(entity -> entity.getEntityId() == e.getPacket().getIntegers().read(0)).findFirst();
 				if(entityOp.isPresent()) {
 					final Entity entity = entityOp.get();

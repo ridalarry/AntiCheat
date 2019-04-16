@@ -45,7 +45,9 @@ public class AlertsCommand implements CommandExecutor {
 				p.sendMessage(Color.translate(
 						AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Green
 						+ "on" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
-				me.rida.anticheat.AntiCheat.AlertsOn.add(p);
+				if (!me.rida.anticheat.AntiCheat.AlertsOn.contains(p)) {
+					me.rida.anticheat.AntiCheat.AlertsOn.add(p);
+				}
 				return true;
 
 			}
@@ -53,7 +55,9 @@ public class AlertsCommand implements CommandExecutor {
 				p.sendMessage(Color.translate(
 						AntiCheat.PREFIX + AntiCheat.getConfig().getString("alerts.primary") + "Alerts toggled " + Color.Red
 						+ "off" + AntiCheat.getConfig().getString("alerts.primary") + "!"));
-				me.rida.anticheat.AntiCheat.AlertsOn.remove(p);
+				if (me.rida.anticheat.AntiCheat.AlertsOn.contains(p)) {
+					me.rida.anticheat.AntiCheat.AlertsOn.remove(p);
+				}
 				return true;
 
 			}

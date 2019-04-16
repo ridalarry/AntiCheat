@@ -34,6 +34,9 @@ public class AntiKBA extends Check {
 	private void onMove(PlayerMoveEvent e) {
 		double yLoc;
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if (ServerUtil.isOnBlock(p, 0, new Material[]{Material.WEB})
 				|| ServerUtil.isOnBlock(p, 1, new Material[]{Material.WEB})
 				|| ServerUtil.isHoveringOverWater(p, 1)
@@ -84,10 +87,6 @@ public class AntiKBA extends Check {
 		}
 		if (awaitingVelocity2 > awaitingVelocity3) {
 			if (totalMoved == 0.0) {
-				if (getAntiCheat().getLag().getPing(p) > 500) {
-					return;
-
-				}
 				getAntiCheat().logCheat(this, p, Color.Red + "[1] vertical", "(Type: A)");
 			} else {
 				if (getAntiCheat().getLag().getPing(p) > 220) {

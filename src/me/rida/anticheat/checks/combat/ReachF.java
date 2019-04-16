@@ -18,6 +18,9 @@ public class ReachF extends Check {
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInteract(final PlayerInteractEvent e) {
 		final Player p = e.getPlayer();
+		if (p == null) {
+			return;
+		}
 		if (e.getClickedBlock() != null) {
 			int ping = getAntiCheat().getLag().getPing(p);
 			final double tps = getAntiCheat().getLag().getTPS();

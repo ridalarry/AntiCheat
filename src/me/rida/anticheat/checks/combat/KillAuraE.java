@@ -32,6 +32,9 @@ public class KillAuraE extends Check {
 		}
 
 		final Player p = (Player)e.getDamager();
+		if (p == null) {
+			return;
+		}
 		final Player p2 = (Player)e.getEntity();
 		++KillAuraE.hitCount;
 		Bukkit.getScheduler().runTaskLater(AntiCheat.Instance, () -> {

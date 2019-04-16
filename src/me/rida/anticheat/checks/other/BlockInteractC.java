@@ -34,7 +34,6 @@ public class BlockInteractC extends Check {
 				|| !getAntiCheat().isEnabled()
 				|| getAntiCheat().getLag().getTPS() < getAntiCheat().getTPSCancel()
 				|| getAntiCheat().getLag().getPing(p) > getAntiCheat().getPingCancel()
-				|| getAntiCheat().getLag().getPing(e.getPlayer()) > 100
 				|| p.getGameMode().equals(GameMode.CREATIVE)
 				|| VelocityUtil.didTakeVelocity(p)) {
 			return;

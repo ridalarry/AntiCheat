@@ -1,6 +1,6 @@
 name: AntiCheat
 main: me.rida.anticheat.AntiCheat
-version: 1.1.2
+version: 1.1.3
 author: Rida
 depend: [ProtocolLib]
 softdepend: [ViaVersion]
